@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "5ff0689b-5384-4180-b40b-86d2d3fec197",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 64,
+  "height": 64,
+  "platformSettings": {},
+  "subMetas": {
+    "enoki_mushroom": {
+      "ver": "1.0.4",
+      "uuid": "b0169dc5-b33d-4711-bcb9-f442b6c91ac4",
+      "rawTextureUuid": "5ff0689b-5384-4180-b40b-86d2d3fec197",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 7,
+      "trimY": 0,
+      "width": 50,
+      "height": 64,
+      "rawWidth": 64,
+      "rawHeight": 64,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

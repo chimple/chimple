@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="city_tile" tilewidth="64" tileheight="64" tilecount="96" columns="12">
+  <image source="city_tile.png" width="768" height="512"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,35,36,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,47,48,0,0,0,0,
+0,0,0,0,0,0,0,0,35,36,35,36,0,0,0,0,
+0,0,0,0,0,0,19,20,47,48,47,48,0,0,0,0,
+49,50,0,0,0,0,3,4,27,28,35,36,0,0,0,0,
+61,62,37,38,37,37,15,16,39,40,47,48,37,38,37,38,
+9,10,9,9,9,10,9,9,9,10,9,9,9,10,9,10,
+21,22,21,21,21,22,21,21,21,22,21,21,21,22,21,22,
+29,30,30,29,29,30,29,29,30,29,29,29,30,30,29,29,
+41,42,42,41,41,42,41,41,42,41,41,41,42,42,41,41
+</data>
+ </layer>
+</map>

@@ -1,0 +1,112 @@
+[
+  {
+    "__type__": "cc.Prefab",
+    "_name": "",
+    "_objFlags": 0,
+    "_native": "",
+    "data": {
+      "__id__": 1
+    },
+    "optimizationPolicy": 0,
+    "asyncLoadAssets": false,
+    "readonly": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "writeset",
+    "_objFlags": 0,
+    "_parent": null,
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 2
+      }
+    ],
+    "_prefab": {
+      "__id__": 3
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 1024,
+      "height": 768
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        0,
+        0,
+        516.151123046875,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "9b9b8DQ5iFEVLfnKGfxdWGv",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "wordsPrefab": {
+      "__uuid__": "e06107ae-bcfc-4a90-8b9c-d75452278f0d"
+    },
+    "animsPrefab": {
+      "__uuid__": "854abb0e-686b-42f4-a0ae-e9de6dfc9cd9"
+    },
+    "singleLetterPrefab": {
+      "__uuid__": "ab1e2dcd-fb21-42c7-91d4-0d60c20c018c"
+    },
+    "b1": {
+      "__uuid__": "b04918df-087a-42de-9b90-e835010cc509"
+    },
+    "b2": {
+      "__uuid__": "d49d60e1-7c89-4051-85e7-2372afc1e129"
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "642fbcc7-a8c8-4779-9a5e-ebd56a97e6ad"
+    },
+    "fileId": "d5HRo9UxJD6aJuBOfRU/Qw",
+    "sync": false
+  }
+]

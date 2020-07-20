@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="2" height="8" tilewidth="64" tileheight="64" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="beachtile" tilewidth="64" tileheight="64" tilecount="80" columns="10">
+  <image source="beachtile.png" width="640" height="512"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="2" height="8">
+  <data encoding="csv">
+51,52,
+29,30,
+39,40,
+33,34,
+33,34,
+33,34,
+23,24,
+33,34
+</data>
+ </layer>
+</map>

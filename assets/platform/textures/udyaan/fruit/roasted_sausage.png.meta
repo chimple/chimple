@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "361586be-19a5-48b0-837e-4afb009d25e4",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 64,
+  "height": 64,
+  "platformSettings": {},
+  "subMetas": {
+    "roasted_sausage": {
+      "ver": "1.0.4",
+      "uuid": "cec7dbdd-a2ba-45f0-b121-3b2cdd53e5c9",
+      "rawTextureUuid": "361586be-19a5-48b0-837e-4afb009d25e4",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 20,
+      "trimY": 0,
+      "width": 24,
+      "height": 64,
+      "rawWidth": 64,
+      "rawHeight": 64,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

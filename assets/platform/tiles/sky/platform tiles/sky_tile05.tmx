@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="sky_tile" tilewidth="64" tileheight="64" tilecount="36" columns="6">
+  <image source="sky_tile.png" width="384" height="384"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,23,24,23,24,0,0,0,0,0,0,
+0,0,0,0,0,0,15,16,15,16,0,0,0,0,0,0,
+0,0,0,0,23,24,21,22,21,22,23,24,0,0,0,0,
+0,0,0,0,15,16,25,26,25,26,15,16,0,0,0,0,
+0,0,23,24,21,22,31,32,31,32,21,22,23,24,0,0,
+0,0,15,16,25,26,25,26,25,26,25,26,15,16,0,0,
+23,24,21,22,31,32,31,32,31,32,31,32,21,22,23,24,
+15,16,25,26,13,14,13,14,13,14,13,14,25,26,15,16,
+21,22,31,32,13,14,13,14,13,14,13,14,31,32,21,22,
+25,26,25,26,13,14,13,14,13,14,13,14,25,26,25,26,
+31,32,31,32,19,20,19,20,19,20,19,20,31,32,31,32
+</data>
+ </layer>
+</map>

@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "80a11be2-a11e-4005-9f76-6924b2789737",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 40,
+  "height": 196,
+  "platformSettings": {},
+  "subMetas": {
+    "worldover_garden3": {
+      "ver": "1.0.4",
+      "uuid": "4eced0ef-9880-47f5-8ab8-e1e3b67e4e2e",
+      "rawTextureUuid": "80a11be2-a11e-4005-9f76-6924b2789737",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": -0.5,
+      "trimX": 3,
+      "trimY": 1,
+      "width": 35,
+      "height": 195,
+      "rawWidth": 40,
+      "rawHeight": 196,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

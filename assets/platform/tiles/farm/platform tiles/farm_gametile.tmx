@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="2" height="8" tilewidth="64" tileheight="64" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="farm_tile" tilewidth="64" tileheight="64" tilecount="64" columns="8">
+  <image source="farm_tile.png" width="512" height="512"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="2" height="8">
+  <data encoding="csv">
+43,44,
+33,34,
+41,42,
+7,8,
+7,8,
+7,8,
+7,8,
+15,16
+</data>
+ </layer>
+</map>

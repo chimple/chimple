@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="1">
+ <tileset firstgid="1" name="snow" tilewidth="64" tileheight="64" tilecount="192" columns="16">
+  <image source="snow.png" width="1024" height="768"/>
+ </tileset>
+ <layer id="8" name="Tile Layer 3" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+2,3,4,5,6,7,8,9,2,3,4,5,6,7,8,9,
+18,19,20,21,22,23,24,25,18,19,20,21,22,23,24,25,
+34,35,36,37,38,39,40,41,34,35,36,37,38,39,40,41,
+50,51,52,53,54,55,56,57,50,51,52,53,54,55,56,57,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

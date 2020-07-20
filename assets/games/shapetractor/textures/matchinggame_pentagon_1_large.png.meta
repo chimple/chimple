@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "56ad76a0-a3b0-44f9-91f5-d57d16d57cd1",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 190,
+  "height": 150,
+  "platformSettings": {},
+  "subMetas": {
+    "matchinggame_pentagon_1_large": {
+      "ver": "1.0.4",
+      "uuid": "70086489-d0b9-4e3f-bd47-c655b06a10f5",
+      "rawTextureUuid": "56ad76a0-a3b0-44f9-91f5-d57d16d57cd1",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 43,
+      "trimY": 26,
+      "width": 104,
+      "height": 98,
+      "rawWidth": 190,
+      "rawHeight": 150,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

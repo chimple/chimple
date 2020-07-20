@@ -1,0 +1,157 @@
+[
+  {
+    "__type__": "cc.Prefab",
+    "_name": "",
+    "_objFlags": 0,
+    "_native": "",
+    "data": {
+      "__id__": 1
+    },
+    "optimizationPolicy": 0,
+    "asyncLoadAssets": false,
+    "readonly": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "questionboard",
+    "_objFlags": 0,
+    "_parent": null,
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 2
+      }
+    ],
+    "_prefab": {
+      "__id__": 3
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "40970aonR9HOIRy321YWN8O",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "questionLayoutPrefab": {
+      "__uuid__": "385d6c04-0e8e-45c6-8cf1-2c82a77376ea"
+    },
+    "answerLayoutPrefab": {
+      "__uuid__": "8fb06b87-9a09-46ce-b31e-7fb3e14e6d04"
+    },
+    "whiteCardPrefab": {
+      "__uuid__": "b8cbd9ca-3385-4a90-8ef2-7d5d0c54f157"
+    },
+    "yellowCardPrefab": {
+      "__uuid__": "ff63412c-1a0b-4b19-84df-8fa80394636f"
+    },
+    "greenCardPrefab": {
+      "__uuid__": "6d56d6d2-bb7c-45bb-b128-d4c4d226ba6d"
+    },
+    "plusSignPrefab": {
+      "__uuid__": "3b74685c-02c4-46a9-a7a2-866210cebf5c"
+    },
+    "minusSignPrefab": {
+      "__uuid__": "7ee42c44-8055-4c18-8e8d-8a0d82fa4ef5"
+    },
+    "questionSignPrefab": {
+      "__uuid__": "3905df16-454b-4696-9e59-efb815e0e103"
+    },
+    "countingLayout": {
+      "__uuid__": "4019a555-6cfc-4635-8845-2f7f2a365374"
+    },
+    "equalSignPrefab": {
+      "__uuid__": "2786b0a7-be31-4b4b-881e-3c2c93958242"
+    },
+    "answerEquationLayoutPrefab": {
+      "__uuid__": "6eaa9844-119a-46c1-a8c8-497189342062"
+    },
+    "hLayoutPrefab": {
+      "__uuid__": "5890e727-06c9-462f-a05c-448eaef8279b"
+    },
+    "shadowLayoutPrefab": {
+      "__uuid__": "dc06ec77-5bb0-46bc-a308-95b26c48c648"
+    },
+    "optionsLayoutPrefab": {
+      "__uuid__": "a95f4995-1e8c-405f-afc1-6a78f7269df9"
+    },
+    "equationTextPrefab": {
+      "__uuid__": "b89561f1-5bfc-418c-88c6-4348382a853c"
+    },
+    "optionPrefab": {
+      "__uuid__": "8a822989-53f4-41e1-9a61-852354aa7ff5"
+    },
+    "takeClip": {
+      "__uuid__": "1c05ecc1-3566-42f9-a496-867aeeee302e"
+    },
+    "putClip": {
+      "__uuid__": "bb8ce8cf-d7a0-4ce9-b118-4c1d372160d4"
+    },
+    "fruit1Texture": {
+      "__uuid__": "db2fe15c-82ee-41c2-90bf-46dc58c290b3"
+    },
+    "fruit2Texture": {
+      "__uuid__": "1719b912-7b3f-4654-b5cd-155863ee0490"
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "ab625451-1f15-4137-8ede-903b852517d9"
+    },
+    "fileId": "43T7k5cXFItqjo7VFau1BP",
+    "sync": false
+  }
+]

@@ -1,0 +1,87 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "finishparticle",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.15,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "x": [
+        {
+          "frame": 0,
+          "value": 0,
+          "curve": [
+            0.00625,
+            0.0031250000000000444,
+            0.303125,
+            0.79375
+          ]
+        },
+        {
+          "frame": 0.8166666666666667,
+          "value": 301.15301513671875
+        }
+      ],
+      "y": [
+        {
+          "frame": 0,
+          "value": 0
+        },
+        {
+          "frame": 0.18333333333333332,
+          "value": -36
+        },
+        {
+          "frame": 0.4,
+          "value": 42.63600158691406
+        },
+        {
+          "frame": 0.5833333333333334,
+          "value": -37.24800109863281
+        },
+        {
+          "frame": 0.8166666666666667,
+          "value": -2
+        }
+      ]
+    },
+    "comps": {
+      "cc.ParticleSystem": {
+        "duration": [
+          {
+            "frame": 0,
+            "value": 4
+          },
+          {
+            "frame": 1.15,
+            "value": 0
+          }
+        ],
+        "endSpin": [
+          {
+            "frame": 0,
+            "value": 0
+          },
+          {
+            "frame": 0.8166666666666667,
+            "value": 180
+          }
+        ],
+        "emissionRate": [
+          {
+            "frame": 0,
+            "value": 0
+          },
+          {
+            "frame": 0.11666666666666667,
+            "value": 30
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

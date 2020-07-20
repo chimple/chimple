@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="2" height="8" tilewidth="64" tileheight="64" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="city_tile" tilewidth="64" tileheight="64" tilecount="96" columns="12">
+  <image source="city_tile.png" width="768" height="512"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="2" height="8">
+  <data encoding="csv">
+37,38,
+9,10,
+21,22,
+29,30,
+41,42,
+29,30,
+29,30,
+41,42
+</data>
+ </layer>
+</map>

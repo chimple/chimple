@@ -1,0 +1,121 @@
+[
+  {
+    "__type__": "cc.Prefab",
+    "_name": "",
+    "_objFlags": 0,
+    "_native": "",
+    "data": {
+      "__id__": 1
+    },
+    "optimizationPolicy": 0,
+    "asyncLoadAssets": false,
+    "readonly": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "gameController",
+    "_objFlags": 0,
+    "_parent": null,
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 2
+      }
+    ],
+    "_prefab": {
+      "__id__": 3
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 1024,
+      "height": 768
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "c072aqA4FxK34cr9tRocBo1",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "progressMonitor": {
+      "__uuid__": "87231f7e-bf90-413e-93ae-cdfea167ab6b"
+    },
+    "quizMonitor": {
+      "__uuid__": "b142d470-6328-4b20-aff4-384ea1535130"
+    },
+    "correctAudio": {
+      "__uuid__": "e3c5f5f6-4a69-43cc-a300-f43efe2f4630"
+    },
+    "wrongAudio": {
+      "__uuid__": "e30a6b16-7a62-4373-9918-410d0a124393"
+    },
+    "startAudio": {
+      "__uuid__": "e0f6ad41-ae8d-4954-bd8d-d5237ac313de"
+    },
+    "balloonPrefab": {
+      "__uuid__": "16838aa7-f025-43e7-8df4-91643088accc"
+    },
+    "blockPrefab": {
+      "__uuid__": "d27a77c6-926b-4bbe-b09f-e908276ed398"
+    },
+    "nestPrefab": {
+      "__uuid__": "5f4b7075-f0c6-4e7f-a15d-7c321f805801"
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "cbc51dd8-6b0c-433e-8de4-b310106a1111"
+    },
+    "fileId": "acvnjEVB5GuZmtnJ1gHxM6",
+    "sync": false
+  }
+]

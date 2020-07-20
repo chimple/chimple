@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "28a6b7d1-35a4-4718-a28e-86aa55bf79db",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 64,
+  "height": 64,
+  "platformSettings": {},
+  "subMetas": {
+    "litchi": {
+      "ver": "1.0.4",
+      "uuid": "a52e22b2-3890-4feb-b1c1-43a047cbbd1b",
+      "rawTextureUuid": "28a6b7d1-35a4-4718-a28e-86aa55bf79db",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 0,
+      "width": 60,
+      "height": 64,
+      "rawWidth": 64,
+      "rawHeight": 64,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

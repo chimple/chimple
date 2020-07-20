@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="farm_tile" tilewidth="64" tileheight="64" tilecount="64" columns="8">
+  <image source="farm_tile.png" width="512" height="512"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,27,28,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,17,18,0,0,0,0,0,
+0,0,0,0,0,0,27,28,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,17,18,0,0,0,0,27,28,0,0,
+0,0,0,27,28,0,0,0,0,0,0,0,17,18,0,0,
+0,0,0,17,18,0,0,0,0,0,0,0,0,0,0,0,
+47,48,0,0,0,0,0,0,0,0,0,0,0,0,31,32,
+37,38,0,0,0,0,0,0,0,0,0,0,0,0,21,22,
+29,30,43,43,43,43,43,43,43,43,43,43,43,44,45,46,
+7,8,33,34,33,34,33,34,33,34,33,34,33,34,7,8,
+15,16,41,42,41,42,41,42,41,42,41,42,41,42,15,16
+</data>
+ </layer>
+</map>

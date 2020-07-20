@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "03955952-9154-47d3-83fe-74ba8debdf77",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "point",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 256,
+  "height": 256,
+  "platformSettings": {},
+  "subMetas": {
+    "city_roadtile3": {
+      "ver": "1.0.4",
+      "uuid": "a5f94002-0735-486a-924b-c13991688a65",
+      "rawTextureUuid": "03955952-9154-47d3-83fe-74ba8debdf77",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": -16.5,
+      "trimX": 0,
+      "trimY": 33,
+      "width": 256,
+      "height": 223,
+      "rawWidth": 256,
+      "rawHeight": 256,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

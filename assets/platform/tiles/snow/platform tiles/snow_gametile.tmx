@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="2" height="8" tilewidth="64" tileheight="64" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="snow_tile" tilewidth="64" tileheight="64" tilecount="64" columns="8">
+  <image source="snow_tile.png" width="512" height="512"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="2" height="8">
+  <data encoding="csv">
+45,46,
+35,36,
+43,44,
+21,22,
+21,22,
+21,21,
+21,22,
+29,30
+</data>
+ </layer>
+</map>

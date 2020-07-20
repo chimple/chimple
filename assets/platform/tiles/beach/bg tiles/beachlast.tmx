@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="7" nextobjectid="1">
+ <tileset firstgid="1" name="beach" tilewidth="64" tileheight="64" tilecount="240" columns="16">
+  <image source="beach.png" width="1024" height="960"/>
+ </tileset>
+ <layer id="4" name="Tile Layer 1" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,0,
+0,0,0,0,2,3,0,0,0,0,0,0,0,18,19,0,
+70,71,72,73,18,19,76,77,78,79,0,0,66,67,68,69,
+86,87,88,89,90,91,92,93,94,95,0,0,82,83,84,85,
+102,103,104,105,106,107,108,109,110,111,0,0,98,99,100,101,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>
