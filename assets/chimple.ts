@@ -8,7 +8,7 @@ export default class Chimple extends cc.Component {
     onLoad() {
         switch (MODE) {
             case Mode.Home:
-
+                Config.loadScene('private/home/login/scenes/welcomePage', 'private', null)
                 break
 
             case Mode.School:
