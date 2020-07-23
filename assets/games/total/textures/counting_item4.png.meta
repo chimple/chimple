@@ -1,20 +1,20 @@
 {
   "ver": "2.3.5",
-  "uuid": "419fa103-3a52-4fe5-ba44-dabbc6382b2b",
+  "uuid": "31eafd4b-72c7-47a5-a4ba-0d498a4a48ff",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
   "genMipmaps": false,
   "packable": true,
-  "width": 689,
-  "height": 131,
+  "width": 109,
+  "height": 49,
   "platformSettings": {},
   "subMetas": {
-    "box_decamon2": {
+    "counting_item4": {
       "ver": "1.0.4",
-      "uuid": "dd6ad7e7-5f67-499d-8bb8-b7d648dce66e",
-      "rawTextureUuid": "419fa103-3a52-4fe5-ba44-dabbc6382b2b",
+      "uuid": "c71bf238-0e1f-4613-bc0a-1926f89a5556",
+      "rawTextureUuid": "31eafd4b-72c7-47a5-a4ba-0d498a4a48ff",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -22,14 +22,14 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 689,
-      "height": 130,
-      "rawWidth": 689,
-      "rawHeight": 130,
+      "width": 109,
+      "height": 49,
+      "rawWidth": 109,
+      "rawHeight": 49,
       "borderTop": 0,
       "borderBottom": 0,
-      "borderLeft": 47,
-      "borderRight": 47,
+      "borderLeft": 0,
+      "borderRight": 0,
       "subMetas": {}
     }
   }

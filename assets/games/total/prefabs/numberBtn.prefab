@@ -43,8 +43,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
-      "height": 70
+      "width": 108,
+      "height": 68
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -107,15 +107,15 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 230,
-      "g": 230,
-      "b": 230,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
-      "height": 70
+      "width": 96,
+      "height": 66
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -171,9 +171,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 0,
+      "g": 42,
+      "b": 58,
       "a": 255
     },
     "_contentSize": {
@@ -228,18 +228,20 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": true,
     "_string": "",
     "_N$string": "",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "dee4ee01-e8db-4c7a-8026-47474be20a5a"
-    },
-    "_isSystemFontUsed": false,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$fontFamily": "Arial",
@@ -274,7 +276,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "52b5366b-4295-4dbd-b71b-ca5fc517f747"
+      "__uuid__": "067395b9-ddb9-4ba8-b386-af91b3b0e560"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -301,10 +303,10 @@
     "alignMode": 0,
     "_target": null,
     "_alignFlags": 45,
-    "_left": 0,
-    "_right": 0,
-    "_top": 0,
-    "_bottom": 0,
+    "_left": 6,
+    "_right": 6,
+    "_top": 1,
+    "_bottom": 1,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -336,6 +338,8 @@
       "__id__": 1
     },
     "_enabled": true,
+    "_normalMaterial": null,
+    "_grayMaterial": null,
     "duration": 0.1,
     "zoomScale": 1.2,
     "clickEvents": [
@@ -390,13 +394,13 @@
       "a": 200
     },
     "_N$normalSprite": {
-      "__uuid__": "52b5366b-4295-4dbd-b71b-ca5fc517f747"
+      "__uuid__": "067395b9-ddb9-4ba8-b386-af91b3b0e560"
     },
     "_N$pressedSprite": {
-      "__uuid__": "683a93d9-f6d9-4a9a-a65a-7206914e1da2"
+      "__uuid__": "2d7f810e-c54b-4bad-986d-a7de2c9b58ef"
     },
     "pressedSprite": {
-      "__uuid__": "683a93d9-f6d9-4a9a-a65a-7206914e1da2"
+      "__uuid__": "2d7f810e-c54b-4bad-986d-a7de2c9b58ef"
     },
     "_N$hoverSprite": null,
     "hoverSprite": null,
