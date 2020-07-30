@@ -85,7 +85,7 @@ export default class PhonicTractor extends cc.Component {
       audio3
     ] = fieldArr;
 
-    this.truckNode.x = cc.winSize.width / 2 + 100;
+    this.truckNode.x = cc.winSize.width / 2 ;
     this.word = [word1];
     if (word2 != "") {
       this.word.push(word2);
@@ -95,7 +95,7 @@ export default class PhonicTractor extends cc.Component {
     }
 
     if (this._isRTL) {
-      this.truckNode.x = -cc.winSize.width / 2 - 100;
+      this.truckNode.x = -cc.winSize.width / 2 ;
       this.finishTruckMoveTo = 2000;
     }
 
