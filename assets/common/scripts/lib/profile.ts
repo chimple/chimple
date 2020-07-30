@@ -39,7 +39,8 @@ export class User {
     public musicOff: boolean,
     public inventory: object,
     public currentBg: string,
-    public currentCharacter: string
+    public currentCharacter: string,
+    public inventoryLockStatus: object
   ) {
     this.id = id;
     this.name = name;
@@ -47,6 +48,7 @@ export class User {
     this.gender = gender;
     this.imgPath = imgPath;
     this.inventory = inventory;
+    this.inventoryLockStatus = inventoryLockStatus
     this.currentBg = currentBg;
     this.currentCharacter = currentCharacter;
   }
@@ -115,7 +117,8 @@ export default class Profile {
       true,
       {},
       "",
-      "bear"
+      "bear",
+      {}
     );
     cc.sys.localStorage.setItem(uid, JSON.stringify(user));
     let userId = JSON.parse(cc.sys.localStorage.getItem(USER_ID)) as Array<
@@ -170,7 +173,8 @@ export default class Profile {
       data.musicOff,
       data.inventory,
       data.currentBg,
-      data.currentCharacter
+      data.currentCharacter,
+      data.inventoryLockStatus
     );
     return user;
   }
@@ -325,12 +329,12 @@ export default class Profile {
             for (const game in config.curriculum[world][level]) {
               this.setItem(
                 Config.getInstance().course +
-                  "_" +
-                  world +
-                  "_" +
-                  level +
-                  "_" +
-                  config.curriculum[world][level][game][0],
+                "_" +
+                world +
+                "_" +
+                level +
+                "_" +
+                config.curriculum[world][level][game][0],
                 1
               );
             }
