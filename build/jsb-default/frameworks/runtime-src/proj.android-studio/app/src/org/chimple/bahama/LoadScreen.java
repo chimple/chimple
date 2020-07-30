@@ -30,9 +30,6 @@ import android.os.Handler;
 import android.widget.ImageView;
 import androidx.fragment.app.FragmentActivity;
 import org.cocos2dx.javascript.AppActivity;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-//import androidx.appcompat.app.AppCompatActivity;
 
 
 public class LoadScreen extends FragmentActivity {
@@ -41,7 +38,6 @@ public class LoadScreen extends FragmentActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-//        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.load_screen);
 
@@ -58,7 +54,7 @@ public class LoadScreen extends FragmentActivity {
                 startActivity(i);
                 return;
             }
-        }, 5000);
+        }, 0);
     }
 
     @Override
