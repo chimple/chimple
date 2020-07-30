@@ -21,8 +21,6 @@ export default class Item extends cc.Component {
         console.log(event.currentTarget.name)
         if (!this.isLocked) {
             this.onClickCallback(event.currentTarget.name)
-            // this.lockIconNode.active = true
-            // this.node.getChildByName(event.currentTarget.name).getChildByName("lock_icon").active = true
         }
     }
 
