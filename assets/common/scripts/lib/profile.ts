@@ -40,7 +40,7 @@ export class User {
     public inventory: object,
     public currentBg: string,
     public currentCharacter: string,
-    public inventoryLockStatus: object
+    public unlockedInventory: object
   ) {
     this.id = id;
     this.name = name;
@@ -48,7 +48,7 @@ export class User {
     this.gender = gender;
     this.imgPath = imgPath;
     this.inventory = inventory;
-    this.inventoryLockStatus = inventoryLockStatus
+    this.unlockedInventory = unlockedInventory
     this.currentBg = currentBg;
     this.currentCharacter = currentCharacter;
   }
@@ -85,6 +85,11 @@ export class User {
 
   setCurrentCharacter(currentCharacter: string) {
     this.currentCharacter = currentCharacter;
+    this._storeUser();
+  }
+
+  setUnlockedInventory(inventoryItemName: string) {
+    this.unlockedInventory[inventoryItemName] = true
     this._storeUser();
   }
 
@@ -174,7 +179,7 @@ export default class Profile {
       data.inventory,
       data.currentBg,
       data.currentCharacter,
-      data.inventoryLockStatus
+      data.unlockedInventory
     );
     return user;
   }
