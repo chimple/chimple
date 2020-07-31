@@ -31,10 +31,14 @@ import android.widget.ImageView;
 import androidx.fragment.app.FragmentActivity;
 import org.cocos2dx.javascript.AppActivity;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 
 public class LoadScreen extends FragmentActivity {
 
     AnimationDrawable animationDrawable;
+    private final Executor backgroundExecutor = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -45,7 +49,8 @@ public class LoadScreen extends FragmentActivity {
         imageView.setBackgroundResource(R.drawable.launch_screen);
         animationDrawable = (AnimationDrawable)imageView.getBackground();
         animationDrawable.start();
-        new Handler().postDelayed(new Runnable() {
+
+        backgroundExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 Intent i = new Intent(LoadScreen.this,
@@ -54,7 +59,7 @@ public class LoadScreen extends FragmentActivity {
                 startActivity(i);
                 return;
             }
-        }, 0);
+        });
     }
 
     @Override
