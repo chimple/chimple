@@ -1,9 +1,14 @@
+import {SelectionMode} from "../../../private/services/parseApi";
+
 export enum Mode {
     Base,
     Home,
     School
 }
-export const MODE: Mode = Mode.Home
+export const MODE: Mode = Mode.Home;
+
+// Select default
+export let SELECTION_MODE = SelectionMode.None;
 
 export const LANG = 'hi'
 export const ENV = 'dev'

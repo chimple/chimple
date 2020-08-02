@@ -5,6 +5,9 @@ import {ParseLoggedInUser} from "./private/domain/parseLoggedInUser";
 
 const {ccclass, property} = cc._decorator;
 
+export const SELECT_SECTIONS_SCENE = 'private/school/scenes/selectSections';
+export const SCHOOL_REGISTRATION_SCENE = 'private/school/scenes/schoolRegistration';
+
 @ccclass
 export default class Chimple extends cc.Component {
     onLoad() {
@@ -16,9 +19,9 @@ export default class Chimple extends cc.Component {
             case Mode.School:
                 const loggedInUser: ParseLoggedInUser = ParseApi.getLoggedInUser();
                 if (!!loggedInUser && !ParseApi.isEmpty(loggedInUser)) {
-                    Config.loadScene('private/school/scenes/selectSections', 'private', null)
+                    Config.loadScene(SELECT_SECTIONS_SCENE, 'private', null)
                 } else {
-                    Config.loadScene('private/school/scenes/schoolRegistration', 'private', null)
+                    Config.loadScene(SCHOOL_REGISTRATION_SCENE, 'private', null)
                 }
 
                 break
