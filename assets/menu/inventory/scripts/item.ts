@@ -19,8 +19,9 @@ export default class Item extends cc.Component {
 
     onItemClick(event) {
         console.log(event.currentTarget.name)
-        if (!this.isLocked)
+        if (!this.isLocked) {
             this.onClickCallback(event.currentTarget.name)
+        }
     }
 
     start() {
