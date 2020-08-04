@@ -7,9 +7,6 @@ export enum Mode {
 }
 export const MODE: Mode = Mode.Home;
 
-// Select default
-export let SELECTION_MODE = SelectionMode.None;
-
 export const LANG = 'hi'
 export const ENV = 'dev'
 export const ASSET_LOAD_METHOD = 'file' //'file', 'resources'
