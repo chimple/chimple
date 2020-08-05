@@ -4,9 +4,9 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class DragTheAlphabetChoice extends cc.Component {
-  homePos: cc.Vec2 = null;
+  homePos: cc.Vec3 = null;
   name: string;
-  audioName: string;
+  static dropArea: cc.Rect;
 
   onLoad() {
     this.node.on("touchstart", this.onTouchStart, this);
@@ -31,9 +31,9 @@ export default class DragTheAlphabetChoice extends cc.Component {
   }
 
   onTouchMove(touch: cc.Touch) {
-    cc.log("Came child",this.node);
-      let delta = new cc.Vec3(touch.getDelta().x, touch.getDelta().y, 0);
-      this.node.setPosition(this.node.position.add(delta));
+    cc.log("Came child", this.node);
+    let delta = new cc.Vec3(touch.getDelta().x, touch.getDelta().y, 0);
+    this.node.setPosition(this.node.position.add(delta));
   }
 
   handleNodeTouch(handle: string): void {
@@ -51,7 +51,20 @@ export default class DragTheAlphabetChoice extends cc.Component {
   }
 
   onTouchEnd(touch: cc.Touch) {
-    cc.log("touchend " + touch.getID());
+    cc.log("touchend " + touch.getID()+ DragTheAlphabetChoice.dropArea);
 
+    if (this.node.getBoundingBox().intersects(DragTheAlphabetChoice.dropArea) && this.node.name == "correct") {
+      //game over
+    }
+    else {
+      new cc.Tween()
+        .target(this.node)
+        .to(
+          1.5,
+          { x: this.homePos.x, y: this.homePos.y },
+          { progress: null, easing: "quadOut" }
+        )
+        .start();
+    }
   }
 }

@@ -20,6 +20,8 @@ export default class DragTheAlphabet extends cc.Component {
 
     data: Array<any> = ["1","1","1","a",["w","e","r"],"sound1.mp3","sound2.mp3"];
     fieldArr;
+
+    drop:cc.Node;
  
 
     // LIFE-CYCLE CALLBACKS:
@@ -31,12 +33,10 @@ export default class DragTheAlphabet extends cc.Component {
        let bg = cc.instantiate(this.cakeToppingBg);
        this.node.addChild(bg);
 
-       let drop = cc.instantiate(this.cakeToppingDrop);
-       this.node.addChild(drop);
-       drop.y-=100;
+       this.drop = cc.instantiate(this.cakeToppingDrop);
+       this.node.addChild(this.drop);
 
        this.createChoices();    
-
     }
 
     createChoices(){
@@ -46,17 +46,20 @@ export default class DragTheAlphabet extends cc.Component {
         this.fieldArr[4].forEach(element => {
             choices.push(element);
         });
-        let start = -300;
+        let start = -250;
         Util.shuffle(choices);
+        DragTheAlphabetChoice.dropArea = this.drop.getBoundingBox();
         for(let i=0;i<choices.length;i++){
             let choice = cc.instantiate(this.cakeToppingDrag);
             let choiceComp = choice.getComponent(DragTheAlphabetChoice);
             choice.getChildByName("label").getComponent(cc.Label).string = choices[i];
-            this.node.addChild(choice);
-            choice.x = start + i*180;
-            if(choice[i]==correct){
+            if(choices[i]==correct){
+                console.log("love"+choices[i]);
                 choice.name="correct";
             }
+            this.node.addChild(choice);
+            choice.x = start + i*180;
+            choiceComp.homePos= choice.position;
         }  
 
     }
