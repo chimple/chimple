@@ -1,5 +1,3 @@
-import {SelectionMode} from "../../../private/services/parseApi";
-
 export enum Mode {
     Base,
     Home,

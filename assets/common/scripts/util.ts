@@ -105,6 +105,7 @@ export class Util {
     label.verticalAlign = verticalAlign;
     label.lineHeight = fSize + 100;
     qLabelNode.setAnchorPoint(anchorPoint);
+    // @ts-ignore
     qLabelNode.position = new cc.Vec2(adj.x, adj.y); // to align text with middle since in bigger font size it aligns down
     if (outlineEnable) {
       const outLine = qLabelNode.addComponent(cc.LabelOutline);
@@ -562,11 +563,13 @@ export class Util {
         cc.resources.load("prefabs/help", function (err, prefab) {
           if (!err) {
             const help = cc.instantiate(prefab);
+            // @ts-ignore
             const helpComp = help.getComponent(Help);
             if (helpComp != null) {
               helpComp.initNodes(from, to, callBack);
             }
             if (gcNode != null) {
+              // @ts-ignore
               gcNode.addChild(help);
             }
           }

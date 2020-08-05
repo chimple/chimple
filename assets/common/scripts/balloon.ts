@@ -145,9 +145,9 @@ export default class Balloon extends cc.Component {
             cc.bezierTo(1, [
                 cc.v2(this.chimp.x, this.chimp.y + 100),
                 cc.v2(finalPos.x / 2, finalPos.y + 100),
-                finalPos
             ]),
             cc.callFunc(() => {
+                // @ts-ignore
                 this.chimp.position = cc.Vec2.ZERO
                 this.chimp.removeFromParent(false)
                 this.seat.addChild(this.chimp)

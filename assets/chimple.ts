@@ -23,11 +23,9 @@ export default class Chimple extends cc.Component {
                 } else {
                     Config.loadScene(SCHOOL_REGISTRATION_SCENE, 'private', null);
                 }
-
                 break;
-
-            default: //Mode.Base
-                Config.loadScene(HOME_SCENE, 'menu', null);
+                default: //Mode.Base
+                    Config.loadScene(HOME_SCENE, 'menu', null);
+                }
         }
     }
-}
