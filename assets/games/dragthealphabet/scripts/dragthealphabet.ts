@@ -10,47 +10,48 @@ export default class DragTheAlphabet extends cc.Component {
     label: cc.Label = null;
 
     @property(cc.Prefab)
-    cakeToppingBg: cc.Prefab = null;
+    cakeBg: cc.Prefab = null;
 
     @property(cc.Prefab)
-    cakeToppingDrop: cc.Prefab = null;
+    cakeDrop: cc.Prefab = null;
 
     @property(cc.Prefab)
-    cakeToppingDrag: cc.Prefab = null;
+    cakeDrag: cc.Prefab = null;
 
-    data: Array<any> = ["1","1","1","a",["w","e","r"],"sound1.mp3","sound2.mp3"];
+    data: Array<any> = ["1", "1", "1", "cakeBg", "cakeDrop", "cakeDrag","q","a,d,f"];
     fieldArr;
 
-    drop:cc.Node;
- 
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
        this.fieldArr = this.data;
-       console.log("came",this.data);
+       console.log("came",this.data,this.fieldArr[3]);
 
-       let bg = cc.instantiate(this.cakeToppingBg);
+       let bg = cc.instantiate(this[this.fieldArr[3]]);
        this.node.addChild(bg);
 
-       this.drop = cc.instantiate(this.cakeToppingDrop);
-       this.node.addChild(this.drop);
+       let drop = cc.instantiate(this[this.fieldArr[4]]);
+       this.node.addChild(drop);
+       console
+       DragTheAlphabetChoice.dropArea = drop.getBoundingBox();
+
 
        this.createChoices();    
     }
 
     createChoices(){
-        let correct = this.fieldArr[3];
+        let correct = this.fieldArr[6];
         let choices=[];
         choices.push(correct);
-        this.fieldArr[4].forEach(element => {
-            choices.push(element);
+        this.fieldArr[7].split(",").forEach(element => {
+            choices.push(element);            
         });
+
         let start = -250;
         Util.shuffle(choices);
-        DragTheAlphabetChoice.dropArea = this.drop.getBoundingBox();
         for(let i=0;i<choices.length;i++){
-            let choice = cc.instantiate(this.cakeToppingDrag);
+            let choice = cc.instantiate(this[this.fieldArr[5]]);
             let choiceComp = choice.getComponent(DragTheAlphabetChoice);
             choice.getChildByName("label").getComponent(cc.Label).string = choices[i];
             if(choices[i]==correct){
