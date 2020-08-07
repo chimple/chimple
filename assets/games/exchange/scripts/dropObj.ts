@@ -5,8 +5,7 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class DropObj extends Drop {
-    @property(cc.Node)
-    animation :cc.Node = null
+   
     
     private _soundName: string = null;
 
@@ -40,12 +39,6 @@ export default class DropObj extends Drop {
 
 
     playSound() {
-        const animNode = this.node.getChildByName('cat_pink_ske')
-        if(animNode != null) {
-            const animation = animNode.getComponent(dragonBones.ArmatureDisplay).armature().animation
-            animation.stop()
-            animation.play('talk', 1)
-        }
         if(this._soundClip != null) {
             Util.play(this._soundClip, false)
         }
