@@ -1,5 +1,4 @@
 import { Util } from "../../../common/scripts/util";
-import DragTheAlphabetChoice from "./dragthealphabet_choice";
 
 const { ccclass, property } = cc._decorator;
 
