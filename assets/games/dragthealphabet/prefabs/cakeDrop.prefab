@@ -25,9 +25,16 @@
       }
     ],
     "_active": true,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 7
+      },
+      {
+        "__id__": 8
+      }
+    ],
     "_prefab": {
-      "__id__": 7
+      "__id__": 9
     },
     "_opacity": 255,
     "_color": {
@@ -72,8 +79,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 9,
+    "groupIndex": 9,
     "_id": ""
   },
   {
@@ -136,8 +143,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 9,
+    "groupIndex": 9,
     "_id": ""
   },
   {
@@ -239,8 +246,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 9,
+    "groupIndex": 9,
     "_id": ""
   },
   {
@@ -253,6 +260,39 @@
     },
     "fileId": "3dQQAlXtVO1o4ldOLRRW0F",
     "sync": false
+  },
+  {
+    "__type__": "08edb7X3GlB7rjongfPHlr4",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "allowDrop": true,
+    "allowOnlyOneDrop": true,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.BoxCollider",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "tag": 0,
+    "_offset": {
+      "__type__": "cc.Vec2",
+      "x": 2,
+      "y": 92
+    },
+    "_size": {
+      "__type__": "cc.Size",
+      "width": 350,
+      "height": 150
+    },
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",
