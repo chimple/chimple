@@ -1,5 +1,4 @@
 import { Util } from "../../../common/scripts/util";
-import { LAYOUT } from "../../blender/scripts/blender";
 import DragTheAlphabetChoice from "./dragthealphabet_choice";
 
 const { ccclass, property } = cc._decorator;
@@ -17,12 +16,13 @@ export default class DragTheAlphabet extends cc.Component {
     @property(cc.Prefab)
     cakeDrag: cc.Prefab = null;
 
+    @property(cc.Node)
+    layout: cc.Node = null;
+
     data: string[] = ["1", "1", "1", "cakeBg", "cakeDrop", "cakeDrag", "q", "a,d,f"];
     solution: string;
     choices: string;
     dragUnit: string;
-    layout: cc.Node;
-
 
     // LIFE-CYCLE CALLBACKS:
 
@@ -36,16 +36,10 @@ export default class DragTheAlphabet extends cc.Component {
         let bg = cc.instantiate(this[background]);
         this.node.addChild(bg);
 
-        this.layout = new cc.Node();
-        let layoutComp = this.layout.addComponent(cc.Layout);
-        layoutComp.type= cc.Layout.Type.HORIZONTAL;
-        this.layout.position = new cc.Vec3(0,100,0);
-        layoutComp.updateLayout();
-
-        this.node.addChild(this.layout);
+        this.layout.zIndex=1;
 
         let drop = cc.instantiate(this[dropUnit]);
-        drop.name = this.solution;
+        drop.getChildByName("drop").name = this.solution;
         this.node.addChild(drop);
         this.createChoices();
     }
@@ -57,26 +51,21 @@ export default class DragTheAlphabet extends cc.Component {
             choices.push(element);
         });
 
-        let start = -250;
         Util.shuffle(choices);
         for (let i = 0; i < choices.length; i++) {
             let choice = cc.instantiate(this[this.dragUnit]);
             choice.on('DragTheAlphabetChoiceMatch', this.onMatch.bind(this))
             choice.on('DragTheAlphabetChoiceNoMatch', () => this.node.emit("wrong"))
             choice.getChildByName("label").getComponent(cc.Label).string = choices[i];
-            choice.x = start + i * 180;
             let temp =  new cc.Node();
             temp.addChild(choice);
             temp.name = choices[i];
-            temp.zIndex=1;
-            this.layout.addChild(temp);
+            this.layout.insertChild(temp,i)
             choice.name = choices[i];
-         //   this.node.addChild(choice);
         }
     }
 
     onMatch() {
-        console.log('nik matched ')
         this.node.emit("correct");
     }
 }
