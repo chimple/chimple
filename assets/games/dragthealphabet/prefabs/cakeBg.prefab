@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "dragthealphabet_bg",
+    "_name": "bg",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -186,8 +186,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
-        0,
+        -500,
+        -384,
         0,
         0,
         0,
