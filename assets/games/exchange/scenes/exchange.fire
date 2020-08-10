@@ -75,10 +75,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 7
+        "__id__": 8
       },
       {
-        "__id__": 8
+        "__id__": 9
       }
     ],
     "_prefab": null,
@@ -139,12 +139,15 @@
     "_children": [
       {
         "__id__": 4
+      },
+      {
+        "__id__": 6
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 6
+        "__id__": 7
       }
     ],
     "_prefab": null,
@@ -158,8 +161,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 960,
-      "height": 640
+      "width": 1024,
+      "height": 768
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -265,6 +268,9 @@
       "__id__": 4
     },
     "_enabled": true,
+    "dropObj": {
+      "__uuid__": "b7489b58-9049-458b-b9b1-7072445d0c37"
+    },
     "playground": {
       "__uuid__": "794be60d-68cc-42d0-be87-5d9218d33dcc"
     },
@@ -278,6 +284,64 @@
       "__uuid__": "4abdc716-15ab-4346-a315-7ff554a38581"
     },
     "_id": "1d4vSAdgJG7rb7gfNo3FaW"
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "New Node",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 3
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [],
+    "_prefab": null,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        -512,
+        -384,
+        -290.11851,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": "00ut1yr+xMIKwkh6iXiTjb"
   },
   {
     "__type__": "cc.Camera",

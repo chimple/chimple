@@ -28,10 +28,13 @@
       },
       {
         "__id__": 6
+      },
+      {
+        "__id__": 7
       }
     ],
     "_prefab": {
-      "__id__": 7
+      "__id__": 8
     },
     "_opacity": 255,
     "_color": {
@@ -55,8 +58,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -234.351,
-        -127.916,
+        0,
+        0,
         0,
         0,
         0,
@@ -76,8 +79,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 11,
+    "groupIndex": 11,
     "_id": ""
   },
   {
@@ -140,31 +143,42 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 11,
+    "groupIndex": 11,
     "_id": ""
   },
   {
-    "__type__": "cc.RichText",
+    "__type__": "cc.Label",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 2
     },
     "_enabled": true,
-    "_fontFamily": "Arial",
-    "_isSystemFontUsed": false,
+    "_materials": [
+      {
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+      }
+    ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_useOriginalSize": true,
+    "_string": "",
     "_N$string": "",
+    "_fontSize": 40,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
     "_N$horizontalAlign": 0,
-    "_N$fontSize": 40,
-    "_N$font": {
-      "__uuid__": "32213392-c6fa-4e43-b062-6fdd8e6adecc"
-    },
+    "_N$verticalAlign": 0,
+    "_N$fontFamily": "Arial",
+    "_N$overflow": 0,
     "_N$cacheMode": 0,
-    "_N$maxWidth": 0,
-    "_N$lineHeight": 40,
-    "_N$imageAtlas": null,
-    "_N$handleTouchEvent": true,
     "_id": ""
   },
   {
@@ -222,10 +236,31 @@
     "resizeWithLabel": false,
     "fixOnMatch": true,
     "allowDrag": true,
-    "returnBackOnNoMatch": true,
+    "returnBackOnNoMatch": false,
     "multipleDrags": false,
     "correctClip": null,
     "richTextNode": null,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.BoxCollider",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "tag": 0,
+    "_offset": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_size": {
+      "__type__": "cc.Size",
+      "width": 187,
+      "height": 187
+    },
     "_id": ""
   },
   {
