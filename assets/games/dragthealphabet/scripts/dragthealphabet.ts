@@ -68,13 +68,11 @@ export default class DragTheAlphabet extends cc.Component {
             choice.on('DragTheAlphabetOnTouch', () => {
                 cc.audioEngine.playEffect(this.pick, false);
                 this.onTouchAudio(choices[i]);
-                choice.getComponent(cc.Animation).stop;
             });
             choice.on('DragTheAlphabetChoiceMatch', this.onMatch.bind(this))
             choice.on('DragTheAlphabetChoiceNoMatch', () => {
                 cc.audioEngine.playEffect(this.wrong, false);
                 this.node.emit("wrong");
-                choice.getComponent(cc.Animation).play;
             });
             choice.getChildByName("label").getComponent(cc.Label).string = choices[i];
             let temp = new cc.Node();
