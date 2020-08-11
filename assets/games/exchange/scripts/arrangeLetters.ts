@@ -20,8 +20,8 @@ export default class ArrangeLetters extends cc.Component {
   ball: cc.Prefab = null;
 
   data: Array<Array<string>> = [
-    ["1", "1", "1", "playground", "ball", "c*a*t*t*l*e"],
-    ["1", "1", "1", "playground2", "ball2", "c*a*t"],
+    ["1", "1", "1", "playground", "ball", "a,p,p,l,e"],
+    ["1", "1", "1", "playground2", "ball2", "c,a,t"],
   ];
   level: string;
   worksheet: string;
@@ -30,6 +30,8 @@ export default class ArrangeLetters extends cc.Component {
   objectName: string;
   word: string;
   correctLetterArray: Array<string>;
+  correctPosition: Map<string, number>
+  tempPositionX: Map<string, number>
 
   onLoad() {
     [
@@ -41,7 +43,7 @@ export default class ArrangeLetters extends cc.Component {
       this.word,
     ] = this.data[1];
 
-    this.correctLetterArray = this.word.split("*");
+    this.correctLetterArray = this.word.split(",");
     cc.log("<>" + this.correctLetterArray);
     this.loadBackground();
     this.makeDragObjects();
@@ -53,15 +55,19 @@ export default class ArrangeLetters extends cc.Component {
       let dragObj = cc.instantiate(this[this.objectName]);
       dragObj.parent = this.node;
       dragObj.name = shuffledArray[i];
+      if (this.correctLetterArray.length > 4) {
+        dragObj.width = 0.7 * dragObj.width;
+        dragObj.height = 0.7 * dragObj.height;
+      }
       dragObj.position = cc.v3(
-        -cc.winSize.width / 3 + i * 250,
+        -cc.winSize.width / 2.5 + i * cc.winSize.width / this.correctLetterArray.length,
         -cc.winSize.height / 4
       );
-      dragObj.getChildByName("objLabel").getComponent(cc.Label).string =
-        shuffledArray[i];
+      dragObj.getChildByName("objLabel").getComponent(cc.Label).string = shuffledArray[i];
       cc.log(dragObj.children);
     }
   }
+
 
   loadBackground() {
     let loadbg = cc.instantiate(this[this.backgroundName]);
