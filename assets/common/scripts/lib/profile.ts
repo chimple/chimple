@@ -39,7 +39,8 @@ export class User {
     public musicOff: boolean,
     public inventory: object,
     public currentBg: string,
-    public currentCharacter: string
+    public currentCharacter: string,
+    public courseProgress: object
   ) {
     this.id = id;
     this.name = name;
@@ -49,6 +50,7 @@ export class User {
     this.inventory = inventory;
     this.currentBg = currentBg;
     this.currentCharacter = currentCharacter;
+    this.courseProgress = courseProgress;
   }
 
   set setName(name: string) {
@@ -86,6 +88,11 @@ export class User {
     this._storeUser();
   }
 
+  set setCourseProgress(courseProgress: object) {
+    this.courseProgress = courseProgress;
+    this._storeUser();
+  }
+
   _storeUser() {
     cc.sys.localStorage.setItem(this.id, JSON.stringify(this));
   }
@@ -115,7 +122,12 @@ export default class Profile {
       true,
       {},
       "",
-      "bear"
+      "bear",
+      {
+        'en': { 'currentLesson': '1', 'completedLessons': [] },
+        'hi': { 'currentLesson': '1', 'completedLessons': [] },
+        'en-maths': { 'currentLesson': '1', 'completedLessons': [] }
+      }
     );
     cc.sys.localStorage.setItem(uid, JSON.stringify(user));
     let userId = JSON.parse(cc.sys.localStorage.getItem(USER_ID)) as Array<
@@ -170,7 +182,8 @@ export default class Profile {
       data.musicOff,
       data.inventory,
       data.currentBg,
-      data.currentCharacter
+      data.currentCharacter,
+      data.courseProgress
     );
     return user;
   }
@@ -325,12 +338,12 @@ export default class Profile {
             for (const game in config.curriculum[world][level]) {
               this.setItem(
                 Config.getInstance().course +
-                  "_" +
-                  world +
-                  "_" +
-                  level +
-                  "_" +
-                  config.curriculum[world][level][game][0],
+                "_" +
+                world +
+                "_" +
+                level +
+                "_" +
+                config.curriculum[world][level][game][0],
                 1
               );
             }
