@@ -1,7 +1,7 @@
 import Config from "./common/scripts/lib/config";
 import { MODE, Mode } from "./common/scripts/lib/constants";
 import { ParseApi } from "./private/services/parseApi";
-import { ParseLoggedInUser } from "./private/domain/parseLoggedInUser";
+import { ParseUser } from "./private/domain/parseUser";
 
 const {ccclass, property} = cc._decorator;
 
@@ -17,7 +17,7 @@ export default class Chimple extends cc.Component {
                 break;
 
             case Mode.School:
-                const loggedInUser: ParseLoggedInUser = ParseApi.getLoggedInUser();
+                const loggedInUser: ParseUser = ParseApi.getLoggedInUser();
                 if (!!loggedInUser && !ParseApi.isEmpty(loggedInUser)) {
                     Config.loadScene(SELECT_SECTIONS_SCENE, 'private', null);
                 } else {
