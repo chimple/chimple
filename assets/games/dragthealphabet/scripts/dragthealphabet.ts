@@ -19,12 +19,6 @@ export default class DragTheAlphabet extends cc.Component {
     layout: cc.Node = null;
 
     @property({ type: cc.AudioClip })
-    correct: cc.AudioClip = null;
-
-    @property({ type: cc.AudioClip })
-    wrong: cc.AudioClip = null;
-
-    @property({ type: cc.AudioClip })
     pick: cc.AudioClip = null;
 
     data: string[] = ["1", "1", "1", "cakeBg", "cakeDrop", "cakeDrag", "q", "a,d,f"];
@@ -71,7 +65,6 @@ export default class DragTheAlphabet extends cc.Component {
             });
             choice.on('DragTheAlphabetChoiceMatch', this.onMatch.bind(this))
             choice.on('DragTheAlphabetChoiceNoMatch', () => {
-                cc.audioEngine.playEffect(this.wrong, false);
                 this.node.emit("wrong");
             });
             choice.getChildByName("label").getComponent(cc.Label).string = choices[i];
@@ -85,7 +78,6 @@ export default class DragTheAlphabet extends cc.Component {
 
     onMatch() {
         this.node.emit("correct");
-        cc.audioEngine.playEffect(this.correct, false);
     }
 
     onTouchAudio(file: string) {
