@@ -3,7 +3,7 @@ export enum Mode {
     Home,
     School
 }
-export const MODE: Mode = Mode.Base
+export const MODE: Mode = Mode.Home;
 
 export const LANG = 'hi'
 export const ENV = 'dev'

@@ -40,7 +40,8 @@ export class User {
     public inventory: object,
     public currentBg: string,
     public currentCharacter: string,
-    public courseProgress: object
+    public courseProgress: object,
+    public unlockedInventory: object
   ) {
     this.id = id;
     this.name = name;
@@ -48,6 +49,7 @@ export class User {
     this.gender = gender;
     this.imgPath = imgPath;
     this.inventory = inventory;
+    this.unlockedInventory = unlockedInventory
     this.currentBg = currentBg;
     this.currentCharacter = currentCharacter;
     this.courseProgress = courseProgress;
@@ -90,6 +92,10 @@ export class User {
 
   set setCourseProgress(courseProgress: object) {
     this.courseProgress = courseProgress;
+  }
+  
+  setUnlockedInventory(inventoryItemName: string) {
+    this.unlockedInventory[inventoryItemName] = true
     this._storeUser();
   }
 
@@ -127,7 +133,8 @@ export default class Profile {
         'en': { 'currentLesson': '1', 'completedLessons': [] },
         'hi': { 'currentLesson': '1', 'completedLessons': [] },
         'en-maths': { 'currentLesson': '1', 'completedLessons': [] }
-      }
+      },
+      {}
     );
     cc.sys.localStorage.setItem(uid, JSON.stringify(user));
     let userId = JSON.parse(cc.sys.localStorage.getItem(USER_ID)) as Array<
@@ -183,7 +190,8 @@ export default class Profile {
       data.inventory,
       data.currentBg,
       data.currentCharacter,
-      data.courseProgress
+      data.courseProgress,
+      data.unlockedInventory
     );
     return user;
   }
