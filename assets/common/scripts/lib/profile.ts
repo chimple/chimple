@@ -1,7 +1,6 @@
 import { ASSET_LOAD_METHOD } from "./constants";
 import UtilLogger from "../util-logger";
 import Config from "./config";
-import { ParseApi } from "../../../private/services/parseApi";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -23,20 +22,20 @@ export enum Gender {
     UNKNOWN
 }
 
+export interface UserAttribute {
+    id: string,
+    name: string,
+    age: number,
+    gender: Gender,
+    imgPath: string,
+}
+
 export enum Language {
     ENGLISH,
     HINDI,
 }
 
 export const availLanguages = ["english", "hindi"];
-
-export interface UserAttributes {
-    id: string;
-    name: string;
-    age: number;
-    gender: Gender;
-    imgPath: string;
-}
 
 export class User {
     constructor(
@@ -50,6 +49,7 @@ export class User {
         public inventory: object,
         public currentBg: string,
         public currentCharacter: string,
+        public courseProgress: object,
         public unlockedInventory: object
     ) {
         this.id = id;
@@ -61,6 +61,7 @@ export class User {
         this.unlockedInventory = unlockedInventory;
         this.currentBg = currentBg;
         this.currentCharacter = currentCharacter;
+        this.courseProgress = courseProgress;
     }
 
     set setName(name: string) {
@@ -99,6 +100,10 @@ export class User {
         this._storeUser();
     }
 
+    set setCourseProgress(courseProgress: object) {
+        this.courseProgress = courseProgress;
+    }
+
     setUnlockedInventory(inventoryItemName: string) {
         this.unlockedInventory[inventoryItemName] = true;
         this._storeUser();
@@ -116,19 +121,18 @@ export default class Profile {
     static _userIdList = [];
     static _settings = {};
 
-    static createUserOrFindExistingUser(userAttributes: UserAttributes) {
-        cc.log(userAttributes)
-        // find an existing user
-        const existingUser: User = Profile.getUser(userAttributes.id);
-        if (!!existingUser) return existingUser;
+    static createUserOrFindExistingUser(userAttribute: UserAttribute): User {
+        const existingUser: User = this.getUser(userAttribute.id);
+        if(!!existingUser) return existingUser;
 
         return Profile.createUser(
-            userAttributes.name,
-            userAttributes.imgPath,
-            userAttributes.age,
-            userAttributes.gender,
-            userAttributes.id
-        );
+            userAttribute.name,
+            userAttribute.imgPath,
+            userAttribute.age,
+            userAttribute.gender,
+            userAttribute.id
+        )
+
     }
 
     static createUser(
@@ -137,7 +141,7 @@ export default class Profile {
         age: number,
         gender: Gender,
         id: string = null
-    ): User {
+    ) {
         let uid = !!id ? id : new Date().toISOString();
         let user = new User(
             uid,
@@ -150,6 +154,11 @@ export default class Profile {
             {},
             "",
             "bear",
+            {
+                'en'      : {'currentLesson': '1', 'completedLessons': []},
+                'hi'      : {'currentLesson': '1', 'completedLessons': []},
+                'en-maths': {'currentLesson': '1', 'completedLessons': []}
+            },
             {}
         );
         cc.sys.localStorage.setItem(uid, JSON.stringify(user));
@@ -190,7 +199,7 @@ export default class Profile {
 
     static getUser(uid: string): User {
         let data = JSON.parse(cc.sys.localStorage.getItem(uid));
-        return data ? this._convertToClass(data) : null;
+        return this._convertToClass(data);
     }
 
     static _convertToClass(data): User {
@@ -205,6 +214,7 @@ export default class Profile {
             data.inventory,
             data.currentBg,
             data.currentCharacter,
+            data.courseProgress,
             data.unlockedInventory
         );
         return user;
@@ -267,8 +277,10 @@ export default class Profile {
     static fromJson() {
         if (!this._loaded) {
             this._loaded = true;
-            const currentStudentProfile = UtilLogger.currentProfile();
             if (ASSET_LOAD_METHOD != "file" && CC_JSB) {
+                // if (CC_JSB) {
+                const config = Config.getInstance();
+                const currentStudentProfile = UtilLogger.currentProfile();
                 // this should be sdcard
                 cc.loader.load(
                     {
@@ -276,6 +288,64 @@ export default class Profile {
                         type: "json"
                     },
                     (err, data) => {
+                        if (err) {
+                            cc.log("Error loading json", JSON.stringify(err));
+                            // convert old tsv version to new json
+                            cc.loader.load(
+                                {
+                                    url : `/sdcard/aruba/tsv_profile/${currentStudentProfile}.tsv`,
+                                    type: "text"
+                                },
+                                (err, data) => {
+                                    if (!err && !!data) {
+                                        const allLines = data.split(/\r\n|\n/);
+                                        const re = /_currentDay_en-US_(L|M)_(\d+)\t(\d+)/;
+                                        var mathWorld = 0;
+                                        var litWorld: number = 0;
+                                        var mathLevel = 0;
+                                        var litLevel = 0;
+                                        allLines.forEach((line) => {
+                                            const found = line.match(re);
+                                            if (found != null && found.length >= 4) {
+                                                if (found[1] == "M") {
+                                                    const world = Number(found[2]);
+                                                    const level = Number(found[3]);
+                                                    if (world > mathWorld) {
+                                                        mathWorld = world;
+                                                        mathLevel = 0;
+                                                    }
+                                                    mathLevel = Math.max(level, mathLevel);
+                                                } else {
+                                                    const world = Number(found[2]);
+                                                    const level = Number(found[3]);
+                                                    if (world > litWorld) {
+                                                        litWorld = world;
+                                                        litLevel = 0;
+                                                    }
+                                                    litLevel = Math.max(level, litLevel);
+                                                }
+                                            }
+                                        });
+                                        config.course = "en";
+                                        config.loadCurriculumJson(() => {
+                                            Profile.setAllLevels(config, litWorld, litLevel);
+                                            this.lastWorld = litWorld;
+                                            const lastLevelInCur =
+                                                config.curriculum[litWorld].length - 1;
+                                            this.lastLevel = Math.min(litLevel, lastLevelInCur);
+                                            config.course = "en-maths";
+                                            config.loadCurriculumJson(() => {
+                                                Profile.setAllLevels(config, mathWorld, mathLevel);
+                                                this.lastWorld = mathWorld;
+                                                const lastLevelInCur =
+                                                    config.curriculum[mathWorld].length - 1;
+                                                this.lastLevel = Math.min(mathLevel, lastLevelInCur);
+                                            });
+                                        });
+                                    }
+                                }
+                            );
+                        }
                         if (!err && !!data) {
                             Object.keys(data).forEach((key) => {
                                 this._profile[key] = Number(data[key]);
@@ -289,7 +359,7 @@ export default class Profile {
                 );
             } else {
                 const profile = JSON.parse(
-                    cc.sys.localStorage.getItem(currentStudentProfile)
+                    cc.sys.localStorage.getItem(UtilLogger.currentProfile())
                 );
                 if (profile != null) {
                     this._profile = profile;
