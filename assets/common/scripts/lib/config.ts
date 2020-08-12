@@ -70,8 +70,10 @@ export default class Config {
     world: number;
     flow: Flow;
     currentFontName: string;
-    courses: Array<string>;
+    courseNames: Array<string>;
     overEvent: OverEvent;
+    courses;
+    lesson: string;
 
     private constructor() {
     }
@@ -92,7 +94,8 @@ export default class Config {
             Config.instance._textFontMap = new Map();
             Config.instance.currentFontName = DEFAULT_FONT;
             Config.instance.overEvent = OverEvent.None;
-            Config.instance.courses = ['en', 'en-maths', LANG];
+            Config.instance.courseNames = ['en', 'en-maths', LANG];
+            Config.instance.courses = {}
         }
         return Config.instance;
     }
@@ -129,14 +132,14 @@ export default class Config {
 
     static loadScene(scene: string, bundle: string = null, callback: Function = null) {
         Util.freeResources();
-        if(bundle != null) {
+        if (bundle != null) {
             cc.assetManager.loadBundle(bundle, (err, loadedBundle) => {
                 loadedBundle.loadScene(scene, (err, loadedScene) => {
                     cc.director.runScene(loadedScene, null, () => {
                         cc.sys.garbageCollect();
                         if (callback != null) {
                             callback();
-                        }            
+                        }
                     })
                 })
             })
@@ -146,7 +149,7 @@ export default class Config {
                 if (callback != null) {
                     callback();
                 }
-            });    
+            });
         }
     }
 
@@ -415,6 +418,37 @@ export default class Config {
                 cc.log(err.message);
             }
         });
+    }
+
+    loadCourseJsons(node: cc.Node, callBack: Function) {
+        const user = Profile.getCurrentUser()
+        let numCourses = Object.keys(user.courseProgress).length * 2
+        for (let name of Object.keys(user.courseProgress)) {
+            this.courses[name] = {}
+            Util.load(name + '/common/res/games.json', (err: Error, jsonAsset) => {
+                if (!err) {
+                    this.courses[name].gameConfigs = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
+                } else {
+                    cc.log(err.message);
+                }
+                numCourses--
+            })
+
+            const jsonFile = name + '/common/res/lessons.json';
+            Util.load(jsonFile, (err: Error, jsonAsset) => {
+                if (!err) {
+                    this.courses[name].lessons = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
+                }
+                numCourses--
+            })
+        }
+        const checkAllLoaded = () => {
+            if (numCourses <= 0) {
+                cc.director.getScheduler().unschedule(checkAllLoaded, node)
+                callBack()
+            }
+        }
+        cc.director.getScheduler().schedule(checkAllLoaded, node, 1)
     }
 
     currentLevelGames(): Array<string> {

@@ -1,9 +1,10 @@
 import Config from "./common/scripts/lib/config";
 import { MODE, Mode } from "./common/scripts/lib/constants";
+import Profile, { Gender } from "./common/scripts/lib/profile";
 import { ParseApi } from "./private/services/parseApi";
 import { ParseUser } from "./private/domain/parseUser";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 export const SELECT_SECTIONS_SCENE = 'private/school/scenes/selectSections';
 export const SCHOOL_REGISTRATION_SCENE = 'private/school/scenes/schoolRegistration';
@@ -13,9 +14,8 @@ export default class Chimple extends cc.Component {
     onLoad() {
         switch (MODE) {
             case Mode.Home:
-                Config.loadScene('private/home/login/scenes/welcomePage', 'private', null);
-                break;
-
+                Config.loadScene('private/home/login/scenes/welcomePage', 'private', null)
+                break
             case Mode.School:
                 const loggedInUser: ParseUser = ParseApi.getLoggedInUser();
                 if (!!loggedInUser && !ParseApi.isEmpty(loggedInUser)) {
@@ -23,9 +23,19 @@ export default class Chimple extends cc.Component {
                 } else {
                     Config.loadScene(SCHOOL_REGISTRATION_SCENE, 'private', null);
                 }
-                break;
-                default: //Mode.Base
-                    Config.loadScene(HOME_SCENE, 'menu', null);
+                break
+            default: //Mode.Base
+                const existingUsers = Profile.getUsers()
+                if (existingUsers == null || existingUsers.length <= 0) {
+                    Profile.createUser('test', '', 5, Gender.GIRL)
                 }
+                Profile.setCurrentUser(Profile.getUsers()[0])
+                Config.i.loadCourseJsons(this.node, () => {
+                    Config.loadScene('menu/start/scenes/start', 'menu', null)
+                })
+                Config.loadScene('private/home/login/scenes/welcomePage', 'private', null);
+                break;
+
         }
     }
+}
