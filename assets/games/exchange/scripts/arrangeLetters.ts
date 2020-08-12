@@ -19,7 +19,7 @@ export default class ArrangeLetters extends cc.Component {
   ball: cc.Prefab = null;
 
   data: Array<Array<string>> = [
-    ["1", "1", "1", "playground", "ball", "a,p,p,l,e"],
+    ["1", "1", "1", "playground", "ball2", "a,p,s,l"],
     ["1", "1", "1", "playground2", "ball2", "c,a,t"],
   ];
   level: string;
@@ -41,12 +41,11 @@ export default class ArrangeLetters extends cc.Component {
       this.backgroundName,
       this.objectName,
       this.word,
-    ] = this.data[1];
+    ] = this.data[0];
 
     this.correctLetterArray = this.word.split(",");
     ArrangeLetters.correctPosition = new Map();
     ArrangeLetters.wordLength = this.correctLetterArray.length
-    cc.log("<>" + this.correctLetterArray);
     this.loadBackground();
     this.makeDragObjects();
     ArrangeLetters.letterArray = this.word.split(",");
@@ -68,10 +67,7 @@ export default class ArrangeLetters extends cc.Component {
       );
       ArrangeLetters.correctPosition.set(dragObj.name,dragObj.position.x)
       dragObj.getChildByName("objLabel").getComponent(cc.Label).string = shuffledArray[i];
-      // cc.log(dragObj.children);
-      // cc.log(this.correctPosition)
     }
-    cc.log("Mapp"+ArrangeLetters.correctPosition.get('c'))
   }
 
 
