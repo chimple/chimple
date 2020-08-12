@@ -1,5 +1,4 @@
 import { Util } from "../../../common/scripts/util";
-
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -30,8 +29,9 @@ export default class ArrangeLetters extends cc.Component {
   objectName: string;
   word: string;
   correctLetterArray: Array<string>;
-  correctPosition: Map<string, number>
-  tempPositionX: Map<string, number>
+  static correctPosition: Map<string, number>
+  static wordLength:number 
+  static letterArray:Array<string>
 
   onLoad() {
     [
@@ -44,9 +44,12 @@ export default class ArrangeLetters extends cc.Component {
     ] = this.data[1];
 
     this.correctLetterArray = this.word.split(",");
+    ArrangeLetters.correctPosition = new Map();
+    ArrangeLetters.wordLength = this.correctLetterArray.length
     cc.log("<>" + this.correctLetterArray);
     this.loadBackground();
     this.makeDragObjects();
+    ArrangeLetters.letterArray = this.word.split(",");
   }
 
   makeDragObjects() {
@@ -63,9 +66,12 @@ export default class ArrangeLetters extends cc.Component {
         -cc.winSize.width / 2.5 + i * cc.winSize.width / this.correctLetterArray.length,
         -cc.winSize.height / 4
       );
+      ArrangeLetters.correctPosition.set(dragObj.name,dragObj.position.x)
       dragObj.getChildByName("objLabel").getComponent(cc.Label).string = shuffledArray[i];
-      cc.log(dragObj.children);
+      // cc.log(dragObj.children);
+      // cc.log(this.correctPosition)
     }
+    cc.log("Mapp"+ArrangeLetters.correctPosition.get('c'))
   }
 
 
@@ -73,4 +79,5 @@ export default class ArrangeLetters extends cc.Component {
     let loadbg = cc.instantiate(this[this.backgroundName]);
     this.node.addChild(loadbg);
   }
+
 }
