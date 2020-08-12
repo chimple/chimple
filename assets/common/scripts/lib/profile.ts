@@ -199,7 +199,7 @@ export default class Profile {
 
     static getUser(uid: string): User {
         let data = JSON.parse(cc.sys.localStorage.getItem(uid));
-        return this._convertToClass(data);
+        return data ? this._convertToClass(data) : null;
     }
 
     static _convertToClass(data): User {
