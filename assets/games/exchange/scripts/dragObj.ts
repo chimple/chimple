@@ -39,7 +39,7 @@ export default class DragObj extends Drag {
   }
 
   onTouchStart(touch: cc.Touch) {
-    this.playAudio(touch.currentT.name);
+    // this.playAudio(touch.currentTarget.name);
     this.goToOriginalPosition = true;
     this.isCollisionEnable = true;
     super.onTouchStart(touch);

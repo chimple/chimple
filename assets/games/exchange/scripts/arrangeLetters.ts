@@ -3,8 +3,6 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class ArrangeLetters extends cc.Component {
-  @property(cc.Prefab)
-  dropObj: cc.Prefab = null;
 
   @property(cc.Prefab)
   playground: cc.Prefab = null;
@@ -41,7 +39,7 @@ export default class ArrangeLetters extends cc.Component {
       this.backgroundName,
       this.objectName,
       this.word,
-    ] = this.data[0];
+    ] = this.data[1];
 
     this.correctLetterArray = this.word.split(",");
     ArrangeLetters.correctPosition = new Map();
