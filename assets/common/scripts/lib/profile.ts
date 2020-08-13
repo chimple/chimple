@@ -111,6 +111,7 @@ export class User {
 
     _storeUser() {
         cc.sys.localStorage.setItem(this.id, JSON.stringify(this));
+        // update profile to parse if internet available
     }
 }
 
