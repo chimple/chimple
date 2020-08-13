@@ -48,7 +48,7 @@ export default class JumpSentence extends cc.Component {
   @catchError()
   onLoad() {
     this._isRTL = Config.i.direction == Direction.RTL
-    const data = Config.getInstance().data[0];
+    const data =     ["22","2","2","[She is short.]","She_is_short.mp3","y","unlocked"]    ;
     // "[They are sad.]"
     // "A [dog] is[ ]under[ ]the[ ]b."
     // "She[ ]wants[ ]to[ ]@be[ ]a[ ]nurse[.]"
