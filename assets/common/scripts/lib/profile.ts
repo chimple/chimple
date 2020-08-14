@@ -181,8 +181,8 @@ export class User {
     static storeUser(user: User) {
         cc.sys.localStorage.setItem(user.id, JSON.stringify(user));
         ParseApi.updateProfile(JSON.stringify(user))
-            .then((c) => cc.log('successfully updated profile', user))
-            .catch(error => cc.log('failed to update profile', user));
+            .then(r => cc.log('successfully updated profile ', user))
+            .catch(err => cc.log('failed to update profile ', user, ' with error ', err));
     }
 
     static createUser(
