@@ -1,6 +1,6 @@
 import Config from "../../../common/scripts/lib/config";
 
-import Profile from "../../../common/scripts/lib/profile";
+import Profile, { User } from "../../../common/scripts/lib/profile";
 
 import LessonButton from "./lessonButton";
 
@@ -29,7 +29,7 @@ export default class Library extends cc.Component {
 
     onLoad() {
         const config = Config.i
-        const courseProgress = Profile.getCurrentUser().courseProgress
+        const courseProgress = User.getCurrentUser().courseProgress
         let first: boolean = true
         for (let [name, course] of Object.entries(config.courses)) {
             const headerButton = cc.instantiate(this.headerButtonPrefab)
@@ -54,30 +54,28 @@ export default class Library extends cc.Component {
     renderBody(name, course) {
         const config = Config.i
         this.layout.removeAllChildren()
-        let category: string = null
         let lessonContentNode: cc.Node = null
-        for (const lesson of course.lessons) {
-            if (lesson.category != category) {
-                category = lesson.category
+        for (const chapter of course.chapters) {
                 const chapterContents = cc.instantiate(this.chapterContentsPrefab)
                 const chapterContentsComp = chapterContents.getComponent(ChapterContents)
-                chapterContentsComp.label.string = category
+                chapterContentsComp.label.string = chapter.name
                 this.layout.addChild(chapterContents)
                 lessonContentNode = chapterContentsComp.layout
+            for (const lesson of chapter.lessons) {
+                const lessonButton = cc.instantiate(this.lessonButtonPrefab)
+                const lessonButtonComp = lessonButton.getComponent(LessonButton)
+                lessonButtonComp.label.string = lesson.name
+                Util.load(name + '/' + lesson.id + '/' + lesson.id + '.png', (err, texture) => {
+                    if (!err) {
+                        lessonButtonComp.sprite.spriteFrame = new cc.SpriteFrame(texture);
+                    }
+                })
+                lessonButtonComp.button.node.on('click', () => {
+                    config.lesson = lesson.id
+                    config.pushScene('common/scenes/lesson')
+                })
+                lessonContentNode.addChild(lessonButton)
             }
-            const lessonButton = cc.instantiate(this.lessonButtonPrefab)
-            const lessonButtonComp = lessonButton.getComponent(LessonButton)
-            lessonButtonComp.label.string = lesson.name
-            Util.load(name + '/' + lesson.id + '/' + lesson.id + '.png', (err, texture) => {
-                if (!err) {
-                    lessonButtonComp.sprite.spriteFrame = new cc.SpriteFrame(texture);
-                }
-            })
-            lessonButtonComp.button.node.on('click', () => {
-                config.lesson = lesson.id
-                config.pushScene('common/scenes/lesson')
-            })
-            lessonContentNode.addChild(lessonButton)
         }
         this.layout.children.forEach((child: cc.Node) => {
             const lessonContentLayout = child.getComponent(cc.Layout)

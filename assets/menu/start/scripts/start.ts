@@ -1,6 +1,6 @@
 import Config from "../../../common/scripts/lib/config";
 import LessonButton from "./lessonButton";
-import Profile from "../../../common/scripts/lib/profile";
+import Profile, { User } from "../../../common/scripts/lib/profile";
 import { Util } from "../../../common/scripts/util";
 
 const { ccclass, property } = cc._decorator;
@@ -15,12 +15,16 @@ export default class Start extends cc.Component {
 
     onLoad() {
         const config = Config.i
-        const courseProgress = Profile.getCurrentUser().courseProgress
+        const courseProgress = User.getCurrentUser().courseProgress
         for (let [name, course] of Object.entries(config.courses)) {
             const currentLessonId = courseProgress[name].currentLesson
-            let currentLesson = course['lessons'].find(lesson => lesson.id == currentLessonId)
+            let currentLesson = null
+            course['chapters'].some((chapter) => {
+                currentLesson = chapter.lessons.find(lesson => lesson.id == currentLessonId)
+                if(currentLesson != null) return true
+            })
             if(currentLesson == null) {
-                currentLesson = course['lessons'][0]
+                currentLesson = course['chapters'][0]['lessons'][0]
             }
 
             const lessonButton = cc.instantiate(this.lessonButtonPrefab)

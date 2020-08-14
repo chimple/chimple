@@ -34,7 +34,7 @@ export default class Home extends cc.Component {
     onLoad() {
         const config = Config.getInstance('home');
         UtilLogger.initPluginFirebase();
-        Profile.fromJson()
+        // Profile.fromJson()
 
         if (cc.sys.isNative)
             jsb.fileUtils.setSearchPaths([

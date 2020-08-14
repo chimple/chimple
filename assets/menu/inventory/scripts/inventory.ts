@@ -1,5 +1,5 @@
 import Item from "./item";
-import Profile from "../../../common/scripts/lib/profile";
+import Profile, { User } from "../../../common/scripts/lib/profile";
 
 const { ccclass, property } = cc._decorator;
 
@@ -83,7 +83,7 @@ export default class Inventory extends cc.Component {
         }
 
         try {
-            this.characterName = Profile.getCurrentUser().currentCharacter;
+            this.characterName = User.getCurrentUser().currentCharacter;
         } catch (err) {
             console.log("error reading character name");
         }
@@ -103,7 +103,7 @@ export default class Inventory extends cc.Component {
     loadSavedCharacterAcc() {
         this.saveConstants.forEach((key) => {
             let characterAndSlot = this.characterName.concat("-", key)
-            var newHatName = Profile.getCurrentUser().inventory[characterAndSlot]
+            var newHatName = User.getCurrentUser().inventory[characterAndSlot]
             let factory = dragonBones.CCFactory.getInstance();
             let _armature = this.node.getChildByName(`${this.characterName}_dragon`).getComponent(dragonBones.ArmatureDisplay).armature();
             _armature.getSlot(key).childArmature = factory.buildArmature(newHatName);
@@ -157,7 +157,7 @@ export default class Inventory extends cc.Component {
                 item.getChildByName("New Button").getChildByName("Background").getComponent(cc.Sprite).spriteFrame = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).getComponent(cc.Sprite).spriteFrame;
                 item.getChildByName("New Button").height = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).height
                 item.getChildByName("New Button").width = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).width
-                if (Profile.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === "false" || Profile.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === undefined) {
+                if (User.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === "false" || User.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === undefined) {
                     item.getChildByName("New Button").getChildByName("lock_icon").active = true
                 }
                 let itemComp = item.getComponent(Item);
@@ -177,9 +177,9 @@ export default class Inventory extends cc.Component {
 
                     // save to profile
                     let characterAndSlot = this.characterName.concat("-", slot_name)
-                    Profile.getCurrentUser().inventory[characterAndSlot] = armature_name;
+                    User.getCurrentUser().inventory[characterAndSlot] = armature_name;
                 }
-                if (Profile.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === "false" || Profile.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === undefined) {
+                if (User.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === "false" || User.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === undefined) {
                     itemComp.isLocked = true;
                 }
                 item.getChildByName("New Button").getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = element

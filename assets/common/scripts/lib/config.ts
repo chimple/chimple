@@ -1,6 +1,6 @@
 import { OverEvent, GAME_CONTROLLER_NAME } from "../gameController";
 import { LANG } from "./constants";
-import Profile from "./profile";
+import Profile, { User } from "./profile";
 import { Util } from "../util";
 
 export const DEFAULT_FONT = 'main';
@@ -74,6 +74,7 @@ export default class Config {
     overEvent: OverEvent;
     courses;
     lesson: string;
+    lessonData;
 
     private constructor() {
     }
@@ -94,7 +95,8 @@ export default class Config {
             Config.instance._textFontMap = new Map();
             Config.instance.currentFontName = DEFAULT_FONT;
             Config.instance.overEvent = OverEvent.None;
-            Config.instance.courseNames = ['en', 'en-maths', LANG];
+            // Config.instance.courseNames = ['en', 'en-maths', LANG];
+            Config.instance.courseNames = ['en', 'en-maths'];
             Config.instance.courses = {}
         }
         return Config.instance;
@@ -311,6 +313,14 @@ export default class Config {
         }
     }
 
+    loadLessonJson(callback: Function) {
+        const jsonFile = this.course + '/' + this.lesson + '/res/' + this.lesson + '.json';
+        Util.load(jsonFile, (err, jsonAsset) => {
+            this.lessonData = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
+            if (callback != null) callback()
+        }, true);
+    }
+
     loadQuizData(callback: Function) {
         this._levelData = []
         const games = this.curriculum[this.world][this.level]
@@ -421,23 +431,14 @@ export default class Config {
     }
 
     loadCourseJsons(node: cc.Node, callBack: Function) {
-        const user = Profile.getCurrentUser()
-        let numCourses = Object.keys(user.courseProgress).length * 2
+        const user = User.getCurrentUser()
+        let numCourses = Object.keys(user.courseProgress).length
         for (let name of Object.keys(user.courseProgress)) {
             this.courses[name] = {}
-            Util.load(name + '/common/res/games.json', (err: Error, jsonAsset) => {
-                if (!err) {
-                    this.courses[name].gameConfigs = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
-                } else {
-                    cc.log(err.message);
-                }
-                numCourses--
-            })
-
-            const jsonFile = name + '/common/res/lessons.json';
+            const jsonFile = name + '/common/res/course.json';
             Util.load(jsonFile, (err: Error, jsonAsset) => {
                 if (!err) {
-                    this.courses[name].lessons = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
+                    this.courses[name].chapters = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
                 }
                 numCourses--
             })

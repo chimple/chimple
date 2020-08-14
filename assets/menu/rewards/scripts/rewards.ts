@@ -1,5 +1,5 @@
 import Config from '../../../common/scripts/lib/config'
-import Profile from '../../../common/scripts/lib/profile';
+import Profile, { User } from '../../../common/scripts/lib/profile';
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -56,7 +56,7 @@ export default class Rewards extends cc.Component {
         this.lastSelectedButton = parseInt(event.currentTarget.name)
 
         // save to profile
-        Profile.getCurrentUser().setCurrentCharacter(customEventData.toString().trim());
+        User.getCurrentUser().currentCharacter = customEventData.toString().trim();
         // switch scene
         Config.getInstance().pushScene("inventory");
     }
@@ -79,6 +79,6 @@ export default class Rewards extends cc.Component {
         this.lastSelectedButton = parseInt(event.currentTarget.name)
 
         // save to profile
-        Profile.getCurrentUser().setCurrentBg(customEventData.toString().trim());
+        User.getCurrentUser().currentBg = customEventData.toString().trim();
     }
 }

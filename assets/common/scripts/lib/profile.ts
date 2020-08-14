@@ -17,437 +17,400 @@ export const CONTACT = "contact";
 export const PASSWORD = "password";
 
 export enum Gender {
-    BOY,
-    GIRL,
-    UNKNOWN
+  BOY,
+  GIRL,
+  UNKNOWN
 }
 
 export interface UserAttribute {
-    id: string,
-    name: string,
-    age: number,
-    gender: Gender,
-    imgPath: string,
+  id: string,
+  name: string,
+  age: number,
+  gender: Gender,
+  imgPath: string,
 }
 
 export enum Language {
-    ENGLISH,
-    HINDI,
+  ENGLISH,
+  HINDI,
 }
 
 export const availLanguages = ["english", "hindi"];
 
 export class User {
-    constructor(
-        public id: string,
-        public name: string,
-        public age: number,
-        public gender: Gender,
-        public imgPath: string,
-        public sfxOff: boolean,
-        public musicOff: boolean,
-        public inventory: object,
-        public currentBg: string,
-        public currentCharacter: string,
-        public courseProgress: object,
-        public unlockedInventory: object
-    ) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.gender = gender;
-        this.imgPath = imgPath;
-        this.inventory = inventory;
-        this.unlockedInventory = unlockedInventory;
-        this.currentBg = currentBg;
-        this.currentCharacter = currentCharacter;
-        this.courseProgress = courseProgress;
-    }
+  private static _currentUser: User;
 
-    set setName(name: string) {
-        this.name = name;
-        this._storeUser();
-    }
+  private _id: string;
+  private _name: string;
+  private _age: number;
+  private _gender: Gender;
+  private _imgPath: string;
+  private _sfxOff: boolean;
+  private _musicOff: boolean;
+  private _inventory: object;
+  private _currentBg: string;
+  private _currentCharacter: string;
+  private _courseProgress: object;
+  private _unlockedInventory: object
 
-    set setAge(age: number) {
-        console.log("came setting age", age);
-        this.age = age;
-        this._storeUser();
-    }
+  constructor(
+    id: string,
+    name: string,
+    age: number,
+    gender: Gender,
+    imgPath: string,
+    sfxOff: boolean,
+    musicOff: boolean,
+    inventory: object,
+    currentBg: string,
+    currentCharacter: string,
+    courseProgress: object,
+    unlockedInventory: object
+  ) {
+    this._id = id;
+    this._name = name;
+    this._age = age;
+    this._gender = gender;
+    this._imgPath = imgPath;
+    this._inventory = inventory;
+    this._unlockedInventory = unlockedInventory;
+    this._currentBg = currentBg;
+    this._currentCharacter = currentCharacter;
+    this._courseProgress = courseProgress;
+  }
 
-    set setGender(gender: Gender) {
-        this.gender = gender;
-        this._storeUser();
-    }
+  set id(id: string) {
+    this._id = id;
+    this._storeUser();
+  }
 
-    set setImgPath(imgPath: string) {
-        this.imgPath = imgPath;
-        this._storeUser();
-    }
+  get id(): string { return this._id }
 
-    set setInventory(inventory: object) {
-        this.inventory = inventory;
-        this._storeUser();
-    }
+  set name(name: string) {
+    this._name = name;
+    this._storeUser();
+  }
 
-    setCurrentBg(currentBg: string) {
-        this.currentBg = currentBg;
-        this._storeUser();
-    }
+  get name(): string { return this._name }
 
-    setCurrentCharacter(currentCharacter: string) {
-        this.currentCharacter = currentCharacter;
-        this._storeUser();
-    }
+  set age(age: number) {
+    console.log("came setting age", age);
+    this._age = age;
+    this._storeUser();
+  }
 
-    set setCourseProgress(courseProgress: object) {
-        this.courseProgress = courseProgress;
-    }
+  get age(): number { return this._age }
 
-    setUnlockedInventory(inventoryItemName: string) {
-        this.unlockedInventory[inventoryItemName] = true;
-        this._storeUser();
-    }
+  set gender(gender: Gender) {
+    this._gender = gender;
+    this._storeUser();
+  }
 
-    _storeUser() {
-        cc.sys.localStorage.setItem(this.id, JSON.stringify(this));
-        // update profile to parse if internet available
+  get gender(): Gender { return this._gender }
+
+  set imgPath(imgPath: string) {
+    this._imgPath = imgPath;
+    this._storeUser();
+  }
+
+  get imgPath(): string { return this._imgPath }
+
+  set inventory(inventory: object) {
+    this._inventory = inventory;
+    this._storeUser();
+  }
+
+  get inventory(): object { return this._inventory }
+
+  set currentBg(currentBg: string) {
+    this._currentBg = currentBg;
+    this._storeUser();
+  }
+
+  get currentBg(): string { return this._currentBg }
+
+  set currentCharacter(currentCharacter: string) {
+    this._currentCharacter = currentCharacter;
+    this._storeUser();
+  }
+
+  get currentCharacter(): string { return this._currentCharacter }
+
+  set courseProgress(courseProgress: object) {
+    this._courseProgress = courseProgress;
+  }
+
+  get courseProgress(): object { return this._courseProgress }
+
+  set unlockedInventory(unlockedInventory: object) {
+    this._unlockedInventory = {};
+    this._storeUser();
+  }
+
+  get unlockedInventory(): object { return this._unlockedInventory }
+
+  unlockInventoryForItem(item: string) {
+    this._unlockedInventory[item] = true;
+    this._storeUser();
+  }
+
+  private _storeUser() {
+    User.storeUser(this);
+    // update profile to parse if internet available
+  }
+
+  static storeUser(user: User) {
+    cc.sys.localStorage.setItem(user.id, JSON.stringify(user));
+  }
+
+  static createUser(
+    name: string,
+    imgPath: string,
+    age: number,
+    gender: Gender,
+    id: string = null
+  ): User {
+    let uid = !!id ? id : new Date().toISOString();
+    let user = new User(
+      uid,
+      name,
+      age,
+      gender,
+      imgPath,
+      true,
+      true,
+      {},
+      "",
+      "bear",
+      {
+        'en': { 'currentLesson': '1', 'completedLessons': [] },
+        'hi': { 'currentLesson': '1', 'completedLessons': [] },
+        'en-maths': { 'currentLesson': '1', 'completedLessons': [] }
+      },
+      {}
+    );
+    User.storeUser(user)
+    let userIds = User.getUserIds()
+    if (userIds == null) {
+      userIds = [uid];
+    } else {
+      userIds.push(uid);
     }
+    User.setUserIds(userIds);
+    console.log("User  created ", JSON.parse(cc.sys.localStorage.getItem(uid)));
+    return user;
+  }
+
+  static getUsers(): Array<User> {
+    let response = [];
+    const userIdList = User.getUserIds();
+    if (userIdList != null) {
+      userIdList.forEach((id) => {
+        let user = this.fromJson(
+          JSON.parse(cc.sys.localStorage.getItem(id))
+        );
+        response.push(user);
+      });
+    }
+    return response;
+  }
+
+  private static getUserIds() {
+    return JSON.parse(cc.sys.localStorage.getItem(USER_ID)) as Array<string>;
+  }
+
+  private static setUserIds(userId: string[]) {
+    cc.sys.localStorage.setItem(USER_ID, JSON.stringify(userId));
+    console.log("User Id aray created ", JSON.parse(cc.sys.localStorage.getItem(USER_ID)));
+  }
+
+  static fromJson(data): User {
+    let user = new User(
+      data.id,
+      data.name,
+      data.age,
+      data.gender,
+      data.imgPath,
+      data.sfxOff,
+      data.musicOff,
+      data.inventory,
+      data.currentBg,
+      data.currentCharacter,
+      data.courseProgress,
+      data.unlockedInventory
+    );
+    return user;
+  }
+
+  static setCurrentUser(user: User) {
+    this._currentUser = user;
+  }
+
+  static getCurrentUser() {
+    return this._currentUser;
+  }
+
+  static getUser(uid: string): User {
+    let data = JSON.parse(cc.sys.localStorage.getItem(uid));
+    return data ? this.fromJson(data) : null;
+  }
+
+  static deleteUser(id: string) {
+    cc.sys.localStorage.removeItem(id);
+    const userIds = User.getUserIds()
+    let index = userIds.indexOf(id);
+    userIds.splice(index, 1);
+    cc.sys.localStorage.setItem(USER_ID, JSON.stringify(userIds));
+  }
+
+  static createUserOrFindExistingUser(userAttribute: UserAttribute): User {
+    const existingUser: User = this.getUser(userAttribute.id);
+    if (!!existingUser) return existingUser;
+
+    return User.createUser(
+      userAttribute.name,
+      userAttribute.imgPath,
+      userAttribute.age,
+      userAttribute.gender,
+      userAttribute.id
+    )
+
+  }
 }
 
+// Do not use anymore
 export default class Profile {
-    static _profile = {};
-    static _loaded: boolean = false;
-    static _currentUser: User;
-    static _userIdList = [];
-    static _settings = {};
+  static _profile = {};
+  static _loaded: boolean = false;
+  static _userIdList = [];
+  static _settings = {};
 
-    static createUserOrFindExistingUser(userAttribute: UserAttribute): User {
-        const existingUser: User = this.getUser(userAttribute.id);
-        if(!!existingUser) return existingUser;
 
-        return Profile.createUser(
-            userAttribute.name,
-            userAttribute.imgPath,
-            userAttribute.age,
-            userAttribute.gender,
-            userAttribute.id
-        )
 
+
+  static initialize() {
+    if (Object.keys(this._settings).length == 0) {
+      this.setValue(LANGUAGE, availLanguages[0]);
+      this.setValue(SFX_OFF, "false");
+      this.setValue(MUSIC_OFF, "false");
     }
+  }
 
-    static createUser(
-        name: string,
-        imgPath: string,
-        age: number,
-        gender: Gender,
-        id: string = null
-    ) {
-        let uid = !!id ? id : new Date().toISOString();
-        let user = new User(
-            uid,
-            name,
-            age,
-            gender,
-            imgPath,
-            true,
-            true,
-            {},
-            "",
-            "bear",
-            {
-                'en'      : {'currentLesson': '1', 'completedLessons': []},
-                'hi'      : {'currentLesson': '1', 'completedLessons': []},
-                'en-maths': {'currentLesson': '1', 'completedLessons': []}
-            },
-            {}
-        );
-        cc.sys.localStorage.setItem(uid, JSON.stringify(user));
-        let userId = JSON.parse(cc.sys.localStorage.getItem(USER_ID)) as Array<string>;
-        if (userId == null) {
-            userId = [uid];
-        } else {
-            userId.push(uid);
-        }
-        cc.sys.localStorage.setItem(USER_ID, JSON.stringify(userId));
-        console.log(
-            "User Id aray created ",
-            JSON.parse(cc.sys.localStorage.getItem(USER_ID))
-        );
-        console.log("User  created ", JSON.parse(cc.sys.localStorage.getItem(uid)));
-        return user;
+  static getValue(item: string) {
+    return this._settings[item];
+  }
+
+  static setValue(item: string, value: string) {
+    this._settings[item] = value;
+    cc.sys.localStorage.setItem(item, value);
+  }
+
+  static getItem(item: string): number {
+    return Number(this._profile[item] || 0);
+  }
+
+  static deleteItem(item: string): number {
+    return Number(this._profile[item] || 0);
+  }
+
+  static setItem(item: string, val: number) {
+    this._profile[item] = val;
+    cc.sys.localStorage.setItem(
+      UtilLogger.currentProfile(),
+      JSON.stringify(this._profile)
+    );
+  }
+
+  static fromJsonUsingParse(studentProfile: string) {
+    // load from Parse Student (logged in)
+    if (!this._loaded) {
+      this._loaded = true;
+      this._profile = JSON.parse(studentProfile || '{}');
+      const currentStudentProfile = UtilLogger.currentProfile();
+      cc.sys.localStorage.setItem(currentStudentProfile, JSON.stringify(this._profile));
     }
+  }
 
-    static getUsers(): Array<User> {
-        let response = [];
-        this._userIdList = JSON.parse(
-            cc.sys.localStorage.getItem(USER_ID)
-        ) as Array<string>;
-        if (this._userIdList != null) {
-            this._userIdList.forEach((id) => {
-                let user = this._convertToClass(
-                    JSON.parse(cc.sys.localStorage.getItem(id))
-                );
-                response.push(user);
-            });
-        }
-        return response;
-    }
 
-    static setCurrentUser(user: User) {
-        this._currentUser = user;
-    }
-
-    static getUser(uid: string): User {
-        let data = JSON.parse(cc.sys.localStorage.getItem(uid));
-        return data ? this._convertToClass(data) : null;
-    }
-
-    static _convertToClass(data): User {
-        let user = new User(
-            data.id,
-            data.name,
-            data.age,
-            data.gender,
-            data.imgPath,
-            data.sfxOff,
-            data.musicOff,
-            data.inventory,
-            data.currentBg,
-            data.currentCharacter,
-            data.courseProgress,
-            data.unlockedInventory
-        );
-        return user;
-    }
-
-    static initialize() {
-        if (Object.keys(this._settings).length == 0) {
-            this.setValue(LANGUAGE, availLanguages[0]);
-            this.setValue(SFX_OFF, "false");
-            this.setValue(MUSIC_OFF, "false");
-        }
-    }
-
-    static getCurrentUser() {
-        return this._currentUser;
-    }
-
-    static deleteUser(id: string) {
-        cc.sys.localStorage.removeItem(id);
-        let index = this._userIdList.indexOf(id);
-        this._userIdList.splice(index, 1);
-        cc.sys.localStorage.setItem(USER_ID, JSON.stringify(this._userIdList));
-    }
-
-    static getValue(item: string) {
-        return this._settings[item];
-    }
-
-    static setValue(item: string, value: string) {
-        this._settings[item] = value;
-        cc.sys.localStorage.setItem(item, value);
-    }
-
-    static getItem(item: string): number {
-        return Number(this._profile[item] || 0);
-    }
-
-    static deleteItem(item: string): number {
-        return Number(this._profile[item] || 0);
-    }
-
-    static setItem(item: string, val: number) {
-        this._profile[item] = val;
-        cc.sys.localStorage.setItem(
-            UtilLogger.currentProfile(),
-            JSON.stringify(this._profile)
-        );
-    }
-
-    static fromJsonUsingParse(studentProfile: string) {
-        // load from Parse Student (logged in)
-        if (!this._loaded) {
-            this._loaded = true;
-            this._profile = JSON.parse(studentProfile || '{}');
-            const currentStudentProfile = UtilLogger.currentProfile();
-            cc.sys.localStorage.setItem(currentStudentProfile, JSON.stringify(this._profile));
-        }
-    }
-
-    static fromJson() {
-        if (!this._loaded) {
-            this._loaded = true;
-            if (ASSET_LOAD_METHOD != "file" && CC_JSB) {
-                // if (CC_JSB) {
-                const config = Config.getInstance();
-                const currentStudentProfile = UtilLogger.currentProfile();
-                // this should be sdcard
-                cc.loader.load(
-                    {
-                        url : `/sdcard/aruba/current_profile/${currentStudentProfile}.json`,
-                        type: "json"
-                    },
-                    (err, data) => {
-                        if (err) {
-                            cc.log("Error loading json", JSON.stringify(err));
-                            // convert old tsv version to new json
-                            cc.loader.load(
-                                {
-                                    url : `/sdcard/aruba/tsv_profile/${currentStudentProfile}.tsv`,
-                                    type: "text"
-                                },
-                                (err, data) => {
-                                    if (!err && !!data) {
-                                        const allLines = data.split(/\r\n|\n/);
-                                        const re = /_currentDay_en-US_(L|M)_(\d+)\t(\d+)/;
-                                        var mathWorld = 0;
-                                        var litWorld: number = 0;
-                                        var mathLevel = 0;
-                                        var litLevel = 0;
-                                        allLines.forEach((line) => {
-                                            const found = line.match(re);
-                                            if (found != null && found.length >= 4) {
-                                                if (found[1] == "M") {
-                                                    const world = Number(found[2]);
-                                                    const level = Number(found[3]);
-                                                    if (world > mathWorld) {
-                                                        mathWorld = world;
-                                                        mathLevel = 0;
-                                                    }
-                                                    mathLevel = Math.max(level, mathLevel);
-                                                } else {
-                                                    const world = Number(found[2]);
-                                                    const level = Number(found[3]);
-                                                    if (world > litWorld) {
-                                                        litWorld = world;
-                                                        litLevel = 0;
-                                                    }
-                                                    litLevel = Math.max(level, litLevel);
-                                                }
-                                            }
-                                        });
-                                        config.course = "en";
-                                        config.loadCurriculumJson(() => {
-                                            Profile.setAllLevels(config, litWorld, litLevel);
-                                            this.lastWorld = litWorld;
-                                            const lastLevelInCur =
-                                                config.curriculum[litWorld].length - 1;
-                                            this.lastLevel = Math.min(litLevel, lastLevelInCur);
-                                            config.course = "en-maths";
-                                            config.loadCurriculumJson(() => {
-                                                Profile.setAllLevels(config, mathWorld, mathLevel);
-                                                this.lastWorld = mathWorld;
-                                                const lastLevelInCur =
-                                                    config.curriculum[mathWorld].length - 1;
-                                                this.lastLevel = Math.min(mathLevel, lastLevelInCur);
-                                            });
-                                        });
-                                    }
-                                }
-                            );
-                        }
-                        if (!err && !!data) {
-                            Object.keys(data).forEach((key) => {
-                                this._profile[key] = Number(data[key]);
-                            });
-                            cc.sys.localStorage.setItem(
-                                UtilLogger.currentProfile(),
-                                JSON.stringify(this._profile)
-                            );
-                        }
-                    }
-                );
-            } else {
-                const profile = JSON.parse(
-                    cc.sys.localStorage.getItem(UtilLogger.currentProfile())
-                );
-                if (profile != null) {
-                    this._profile = profile;
-                }
+  private static setAllLevels(
+    config: Config,
+    maxWorld: number,
+    maxLevel: number
+  ) {
+    for (const world in config.curriculum) {
+      if (Number(world) <= maxWorld) {
+        for (const level in config.curriculum[world]) {
+          if (Number(world) < maxWorld || Number(level) <= maxLevel) {
+            for (const game in config.curriculum[world][level]) {
+              this.setItem(
+                Config.getInstance().course +
+                "_" +
+                world +
+                "_" +
+                level +
+                "_" +
+                config.curriculum[world][level][game][0],
+                1
+              );
             }
+          }
         }
+      }
     }
+  }
 
-    private static setAllLevels(
-        config: Config,
-        maxWorld: number,
-        maxLevel: number
-    ) {
-        for (const world in config.curriculum) {
-            if (Number(world) <= maxWorld) {
-                for (const level in config.curriculum[world]) {
-                    if (Number(world) < maxWorld || Number(level) <= maxLevel) {
-                        for (const game in config.curriculum[world][level]) {
-                            this.setItem(
-                                Config.getInstance().course +
-                                "_" +
-                                world +
-                                "_" +
-                                level +
-                                "_" +
-                                config.curriculum[world][level][game][0],
-                                1
-                            );
-                        }
-                    }
-                }
-            }
-        }
+  static toJson() {
+    if (CC_JSB) {
+      const currentStudentProfile = UtilLogger.currentProfile();
+      const profileFile = `${currentStudentProfile}.json`;
+      cc.log(
+        "writing profile information to ",
+        profileFile,
+        JSON.stringify(this._profile)
+      );
+      UtilLogger.logProfile(JSON.stringify(this._profile), profileFile);
     }
+  }
 
-    static toJson() {
-        if (CC_JSB) {
-            const currentStudentProfile = UtilLogger.currentProfile();
-            const profileFile = `${currentStudentProfile}.json`;
-            cc.log(
-                "writing profile information to ",
-                profileFile,
-                JSON.stringify(this._profile)
-            );
-            UtilLogger.logProfile(JSON.stringify(this._profile), profileFile);
-        }
-    }
+  static get lastWorld(): number {
+    return this.getItem(Config.getInstance().course + WORLD);
+  }
 
-    static get lastWorld(): number {
-        return this.getItem(Config.getInstance().course + WORLD);
-    }
+  static set lastWorld(newVal: number) {
+    this.setItem(Config.getInstance().course + WORLD, newVal);
+    this.setItem(Config.getInstance().course + LEVEL, 0);
+    this.toJson();
+  }
 
-    static set lastWorld(newVal: number) {
-        this.setItem(Config.getInstance().course + WORLD, newVal);
-        this.setItem(Config.getInstance().course + LEVEL, 0);
-        this.toJson();
-    }
+  static get lastLevel(): number {
+    return this.getItem(Config.getInstance().course + LEVEL);
+  }
 
-    static get lastLevel(): number {
-        return this.getItem(Config.getInstance().course + LEVEL);
+  static set lastLevel(newVal) {
+    if (this.lastLevel < newVal) {
+      this.setItem(Config.getInstance().course + LEVEL, newVal);
+      this.toJson();
     }
+  }
 
-    static set lastLevel(newVal) {
-        if (this.lastLevel < newVal) {
-            this.setItem(Config.getInstance().course + LEVEL, newVal);
-            this.toJson();
-        }
-    }
+  static isGameCompleted(world: number, level: number, game: string): boolean {
+    return (
+      this.getItem(
+        Config.getInstance().course + "_" + world + "_" + level + "_" + game
+      ) == 1
+    );
+  }
 
-    static isGameCompleted(world: number, level: number, game: string): boolean {
-        return (
-            this.getItem(
-                Config.getInstance().course + "_" + world + "_" + level + "_" + game
-            ) == 1
-        );
-    }
-
-    static setGameCompleted(
-        world: number,
-        level: number,
-        game: string,
-        completed: boolean = true
-    ) {
-        this.setItem(
-            Config.getInstance().course + "_" + world + "_" + level + "_" + game,
-            completed ? 1 : 0
-        );
-        this.toJson();
-    }
+  static setGameCompleted(
+    world: number,
+    level: number,
+    game: string,
+    completed: boolean = true
+  ) {
+    this.setItem(
+      Config.getInstance().course + "_" + world + "_" + level + "_" + game,
+      completed ? 1 : 0
+    );
+    this.toJson();
+  }
 }
