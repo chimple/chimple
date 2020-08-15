@@ -1,6 +1,6 @@
 import Config from "./common/scripts/lib/config";
 import { MODE, Mode } from "./common/scripts/lib/constants";
-import Profile, { Gender, User } from "./common/scripts/lib/profile";
+import { Gender, User } from "./common/scripts/lib/profile";
 import { ParseApi } from "./private/services/parseApi";
 import { ParseUser } from "./private/domain/parseUser";
 
