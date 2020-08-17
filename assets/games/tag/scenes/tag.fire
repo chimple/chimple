@@ -57,8 +57,8 @@
     "_is3DNode": true,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "autoReleaseAssets": false,
-    "_id": "1889bb18-2a96-47a3-a165-494631d9b30a"
+    "autoReleaseAssets": true,
+    "_id": "9bfd0448-0574-4809-8ba8-fbc12e486db2"
   },
   {
     "__type__": "cc.Node",
@@ -171,7 +171,7 @@
       "array": [
         0,
         0,
-        469.3857727050781,
+        504.1902885011385,
         0,
         0,
         0,
@@ -227,6 +227,7 @@
       "height": 1
     },
     "_renderStages": 1,
+    "_alignWithScreen": true,
     "_id": "a5kgKd/9BM4qVm+biV4PDT"
   },
   {
@@ -316,6 +317,7 @@
     "_isAbsHorizontalCenter": true,
     "_isAbsVerticalCenter": true,
     "_originalWidth": 0,
-    "_originalHeight": 0
+    "_originalHeight": 0,
+    "_id": "d2FHcIW3JK3rd1EIhIjV4r"
   }
 ]
