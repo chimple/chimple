@@ -1,6 +1,6 @@
 import { OverEvent, GAME_CONTROLLER_NAME } from "../gameController";
 import { LANG } from "./constants";
-import Profile from "./profile";
+import Profile, { User } from "./profile";
 import { Util } from "../util";
 
 export const DEFAULT_FONT = 'main';
@@ -70,8 +70,11 @@ export default class Config {
     world: number;
     flow: Flow;
     currentFontName: string;
-    courses: Array<string>;
+    courseNames: Array<string>;
     overEvent: OverEvent;
+    courses;
+    lesson: string;
+    lessonData;
 
     private constructor() {
     }
@@ -92,7 +95,9 @@ export default class Config {
             Config.instance._textFontMap = new Map();
             Config.instance.currentFontName = DEFAULT_FONT;
             Config.instance.overEvent = OverEvent.None;
-            Config.instance.courses = ['en', 'en-maths', LANG];
+            // Config.instance.courseNames = ['en', 'en-maths', LANG];
+            Config.instance.courseNames = ['en', 'en-maths'];
+            Config.instance.courses = {}
         }
         return Config.instance;
     }
@@ -129,14 +134,14 @@ export default class Config {
 
     static loadScene(scene: string, bundle: string = null, callback: Function = null) {
         Util.freeResources();
-        if(bundle != null) {
+        if (bundle != null) {
             cc.assetManager.loadBundle(bundle, (err, loadedBundle) => {
                 loadedBundle.loadScene(scene, (err, loadedScene) => {
                     cc.director.runScene(loadedScene, null, () => {
                         cc.sys.garbageCollect();
                         if (callback != null) {
                             callback();
-                        }            
+                        }
                     })
                 })
             })
@@ -146,7 +151,7 @@ export default class Config {
                 if (callback != null) {
                     callback();
                 }
-            });    
+            });
         }
     }
 
@@ -308,6 +313,20 @@ export default class Config {
         }
     }
 
+    loadLessonJson(callback: Function) {
+        if(this.problem != 0) {
+            callback(this.lessonData.rows[this.problem - 1])
+        } else {
+            const jsonFile = this.course + '/' + this.lesson + '/res/' + this.lesson + '.json';
+            Util.load(jsonFile, (err, jsonAsset) => {
+                this.lessonData = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
+                this.totalProblems = this.lessonData.rows.length
+                this.problem = 1
+                if (callback != null) callback(this.lessonData.rows[this.problem - 1])
+            }, true);    
+        }
+    }
+
     loadQuizData(callback: Function) {
         this._levelData = []
         const games = this.curriculum[this.world][this.level]
@@ -415,6 +434,28 @@ export default class Config {
                 cc.log(err.message);
             }
         });
+    }
+
+    loadCourseJsons(node: cc.Node, callBack: Function) {
+        const user = User.getCurrentUser()
+        let numCourses = Object.keys(user.courseProgress).length
+        for (let name of Object.keys(user.courseProgress)) {
+            this.courses[name] = {}
+            const jsonFile = name + '/common/res/course.json';
+            Util.load(jsonFile, (err: Error, jsonAsset) => {
+                if (!err) {
+                    this.courses[name].chapters = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
+                }
+                numCourses--
+            })
+        }
+        const checkAllLoaded = () => {
+            if (numCourses <= 0) {
+                cc.director.getScheduler().unschedule(checkAllLoaded, node)
+                callBack()
+            }
+        }
+        cc.director.getScheduler().schedule(checkAllLoaded, node, 1)
     }
 
     currentLevelGames(): Array<string> {

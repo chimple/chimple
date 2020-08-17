@@ -34,7 +34,7 @@ export default class Home extends cc.Component {
     onLoad() {
         const config = Config.getInstance('home');
         UtilLogger.initPluginFirebase();
-        Profile.fromJson()
+        // Profile.fromJson()
 
         if (cc.sys.isNative)
             jsb.fileUtils.setSearchPaths([
@@ -53,7 +53,7 @@ export default class Home extends cc.Component {
             .set({ y: cc.winSize.height })
             .to(1, { y: logoY }, { progress: null, easing: 'elasticOut' })
             .start()
-        config.courses.forEach((type, i, arr) => {
+        config.courseNames.forEach((type, i, arr) => {
             const litNode = cc.instantiate(this.balloonPrefab)
             const lit = litNode.getComponent(Balloon)
             lit.chimp = this.nest.getChildByName('chimp')

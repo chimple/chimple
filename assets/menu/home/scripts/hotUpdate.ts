@@ -47,7 +47,7 @@ export default class HotUpdate extends cc.Component {
 
     onLoad() {
         UtilLogger.initPluginFirebase();
-        Profile.fromJson()
+        // Profile.fromJson()
         if (!cc.sys.isNative) {
             cc.director.loadScene('home')
             return
