@@ -35,7 +35,7 @@ export default class Library extends cc.Component {
             const headerButton = cc.instantiate(this.headerButtonPrefab)
             const headerButtonComp = headerButton.getComponent(HeaderButton)
             headerButtonComp.label.string = name
-            Util.load(name + '/common/res/icons/' + name + '.png', (err, texture) => {
+            Util.load(name + '/common/res/' + name + '.png', (err, texture) => {
                 if (!err) {
                     headerButtonComp.sprite.spriteFrame = new cc.SpriteFrame(texture);
                 }
@@ -65,7 +65,7 @@ export default class Library extends cc.Component {
                 const lessonButton = cc.instantiate(this.lessonButtonPrefab)
                 const lessonButtonComp = lessonButton.getComponent(LessonButton)
                 lessonButtonComp.label.string = lesson.name
-                Util.load(name + '/' + lesson.id + '/' + lesson.id + '.png', (err, texture) => {
+                Util.load(name + '/' + lesson.id + '/res/' + lesson.image, (err, texture) => {
                     if (!err) {
                         lessonButtonComp.sprite.spriteFrame = new cc.SpriteFrame(texture);
                     }

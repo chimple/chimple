@@ -100,9 +100,7 @@ export default class Board extends cc.Component {
         this.positions = [this.pos0, this.pos1, this.pos2]
         this.dropLayout.removeAllChildren(); //temporary while styling
         const data = config.data
-        this.letters = data.map((val: Array<string>) => {
-            return val[3]
-        })
+        this.letters = data[0][3].split(',')
         const layout = this.dropLayout.getComponent(cc.Layout)
         layout.paddingTop = parseInt(data[0][5])
         layout.paddingBottom = parseInt(data[0][6])

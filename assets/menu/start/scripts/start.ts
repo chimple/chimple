@@ -30,13 +30,13 @@ export default class Start extends cc.Component {
             const lessonButton = cc.instantiate(this.lessonButtonPrefab)
             const lessonButtonComp = lessonButton.getComponent(LessonButton)
             lessonButtonComp.label.string = currentLesson.name
-            Util.load(name + '/' + currentLessonId + '/' + currentLesson.image, (err, texture) => {
+            Util.load(name + '/' + currentLesson.id + '/res/' + currentLesson.image, (err, texture) => {
                 if (!err) {
                     lessonButtonComp.sprite.spriteFrame = new cc.SpriteFrame(texture);
                 }
             })
             lessonButtonComp.button.node.on('click', () => {
-                config.lesson = currentLessonId
+                config.lesson = currentLesson.id
                 config.pushScene('common/scenes/lesson')
             })
             this.layout.addChild(lessonButton)

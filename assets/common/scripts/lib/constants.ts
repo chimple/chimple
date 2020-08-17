@@ -3,9 +3,9 @@ export enum Mode {
     Home,
     School
 }
-export const MODE: Mode = Mode.School;
+export const MODE: Mode = Mode.Base;
 
-export const LANG = 'hi'
+export const LANG = 'en'
 export const ENV = 'dev'
 export const ASSET_LOAD_METHOD = 'file' //'file', 'resources'
 // export const ASSET_LOAD_METHOD = 'resources' //'file', 'resources'

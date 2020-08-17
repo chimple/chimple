@@ -63,34 +63,23 @@ export default class ProgressMonitor extends cc.Component {
                         cc.v2(currentPos.add(newPos).mul(0.33).add(cc.v2(200, 0))),
                         cc.v2(currentPos.add(newPos).mul(0.33).add(cc.v2(100, 0))),
                         newPos
-                    ])
-                ), cc.callFunc(() => this.waitForStop(newNode, () => {
-                    new cc.Tween().target(newNode).to(0.5, { position: currentSpriteNode.position, scale: 1 / currentStarScale, rotation: 0 }, null)
-                        .call(() => {
-                            currentSpriteNode.removeFromParent();
-                            if (current < this.totalStars) {
-                                const nowNode = this.node.getChildByName((current + 1).toString());
-                                const nowSpriteNode = nowNode.getChildByName('sprite');
-                                nowSpriteNode.getComponent(cc.Sprite).spriteFrame = this.current;
-                            }
-                            callback()
-                        })
-                        .start()
-                }))))
+                    ])),
+                    cc.rotateBy(0.5, 360),
+                    cc.spawn(
+                        cc.moveTo(0.5, currentSpriteNode.position),
+                        cc.scaleTo(0.5, 1 / currentStarScale)
+                    ),
+                    cc.callFunc(() => {
+                        currentSpriteNode.removeFromParent();
+                        if (current < this.totalStars) {
+                            const nowNode = this.node.getChildByName((current + 1).toString());
+                            const nowSpriteNode = nowNode.getChildByName('sprite');
+                            nowSpriteNode.getComponent(cc.Sprite).spriteFrame = this.current;
+                        }
+                        callback()
+                    })
+                ))
             }
         }
-    }
-
-    waitForStop(node: cc.Node, callback: Function) {
-        new cc.Tween().target(node)
-            .by(0.5, { rotation: 90 }, null)
-            .call(() => {
-                if (this.stopStar) {
-                    callback()
-                } else {
-                    this.waitForStop(node, callback)
-                }
-            })
-            .start()
     }
 }

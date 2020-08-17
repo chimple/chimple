@@ -206,7 +206,6 @@ export class User {
             "bear",
             {
                 'en'      : {'currentLesson': '1', 'completedLessons': []},
-                'hi'      : {'currentLesson': '1', 'completedLessons': []},
                 'en-maths': {'currentLesson': '1', 'completedLessons': []}
             },
             {}
