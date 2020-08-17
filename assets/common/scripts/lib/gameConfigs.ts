@@ -74,6 +74,7 @@ export const GAME_CONFIGS = {
     "drawshape": {
         "bundle": "drawshape",
         "prefab": "prefabs/drawshape",
+        "center": true,
     },
     "rocket": {
         "bundle": "rocket",

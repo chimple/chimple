@@ -314,11 +314,17 @@ export default class Config {
     }
 
     loadLessonJson(callback: Function) {
-        const jsonFile = this.course + '/' + this.lesson + '/res/' + this.lesson + '.json';
-        Util.load(jsonFile, (err, jsonAsset) => {
-            this.lessonData = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
-            if (callback != null) callback()
-        }, true);
+        if(this.problem != 0) {
+            callback(this.lessonData.rows[this.problem - 1])
+        } else {
+            const jsonFile = this.course + '/' + this.lesson + '/res/' + this.lesson + '.json';
+            Util.load(jsonFile, (err, jsonAsset) => {
+                this.lessonData = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
+                this.totalProblems = this.lessonData.rows.length
+                this.problem = 1
+                if (callback != null) callback(this.lessonData.rows[this.problem - 1])
+            }, true);    
+        }
     }
 
     loadQuizData(callback: Function) {

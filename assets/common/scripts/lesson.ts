@@ -1,12 +1,10 @@
-import Config, { Flow, QUIZ_LITERACY, QUIZ_MATHS, BRIDGE_NAME } from "./lib/config";
-import Profile from "./lib/profile";
-import Nest from "./nest";
-import ProgressMonitor from "./progressMonitor";
-import { Util } from "./util";
-import UtilLogger from "./util-logger";
-import QuizMonitor, { QUIZ_ANSWERED } from "./quiz-monitor";
 import Balloon from "./balloon";
-import { LOG_TYPE, PROBLEM_START, LOG_GAME, LOG_WORLD, LOG_LEVEL, LOG_GAME_LEVEL, LOG_PROBLEM, COURSE, OverEvent, GAME_START, ITEM_ID, CONTENT_TYPE, SELECT_CONTENT, PROBLEM_END, LOG_WRONG_MOVES, LOG_RIGHT_MOVES, GAME_END, LEVEL_COMPLETED, SKILLS, WORLD_COMPLETED, ACHIEVEMENT_ID, UNLOCK_ACHIEVEMENT, LEVEL_NAME, LEVEL_START, LEVEL_END } from "./gameController";
+import { OverEvent } from "./gameController";
+import Config, { Flow, QUIZ_LITERACY, QUIZ_MATHS } from "./lib/config";
+import { GAME_CONFIGS } from "./lib/gameConfigs";
+import ProgressMonitor from "./progressMonitor";
+import QuizMonitor, { QUIZ_ANSWERED } from "./quiz-monitor";
+import { Util } from "./util";
 
 const { ccclass, property } = cc._decorator;
 
@@ -49,131 +47,60 @@ export default class Lesson extends cc.Component {
     isQuizAnsweredCorrectly: boolean = false;
 
     onLoad() {
-        this.problemStart(true, () => { })
+        this.lessonStart()
     }
 
-    problemStart(replaceScene: boolean, callback: Function) {
+    private lessonStart() {
+        const config = Config.getInstance();
+        config.problem = 0
+        config.loadLessonJson((data: Array<string>) => {
+            config.data = [data];
+            if ((config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS)) {
+                this.quizMonitorNode = cc.instantiate(this.quizMonitor);
+                this.quizMonitorNode.zIndex = 2;
+                this.node.addChild(this.quizMonitorNode);
+            } else {
+                this.progressMonitorNode = cc.instantiate(this.progressMonitor);
+                this.progressMonitorNode.zIndex = 2;
+                this.node.addChild(this.progressMonitorNode);
+            }
+            this.problemStart(true, () => {})
+        })
+    }
+
+    private problemStart(replaceScene: boolean, callback: Function) {
         this.wrongMoves = 0;
         this.rightMoves = 0;
         const config = Config.getInstance();
 
-        const log = Object.assign({});
-        log[`${LOG_TYPE}`] = PROBLEM_START;
-        log[`${LOG_GAME}`] = config.game;
-        log[`${LOG_WORLD}`] = config.world;
-        log[`${LOG_LEVEL}`] = config.level;
-        log[`${LOG_GAME_LEVEL}`] = config.gameLevel;
-        log[`${LOG_PROBLEM}`] = config.problem;
-        log[`${COURSE}`] = config.course;
-        UtilLogger.logEvent(log);
-
-        config.loadGameJson((data: Array<Array<string>>) => {
-            config.data = data;
-            config.overEvent = OverEvent.GameOver;
-            if (replaceScene) {
-                if (config.problem == 1) {
-                    // GAME START
-                    const log = Object.assign({});
-                    log[`${LOG_TYPE}`] = GAME_START;
-                    log[`${LOG_GAME}`] = config.game;
-                    log[`${LOG_WORLD}`] = config.world;
-                    log[`${LOG_LEVEL}`] = config.level;
-                    log[`${LOG_GAME_LEVEL}`] = config.gameLevel;
-                    log[`${LOG_PROBLEM}`] = config.problem;
-                    log[`${COURSE}`] = config.course;
-                    UtilLogger.logEvent(log);
-
-                    const select_content = Object.assign({});
-                    select_content[`${ITEM_ID}`] = config.game;
-                    select_content[`${CONTENT_TYPE}`] = config.level;
-                    select_content[`${COURSE}`] = config.course;
-                    UtilLogger.logEventToFireBaseWithKey(
-                        SELECT_CONTENT, select_content
-                    );
-
-                    if ((config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS)) {
-                        this.quizMonitorNode = cc.instantiate(this.quizMonitor);
-                        this.quizMonitorNode.zIndex = 2;
-                        this.node.addChild(this.quizMonitorNode);
+        if(replaceScene) {
+            const gameConfig = GAME_CONFIGS[config.data[0][0]]
+            cc.assetManager.loadBundle(gameConfig.bundle, (err, bundle) => {
+                bundle.load(gameConfig.prefab, cc.Prefab, (err, prefab) => {
+                    if (this.gameNode != null) this.gameNode.removeFromParent()
+                    this.gameNode = cc.instantiate(prefab)
+                    this.node.addChild(this.gameNode)
+                    if(gameConfig.center) {
+                        this.gameNode.x = -512
+                        this.gameNode.y = -384
                     } else {
-                        this.progressMonitorNode = cc.instantiate(this.progressMonitor);
-                        this.progressMonitorNode.zIndex = 2;
-                        this.node.addChild(this.progressMonitorNode);
+                        this.gameNode.x = 0
+                        this.gameNode.y = 0
                     }
-                }
-                cc.assetManager.loadBundle(config.gameConfigs[config.game].bundle, (err, bundle) => {
-                    bundle.load(config.gameConfigs[config.game].prefab, cc.Prefab, (err, prefab) => {
-                        if (this.gameNode != null) {
-                            this.gameNode.removeFromParent()
-                        }
-                        this.gameNode = cc.instantiate(prefab)
-                        this.node.addChild(this.gameNode)
-                        this.setupEventHandlers()
-                        callback()
-                    })
+                    this.setupEventHandlers()
+                    callback()
                 })
+            })    
+        } else {
+            if(this.gameNode !=  null) this.gameNode.emit('nextIteration')
+            callback()
+        }
 
-                // Config.loadScene(config.gameConfigs[config.game].scene, config.gameConfigs[config.game].bundle)
-                // Config.preloadScene(config.gameConfigs[config.game].scene, () => {
-                //     callback();
-                // });
-
-            } else {
-                callback();
-            }
-        });
     }
 
-    loadGameScene() {
-        const config = Config.getInstance();
-        Config.loadScene(config.gameConfigs[config.game].scene, config.gameConfigs[config.game].bundle, this.setupEventHandlers.bind(this));
-        Util.computeTimeDiff('gameController', new Date());
-    }
-
-    private setupEventHandlers() {
-        this.gameNode.on('nextProblem', (replaceScene: boolean = true) => {
-            this.problemOver(replaceScene);
-        });
-        this.gameNode.on('correct', () => {
-            this.rightMoves++;
-            Util.playSfx(this.correctAudio);
-            if (this.chimp != null)
-                this.chimp.playAnimation('correct', 1);
-        });
-        this.gameNode.on('wrong', () => {
-            this.wrongMoves++;
-            Util.playSfx(this.wrongAudio);
-            if (this.chimp != null)
-                this.chimp.playAnimation('wrong', 1);
-        });
-        this.gameNode.on(QUIZ_ANSWERED, (isAnsweredCorrectly: boolean) => {
-            if (isAnsweredCorrectly) {
-                cc.log("QUIZ_ANSWERED correctly");
-                this.isQuizAnsweredCorrectly = true;
-                this.quizScore++;
-            } else {
-                cc.log("QUIZ_ANSWERED wrongly");
-                this.isQuizAnsweredCorrectly = false;
-            }
-        });
-    }
-
-    problemOver(replaceScene: boolean) {
-        const config = Config.getInstance();
-
-        const log = Object.assign({});
-        log[`${LOG_TYPE}`] = PROBLEM_END;
-        log[`${LOG_GAME}`] = config.game;
-        log[`${LOG_WORLD}`] = config.world;
-        log[`${LOG_LEVEL}`] = config.level;
-        log[`${LOG_GAME_LEVEL}`] = config.gameLevel;
-        log[`${LOG_PROBLEM}`] = config.problem;
-        log[`${LOG_WRONG_MOVES}`] = this.wrongMoves;
-        log[`${LOG_RIGHT_MOVES}`] = this.rightMoves;
-        log[`${COURSE}`] = config.course;
-        UtilLogger.logEvent(log);
-
+    private problemEnd(replaceScene: boolean) {
         let monitor = null;
+        const config = Config.i
         if (config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS) {
             monitor = this.quizMonitorNode.getComponent(QuizMonitor);
             monitor.stopStar = this.isQuizAnsweredCorrectly;
@@ -187,120 +114,22 @@ export default class Lesson extends cc.Component {
         monitor.updateProgress(currentProblem, () => {
             monitor.stopStar = false;
             if (currentProblem < config.totalProblems) {
-                if (!replaceScene) {
-                    if (this.gameNode != null) {
-                        block.removeFromParent();
-                        this.gameNode.emit('nextIteration');
-                    }
-                }
+                config.problem++;
+                config.data = [config.lessonData.rows[config.problem]]
+                this.problemStart(replaceScene, () => {
+                    if (this.gameNode != null) block.removeFromParent()
+                });
             } else {
-                this.gameOver();
+                this.lessonEnd();
             }
         });
-        if (config.problem > 0 && config.problem < config.totalProblems) {
-            config.problem++;
-            this.problemStart(replaceScene, () => {
-                monitor.stopStar = true;
-            });
-        } else {
-            monitor.stopStar = true;
-        }
     }
 
-    gameOver() {
+    private lessonEnd() {
         Util.playSfx(this.startAudio);
         const config = Config.getInstance();
 
-        const log = Object.assign({});
-        log[`${LOG_TYPE}`] = GAME_END;
-        log[`${LOG_GAME}`] = config.game;
-        log[`${LOG_WORLD}`] = config.world;
-        log[`${LOG_LEVEL}`] = config.level;
-        log[`${LOG_GAME_LEVEL}`] = config.gameLevel;
-        log[`${COURSE}`] = config.course;
-        UtilLogger.logEvent(log);
-
-        var overEvent = OverEvent.GameOver;
-
-        // if (Profile.lastLevel == config.level) {
-        Profile.setGameCompleted(config.world, config.level, config.game);
-        const levelDone = config.currentLevelGames()
-            .filter(val => val[0] != 'run')
-            .every(val =>
-                Profile.isGameCompleted(config.world, config.level, val[0])
-            );
-
-        if (levelDone) {
-            let skillsAchieved: string[] = [];
-            config.currentLevelGames()
-                .filter(val => val[0] != 'run')
-                .forEach(val => {
-                    if (val.length >= 4 && val[3] !== null && val[3] !== '') {
-                        skillsAchieved.push(val[3]);
-                    }
-                });
-
-            skillsAchieved = Array.from(new Set([].concat(skillsAchieved))) || [];
-            cc.log('skillsAchieved', skillsAchieved);
-            if ((config.game == QUIZ_LITERACY || config.game == QUIZ_MATHS)
-                && this.quizScore / config.totalProblems < 0.6) {
-                overEvent = OverEvent.LevelRepeat;
-            } else {
-                overEvent = OverEvent.LevelOver;
-            }
-            if (overEvent == OverEvent.LevelOver
-                && config.world == Profile.lastWorld
-                && config.level == Profile.lastLevel) {
-
-                const log = Object.assign({});
-                log[`${LOG_TYPE}`] = LEVEL_COMPLETED;
-                log[`${LOG_WORLD}`] = config.world;
-                log[`${LOG_LEVEL}`] = config.level;
-                log[`${SKILLS}`] = skillsAchieved && skillsAchieved.length > 0 ?
-                    skillsAchieved.join(',') : '';
-                log[`${COURSE}`] = config.course;
-                UtilLogger.logEvent(log);
-
-                if (config.currentWorlds()[config.world].length == config.level + 1) {
-                    Profile.lastWorld = config.world + 1;
-                    overEvent = OverEvent.WorldOver;
-
-                    const log = Object.assign({});
-                    log[`${LOG_TYPE}`] = WORLD_COMPLETED;
-                    log[`${LOG_WORLD}`] = config.world;
-                    log[`${COURSE}`] = config.course;
-                    UtilLogger.logEvent(log);
-
-                    // log achievement event
-                    const unlockAchievement = Object.assign({});
-                    unlockAchievement[`${ACHIEVEMENT_ID}`] = config.world;
-                    unlockAchievement[`${COURSE}`] = config.course;
-                    UtilLogger.logEventToFireBaseWithKey(
-                        UNLOCK_ACHIEVEMENT, unlockAchievement
-                    );
-                } else {
-                    Profile.lastLevel = config.level + 1;
-                    const log = Object.assign({});
-
-                    // log LEVEL_START
-                    const levelStart = Object.assign({});
-                    levelStart[`${LEVEL_NAME}`] = config.level + 1;
-                    levelStart[`${COURSE}`] = config.course;
-                    UtilLogger.logEventToFireBaseWithKey(
-                        LEVEL_START, levelStart
-                    );
-
-                    // log LEVEL_END
-                    const levelEnd = Object.assign({});
-                    levelEnd[`${LEVEL_END}`] = config.level;
-                    levelEnd[`${COURSE}`] = config.course;
-                    UtilLogger.logEventToFireBaseWithKey(
-                        LEVEL_END, levelEnd
-                    );
-                }
-            }
-        }
-        // }
+        var overEvent: OverEvent = OverEvent.GameOver
         const block = cc.instantiate(this.blockPrefab);
         this.node.addChild(block);
 
@@ -336,12 +165,34 @@ export default class Lesson extends cc.Component {
                 balloonComp.onBalloonClick();
             })
             .start();
-        const bridgeNode = cc.director.getScene().getChildByName(BRIDGE_NAME);
-        if (bridgeNode != null) {
-            new cc.Tween().target(bridgeNode)
-                .to(0.5, { y: 0 }, null)
-                .start();
-        }
+    }
+
+    private setupEventHandlers() {
+        this.gameNode.on('nextProblem', (replaceScene: boolean = true) => {
+            this.problemEnd(replaceScene);
+        });
+        this.gameNode.on('correct', () => {
+            this.rightMoves++;
+            Util.playSfx(this.correctAudio);
+            if (this.chimp != null)
+                this.chimp.playAnimation('correct', 1);
+        });
+        this.gameNode.on('wrong', () => {
+            this.wrongMoves++;
+            Util.playSfx(this.wrongAudio);
+            if (this.chimp != null)
+                this.chimp.playAnimation('wrong', 1);
+        });
+        this.gameNode.on(QUIZ_ANSWERED, (isAnsweredCorrectly: boolean) => {
+            if (isAnsweredCorrectly) {
+                cc.log("QUIZ_ANSWERED correctly");
+                this.isQuizAnsweredCorrectly = true;
+                this.quizScore++;
+            } else {
+                cc.log("QUIZ_ANSWERED wrongly");
+                this.isQuizAnsweredCorrectly = false;
+            }
+        });
     }
 
 }

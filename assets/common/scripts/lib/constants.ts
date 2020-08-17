@@ -3,10 +3,10 @@ export enum Mode {
     Home,
     School
 }
-export const MODE: Mode = Mode.School;
+export const MODE: Mode = Mode.Base;
 
-export const LANG = 'hi'
-export const ENV = 'dev'
+export const LANG = 'en'
+export const ENV = 'stage'
 export const ASSET_LOAD_METHOD = 'file' //'file', 'resources'
 // export const ASSET_LOAD_METHOD = 'resources' //'file', 'resources'
 // export const COURSES_URL = 'https://chimple-ee1ed.web.app/courses/'
@@ -23,10 +23,10 @@ export const COURSE_SERVER = {
         'hi-maths' : 'http://localhost:8901/courses/',
     },
     'stage': {
-        'hi' : 'https://bahama-hi-stage.web.app/courses/',
-        'en' : 'https://bahama-hi-stage.web.app/courses/',
-        'en-maths': 'https://bahama-hi-stage.web.app/courses/',
-        'hi-maths' : 'https://bahama-hi-stage.web.app/courses/',
+        'hi' : 'https://bahama-hi-stage.web.app/new/courses/',
+        'en' : 'https://bahama-hi-stage.web.app/new/courses/',
+        'en-maths': 'https://bahama-hi-stage.web.app/new/courses/',
+        'hi-maths' : 'https://bahama-hi-stage.web.app/new/courses/',
     },
     'prod': {
         'hi' : 'https://bahama-hi-prod.web.app/courses/',

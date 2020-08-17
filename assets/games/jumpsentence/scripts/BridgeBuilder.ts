@@ -152,9 +152,9 @@ export default class BridgeBuilder extends cc.Component {
       leftNode = this.layout.node.getChildByUuid(this.nodeUuid[index - 1]);
     }
     cc.log(" count  ", this.count)
-    if (--this.count < 4) {
+    if (--this.count < 5) {
       cc.log("reduce bridge manual")
-      this.layout.node.width -= 80;
+      this.layout.node.width -= 120;
       this.layout.updateLayout()
     }
 
@@ -278,7 +278,7 @@ export default class BridgeBuilder extends cc.Component {
       }
     });
     newLayoutW += this.boxWidth;
-    if (newLayoutW < cc.winSize.width - 320) {
+    if (newLayoutW < cc.winSize.width - 360) {
       this.firstDrop = null;
       this.layout.type = cc.Layout.Type.HORIZONTAL;
       this.layout.resizeMode = cc.Layout.ResizeMode.CONTAINER;
