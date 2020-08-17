@@ -60,7 +60,7 @@ export default class ArrangeLetters extends cc.Component {
         dragObj.height = 0.7 * dragObj.height;
       }
       dragObj.position = cc.v3(
-        -cc.winSize.width / 2.5 + i * cc.winSize.width / this.correctLetterArray.length,
+        -cc.winSize.width / 2.8 + i * cc.winSize.width / this.correctLetterArray.length,
         -cc.winSize.height / 4
       );
       ArrangeLetters.correctPosition.set(dragObj.name,dragObj.position.x)
