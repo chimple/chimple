@@ -257,18 +257,18 @@ export class User {
 
     static fromJson(data): User {
         let user = new User(
-            data.id,
-            data.name,
-            data.age,
-            data.gender,
-            data.imgPath,
-            data.sfxOff,
-            data.musicOff,
-            data.inventory,
-            data.currentBg,
-            data.currentCharacter,
-            data.courseProgress,
-            data.unlockedInventory
+            data._id,
+            data._name,
+            data._age,
+            data._gender,
+            data._imgPath,
+            data._sfxOff,
+            data._musicOff,
+            data._inventory,
+            data._currentBg,
+            data._currentCharacter,
+            data._courseProgress,
+            data._unlockedInventory
         );
         return user;
     }

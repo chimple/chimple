@@ -11,7 +11,7 @@ export default class AlphaDrag extends Drag {
 
     onLoad() {
         super.onLoad()
-        if(Config.getInstance().game == 'letterboard') {
+        if(Config.i.data[0][0] == 'letterboard') {
             Util.loadsLetter(this.node.name.toLowerCase(), (clip) => {
                 this._soundClip = clip
             })
