@@ -29,6 +29,7 @@ export interface UserAttribute {
     age: number,
     gender: Gender,
     imgPath: string,
+    userAvatarIndex: number
 }
 
 export enum Language {
@@ -45,6 +46,7 @@ export class User {
     private _age: number;
     private _gender: Gender;
     private _imgPath: string;
+    private _avatarImageIndex: number;
     private _sfxOff: boolean;
     private _musicOff: boolean;
     private _inventory: object;
@@ -59,6 +61,7 @@ export class User {
         age: number,
         gender: Gender,
         imgPath: string,
+        avatarImageIndex: number,
         sfxOff: boolean,
         musicOff: boolean,
         inventory: object,
@@ -72,6 +75,7 @@ export class User {
         this._age = age;
         this._gender = gender;
         this._imgPath = imgPath;
+        this._avatarImageIndex = avatarImageIndex;
         this._inventory = inventory;
         this._unlockedInventory = unlockedInventory;
         this._currentBg = currentBg;
@@ -123,6 +127,16 @@ export class User {
 
     get imgPath(): string {
         return this._imgPath;
+    }
+
+    set avatarImageIndex(avatarImageIndex: number) {
+        console.log(" avatar index : ", avatarImageIndex);
+        this._avatarImageIndex = avatarImageIndex;
+        this._storeUser();
+    }
+
+    get avatarImageIndex(): number {
+        return this._avatarImageIndex;
     }
 
     set inventory(inventory: object) {
@@ -190,7 +204,8 @@ export class User {
         imgPath: string,
         age: number,
         gender: Gender,
-        id: string = null
+        id: string = null,
+        userAvatarIndex: number
     ): User {
         let uid = !!id ? id : new Date().toISOString();
         let user = new User(
@@ -199,6 +214,7 @@ export class User {
             age,
             gender,
             imgPath,
+            userAvatarIndex,
             true,
             true,
             {},
@@ -252,6 +268,7 @@ export class User {
             data.age,
             data.gender,
             data.imgPath,
+            data.avatarImageIndex,
             data.sfxOff,
             data.musicOff,
             data.inventory,
@@ -293,7 +310,8 @@ export class User {
             userAttribute.imgPath,
             userAttribute.age,
             userAttribute.gender,
-            userAttribute.id
+            userAttribute.id,
+            userAttribute.userAvatarIndex
         );
     }
 }
