@@ -75,10 +75,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 9
+        "__id__": 8
       },
       {
-        "__id__": 10
+        "__id__": 9
       }
     ],
     "_prefab": null,
@@ -141,13 +141,13 @@
         "__id__": 4
       },
       {
-        "__id__": 7
+        "__id__": 6
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 8
+        "__id__": 7
       }
     ],
     "_prefab": null,
@@ -175,7 +175,7 @@
       "array": [
         0,
         0,
-        276.404801174905,
+        290.118510267787,
         0,
         0,
         0,
@@ -212,9 +212,7 @@
         "__id__": 5
       }
     ],
-    "_prefab": {
-      "__id__": 6
-    },
+    "_prefab": null,
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
@@ -263,37 +261,29 @@
     "_id": "4bDcCp3Y1DXZ2g6ssKzhEX"
   },
   {
-    "__type__": "2137c29qlpJiK1XLcEby1WA",
+    "__type__": "abf52cp3xRJ3KBtMZfh0uWi",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 4
     },
     "_enabled": true,
+    "dropObj": {
+      "__uuid__": "b7489b58-9049-458b-b9b1-7072445d0c37"
+    },
     "playground": {
-      "__uuid__": "0b9e2af0-f20a-4ca3-8011-825137406e18"
+      "__uuid__": "794be60d-68cc-42d0-be87-5d9218d33dcc"
     },
     "playground2": {
-      "__uuid__": "32683d2c-dc8a-4e8a-8eb6-576453301d6b"
+      "__uuid__": "8918c5c5-73ad-4c07-ab79-8fdf5c3273ec"
     },
     "ball2": {
-      "__uuid__": "16f4d559-a2b2-4c8e-b5d9-51455598be37"
+      "__uuid__": "958ace48-86c8-47b4-82c9-e7690388850f"
     },
     "ball": {
-      "__uuid__": "4b772360-6352-4264-bd0e-c9768a9d0162"
+      "__uuid__": "4abdc716-15ab-4346-a315-7ff554a38581"
     },
-    "_id": "449CRyNqNPc5RlCSAWctuC"
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 4
-    },
-    "asset": {
-      "__uuid__": "339ef9c2-adc0-49da-8a35-3f6fe02f98e7"
-    },
-    "fileId": "4bDcCp3Y1DXZ2g6ssKzhEX",
-    "sync": false
+    "_id": "1d4vSAdgJG7rb7gfNo3FaW"
   },
   {
     "__type__": "cc.Node",

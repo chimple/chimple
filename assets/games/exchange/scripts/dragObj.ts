@@ -1,5 +1,5 @@
 import Drag from "../../../common/scripts/drag";
-import ArrangeLetters from "./exchange";
+import ArrangeLetters from "./arrangeLetters";
 
 import { Util } from "../../../common/scripts/util";
 
@@ -10,6 +10,8 @@ export default class DragObj extends Drag {
   @property(cc.AudioClip)
   correctClip: cc.AudioClip = null;
 
+  @property(cc.RichText)
+  richTextNode: cc.RichText = null;
 
   private _text: string = null;
   private _soundName: string = null;
