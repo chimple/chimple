@@ -6,13 +6,13 @@ export enum DeployMode {
 export enum Mode {
     Base,
     Home,
-    School,
     Teacher,
+    School,
     None
 }
 
 export let D_MODE: DeployMode = DeployMode.Close;
-export let MODE: Mode = Mode.Base;
+export let MODE: Mode = Mode.None;
 
 export const LANG = 'en';
 export const ENV = 'stage';

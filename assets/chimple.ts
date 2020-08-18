@@ -17,6 +17,7 @@ export const NONE: string = "NONE";
 
 export const SELECT_SECTIONS_SCENE = 'private/school/scenes/selectSections';
 export const SCHOOL_REGISTRATION_SCENE = 'private/school/scenes/schoolRegistration';
+export const TEACHER_REGISTRATION_SCENE = 'private/teacher/scenes/teacherRegistration';
 export const REGISTER_SCENE = 'private/register/scenes/register';
 export const HOME_SCENE = 'menu/home/scenes/home';
 @ccclass
@@ -31,13 +32,13 @@ export default class Chimple extends cc.Component {
             case DeployMode.Close:
                 switch (selectedMode) {
                     case Mode.Home:
-                        Config.loadScene('private/home/login/scenes/welcomePage', 'private', null);
+                        Chimple.navigateToHome();
                         break;
                     case Mode.School:
                         Chimple.navigateToSchool();
                         break;
                     case Mode.Teacher:
-                        this.navigateToBase();
+                        Chimple.navigateToTeacher();
                         break;
                     case Mode.Base:
                         this.navigateToBase();
@@ -54,6 +55,10 @@ export default class Chimple extends cc.Component {
 
     }
 
+    public static navigateToHome() {
+        Config.loadScene('private/home/login/scenes/welcomePage', 'private', null);
+    }
+
     public static navigateToSchool() {
         const loggedInUser: ParseUser = ParseApi.getLoggedInUser();
         if (!!loggedInUser && !ParseApi.isEmpty(loggedInUser)) {
@@ -61,6 +66,16 @@ export default class Chimple extends cc.Component {
         } else {
             Config.loadScene(SCHOOL_REGISTRATION_SCENE, 'private', null);
         }
+    }
+
+    public static navigateToTeacher() {
+        const loggedInUser: ParseUser = ParseApi.getLoggedInUser();
+        if (!!loggedInUser && !ParseApi.isEmpty(loggedInUser)) {
+            // Config.loadScene(SELECT_SECTIONS_SCENE, 'private', null);
+        } else {
+            Config.loadScene(TEACHER_REGISTRATION_SCENE, 'private', null);
+        }
+
     }
 
     private navigateToBase() {
