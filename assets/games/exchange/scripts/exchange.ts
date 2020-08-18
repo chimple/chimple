@@ -17,7 +17,7 @@ export default class ArrangeLetters extends cc.Component {
   ball: cc.Prefab = null;
 
   data: Array<Array<string>> = [
-    ["1", "1", "1", "playground", "ball2", "a,p,s,l"],
+    ["1", "1", "1", "playground", "ball2", "a,b,c,d"],
     ["1", "1", "1", "playground2", "ball2", "c,a,t"],
   ];
   level: string;
