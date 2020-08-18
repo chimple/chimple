@@ -1,6 +1,6 @@
 import Balloon from "./balloon";
 import { OverEvent } from "./gameController";
-import Config, { Flow, QUIZ_LITERACY, QUIZ_MATHS } from "./lib/config";
+import Config, { Flow, QUIZ_LITERACY, QUIZ_MATHS, DEFAULT_FONT } from "./lib/config";
 import { GAME_CONFIGS } from "./lib/gameConfigs";
 import ProgressMonitor from "./progressMonitor";
 import QuizMonitor, { QUIZ_ANSWERED } from "./quiz-monitor";
@@ -75,6 +75,12 @@ export default class Lesson extends cc.Component {
 
         if(replaceScene) {
             const gameConfig = GAME_CONFIGS[config.data[0][0]]
+            let fontName: string = config.course.split('-')[0] + '-' + DEFAULT_FONT;
+            if (gameConfig.fontName != null) {
+                fontName = gameConfig.fontName;
+            }
+            config.loadFontDynamically(fontName);
+
             cc.assetManager.loadBundle(gameConfig.bundle, (err, bundle) => {
                 bundle.load(gameConfig.prefab, cc.Prefab, (err, prefab) => {
                     if (this.gameNode != null) this.gameNode.removeFromParent()
@@ -115,7 +121,7 @@ export default class Lesson extends cc.Component {
             monitor.stopStar = false;
             if (currentProblem < config.totalProblems) {
                 config.problem++;
-                config.data = [config.lessonData.rows[config.problem]]
+                config.data = [config.lessonData.rows[config.problem-1]]
                 this.problemStart(replaceScene, () => {
                     if (this.gameNode != null) block.removeFromParent()
                 });
@@ -137,17 +143,12 @@ export default class Lesson extends cc.Component {
         balloon.position = cc.director.getScene().convertToNodeSpaceAR(this.chimp.node.parent.convertToWorldSpaceAR(cc.v2(0, -118)));
         const balloonComp = balloon.getComponent(Balloon);
         balloonComp.game = config.game;
-        if (config.gameConfigs[config.game].color)
-            balloonComp.color = new cc.Color().fromHEX(config.gameConfigs[config.game].color);
         balloonComp.label.string = Util.i18NText(overEvent == OverEvent.LevelOver
             ? 'New Level Unlocked' : overEvent == OverEvent.LevelRepeat
                 ? 'Repeat Level' : 'Game Over');
         balloonComp.chimp = this.chimp.node;
         this.chimp.node.removeFromParent();
         balloonComp.seat.addChild(this.chimp.node);
-        if (config.gameConfigs[config.game].color != null) {
-            balloonComp.color = new cc.Color().fromHEX(config.gameConfigs[config.game].color);
-        }
         balloonComp.onClickCallback = () => {
             if (config.flow == Flow.Debug) {
                 config.popScene();
