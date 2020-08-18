@@ -2,6 +2,8 @@ import { ASSET_LOAD_METHOD } from "./constants";
 import UtilLogger from "../util-logger";
 import Config from "./config";
 import { ParseApi } from "../../../private/services/parseApi";
+import { ParseSubject } from "../../../private/domain/parseSubject";
+import { TEACHER_REPORT_CARD_SCENE } from "../../../chimple";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -25,10 +27,11 @@ export enum Gender {
 
 export interface UserAttribute {
     id: string,
-    name: string,
-    age: number,
-    gender: Gender,
-    imgPath: string,
+    name?: string,
+    age?: number,
+    gender?: Gender,
+    imgPath?: string,
+    isTeacher?: boolean
 }
 
 export enum Language {
@@ -52,6 +55,7 @@ export class User {
     private _currentCharacter: string;
     private _courseProgress: object;
     private _unlockedInventory: object;
+    private _isTeacher: boolean;
 
     constructor(
         id: string,
@@ -169,6 +173,11 @@ export class User {
         return this._unlockedInventory;
     }
 
+    set isTeacher(isTeacher: boolean) {
+        this._isTeacher = isTeacher;
+        this._storeUser();
+    }
+
     unlockInventoryForItem(item: string) {
         this._unlockedInventory[item] = true;
         this._storeUser();
@@ -190,7 +199,8 @@ export class User {
         imgPath: string,
         age: number,
         gender: Gender,
-        id: string = null
+        id: string = null,
+        isTeacher: boolean = false
     ): User {
         let uid = !!id ? id : new Date().toISOString();
         let user = new User(
@@ -293,7 +303,8 @@ export class User {
             userAttribute.imgPath,
             userAttribute.age,
             userAttribute.gender,
-            userAttribute.id
+            userAttribute.id,
+            userAttribute.isTeacher
         );
     }
 }
@@ -425,5 +436,24 @@ export default class Profile {
             completed ? 1 : 0
         );
         this.toJson();
+    }
+
+    static async teacherPostLoginActivity(objectId: string) {
+        const currentUser: User = User.createUserOrFindExistingUser({
+                id: objectId
+            }
+        );
+        User.setCurrentUser(currentUser);
+        let courseProgress = {};
+        const subjects: ParseSubject[] = await ParseApi.getAllSubjects();
+        subjects.forEach(
+            (p: ParseSubject) => {
+                courseProgress[p.courseCode] = {
+                    'currentLesson'   : '1',
+                    'completedLessons': []
+                };
+            }
+        );
+        currentUser.courseProgress = courseProgress;
     }
 }

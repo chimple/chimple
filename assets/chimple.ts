@@ -1,5 +1,5 @@
 import Config from "./common/scripts/lib/config";
-import { Gender, User } from "./common/scripts/lib/profile";
+import Profile, { Gender, User } from "./common/scripts/lib/profile";
 import { ParseApi } from "./private/services/parseApi";
 import { ParseUser } from "./private/domain/parseUser";
 import { D_MODE, DeployMode, Mode, MODE } from "./common/scripts/lib/constants";
@@ -18,11 +18,12 @@ export const NONE: string = "NONE";
 export const SELECT_SECTIONS_SCENE = 'private/school/scenes/selectSections';
 export const SCHOOL_REGISTRATION_SCENE = 'private/school/scenes/schoolRegistration';
 export const TEACHER_REGISTRATION_SCENE = 'private/teacher/scenes/teacherRegistration';
+export const TEACHER_REPORT_CARD_SCENE = 'private/teacher/scenes/teacherReportCard';
 export const REGISTER_SCENE = 'private/register/scenes/register';
 export const HOME_SCENE = 'menu/home/scenes/home';
 @ccclass
 export default class Chimple extends cc.Component {
-    onLoad() {
+    async onLoad() {
         const deployMode: number = Number(cc.sys.localStorage.getItem(DEPLOY_MODE)) || D_MODE;
         const selectedMode: number = Number(cc.sys.localStorage.getItem(CHIMPLE_MODE)) || MODE;
         switch (deployMode) {
@@ -38,7 +39,7 @@ export default class Chimple extends cc.Component {
                         Chimple.navigateToSchool();
                         break;
                     case Mode.Teacher:
-                        Chimple.navigateToTeacher();
+                        await Chimple.navigateToTeacher();
                         break;
                     case Mode.Base:
                         this.navigateToBase();
@@ -68,14 +69,14 @@ export default class Chimple extends cc.Component {
         }
     }
 
-    public static navigateToTeacher() {
-        const loggedInUser: ParseUser = ParseApi.getLoggedInUser();
-        if (!!loggedInUser && !ParseApi.isEmpty(loggedInUser)) {
-            // Config.loadScene(SELECT_SECTIONS_SCENE, 'private', null);
+    public static async navigateToTeacher() {
+        const teacherUser: ParseUser = ParseApi.getLoggedInUser();
+        if (!!teacherUser && !ParseApi.isEmpty(teacherUser)) {
+            await Profile.teacherPostLoginActivity(teacherUser.objectId);
+            Config.loadScene(TEACHER_REPORT_CARD_SCENE, 'private', null);
         } else {
             Config.loadScene(TEACHER_REGISTRATION_SCENE, 'private', null);
         }
-
     }
 
     private navigateToBase() {
