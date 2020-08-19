@@ -53,6 +53,7 @@ export default class Library extends cc.Component {
 
     renderBody(name, course) {
         const config = Config.i
+        config.course = name
         this.layout.removeAllChildren()
         let lessonContentNode: cc.Node = null
         for (const chapter of course.chapters) {
