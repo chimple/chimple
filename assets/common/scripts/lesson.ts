@@ -74,7 +74,8 @@ export default class Lesson extends cc.Component {
         const config = Config.getInstance();
 
         if(replaceScene) {
-            const gameConfig = GAME_CONFIGS[config.data[0][0]]
+            config.game = config.data[0][0]
+            const gameConfig = GAME_CONFIGS[config.game]
             let fontName: string = config.course.split('-')[0] + '-' + DEFAULT_FONT;
             if (gameConfig.fontName != null) {
                 fontName = gameConfig.fontName;

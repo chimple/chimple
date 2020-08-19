@@ -149,11 +149,11 @@ export const GAME_CONFIGS = {
     },
     "shapepair": {
         "bundle": "letterpair",
-        "prefab": "prefabs/shapepair"
+        "prefab": "prefabs/letterpair"
     },
     "numberpair": {
         "bundle": "letterpair",
-        "prefab": "prefabs/numberpair"
+        "prefab": "prefabs/letterpair"
     },
     "questionboard": {
         "bundle": "questionboard",
