@@ -19,6 +19,7 @@ export const SELECT_SECTIONS_SCENE = 'private/school/scenes/selectSections';
 export const SCHOOL_REGISTRATION_SCENE = 'private/school/scenes/schoolRegistration';
 export const TEACHER_REGISTRATION_SCENE = 'private/teacher/scenes/teacherRegistration';
 export const TEACHER_REPORT_CARD_SCENE = 'private/teacher/scenes/teacherReportCard';
+export const TEACHER_REPORT_METRICS_SCENE = 'private/teacher/scenes/teacherReportMetrics';
 export const REGISTER_SCENE = 'private/register/scenes/register';
 export const HOME_SCENE = 'menu/home/scenes/home';
 @ccclass
