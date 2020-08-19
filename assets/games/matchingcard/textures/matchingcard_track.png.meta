@@ -1,20 +1,20 @@
 {
   "ver": "2.3.5",
-  "uuid": "39c5a0ee-3dad-4c95-a791-984e586e38bf",
+  "uuid": "e179cfa6-e699-4133-930f-7f0bc3dab512",
   "type": "sprite",
   "wrapMode": "clamp",
-  "filterMode": "bilinear",
+  "filterMode": "point",
   "premultiplyAlpha": false,
   "genMipmaps": false,
   "packable": true,
-  "width": 100,
-  "height": 78,
+  "width": 70,
+  "height": 309,
   "platformSettings": {},
   "subMetas": {
-    "sentence_drop_sentencemaker": {
+    "matchingcard_track": {
       "ver": "1.0.4",
-      "uuid": "3c26b690-32ba-4267-bf85-5234fc314803",
-      "rawTextureUuid": "39c5a0ee-3dad-4c95-a791-984e586e38bf",
+      "uuid": "f3ceaab6-c1cc-40f0-a465-e69da134503a",
+      "rawTextureUuid": "e179cfa6-e699-4133-930f-7f0bc3dab512",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -22,14 +22,14 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 100,
-      "height": 78,
-      "rawWidth": 100,
-      "rawHeight": 78,
+      "width": 70,
+      "height": 309,
+      "rawWidth": 70,
+      "rawHeight": 309,
       "borderTop": 0,
       "borderBottom": 0,
-      "borderLeft": 0,
-      "borderRight": 0,
+      "borderLeft": 6,
+      "borderRight": 6,
       "subMetas": {}
     }
   }
