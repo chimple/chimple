@@ -29,7 +29,7 @@ export interface UserAttribute {
     age: number,
     gender: Gender,
     imgPath: string,
-    userAvatarIndex: number
+    userAvatarIndex: string
 }
 
 export enum Language {
@@ -46,7 +46,7 @@ export class User {
     private _age: number;
     private _gender: Gender;
     private _imgPath: string;
-    private _avatarImageIndex: number;
+    private _avatarImage: string;
     private _sfxOff: boolean;
     private _musicOff: boolean;
     private _inventory: object;
@@ -61,7 +61,7 @@ export class User {
         age: number,
         gender: Gender,
         imgPath: string,
-        avatarImageIndex: number,
+        avatarImage: string,
         sfxOff: boolean,
         musicOff: boolean,
         inventory: object,
@@ -75,7 +75,7 @@ export class User {
         this._age = age;
         this._gender = gender;
         this._imgPath = imgPath;
-        this._avatarImageIndex = avatarImageIndex;
+        this._avatarImage = avatarImage;
         this._inventory = inventory;
         this._unlockedInventory = unlockedInventory;
         this._currentBg = currentBg;
@@ -129,14 +129,14 @@ export class User {
         return this._imgPath;
     }
 
-    set avatarImageIndex(avatarImageIndex: number) {
-        console.log(" avatar index : ", avatarImageIndex);
-        this._avatarImageIndex = avatarImageIndex;
+    set avatarImage(avatarImage: string) {
+        console.log(" avatar image : ", avatarImage);
+        this._avatarImage = avatarImage;
         this._storeUser();
     }
 
-    get avatarImageIndex(): number {
-        return this._avatarImageIndex;
+    get avatarImage(): string {
+        return this._avatarImage;
     }
 
     set inventory(inventory: object) {
@@ -205,7 +205,7 @@ export class User {
         age: number,
         gender: Gender,
         id: string = null,
-        userAvatarIndex: number
+        avatarImage: string
     ): User {
         let uid = !!id ? id : new Date().toISOString();
         let user = new User(
@@ -214,7 +214,7 @@ export class User {
             age,
             gender,
             imgPath,
-            userAvatarIndex,
+            avatarImage,
             true,
             true,
             {},
