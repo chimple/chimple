@@ -1,9 +1,9 @@
 {
   "ver": "2.3.5",
-  "uuid": "4361b4f7-e947-4007-b0aa-7cadaeee5d90",
+  "uuid": "d67d2586-0a10-400d-90c7-3d1a9dc184d2",
   "type": "sprite",
   "wrapMode": "clamp",
-  "filterMode": "point",
+  "filterMode": "bilinear",
   "premultiplyAlpha": false,
   "genMipmaps": false,
   "packable": true,
@@ -13,8 +13,8 @@
   "subMetas": {
     "answer_drop_sentencemaker": {
       "ver": "1.0.4",
-      "uuid": "5332913e-25f9-4536-8683-611687659a14",
-      "rawTextureUuid": "4361b4f7-e947-4007-b0aa-7cadaeee5d90",
+      "uuid": "d478fa19-dd9c-438b-8ca3-b525bd933a64",
+      "rawTextureUuid": "d67d2586-0a10-400d-90c7-3d1a9dc184d2",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -28,8 +28,8 @@
       "rawHeight": 72,
       "borderTop": 0,
       "borderBottom": 0,
-      "borderLeft": 22.5,
-      "borderRight": 22.5,
+      "borderLeft": 0,
+      "borderRight": 0,
       "subMetas": {}
     }
   }

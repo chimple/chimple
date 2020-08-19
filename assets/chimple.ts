@@ -54,6 +54,7 @@ export default class Chimple extends cc.Component {
                 this.navigateToBase();
                 break;
         }
+                // this.navigateToBase();
 
     }
 
