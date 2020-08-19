@@ -26,33 +26,34 @@ export default class Chimple extends cc.Component {
     async onLoad() {
         const deployMode: number = Number(cc.sys.localStorage.getItem(DEPLOY_MODE)) || D_MODE;
         const selectedMode: number = Number(cc.sys.localStorage.getItem(CHIMPLE_MODE)) || MODE;
-        switch (deployMode) {
-            case DeployMode.Open:
+        // switch (deployMode) {
+        //     case DeployMode.Open:
+        //         this.navigateToBase();
+        //         break;
+        //     case DeployMode.Close:
+        //         switch (selectedMode) {
+        //             case Mode.Home:
+        //                 Chimple.navigateToHome();
+        //                 break;
+        //             case Mode.School:
+        //                 Chimple.navigateToSchool();
+        //                 break;
+        //             case Mode.Teacher:
+        //                 await Chimple.navigateToTeacher();
+        //                 break;
+        //             case Mode.Base:
+        //                 this.navigateToBase();
+        //                 break;
+        //             default: // Mode.NONE
+        //                 Config.loadScene(REGISTER_SCENE, 'private', null);
+        //                 break;
+        //         }
+        //         break;
+        //     default:
+        //         this.navigateToBase();
+        //         break;
+        // }
                 this.navigateToBase();
-                break;
-            case DeployMode.Close:
-                switch (selectedMode) {
-                    case Mode.Home:
-                        Chimple.navigateToHome();
-                        break;
-                    case Mode.School:
-                        Chimple.navigateToSchool();
-                        break;
-                    case Mode.Teacher:
-                        await Chimple.navigateToTeacher();
-                        break;
-                    case Mode.Base:
-                        this.navigateToBase();
-                        break;
-                    default: // Mode.NONE
-                        Config.loadScene(REGISTER_SCENE, 'private', null);
-                        break;
-                }
-                break;
-            default:
-                this.navigateToBase();
-                break;
-        }
 
     }
 
