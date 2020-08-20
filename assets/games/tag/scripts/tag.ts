@@ -231,7 +231,7 @@ export default class Tag extends cc.Component {
     cc.log("Audio " + musicName + this.complete);
     if (!cc.audioEngine.isMusicPlaying()) {
       cc.log("Child Audio " + musicName + this.complete);
-      Util.loadGameSound(musicName, function(clip) {
+      Util.loadGameSound(musicName, function (clip) {
         try {
           cc.audioEngine.play(clip, false, 1);
         } catch (error) {

@@ -40,7 +40,7 @@ export default class Label extends cc.Component {
   @catchError()
   onTouchMove(touch: cc.Touch) {
     if (touch.getID() == 0) {
-        this.node.setPosition(this.node.position.add(touch.getDelta()));
+      this.node.setPosition(this.node.position.add(touch.getDelta()));
     }
   }
 
