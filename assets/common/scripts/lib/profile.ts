@@ -268,7 +268,7 @@ export class User {
             data.age,
             data.gender,
             data.imgPath,
-            data.avatarImageIndex,
+            data.avatarImage,
             data.sfxOff,
             data.musicOff,
             data.inventory,
