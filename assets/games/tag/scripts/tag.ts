@@ -65,12 +65,12 @@ export default class Tag extends cc.Component {
       temp.setRect(new cc.Rect(60, 60, 1580, 1300));
       this.node
         .getChildByName("truck")
-        .getChildByName("background")
+        .getChildByName("container")
         .getComponent(cc.Sprite).spriteFrame = temp;
 
       this.node
         .getChildByName("truck")
-        .getChildByName("background").opacity = 255;
+        .getChildByName("container").opacity = 255;
       var animClip;
 
       for (let i = 3, id = 0; i < fieldArr.length - 1; i++, id++) {
@@ -94,7 +94,7 @@ export default class Tag extends cc.Component {
           dropBox.getChildByName("drop_label_labelling").width += 15;
           this.node
             .getChildByName("truck")
-            .getChildByName("background")
+            .getChildByName("container")
             .addChild(dropBox);
           dropBox.opacity = 0;
           // let bgWorld = this.node
@@ -240,8 +240,4 @@ export default class Tag extends cc.Component {
       });
     }
   }
-
-  start() {}
-
-  // update (dt) {}
 }
