@@ -29,7 +29,7 @@ export interface UserAttribute {
     age: number,
     gender: Gender,
     imgPath: string,
-    userAvatarIndex: string
+    userAvatar: string
 }
 
 export enum Language {
@@ -311,7 +311,7 @@ export class User {
             userAttribute.age,
             userAttribute.gender,
             userAttribute.id,
-            userAttribute.userAvatarIndex
+            userAttribute.userAvatar
         );
     }
 }
