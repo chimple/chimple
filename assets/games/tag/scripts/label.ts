@@ -67,7 +67,7 @@ export default class Label extends cc.Component {
     let isWrong = false;
     this.node.parent
       .getChildByName("truck")
-      .getChildByName("background")
+      .getChildByName("container")
       .children.forEach(e => {
         if (e != null && e.name != "dropBox_" + this.node.name) {
           if (e.getBoundingBoxToWorld().contains(touch.getLocation())) {
@@ -81,11 +81,11 @@ export default class Label extends cc.Component {
     if (
       this.node.parent
         .getChildByName("truck")
-        .getChildByName("background")
+        .getChildByName("container")
         .getChildByName("dropBox_" + this.node.name) != null &&
       this.node.parent
         .getChildByName("truck")
-        .getChildByName("background")
+        .getChildByName("container")
         .getChildByName("dropBox_" + this.node.name)
         .getBoundingBoxToWorld()
         .contains(touch.getLocation())
@@ -93,7 +93,7 @@ export default class Label extends cc.Component {
       cc.log("hi");
       const dropBox = this.node.parent
         .getChildByName("truck")
-        .getChildByName("background")
+        .getChildByName("container")
         .getChildByName("dropBox_" + this.node.name);
       this.scaleLabel(1);
       this.node.parent = null;
@@ -103,17 +103,17 @@ export default class Label extends cc.Component {
       // this.node.position = this.node.parent.convertToNodeSpaceAR(
       //   this.node.parent
       //     .getChildByName("truck")
-      //     .getChildByName("background")
+      //     .getChildByName("container")
       //     .getChildByName("dropBox_" + this.node.name)
       //     .convertToWorldSpaceAR(cc.Vec2.ZERO)
       // );
 
-      // temp.position = this.node.parent.getChildByName("background")
+      // temp.position = this.node.parent.getChildByName("container")
       //   .getChildByName("dropBox_" + this.node.name)
       //   .getBoundingBox().center;
       // this.node.parent
       //   .getChildByName("truck")
-      //   .getChildByName("background")
+      //   .getChildByName("container")
       //   .getChildByName("dropBox_" + this.node.name)
       //   .removeFromParent(false);
       this.node.parent.parent.parent.emit("correct");
