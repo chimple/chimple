@@ -45,13 +45,9 @@ export default class KeyboardButton extends cc.Component {
     }
     let temp = this.node.getChildByName("Label").getComponent(cc.Label).string;
     let reg = new RegExp("[a-z]|[A-Z]");
-    if (Config.dir == "en/" && reg.test(temp)) {
-      const audioFile =
-        Config.dir + "sound/lettervoice/" + temp.toLowerCase() + ".mp3";
-      Util.load(audioFile, (err, clip) => {
-        if (err == null) {
-          this._soundClip = clip;
-        }
+    if (Config.dir == "en/" && reg.test(temp)) {  // To seperate Hindi voice
+      Util.loadsLetter(temp.toLowerCase(), (clip) => {
+        this._soundClip = clip
       });
     }
   }
@@ -160,7 +156,7 @@ export default class KeyboardButton extends cc.Component {
             this.node.parent.emit("correct");
           }
           this.isDone = true;
-          this.bridgeComp.joinBridge(this.collidingBox,this.node.getChildByName("Label").getComponent(cc.Label).string);
+          this.bridgeComp.joinBridge(this.collidingBox, this.node.getChildByName("Label").getComponent(cc.Label).string);
           var callback = cc.callFunc(this.onBacktoOriginalPlace, this);
           cc.log(
             "Setting Back to Original Location on Touch End after success"
