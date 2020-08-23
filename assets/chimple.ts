@@ -22,7 +22,6 @@ export const TEACHER_REPORT_CARD_SCENE = 'private/teacher/scenes/teacherReportCa
 export const TEACHER_REPORT_METRICS_SCENE = 'private/teacher/scenes/teacherReportMetrics';
 export const REGISTER_SCENE = 'private/register/scenes/register';
 export const HOME_SCENE = 'menu/home/scenes/home';
-export const START_SCENE = 'menu/start/scenes/start';
 @ccclass
 export default class Chimple extends cc.Component {
     async onLoad() {
