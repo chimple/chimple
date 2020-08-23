@@ -35,6 +35,9 @@ export default class Lesson extends cc.Component {
     @property(dragonBones.ArmatureDisplay)
     chimp: dragonBones.ArmatureDisplay = null
 
+    @property(cc.Node)
+    gameParent: cc.Node = null;
+
     progressMonitorNode: cc.Node = null;
     quizMonitorNode: cc.Node = null;
     gameNode: cc.Node = null;
@@ -86,7 +89,7 @@ export default class Lesson extends cc.Component {
                 bundle.load(gameConfig.prefab, cc.Prefab, (err, prefab) => {
                     if (this.gameNode != null) this.gameNode.removeFromParent()
                     this.gameNode = cc.instantiate(prefab)
-                    this.node.addChild(this.gameNode)
+                    this.gameParent.addChild(this.gameNode)
                     if(gameConfig.center) {
                         this.gameNode.x = -512
                         this.gameNode.y = -384
@@ -195,6 +198,10 @@ export default class Lesson extends cc.Component {
                 this.isQuizAnsweredCorrectly = false;
             }
         });
+    }
+
+    onBackClick() {
+        Config.i.popScene()
     }
 
 }
