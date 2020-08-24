@@ -87,7 +87,7 @@ export default class Chimple extends cc.Component {
     private navigateToBase() {
         const existingUsers = User.getUsers();
         if (existingUsers == null || existingUsers.length <= 0) {
-            User.createUser('test', '', 5, Gender.GIRL);
+            User.createUser('test', '', 5, Gender.GIRL, 'test', 'armydog');
         }
         User.setCurrentUser(User.getUsers()[0]);
         Config.i.loadCourseJsons(this.node, () => {
