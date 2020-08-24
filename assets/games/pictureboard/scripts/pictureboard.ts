@@ -42,9 +42,9 @@ export default class PictureBoard extends cc.Component {
             this.friendPos.addChild(friendNode)
             this.friend.playAnimation('face_eating', 1)
         })
-        const [level, worksheet, problem, name, bgImage, x1, y1, sound] = config.data[0]
+        const [level, worksheet, problem, name, bgImage, num, y1, sound] = config.data[0]
         this.text = name
-        this.numPieces = config.data.length - 1
+        this.numPieces = parseInt(num)
 
         Util.loadTexture(bgImage, (texture) => {
             if (texture != null) {
@@ -60,8 +60,11 @@ export default class PictureBoard extends cc.Component {
         var firstDrag: cc.Node = null
         var firstDrop: cc.Node = null
 
-        for (let index = 1; index < config.data.length; index++) {
-            const [level, worksheet, problem, temp1, image, x, y] = config.data[index];
+        for (let index = 0; index < this.numPieces; index++) {
+            const image = config.data[0][8+index*4];
+            const x = config.data[0][9+index*4];
+            const y = config.data[0][10+index*4];
+
             const drag = cc.instantiate(this.pictureDrag)
             drag.name = index.toString()
             drag.position = new cc.Vec2(parseInt(x) / 3, parseInt(y) / 3)

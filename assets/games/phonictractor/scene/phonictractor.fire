@@ -57,8 +57,8 @@
     "_is3DNode": true,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "autoReleaseAssets": false,
-    "_id": "dd780c4b-e0f6-40b2-ac95-aaa99a8ff91c"
+    "autoReleaseAssets": true,
+    "_id": "21ee42d5-2237-4f2c-aa5e-2355f47946c7"
   },
   {
     "__type__": "cc.Node",
@@ -78,10 +78,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 7
+        "__id__": 6
       },
       {
-        "__id__": 8
+        "__id__": 7
       }
     ],
     "_prefab": null,
@@ -171,7 +171,7 @@
       "array": [
         0,
         0,
-        341.2140090910689,
+        494.5005055609145,
         0,
         0,
         0,
@@ -232,16 +232,33 @@
   },
   {
     "__type__": "cc.Node",
+    "_name": "phonictractor (Missing Prefab)",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
     },
-    "_id": "c6807FeqRHIotPM60sKU2I",
-    "_prefab": {
-      "__id__": 6
-    },
-    "_name": "phonictractor",
+    "_children": [],
     "_active": true,
+    "_components": [],
+    "_prefab": null,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
     "_trs": {
       "__type__": "TypedArray",
       "ctor": "Float64Array",
@@ -263,18 +280,13 @@
       "x": 0,
       "y": 0,
       "z": 0
-    }
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 5
     },
-    "asset": {
-      "__uuid__": "0e6927b7-aa8e-48d0-b4be-22e727228ccc"
-    },
-    "fileId": "c6807FeqRHIotPM60sKU2I",
-    "sync": true
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": "c6807FeqRHIotPM60sKU2I"
   },
   {
     "__type__": "cc.Canvas",

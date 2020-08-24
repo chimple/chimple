@@ -282,7 +282,7 @@ export class Util {
   public static loadGameSound(path: string, callBack: Function) {
     const filePath = path.startsWith(Config.dir)
       ? path
-      : Config.dir + `${Config.getInstance().game}/res/sound/${path}`;
+      : Config.dir + `${Config.i.lesson}/res/sound/${path}`;
     const fullFilePath =
       filePath + (path.endsWith(".mp3") || path.endsWith(".m4a") ? "" : ".mp3");
     Util.load(
@@ -310,7 +310,7 @@ export class Util {
       path.endsWith(".png") || path.endsWith(".jpg") ? path : path + ".png";
     const fullFilePath = path.startsWith(Config.dir)
       ? path
-      : Config.dir + `${Config.getInstance().game}/res/image/${path}`;
+      : Config.dir + `${Config.i.lesson}/res/image/${path}`;
     Util.load(
       fullFilePath,
       (err, texture) => {
@@ -465,7 +465,7 @@ export class Util {
         cc.audioEngine.setFinishCallback(audioId, callback);
       } else {
         const wordLoc =
-          Config.dir + Config.getInstance().game + "/res/sound/" + audio;
+          Config.dir + Config.i.course + "/res/sound/" + audio;
         Util.loadGameSound(wordLoc, (clip) => {
           if (clip != null) {
             audioId = cc.audioEngine.play(clip, false, 1);

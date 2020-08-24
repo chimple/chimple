@@ -53,14 +53,15 @@ export default class Library extends cc.Component {
 
     renderBody(name, course) {
         const config = Config.i
+        config.course = name
         this.layout.removeAllChildren()
         let lessonContentNode: cc.Node = null
         for (const chapter of course.chapters) {
-                const chapterContents = cc.instantiate(this.chapterContentsPrefab)
-                const chapterContentsComp = chapterContents.getComponent(ChapterContents)
-                chapterContentsComp.label.string = chapter.name
-                this.layout.addChild(chapterContents)
-                lessonContentNode = chapterContentsComp.layout
+            const chapterContents = cc.instantiate(this.chapterContentsPrefab)
+            const chapterContentsComp = chapterContents.getComponent(ChapterContents)
+            chapterContentsComp.label.string = chapter.name
+            this.layout.addChild(chapterContents)
+            lessonContentNode = chapterContentsComp.layout
             for (const lesson of chapter.lessons) {
                 const lessonButton = cc.instantiate(this.lessonButtonPrefab)
                 const lessonButtonComp = lessonButton.getComponent(LessonButton)
@@ -76,11 +77,15 @@ export default class Library extends cc.Component {
                 })
                 lessonContentNode.addChild(lessonButton)
             }
-        }
-        this.layout.children.forEach((child: cc.Node) => {
-            const lessonContentLayout = child.getComponent(cc.Layout)
+            const lessonContentLayout = lessonContentNode.getComponent(cc.Layout)
             if (lessonContentLayout != null) lessonContentLayout.updateLayout()
-        })
+            const chapterContentLayout = chapterContents.getComponent(cc.Layout)
+            if (chapterContentLayout != null) chapterContentLayout.updateLayout()
+        }
+        // this.layout.children.forEach((child: cc.Node) => {
+        //     const lessonContentLayout = child.getComponent(cc.Layout)
+        //     if (lessonContentLayout != null) lessonContentLayout.updateLayout()
+        // })
         const layoutComp = this.layout.getComponent(cc.Layout)
         layoutComp.updateLayout()
         this.layout.parent.height = this.layout.height

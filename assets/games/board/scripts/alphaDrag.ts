@@ -2,7 +2,7 @@ import Config from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
 import Drag from "../../../common/scripts/drag";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class AlphaDrag extends Drag {
@@ -11,7 +11,7 @@ export default class AlphaDrag extends Drag {
 
     onLoad() {
         super.onLoad()
-        if(Config.getInstance().game == 'letterboard') {
+        if (Config.i.data[0][0] == 'letterboard') {
             Util.loadsLetter(this.node.name.toLowerCase(), (clip) => {
                 this._soundClip = clip
             })

@@ -2,6 +2,8 @@ import { ASSET_LOAD_METHOD } from "./constants";
 import UtilLogger from "../util-logger";
 import Config from "./config";
 import { ParseApi } from "../../../private/services/parseApi";
+import { ParseSubject } from "../../../private/domain/parseSubject";
+import { TEACHER_REPORT_CARD_SCENE } from "../../../chimple";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -25,11 +27,12 @@ export enum Gender {
 
 export interface UserAttribute {
     id: string,
-    name: string,
-    age: number,
-    gender: Gender,
-    imgPath: string,
-    userAvatar: string
+    name?: string,
+    age?: number,
+    gender?: Gender,
+    imgPath?: string,
+    avatarImage?: string,
+    isTeacher?: boolean
 }
 
 export enum Language {
@@ -54,6 +57,7 @@ export class User {
     private _currentCharacter: string;
     private _courseProgress: object;
     private _unlockedInventory: object;
+    private _isTeacher: boolean;
 
     constructor(
         id: string,
@@ -62,6 +66,7 @@ export class User {
         gender: Gender,
         imgPath: string,
         avatarImage: string,
+        isTeacher: boolean,
         sfxOff: boolean,
         musicOff: boolean,
         inventory: object,
@@ -76,6 +81,7 @@ export class User {
         this._gender = gender;
         this._imgPath = imgPath;
         this._avatarImage = avatarImage;
+        this._isTeacher = isTeacher;
         this._inventory = inventory;
         this._unlockedInventory = unlockedInventory;
         this._currentBg = currentBg;
@@ -183,6 +189,11 @@ export class User {
         return this._unlockedInventory;
     }
 
+    set isTeacher(isTeacher: boolean) {
+        this._isTeacher = isTeacher;
+        this._storeUser();
+    }
+
     unlockInventoryForItem(item: string) {
         this._unlockedInventory[item] = true;
         this._storeUser();
@@ -205,7 +216,8 @@ export class User {
         age: number,
         gender: Gender,
         id: string = null,
-        avatarImage: string
+        avatarImage: string = null,
+        isTeacher: boolean = false
     ): User {
         let uid = !!id ? id : new Date().toISOString();
         let user = new User(
@@ -215,6 +227,7 @@ export class User {
             gender,
             imgPath,
             avatarImage,
+            isTeacher,
             true,
             true,
             {},
@@ -263,19 +276,20 @@ export class User {
 
     static fromJson(data): User {
         let user = new User(
-            data.id,
-            data.name,
-            data.age,
-            data.gender,
-            data.imgPath,
-            data.avatarImage,
-            data.sfxOff,
-            data.musicOff,
-            data.inventory,
-            data.currentBg,
-            data.currentCharacter,
-            data.courseProgress,
-            data.unlockedInventory
+            data._id,
+            data._name,
+            data._age,
+            data._gender,
+            data._imgPath,
+            data._avatarImage,
+            data._isTeacher,
+            data._sfxOff,
+            data._musicOff,
+            data._inventory,
+            data._currentBg,
+            data._currentCharacter,
+            data._courseProgress,
+            data._unlockedInventory
         );
         return user;
     }
@@ -311,7 +325,8 @@ export class User {
             userAttribute.age,
             userAttribute.gender,
             userAttribute.id,
-            userAttribute.userAvatar
+            userAttribute.avatarImage,
+            userAttribute.isTeacher
         );
     }
 }
@@ -443,5 +458,24 @@ export default class Profile {
             completed ? 1 : 0
         );
         this.toJson();
+    }
+
+    static async teacherPostLoginActivity(objectId: string) {
+        const currentUser: User = User.createUserOrFindExistingUser({
+                id: objectId
+            }
+        );
+        User.setCurrentUser(currentUser);
+        let courseProgress = {};
+        const subjects: ParseSubject[] = await ParseApi.getAllSubjects();
+        subjects.forEach(
+            (p: ParseSubject) => {
+                courseProgress[p.courseCode] = {
+                    'currentLesson'   : '1',
+                    'completedLessons': []
+                };
+            }
+        );
+        currentUser.courseProgress = courseProgress;
     }
 }

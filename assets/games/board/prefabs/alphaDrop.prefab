@@ -95,6 +95,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "A",
     "_N$string": "A",
@@ -105,23 +107,13 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
     "_N$cacheMode": 0,
-    "_id": ""
-  },
-  {
-    "__type__": "e5b9eahgfJDEoNuBYiU4QtY",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "allowDrop": true,
-    "allowOnlyOneDrop": true,
     "_id": ""
   },
   {
@@ -164,12 +156,24 @@
     "_id": ""
   },
   {
+    "__type__": "0afdbuIudJG17Ubeb9JdadQ",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "allowDrop": true,
+    "allowOnlyOneDrop": true,
+    "_id": ""
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "95b4c108-d619-484f-84da-9c21465c7310"
+      "__uuid__": "ef5364b8-d09c-4d88-9ff5-a7262e1be921"
     },
     "fileId": "eeolfDcrdJl6TF32zBVU/N",
     "sync": false
