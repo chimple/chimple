@@ -49,10 +49,20 @@ export const WORLDS = [
     new World('platform/scenes/farmAssemble', 'farmMapPrefab', 'duck')
 ];
 
+class SceneDef {
+    scene: string;
+    bundle: string;
+
+    constructor(scene: string, bundle: string) {
+        this.scene = scene;
+        this.bundle = bundle;
+    }
+}
+
 export default class Config {
     private static instance: Config;
 
-    private _scenes: Array<string>;
+    private _scenes: Array<SceneDef>;
     private _textFontMap = new Map();
     private _levelData: Array<Array<string>>
     course: string;
@@ -79,7 +89,7 @@ export default class Config {
     private constructor() {
     }
 
-    static getInstance(scene?: string): Config {
+    static getInstance(): Config {
         if (!Config.instance) {
             Config.instance = new Config();
             Config.instance.course = 'en';
@@ -90,7 +100,7 @@ export default class Config {
             Config.instance.worksheet = 1;
             Config.instance.problem = 1;
             Config.instance.totalProblems = 1;
-            Config.instance._scenes = [scene];
+            Config.instance._scenes = [new SceneDef('menu/start/scenes/start', 'menu')];
             Config.instance.flow = Flow.Default;
             Config.instance._textFontMap = new Map();
             Config.instance.currentFontName = DEFAULT_FONT;
@@ -156,22 +166,24 @@ export default class Config {
     }
 
     pushScene(scene: string, bundle: string = null, callback: Function = null) {
-        this._scenes.push(scene);
+        this._scenes.push(new SceneDef(scene, bundle));
         Config.loadScene(scene, bundle, callback);
     }
 
     popScene() {
         this.clearPersistentNodes();
         this._scenes.pop();
-        var scene = this._scenes[this._scenes.length - 1];
+        var sceneDef = this._scenes[this._scenes.length - 1];
+        var scene = sceneDef.scene
         if (scene.startsWith('menu/map/scene/map')) {
             scene = scene.substr(0, scene.length - 1) + Profile.lastWorld;
         }
-        Config.loadScene(scene);
+        Config.loadScene(scene, sceneDef.bundle);
     }
 
     prePopScene(callback: Function) {
-        var scene = this._scenes[this._scenes.length - 2];
+        var sceneDef = this._scenes[this._scenes.length - 2];
+        var scene = sceneDef.scene
         if (scene.startsWith('menu/map/scene/map')) {
             scene = scene.substr(0, scene.length - 1) + Profile.lastWorld;
         }
