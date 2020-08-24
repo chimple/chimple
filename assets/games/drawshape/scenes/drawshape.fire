@@ -17,7 +17,7 @@
         "__id__": 2
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [],
     "_prefab": null,
     "_opacity": 255,
@@ -78,10 +78,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 8
+        "__id__": 7
       },
       {
-        "__id__": 9
+        "__id__": 8
       }
     ],
     "_prefab": null,
@@ -171,7 +171,7 @@
       "array": [
         0,
         0,
-        469.3857727050781,
+        336.88388207214666,
         0,
         0,
         0,
@@ -227,43 +227,21 @@
       "height": 1
     },
     "_renderStages": 1,
+    "_alignWithScreen": true,
     "_id": "32z+xN6idBLqluyJB3D+i5"
   },
   {
     "__type__": "cc.Node",
-    "_name": "drawshape",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
     },
-    "_children": [],
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 6
-      }
-    ],
+    "_id": "7bwfg4aCVJapOlJo9AghJf",
     "_prefab": {
-      "__id__": 7
+      "__id__": 6
     },
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
-    },
+    "_name": "drawshape",
+    "_active": true,
     "_trs": {
       "__type__": "TypedArray",
       "ctor": "Float64Array",
@@ -285,29 +263,7 @@
       "x": 0,
       "y": 0,
       "z": 0
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
-    "_id": "7bwfg4aCVJapOlJo9AghJf"
-  },
-  {
-    "__type__": "3f0f1gHZZ9PW7BGMLuhBiRT",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 5
-    },
-    "_enabled": true,
-    "progressMonitorPrefab": {
-      "__uuid__": "87231f7e-bf90-413e-93ae-cdfea167ab6b"
-    },
-    "tracingContainerPrefab": {
-      "__uuid__": "b520666e-033c-491d-bfc5-5d46b74dfe6d"
-    },
-    "_id": "fcPkKxyK5MTJTexs9zR7uW"
+    }
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -318,7 +274,7 @@
       "__uuid__": "d7088b88-e301-4d94-b684-e16c13a01790"
     },
     "fileId": "88wBUk+FdEXJRGplPLgqHd",
-    "sync": false
+    "sync": true
   },
   {
     "__type__": "cc.Canvas",
@@ -361,6 +317,7 @@
     "_isAbsHorizontalCenter": true,
     "_isAbsVerticalCenter": true,
     "_originalWidth": 0,
-    "_originalHeight": 0
+    "_originalHeight": 0,
+    "_id": "c2HfpfpLZCjLRh7wu49YjT"
   }
 ]
