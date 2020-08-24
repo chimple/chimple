@@ -31,6 +31,7 @@ export interface UserAttribute {
     age?: number,
     gender?: Gender,
     imgPath?: string,
+    avatarImage?: string,
     isTeacher?: boolean
 }
 
@@ -48,6 +49,7 @@ export class User {
     private _age: number;
     private _gender: Gender;
     private _imgPath: string;
+    private _avatarImage: string;
     private _sfxOff: boolean;
     private _musicOff: boolean;
     private _inventory: object;
@@ -63,6 +65,8 @@ export class User {
         age: number,
         gender: Gender,
         imgPath: string,
+        avatarImage: string,
+        isTeacher: boolean,
         sfxOff: boolean,
         musicOff: boolean,
         inventory: object,
@@ -76,6 +80,8 @@ export class User {
         this._age = age;
         this._gender = gender;
         this._imgPath = imgPath;
+        this._avatarImage = avatarImage;
+        this._isTeacher = isTeacher;
         this._inventory = inventory;
         this._unlockedInventory = unlockedInventory;
         this._currentBg = currentBg;
@@ -127,6 +133,16 @@ export class User {
 
     get imgPath(): string {
         return this._imgPath;
+    }
+
+    set avatarImage(avatarImage: string) {
+        console.log(" avatar image : ", avatarImage);
+        this._avatarImage = avatarImage;
+        this._storeUser();
+    }
+
+    get avatarImage(): string {
+        return this._avatarImage;
     }
 
     set inventory(inventory: object) {
@@ -200,6 +216,7 @@ export class User {
         age: number,
         gender: Gender,
         id: string = null,
+        avatarImage: string = null,
         isTeacher: boolean = false
     ): User {
         let uid = !!id ? id : new Date().toISOString();
@@ -209,6 +226,8 @@ export class User {
             age,
             gender,
             imgPath,
+            avatarImage,
+            isTeacher,
             true,
             true,
             {},
@@ -262,6 +281,8 @@ export class User {
             data._age,
             data._gender,
             data._imgPath,
+            data._avatarImage,
+            data._isTeacher,
             data._sfxOff,
             data._musicOff,
             data._inventory,
@@ -304,6 +325,7 @@ export class User {
             userAttribute.age,
             userAttribute.gender,
             userAttribute.id,
+            userAttribute.avatarImage,
             userAttribute.isTeacher
         );
     }
