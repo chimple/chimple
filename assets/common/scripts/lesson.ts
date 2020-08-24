@@ -5,8 +5,9 @@ import { GAME_CONFIGS } from "./lib/gameConfigs";
 import ProgressMonitor from "./progressMonitor";
 import QuizMonitor, { QUIZ_ANSWERED } from "./quiz-monitor";
 import { Util } from "./util";
+import { ParseApi, UpdateMonitorInfo, UpdateProgressInfo } from "../../private/services/parseApi";
 
-const { ccclass, property } = cc._decorator;
+const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class Lesson extends cc.Component {
@@ -33,7 +34,7 @@ export default class Lesson extends cc.Component {
     blockPrefab: cc.Prefab = null;
 
     @property(dragonBones.ArmatureDisplay)
-    chimp: dragonBones.ArmatureDisplay = null
+    chimp: dragonBones.ArmatureDisplay = null;
 
     @property(cc.Node)
     gameParent: cc.Node = null;
@@ -50,12 +51,12 @@ export default class Lesson extends cc.Component {
     isQuizAnsweredCorrectly: boolean = false;
 
     onLoad() {
-        this.lessonStart()
+        this.lessonStart();
     }
 
     private lessonStart() {
         const config = Config.getInstance();
-        config.problem = 0
+        config.problem = 0;
         config.loadLessonJson((data: Array<string>) => {
             config.data = [data];
             if ((config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS)) {
@@ -67,8 +68,9 @@ export default class Lesson extends cc.Component {
                 this.progressMonitorNode.zIndex = 2;
                 this.node.addChild(this.progressMonitorNode);
             }
-            this.problemStart(true, () => {})
-        })
+            this.problemStart(true, () => {
+            });
+        });
     }
 
     private problemStart(replaceScene: boolean, callback: Function) {
@@ -76,9 +78,9 @@ export default class Lesson extends cc.Component {
         this.rightMoves = 0;
         const config = Config.getInstance();
 
-        if(replaceScene) {
-            config.game = config.data[0][0]
-            const gameConfig = GAME_CONFIGS[config.game]
+        if (replaceScene) {
+            config.game = config.data[0][0];
+            const gameConfig = GAME_CONFIGS[config.game];
             let fontName: string = config.course.split('-')[0] + '-' + DEFAULT_FONT;
             if (gameConfig.fontName != null) {
                 fontName = gameConfig.fontName;
@@ -87,30 +89,30 @@ export default class Lesson extends cc.Component {
 
             cc.assetManager.loadBundle(gameConfig.bundle, (err, bundle) => {
                 bundle.load(gameConfig.prefab, cc.Prefab, (err, prefab) => {
-                    if (this.gameNode != null) this.gameNode.removeFromParent()
-                    this.gameNode = cc.instantiate(prefab)
-                    this.gameParent.addChild(this.gameNode)
-                    if(gameConfig.center) {
-                        this.gameNode.x = -512
-                        this.gameNode.y = -384
+                    if (this.gameNode != null) this.gameNode.removeFromParent();
+                    this.gameNode = cc.instantiate(prefab);
+                    this.gameParent.addChild(this.gameNode);
+                    if (gameConfig.center) {
+                        this.gameNode.x = -512;
+                        this.gameNode.y = -384;
                     } else {
-                        this.gameNode.x = 0
-                        this.gameNode.y = 0
+                        this.gameNode.x = 0;
+                        this.gameNode.y = 0;
                     }
-                    this.setupEventHandlers()
-                    callback()
-                })
-            })    
+                    this.setupEventHandlers();
+                    callback();
+                });
+            });
         } else {
-            if(this.gameNode !=  null) this.gameNode.emit('nextIteration')
-            callback()
+            if (this.gameNode != null) this.gameNode.emit('nextIteration');
+            callback();
         }
 
     }
 
     private problemEnd(replaceScene: boolean) {
         let monitor = null;
-        const config = Config.i
+        const config = Config.i;
         if (config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS) {
             monitor = this.quizMonitorNode.getComponent(QuizMonitor);
             monitor.stopStar = this.isQuizAnsweredCorrectly;
@@ -121,13 +123,28 @@ export default class Lesson extends cc.Component {
         const block = cc.instantiate(this.blockPrefab);
         this.node.addChild(block);
 
+        let monitorInfo: UpdateMonitorInfo = {
+            chapter        : "Chapter",
+            lesson         : "lesson",
+            incorrect      : 0,
+            totalQuestions : 1,
+            correct        : 1,
+            totalChallenges: 0,
+            totalSeconds   : 100,
+            activity       : config.game
+        };
+
+        ParseApi.getInstance().updateMonitor(monitorInfo)
+            .then(res => cc.log(res))
+            .catch(err => cc.log(err));
+
         monitor.updateProgress(currentProblem, () => {
             monitor.stopStar = false;
             if (currentProblem < config.totalProblems) {
                 config.problem++;
-                config.data = [config.lessonData.rows[config.problem-1]]
+                config.data = [config.lessonData.rows[config.problem - 1]];
                 this.problemStart(replaceScene, () => {
-                    if (this.gameNode != null) block.removeFromParent()
+                    if (this.gameNode != null) block.removeFromParent();
                 });
             } else {
                 this.lessonEnd();
@@ -139,7 +156,17 @@ export default class Lesson extends cc.Component {
         Util.playSfx(this.startAudio);
         const config = Config.getInstance();
 
-        var overEvent: OverEvent = OverEvent.GameOver
+        let updateInfo: UpdateProgressInfo = {
+            chapter   : "chapter",
+            lesson    : config.lesson,
+            timespent : 120,
+            assessment: 0
+        };
+        ParseApi.getInstance().updateProgress(updateInfo)
+            .then(res => cc.log(res))
+            .catch(err => cc.log(err));
+
+        var overEvent: OverEvent = OverEvent.GameOver;
         const block = cc.instantiate(this.blockPrefab);
         this.node.addChild(block);
 
@@ -149,7 +176,7 @@ export default class Lesson extends cc.Component {
         balloonComp.game = config.game;
         balloonComp.label.string = Util.i18NText(overEvent == OverEvent.LevelOver
             ? 'New Level Unlocked' : overEvent == OverEvent.LevelRepeat
-                ? 'Repeat Level' : 'Game Over');
+                ? 'Repeat Level' : 'Game Ofver');
         balloonComp.chimp = this.chimp.node;
         this.chimp.node.removeFromParent();
         balloonComp.seat.addChild(this.chimp.node);
@@ -158,13 +185,13 @@ export default class Lesson extends cc.Component {
                 config.popScene();
             } else {
                 config.overEvent = overEvent;
-                config.popScene()
+                config.popScene();
             }
         };
         cc.director.getScene().addChild(balloon);
         balloonComp.animateGlow();
         new cc.Tween().target(balloon)
-            .to(0.5, { position: cc.v2(cc.winSize.width / 2, 100) }, null)
+            .to(0.5, {position: cc.v2(cc.winSize.width / 2, 100)}, null)
             .delay(2)
             .call(() => {
                 balloonComp.onBalloonClick();
@@ -201,7 +228,7 @@ export default class Lesson extends cc.Component {
     }
 
     onBackClick() {
-        Config.i.popScene()
+        Config.i.popScene();
     }
 
 }
