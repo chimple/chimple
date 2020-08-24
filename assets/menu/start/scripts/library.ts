@@ -91,4 +91,8 @@ export default class Library extends cc.Component {
         this.layout.parent.height = this.layout.height
     }
 
+    onBackClick() {
+        Config.i.popScene()
+    }
+
 }
