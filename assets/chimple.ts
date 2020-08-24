@@ -3,6 +3,7 @@ import Profile, { Gender, User } from "./common/scripts/lib/profile";
 import { ParseApi } from "./private/services/parseApi";
 import { ParseUser } from "./private/domain/parseUser";
 import { D_MODE, DeployMode, Mode, MODE } from "./common/scripts/lib/constants";
+import { ParseNetwork } from "./private/services/ParseNetwork";
 
 const {ccclass, property} = cc._decorator;
 
@@ -26,6 +27,7 @@ export const START_SCENE = 'menu/start/scenes/start';
 @ccclass
 export default class Chimple extends cc.Component {
     async onLoad() {
+        ParseNetwork.init();
         const deployMode: number = Number(cc.sys.localStorage.getItem(DEPLOY_MODE)) || D_MODE;
         const selectedMode: number = Number(cc.sys.localStorage.getItem(CHIMPLE_MODE)) || MODE;
         switch (deployMode) {
@@ -55,7 +57,7 @@ export default class Chimple extends cc.Component {
                 this.navigateToBase();
                 break;
         }
-                // this.navigateToBase();
+        // this.navigateToBase();
 
     }
 
@@ -64,8 +66,8 @@ export default class Chimple extends cc.Component {
     }
 
     public static navigateToSchool() {
-        const loggedInUser: ParseUser = ParseApi.getLoggedInUser();
-        if (!!loggedInUser && !ParseApi.isEmpty(loggedInUser)) {
+        const loggedInUser: ParseUser = ParseApi.getInstance().getLoggedInUser();
+        if (!!loggedInUser && !ParseNetwork.getInstance().isEmpty(loggedInUser)) {
             Config.loadScene(SELECT_SECTIONS_SCENE, 'private', null);
         } else {
             Config.loadScene(SCHOOL_REGISTRATION_SCENE, 'private', null);
@@ -73,8 +75,8 @@ export default class Chimple extends cc.Component {
     }
 
     public static async navigateToTeacher() {
-        const teacherUser: ParseUser = ParseApi.getLoggedInUser();
-        if (!!teacherUser && !ParseApi.isEmpty(teacherUser)) {
+        const teacherUser: ParseUser = ParseApi.getInstance().getLoggedInUser();
+        if (!!teacherUser && !ParseNetwork.getInstance().isEmpty(teacherUser)) {
             await Profile.teacherPostLoginActivity(teacherUser.objectId);
             Config.loadScene(TEACHER_REPORT_CARD_SCENE, 'private', null);
         } else {
