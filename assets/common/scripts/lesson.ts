@@ -5,7 +5,6 @@ import { GAME_CONFIGS } from "./lib/gameConfigs";
 import ProgressMonitor from "./progressMonitor";
 import QuizMonitor, { QUIZ_ANSWERED } from "./quiz-monitor";
 import { Util } from "./util";
-import { ParseApi, UpdateMonitorInfo, UpdateProgressInfo } from "../../private/services/parseApi";
 
 const {ccclass, property} = cc._decorator;
 
@@ -123,20 +122,20 @@ export default class Lesson extends cc.Component {
         const block = cc.instantiate(this.blockPrefab);
         this.node.addChild(block);
 
-        let monitorInfo: UpdateMonitorInfo = {
-            chapter        : "Chapter",
-            lesson         : "lesson",
-            incorrect      : 0,
-            totalQuestions : 1,
-            correct        : 1,
-            totalChallenges: 0,
-            totalSeconds   : 100,
-            activity       : config.game
-        };
-
-        ParseApi.getInstance().updateMonitor(monitorInfo)
-            .then(res => cc.log(res))
-            .catch(err => cc.log(err));
+        // let monitorInfo: UpdateMonitorInfo = {
+        //     chapter        : "Chapter",
+        //     lesson         : "lesson",
+        //     incorrect      : 0,
+        //     totalQuestions : 1,
+        //     correct        : 1,
+        //     totalChallenges: 0,
+        //     totalSeconds   : 100,
+        //     activity       : config.game
+        // };
+        //
+        // ParseApi.getInstance().updateMonitor(monitorInfo)
+        //     .then(res => cc.log(res))
+        //     .catch(err => cc.log(err));
 
         monitor.updateProgress(currentProblem, () => {
             monitor.stopStar = false;
@@ -156,15 +155,19 @@ export default class Lesson extends cc.Component {
         Util.playSfx(this.startAudio);
         const config = Config.getInstance();
 
-        let updateInfo: UpdateProgressInfo = {
-            chapter   : "chapter",
-            lesson    : config.lesson,
-            timespent : 120,
-            assessment: 0
-        };
-        ParseApi.getInstance().updateProgress(updateInfo)
-            .then(res => cc.log(res))
-            .catch(err => cc.log(err));
+        // let updateInfo: UpdateProgressInfo = {
+        //     chapter   : "chapter",
+        //     lesson    : config.lesson,
+        //     timespent : 120,
+        //     assessment: 0
+        // };
+        //
+        // // only happen in CLOSE, School or Home (with teacher)
+        // ParseApi.getInstance().updateProgress(updateInfo)
+        //     .then(res => cc.log(res))
+        //     .catch(err => cc.log(err));
+
+        // generic firebase logging
 
         var overEvent: OverEvent = OverEvent.GameOver;
         const block = cc.instantiate(this.blockPrefab);
