@@ -58,9 +58,6 @@ export default class Rocket extends cc.Component {
     @property(cc.Prefab)
     soundBtnPrefab: cc.Prefab = null;
 
-    @property(cc.Prefab)
-    imageNodePrefab: cc.Prefab = null;
-
     _dog: cc.Node = null;
     _friend: dragonBones.ArmatureDisplay = null
     _wordNoteBoard: cc.Node = null;
@@ -170,7 +167,7 @@ export default class Rocket extends cc.Component {
 
     @catchError()
     showImage(texture) {
-        const image = this._wordNoteBoard.getChildByName('imageNode');
+        const image = this._wordNoteBoard.getChildByName('frame').getChildByName('imageNode');
         image.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
         this.checkRTLAndScaleX(image, 0.5);
         image.scaleY = 0.5;
