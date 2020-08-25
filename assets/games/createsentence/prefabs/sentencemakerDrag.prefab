@@ -110,7 +110,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 99.04,
+      "width": 97.87,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -160,18 +160,20 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "Label",
     "_N$string": "Label",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "dee4ee01-e8db-4c7a-8026-47474be20a5a"
-    },
-    "_isSystemFontUsed": false,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -185,7 +187,7 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "e7bb562d-1e75-4144-adaa-f2880f3364eb"
+      "__uuid__": "b5fe9ab6-3242-4021-ab9a-10705bf5980d"
     },
     "fileId": "12nvK9DHhAHqyix9lLTiCi",
     "sync": false
@@ -206,7 +208,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "9e539fb9-8f71-4259-b639-62ef66bff841"
+      "__uuid__": "3c26b690-32ba-4267-bf85-5234fc314803"
     },
     "_type": 1,
     "_sizeMode": 1,
@@ -220,24 +222,6 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": ""
-  },
-  {
-    "__type__": "4aeba6/rYNAb6z1HC54jCdA",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "label": {
-      "__id__": 3
-    },
-    "resizeWithLabel": true,
-    "fixOnMatch": true,
-    "allowDrag": true,
-    "returnBackOnNoMatch": true,
-    "multipleDrags": false,
     "_id": ""
   },
   {
@@ -262,12 +246,30 @@
     "_id": ""
   },
   {
+    "__type__": "926b5QAJK1Dw5gQWQQqe12B",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "label": {
+      "__id__": 3
+    },
+    "resizeWithLabel": true,
+    "fixOnMatch": true,
+    "allowDrag": true,
+    "returnBackOnNoMatch": true,
+    "multipleDrags": false,
+    "_id": ""
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "e7bb562d-1e75-4144-adaa-f2880f3364eb"
+      "__uuid__": "b5fe9ab6-3242-4021-ab9a-10705bf5980d"
     },
     "fileId": "efVO+CP2ZCi5PwOt33jmLp",
     "sync": false

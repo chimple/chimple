@@ -1,4 +1,4 @@
-import Profile, { User } from "../../../../common/scripts/lib/profile";
+import { User } from "../../../common/scripts/lib/profile";
 
 const { ccclass, property } = cc._decorator;
 
