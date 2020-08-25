@@ -85,6 +85,11 @@ export default class PhonicTractor extends cc.Component {
       audio3
     ] = fieldArr;
 
+    if(word2 == null) word2 = ""
+    if(audio2 == null) audio2 = ""
+    if(word3 == null) word3 = ""
+    if(audio3 == null) audio3 = ""
+    
     this.truckNode.x = cc.winSize.width / 2;
     this.word = [word1];
     if (word2 != "") {
