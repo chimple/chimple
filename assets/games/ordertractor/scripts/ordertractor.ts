@@ -45,9 +45,10 @@ export default class OrderTractor extends cc.Component {
             if (this.friend != null) this.friend.playAnimation('face_wrong', 1)
         })
 
-        const [level, worksheet, problem] = Config.getInstance().data[0];
+        const [oldLevel, worksheet, oldProblem, level, reverseStr] = Config.getInstance().data[0];
+        const reverse = reverseStr == 'true'
         const ordered: Array<number> = this.generateNumbers(parseInt(level))
-        if (problem == '2') {
+        if (reverse) {
             ordered.reverse()
         }
         this.empty = ordered.length
@@ -61,7 +62,7 @@ export default class OrderTractor extends cc.Component {
                 if (drop != null) {
                     drop.name = val.toString()
                     const dropComp = drop.getComponent(NumberTrainDrop)
-                    dropComp.order = problem == '1' ? index + 1 : ordered.length - index
+                    dropComp.order = reverse ? ordered.length - index : index + 1
                     if (index == 0) {
                         firstDrop = drop
                     }
@@ -159,6 +160,8 @@ export default class OrderTractor extends cc.Component {
                 return this.generateMultiples(5, 1, 100)
             case 18:
                 return this.generateRandoms(60, 100)
+            default:
+                return this.generateRandoms(1, 100)
         }
     }
 
