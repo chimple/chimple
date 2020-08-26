@@ -107,7 +107,7 @@ export default class ShapeTractor extends cc.Component {
             if(this.friend != null) this.friend.playAnimation('face_wrong', 1)
         })
 
-        const [levelStr, worksheet, problemStr] = Config.getInstance().data[0]
+        const [oldLevelStr, worksheet, oldProblemStr, levelStr, problemStr] = Config.getInstance().data[0]
         const level = parseInt(levelStr)
         const problem = parseInt(problemStr)
         const seq = this.generatePatterns(level, problem)
