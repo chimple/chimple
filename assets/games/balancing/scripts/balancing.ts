@@ -176,14 +176,6 @@ export default class Balancing extends cc.Component {
         }
     }
 
-    logEvent() {
-        return {
-            "game"  : Config.getInstance().game,
-            "level" : Config.getInstance().gameLevel,
-            "status": "completed"
-        };
-    }
-
     @catchError()
     playDogAnimation(animationName: string, loop = 1) {
         if (this.friend != null) {

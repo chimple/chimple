@@ -19,9 +19,13 @@ export default class Start extends cc.Component {
         for (let [name, course] of Object.entries(config.courses)) {
             const currentLessonId = courseProgress[name].currentLesson
             let currentLesson = null
+            let currentChapter = null
             course['chapters'].some((chapter) => {
                 currentLesson = chapter.lessons.find(lesson => lesson.id == currentLessonId)
-                if(currentLesson != null) return true
+                if(currentLesson != null) {
+                    currentChapter = chapter.id
+                    return true
+                }
             })
             if(currentLesson == null) {
                 currentLesson = course['chapters'][0]['lessons'][0]
@@ -37,6 +41,7 @@ export default class Start extends cc.Component {
             })
             lessonButtonComp.button.node.on('click', () => {
                 config.lesson = currentLesson.id
+                config.chapter = currentChapter
                 config.pushScene('common/scenes/lesson')
             })
             this.layout.addChild(lessonButton)
