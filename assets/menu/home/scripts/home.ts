@@ -1,9 +1,9 @@
 import Config, { Flow } from "../../../common/scripts/lib/config";
 import Profile from "../../../common/scripts/lib/profile";
 import { Util } from "../../../common/scripts/util";
-import { LOG_TYPE, APP_START } from "../../../common/scripts/gameController";
 import UtilLogger from "../../../common/scripts/util-logger";
 import Balloon, { BalloonType } from "../../../common/scripts/balloon";
+import { LOG_TYPE, APP_START } from "../../../common/scripts/lib/constants";
 
 const { ccclass, property } = cc._decorator;
 
@@ -32,7 +32,7 @@ export default class Home extends cc.Component {
     bgMusic: cc.AudioClip = null
 
     onLoad() {
-        const config = Config.getInstance('home');
+        const config = Config.getInstance();
         UtilLogger.initPluginFirebase();
         // Profile.fromJson()
 
@@ -53,7 +53,8 @@ export default class Home extends cc.Component {
             .set({ y: cc.winSize.height })
             .to(1, { y: logoY }, { progress: null, easing: 'elasticOut' })
             .start()
-        config.courseNames.forEach((type, i, arr) => {
+        const courseNames = ['en', 'en-maths']
+        courseNames.forEach((type, i, arr) => {
             const litNode = cc.instantiate(this.balloonPrefab)
             const lit = litNode.getComponent(Balloon)
             lit.chimp = this.nest.getChildByName('chimp')
@@ -70,9 +71,9 @@ export default class Home extends cc.Component {
                         }
                     }
                 }
-                config.loadCurriculumJson(() => {
+                // config.loadCurriculumJson(() => {
                     config.pushScene('menu/map/scene/map' + Profile.lastWorld.toString(), 'menu')
-                })
+                // })
             //     this.balloons.children.forEach((node) => {
             //         const balloon = node.children[0]
             //         if (balloon != litNode) {
@@ -126,32 +127,32 @@ export default class Home extends cc.Component {
     }
 
     nextFlow() {
-        var flow: string = null
-        switch (Config.getInstance().flow) {
-            case Flow.Default:
-                Config.getInstance().flow = Flow.Platformer
-                flow = 'Platformer'
-                break;
-            case Flow.Platformer:
-                Config.getInstance().flow = Flow.Open
-                flow = 'Open'
-                break;
-            case Flow.Open:
-                Config.getInstance().flow = Flow.Debug
-                flow = 'Debug'
-                break;
-            case Flow.Debug:
-                Config.getInstance().flow = Flow.Default
-                flow = 'Default'
-                break;
-        }
-        const labelNode = new cc.Node()
-        const label = labelNode.addComponent(cc.Label)
-        label.string = flow
-        this.node.addChild(labelNode)
-        this.scheduleOnce(() => {
-            this.node.removeChild(labelNode)
-        }, 1)
+        // var flow: string = null
+        // switch (Config.getInstance().flow) {
+        //     case Flow.Default:
+        //         Config.getInstance().flow = Flow.Platformer
+        //         flow = 'Platformer'
+        //         break;
+        //     case Flow.Platformer:
+        //         Config.getInstance().flow = Flow.Open
+        //         flow = 'Open'
+        //         break;
+        //     case Flow.Open:
+        //         Config.getInstance().flow = Flow.Debug
+        //         flow = 'Debug'
+        //         break;
+        //     case Flow.Debug:
+        //         Config.getInstance().flow = Flow.Default
+        //         flow = 'Default'
+        //         break;
+        // }
+        // const labelNode = new cc.Node()
+        // const label = labelNode.addComponent(cc.Label)
+        // label.string = flow
+        // this.node.addChild(labelNode)
+        // this.scheduleOnce(() => {
+        //     this.node.removeChild(labelNode)
+        // }, 1)
     }
 
     onInventoryButtonClicked() {

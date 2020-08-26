@@ -17,10 +17,7 @@
         "__id__": 2
       },
       {
-        "__id__": 12
-      },
-      {
-        "__id__": 14
+        "__id__": 13
       }
     ],
     "_active": false,
@@ -93,7 +90,7 @@
         "__id__": 9
       },
       {
-        "__id__": 16
+        "__id__": 12
       }
     ],
     "_prefab": null,
@@ -186,7 +183,7 @@
       "array": [
         0,
         0,
-        516.151123046875,
+        478.04602288901015,
         0,
         0,
         0,
@@ -242,6 +239,7 @@
       "height": 1
     },
     "_renderStages": 1,
+    "_alignWithScreen": true,
     "_id": "03Z7V9ZmtFfJTKL0LvNa46"
   },
   {
@@ -412,9 +410,6 @@
       "__id__": 2
     },
     "_enabled": true,
-    "gameController": {
-      "__uuid__": "cbc51dd8-6b0c-433e-8de4-b310106a1111"
-    },
     "map0": {
       "__uuid__": "a4d14de9-8f0d-4fdd-b564-81bdc32abb2a"
     },
@@ -439,12 +434,6 @@
     "filler": {
       "__uuid__": "f07c5e57-de52-41a0-8b6a-315d8331d1cd"
     },
-    "gameBoard": {
-      "__uuid__": "24217da0-c36e-40f7-88dc-bdbf872bc4eb"
-    },
-    "levelBoard": {
-      "__uuid__": "6d271ed8-05c6-4148-b51b-ea37f3b71cc6"
-    },
     "player": {
       "__id__": 6
     },
@@ -464,98 +453,6 @@
       "__uuid__": "989e1d17-c4d1-4e9b-aa6d-02628b53148f"
     },
     "_id": "73DgOun0lDkLxezE9gHvXf"
-  },
-  {
-    "__type__": "cc.Node",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 1
-    },
-    "_id": "a2xjUiaEpLPIHjDUPexkAL",
-    "_prefab": {
-      "__id__": 13
-    },
-    "_name": "RewardsMonitor",
-    "_active": true,
-    "_trs": {
-      "__type__": "TypedArray",
-      "ctor": "Float64Array",
-      "array": [
-        512,
-        736,
-        0,
-        0,
-        0,
-        0,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    "_eulerAngles": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    }
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 12
-    },
-    "asset": {
-      "__uuid__": "bd23220c-c7cb-401b-a690-5c2fb0b8e25e"
-    },
-    "fileId": "41MPqZKPFJu5YHhdu1u3DA",
-    "sync": true
-  },
-  {
-    "__type__": "cc.Node",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 1
-    },
-    "_id": "e0yYwqmmdCvaI3gPMfB4bi",
-    "_prefab": {
-      "__id__": 15
-    },
-    "_name": "nest",
-    "_active": true,
-    "_trs": {
-      "__type__": "TypedArray",
-      "ctor": "Float64Array",
-      "array": [
-        959,
-        707.6900024414062,
-        0,
-        0,
-        0,
-        0,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    "_eulerAngles": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    }
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 14
-    },
-    "asset": {
-      "__uuid__": "5f4b7075-f0c6-4e7f-a15d-7c321f805801"
-    },
-    "fileId": "ffTaK4aJFPfa0dchGVVC8H",
-    "sync": true
   },
   {
     "__type__": "cc.Widget",
@@ -581,6 +478,53 @@
     "_isAbsHorizontalCenter": true,
     "_isAbsVerticalCenter": true,
     "_originalWidth": 0,
-    "_originalHeight": 0
+    "_originalHeight": 0,
+    "_id": "1avVG+3kRJcarb1sRcsi4e"
+  },
+  {
+    "__type__": "cc.Node",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 1
+    },
+    "_id": "a2xjUiaEpLPIHjDUPexkAL",
+    "_prefab": {
+      "__id__": 14
+    },
+    "_name": "RewardsMonitor",
+    "_active": true,
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        512,
+        726.1170043945312,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 13
+    },
+    "asset": {
+      "__uuid__": "bd23220c-c7cb-401b-a690-5c2fb0b8e25e"
+    },
+    "fileId": "41MPqZKPFJu5YHhdu1u3DA",
+    "sync": true
   }
 ]

@@ -36,8 +36,8 @@ export default class LevelIndicator extends cc.Component {
             .call(() => {
                 Util.playSfx(this.levelsClickAudio);
                 const config = Config.getInstance();
-                config.level = this.level;
-                config.world = this.world
+                // config.level = this.level;
+                // config.world = this.world
                 if (config.flow != Flow.Default) {
                     Profile.lastWorld = this.world
                     Profile.lastLevel = this.level

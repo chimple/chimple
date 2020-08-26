@@ -1,12 +1,11 @@
+import Balloon from "../../common/scripts/balloon";
+import Config from "../../common/scripts/lib/config";
+import { TouchEvents, Util } from "../../common/scripts/util";
+import UtilLogger from "../../common/scripts/util-logger";
 import { Platformer } from "./platformer";
 import { Reward } from "./reward";
-import GameController, { OverEvent, LOG_TYPE, FAIL_TO_COLLECT_ALL_REWARDS, LOG_WORLD, LOG_LEVEL, COURSE } from "../../common/scripts/gameController";
-import UtilLogger from "../../common/scripts/util-logger";
-import Config, { Flow, BRIDGE_NAME } from "../../common/scripts/lib/config";
-import Profile from "../../common/scripts/lib/profile";
 import RewardsMonitor, { ALL_REWARDS_COLLECTED } from "./rewardsMonitor";
-import { Util, TouchEvents } from "../../common/scripts/util";
-import Balloon from "../../common/scripts/balloon";
+import { LOG_TYPE, FAIL_TO_COLLECT_ALL_REWARDS, LOG_WORLD, LOG_LEVEL, COURSE } from "../../common/scripts/lib/constants";
 
 const { ccclass, property } = cc._decorator;
 
@@ -37,9 +36,6 @@ enum RewardStatus {
 export default class Assemble extends cc.Component {
 
     @property(cc.Prefab)
-    gameController: cc.Prefab = null;
-
-    @property(cc.Prefab)
     map0: cc.Prefab = null;
 
     @property(cc.Prefab)
@@ -63,12 +59,6 @@ export default class Assemble extends cc.Component {
     @property(cc.Prefab)
     filler: cc.Prefab = null;
 
-    @property(cc.Prefab)
-    gameBoard: cc.Prefab = null;
-
-    @property(cc.Prefab)
-    levelBoard: cc.Prefab = null;
-
     @property(cc.Node)
     player: cc.Node = null;
 
@@ -90,7 +80,6 @@ export default class Assemble extends cc.Component {
     displayImage: cc.SpriteFrame = null;
 
     bridgeNode: cc.Node;
-    chimp: cc.Node = null;
     world: cc.Node;
 
     x: number = 0;
@@ -109,17 +98,6 @@ export default class Assemble extends cc.Component {
 
     protected onLoad(): void {
         const config = Config.getInstance();
-        if (config.currentLevelGames()
-            .filter(val => val[0] != 'run')
-            .every((val) => {
-                return Profile.isGameCompleted(config.world, config.level, val[0]);
-            })) {
-            config.currentLevelGames()
-                .filter(val => val[0] != 'run')
-                .forEach((val) => {
-                    Profile.setGameCompleted(config.world, config.level, val[0], false);
-                });
-        }
         this.configureRewards();
         let physicsManager = cc.director.getPhysicsManager();
         physicsManager.enabled = true;
@@ -130,106 +108,7 @@ export default class Assemble extends cc.Component {
         this.world.x = -cc.winSize.width / 2;
         this.world.y = -cc.winSize.height / 2;
         this.cameraNode = this.node.getChildByName('Main Camera');
-        this.showChimp(true);
-        switch (config.flow) {
-            case Flow.Debug:
-                this.debugFlowPlay();
-                break;
-            case Flow.Platformer:
-                this.platformFlowPlay();
-                break;
-            default:
-                this.immediatePlay();
-                break;
-        }
-    }
-
-    private debugFlowPlay() {
-        this.addBridge();
-        this.player.active = false;
-        const newBridge = cc.instantiate(this.bridgeNode);
-        newBridge.x = 0;
-        const config = Config.getInstance();
-        var ground: number = config.gameConfigs[config.game].ground;
-        if (ground == null) {
-            ground = 0;
-        }
-        newBridge.y = ground - 256;
-        newBridge.zIndex = -1;
-        newBridge.name = BRIDGE_NAME;
-        cc.game.addPersistRootNode(newBridge);
-        const gameController = cc.instantiate(this.gameController);
-        gameController.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
-        const gameControllerComp = gameController.getComponent(GameController);
-        cc.game.addPersistRootNode(gameController);
-        gameControllerComp.problemStart(true, () => gameControllerComp.loadGameScene());
-    }
-
-    private immediatePlay() {
-        if (Config.i.overEvent == OverEvent.GameOver || Config.i.overEvent == OverEvent.None) {
-            Config.i.overEvent = OverEvent.None
-            this.rewardsMonitor = cc.find('RewardsMonitor')
-            if (this.rewardsMonitor) this.rewardsMonitor.active = false
-            const config = Config.i
-            this.addBridge();
-            this.player.active = false;
-            const currentGame = config.currentLevelGames().find(val => val[0] != 'run' && !Profile.isGameCompleted(config.world, config.level, val[0]));
-            if (currentGame) {
-                const gameName = currentGame[0]
-                const gameLevel = parseInt(currentGame[1])
-                config.setGame(gameName, gameLevel);
-                const newBridge = cc.instantiate(this.bridgeNode);
-                newBridge.x = 0;
-                var ground: number = config.gameConfigs[config.game].ground;
-                if (ground == null) {
-                    ground = 0;
-                }
-                newBridge.y = ground - 256;
-                newBridge.zIndex = -1;
-                newBridge.name = BRIDGE_NAME;
-                cc.game.addPersistRootNode(newBridge);
-
-                const bal = cc.instantiate(this.balloon);
-                const balloonComp = bal.getComponent(Balloon);
-                if (balloonComp != null) {
-                    balloonComp.chimp = this.chimp;
-                    this.chimp.removeFromParent(false)
-                    this.chimp.position = cc.Vec2.ZERO
-                    balloonComp.seat.addChild(this.chimp)
-                    balloonComp.game = gameName;
-                    if (config.gameConfigs[gameName].color != null) {
-                        balloonComp.color = new cc.Color().fromHEX(config.gameConfigs[gameName].color);
-                    }
-                    balloonComp.label.string = config.gameConfigs[gameName].name;
-                    balloonComp.done = Profile.isGameCompleted(config.world, config.level, gameName);
-                    balloonComp.onClickCallback = () => {
-                        const gameController = cc.instantiate(this.gameController);
-                        gameController.setPosition(cc.winSize.width / 2, cc.winSize.height);
-                        const gameControllerComp = gameController.getComponent(GameController);
-                        cc.game.addPersistRootNode(gameController);
-                        gameControllerComp.problemStart(true, () => balloonComp.stopZigzag = true);
-                        balloonComp.flyZigzag(() => {
-                            balloonComp.flyToNest(() => {
-                                gameController.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
-                                gameControllerComp.loadGameScene();
-                            });
-                        });
-                    };
-                    bal.x = cc.winSize.width / 2;
-                    bal.y = - cc.winSize.height;
-                    cc.director.getScene().addChild(bal);
-                    bal.zIndex = 5;
-
-                    new cc.Tween().target(bal)
-                        .to(1, { y: 50 }, null)
-                        .start();
-
-                }
-            }
-        } else {
-            this.rewardStatus = RewardStatus.Collecting
-            this.platformFlowPlay()
-        }
+        this.platformFlowPlay();
     }
 
     private createRewardMonitor() {
@@ -261,16 +140,10 @@ export default class Assemble extends cc.Component {
     }
 
     private platformFlowPlay() {
-        this.chimp.active = false;
         this.createRewardMonitor();
         this.rewardsMonitor.active = true;
         Util.playSfx(this.bgMusic, true, true);
-        if (Config.getInstance().overEvent == OverEvent.GameOver) {
-            this.addBridge();
-        } else {
-            this.addPath(true, 1);
-        }
-        this.addPath(false, 1);
+        this.addPath(true, 1);
 
         // show current reward as collect item
         if (this._alphabetCollectMode) {
@@ -321,8 +194,8 @@ export default class Assemble extends cc.Component {
                     const config = Config.getInstance();
                     const log = Object.assign({});
                     log[`${LOG_TYPE}`] = FAIL_TO_COLLECT_ALL_REWARDS;
-                    log[`${LOG_WORLD}`] = config.world;
-                    log[`${LOG_LEVEL}`] = config.level;
+                    // log[`${LOG_WORLD}`] = config.world;
+                    // log[`${LOG_LEVEL}`] = config.level;
                     log[`${COURSE}`] = config.course;
                     UtilLogger.logEvent(log);
                     this.afterRewardsCollected();
@@ -332,19 +205,19 @@ export default class Assemble extends cc.Component {
     }
 
     private configureRewards() {
-        const config = Config.getInstance();
-        const gameLevels: string[] = config.currentLevelGames();
-        const runConfig = gameLevels.filter(gl => gl[0] === 'run');
-        if (!!runConfig && Array.isArray(runConfig) && runConfig.length > 0) {
-            this._alphabetCollectMode = true;
-            let r = runConfig[0];
-            if (!!r && r.length === 3) {
-                this._pickLetters = [].concat(r[1].split(','));
-                this._showLetters = [].concat(r[2].split(','));
-            }
-        }
-        cc.log('pick letters:', this._pickLetters);
-        cc.log('show letters:', this._showLetters);
+        // const config = Config.getInstance();
+        // const gameLevels: string[] = config.currentLevelGames();
+        // const runConfig = gameLevels.filter(gl => gl[0] === 'run');
+        // if (!!runConfig && Array.isArray(runConfig) && runConfig.length > 0) {
+        //     this._alphabetCollectMode = true;
+        //     let r = runConfig[0];
+        //     if (!!r && r.length === 3) {
+        //         this._pickLetters = [].concat(r[1].split(','));
+        //         this._showLetters = [].concat(r[2].split(','));
+        //     }
+        // }
+        // cc.log('pick letters:', this._pickLetters);
+        // cc.log('show letters:', this._showLetters);
     }
 
     private addPlatform(isPlaying: boolean, count: number) {
@@ -365,74 +238,26 @@ export default class Assemble extends cc.Component {
         this.player.active = false;
         this.node.off(TouchEvents.TOUCH_START)
         this.node.off(TouchEvents.TOUCH_END)
-        const overEvent = Config.i.overEvent
-        Config.i.overEvent = OverEvent.None
-        if (overEvent == OverEvent.WorldOver) {
-            const worldNum = config.world + 1;
-            cc.resources.load('prefabs/world_over/world_over_' + worldNum, function (err, prefab) {
-                if (prefab != null) {
-                    var newNode = cc.instantiate(prefab);
-                    cc.director.getScene().addChild(newNode);
-                    const worldover_tag = newNode.getChildByName('worldover_tag');
-                    if (worldover_tag != null) {
-                        const label = worldover_tag.getChildByName('label');
-                        if (label != null) {
-                            const labelComp = label.getComponent(cc.Label);
-                            labelComp.string = Util.i18NText('New World Unlocked');
-                        }
-                    }
-                    config.prePopScene(null);
-                    new cc.Tween().target(newNode)
-                        .set({ x: cc.winSize.width / 2 })
-                        .to(0.5, { position: cc.v2(cc.winSize.width / 2, cc.winSize.height / 2) }, null)
-                        .delay(3)
-                        .to(0.5, { position: cc.v2(cc.winSize.width / 2, cc.winSize.height) }, null)
-                        .call(() => config.popScene())
-                        .start();
-                } else {
-                    config.popScene();
-                }
-            });
-        } else {
-            this.chimp.active = true;
-            this.chimp.position = this.chimp.parent.convertToNodeSpaceAR(this.player.convertToWorldSpaceAR(cc.Vec2.ZERO));
-            const bal = cc.instantiate(this.balloon);
-            const balloonComp = bal.getComponent(Balloon);
-            if (balloonComp != null) {
-                balloonComp.chimp = this.chimp;
-                if (config.gameConfigs[config.game].color) balloonComp.color = new cc.Color().fromHEX(config.gameConfigs[config.game].color);    
-                balloonComp.label.string = Util.i18NText(overEvent == OverEvent.LevelOver
-                    ? 'New Level Unlocked' : overEvent == OverEvent.LevelRepeat
-                        ? 'Repeat Level' : 'Game Over');
-                balloonComp.onClickCallback = () => {
-                    config.prePopScene(() => balloonComp.stopZigzag = true);
-                    balloonComp.flyZigzag(() => new cc.Tween().target(bal)
-                        .to(0.5, { position: cc.v2(cc.winSize.width / 2, 600) }, null)
-                        .call(() => config.popScene())
-                        .start()
-                    );
-                };
-            }
-            bal.x = cc.winSize.width / 2;
-            bal.y = cc.winSize.height;
-            cc.director.getScene().addChild(bal);
-            bal.zIndex = 5;
-
-            new cc.Tween().target(bal)
-                .to(1, { y: 50 }, null)
-                .call(() => {
-                    balloonComp.jumpChimpToBalloon(() => {
-                        const db = this.chimp.getComponent(dragonBones.ArmatureDisplay);
-                        if (db != null)
-                            db.playAnimation('eating', 1);
-                    });
-                })
-                .delay(2)
-                .call(() => {
-                    balloonComp.onBalloonClick();
-                })
-                .start();
+        const bal = cc.instantiate(this.balloon);
+        const balloonComp = bal.getComponent(Balloon);
+        if (balloonComp != null) {
+            balloonComp.label.string = Util.i18NText('Game Over');
+            balloonComp.onClickCallback = () => {
+                config.popScene()
+            };
         }
+        bal.x = cc.winSize.width / 2;
+        bal.y = cc.winSize.height;
+        cc.director.getScene().addChild(bal);
+        bal.zIndex = 5;
+
+        new cc.Tween().target(bal)
+            .to(1, { y: 50 }, null)
+            .delay(2)
+            .call(() => {
+                balloonComp.onBalloonClick();
+            })
+            .start();
 
     }
 
@@ -457,16 +282,6 @@ export default class Assemble extends cc.Component {
 
     onDestroy() {
         cc.audioEngine.stopMusic();
-    }
-
-    private showChimp(show: boolean) {
-        const nest = cc.director.getScene().getChildByName('nest');
-        if (nest != null) {
-            this.chimp = nest.getChildByName('chimp');
-            if (this.chimp != null) {
-                this.chimp.active = show;
-            }
-        }
     }
 
     protected lateUpdate(): void {
