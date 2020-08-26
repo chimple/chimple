@@ -85,4 +85,9 @@ export const LEVEL_NAME = 'level_name';
 export const LEVEL_END = 'level_end';
 export const QUEUE_OFFLOAD_FREQUENCY = 30000;
 export const PARSE_ENABLED: boolean = false;
+export const CURRENT_SCHOOL_ID = 'CURRENT_SCHOOL_ID';
+export const CURRENT_STUDENT_ID = 'CURRENT_STUDENT_ID';
+export const CURRENT_CLASS_ID = 'CURRENT_CLASS_ID';
+export const CURRENT_SECTION_ID = 'CURRENT_SECTION_ID';
+export const CURRENT_SUBJECT_ID = 'CURRENT_SUBJECT_ID';
 Queue.init(); // init queue

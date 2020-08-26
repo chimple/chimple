@@ -5,6 +5,7 @@ import ProgressMonitor from "./progressMonitor";
 import QuizMonitor, { QUIZ_ANSWERED } from "./quiz-monitor";
 import { Util } from "./util";
 import { Queue } from "../../queue";
+import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID } from "./lib/constants";
 
 const {ccclass, property} = cc._decorator;
 
@@ -131,7 +132,10 @@ export default class Lesson extends cc.Component {
             totalChallenges: 0,
             totalSeconds   : 100,
             activity       : config.game,
-            kind           : 'Monitor'
+            kind           : 'Monitor',
+            schoolId       : cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
+            studentId      : cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
+            classId        : cc.sys.localStorage.getItem(CURRENT_CLASS_ID)
         };
 
         Queue.getInstance().push(monitorInfo);
@@ -157,7 +161,11 @@ export default class Lesson extends cc.Component {
             lesson    : config.lesson,
             timespent : 120,
             assessment: 0,
-            kind: 'Progress'
+            kind      : 'Progress',
+            schoolId  : cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
+            studentId : cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
+            sectionId : cc.sys.localStorage.getItem(CURRENT_SECTION_ID),
+            subjectId : cc.sys.localStorage.getItem(CURRENT_SUBJECT_ID)
         };
 
         Queue.getInstance().push(updateInfo);
