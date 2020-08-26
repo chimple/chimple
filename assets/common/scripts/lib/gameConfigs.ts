@@ -22,6 +22,7 @@ export const GAME_CONFIGS = {
     "createsentence": {
         "bundle": "createsentence",
         "prefab": "prefabs/createsentence",
+        "center": true,
     },
     "phonictractor": {
         "bundle": "phonictractor",
@@ -119,7 +120,7 @@ export const GAME_CONFIGS = {
     },
     "groupsum": {
         "bundle": "groupsum",
-        "prefab": "prefabs/groupsum"
+        "prefab": "prefab/groupsum"
     },
     "nimbletable": {
         "bundle": "nimbletable",

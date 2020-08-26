@@ -1,9 +1,5 @@
-import { ASSET_LOAD_METHOD } from "./constants";
 import UtilLogger from "../util-logger";
 import Config from "./config";
-import { ParseApi } from "../../../private/services/parseApi";
-import { ParseSubject } from "../../../private/domain/parseSubject";
-import { TEACHER_REPORT_CARD_SCENE } from "../../../chimple";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -205,9 +201,9 @@ export class User {
 
     static storeUser(user: User) {
         cc.sys.localStorage.setItem(user.id, JSON.stringify(user));
-        ParseApi.updateProfile(JSON.stringify(user))
-            .then(r => cc.log('successfully updated profile ', user))
-            .catch(err => cc.log('failed to update profile ', user, ' with error ', err));
+        // ParseApi.updateProfile(JSON.stringify(user))
+        //     .then(r => cc.log('successfully updated profile ', user))
+        //     .catch(err => cc.log('failed to update profile ', user, ' with error ', err));
     }
 
     static createUser(
@@ -378,33 +374,6 @@ export default class Profile {
         cc.sys.localStorage.setItem(currentStudentProfile, JSON.stringify(parsedStoredProfile));
     }
 
-    private static setAllLevels(
-        config: Config,
-        maxWorld: number,
-        maxLevel: number
-    ) {
-        for (const world in config.curriculum) {
-            if (Number(world) <= maxWorld) {
-                for (const level in config.curriculum[world]) {
-                    if (Number(world) < maxWorld || Number(level) <= maxLevel) {
-                        for (const game in config.curriculum[world][level]) {
-                            this.setItem(
-                                Config.getInstance().course +
-                                "_" +
-                                world +
-                                "_" +
-                                level +
-                                "_" +
-                                config.curriculum[world][level][game][0],
-                                1
-                            );
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     static toJson() {
         if (CC_JSB) {
             const currentStudentProfile = UtilLogger.currentProfile();
@@ -467,15 +436,15 @@ export default class Profile {
         );
         User.setCurrentUser(currentUser);
         let courseProgress = {};
-        const subjects: ParseSubject[] = await ParseApi.getAllSubjects();
-        subjects.forEach(
-            (p: ParseSubject) => {
-                courseProgress[p.courseCode] = {
-                    'currentLesson'   : '1',
-                    'completedLessons': []
-                };
-            }
-        );
+        // const subjects: ParseSubject[] = await ParseApi.getAllSubjects();
+        // subjects.forEach(
+        //     (p: ParseSubject) => {
+        //         courseProgress[p.courseCode] = {
+        //             'currentLesson'   : '1',
+        //             'completedLessons': []
+        //         };
+        //     }
+        // );
         currentUser.courseProgress = courseProgress;
     }
 }

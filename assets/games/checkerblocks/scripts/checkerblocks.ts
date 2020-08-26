@@ -76,7 +76,7 @@ export default class CheckerBlocks extends cc.Component {
             this.friendPos.addChild(friendNode)
             this.friend.playAnimation('laugh', 1)
         })
-        const [level, worksheet, problem] = Config.getInstance().data[0];
+        const [oldLevel, worksheet, problem, level] = Config.getInstance().data[0];
         switch (level) {
             case "1":
                 this.generateRandomSquares()

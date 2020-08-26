@@ -1,19 +1,14 @@
-import {
-  DEFAULT_FONT_COLOR,
-  LETTER_VOICE,
-  NUMBER_VOICE,
-  PHONIC_VOICE,
-} from "./helper";
+import ChimpleLabel from "./chimple-label";
+import Help from "./help";
+import { DEFAULT_FONT_COLOR, LETTER_VOICE, NUMBER_VOICE, PHONIC_VOICE } from "./helper";
+import Lesson from "./lesson";
+import Config, { COURSES, STORY } from "./lib/config";
+import { ASSET_LOAD_METHOD, COURSES_URL, SIMULATOR_ROOT_DIR } from "./lib/constants";
+import Profile, { SFX_OFF } from "./lib/profile";
+import UtilLogger from "./util-logger";
 import Overflow = cc.Label.Overflow;
 import HorizontalAlign = cc.Label.HorizontalAlign;
 import VerticalAlign = cc.Label.VerticalAlign;
-import ChimpleLabel from "./chimple-label";
-import GameController, { GAME_CONTROLLER_NAME } from "./gameController";
-import Help from "./help";
-import UtilLogger from "./util-logger";
-import Config, { COURSES, STORY } from "./lib/config";
-import { SIMULATOR_ROOT_DIR, COURSES_URL, ASSET_LOAD_METHOD } from "./lib/constants";
-import Profile, { SFX_OFF } from "./lib/profile";
 
 export const SUBPACKAGES = 'subpackages'
 
@@ -485,7 +480,7 @@ export class Util {
       try {
         cc.log("free resource ---->:", this._resources[i]);
         cc.resources.release(this._resources[i]);
-      } catch (e) {}
+      } catch (e) { }
       this._resources.splice(i, 1);
     }
     cc.log("resources left: --->", this._resources.length);
@@ -556,10 +551,9 @@ export class Util {
   ) {
     const config = Config.getInstance();
     if (config.problem == 1) {
-      const gcNode = cc.director
-        .getScene()
-        .getChildByName(GAME_CONTROLLER_NAME);
-      if (config.gameLevel == 1 && from != null && to != null) {
+      const lessonNode = cc.Canvas.instance.node
+      const lessonComp = lessonNode.getComponent(Lesson)
+      if (from != null && to != null) {
         cc.resources.load("prefabs/help", function (err, prefab) {
           if (!err) {
             const help = cc.instantiate(prefab);
@@ -568,20 +562,17 @@ export class Util {
             if (helpComp != null) {
               helpComp.initNodes(from, to, callBack);
             }
-            if (gcNode != null) {
+            if (lessonComp != null) {
               // @ts-ignore
-              gcNode.addChild(help);
+              lessonComp.gameNode.addChild(help);
             }
           }
         });
       }
       var chimp: dragonBones.ArmatureDisplay;
-      if (gcNode != null) {
-        const gcComp = gcNode.getComponent(GameController);
-        if (gcComp != null) {
-          chimp = gcComp.chimp;
-          chimp.playAnimation("talking", 0);
-        }
+      if (lessonComp != null) {
+        chimp = lessonComp.chimp;
+        chimp.playAnimation("talking", 0);
       }
       Util.speak(
         config.course + "/common/res/sound/game/" + config.game + ".mp3",
@@ -632,7 +623,7 @@ export class Util {
         return isMusic
           ? cc.audioEngine.playMusic(audioClip, loop)
           : cc.audioEngine.playEffect(audioClip, loop);
-      } catch (e) {}
+      } catch (e) { }
     }
     return -1;
   }
@@ -678,8 +669,10 @@ export class Util {
       iconFile = manifestPath + "/res/icons/" + game + ".png";
     } else if (game == STORY) {
       storageDir = Config.dir + game;
-      manifestPath =
-        storageDir + "/" + Config.i.gameConfigs[game].levelLabels[level];
+      // manifestPath =
+      //   storageDir + "/" + Config.i.gameConfigs[game].levelLabels[level];
+      // Commented above for now and added below
+      manifestPath = storageDir + "/" + game;
       testFile = manifestPath + "/res/" + game + ".json";
       iconFile = Config.dir + "common/res/icons/" + game + ".png";
     } else {

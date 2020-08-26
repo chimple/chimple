@@ -13,25 +13,28 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "wordNoteBoard",
+    "_name": "sentencemakerDrag",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
       {
         "__id__": 2
-      },
-      {
-        "__id__": 5
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 8
+        "__id__": 5
+      },
+      {
+        "__id__": 6
+      },
+      {
+        "__id__": 7
       }
     ],
     "_prefab": {
-      "__id__": 9
+      "__id__": 8
     },
     "_opacity": 255,
     "_color": {
@@ -43,8 +46,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 800,
-      "height": 200
+      "width": 100,
+      "height": 78
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -76,13 +79,13 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 8,
+    "groupIndex": 8,
     "_id": ""
   },
   {
     "__type__": "cc.Node",
-    "_name": "label",
+    "_name": "New Label",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -107,8 +110,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 272.31,
-      "height": 126
+      "width": 97.87,
+      "height": 50.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -120,7 +123,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        29.163999557495117,
+        0,
         0,
         0,
         0,
@@ -146,7 +149,7 @@
   },
   {
     "__type__": "0ddb3t+49REZ5s0SVkIuotE",
-    "_name": "label<Label>",
+    "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 2
@@ -159,11 +162,11 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
-    "_string": "CAKE",
-    "_N$string": "CAKE",
-    "_fontSize": 100,
-    "_lineHeight": 100,
+    "_useOriginalSize": false,
+    "_string": "Label",
+    "_N$string": "Label",
+    "_fontSize": 40,
+    "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -184,81 +187,17 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "81dfa941-fcbf-41d4-b71a-00ca535ed416"
+      "__uuid__": "b5fe9ab6-3242-4021-ab9a-10705bf5980d"
     },
-    "fileId": "bcVja40YxOx6BUtfGWYA7K",
+    "fileId": "12nvK9DHhAHqyix9lLTiCi",
     "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "imageNode",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 1
-    },
-    "_children": [],
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 6
-      }
-    ],
-    "_prefab": {
-      "__id__": 7
-    },
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 160,
-      "height": 160
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
-    },
-    "_trs": {
-      "__type__": "TypedArray",
-      "ctor": "Float64Array",
-      "array": [
-        -293.058,
-        4.272,
-        0,
-        0,
-        0,
-        0,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    "_eulerAngles": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
-    "_id": ""
   },
   {
     "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 5
+      "__id__": 1
     },
     "_enabled": true,
     "_materials": [
@@ -268,8 +207,10 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": null,
-    "_type": 0,
+    "_spriteFrame": {
+      "__uuid__": "3c26b690-32ba-4267-bf85-5234fc314803"
+    },
+    "_type": 1,
     "_sizeMode": 1,
     "_fillType": 0,
     "_fillCenter": {
@@ -284,46 +225,42 @@
     "_id": ""
   },
   {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "81dfa941-fcbf-41d4-b71a-00ca535ed416"
-    },
-    "fileId": "1bq2EINMNNH7WHjDN/CK3w",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "wordNoteBoard<Sprite>",
+    "__type__": "cc.BoxCollider",
+    "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "_materials": [
-      {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-      }
-    ],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "a24dfdae-0a23-4835-8c3f-0a10784a231d"
-    },
-    "_type": 0,
-    "_sizeMode": 0,
-    "_fillType": 0,
-    "_fillCenter": {
+    "tag": 0,
+    "_offset": {
       "__type__": "cc.Vec2",
       "x": 0,
       "y": 0
     },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_atlas": null,
+    "_size": {
+      "__type__": "cc.Size",
+      "width": 10,
+      "height": 70
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "926b5QAJK1Dw5gQWQQqe12B",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "label": {
+      "__id__": 3
+    },
+    "resizeWithLabel": true,
+    "fixOnMatch": true,
+    "allowDrag": true,
+    "returnBackOnNoMatch": true,
+    "multipleDrags": false,
     "_id": ""
   },
   {
@@ -332,9 +269,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "81dfa941-fcbf-41d4-b71a-00ca535ed416"
+      "__uuid__": "b5fe9ab6-3242-4021-ab9a-10705bf5980d"
     },
-    "fileId": "239pJCdbpHmp18+vbpd+DH",
+    "fileId": "efVO+CP2ZCi5PwOt33jmLp",
     "sync": false
   }
 ]

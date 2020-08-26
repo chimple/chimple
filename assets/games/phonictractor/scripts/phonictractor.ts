@@ -85,7 +85,12 @@ export default class PhonicTractor extends cc.Component {
       audio3
     ] = fieldArr;
 
-    this.truckNode.x = cc.winSize.width / 2 ;
+    if(word2 == null) word2 = ""
+    if(audio2 == null) audio2 = ""
+    if(word3 == null) word3 = ""
+    if(audio3 == null) audio3 = ""
+    
+    this.truckNode.x = cc.winSize.width / 2;
     this.word = [word1];
     if (word2 != "") {
       this.word.push(word2);
@@ -95,7 +100,7 @@ export default class PhonicTractor extends cc.Component {
     }
 
     if (this._isRTL) {
-      this.truckNode.x = -cc.winSize.width / 2 ;
+      this.truckNode.x = -cc.winSize.width / 2;
       this.finishTruckMoveTo = 2000;
     }
 
@@ -171,7 +176,7 @@ export default class PhonicTractor extends cc.Component {
   instantiateTrolley(i: number) {
     this.trolley[i] = cc.instantiate(this.trolleyPrefab);
     this.trolley[i].parent = this.truckNode;
-    this.trolley[i].position = cc.v2(this.trolley[i].position.x + i * 215, -78);
+    this.trolley[i].position = cc.v3(this.trolley[i].position.x + i * 190, -75, 0);
     this.trolley[i].getChildByName("drop_area").name = this.word[i]
     if (i == 0) {
       this.firstDrop = this.trolley[i];
@@ -223,7 +228,7 @@ export default class PhonicTractor extends cc.Component {
   onMatch() {
     this.node.emit("correct");
     if (--this.count == 0) {
-      if(this.friend != null) this.friend.playAnimation('face_happy', 2);
+      if (this.friend != null) this.friend.playAnimation('face_happy', 2);
 
       new cc.Tween()
         .target(this.truckNode)

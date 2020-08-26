@@ -73,6 +73,7 @@ export default class Library extends cc.Component {
                 })
                 lessonButtonComp.button.node.on('click', () => {
                     config.lesson = lesson.id
+                    config.chapter = chapter.id
                     config.pushScene('common/scenes/lesson')
                 })
                 lessonContentNode.addChild(lessonButton)
@@ -89,6 +90,10 @@ export default class Library extends cc.Component {
         const layoutComp = this.layout.getComponent(cc.Layout)
         layoutComp.updateLayout()
         this.layout.parent.height = this.layout.height
+    }
+
+    onBackClick() {
+        Config.i.popScene()
     }
 
 }
