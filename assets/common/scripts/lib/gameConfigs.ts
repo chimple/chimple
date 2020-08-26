@@ -120,7 +120,7 @@ export const GAME_CONFIGS = {
     },
     "groupsum": {
         "bundle": "groupsum",
-        "prefab": "prefabs/groupsum"
+        "prefab": "prefab/groupsum"
     },
     "nimbletable": {
         "bundle": "nimbletable",
