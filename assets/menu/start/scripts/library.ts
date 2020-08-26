@@ -73,6 +73,7 @@ export default class Library extends cc.Component {
                 })
                 lessonButtonComp.button.node.on('click', () => {
                     config.lesson = lesson.id
+                    config.chapter = chapter.id
                     config.pushScene('common/scenes/lesson')
                 })
                 lessonContentNode.addChild(lessonButton)

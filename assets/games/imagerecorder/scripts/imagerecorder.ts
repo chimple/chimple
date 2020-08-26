@@ -71,7 +71,8 @@ export class ImageRecorder extends cc.Component {
 
     protected nextProblem() {
         this.node.emit('nextProblem');
-        Config.getInstance().nextProblem();
+        // Sri commented due to chapter restructuring
+        // Config.getInstance().nextProblem();
     }
 
     protected loadTracePath(letter: string): any {

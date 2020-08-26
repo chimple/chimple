@@ -42,10 +42,10 @@ export default class Nest extends cc.Component {
         this.node.zIndex = 4
         this.setSfxButton();
         const config = Config.getInstance()
-        if (config.flow == Flow.Debug && config.hasPersistentNodes()) {
+        if (config.flow == Flow.Debug) {
             const node = new cc.Node()
             const label = node.addComponent(cc.Label)
-            label.string = config.gameLevel.toString() + '-' + config.worksheet.toString()
+            // label.string = config.gameLevel.toString() + '-' + config.worksheet.toString()
             node.y = 48
             this.node.addChild(node)
         }

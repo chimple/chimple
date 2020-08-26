@@ -22,6 +22,7 @@ export const GAME_CONFIGS = {
     "createsentence": {
         "bundle": "createsentence",
         "prefab": "prefabs/createsentence",
+        "center": true,
     },
     "phonictractor": {
         "bundle": "phonictractor",
