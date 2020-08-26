@@ -338,7 +338,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "water<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 4
@@ -445,7 +445,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "water copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 7
@@ -552,7 +552,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "water copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 10
@@ -659,7 +659,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "water copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 13
@@ -766,7 +766,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "water copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 16
@@ -873,7 +873,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "water copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 19
@@ -980,7 +980,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "plant1 copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 22
@@ -1087,7 +1087,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "plant1 copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 25
@@ -1194,7 +1194,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "plant1 copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 28
@@ -1301,7 +1301,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "plant1<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 31
@@ -1344,7 +1344,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 3
@@ -1568,7 +1568,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 38
@@ -1707,7 +1707,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "stone<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 42
@@ -1814,7 +1814,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "stone copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 45
@@ -1921,7 +1921,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "plant4<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 48
@@ -2028,7 +2028,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "plant2<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 51
@@ -2135,7 +2135,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "plant6<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 54
@@ -2242,7 +2242,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "plant8<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 57
@@ -2389,7 +2389,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 1032,
-      "height": 349
+      "height": 420
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2400,8 +2400,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
-        176.359,
+        9,
+        205.398,
         0,
         0,
         0,
@@ -2427,7 +2427,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "keyboard<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 62
@@ -2444,7 +2444,7 @@
       "__uuid__": "204bbe48-fd37-492c-83b8-52abc4137386"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -2507,8 +2507,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -5.898,
-        312.216,
+        0,
+        376.995,
         0,
         0,
         0,
@@ -2534,7 +2534,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "box<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 65
@@ -2636,8 +2636,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -4.677000045776367,
-        102.64199829101562,
+        -4.677,
+        -11.281,
         0,
         0,
         0,
@@ -2663,7 +2663,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "box_bg_starfall<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 70
@@ -2743,8 +2743,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -7.5980000495910645,
-        105.03800201416016,
+        -7.598,
+        -6.651,
         0,
         0,
         0,
@@ -2839,8 +2839,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        415.60101318359375,
-        107.24400329589844,
+        415.601,
+        11.192,
         0,
         0,
         0,
@@ -2866,7 +2866,7 @@
   },
   {
     "__type__": "0ddb3t+49REZ5s0SVkIuotE",
-    "_name": "",
+    "_name": "score<chimple-label>",
     "_objFlags": 0,
     "node": {
       "__id__": 76
@@ -3141,7 +3141,7 @@
   },
   {
     "__type__": "0ddb3t+49REZ5s0SVkIuotE",
-    "_name": "",
+    "_name": "Label<chimple-label>",
     "_objFlags": 0,
     "node": {
       "__id__": 82
@@ -3250,7 +3250,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "line1<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 85
@@ -3357,7 +3357,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "line5<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 88
@@ -3464,7 +3464,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "line3<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 91
@@ -3571,7 +3571,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "line7<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 94
@@ -3678,7 +3678,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "line2<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 97
@@ -3785,7 +3785,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "line6<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 100
@@ -3892,7 +3892,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "line4<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 103
@@ -3999,7 +3999,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "line8<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 106
@@ -4106,7 +4106,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bubble<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 109
@@ -4382,7 +4382,7 @@
   },
   {
     "__type__": "0ddb3t+49REZ5s0SVkIuotE",
-    "_name": "",
+    "_name": "Label<chimple-label>",
     "_objFlags": 0,
     "node": {
       "__id__": 116
@@ -4427,7 +4427,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "Background<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 115
@@ -4786,7 +4786,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        31.382999420166016,
+        -40,
         0,
         0,
         0,
@@ -4879,7 +4879,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "layout1<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 129
@@ -5019,7 +5019,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "layout2<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 133
@@ -5159,7 +5159,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "layout3<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 137
@@ -5299,7 +5299,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "layout4<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 141
@@ -5372,7 +5372,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "mainLayout<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 128
