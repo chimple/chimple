@@ -4,8 +4,9 @@ import { GAME_CONFIGS } from "./lib/gameConfigs";
 import ProgressMonitor from "./progressMonitor";
 import QuizMonitor, { QUIZ_ANSWERED } from "./quiz-monitor";
 import { Util } from "./util";
+import { Queue } from "../../queue";
 
-const { ccclass, property } = cc._decorator;
+const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class Lesson extends cc.Component {
@@ -121,21 +122,19 @@ export default class Lesson extends cc.Component {
         const block = cc.instantiate(this.blockPrefab);
         this.node.addChild(block);
 
-        // let monitorInfo: UpdateMonitorInfo = {
-        //     chapter        : "Chapter",
-        //     lesson         : "lesson",
-        //     incorrect      : 0,
-        //     totalQuestions : 1,
-        //     correct        : 1,
-        //     totalChallenges: 0,
-        //     totalSeconds   : 100,
-        //     activity       : config.game
-        // };
-        //
-        // ParseApi.getInstance().updateMonitor(monitorInfo)
-        //     .then(res => cc.log(res))
-        //     .catch(err => cc.log(err));
+        let monitorInfo = {
+            chapter        : "Chapter",
+            lesson         : "lesson",
+            incorrect      : 0,
+            totalQuestions : 1,
+            correct        : 1,
+            totalChallenges: 0,
+            totalSeconds   : 100,
+            activity       : config.game,
+            kind           : 'Monitor'
+        };
 
+        Queue.getInstance().push(monitorInfo);
         monitor.updateProgress(currentProblem, () => {
             monitor.stopStar = false;
             if (currentProblem < config.totalProblems) {
@@ -153,18 +152,15 @@ export default class Lesson extends cc.Component {
         Util.playSfx(this.startAudio);
         const config = Config.getInstance();
 
-        // let updateInfo: UpdateProgressInfo = {
-        //     chapter   : "chapter",
-        //     lesson    : config.lesson,
-        //     timespent : 120,
-        //     assessment: 0
-        // };
-        //
-        // // only happen in CLOSE, School or Home (with teacher)
-        // ParseApi.getInstance().updateProgress(updateInfo)
-        //     .then(res => cc.log(res))
-        //     .catch(err => cc.log(err));
+        let updateInfo = {
+            chapter   : "chapter",
+            lesson    : config.lesson,
+            timespent : 120,
+            assessment: 0,
+            kind: 'Progress'
+        };
 
+        Queue.getInstance().push(updateInfo);
         // generic firebase logging
 
         const block = cc.instantiate(this.blockPrefab);
@@ -184,7 +180,7 @@ export default class Lesson extends cc.Component {
         cc.director.getScene().addChild(balloon);
         balloonComp.animateGlow();
         new cc.Tween().target(balloon)
-            .to(0.5, { position: cc.v2(cc.winSize.width / 2, 100) }, null)
+            .to(0.5, {position: cc.v2(cc.winSize.width / 2, 100)}, null)
             .delay(2)
             .call(() => {
                 balloonComp.onBalloonClick();
