@@ -38,10 +38,6 @@ export class Queue {
     }
 
     isEmpty(): boolean {
-        if (PARSE_ENABLED) {
-            Queue.instance._store = Queue.instance.getFromCache();
-        }
-
         return this._store.length === 0;
     }
 
