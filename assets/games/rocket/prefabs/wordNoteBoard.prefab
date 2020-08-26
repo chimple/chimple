@@ -43,8 +43,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 931,
-      "height": 248
+      "width": 800,
+      "height": 200
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -107,7 +107,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 237.6,
+      "width": 272.31,
       "height": 126
     },
     "_anchorPoint": {
@@ -157,18 +157,20 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": true,
     "_string": "CAKE",
     "_N$string": "CAKE",
     "_fontSize": 100,
     "_lineHeight": 100,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "dee4ee01-e8db-4c7a-8026-47474be20a5a"
-    },
-    "_isSystemFontUsed": false,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -226,8 +228,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -337.0580139160156,
-        3.2720000743865967,
+        -293.058,
+        4.272,
         0,
         0,
         0,
@@ -259,7 +261,11 @@
       "__id__": 5
     },
     "_enabled": true,
-    "_materials": [],
+    "_materials": [
+      {
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+      }
+    ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": null,
@@ -304,10 +310,10 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "0b76abc0-b3b9-4b3f-80ff-b9f425816f95"
+      "__uuid__": "a24dfdae-0a23-4835-8c3f-0a10784a231d"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
