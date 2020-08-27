@@ -1,5 +1,7 @@
 import UtilLogger from "../util-logger";
 import Config from "./config";
+import { Queue } from "../../../queue";
+import { CURRENT_STUDENT_ID } from "./constants";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -201,9 +203,12 @@ export class User {
 
     static storeUser(user: User) {
         cc.sys.localStorage.setItem(user.id, JSON.stringify(user));
-        // ParseApi.updateProfile(JSON.stringify(user))
-        //     .then(r => cc.log('successfully updated profile ', user))
-        //     .catch(err => cc.log('failed to update profile ', user, ' with error ', err));
+        let profileInfo = {
+            profile  : JSON.stringify(user),
+            kind     : 'Profile',
+            studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)
+        };
+        Queue.getInstance().push(profileInfo);
     }
 
     static createUser(
