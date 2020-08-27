@@ -1,19 +1,11 @@
 import { PARSE_ENABLED } from "./common/scripts/lib/constants";
-import { ParseApi } from "./private/services/parseApi";
 
 export const QUEUE_CACHE = 'QUEUE_CACHE';
-
-//@ts-ignore
-cc.processQueue = function () {
-    cc.log("started process queue");
-    Queue.getInstance().consumeMessage();
-    cc.log("finished process queue");
-};
 
 export class Queue {
     private static instance: Queue;
     private _store: any[] = [];
-    private isHandlerBusy: boolean = false;
+
 
     public static init() {
         Queue.getInstance();
@@ -56,43 +48,5 @@ export class Queue {
         } catch (e) {
             return [];
         }
-    }
-
-    public consumeMessage() {
-        cc.log("called consumeMessage");
-        if (Queue.getInstance().isHandlerBusy) {
-            cc.log("Queue is busy handling....");
-            return;
-        }
-
-        this.isHandlerBusy = true;
-        cc.log('started consumeMessage -> checking queue empty', Queue.getInstance().isEmpty());
-
-        while (!Queue.getInstance().isEmpty()) {
-            const payload = Queue.getInstance().pop();
-            cc.log('found payload to process', payload);
-            if (payload) {
-                switch (payload.kind) {
-                    case 'Progress':
-                        // only happen in CLOSE, School or Home (with teacher)
-                        cc.log("calling update progress API");
-                        ParseApi.getInstance().updateProgress(payload)
-                            .then(res => cc.log(res))
-                            .catch(err => cc.log(err));
-                        break;
-                    case 'Monitor':
-                        cc.log("calling update monitor API");
-                        ParseApi.getInstance().updateMonitor(payload)
-                            .then(res => cc.log(res))
-                            .catch(err => cc.log(err));
-                        break;
-                    default:
-                        cc.log("found payload with no handler.. ignoring", payload);
-                        break;
-                }
-            }
-        }
-        this.isHandlerBusy = false;
-        cc.log("finished queue processing -> resetting isHandlerBusy", this.isHandlerBusy);
     }
 }

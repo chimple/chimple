@@ -88,7 +88,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private static final int STORAGE_PERMISSION_CODE = 101;
     protected ChimpleLogger logger;
     protected LockScreenReceiver lockScreenReceiver;
-    private static final String TAG = "AppActivity";
+    private static final String TAG = AppActivity.class.getSimpleName();
     StringBuilder stringBuilder;
     private FirebaseAnalytics firebaseAnalytics = null;
     private final String PREFERENCE_FILE_KEY = "bahamaPreferences";
@@ -100,7 +100,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private static String cameraResult=null;
     private static AppActivity app = null;
     private CountDownTimer repeatHandShakeTimer = null;
-    private static final String TAG = AppActivity.class.getSimpleName();
     private static final int REPEAT_HANDSHAKE_TIMER = 1 * 5 * 1000; // 5 second
 
 
