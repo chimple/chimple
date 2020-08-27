@@ -169,6 +169,7 @@ export default class Lesson extends cc.Component {
         };
 
         Queue.getInstance().push(updateInfo);
+
         // generic firebase logging
 
         const block = cc.instantiate(this.blockPrefab);
