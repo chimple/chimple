@@ -1,3 +1,5 @@
+import { Queue } from "../../../queue";
+
 export enum DeployMode {
     Open,
     Close
@@ -26,16 +28,16 @@ export const SIMULATOR_ROOT_DIR = '/Users/shyamalupadhyaya/Dev/chimple-git/sdcar
 
 export const COURSE_SERVER = {
     'local': {
-        'hi' : 'http://localhost:8901/courses/',
-        'en' : 'http://localhost:8901/courses/',
+        'hi'      : 'http://localhost:8901/courses/',
+        'en'      : 'http://localhost:8901/courses/',
         'en-maths': 'http://localhost:8901/courses/',
         'hi-maths': 'http://localhost:8901/courses/'
     },
-    'dev': {
-        'hi' : 'https://bahama-hi-stage.web.app/games/courses/',
-        'en' : 'https://bahama-hi-stage.web.app/games/courses/',
+    'dev'  : {
+        'hi'      : 'https://bahama-hi-stage.web.app/games/courses/',
+        'en'      : 'https://bahama-hi-stage.web.app/games/courses/',
         'en-maths': 'https://bahama-hi-stage.web.app/games/courses/',
-        'hi-maths' : 'https://bahama-hi-stage.web.app/games/courses/',
+        'hi-maths': 'https://bahama-hi-stage.web.app/games/courses/'
     },
     'stage': {
         'hi'      : 'https://bahama-hi-stage.web.app/new/courses/',
@@ -81,3 +83,11 @@ export const ACHIEVEMENT_ID = 'achievement_id';
 export const LEVEL_START = 'level_start';
 export const LEVEL_NAME = 'level_name';
 export const LEVEL_END = 'level_end';
+export const QUEUE_OFFLOAD_FREQUENCY = 30000;
+export const PARSE_ENABLED: boolean = true;
+export const CURRENT_SCHOOL_ID = 'CURRENT_SCHOOL_ID';
+export const CURRENT_STUDENT_ID = 'CURRENT_STUDENT_ID';
+export const CURRENT_CLASS_ID = 'CURRENT_CLASS_ID';
+export const CURRENT_SECTION_ID = 'CURRENT_SECTION_ID';
+export const CURRENT_SUBJECT_ID = 'CURRENT_SUBJECT_ID';
+Queue.init(); // init queue

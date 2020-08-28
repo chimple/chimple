@@ -35,6 +35,9 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.RemoteException;
 import android.util.Log;
 
@@ -61,6 +64,7 @@ import org.cocos2dx.javascript.logger.ChimpleLogger;
 import org.cocos2dx.javascript.logger.LockScreenReceiver;
 import org.cocos2dx.javascript.logger.NotificationData;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
+import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -84,7 +88,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private static final int STORAGE_PERMISSION_CODE = 101;
     protected ChimpleLogger logger;
     protected LockScreenReceiver lockScreenReceiver;
-    private static final String TAG = "AppActivity";
+    private static final String TAG = AppActivity.class.getSimpleName();
     StringBuilder stringBuilder;
     private FirebaseAnalytics firebaseAnalytics = null;
     private final String PREFERENCE_FILE_KEY = "bahamaPreferences";
@@ -95,6 +99,8 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private static final int CAMERA_CODE = 31;
     private static String cameraResult=null;
     private static AppActivity app = null;
+    private CountDownTimer repeatHandShakeTimer = null;
+    private static final int REPEAT_HANDSHAKE_TIMER = 1 * 5 * 1000; // 5 second
 
 
     @Override
@@ -145,6 +151,23 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
 
         ChimpleLogger.loadJSON(this, NotificationData.messages_en, ChimpleLogger.EN_LANG);
         ChimpleLogger.loadJSON(this, NotificationData.messages_hi, ChimpleLogger.HI_LANG);
+
+        this.createRepeatHandShakeTimer();
+        new CountDownTimer(5000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @Override
+            public void onFinish() {
+                Log.d(TAG, "start repeatHandShakeTimer");
+                System.out.println("start repeatHandShakeTimer");
+                if (app.repeatHandShakeTimer != null) {
+                    app.repeatHandShakeTimer.cancel();
+                    app.repeatHandShakeTimer.start();
+                }
+            }
+        }.start();
     }
 
     public void initFirebaseMessageClient() {
@@ -376,6 +399,10 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         Log.d(TAG, "updating STOP_TIME:" + new Date().getTime());
         ChimpleLogger.storeInSharedPreference(this, APP_LAST_PLAYED_TIME, String.valueOf(new Date().getTime()));
         this.syncFcm();
+        if (app.repeatHandShakeTimer != null) {
+            app.repeatHandShakeTimer.cancel();
+        }
+
         super.onStop();
         SDKWrapper.getInstance().onStop();
     }
@@ -412,6 +439,11 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         ChimpleLogger.storeInSharedPreference(this, ChimpleLogger.THREE_DAY_REMINDER_SHOWED_TIME, null);
         ChimpleLogger.storeInSharedPreference(this, ChimpleLogger.WEEKLY_REMINDER_SHOWED_TIME, null);
         this.syncFcm();
+        if (app.repeatHandShakeTimer != null) {
+            app.repeatHandShakeTimer.cancel();
+            app.repeatHandShakeTimer.start();
+        }
+
         super.onStart();
     }
 
@@ -563,6 +595,39 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                             Log.d(TAG, "Failed to update fmcs:" + e.toString());
                         }
                     });
+        }
+    }
+
+    private void createRepeatHandShakeTimer() {
+        try {
+            synchronized (this) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (app != null) {
+                            app.repeatHandShakeTimer = new CountDownTimer(REPEAT_HANDSHAKE_TIMER, 10000) {
+                                public void onTick(long millisUntilFinished) {
+                                    Log.d(TAG, "repeatHandShakeTimer ticking ...");
+                                }
+
+                                public void onFinish() {
+                                    app.runOnGLThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            System.out.println("calling process Queue...");
+                                            Cocos2dxJavascriptJavaBridge.evalString("cc.processQueue()");
+                                        }
+                                    });
+
+                                    app.repeatHandShakeTimer.start();
+                                }
+                            };
+                        }
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
