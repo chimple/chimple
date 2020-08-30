@@ -1,7 +1,6 @@
 import ChimpleLabel from "./chimple-label";
 import Help from "./help";
 import { DEFAULT_FONT_COLOR, LETTER_VOICE, NUMBER_VOICE, PHONIC_VOICE } from "./helper";
-import Lesson from "./lesson";
 import Config, { COURSES, STORY } from "./lib/config";
 import { ASSET_LOAD_METHOD, COURSES_URL, SIMULATOR_ROOT_DIR } from "./lib/constants";
 import Profile, { SFX_OFF } from "./lib/profile";
@@ -9,6 +8,7 @@ import UtilLogger from "./util-logger";
 import Overflow = cc.Label.Overflow;
 import HorizontalAlign = cc.Label.HorizontalAlign;
 import VerticalAlign = cc.Label.VerticalAlign;
+import LessonController from "./lessonController";
 
 export const SUBPACKAGES = 'subpackages'
 
@@ -146,7 +146,7 @@ export class Util {
       let num: string =
         val in numberMappings ? numberMappings[val] : "d_" + val;
       num = !num.endsWith(".mp3") ? num + ".mp3" : num;
-      return Config.dir + "common/res/sound/numbervoice/" + num;
+      return Config.dir + "course/res/sound/numbervoice/" + num;
     });
     this.speakOneByOne(audios, 0, callbackOnEnd);
   }
@@ -496,7 +496,7 @@ export class Util {
         ? ""
         : SIMULATOR_ROOT_DIR
       : COURSES_URL;
-    cc.assetManager.loadRemote(root + res, (err, asset) => {
+    cc.assetManager.loadAny(root + res, (err, asset) => {
       if (err) {
         cc.log(JSON.stringify(err));
       }
@@ -505,7 +505,7 @@ export class Util {
   }
 
   public static loadi18NMapping(callBack: Function) {
-    let jsonFile = Config.dir + "common/res/i18N.json";
+    let jsonFile = Config.dir + "course/res/i18N.json";
     Util.load(jsonFile, (err, jsonAsset) => {
       if (!err && !!jsonAsset) {
         const data =
@@ -552,7 +552,7 @@ export class Util {
     const config = Config.getInstance();
     if (config.problem == 1) {
       const lessonNode = cc.Canvas.instance.node
-      const lessonComp = lessonNode.getComponent(Lesson)
+      const lessonComp = lessonNode.getComponent(LessonController)
       if (from != null && to != null) {
         cc.resources.load("prefabs/help", function (err, prefab) {
           if (!err) {
@@ -575,7 +575,7 @@ export class Util {
         chimp.playAnimation("talking", 0);
       }
       Util.speak(
-        config.course + "/common/res/sound/game/" + config.game + ".mp3",
+        config.course + "/course/res/sound/game/" + config.game + ".mp3",
         () => {
           if (chimp) chimp.playAnimation("idle", 1);
           if (callBack != null) callBack();
@@ -654,36 +654,15 @@ export class Util {
 
   public static downloadIfNeeded(
     node: cc.Node,
-    game: string,
-    level: number,
+    course: string,
+    lesson: string,
     callbackOnExists: Function
   ) {
-    var storageDir: string;
-    var manifestPath: string;
-    var testFile: string;
-    var iconFile: string;
-    if (COURSES.indexOf(game) >= 0) {
-      storageDir = game;
-      manifestPath = storageDir + "/common";
-      testFile = manifestPath + "/res/curriculum.json";
-      iconFile = manifestPath + "/res/icons/" + game + ".png";
-    } else if (game == STORY) {
-      storageDir = Config.dir + game;
-      // manifestPath =
-      //   storageDir + "/" + Config.i.gameConfigs[game].levelLabels[level];
-      // Commented above for now and added below
-      manifestPath = storageDir + "/" + game;
-      testFile = manifestPath + "/res/" + game + ".json";
-      iconFile = Config.dir + "common/res/icons/" + game + ".png";
-    } else {
-      storageDir = Config.i.course;
-      manifestPath = storageDir + "/" + game;
-      testFile = manifestPath + "/res/" + game + ".json";
-      iconFile = storageDir + "/common/res/icons/" + game + ".png";
-    }
+    const storageDir = course;
+    const manifestPath = storageDir + "/" + lesson;
+    const testFile = manifestPath + "/res/" + lesson + ".json";
 
     if (
-      game != null &&
       cc.sys.isNative &&
       cc.sys.os == cc.sys.OS_ANDROID &&
       ASSET_LOAD_METHOD === "file" &&
@@ -698,8 +677,6 @@ export class Util {
           `${COURSES_URL}${manifestPath}.zip`,
           storageDir
         );
-        // if (jsb.fileUtils.isFileExist(testFile)
-        //     && jsb.fileUtils.isFileExist(iconFile)) {
         if (
           isFileDownloaded == DOWNLOAD_FAILED ||
           isFileDownloaded == DOWNLOAD_SUCCESS

@@ -2,6 +2,7 @@ import UtilLogger from "../util-logger";
 import Config from "./config";
 import { Queue } from "../../../queue";
 import { CURRENT_STUDENT_ID } from "./constants";
+import { Course } from "./convert";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -33,6 +34,25 @@ export interface UserAttribute {
     isTeacher?: boolean
 }
 
+export interface CourseProgress {
+    currentLessonId: string;
+}
+
+export class CourseProgressClass implements CourseProgress {
+    currentLessonId = null;
+}
+
+export interface LessonProgress {
+    score: number;
+}
+
+export class LessonProgressClass implements LessonProgress {
+    score: number;
+    constructor(score: number) {
+        this.score = score;
+    }
+}
+
 export enum Language {
     ENGLISH,
     HINDI,
@@ -53,7 +73,8 @@ export class User {
     private _inventory: object;
     private _currentBg: string;
     private _currentCharacter: string;
-    private _courseProgress: object;
+    private _courseProgressMap: Map<string, CourseProgress>;
+    private _lessonProgressMap: Map<string, LessonProgress>;
     private _unlockedInventory: object;
     private _isTeacher: boolean;
 
@@ -70,7 +91,8 @@ export class User {
         inventory: object,
         currentBg: string,
         currentCharacter: string,
-        courseProgress: object,
+        courseProgressMap: Map<string, CourseProgress>,
+        lessonProgressMap: Map<string, LessonProgress>,
         unlockedInventory: object
     ) {
         this._id = id;
@@ -84,7 +106,8 @@ export class User {
         this._unlockedInventory = unlockedInventory;
         this._currentBg = currentBg;
         this._currentCharacter = currentCharacter;
-        this._courseProgress = courseProgress;
+        this._courseProgressMap = courseProgressMap;
+        this._lessonProgressMap = lessonProgressMap;
     }
 
     set id(id: string) {
@@ -170,12 +193,20 @@ export class User {
         return this._currentCharacter;
     }
 
-    set courseProgress(courseProgress: object) {
-        this._courseProgress = courseProgress;
+    set courseProgressMap(courseProgressMap: Map<string, CourseProgress>) {
+        this._courseProgressMap = courseProgressMap;
     }
 
-    get courseProgress(): object {
-        return this._courseProgress;
+    get courseProgressMap(): Map<string, CourseProgress> {
+        return this._courseProgressMap;
+    }
+
+    set lessonProgressMap(lessonProgressMap: Map<string, LessonProgress>) {
+        this._lessonProgressMap = lessonProgressMap;
+    }
+
+    get lessonProgressMap(): Map<string, LessonProgress> {
+        return this._lessonProgressMap;
     }
 
     set unlockedInventory(unlockedInventory: object) {
@@ -197,14 +228,25 @@ export class User {
         this._storeUser();
     }
 
+    updateLessonProgress(lessonId: string, score: number) {
+        if(this._lessonProgressMap.has(lessonId)) {
+            if(score > this._lessonProgressMap.get(lessonId).score) {
+                this._lessonProgressMap.get(lessonId).score = score
+            }
+        } else {
+            this._lessonProgressMap.set(lessonId, new LessonProgressClass(score))
+        }
+        this._storeUser()
+    }
+
     private _storeUser() {
         User.storeUser(this);
     }
 
     static storeUser(user: User) {
-        cc.sys.localStorage.setItem(user.id, JSON.stringify(user));
+        cc.sys.localStorage.setItem(user.id, User.toJson(user));
         let profileInfo = {
-            profile  : JSON.stringify(user),
+            profile  : User.toJson(user),
             kind     : 'Profile',
             studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)
         };
@@ -234,10 +276,11 @@ export class User {
             {},
             "",
             "bear",
-            {
-                'en'      : {'currentLesson': '1', 'completedLessons': []},
-                'en-maths': {'currentLesson': '1', 'completedLessons': []}
-            },
+            new Map([
+                ['en', new CourseProgressClass()],
+                ['en-maths', new CourseProgressClass()]                
+            ]),
+            new Map(),
             {}
         );
         User.storeUser(user);
@@ -248,7 +291,7 @@ export class User {
             userIds.push(uid);
         }
         User.setUserIds(userIds);
-        console.log("User created ", JSON.parse(cc.sys.localStorage.getItem(uid)));
+        console.log("User created ", User.fromJson(cc.sys.localStorage.getItem(uid)));
         return user;
     }
 
@@ -257,8 +300,8 @@ export class User {
         const userIdList = User.getUserIds();
         if (userIdList != null) {
             userIdList.forEach((id) => {
-                let user = this.fromJson(
-                    JSON.parse(cc.sys.localStorage.getItem(id))
+                let user = User.fromJson(
+                    cc.sys.localStorage.getItem(id)
                 );
                 response.push(user);
             });
@@ -275,24 +318,62 @@ export class User {
         console.log("User Id aray created ", JSON.parse(cc.sys.localStorage.getItem(USER_ID)));
     }
 
-    static fromJson(data): User {
+    static fromJson(jsonStr: string): User {
+        const data = JSON.parse(jsonStr)
+        const courseProgressMap = new Map<string, CourseProgress>()
+        for (const key in data.courseProgressMap) {
+            courseProgressMap.set(key, data.courseProgressMap[key])            
+        }
+        const lessonProgressMap = new Map<string, LessonProgress>()
+        for (const key in data.lessonProgressMap) {
+            lessonProgressMap.set(key, data.lessonProgressMap[key])            
+        }
         let user = new User(
-            data._id,
-            data._name,
-            data._age,
-            data._gender,
-            data._imgPath,
-            data._avatarImage,
-            data._isTeacher,
-            data._sfxOff,
-            data._musicOff,
-            data._inventory,
-            data._currentBg,
-            data._currentCharacter,
-            data._courseProgress,
-            data._unlockedInventory
+            data.id,
+            data.name,
+            data.age,
+            data.gender,
+            data.imgPath,
+            data.avatarImage,
+            data.isTeacher,
+            data.sfxOff,
+            data.musicOff,
+            data.inventory,
+            data.currentBg,
+            data.currentCharacter,
+            courseProgressMap,
+            lessonProgressMap,
+            data.unlockedInventory
         );
         return user;
+    }
+
+    static toJson(user: User): string {
+        const courseProgressObj = {}
+        user.courseProgressMap.forEach((cp, name) => {
+            courseProgressObj[name] = cp
+        })
+        const lessonProgressObj = {}
+        user.lessonProgressMap.forEach((lp, id) => {
+            lessonProgressObj[id] = lp
+        })
+        return JSON.stringify({
+            'id': user.id,
+            'name': user.name,
+            'age': user.age,
+            'gender': user.gender,
+            'imgPath': user.imgPath,
+            'avatarImage': user.avatarImage,
+            'isTeacher': user.isTeacher,
+            'sfxOff': user._sfxOff,
+            'musicOff': user._musicOff,
+            'inventory': user.inventory,
+            'currentBg': user.currentBg,
+            'currentCharacter': user.currentCharacter,
+            'courseProgressMap': courseProgressObj,
+            'lessonProgressMap': lessonProgressObj,
+            'unlockedInventory': user.inventory
+        })
     }
 
     static setCurrentUser(user: User) {
@@ -304,8 +385,7 @@ export class User {
     }
 
     static getUser(uid: string): User {
-        let data = JSON.parse(cc.sys.localStorage.getItem(uid));
-        return data ? this.fromJson(data) : null;
+        return User.fromJson(cc.sys.localStorage.getItem(uid));
     }
 
     static deleteUser(id: string) {
@@ -450,6 +530,6 @@ export default class Profile {
         //         };
         //     }
         // );
-        currentUser.courseProgress = courseProgress;
+        // currentUser.courseProgress = courseProgress;
     }
 }

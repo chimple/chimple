@@ -6,11 +6,12 @@ import QuizMonitor, { QUIZ_ANSWERED } from "./quiz-monitor";
 import { Util } from "./util";
 import { Queue } from "../../queue";
 import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID } from "./lib/constants";
+import { User } from "./lib/profile";
 
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class Lesson extends cc.Component {
+export default class LessonController extends cc.Component {
 
     @property(cc.Prefab)
     progressMonitor: cc.Prefab = null;
@@ -74,8 +75,6 @@ export default class Lesson extends cc.Component {
     }
 
     private problemStart(replaceScene: boolean, callback: Function) {
-        this.wrongMoves = 0;
-        this.rightMoves = 0;
         const config = Config.getInstance();
 
         if (replaceScene) {
@@ -155,6 +154,10 @@ export default class Lesson extends cc.Component {
     private lessonEnd() {
         Util.playSfx(this.startAudio);
         const config = Config.getInstance();
+
+        this.total = Math.max(0, 100 - this.wrongMoves * 10)
+        const user = User.getCurrentUser()
+        user.updateLessonProgress(config.lesson, this.total)
 
         let updateInfo = {
             chapter   : "chapter",

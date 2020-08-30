@@ -1,5 +1,6 @@
 import { Util } from "../util";
 import Profile, { User } from "./profile";
+import { Course } from "./convert";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
@@ -72,7 +73,7 @@ export default class Config {
     totalProblems: number;
     data: Array<Array<string>>;
     currentFontName: string;
-    courses;
+    curriculum: Map<string, Course> = new Map()
 
     //currently used in story remove later
     gameLevelName: string;
@@ -96,7 +97,6 @@ export default class Config {
             Config.instance.flow = Flow.Default;
             Config.instance._textFontMap = new Map();
             Config.instance.currentFontName = DEFAULT_FONT;
-            Config.instance.courses = {}
         }
         return Config.instance;
     }
@@ -269,7 +269,7 @@ export default class Config {
             const isUpperCase: boolean = fileName === fileName.toUpperCase();
             appendPath = isNumber ? 'numbers' : isUpperCase ? 'upper' : 'lower';
         }
-        let jsonFile = this.course + '/common/res/paths/' + appendPath + '/' + fileName; //default
+        let jsonFile = this.course + '/course/res/paths/' + appendPath + '/' + fileName; //default
         jsonFile = jsonFile + ".json";
         Util.load(jsonFile, (err, jsonAsset) => {
             data = [];
@@ -292,17 +292,16 @@ export default class Config {
 
     loadCourseJsons(node: cc.Node, callBack: Function) {
         const user = User.getCurrentUser()
-        let numCourses = Object.keys(user.courseProgress).length
-        for (let name of Object.keys(user.courseProgress)) {
-            this.courses[name] = {}
-            const jsonFile = name + '/common/res/course.json';
+        let numCourses = user.courseProgressMap.size
+        user.courseProgressMap.forEach((courseProgress, name) => {
+            const jsonFile = name + '/course/res/course.json';
             Util.load(jsonFile, (err: Error, jsonAsset) => {
                 if (!err) {
-                    this.courses[name].chapters = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
+                    this.curriculum.set(name, jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset);
                 }
                 numCourses--
             })
-        }
+        })
         const checkAllLoaded = () => {
             if (numCourses <= 0) {
                 cc.director.getScheduler().unschedule(checkAllLoaded, node)

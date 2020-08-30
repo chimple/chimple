@@ -36,9 +36,9 @@ export const CORRECT_EVENT = 'correct';
 export const WRONG_EVENT = 'wrong';
 export const SOUND_LOADED_EVENT = 'soundLoaded';
 
-export const NUMBER_VOICE = 'common/res/sound/numbervoice/';
-export const PHONIC_VOICE = 'common/res/sound/phonicvoice/';
-export const LETTER_VOICE = 'common/res/sound/lettervoice/';
+export const NUMBER_VOICE = 'course/res/sound/numbervoice/';
+export const PHONIC_VOICE = 'course/res/sound/phonicvoice/';
+export const LETTER_VOICE = 'course/res/sound/lettervoice/';
 export const TUTORIAL_IMAGES = 'drawshape/res/image/';
 export const AUTO_TOUCH_START = 'autoTouchStart';
 export const BOTTOM_MIDDLE = new cc.Vec2(0, 0.5);
