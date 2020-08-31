@@ -34,6 +34,7 @@ const DOWNLOAD_FAILED = "DOWNLOAD_FAILED";
 export class Util {
   private static _i18NMap = new Map();
   private static _resources: string[] = [];
+  static bundles: Map<string, cc.AssetManager.Bundle> = new Map();
 
   public static shuffle<T>(arr): T[] {
     let ctr = arr.length;
@@ -277,7 +278,7 @@ export class Util {
   public static loadGameSound(path: string, callBack: Function) {
     const filePath = path.startsWith(Config.dir)
       ? path
-      : Config.dir + `${Config.i.lesson}/res/sound/${path}`;
+      : Config.dir + `${Config.i.lesson}/res/${path}`;
     const fullFilePath =
       filePath + (path.endsWith(".mp3") || path.endsWith(".m4a") ? "" : ".mp3");
     Util.load(
@@ -305,7 +306,7 @@ export class Util {
       path.endsWith(".png") || path.endsWith(".jpg") ? path : path + ".png";
     const fullFilePath = path.startsWith(Config.dir)
       ? path
-      : Config.dir + `${Config.i.lesson}/res/image/${path}`;
+      : Config.dir + `${Config.i.lesson}/res/${path}`;
     Util.load(
       fullFilePath,
       (err, texture) => {
@@ -460,7 +461,7 @@ export class Util {
         cc.audioEngine.setFinishCallback(audioId, callback);
       } else {
         const wordLoc =
-          Config.dir + Config.i.course + "/res/sound/" + audio;
+          Config.dir + Config.i.course + "/res/" + audio;
         Util.loadGameSound(wordLoc, (clip) => {
           if (clip != null) {
             audioId = cc.audioEngine.play(clip, false, 1);
@@ -491,17 +492,18 @@ export class Util {
     callback: Function,
     needsRelease: boolean = true
   ) {
-    const root = cc.sys.isNative
-      ? cc.sys.os == cc.sys.OS_ANDROID
-        ? ""
-        : SIMULATOR_ROOT_DIR
-      : COURSES_URL;
-    cc.assetManager.loadAny(root + res, (err, asset) => {
+    const resArray = res.split('/')
+    const courseName = resArray[0]
+    const lessonName = resArray[1]
+    const resName = resArray.slice(2).join('/').split('.')[0]
+
+    const bundle = this.bundles.get(lessonName == 'course' ? courseName : lessonName)
+    bundle.load(resName, (err, asset) => {
       if (err) {
         cc.log(JSON.stringify(err));
       }
       callback(err, asset);
-    });
+    })
   }
 
   public static loadi18NMapping(callBack: Function) {

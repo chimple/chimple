@@ -249,9 +249,9 @@ export default class Config {
     // }
 
     nextProblem() {
-        if(this.problem < this.totalProblems) {
+        if (this.problem < this.totalProblems) {
             this.problem++;
-            this.data = [this._lessonData.rows[this.problem - 1]];    
+            this.data = [this._lessonData.rows[this.problem - 1]];
         }
     }
 
@@ -295,13 +295,20 @@ export default class Config {
         let numCourses = user.courseProgressMap.size
         user.courseProgressMap.forEach((courseProgress, name) => {
             const jsonFile = name + '/course/res/course.json';
-            Util.load(jsonFile, (err: Error, jsonAsset) => {
-                if (!err) {
-                    this.curriculum.set(name, jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset);
+            cc.assetManager.loadBundle(name, (err, bundle) => {
+                if (err) {
+                    return console.error(err);
                 }
-                numCourses--
+                Util.bundles.set(name, bundle);
+                Util.load(jsonFile, (err: Error, jsonAsset) => {
+                    if (!err) {
+                        this.curriculum.set(name, jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset);
+                    }
+                    numCourses--
+                })
             })
         })
+
         const checkAllLoaded = () => {
             if (numCourses <= 0) {
                 cc.director.getScheduler().unschedule(checkAllLoaded, node)

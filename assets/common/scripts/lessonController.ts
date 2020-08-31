@@ -5,7 +5,7 @@ import ProgressMonitor from "./progressMonitor";
 import QuizMonitor, { QUIZ_ANSWERED } from "./quiz-monitor";
 import { Util } from "./util";
 import { Queue } from "../../queue";
-import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID } from "./lib/constants";
+import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID, COURSES_URL } from "./lib/constants";
 import { User } from "./lib/profile";
 
 const {ccclass, property} = cc._decorator;
@@ -58,20 +58,29 @@ export default class LessonController extends cc.Component {
     private lessonStart() {
         const config = Config.getInstance();
         config.problem = 0;
-        config.loadLessonJson((data: Array<string>) => {
-            config.data = [data];
-            if ((config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS)) {
-                this.quizMonitorNode = cc.instantiate(this.quizMonitor);
-                this.quizMonitorNode.zIndex = 2;
-                this.node.addChild(this.quizMonitorNode);
-            } else {
-                this.progressMonitorNode = cc.instantiate(this.progressMonitor);
-                this.progressMonitorNode.zIndex = 2;
-                this.node.addChild(this.progressMonitorNode);
+        cc.assetManager.loadBundle(COURSES_URL + '/' + config.course + '/' + config.lesson, (err, bundle) => {
+            if (err) {
+                return console.error(err);
             }
-            this.problemStart(true, () => {
+            bundle.preloadDir('resources', null, null, (err: Error, items) => {
+                Util.bundles.set(config.lesson, bundle);
+                config.loadLessonJson((data: Array<string>) => {
+                    config.data = [data];
+                    if ((config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS)) {
+                        this.quizMonitorNode = cc.instantiate(this.quizMonitor);
+                        this.quizMonitorNode.zIndex = 2;
+                        this.node.addChild(this.quizMonitorNode);
+                    } else {
+                        this.progressMonitorNode = cc.instantiate(this.progressMonitor);
+                        this.progressMonitorNode.zIndex = 2;
+                        this.node.addChild(this.progressMonitorNode);
+                    }
+                    this.problemStart(true, () => {
+                    });
+                });                        
             });
-        });
+
+        })
     }
 
     private problemStart(replaceScene: boolean, callback: Function) {

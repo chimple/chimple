@@ -39,7 +39,7 @@ export default class Chimple extends cc.Component {
     }
 
     public static navigateToHome() {
-        Config.loadScene('private/home/login/scenes/welcomePage', 'private', null);
+        Config.loadScene('private/home/loginnew/scenes/homeLoginScene', 'private', null);
     }
 
     private navigateToBase() {
