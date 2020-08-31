@@ -5,10 +5,18 @@ import ProgressMonitor from "./progressMonitor";
 import QuizMonitor, { QUIZ_ANSWERED } from "./quiz-monitor";
 import { Util } from "./util";
 import { Queue } from "../../queue";
-import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID, COURSES_URL } from "./lib/constants";
+import {
+    CURRENT_CLASS_ID,
+    CURRENT_SCHOOL_ID,
+    CURRENT_SECTION_ID,
+    CURRENT_STUDENT_ID,
+    CURRENT_SUBJECT_ID,
+    COURSES_URL
+} from "./lib/constants";
 import { User } from "./lib/profile";
+import { Chapter, Course } from "./lib/convert";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class LessonController extends cc.Component {
@@ -62,24 +70,37 @@ export default class LessonController extends cc.Component {
             if (err) {
                 return console.error(err);
             }
-            bundle.preloadDir('resources', null, null, (err: Error, items) => {
-                Util.bundles.set(config.lesson, bundle);
-                config.loadLessonJson((data: Array<string>) => {
-                    config.data = [data];
-                    if ((config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS)) {
-                        this.quizMonitorNode = cc.instantiate(this.quizMonitor);
-                        this.quizMonitorNode.zIndex = 2;
-                        this.node.addChild(this.quizMonitorNode);
-                    } else {
-                        this.progressMonitorNode = cc.instantiate(this.progressMonitor);
-                        this.progressMonitorNode.zIndex = 2;
-                        this.node.addChild(this.progressMonitorNode);
-                    }
-                    this.problemStart(true, () => {
-                    });
-                });                        
-            });
+            cc.sys.localStorage.setItem(config.lesson + "_startTime", new Date().getTime());
 
+            config.loadLessonJson((data: Array<string>) => {
+                config.data = [data];
+                if ((config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS)) {
+                    this.quizMonitorNode = cc.instantiate(this.quizMonitor);
+                    this.quizMonitorNode.zIndex = 2;
+                    this.node.addChild(this.quizMonitorNode);
+                } else {
+                    this.progressMonitorNode = cc.instantiate(this.progressMonitor);
+                    this.progressMonitorNode.zIndex = 2;
+                    this.node.addChild(this.progressMonitorNode);
+                }
+                bundle.preloadDir('resources', null, null, (err: Error, items) => {
+                    Util.bundles.set(config.lesson, bundle);
+                    config.loadLessonJson((data: Array<string>) => {
+                        config.data = [data];
+                        if ((config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS)) {
+                            this.quizMonitorNode = cc.instantiate(this.quizMonitor);
+                            this.quizMonitorNode.zIndex = 2;
+                            this.node.addChild(this.quizMonitorNode);
+                        } else {
+                            this.progressMonitorNode = cc.instantiate(this.progressMonitor);
+                            this.progressMonitorNode.zIndex = 2;
+                            this.node.addChild(this.progressMonitorNode);
+                        }
+                        this.problemStart(true, () => {
+                        });
+                    });
+                });
+            })
         })
     }
 
@@ -132,18 +153,18 @@ export default class LessonController extends cc.Component {
         this.node.addChild(block);
 
         let monitorInfo = {
-            chapter        : "Chapter",
-            lesson         : "lesson",
-            incorrect      : 0,
-            totalQuestions : 1,
-            correct        : 1,
+            chapter: config.chapter,
+            lesson: config.lesson,
+            incorrect: 0,
+            totalQuestions: 1,
+            correct: 1,
             totalChallenges: 0,
-            totalSeconds   : 100,
-            activity       : config.game,
-            kind           : 'Monitor',
-            schoolId       : cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
-            studentId      : cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
-            classId        : cc.sys.localStorage.getItem(CURRENT_CLASS_ID)
+            totalSeconds: 100,
+            activity: config.game,
+            kind: 'Monitor',
+            schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
+            studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
+            classId: cc.sys.localStorage.getItem(CURRENT_CLASS_ID)
         };
 
         Queue.getInstance().push(monitorInfo);
@@ -163,17 +184,34 @@ export default class LessonController extends cc.Component {
     private lessonEnd() {
         Util.playSfx(this.startAudio);
         const config = Config.getInstance();
-
+        const timespent = new Date().getTime() - (cc.sys.localStorage.getItem(config.lesson + "_startTime") || 0)
         this.total = Math.max(0, 100 - this.wrongMoves * 10)
+
         const user = User.getCurrentUser()
         user.updateLessonProgress(config.lesson, this.total)
 
+        const selectedCourse: Course = Config.i.curriculum.get(config.chapter);
+        const chapters: Chapter[] = selectedCourse.chapters.filter(c => c.id === config.chapter);
+        let allLessonIdsInChapter: string[] = []
+        let finishedLessons = 0;
+        let percentageComplete = 0;
+        if (Array.isArray(chapters) && chapters.length > 0) {
+            const currentChapter: Chapter = chapters[0];
+            allLessonIdsInChapter = currentChapter.lessons.map(lesson => lesson.id)
+            allLessonIdsInChapter.forEach(
+                lid => {
+                    user.lessonProgressMap.has(lid) ? finishedLessons++ : ''
+                }
+            )
+            percentageComplete = finishedLessons / allLessonIdsInChapter.length;
+        }
+
         let updateInfo = {
-            chapter: "chapter",
+            chapter: config.chapter,
             lesson: config.lesson,
-            percentComplete: 0.2,
-            timespent: 120,
-            assessment: 10,
+            percentComplete: percentageComplete,
+            timespent: timespent,
+            assessment: this.total,
             kind: 'Progress',
             schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
             studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
@@ -202,7 +240,7 @@ export default class LessonController extends cc.Component {
         cc.director.getScene().addChild(balloon);
         balloonComp.animateGlow();
         new cc.Tween().target(balloon)
-            .to(0.5, {position: cc.v2(cc.winSize.width / 2, 100)}, null)
+            .to(0.5, { position: cc.v2(cc.winSize.width / 2, 100) }, null)
             .delay(2)
             .call(() => {
                 balloonComp.onBalloonClick();
