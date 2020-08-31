@@ -59,6 +59,12 @@ export enum Language {
 }
 
 export const availLanguages = ["english", "hindi"];
+export const languageSelect = [
+    ["english", "A", "#FFBC00"],
+    ["hindi", "B", "#3E99E7"],
+    ["english", "C", "#3CBD93"],
+    ["hindi", "Z", "#F55B5D"],
+];
 
 export class User {
     private static _currentUser: User;
@@ -516,8 +522,8 @@ export default class Profile {
 
     static async teacherPostLoginActivity(objectId: string) {
         const currentUser: User = User.createUserOrFindExistingUser({
-                id: objectId
-            }
+            id: objectId
+        }
         );
         User.setCurrentUser(currentUser);
         let courseProgress = {};
