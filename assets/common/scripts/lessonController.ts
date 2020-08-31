@@ -1,12 +1,19 @@
 import Balloon from "./balloon";
-import Config, { DEFAULT_FONT, QUIZ_LITERACY, QUIZ_MATHS } from "./lib/config";
-import { GAME_CONFIGS } from "./lib/gameConfigs";
+import Config, {DEFAULT_FONT, QUIZ_LITERACY, QUIZ_MATHS} from "./lib/config";
+import {GAME_CONFIGS} from "./lib/gameConfigs";
 import ProgressMonitor from "./progressMonitor";
-import QuizMonitor, { QUIZ_ANSWERED } from "./quiz-monitor";
-import { Util } from "./util";
-import { Queue } from "../../queue";
-import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID } from "./lib/constants";
-import { User } from "./lib/profile";
+import QuizMonitor, {QUIZ_ANSWERED} from "./quiz-monitor";
+import {Util} from "./util";
+import {Queue} from "../../queue";
+import {
+    CURRENT_CLASS_ID,
+    CURRENT_SCHOOL_ID,
+    CURRENT_SECTION_ID,
+    CURRENT_STUDENT_ID,
+    CURRENT_SUBJECT_ID
+} from "./lib/constants";
+import {User} from "./lib/profile";
+import {Chapter, Course} from "./lib/convert";
 
 const {ccclass, property} = cc._decorator;
 
@@ -58,6 +65,9 @@ export default class LessonController extends cc.Component {
     private lessonStart() {
         const config = Config.getInstance();
         config.problem = 0;
+
+        cc.sys.localStorage.setItem(config.lesson + "_startTime", new Date().getTime());
+
         config.loadLessonJson((data: Array<string>) => {
             config.data = [data];
             if ((config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS)) {
@@ -123,18 +133,18 @@ export default class LessonController extends cc.Component {
         this.node.addChild(block);
 
         let monitorInfo = {
-            chapter        : "Chapter",
-            lesson         : "lesson",
-            incorrect      : 0,
-            totalQuestions : 1,
-            correct        : 1,
+            chapter: config.chapter,
+            lesson: config.lesson,
+            incorrect: 0,
+            totalQuestions: 1,
+            correct: 1,
             totalChallenges: 0,
-            totalSeconds   : 100,
-            activity       : config.game,
-            kind           : 'Monitor',
-            schoolId       : cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
-            studentId      : cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
-            classId        : cc.sys.localStorage.getItem(CURRENT_CLASS_ID)
+            totalSeconds: 100,
+            activity: config.game,
+            kind: 'Monitor',
+            schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
+            studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
+            classId: cc.sys.localStorage.getItem(CURRENT_CLASS_ID)
         };
 
         Queue.getInstance().push(monitorInfo);
@@ -154,17 +164,34 @@ export default class LessonController extends cc.Component {
     private lessonEnd() {
         Util.playSfx(this.startAudio);
         const config = Config.getInstance();
-
+        const timespent = new Date().getTime() - (cc.sys.localStorage.getItem(config.lesson + "_startTime") || 0)
         this.total = Math.max(0, 100 - this.wrongMoves * 10)
+
         const user = User.getCurrentUser()
         user.updateLessonProgress(config.lesson, this.total)
 
+        const selectedCourse: Course = Config.i.curriculum.get(config.chapter);
+        const chapters: Chapter[] = selectedCourse.chapters.filter(c => c.id === config.chapter);
+        let allLessonIdsInChapter: string[] = []
+        let finishedLessons = 0;
+        let percentageComplete = 0;
+        if (Array.isArray(chapters) && chapters.length > 0) {
+            const currentChapter: Chapter = chapters[0];
+            allLessonIdsInChapter = currentChapter.lessons.map(lesson => lesson.id)
+            allLessonIdsInChapter.forEach(
+                lid => {
+                    user.lessonProgressMap.has(lid) ? finishedLessons++ : ''
+                }
+            )
+            percentageComplete = finishedLessons / allLessonIdsInChapter.length;
+        }
+
         let updateInfo = {
-            chapter: "chapter",
+            chapter: config.chapter,
             lesson: config.lesson,
-            percentComplete: 0.2,
-            timespent: 120,
-            assessment: 10,
+            percentComplete: percentageComplete,
+            timespent: timespent,
+            assessment: this.total,
             kind: 'Progress',
             schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
             studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
