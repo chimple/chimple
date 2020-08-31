@@ -614,8 +614,10 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                                     app.runOnGLThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            System.out.println("calling process Queue...");
-                                            Cocos2dxJavascriptJavaBridge.evalString("cc.processQueue()");
+                                            if(ChimpleLogger.isNetworkAvailable()) {
+                                                System.out.println("calling process Queue...");
+                                                Cocos2dxJavascriptJavaBridge.evalString("cc.processQueue()");
+                                            }
                                         }
                                     });
 

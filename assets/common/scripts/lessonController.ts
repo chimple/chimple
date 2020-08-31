@@ -169,15 +169,16 @@ export default class LessonController extends cc.Component {
         user.updateLessonProgress(config.lesson, this.total)
 
         let updateInfo = {
-            chapter   : "chapter",
-            lesson    : config.lesson,
-            timespent : 120,
-            assessment: 0,
-            kind      : 'Progress',
-            schoolId  : cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
-            studentId : cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
-            sectionId : cc.sys.localStorage.getItem(CURRENT_SECTION_ID),
-            subjectId : cc.sys.localStorage.getItem(CURRENT_SUBJECT_ID)
+            chapter: "chapter",
+            lesson: config.lesson,
+            percentComplete: 0.2,
+            timespent: 120,
+            assessment: 10,
+            kind: 'Progress',
+            schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
+            studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
+            sectionId: cc.sys.localStorage.getItem(CURRENT_SECTION_ID),
+            subjectId: cc.sys.localStorage.getItem(CURRENT_SUBJECT_ID)
         };
 
         Queue.getInstance().push(updateInfo);
