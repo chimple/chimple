@@ -17,7 +17,7 @@ export let D_MODE: DeployMode = DeployMode.Close;
 export let MODE: Mode = Mode.None;
 
 export const LANG = 'en';
-export const ENV = 'local';
+export const ENV = 'dev';
 export const ASSET_LOAD_METHOD = 'file'; //'file', 'resources'
 // export const ASSET_LOAD_METHOD = 'resources' //'file', 'resources'
 // export const COURSES_URL = 'https://chimple-ee1ed.web.app/courses/'
@@ -34,10 +34,10 @@ export const COURSE_SERVER = {
         'hi-maths': 'http://localhost:8901/courses/'
     },
     'dev'  : {
-        'hi'      : 'https://bahama-hi-stage.web.app/games/courses/',
-        'en'      : 'https://bahama-hi-stage.web.app/games/courses/',
-        'en-maths': 'https://bahama-hi-stage.web.app/games/courses/',
-        'hi-maths': 'https://bahama-hi-stage.web.app/games/courses/'
+        'hi'      : 'https://bahama-hi-stage.web.app/bundles/courses/',
+        'en'      : 'https://bahama-hi-stage.web.app/bundles/courses/',
+        'en-maths': 'https://bahama-hi-stage.web.app/bundles/courses/',
+        'hi-maths': 'https://bahama-hi-stage.web.app/bundles/courses/'
     },
     'stage': {
         'hi'      : 'https://bahama-hi-stage.web.app/new/courses/',

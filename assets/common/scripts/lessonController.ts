@@ -72,35 +72,23 @@ export default class LessonController extends cc.Component {
             }
             cc.sys.localStorage.setItem(config.lesson + "_startTime", new Date().getTime());
 
-            config.loadLessonJson((data: Array<string>) => {
-                config.data = [data];
-                if ((config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS)) {
-                    this.quizMonitorNode = cc.instantiate(this.quizMonitor);
-                    this.quizMonitorNode.zIndex = 2;
-                    this.node.addChild(this.quizMonitorNode);
-                } else {
-                    this.progressMonitorNode = cc.instantiate(this.progressMonitor);
-                    this.progressMonitorNode.zIndex = 2;
-                    this.node.addChild(this.progressMonitorNode);
-                }
-                bundle.preloadDir('resources', null, null, (err: Error, items) => {
-                    Util.bundles.set(config.lesson, bundle);
-                    config.loadLessonJson((data: Array<string>) => {
-                        config.data = [data];
-                        if ((config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS)) {
-                            this.quizMonitorNode = cc.instantiate(this.quizMonitor);
-                            this.quizMonitorNode.zIndex = 2;
-                            this.node.addChild(this.quizMonitorNode);
-                        } else {
-                            this.progressMonitorNode = cc.instantiate(this.progressMonitor);
-                            this.progressMonitorNode.zIndex = 2;
-                            this.node.addChild(this.progressMonitorNode);
-                        }
-                        this.problemStart(true, () => {
-                        });
+            bundle.preloadDir('resources', null, null, (err: Error, items) => {
+                Util.bundles.set(config.lesson, bundle);
+                config.loadLessonJson((data: Array<string>) => {
+                    config.data = [data];
+                    if ((config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS)) {
+                        this.quizMonitorNode = cc.instantiate(this.quizMonitor);
+                        this.quizMonitorNode.zIndex = 2;
+                        this.node.addChild(this.quizMonitorNode);
+                    } else {
+                        this.progressMonitorNode = cc.instantiate(this.progressMonitor);
+                        this.progressMonitorNode.zIndex = 2;
+                        this.node.addChild(this.progressMonitorNode);
+                    }
+                    this.problemStart(true, () => {
                     });
                 });
-            })
+            });
         })
     }
 
