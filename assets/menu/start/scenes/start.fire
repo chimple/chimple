@@ -186,7 +186,7 @@
       "array": [
         0,
         0,
-        478.04602288901015,
+        536.9357503463519,
         0,
         0,
         0,
@@ -1862,8 +1862,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 130,
-      "height": 161
+      "width": 65,
+      "height": 65
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1874,8 +1874,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -447,
-        303.5,
+        -452.989,
+        333.487,
         0,
         0,
         0,
@@ -1917,9 +1917,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 189,
-      "g": 31,
-      "b": 50,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -1937,15 +1937,15 @@
       "ctor": "Float64Array",
       "array": [
         -1.102,
-        -48.15,
+        -65.556,
         0,
         0,
         0,
         0,
         1,
-        0.669,
-        0.669,
-        0.669
+        0.642,
+        0.642,
+        1
       ]
     },
     "_eulerAngles": {
@@ -2011,7 +2011,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "72e72398-abb8-4840-a3d5-dc817684b1e7"
+      "__uuid__": "7578b0db-8055-45d6-a97c-9847882c9d47"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -2120,9 +2120,9 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 9,
-    "_left": 0,
+    "_left": 26.511000000000024,
     "_right": 875.238,
-    "_top": 0,
+    "_top": 18.012999999999977,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -2263,7 +2263,7 @@
       "ctor": "Float64Array",
       "array": [
         349.971,
-        -0.595,
+        11.747,
         0,
         0,
         0,
@@ -2357,7 +2357,7 @@
       "ctor": "Float64Array",
       "array": [
         -350.4,
-        -0.595,
+        11.747,
         0,
         0,
         0,
@@ -2415,7 +2415,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "featurebutton",
+    "_name": "home",
     "_objFlags": 0,
     "_parent": {
       "__id__": 45
@@ -2438,8 +2438,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 76,
-      "height": 64
+      "width": 65,
+      "height": 65
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2451,7 +2451,7 @@
       "ctor": "Float64Array",
       "array": [
         -252.956,
-        19.425,
+        35.315,
         0,
         0,
         0,
@@ -2491,7 +2491,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "0f563ed2-20cd-4341-b293-53be2f29c380"
+      "__uuid__": "5f4814cc-abe0-4736-aeff-d31bec8afe11"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -2509,7 +2509,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "homeworkbutton",
+    "_name": "math",
     "_objFlags": 0,
     "_parent": {
       "__id__": 45
@@ -2532,8 +2532,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
-      "height": 63
+      "width": 65,
+      "height": 65
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2545,7 +2545,7 @@
       "ctor": "Float64Array",
       "array": [
         -72.67,
-        18.008,
+        35.315,
         0,
         0,
         0,
@@ -2585,7 +2585,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "ee5aa46c-ebcf-4f6d-8476-fc70f557eca3"
+      "__uuid__": "09c524e1-ce4e-4d8c-9194-8d75c31c3b3c"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -2603,7 +2603,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "mostplayedbutton",
+    "_name": "hindi",
     "_objFlags": 0,
     "_parent": {
       "__id__": 45
@@ -2626,8 +2626,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 67,
-      "height": 63
+      "width": 65,
+      "height": 65
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2639,7 +2639,7 @@
       "ctor": "Float64Array",
       "array": [
         102.097,
-        17.56,
+        35.315,
         0,
         0,
         0,
@@ -2679,7 +2679,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "2967fdc5-15c5-4d67-8e37-9133f32d0bda"
+      "__uuid__": "a36ff5f3-2fd3-4668-9e11-3668c924a57d"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -2697,7 +2697,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "recentlyaddedbutton",
+    "_name": "kannada",
     "_objFlags": 0,
     "_parent": {
       "__id__": 45
@@ -2720,8 +2720,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
-      "height": 63
+      "width": 65,
+      "height": 65
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2733,7 +2733,7 @@
       "ctor": "Float64Array",
       "array": [
         261.281,
-        16.282,
+        35.315,
         0,
         0,
         0,
@@ -2773,7 +2773,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "efc12030-bd20-4d80-805a-08f3a6b4ad42"
+      "__uuid__": "277b7c88-bf2a-4baf-86fd-8959e6dec96e"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -2791,7 +2791,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "featured",
+    "_name": "english",
     "_objFlags": 0,
     "_parent": {
       "__id__": 45
@@ -2807,14 +2807,14 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 252,
-      "g": 84,
-      "b": 52,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 160.1,
+      "width": 131.19,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -2827,15 +2827,15 @@
       "ctor": "Float64Array",
       "array": [
         -252.4,
-        -46.633,
+        -30.743,
         0,
         0,
         0,
         0,
         1,
-        0.473,
-        0.473,
-        0.473
+        0.642,
+        0.642,
+        0.642
       ]
     },
     "_eulerAngles": {
@@ -2867,8 +2867,8 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_useOriginalSize": false,
-    "_string": "Featured",
-    "_N$string": "Featured",
+    "_string": "English",
+    "_N$string": "English",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -2887,7 +2887,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "homework",
+    "_name": "math",
     "_objFlags": 0,
     "_parent": {
       "__id__": 45
@@ -2903,14 +2903,14 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 189,
-      "g": 31,
-      "b": 50,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 210.41,
+      "width": 88.93,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -2923,15 +2923,15 @@
       "ctor": "Float64Array",
       "array": [
         -71.808,
-        -45.821,
+        -30.743,
         0,
         0,
         0,
         0,
         1,
-        0.473,
-        0.473,
-        0.473
+        0.642,
+        0.642,
+        1
       ]
     },
     "_eulerAngles": {
@@ -2963,8 +2963,8 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_useOriginalSize": false,
-    "_string": "Home Work",
-    "_N$string": "Home Work",
+    "_string": "Math",
+    "_N$string": "Math",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -2983,7 +2983,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "mostplayed",
+    "_name": "hindi",
     "_objFlags": 0,
     "_parent": {
       "__id__": 45
@@ -3000,13 +3000,13 @@
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 163,
-      "b": 0,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 220.1,
+      "width": 91.15,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -3019,15 +3019,15 @@
       "ctor": "Float64Array",
       "array": [
         100.898,
-        -44.96,
+        -30.743,
         0,
         0,
         0,
         0,
         1,
-        0.473,
-        0.473,
-        0.473
+        0.642,
+        0.642,
+        1
       ]
     },
     "_eulerAngles": {
@@ -3059,8 +3059,8 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_useOriginalSize": false,
-    "_string": "Most Played",
-    "_N$string": "Most Played",
+    "_string": "Hindi",
+    "_N$string": "Hindi",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -3079,7 +3079,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "recentlyadded",
+    "_name": "kannada",
     "_objFlags": 0,
     "_parent": {
       "__id__": 45
@@ -3095,14 +3095,14 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 73,
-      "g": 178,
-      "b": 172,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 282.4,
+      "width": 160.16,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -3115,15 +3115,15 @@
       "ctor": "Float64Array",
       "array": [
         260.986,
-        -46.542,
+        -30.743,
         0,
         0,
         0,
         0,
         1,
-        0.473,
-        0.473,
-        0.473
+        0.642,
+        0.642,
+        1
       ]
     },
     "_eulerAngles": {
@@ -3155,8 +3155,8 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_useOriginalSize": false,
-    "_string": "Recently Added",
-    "_N$string": "Recently Added",
+    "_string": "Kannada",
+    "_N$string": "Kannada",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -3258,8 +3258,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
-        0,
+        -12.333,
+        -12.333,
         0,
         0,
         0,
