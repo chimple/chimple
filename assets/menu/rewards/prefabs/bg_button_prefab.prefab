@@ -343,9 +343,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -363,7 +363,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -88.41799926757812,
+        -90.603,
         0,
         0,
         0,
@@ -400,6 +400,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "button",
     "_N$string": "button",
@@ -410,6 +412,8 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -506,6 +510,8 @@
       "__id__": 2
     },
     "_enabled": true,
+    "_normalMaterial": null,
+    "_grayMaterial": null,
     "duration": 0.1,
     "zoomScale": 1.2,
     "clickEvents": [],
@@ -623,13 +629,13 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        -0.321,
         0,
         0,
         0,
         0,
         1,
-        1,
+        0.976,
         1,
         1
       ]

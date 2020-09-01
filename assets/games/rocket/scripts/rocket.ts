@@ -172,8 +172,8 @@ export default class Rocket extends cc.Component {
     showImage(texture) {
         const image = this._wordNoteBoard.getChildByName('imageNode');
         image.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
-        this.checkRTLAndScaleX(image, 0.5);
-        image.scaleY = 0.5;
+        this.checkRTLAndScaleX(image, 0.25);
+        image.scaleY = 0.25;
           }
 
     @catchError()

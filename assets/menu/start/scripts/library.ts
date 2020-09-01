@@ -7,6 +7,7 @@ import LessonButton from "./lessonButton";
 import { Util } from "../../../common/scripts/util";
 import HeaderButton from "./headerButton";
 import ChapterContents from "./chapterContents";
+import { Course } from "../../../common/scripts/lib/convert";
 
 const { ccclass, property } = cc._decorator;
 
@@ -29,13 +30,13 @@ export default class Library extends cc.Component {
 
     onLoad() {
         const config = Config.i
-        const courseProgress = User.getCurrentUser().courseProgress
+        const courseProgress = User.getCurrentUser().courseProgressMap
         let first: boolean = true
-        for (let [name, course] of Object.entries(config.courses)) {
+        config.curriculum.forEach((course: Course, name: string) => {
             const headerButton = cc.instantiate(this.headerButtonPrefab)
             const headerButtonComp = headerButton.getComponent(HeaderButton)
             headerButtonComp.label.string = name
-            Util.load(name + '/common/res/' + name + '.png', (err, texture) => {
+            Util.load(name + '/course/res/icons/' + name + '.png', (err, texture) => {
                 if (!err) {
                     headerButtonComp.sprite.spriteFrame = new cc.SpriteFrame(texture);
                 }
@@ -47,11 +48,11 @@ export default class Library extends cc.Component {
             if (first) {
                 this.renderBody(name, course)
                 first = false
-            }
-        }
+            }            
+        })
     }
 
-    renderBody(name, course) {
+    renderBody(name: string, course: Course) {
         const config = Config.i
         config.course = name
         this.layout.removeAllChildren()
@@ -65,18 +66,10 @@ export default class Library extends cc.Component {
             for (const lesson of chapter.lessons) {
                 const lessonButton = cc.instantiate(this.lessonButtonPrefab)
                 const lessonButtonComp = lessonButton.getComponent(LessonButton)
-                lessonButtonComp.label.string = lesson.name
-                Util.load(name + '/' + lesson.id + '/res/' + lesson.image, (err, texture) => {
-                    if (!err) {
-                        lessonButtonComp.sprite.spriteFrame = new cc.SpriteFrame(texture);
-                    }
-                })
-                lessonButtonComp.button.node.on('click', () => {
-                    config.lesson = lesson.id
-                    config.chapter = chapter.id
-                    config.pushScene('common/scenes/lesson')
-                })
-                lessonContentNode.addChild(lessonButton)
+                lessonButtonComp.courseName = name
+                lessonButtonComp.chapter = chapter
+                lessonButtonComp.lesson = lesson
+                    lessonContentNode.addChild(lessonButton)
             }
             const lessonContentLayout = lessonContentNode.getComponent(cc.Layout)
             if (lessonContentLayout != null) lessonContentLayout.updateLayout()

@@ -1,4 +1,5 @@
 import { Util } from "../../../common/scripts/util";
+import Config from "../../../common/scripts/lib/config";
 
 const { ccclass, property } = cc._decorator;
 
@@ -21,7 +22,7 @@ export default class DragTheAlphabet extends cc.Component {
     @property({ type: cc.AudioClip })
     pick: cc.AudioClip = null;
 
-    data: string[] = ["1", "1", "1", "cakeBg", "cakeDrop", "cakeDrag", "q", "a,d,f"];
+    // data: string[] = ["1", "1", "1", "cakeBg", "cakeDrop", "cakeDrag", "q", "a,d,f"];
     solution: string;
     choices: string;
     dragUnit: string;
@@ -32,7 +33,7 @@ export default class DragTheAlphabet extends cc.Component {
 
     onLoad() {
         cc.director.getCollisionManager().enabled = true;
-        const [level, worksheet, problem, background, dropUnit, dragUnit, solution, choices] = this.data;
+        const [level, worksheet, problem, background, dropUnit, dragUnit, solution, choices] = Config.i.data[0];
         this.choices = choices;
         this.solution = solution;
         this.dragUnit = dragUnit;

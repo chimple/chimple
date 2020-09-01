@@ -299,6 +299,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": false,
     "_string": "",
     "_N$string": "",
@@ -309,6 +311,8 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -343,7 +347,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "a4fd90e3-8fe8-4aed-be1e-06ce23bf3b40"
+      "__uuid__": "1bc8a02a-df1f-40f6-ab5c-7dfd77a8c573"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -405,6 +409,8 @@
       "__id__": 2
     },
     "_enabled": true,
+    "_normalMaterial": null,
+    "_grayMaterial": null,
     "duration": 0.1,
     "zoomScale": 1.2,
     "clickEvents": [
@@ -459,13 +465,13 @@
       "a": 200
     },
     "_N$normalSprite": {
-      "__uuid__": "a4fd90e3-8fe8-4aed-be1e-06ce23bf3b40"
+      "__uuid__": "1bc8a02a-df1f-40f6-ab5c-7dfd77a8c573"
     },
     "_N$pressedSprite": {
-      "__uuid__": "e7d369f5-c573-47f1-ace4-f52bffdadbdf"
+      "__uuid__": "7394e43c-53c1-4c9b-af85-313eba4a8d80"
     },
     "pressedSprite": {
-      "__uuid__": "e7d369f5-c573-47f1-ace4-f52bffdadbdf"
+      "__uuid__": "7394e43c-53c1-4c9b-af85-313eba4a8d80"
     },
     "_N$hoverSprite": null,
     "hoverSprite": null,
@@ -583,6 +589,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_useOriginalSize": true,
     "_string": "There are 16 children in a classroom. Some children go outside to play.\n7 children stay inside to read books. How many children are outside?",
     "_N$string": "There are 16 children in a classroom. Some children go outside to play.\n7 children stay inside to read books. How many children are outside?",
@@ -593,6 +601,8 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
