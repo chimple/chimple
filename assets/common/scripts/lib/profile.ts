@@ -61,7 +61,7 @@ export enum Language {
 export const availLanguages = ["english", "hindi"];
 export const languageSelect = [
     ["english", "A", "#FFBC00"],
-    ["hindi", "B", "#3E99E7"],
+    ["हिन्दी", "अ", "#3E99E7"],
     ["english", "C", "#3CBD93"],
     ["hindi", "Z", "#F55B5D"],
 ];
@@ -235,8 +235,8 @@ export class User {
     }
 
     updateLessonProgress(lessonId: string, score: number) {
-        if(this._lessonProgressMap.has(lessonId)) {
-            if(score > this._lessonProgressMap.get(lessonId).score) {
+        if (this._lessonProgressMap.has(lessonId)) {
+            if (score > this._lessonProgressMap.get(lessonId).score) {
                 this._lessonProgressMap.get(lessonId).score = score
             }
         } else {
@@ -252,8 +252,8 @@ export class User {
     static storeUser(user: User) {
         cc.sys.localStorage.setItem(user.id, User.toJson(user));
         let profileInfo = {
-            profile  : User.toJson(user),
-            kind     : 'Profile',
+            profile: User.toJson(user),
+            kind: 'Profile',
             studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)
         };
         Queue.getInstance().push(profileInfo);
@@ -284,7 +284,7 @@ export class User {
             "bear",
             new Map([
                 ['en', new CourseProgressClass()],
-                ['en-maths', new CourseProgressClass()]                
+                ['en-maths', new CourseProgressClass()]
             ]),
             new Map(),
             {}
@@ -328,11 +328,11 @@ export class User {
         const data = JSON.parse(jsonStr)
         const courseProgressMap = new Map<string, CourseProgress>()
         for (const key in data.courseProgressMap) {
-            courseProgressMap.set(key, data.courseProgressMap[key])            
+            courseProgressMap.set(key, data.courseProgressMap[key])
         }
         const lessonProgressMap = new Map<string, LessonProgress>()
         for (const key in data.lessonProgressMap) {
-            lessonProgressMap.set(key, data.lessonProgressMap[key])            
+            lessonProgressMap.set(key, data.lessonProgressMap[key])
         }
         let user = new User(
             data.id,
