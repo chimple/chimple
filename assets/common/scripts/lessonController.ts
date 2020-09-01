@@ -178,7 +178,7 @@ export default class LessonController extends cc.Component {
         const user = User.getCurrentUser()
         user.updateLessonProgress(config.lesson, this.total)
 
-        const selectedCourse: Course = Config.i.curriculum.get(config.chapter);
+        const selectedCourse: Course = config.curriculum.get(config.course);
         const chapters: Chapter[] = selectedCourse.chapters.filter(c => c.id === config.chapter);
         let allLessonIdsInChapter: string[] = []
         let finishedLessons = 0;
