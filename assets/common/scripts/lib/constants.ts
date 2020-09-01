@@ -17,7 +17,7 @@ export let D_MODE: DeployMode = DeployMode.Close;
 export let MODE: Mode = Mode.None;
 
 export const LANG = 'en';
-export const ENV = 'dev';
+export const ENV = 'web';
 export const ASSET_LOAD_METHOD = 'file'; //'file', 'resources'
 // export const ASSET_LOAD_METHOD = 'resources' //'file', 'resources'
 // export const COURSES_URL = 'https://chimple-ee1ed.web.app/courses/'
@@ -53,7 +53,7 @@ export const COURSE_SERVER = {
     }
 };
 
-export const COURSES_URL = COURSE_SERVER[ENV][LANG];
+export const COURSES_URL = ENV == 'web' ? '' : COURSE_SERVER[ENV][LANG];
 
 // Moved from gameController
 export const LOG_GAME = 'game';

@@ -207,5 +207,13 @@ export const GAME_CONFIGS = {
     "eggquizmaths": {
         "bundle": "eggquizmaths",
         "prefab": "prefabs/eggquizmaths"
+    },
+    "arrangeletters": {
+        "bundle": "arrangeletters",
+        "prefab": "prefabs/arrangeletters"
+    },
+    "dragthealphabet": {
+        "bundle": "dragthealphabet",
+        "prefab": "prefabs/dragthealphabet"
     }
 }

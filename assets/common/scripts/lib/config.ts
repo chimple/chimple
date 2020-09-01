@@ -294,12 +294,12 @@ export default class Config {
         const user = User.getCurrentUser()
         let numCourses = user.courseProgressMap.size
         user.courseProgressMap.forEach((courseProgress, name) => {
-            const jsonFile = name + '/course/res/course.json';
             cc.assetManager.loadBundle(name, (err, bundle) => {
                 if (err) {
                     return console.error(err);
                 }
                 Util.bundles.set(name, bundle);
+                const jsonFile = name + '/course/res/course.json';
                 Util.load(jsonFile, (err: Error, jsonAsset) => {
                     if (!err) {
                         this.curriculum.set(name, jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset);

@@ -1,4 +1,5 @@
 import { Util } from "../../../common/scripts/util";
+import Config from "../../../common/scripts/lib/config";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -16,10 +17,10 @@ export default class ArrangeLetters extends cc.Component {
   @property(cc.Prefab)
   ball: cc.Prefab = null;
 
-  data: Array<Array<string>> = [
-    ["1", "1", "1", "playground", "ball2", "a,p,s,l"],
-    ["1", "1", "1", "playground2", "ball2", "c,a,t"],
-  ];
+  // data: Array<Array<string>> = [
+  //   ["1", "1", "1", "playground", "ball2", "a,p,s,l"],
+  //   ["1", "1", "1", "playground2", "ball2", "c,a,t"],
+  // ];
   level: string;
   worksheet: string;
   problem: string;
@@ -39,7 +40,7 @@ export default class ArrangeLetters extends cc.Component {
       this.backgroundName,
       this.objectName,
       this.word,
-    ] = this.data[1];
+    ] = Config.i.data[0];
 
     this.correctLetterArray = this.word.split(",");
     ArrangeLetters.correctPosition = new Map();
