@@ -49,6 +49,7 @@ export default class NimbleTable extends cc.Component {
     nextProblemTimeout;
     nextProblemTimeout2;
 
+
     // LIFE-CYCLE CALLBACKS:
     @catchError()
     nextProblem() {
@@ -69,15 +70,48 @@ export default class NimbleTable extends cc.Component {
             this.node.getChildByName("examples").getChildByName("layoutExamples").removeAllChildren();
             this.makeScreen();
         }
-
     }
+
+    @catchError()
+    makeNimbleTableData(array: string[]): string[][] {
+        let result = [];
+        for (let i = 3; i < array.length; i += 7) {
+            let k = i;
+            let temp = ["1", "1", "1", "1"];
+            temp.push(array[k + 3])
+            temp.push(array[k + 4])
+            temp.push(array[k + 5])
+            temp.push(array[k + 6])
+            for (let c = 0, d = +array[k]; c < 15; c++, d += +array[k + 2]) {
+                if (d <= +array[k + 1]) {
+                    temp.push(d.toString());
+                }
+                else {
+                    temp.push("");
+                }
+            }
+            result.push(temp);
+        }
+        //dummy
+        for (let i = 1; i < 15; i++) {
+            result.push(["1", "1", i.toString(), "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]);
+        }
+        return result;
+    }
+
     @catchError()
     onLoad() {
         let config = Config.getInstance();
         // single row data in arr_name
         // exp. - arr_name[1] means 2nd row of
         // selected level
-        this.arr_name = config.data
+        //old
+        // this.arr_name = config.data
+        // console.log(this.arr_name);
+        //new
+        let result = this.makeNimbleTableData(config.data[0]);
+        console.log("data came", result)
+        this.arr_name = result;
         this.makeScreen();
     }
     @catchError()
