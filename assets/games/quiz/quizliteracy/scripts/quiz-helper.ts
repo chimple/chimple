@@ -60,7 +60,7 @@ export class QuizHelper {
         if (quizConfig.soundFile && !isNumeric) {
             if (soundButton) {
                 const soundComponent: QuizSound = soundButton.getComponent(QuizSound);
-                soundComponent.soundClip = `${assetDir}/sound/${quizConfig.soundFile}`;
+                soundComponent.soundClip = `${assetDir}/${quizConfig.soundFile}`;
             }
         } else if (isNumeric) {
             if (soundButton) {
@@ -79,7 +79,7 @@ export class QuizHelper {
             const soundButton = parent.getChildByName('soundButton');
             if (soundButton) {
                 const soundComponent: QuizSound = soundButton.getComponent(QuizSound);
-                soundComponent.soundClip = `${assetDir}/sound/${quizConfig.soundFile}`;
+                soundComponent.soundClip = `${assetDir}/${quizConfig.soundFile}`;
 
             }
         } else {
@@ -130,7 +130,7 @@ export class QuizHelper {
             c => {
                 const imageBtn = cc.instantiate(imageButtonPrefab);
                 const quizButtonComponent = imageBtn.getComponent(QuizLiteracyButton);
-                quizButtonComponent.quizDir = `${assetDir}/image/`;
+                quizButtonComponent.quizDir = `${assetDir}/`;
                 quizButtonComponent.data = new QuizBtnData(QuizBtnType.Picture,
                     null, c, quizConfig.answer && c && c.trim() === quizConfig.answer.trim());
                 const sprite = imageBtn.getChildByName('sprite');
@@ -158,7 +158,7 @@ export class QuizHelper {
             const picWidth = imageNode.width;
             const picHeight = imageNode.height;
 
-            const imageToLoad = `${assetDir}/image/${imageFileName}`;
+            const imageToLoad = `${assetDir}/${imageFileName}`;
 
             Util.loadTexture(imageToLoad, (texture) => {
                 if (texture) {

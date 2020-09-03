@@ -120,7 +120,7 @@ export class QuizLiteracy extends cc.Component {
     protected onLoad(): void {
         const config = Config.getInstance();
         this._quizLiteracyConfig = this.processConfiguration(config.data[0]);
-        this._assetDir = Config.dir + `${config.game}/res`;
+        this._assetDir = Config.dir + `${config.lesson}/res`;
         this.node.on(QUIZ_CORRECT, (event) => {
             this.next(event, true);
         });
