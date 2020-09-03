@@ -78,15 +78,15 @@ export default class LessonController extends cc.Component {
                 Util.bundles.set(config.lesson, bundle);
                 config.loadLessonJson((data: Array<string>) => {
                     config.data = [data];
-                    if ((config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS)) {
-                        this.quizMonitorNode = cc.instantiate(this.quizMonitor);
-                        this.quizMonitorNode.zIndex = 2;
-                        this.node.addChild(this.quizMonitorNode);
-                    } else {
+                    // if ((config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS)) {
+                    //     this.quizMonitorNode = cc.instantiate(this.quizMonitor);
+                    //     this.quizMonitorNode.zIndex = 2;
+                    //     this.node.addChild(this.quizMonitorNode);
+                    // } else {
                         this.progressMonitorNode = cc.instantiate(this.progressMonitor);
                         this.progressMonitorNode.zIndex = 2;
                         this.node.addChild(this.progressMonitorNode);
-                    }
+                    // }
                     this.problemStart(true, () => {
                     });
                 });
@@ -132,12 +132,12 @@ export default class LessonController extends cc.Component {
     private problemEnd(replaceScene: boolean) {
         let monitor = null;
         const config = Config.i;
-        if (config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS) {
-            monitor = this.quizMonitorNode.getComponent(QuizMonitor);
-            monitor.stopStar = this.isQuizAnsweredCorrectly;
-        } else {
+        // if (config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS) {
+        //     monitor = this.quizMonitorNode.getComponent(QuizMonitor);
+        //     monitor.stopStar = this.isQuizAnsweredCorrectly;
+        // } else {
             monitor = this.progressMonitorNode.getComponent(ProgressMonitor);
-        }
+        // }
         const currentProblem = config.problem;
         const block = cc.instantiate(this.blockPrefab);
         this.node.addChild(block);

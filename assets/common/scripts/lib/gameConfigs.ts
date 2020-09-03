@@ -98,10 +98,6 @@ export const GAME_CONFIGS = {
         "bundle": "monster",
         "prefab": "prefabs/monster",
     },
-    "eggquizliteracy": {
-        "bundle": "eggquizliteracy",
-        "prefab": "prefabs/eggquizliteracy",
-    },
     "calculator": {
         "bundle": "calculator",
         "prefab": "prefabs/calculator"
@@ -204,9 +200,13 @@ export const GAME_CONFIGS = {
         "bundle": "fillblank",
         "prefab": "prefabs/fillblank"
     },
-    "eggquizmaths": {
-        "bundle": "eggquizmaths",
-        "prefab": "prefabs/eggquizmaths"
+    "quizliteracy": {
+        "bundle": "quiz",
+        "prefab": "quizliteracy/prefabs/quizliteracy"
+    },
+    "quizmaths": {
+        "bundle": "quiz",
+        "prefab": "quizmaths/prefabs/quizmaths"
     },
     "arrangeletters": {
         "bundle": "arrangeletters",
