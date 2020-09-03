@@ -10,4 +10,8 @@ export default class HeaderButton extends cc.Component {
 
     @property(cc.Sprite)
     sprite: cc.Sprite
+
+    @property(cc.Sprite)
+    selected: cc.Sprite
+
 }

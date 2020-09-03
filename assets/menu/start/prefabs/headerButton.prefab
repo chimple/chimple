@@ -70,7 +70,7 @@
         1,
         1,
         1,
-        0
+        1
       ]
     },
     "_eulerAngles": {
@@ -126,7 +126,7 @@
       "ctor": "Float64Array",
       "array": [
         2.909,
-        -2.461,
+        7.539,
         0,
         0,
         0,
@@ -233,7 +233,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        10,
         0,
         0,
         0,
@@ -273,7 +273,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "5f4814cc-abe0-4736-aeff-d31bec8afe11"
+      "__uuid__": "7578b0db-8055-45d6-a97c-9847882c9d47"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -327,7 +327,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 48.94,
+      "width": 53.35,
       "height": 25.2
     },
     "_anchorPoint": {
@@ -340,7 +340,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -54.399,
+        -48.399,
         0,
         0,
         0,
@@ -380,8 +380,8 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_useOriginalSize": false,
-    "_string": "Label",
-    "_N$string": "Label",
+    "_string": "Home",
+    "_N$string": "Home",
     "_fontSize": 20,
     "_lineHeight": 20,
     "_enableWrapText": true,
@@ -425,6 +425,9 @@
     },
     "sprite": {
       "__id__": 6
+    },
+    "selected": {
+      "__id__": 3
     },
     "_id": ""
   },

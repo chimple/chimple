@@ -118,6 +118,8 @@ export class QuizLiteracy extends cc.Component {
 
     @catchError()
     protected onLoad(): void {
+        let collisionManager = cc.director.getCollisionManager();
+        collisionManager.enabled = true;
         const config = Config.getInstance();
         this._quizLiteracyConfig = this.processConfiguration(config.data[0]);
         this._assetDir = Config.dir + `${config.lesson}/res`;
