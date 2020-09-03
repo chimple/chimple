@@ -83,8 +83,8 @@ export default class QuizMaths extends cc.Component {
 
     @catchError()
     protected onLoad(): void {
-        // let collisionManager = cc.director.getCollisionManager();
-        // collisionManager.enabled = true;
+        let collisionManager = cc.director.getCollisionManager();
+        collisionManager.enabled = true;
         // collisionManager.enabledDebugDraw = true;
         // collisionManager.enabledDrawBoundingBox = true;
 
