@@ -79,12 +79,16 @@ export default class DragTheAlphabet extends cc.Component {
 
     onMatch() {
         this.node.emit("correct");
+        this.match();
     }
 
     onTouchAudio(file: string) {
-        Util.loadGameSound(file, function (clip) {
-            if (clip != null) {
-                cc.audioEngine.play(clip, false, 1);
+        Util.loadsLetter(file.toLowerCase(), (clip) => {
+            try {
+                if (!!clip)
+                    Util.play(clip, false);
+            } catch (error) {
+                console.log("Failed playing sound");
             }
         });
     }
