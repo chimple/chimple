@@ -66,7 +66,8 @@ export default class LessonController extends cc.Component {
     private lessonStart() {
         const config = Config.getInstance();
         config.problem = 0;
-        cc.assetManager.loadBundle(COURSES_URL == '' ? config.lesson : COURSES_URL + '/' + config.course + '/' + config.lesson, (err, bundle) => {
+        // cc.assetManager.loadBundle(COURSES_URL == '' ? config.lesson : COURSES_URL + '/' + config.course + '/' + config.lesson, (err, bundle) => {
+        cc.assetManager.loadBundle(config.lesson, (err, bundle) => {
             if (err) {
                 return console.error(err);
             }

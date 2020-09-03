@@ -6,7 +6,7 @@ import LessonButton from "./lessonButton";
 
 import { Util } from "../../../common/scripts/util";
 import HeaderButton from "./headerButton";
-import ChapterContents from "./chapterContents";
+import ChapterContent from "./chapterContent";
 import { Course } from "../../../common/scripts/lib/convert";
 
 const { ccclass, property } = cc._decorator;
@@ -59,7 +59,7 @@ export default class Library extends cc.Component {
         let lessonContentNode: cc.Node = null
         for (const chapter of course.chapters) {
             const chapterContents = cc.instantiate(this.chapterContentsPrefab)
-            const chapterContentsComp = chapterContents.getComponent(ChapterContents)
+            const chapterContentsComp = chapterContents.getComponent(ChapterContent)
             chapterContentsComp.label.string = chapter.name
             this.layout.addChild(chapterContents)
             lessonContentNode = chapterContentsComp.layout
