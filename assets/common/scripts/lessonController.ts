@@ -58,6 +58,7 @@ export default class LessonController extends cc.Component {
     quizScore: number = 0;
     total: number = 0;
     isQuizAnsweredCorrectly: boolean = false;
+    lessonStartTime: number = 0;
 
     onLoad() {
         this.lessonStart();
@@ -70,7 +71,7 @@ export default class LessonController extends cc.Component {
             if (err) {
                 return console.error(err);
             }
-            cc.sys.localStorage.setItem(config.lesson + "_startTime", new Date().getTime());
+            this.lessonStartTime = new Date().getTime();
 
             bundle.preloadDir('resources', null, null, (err: Error, items) => {
                 Util.bundles.set(config.lesson, bundle);
@@ -172,7 +173,7 @@ export default class LessonController extends cc.Component {
     private lessonEnd() {
         Util.playSfx(this.startAudio);
         const config = Config.getInstance();
-        const timespent = new Date().getTime() - (cc.sys.localStorage.getItem(config.lesson + "_startTime") || 0)
+        const timespent = new Date().getTime() - this.lessonStartTime;
         this.total = Math.max(0, 100 - this.wrongMoves * 10)
 
         const user = User.getCurrentUser()
