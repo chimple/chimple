@@ -40,7 +40,7 @@ export default class ArrangeLetters extends cc.Component {
       this.backgroundName,
       this.objectName,
       this.word,
-    ] = Config.i.data[0];
+    ] = Config.getInstance().data[0];
 
     this.correctLetterArray = this.word.split(",");
     ArrangeLetters.correctPosition = new Map();

@@ -76,8 +76,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 8,
-    "groupIndex": 8,
+    "_groupIndex": 11,
+    "groupIndex": 11,
     "_id": ""
   },
   {
@@ -108,7 +108,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 0,
-      "height": 50.4
+      "height": 100.8
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -140,8 +140,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 8,
-    "groupIndex": 8,
+    "_groupIndex": 11,
+    "groupIndex": 11,
     "_id": ""
   },
   {
@@ -162,11 +162,13 @@
     "_useOriginalSize": true,
     "_string": "",
     "_N$string": "",
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_fontSize": 80,
+    "_lineHeight": 80,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "dee4ee01-e8db-4c7a-8026-47474be20a5a"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,

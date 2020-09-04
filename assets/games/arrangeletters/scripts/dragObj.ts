@@ -94,10 +94,13 @@ export default class DragObj extends Drag {
         ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i]) <
         ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i + 1])
       ) {
+        cc.log("wolo"+ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i])+ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i+1]))
         this.allSwapCorrect[i] = true;
       }
     }
     this.done = this.allSwapCorrect.every((val, i, arr) => val === arr[0]);
+    cc.log(this.allSwapCorrect)
+    cc.log(ArrangeLetters.correctPosition)
     if (this.done) {
       this.effectsAfterMatch();
     }
@@ -111,9 +114,8 @@ export default class DragObj extends Drag {
     });
   }
   effectsAfterMatch() {
-    this.node.emit("correct");
-    this.scheduleOnce(() => {
-      this.node.emit("nextProblem");
-    }, 4);
+    cc.log("i executed")
+    this.node.parent.emit("correct");
+    this.node.parent.emit('nextProblem');
   }
 }
