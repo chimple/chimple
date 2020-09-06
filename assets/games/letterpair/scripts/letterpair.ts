@@ -22,7 +22,7 @@ export default class LetterPair extends cc.Component {
     @catchError()
     onLoad() {
         const data = Config.getInstance().data[0]
-        const numCards = Math.floor((data.length -3)/13) * 2 ;
+        const numCards = Math.floor((data.length -5)/11) * 2 ;
         const allValues = Array(numCards / 2);
         for (let i = 0; i < numCards; i++) {
             const place = Math.floor(Math.random() * numCards);
