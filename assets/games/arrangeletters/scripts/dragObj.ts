@@ -89,12 +89,15 @@ export default class DragObj extends Drag {
   onCollisionExit(other: cc.Collider, self: cc.Collider) {}
 
   checkIfMatch() {
+    this.allSwapCorrect.forEach((element,index)=>{
+          this.allSwapCorrect[index] = false
+    })
     for (let i = 0; i < ArrangeLetters.wordLength; i++) {
       if (
         ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i]) <
         ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i + 1])
       ) {
-        cc.log("wolo"+ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i])+ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i+1]))
+        cc.log(ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i])+ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i+1]))
         this.allSwapCorrect[i] = true;
       }
     }
