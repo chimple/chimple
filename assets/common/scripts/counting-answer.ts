@@ -1,14 +1,14 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import AnswerGrid, { ANSWER_GRID_BUTTON_CLICKED, CLEAR_BUTTON_CLICKED, CONFIRM_BUTTON_CLICKED } from "./answer-grid";
-import { VALIDATE_RESULT } from "./total";
-import { Util } from "../../../common/scripts/util";
-import catchError from "../../../common/scripts/lib/error-handler";
+import catchError from "./lib/error-handler";
+import { Util } from "./util";
 
 const DIGITS = 'digits';
 const LABEL = 'label';
 const COUNTING_LABEL = 'countingLabel';
 const CHIMPLE_RICHTEXT = 'chimple-richtext';
+export const VALIDATE_RESULT = 'VALIDATE_RESULT';
 
 @ccclass
 export default class CountingAnswer extends cc.Component {

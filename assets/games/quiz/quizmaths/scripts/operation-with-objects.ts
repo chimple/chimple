@@ -2,11 +2,10 @@ import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import { Util } from "../../../../common/scripts/util";
 import catchError from "../../../../common/scripts/lib/error-handler";
-import CountingAnswer from "../../../total/scripts/counting-answer";
-import { VALIDATE_RESULT } from "../../../total/scripts/total";
 import { QuizMathsConfig, QUIZ_CORRECT } from "./quiz-maths";
 import { QUIZ_WRONG } from "../../quizliteracy/scripts/quiz-literacy";
 import { QuizHelper } from "../../quizliteracy/scripts/quiz-helper";
+import CountingAnswer, { VALIDATE_RESULT } from "../../../../common/scripts/counting-answer";
 
 const NUMBER_PADS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 

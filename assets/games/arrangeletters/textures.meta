@@ -6,7 +6,9 @@
   "priority": 1,
   "compressionType": {},
   "optimizeHotUpdate": {},
-  "inlineSpriteFrames": {},
+  "inlineSpriteFrames": {
+    "web-desktop": true
+  },
   "isRemoteBundle": {},
   "subMetas": {}
 }

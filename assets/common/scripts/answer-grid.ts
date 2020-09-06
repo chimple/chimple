@@ -1,13 +1,13 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
-import { HELP_BTN, VALIDATE_RESULT } from "./total";
-import catchError from "../../../common/scripts/lib/error-handler";
+import catchError from "./lib/error-handler";
 
 export const BACK_GROUND = 'Background';
 export const NUMBER_LABEL = 'numberLabel';
 export const ANSWER_GRID_BUTTON_CLICKED = 'ANSWER_GRID_BUTTON_CLICKED';
 export const CLEAR_BUTTON_CLICKED = 'CLEAR_BUTTON_CLICKED';
 export const CONFIRM_BUTTON_CLICKED = 'CONFIRM_BUTTON_CLICKED';
+export const HELP_BTN = 'HELP_BTN';
 
 @ccclass
 export default class AnswerGrid extends cc.Component {
