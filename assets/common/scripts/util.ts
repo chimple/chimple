@@ -35,6 +35,7 @@ export class Util {
   private static _i18NMap = new Map();
   private static _resources: string[] = [];
   static bundles: Map<string, cc.AssetManager.Bundle> = new Map();
+  private static audioId: number = -1;
 
   public static shuffle<T>(arr): T[] {
     let ctr = arr.length;
@@ -630,17 +631,26 @@ export class Util {
     return -1;
   }
 
+  public static stopInGameAudio() {
+    try {
+      cc.audioEngine.stopEffect(this.audioId);
+    } catch (e) {
+      cc.log(e);
+    }
+    return this.audioId;
+  }
+
+
   public static play(audioClip: cc.AudioClip, loop: boolean = false) {
-    let audioId = -1;
     try {
       if (audioClip) {
-        audioId = cc.audioEngine.playEffect(audioClip, loop);
+        this.audioId = cc.audioEngine.playEffect(audioClip, loop);
       }
     } catch (e) {
       cc.log(e);
     }
 
-    return audioId;
+    return this.audioId;
   }
 
   public static getSubpackages(): Array<string> {

@@ -83,9 +83,9 @@ export default class LessonController extends cc.Component {
                     //     this.quizMonitorNode.zIndex = 2;
                     //     this.node.addChild(this.quizMonitorNode);
                     // } else {
-                        this.progressMonitorNode = cc.instantiate(this.progressMonitor);
-                        this.progressMonitorNode.zIndex = 2;
-                        this.node.addChild(this.progressMonitorNode);
+                    this.progressMonitorNode = cc.instantiate(this.progressMonitor);
+                    this.progressMonitorNode.zIndex = 2;
+                    this.node.addChild(this.progressMonitorNode);
                     // }
                     this.problemStart(true, () => {
                     });
@@ -136,7 +136,7 @@ export default class LessonController extends cc.Component {
         //     monitor = this.quizMonitorNode.getComponent(QuizMonitor);
         //     monitor.stopStar = this.isQuizAnsweredCorrectly;
         // } else {
-            monitor = this.progressMonitorNode.getComponent(ProgressMonitor);
+        monitor = this.progressMonitorNode.getComponent(ProgressMonitor);
         // }
         const currentProblem = config.problem;
         const block = cc.instantiate(this.blockPrefab);
@@ -268,6 +268,6 @@ export default class LessonController extends cc.Component {
 
     onBackClick() {
         Config.i.popScene();
+        Util.stopInGameAudio();
     }
-
 }
