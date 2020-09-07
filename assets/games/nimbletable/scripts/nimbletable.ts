@@ -48,34 +48,41 @@ export default class NimbleTable extends cc.Component {
     private _totalCount: string = null;
     nextProblemTimeout;
     nextProblemTimeout2;
-
+    isInitial: boolean = true;
 
     // LIFE-CYCLE CALLBACKS:
     @catchError()
     nextProblem() {
         this.currentProblem++;
-        if (this.currentProblem + 5 > Config.getInstance().totalProblems) {
-            this.node.getChildByName("nextQues").getChildByName("transparentBg").getChildByName("containerNode").removeChild(this.node.getChildByName("nextQues").getChildByName("transparentBg").getChildByName("containerNode").getChildByName("" + (this.totalNextQues)));
-            this.totalNextQues--;
-            this.checkLasts = true;
-            for (let i = 0; i < this.totalNextQues; i++) {
-                const element = this.arr_name[i + this.currentProblem + 1]
-                let questionString = "";
-                this.node.getChildByName("nextQues").getChildByName("transparentBg").getChildByName("containerNode").getChildByName("" + (i + 1)).getComponent(cc.Label).string = questionString + element[4] + " " + element[6] + " " + element[5] + " = " + "?";
-            }
+        if (this.arr_name[this.currentProblem][5] == "") {  //end of game, call nextProblem
+            this.node.emit('nextProblem')
         }
-
-        if (this.currentProblem != Config.getInstance().totalProblems) {
+        else {
             // delete previous examples
             this.node.getChildByName("examples").getChildByName("layoutExamples").removeAllChildren();
             this.makeScreen();
         }
+
+        // if (this.currentProblem + 5 > 15) {
+        //     this.node.getChildByName("nextQues").getChildByName("transparentBg").getChildByName("containerNode").removeChild(this.node.getChildByName("nextQues").getChildByName("transparentBg").getChildByName("containerNode").getChildByName("" + (this.totalNextQues)));
+        //     this.totalNextQues--;
+        //     this.checkLasts = true;
+        //     for (let i = 0; i < this.totalNextQues; i++) {
+        //         const element = this.arr_name[i + this.currentProblem + 1]
+        //         let questionString = "";
+        //         this.node.getChildByName("nextQues").getChildByName("transparentBg").getChildByName("containerNode").getChildByName("" + (i + 1)).getComponent(cc.Label).string = questionString + element[4] + " " + element[6] + " " + element[5] + " = " + "?";
+        //     }
+        // }
+
+
     }
 
     @catchError()
     makeNimbleTableData(array: string[]): string[][] {
         let result = [];
+        let dataRowsCount = 0;
         for (let i = 3; i < array.length; i += 7) {
+            dataRowsCount++;
             let k = i;
             let temp = ["1", "1", "1", "1"];
             temp.push(array[k + 3])
@@ -93,7 +100,7 @@ export default class NimbleTable extends cc.Component {
             result.push(temp);
         }
         //dummy
-        for (let i = 1; i < 15; i++) {
+        for (let i = 1; i <= dataRowsCount; i++) {
             result.push(["1", "1", i.toString(), "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]);
         }
         return result;
@@ -109,17 +116,17 @@ export default class NimbleTable extends cc.Component {
         // this.arr_name = config.data
         // console.log(this.arr_name);
         //new
-        let result = this.makeNimbleTableData(config.data[0]);
+        let result = this.makeNimbleTableData(Config.i.data[0]);
         console.log("data came", result)
         this.arr_name = result;
         this.makeScreen();
     }
+
     @catchError()
     private makeScreen() {
         this.examples = [];
         const el = this.arr_name[this.currentProblem];
-        // 4 - first value
-        this.firstValue = el[4];
+        this.firstValue = el[4]; // 4 - first value
         this.secondValue = el[5];
         this.mathSign = el[6];
         this.rightAnswer = el[7];
@@ -131,7 +138,7 @@ export default class NimbleTable extends cc.Component {
                 getComponent(cc.Label).string = tempString + this.firstValue + " " + this.mathSign + " " +
                 this.secondValue + " = ?";
 
-        // putting examples or choices there
+        // putting examples or choices there // keyboard
         for (let i = 8; i <= 22; i++) {
             if (el[i] != "") {
                 this.totalExamplesCount = i;
@@ -147,20 +154,28 @@ export default class NimbleTable extends cc.Component {
                 choices.getComponent(cc.Animation).play('popup');
             }
         }
-        try {
-            Util.showHelp(answerNode, answerNode);
-        } catch (e) {
 
+        if (this.isInitial) {
+            this.isInitial = false;
+            try {
+                Util.showHelp(answerNode, answerNode);
+            } catch (e) { }
         }
 
-        if (!this.checkLasts) {
-            for (let i = 0; i < 4; i++) {
-                const el = this.arr_name[i + this.currentProblem + 1];
+        for (let i = 0; i < 4; i++) {          // extra 4 to show
+            const el = this.arr_name[i + this.currentProblem + 1];
+            let labelNode = this.node.getChildByName("nextQues").getChildByName("transparentBg").getChildByName("containerNode").getChildByName("" + (i + 1));
+            console.log("el ", el)
+            if (el[5] != "") {
                 let questionString = "";
-                this.node.getChildByName("nextQues").getChildByName("transparentBg").getChildByName("containerNode").getChildByName("" + (i + 1)).getComponent(cc.Label).string = questionString + el[4] + " " + el[6] + " " + el[5] + " = " + "?";
+                labelNode.getComponent(cc.Label).string = questionString + el[4] + " " + el[6] + " " + el[5] + " = " + "?";
+            }
+            else {
+                labelNode.getComponent(cc.Label).string = "";
             }
         }
     }
+
     @catchError()
     callback(event) {
         let buttonValue = this.node.getChildByName("examples").getChildByName("layoutExamples").getChildByName(event.node.name).getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string
@@ -189,26 +204,26 @@ export default class NimbleTable extends cc.Component {
 
                 try {
                     Util.loadNumericSound(String(this._totalCount), (clip) => {
-                        Util.speakClip(clip, () => this.node.emit('nextProblem', false))
+                        Util.speakClip(clip, null);
                     })
                 } catch (e) {
-                    this.node.emit('nextProblem', false)
+                    console.log("audio fetch error", e);
+                    // this.node.emit('nextProblem', false)
                 }
 
 
                 this.nextProblemTimeout2 = setTimeout(() => {
                     this.node.getChildByName("questionboard_quickfacts").getChildByName("question").runAction(cc.sequence(questionUpAction, cc.callFunc(() => {
-                        // this.nextProblem();
                         this.node.getChildByName("questionboard_quickfacts").getChildByName("question").
                             getComponent(cc.Label).string = ""
-                        this.node.getChildByName("questionboard_quickfacts").getChildByName("question").position = new cc.Vec2(-7, -70);
+                        this.node.getChildByName("questionboard_quickfacts").getChildByName("question").position = new cc.Vec3(-7, -70);
                     })));
 
 
                     this.node.getChildByName("nextQues").getChildByName("transparentBg").getChildByName("containerNode").runAction(
                         cc.sequence(nextProblemAnimation, cc.callFunc(() => {
                             this.nextProblem();
-                            this.node.getChildByName("nextQues").getChildByName("transparentBg").getChildByName("containerNode").position = new cc.Vec2(12, 50);
+                            this.node.getChildByName("nextQues").getChildByName("transparentBg").getChildByName("containerNode").position = new cc.Vec3(12, 50);
                         }))
                     );
                 }, 3000);
@@ -225,12 +240,7 @@ export default class NimbleTable extends cc.Component {
             }, 300);
         }
     }
-    @catchError()
-    start() {
 
-    }
-
-    // update (dt) {}
     @catchError()
     onDestroy() {
         clearTimeout(this.wrongAnimationTimer);
