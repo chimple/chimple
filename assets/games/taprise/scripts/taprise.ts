@@ -23,6 +23,9 @@ export default class TapRise extends cc.Component {
 
   //JSON
   ai: number = 0;
+  nameOfGame: string;
+  lev:string;
+  description:string;
   level: string;
   worksheet: string;
   problem: string;
@@ -71,7 +74,7 @@ export default class TapRise extends cc.Component {
 
     //  let imga,imgb;
     //@ts-ignore
-    [this.level, this.worksheet, this.problem, this.objb] = fieldArr;
+    [this.nameOfGame,this.lev,this.description,this.level, this.worksheet, this.problem, this.objb] = fieldArr;
     this.noobj = parseInt(this.objb);
     cc.log("obj" + this.noobj);
     for (let ai = 0; this.ai < this.noobj; this.ai++) {
