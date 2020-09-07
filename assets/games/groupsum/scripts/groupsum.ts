@@ -165,7 +165,7 @@ export default class GroupSum extends cc.Component {
       helpLabel1.getComponent(cc.Label).fontSize = 35;
       helpLabel1.opacity = 0;
       helpLabel3.parent = tub1;
-      helpLabel3.position = cc.v2(box1Rect.origin.x + 5, box1Rect.height - 70);
+      helpLabel3.position = cc.v2(box1Rect.origin.x - 7, box1Rect.height - 70);
       helpLabel1.parent = tub1;
       helpLabel1.name = "help1";
       helpLabel4.parent = tub1;
