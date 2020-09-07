@@ -1,13 +1,10 @@
 
 const { ccclass, property } = cc._decorator;
 import Config from "../../../common/scripts/lib/config";
-import CountingAnswer from "../../total/scripts/counting-answer";
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
-
-export const VALIDATE_RESULT = 'VALIDATE_RESULT';
-export const HELP_BTN = 'HELP_BTN';
-
+import CountingAnswer, { VALIDATE_RESULT } from "../../../common/scripts/counting-answer";
+import { HELP_BTN } from "../../../common/scripts/answer-grid";
 
 export interface CalculatorConfig {
     level: string,

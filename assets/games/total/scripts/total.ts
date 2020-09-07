@@ -2,12 +2,11 @@ import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import Config from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
-import CountingItem from "./counting-item";
-import CountingAnswer from "./counting-answer";
 import catchError from "../../../common/scripts/lib/error-handler";
+import CountingAnswer, { VALIDATE_RESULT } from "../../../common/scripts/counting-answer";
+import CountingItem from "./counting-item";
+import { HELP_BTN } from "../../../common/scripts/answer-grid";
 
-export const VALIDATE_RESULT = 'VALIDATE_RESULT';
-export const HELP_BTN = 'HELP_BTN';
 
 export interface TotalConfig {
     level: string;

@@ -4,7 +4,10 @@
   "isBundle": false,
   "bundleName": "",
   "priority": 1,
-  "compressionType": {},
+  "compressionType": {
+    "android": "merge_all_json",
+    "web-desktop": "merge_all_json"
+  },
   "optimizeHotUpdate": {},
   "inlineSpriteFrames": {},
   "isRemoteBundle": {},

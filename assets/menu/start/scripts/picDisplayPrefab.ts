@@ -14,11 +14,12 @@ export default class PicDisplayPrefab extends cc.Component {
 
     loadUserImageOrAvatar() {
         let currentUser = User.getCurrentUser();
+        let picNode = this.picNode;
         if (currentUser.imgPath != '') {
             cc.loader.load(currentUser.imgPath, function (err, texture) {
                 if (!err) {
                     let temp = new cc.SpriteFrame(texture)
-                    this.node.getComponent(cc.Sprite).spriteFrame = temp;
+                    picNode.getComponent(cc.Sprite).spriteFrame = temp;
                 }
             });
         }

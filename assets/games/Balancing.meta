@@ -4,9 +4,22 @@
   "isBundle": true,
   "bundleName": "",
   "priority": 1,
-  "compressionType": {},
-  "optimizeHotUpdate": {},
-  "inlineSpriteFrames": {},
-  "isRemoteBundle": {},
+  "compressionType": {
+    "android": "merge_all_json",
+    "web-desktop": "merge_all_json",
+    "web-mobile": "default"
+  },
+  "optimizeHotUpdate": {
+    "web-mobile": false,
+    "web-desktop": false
+  },
+  "inlineSpriteFrames": {
+    "web-mobile": true,
+    "web-desktop": true
+  },
+  "isRemoteBundle": {
+    "web-mobile": false,
+    "web-desktop": false
+  },
   "subMetas": {}
 }

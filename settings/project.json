@@ -149,7 +149,13 @@
       false
     ]
   ],
-  "excluded-modules": [],
+  "excluded-modules": [
+    "3D",
+    "3D Primitive",
+    "3D Physics/cannon.js",
+    "3D Physics/Builtin",
+    "3D Particle"
+  ],
   "group-list": [
     "default",
     "keys",

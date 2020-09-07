@@ -1,8 +1,8 @@
 import UtilLogger from "../util-logger";
 import Config from "./config";
-import { Queue } from "../../../queue";
-import { CURRENT_STUDENT_ID } from "./constants";
-import { Course } from "./convert";
+import {Queue} from "../../../queue";
+import {CURRENT_STUDENT_ID} from "./constants";
+import {Course} from "./convert";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -48,6 +48,7 @@ export interface LessonProgress {
 
 export class LessonProgressClass implements LessonProgress {
     score: number;
+
     constructor(score: number) {
         this.score = score;
     }
@@ -326,6 +327,7 @@ export class User {
 
     static fromJson(jsonStr: string): User {
         const data = JSON.parse(jsonStr)
+        if (!data) return null;
         const courseProgressMap = new Map<string, CourseProgress>()
         for (const key in data.courseProgressMap) {
             courseProgressMap.set(key, data.courseProgressMap[key])
@@ -412,7 +414,7 @@ export class User {
             userAttribute.age,
             userAttribute.gender,
             userAttribute.id,
-            userAttribute.avatarImage,
+            userAttribute.avatarImage || userAttribute.imgPath,
             userAttribute.isTeacher
         );
     }
@@ -522,8 +524,8 @@ export default class Profile {
 
     static async teacherPostLoginActivity(objectId: string) {
         const currentUser: User = User.createUserOrFindExistingUser({
-            id: objectId
-        }
+                id: objectId
+            }
         );
         User.setCurrentUser(currentUser);
         let courseProgress = {};
