@@ -4,7 +4,7 @@ import {ENABLE_BUTTONS, WRONG_ANSWER} from "./questionboard";
 import Config from "../../../common/scripts/lib/config";
 import { catchError } from "../../../common/scripts/lib/error-handler";
 
-export const WORD_WINDOW_SOUND = 'questionboard/res/sound/';
+export const WORD_WINDOW_SOUND = 'questionboard/res/';
 @ccclass
 export default class SoundButton extends cc.Component {
     private _isSoundPlaying = false;
@@ -17,7 +17,6 @@ export default class SoundButton extends cc.Component {
         let button = this.node.getComponent(cc.Button);
         this._normalSpriteFrame = button.normalSprite;
         this._pressedSpriteFrame = button.pressedSprite;
-
     }
 
     @catchError()
@@ -26,7 +25,7 @@ export default class SoundButton extends cc.Component {
         if (!this._isSoundPlaying) {
             this._isSoundPlaying = true;
             button.normalSprite = this._pressedSpriteFrame;
-            const location = Config.dir + WORD_WINDOW_SOUND + `${this._soundClip}`;
+            const location ="courses/"+ Config.dir + WORD_WINDOW_SOUND + `${this._soundClip}`;
             Util.speak(location, () => {
                 this._isSoundPlaying = false;
                 button.normalSprite = this._normalSpriteFrame;
