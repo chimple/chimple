@@ -1,4 +1,5 @@
 import { ASSET_LOAD_METHOD } from "./lib/constants";
+import { User } from "./lib/profile";
 
 const LOGGER_CLASS = "org/cocos2dx/javascript/logger/ChimpleLogger";
 const LOGGER_METHOD = "logEvent";
@@ -9,14 +10,14 @@ const PROFILE_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;)V";
 
 const DOWNLOAD_FILE_METHOD = "downloadFile";
 const DOWNLOAD_FILE_METHOD_SIGNATURE =
-  "(Ljava/lang/String;Ljava/lang/String;)V";
+    "(Ljava/lang/String;Ljava/lang/String;)V";
 
 const FILE_EXISTS_METHOD = "isFileExists";
 const FILE_EXISTS_METHOD_SIGNATURE = "(Ljava/lang/String;)Z";
 
 const CHECK_URL_DOWNLOADED_METHOD = "checkIfUrlDownloaded";
 const CHECK_URL_DOWNLOADED_METHOD_SIGNATURE =
-  "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;";
+    "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;";
 
 const IS_NETWORK_AVAILABLE_METHOD = "isNetworkAvailable";
 const IS_NETWORK_AVAILABLE_METHOD_SIGNATURE = "()Z";
@@ -35,213 +36,223 @@ const DEVICE_ID = "deviceId";
 const TIMESTAMP = "timeStamp";
 
 export default class UtilLogger {
-  private static _storageDirectory = null;
-  private static _currentUserId = null;
-  private static _currentDeviceId = null;
+    private static _storageDirectory = null;
+    private static _currentUserId = null;
+    private static _currentDeviceId = null;
 
-  public static logEvent(eventInfo: object) {
-    try {
-      if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
+    public static logEvent(eventInfo: object) {
+        try {
+            if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
+                eventInfo[`${USER_ID}`] = this.currentProfile() || "";
+                eventInfo[`${DEVICE_ID}`] = this.currentDeviceId() || "";
+                eventInfo[`${TIMESTAMP}`] = new Date().getTime();
+                cc.log("logging event", JSON.stringify(eventInfo));
+                if (ASSET_LOAD_METHOD != "file") {
+                    jsb.reflection.callStaticMethod(
+                        LOGGER_CLASS,
+                        LOGGER_METHOD,
+                        LOGGER_METHOD_SIGNATURE,
+                        JSON.stringify(eventInfo)
+                    );
+                }
+            }
+            this.logEventToFireBase(eventInfo);
+        } catch (e) {
+        }
+    }
+
+    public static logEventToFireBaseWithKey(key: string, data: object) {
+        cc.log(
+            "logging firebase event",
+            key,
+            " with content",
+            JSON.stringify(data)
+        );
+
+        if ("undefined" != typeof sdkbox) {
+            // @ts-ignore
+            sdkbox.firebase.Analytics.logEvent(key, data);
+        }
+    }
+
+    public static logChimpleEvent(name: string, error: object) {
+        error[`${USER_ID}`] = this.currentProfile() || "";
+        error[`${DEVICE_ID}`] = this.currentDeviceId() || "";
+        error[`${TIMESTAMP}`] = new Date().getTime();
+        UtilLogger.logEventToFireBaseWithKey(name, error);
+    }
+
+    public static logEventToFireBase(eventInfo: object) {
         eventInfo[`${USER_ID}`] = this.currentProfile() || "";
         eventInfo[`${DEVICE_ID}`] = this.currentDeviceId() || "";
         eventInfo[`${TIMESTAMP}`] = new Date().getTime();
-        cc.log("logging event", JSON.stringify(eventInfo));
-        if (ASSET_LOAD_METHOD != "file") {
-          jsb.reflection.callStaticMethod(
-            LOGGER_CLASS,
-            LOGGER_METHOD,
-            LOGGER_METHOD_SIGNATURE,
-            JSON.stringify(eventInfo)
-          );
-        }
-      }
-      this.logEventToFireBase(eventInfo);
-    } catch (e) {}
-  }
-
-  public static logEventToFireBaseWithKey(key: string, data: object) {
-    cc.log(
-      "logging firebase event",
-      key,
-      " with content",
-      JSON.stringify(data)
-    );
-
-    if ("undefined" != typeof sdkbox) {
-      // @ts-ignore
-      sdkbox.firebase.Analytics.logEvent(key, data);
+        UtilLogger.logEventToFireBaseWithKey("logInfo", eventInfo);
     }
-  }
 
-  public static logExceptionToFireBase(error: object) {
-    error[`${USER_ID}`] = this.currentProfile() || "";
-    error[`${DEVICE_ID}`] = this.currentDeviceId() || "";
-    error[`${TIMESTAMP}`] = new Date().getTime();
-    UtilLogger.logEventToFireBaseWithKey("errorInfo", error);
-  }
+    public static logProfile(profileInfo: string, profileFile: string) {
+        try {
+            if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
+                cc.log("logging profile", profileInfo, " ", profileFile);
+                jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    PROFILE_METHOD,
+                    PROFILE_METHOD_SIGNATURE,
+                    profileInfo,
+                    profileFile
+                );
+            }
+        } catch (e) {
+        }
+    }
 
-  public static logEventToFireBase(eventInfo: object) {
-    eventInfo[`${USER_ID}`] = this.currentProfile() || "";
-    eventInfo[`${DEVICE_ID}`] = this.currentDeviceId() || "";
-    eventInfo[`${TIMESTAMP}`] = new Date().getTime();
-    UtilLogger.logEventToFireBaseWithKey("logInfo", eventInfo);
-  }
+    public static currentProfile() {
+        try {
+            if (
+                ASSET_LOAD_METHOD != "file" &&
+                this._currentUserId === null &&
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID
+            ) {
+                this._currentUserId = jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    CURRENT_PROFILE_METHOD,
+                    CURRENT_PROFILE_METHOD_SIGNATURE
+                );
+                cc.log("current profile:", this._currentUserId);
+            }
+        } catch (e) {
+        }
+        return this._currentUserId;
+    }
 
-  public static logProfile(profileInfo: string, profileFile: string) {
-    try {
-      if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
-        cc.log("logging profile", profileInfo, " ", profileFile);
-        jsb.reflection.callStaticMethod(
-          LOGGER_CLASS,
-          PROFILE_METHOD,
-          PROFILE_METHOD_SIGNATURE,
-          profileInfo,
-          profileFile
-        );
-      }
-    } catch (e) {}
-  }
+    public static getStorageDirectory() {
+        try {
+            if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
+                this._storageDirectory = jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    GET_STORAGE_DIRECTORY,
+                    GET_STORAGE_DIRECTORY_METHOD_SIGNATURE
+                );
+                cc.log("storage directory:", this._storageDirectory);
+            }
+        } catch (e) {
+        }
+        return this._storageDirectory;
+    }
 
-  public static currentProfile() {
-    try {
-      if (
-        ASSET_LOAD_METHOD != "file" &&
-        this._currentUserId === null &&
-        cc.sys.isNative &&
-        cc.sys.os == cc.sys.OS_ANDROID
-      ) {
-        this._currentUserId = jsb.reflection.callStaticMethod(
-          LOGGER_CLASS,
-          CURRENT_PROFILE_METHOD,
-          CURRENT_PROFILE_METHOD_SIGNATURE
-        );
-        cc.log("current profile:", this._currentUserId);
-      }
-    } catch (e) {}
-    return this._currentUserId;
-  }
+    public static currentDeviceId() {
+        try {
+            if (
+                this._currentDeviceId === null &&
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID
+            ) {
+                this._currentDeviceId = jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    DEVICE_ID_METHOD,
+                    DEVICE_ID_METHOD_SIGNATURE
+                );
+                cc.log("current device Id:", this._currentDeviceId);
+            }
+        } catch (e) {
+        }
+        return this._currentDeviceId;
+    }
 
-  public static getStorageDirectory() {
-    try {
-      if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
-        this._storageDirectory = jsb.reflection.callStaticMethod(
-          LOGGER_CLASS,
-          GET_STORAGE_DIRECTORY,
-          GET_STORAGE_DIRECTORY_METHOD_SIGNATURE
-        );
-        cc.log("storage directory:", this._storageDirectory);
-      }
-    } catch (e) {}
-    return this._storageDirectory;
-  }
+    public static initPluginFirebase() {
+        try {
+            if ("undefined" == typeof sdkbox) {
+                cc.log("sdkbox is undefined");
+                return;
+            }
 
-  public static currentDeviceId() {
-    try {
-      if (
-        this._currentDeviceId === null &&
-        cc.sys.isNative &&
-        cc.sys.os == cc.sys.OS_ANDROID
-      ) {
-        this._currentDeviceId = jsb.reflection.callStaticMethod(
-          LOGGER_CLASS,
-          DEVICE_ID_METHOD,
-          DEVICE_ID_METHOD_SIGNATURE
-        );
-        cc.log("current device Id:", this._currentDeviceId);
-      }
-    } catch (e) {}
-    return this._currentDeviceId;
-  }
+            // @ts-ignore
+            if ("undefined" == typeof sdkbox.firebase) {
+                cc.log("sdkbox.firebase is undefined");
+                return;
+            }
+            // @ts-ignore
+            sdkbox.firebase.Analytics.init();
+        } catch (e) {
+        }
+    }
 
-  public static initPluginFirebase() {
-    try {
-      if ("undefined" == typeof sdkbox) {
-        cc.log("sdkbox is undefined");
-        return;
-      }
+    public static downloadFile(url: string, downloadDirectory: string) {
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID &&
+                ASSET_LOAD_METHOD === "file"
+            ) {
+                jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    DOWNLOAD_FILE_METHOD,
+                    DOWNLOAD_FILE_METHOD_SIGNATURE,
+                    url,
+                    downloadDirectory
+                );
+            }
+        } catch (e) {
+        }
+    }
 
-      // @ts-ignore
-      if ("undefined" == typeof sdkbox.firebase) {
-        cc.log("sdkbox.firebase is undefined");
-        return;
-      }
-      // @ts-ignore
-      sdkbox.firebase.Analytics.init();
-    } catch (e) {}
-  }
+    public static isFileExists(downloadDirectory: string): boolean {
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID &&
+                ASSET_LOAD_METHOD === "file"
+            ) {
+                return jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    FILE_EXISTS_METHOD,
+                    FILE_EXISTS_METHOD_SIGNATURE,
+                    downloadDirectory
+                );
+            }
+            return false;
+        } catch (e) {
+        }
+    }
 
-  public static downloadFile(url: string, downloadDirectory: string) {
-    try {
-      if (
-        cc.sys.isNative &&
-        cc.sys.os == cc.sys.OS_ANDROID &&
-        ASSET_LOAD_METHOD === "file"
-      ) {
-        jsb.reflection.callStaticMethod(
-          LOGGER_CLASS,
-          DOWNLOAD_FILE_METHOD,
-          DOWNLOAD_FILE_METHOD_SIGNATURE,
-          url,
-          downloadDirectory
-        );
-      }
-    } catch (e) {}
-  }
+    public static checkIfUrlDownloaded(
+        url: string,
+        downloadDirectory: string
+    ): string {
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID &&
+                ASSET_LOAD_METHOD === "file"
+            ) {
+                return jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    CHECK_URL_DOWNLOADED_METHOD,
+                    CHECK_URL_DOWNLOADED_METHOD_SIGNATURE,
+                    url,
+                    downloadDirectory
+                );
+            }
+            return null;
+        } catch (e) {
+        }
+    }
 
-  public static isFileExists(downloadDirectory: string): boolean {
-    try {
-      if (
-        cc.sys.isNative &&
-        cc.sys.os == cc.sys.OS_ANDROID &&
-        ASSET_LOAD_METHOD === "file"
-      ) {
-        return jsb.reflection.callStaticMethod(
-          LOGGER_CLASS,
-          FILE_EXISTS_METHOD,
-          FILE_EXISTS_METHOD_SIGNATURE,
-          downloadDirectory
-        );
-      }
-      return false;
-    } catch (e) {}
-  }
-
-  public static checkIfUrlDownloaded(
-    url: string,
-    downloadDirectory: string
-  ): string {
-    try {
-      if (
-        cc.sys.isNative &&
-        cc.sys.os == cc.sys.OS_ANDROID &&
-        ASSET_LOAD_METHOD === "file"
-      ) {
-        return jsb.reflection.callStaticMethod(
-          LOGGER_CLASS,
-          CHECK_URL_DOWNLOADED_METHOD,
-          CHECK_URL_DOWNLOADED_METHOD_SIGNATURE,
-          url,
-          downloadDirectory
-        );
-      }
-      return null;
-    } catch (e) {}
-  }
-
-  public static isNetworkAvailable(): boolean {
-    try {
-      if (
-        cc.sys.isNative &&
-        cc.sys.os == cc.sys.OS_ANDROID &&
-        ASSET_LOAD_METHOD === "file"
-      ) {
-        return jsb.reflection.callStaticMethod(
-          LOGGER_CLASS,
-          IS_NETWORK_AVAILABLE_METHOD,
-          IS_NETWORK_AVAILABLE_METHOD_SIGNATURE
-        );
-      }
-      return false;
-    } catch (e) {}
-  }
+    public static isNetworkAvailable(): boolean {
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID &&
+                ASSET_LOAD_METHOD === "file"
+            ) {
+                return jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    IS_NETWORK_AVAILABLE_METHOD,
+                    IS_NETWORK_AVAILABLE_METHOD_SIGNATURE
+                );
+            }
+            return false;
+        } catch (e) {
+        }
+    }
 }

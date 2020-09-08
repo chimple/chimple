@@ -59,7 +59,7 @@ function logError(errMessage: string, errStack: string, funcName: string, classN
             className : className,
             funcName  : funcName
         };
-        UtilLogger.logExceptionToFireBase(errorObj);
+        UtilLogger.logChimpleEvent("errorInfo", errorObj);
         // commenting out skip option for now
         // if(context.node) {
         //     context.scheduleOnce(() => {

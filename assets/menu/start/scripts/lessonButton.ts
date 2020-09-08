@@ -47,6 +47,8 @@ export default class LessonButton extends cc.Component {
                 config.lesson = this.lesson.id
                 config.chapter = this.chapter.id
                 config.course = this.courseName
+                config.lessonObj = this.lesson;
+                config.chapterObj = this.chapter;
                 LessonController.preloadLesson(() => {
                     config.pushScene('common/scenes/lessonController')
                 })
