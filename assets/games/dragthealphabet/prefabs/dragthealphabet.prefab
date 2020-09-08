@@ -117,7 +117,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        161.206,
+        240,
         0,
         0,
         0,
@@ -166,7 +166,7 @@
     "_N$paddingRight": 0,
     "_N$paddingTop": 0,
     "_N$paddingBottom": 0,
-    "_N$spacingX": 100,
+    "_N$spacingX": 200,
     "_N$spacingY": 0,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
@@ -195,11 +195,20 @@
     "cakeBg": {
       "__uuid__": "6935eaee-01ad-461f-9c37-b1229a559469"
     },
-    "cakeDrop": {
-      "__uuid__": "4dc05491-cd4b-4d86-8d2f-5fbdf7bb369b"
-    },
     "cakeDrag": {
       "__uuid__": "8c4c343e-8607-4585-b6c7-85af7db3f3aa"
+    },
+    "flowerBg": {
+      "__uuid__": "14520a63-6ee2-47de-bde9-9913cc3055de"
+    },
+    "flowerDrag": {
+      "__uuid__": "5849314e-8be8-42a6-b481-eb546f50e069"
+    },
+    "sandcastleBg": {
+      "__uuid__": "5c3ef5ca-8054-40f3-8165-4f639fba7fa3"
+    },
+    "sandcastleDrag": {
+      "__uuid__": "0a45f162-5e48-4462-ae74-c2abb460f799"
     },
     "layout": {
       "__id__": 2

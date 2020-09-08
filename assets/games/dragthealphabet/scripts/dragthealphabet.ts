@@ -6,6 +6,7 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class DragTheAlphabet extends cc.Component {
 
+
     @property(cc.Prefab)
     cakeBg: cc.Prefab = null;
 
@@ -13,8 +14,17 @@ export default class DragTheAlphabet extends cc.Component {
     cakeDrag: cc.Prefab = null;
 
     @property(cc.Prefab)
+    flowerBg: cc.Prefab = null;
+
+    @property(cc.Prefab)
     flowerDrag: cc.Prefab = null;
- 
+
+    @property(cc.Prefab)
+    sandcastleBg: cc.Prefab = null;
+
+    @property(cc.Prefab)
+    sandcastleDrag: cc.Prefab = null;
+
     @property(cc.Node)
     layout: cc.Node = null;
 
@@ -36,7 +46,7 @@ export default class DragTheAlphabet extends cc.Component {
         this.solution = solution;
         this.totalPieces++;
 
-        let bg = cc.instantiate(this["cakeBg"]);
+        let bg = cc.instantiate(this[theme + "Bg"]);
         this.node.addChild(bg);
 
         this.layout.zIndex = 1;
