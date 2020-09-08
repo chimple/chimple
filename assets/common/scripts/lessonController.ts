@@ -48,6 +48,9 @@ export default class LessonController extends cc.Component {
     @property(cc.Node)
     gameParent: cc.Node = null;
 
+    @property(cc.Node)
+    loading: cc.Node = null;
+
     progressMonitorNode: cc.Node = null;
     quizMonitorNode: cc.Node = null;
     gameNode: cc.Node = null;
@@ -60,73 +63,87 @@ export default class LessonController extends cc.Component {
     isQuizAnsweredCorrectly: boolean = false;
     lessonStartTime: number = 0;
 
+    static gamePrefab: cc.Prefab
+
     onLoad() {
+        this.loading.width = cc.winSize.width
+        this.loading.zIndex = 10
+        this.progressMonitorNode = cc.instantiate(this.progressMonitor);
+        this.progressMonitorNode.zIndex = 2;
+        this.node.addChild(this.progressMonitorNode);
         this.lessonStart();
     }
 
-    private lessonStart() {
-        const config = Config.getInstance();
+    static preloadLesson(callback: Function) {
+        const config = Config.i
         config.problem = 0;
-        // cc.assetManager.loadBundle(COURSES_URL == '' ? config.lesson : COURSES_URL + '/' + config.course + '/' + config.lesson, (err, bundle) => {
         cc.assetManager.loadBundle(config.lesson, (err, bundle) => {
             if (err) {
                 return console.error(err);
             }
-            this.lessonStartTime = new Date().getTime();
 
-            bundle.preloadDir('resources', null, null, (err: Error, items) => {
+            bundle.preloadDir('res', null, null, (err: Error, items) => {
                 Util.bundles.set(config.lesson, bundle);
                 config.loadLessonJson((data: Array<string>) => {
                     config.data = [data];
-                    // if ((config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS)) {
-                    //     this.quizMonitorNode = cc.instantiate(this.quizMonitor);
-                    //     this.quizMonitorNode.zIndex = 2;
-                    //     this.node.addChild(this.quizMonitorNode);
-                    // } else {
-                        this.progressMonitorNode = cc.instantiate(this.progressMonitor);
-                        this.progressMonitorNode.zIndex = 2;
-                        this.node.addChild(this.progressMonitorNode);
-                    // }
-                    this.problemStart(true, () => {
+                    this.preloadGame((prefab: cc.Prefab) => {
+                        this.gamePrefab = prefab
+                        callback()
                     });
                 });
             });
         })
+
     }
 
-    private problemStart(replaceScene: boolean, callback: Function) {
-        const config = Config.getInstance();
+    static preloadGame(callback: Function) {
+        const config = Config.i
+        config.game = config.data[0][0];
+        const gameConfig = GAME_CONFIGS[config.game];
+        let fontName: string = config.course.split('-')[0] + '-' + DEFAULT_FONT;
+        if (gameConfig.fontName != null) {
+            fontName = gameConfig.fontName;
+        }
+        config.loadFontDynamically(fontName);
 
+        cc.assetManager.loadBundle(gameConfig.bundle, (err, bundle) => {
+            bundle.load(gameConfig.prefab, cc.Prefab, (err, prefab) => {
+                callback(prefab)
+            })
+        })
+    }
+
+    private lessonStart() {
+        this.startGame(LessonController.gamePrefab)
+    }
+
+    private problemStart(replaceScene: boolean) {
         if (replaceScene) {
-            config.game = config.data[0][0];
-            const gameConfig = GAME_CONFIGS[config.game];
-            let fontName: string = config.course.split('-')[0] + '-' + DEFAULT_FONT;
-            if (gameConfig.fontName != null) {
-                fontName = gameConfig.fontName;
-            }
-            config.loadFontDynamically(fontName);
-
-            cc.assetManager.loadBundle(gameConfig.bundle, (err, bundle) => {
-                bundle.load(gameConfig.prefab, cc.Prefab, (err, prefab) => {
-                    if (this.gameNode != null) this.gameNode.removeFromParent();
-                    this.gameNode = cc.instantiate(prefab);
-                    this.gameParent.addChild(this.gameNode);
-                    if (gameConfig.center) {
-                        this.gameNode.x = -512;
-                        this.gameNode.y = -384;
-                    } else {
-                        this.gameNode.x = 0;
-                        this.gameNode.y = 0;
-                    }
-                    this.setupEventHandlers();
-                    callback();
-                });
-            });
+            LessonController.preloadGame((prefab: cc.Prefab) => {
+                this.startGame(prefab);
+            })
         } else {
             if (this.gameNode != null) this.gameNode.emit('nextIteration');
-            callback();
         }
 
+    }
+
+    private startGame(prefab: cc.Prefab) {
+        if (this.gameNode != null)
+            this.gameNode.removeFromParent();
+        this.gameNode = cc.instantiate(prefab);
+        this.gameParent.addChild(this.gameNode);
+        const gameConfig = GAME_CONFIGS[Config.i.game];
+        if (gameConfig.center) {
+            this.gameNode.x = -512;
+            this.gameNode.y = -384;
+        }
+        else {
+            this.gameNode.x = 0;
+            this.gameNode.y = 0;
+        }
+        this.setupEventHandlers();
+        this.loading.active = false;
     }
 
     private problemEnd(replaceScene: boolean) {
@@ -136,11 +153,10 @@ export default class LessonController extends cc.Component {
         //     monitor = this.quizMonitorNode.getComponent(QuizMonitor);
         //     monitor.stopStar = this.isQuizAnsweredCorrectly;
         // } else {
-            monitor = this.progressMonitorNode.getComponent(ProgressMonitor);
+        monitor = this.progressMonitorNode.getComponent(ProgressMonitor);
         // }
         const currentProblem = config.problem;
-        const block = cc.instantiate(this.blockPrefab);
-        this.node.addChild(block);
+        this.loading.active = true
 
         let monitorInfo = {
             chapter: config.chapter,
@@ -162,9 +178,7 @@ export default class LessonController extends cc.Component {
             monitor.stopStar = false;
             if (currentProblem < config.totalProblems) {
                 config.nextProblem();
-                this.problemStart(replaceScene, () => {
-                    if (this.gameNode != null) block.removeFromParent();
-                });
+                this.problemStart(replaceScene)
             } else {
                 this.lessonEnd();
             }

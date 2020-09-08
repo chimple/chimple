@@ -28,6 +28,9 @@ export default class Start extends cc.Component {
     @property(cc.Node)
     homeButton: cc.Node = null
 
+    @property(cc.Prefab)
+    loadingPrefab: cc.Prefab = null
+
     selectedHeaderButton: HeaderButton
 
     onLoad() {
