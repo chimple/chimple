@@ -129,6 +129,9 @@ export default class FillBlank extends cc.Component {
   }
   @catchError()
   playsound(emit: boolean, callback: Function) {
+    cc.log(this.node.name)
+    let audioPlayButton = this.node.getChildByName("board_question_wordkicker").getChildByName("speaker").getComponent(cc.Button)
+    audioPlayButton.interactable = false;
     var audioID = -1
     if (this.soundClip != null) {
       audioID = cc.audioEngine.play(this.soundClip, false, 1)
@@ -137,15 +140,18 @@ export default class FillBlank extends cc.Component {
       if (emit) {
         if (this.friend != null) this.friend.playAnimation('dance', 1)
       }
-      if (callback != null) {
-        cc.audioEngine.setFinishCallback(audioID, () => {
+      // if (callback != null) {
+      cc.audioEngine.setFinishCallback(audioID, () => {
+        audioPlayButton.getComponent(cc.Button).interactable = true
+        if (callback != null)
           callback()
-        });
-      }
+      });
+      // }
     } else {
       if (emit) {
         if (this.friend != null) this.friend.playAnimation('dance', 1)
       }
+      audioPlayButton.getComponent(cc.Button).interactable = true
       if (callback != null) {
         callback()
       }
