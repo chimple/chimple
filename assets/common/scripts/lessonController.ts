@@ -248,7 +248,7 @@ export default class LessonController extends cc.Component {
             courseName    : config.course,
             score         : config.game.toLowerCase().includes("quiz") ? this.quizScore : this.total,
             timeSpent     : timeSpent,
-            skills        : config.lessonObj.skills.join(","),
+            skills        : config.lessonObj.skills ? config.lessonObj.skills.join(",") : "",
             game_completed: config.game.toLowerCase().includes("quiz") ? false : true,
             quiz_completed: config.game.toLowerCase().includes("quiz") ? true : false
         });
