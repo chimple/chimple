@@ -16,6 +16,8 @@ export default class StartContent extends cc.Component {
     @property(cc.Node)
     layout: cc.Node = null;
 
+    loading: cc.Node
+
     onLoad () {
         const courseProgress = User.getCurrentUser().courseProgressMap
         Config.i.curriculum.forEach((course: Course, name: string) => {
@@ -39,6 +41,7 @@ export default class StartContent extends cc.Component {
             lessonButtonComp.courseName = name
             lessonButtonComp.chapter = currentChapter
             lessonButtonComp.lesson = currentLesson
+            lessonButtonComp.loading = this.loading
             this.layout.addChild(lessonButton)
         })
     }

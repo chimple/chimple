@@ -78,6 +78,7 @@ export default class Config {
     data: Array<Array<string>>;
     currentFontName: string;
     curriculum: Map<string, Course> = new Map();
+    curriculumLoaded: boolean = false;
 
     //currently used in story remove later
     gameLevelName: string;
@@ -297,31 +298,36 @@ export default class Config {
     }
 
     loadCourseJsons(node: cc.Node, callBack: Function) {
-        const user = User.getCurrentUser();
-        let numCourses = user.courseProgressMap.size;
-        user.courseProgressMap.forEach((courseProgress, name) => {
-            cc.assetManager.loadBundle(name, (err, bundle) => {
-                if (err) {
-                    return console.error(err);
-                }
-                Util.bundles.set(name, bundle);
-                const jsonFile = name + '/course/res/course.json';
-                Util.load(jsonFile, (err: Error, jsonAsset) => {
-                    if (!err) {
-                        this.curriculum.set(name, jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset);
+        if(this.curriculumLoaded) {
+            callBack()
+        } else {
+            const user = User.getCurrentUser();
+            let numCourses = user.courseProgressMap.size;
+            user.courseProgressMap.forEach((courseProgress, name) => {
+                cc.assetManager.loadBundle(name, (err, bundle) => {
+                    if (err) {
+                        return console.error(err);
                     }
-                    numCourses--;
+                    Util.bundles.set(name, bundle);
+                    const jsonFile = name + '/course/res/course.json';
+                    Util.load(jsonFile, (err: Error, jsonAsset) => {
+                        if (!err) {
+                            this.curriculum.set(name, jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset);
+                        }
+                        numCourses--;
+                    });
                 });
             });
-        });
-
-        const checkAllLoaded = () => {
-            if (numCourses <= 0) {
-                cc.director.getScheduler().unschedule(checkAllLoaded, node);
-                callBack();
-            }
-        };
-        cc.director.getScheduler().schedule(checkAllLoaded, node, 1);
+    
+            const checkAllLoaded = () => {
+                if (numCourses <= 0) {
+                    this.curriculumLoaded = true;
+                    cc.director.getScheduler().unschedule(checkAllLoaded, node);
+                    callBack();
+                }
+            };
+            cc.director.getScheduler().schedule(checkAllLoaded, node, 1);    
+        }
     }
 
     get friend(): string {

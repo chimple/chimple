@@ -15,6 +15,8 @@ export default class CourseContent extends cc.Component {
     @property(cc.Node)
     chaptersLayout: cc.Node = null
 
+    loading: cc.Node
+
     static colors: Array<string> = [
         '#511F73',
         '#26A699',
@@ -41,6 +43,7 @@ export default class CourseContent extends cc.Component {
                 lessonButtonComp.courseName = config.course
                 lessonButtonComp.chapter = chapter
                 lessonButtonComp.lesson = lesson
+                lessonButtonComp.loading = this.loading
                 lessonContentNode.addChild(lessonButton)
             }
             const lessonContentLayout = lessonContentNode.getComponent(cc.Layout)

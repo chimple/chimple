@@ -33,6 +33,7 @@ export default class LessonButton extends cc.Component {
     lesson: Lesson
     courseName: string
     chapter: Chapter
+    loading: cc.Node
 
     onLoad() {
         if (this.lesson != null && this.courseName != null && this.chapter != null) {
@@ -49,6 +50,7 @@ export default class LessonButton extends cc.Component {
                 config.course = this.courseName
                 config.lessonObj = this.lesson;
                 config.chapterObj = this.chapter;
+                this.loading.active = true
                 LessonController.preloadLesson(() => {
                     config.pushScene('common/scenes/lessonController')
                 })
