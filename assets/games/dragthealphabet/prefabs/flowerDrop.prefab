@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "cake_node",
+    "_name": "flowerDrop",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -25,7 +25,11 @@
       }
     ],
     "_active": true,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 8
+      }
+    ],
     "_prefab": {
       "__id__": 9
     },
@@ -39,8 +43,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
+      "width": 249,
+      "height": 318
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -52,7 +56,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -140,
+        0,
         0,
         0,
         0,
@@ -72,13 +76,13 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 9,
-    "groupIndex": 9,
+    "_groupIndex": 0,
+    "groupIndex": 0,
     "_id": ""
   },
   {
     "__type__": "cc.Node",
-    "_name": "drag_cake",
+    "_name": "drag_flower_stool",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -103,8 +107,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 349,
-      "height": 241
+      "width": 951,
+      "height": 81
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -116,7 +120,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        -201.955,
         0,
         0,
         0,
@@ -136,13 +140,13 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 9,
-    "groupIndex": 9,
+    "_groupIndex": 0,
+    "groupIndex": 0,
     "_id": ""
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "drag_flower_stool<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 2
@@ -156,7 +160,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "e0f6abfb-ded4-457f-bfd8-3a988e5dc53d"
+      "__uuid__": "90848cfa-037f-4b3c-b573-22ce76f588df"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -178,14 +182,14 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "4dc05491-cd4b-4d86-8d2f-5fbdf7bb369b"
+      "__id__": 0
     },
-    "fileId": "80x8OWPwRH04uk8xbUWRs2",
+    "fileId": "72zxoRMGxEvJX+mT5EbcKS",
     "sync": false
   },
   {
     "__type__": "cc.Node",
-    "_name": "drop",
+    "_name": "drag_flower_drop",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -195,13 +199,10 @@
     "_components": [
       {
         "__id__": 6
-      },
-      {
-        "__id__": 7
       }
     ],
     "_prefab": {
-      "__id__": 8
+      "__id__": 7
     },
     "_opacity": 255,
     "_color": {
@@ -213,8 +214,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 300,
-      "height": 150
+      "width": 163,
+      "height": 164
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -225,8 +226,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
-        120,
+        -12.526,
+        159.712,
         0,
         0,
         0,
@@ -246,41 +247,40 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 9,
-    "groupIndex": 9,
+    "_groupIndex": 0,
+    "groupIndex": 0,
     "_id": ""
   },
   {
-    "__type__": "08edb7X3GlB7rjongfPHlr4",
-    "_name": "",
+    "__type__": "cc.Sprite",
+    "_name": "drag_flower_drop<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 5
     },
     "_enabled": true,
-    "allowDrop": true,
-    "allowOnlyOneDrop": true,
-    "_id": ""
-  },
-  {
-    "__type__": "cc.BoxCollider",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 5
+    "_materials": [
+      {
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+      }
+    ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_spriteFrame": {
+      "__uuid__": "1d6edb83-2777-47b4-8f02-9ee7ba0a9d5f"
     },
-    "_enabled": true,
-    "tag": 0,
-    "_offset": {
+    "_type": 0,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
       "y": 0
     },
-    "_size": {
-      "__type__": "cc.Size",
-      "width": 300,
-      "height": 150
-    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_atlas": null,
     "_id": ""
   },
   {
@@ -289,10 +289,42 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "4dc05491-cd4b-4d86-8d2f-5fbdf7bb369b"
+      "__id__": 0
     },
-    "fileId": "3dQQAlXtVO1o4ldOLRRW0F",
+    "fileId": "377Cfxa3NIuJy+nSYcgCMa",
     "sync": false
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "flowerDrop<Sprite>",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_materials": [
+      {
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+      }
+    ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_spriteFrame": {
+      "__uuid__": "afb58f30-5bfc-4735-a099-e339c42f5ae0"
+    },
+    "_type": 0,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_atlas": null,
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -300,9 +332,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "4dc05491-cd4b-4d86-8d2f-5fbdf7bb369b"
+      "__id__": 0
     },
-    "fileId": "69I1UGQI1Bk7/3YEYcDBJy",
+    "fileId": "60yTSVLGdKpoFQk4GgovWa",
     "sync": false
   }
 ]
