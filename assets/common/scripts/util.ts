@@ -577,7 +577,7 @@ export class Util {
         chimp = lessonComp.chimp;
         chimp.playAnimation("talking", 0);
       }
-      Util.speak(
+      Util.playHelpAudio(
         config.course + "/course/res/sound/game/" + config.game + ".mp3",
         () => {
           if (chimp) chimp.playAnimation("idle", 1);
@@ -588,6 +588,30 @@ export class Util {
       if (callBack != null) callBack();
     }
   }
+
+  public static playHelpAudio(audio: string, callback: Function) {
+    Util.load(
+      audio,
+      (err, clip) => {
+        if (clip != null) {
+          if (Array.isArray(clip) && clip.length === 0) {
+            callback();
+          } else {
+            this.audioId = Util.play(clip, false);
+            if (this.audioId != -1) {
+              cc.audioEngine.setFinishCallback(this.audioId, callback);
+            } else {
+              callback();
+            }
+          }
+        } else {
+          callback();
+        }
+      },
+      true
+    );
+  }
+
 
   public static computeTimeDiff(
     append: string,
@@ -642,15 +666,15 @@ export class Util {
 
 
   public static play(audioClip: cc.AudioClip, loop: boolean = false) {
+    let audioId = -1;
     try {
       if (audioClip) {
-        this.audioId = cc.audioEngine.playEffect(audioClip, loop);
+        audioId = cc.audioEngine.playEffect(audioClip, loop);
       }
     } catch (e) {
       cc.log(e);
     }
-
-    return this.audioId;
+    return audioId;
   }
 
   public static getSubpackages(): Array<string> {
