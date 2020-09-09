@@ -77,13 +77,13 @@ export default class LessonController extends cc.Component {
     static preloadLesson(callback: Function) {
         const config = Config.i
         config.problem = 0;
-        cc.assetManager.loadBundle(config.lesson, (err, bundle) => {
+        cc.assetManager.loadBundle(config.lessonId, (err, bundle) => {
             if (err) {
                 return console.error(err);
             }
 
             bundle.preloadDir('res', null, null, (err: Error, items) => {
-                Util.bundles.set(config.lesson, bundle);
+                Util.bundles.set(config.lessonId, bundle);
                 config.loadLessonJson((data: Array<string>) => {
                     config.data = [data];
                     this.preloadGame((prefab: cc.Prefab) => {
@@ -100,7 +100,7 @@ export default class LessonController extends cc.Component {
         const config = Config.i
         config.game = config.data[0][0];
         const gameConfig = GAME_CONFIGS[config.game];
-        let fontName: string = config.course.split('-')[0] + '-' + DEFAULT_FONT;
+        let fontName: string = config.courseId.split('-')[0] + '-' + DEFAULT_FONT;
         if (gameConfig.fontName != null) {
             fontName = gameConfig.fontName;
         }
@@ -163,8 +163,8 @@ export default class LessonController extends cc.Component {
 
         const score: number = config.game.toLowerCase().includes("quiz") ? this.quizScore : this.total;
         let monitorInfo = {
-            chapter: config.chapter,
-            lesson: config.lesson,
+            chapter: config.chapterId,
+            lesson: config.lessonId,
             incorrect: this.wrongMoves,
             totalQuestions: config.totalProblems,
             correct: this.rightMoves,
@@ -181,16 +181,16 @@ export default class LessonController extends cc.Component {
         const eventName: string = config.game.toLowerCase().includes("quiz") ? "quizEnd" :
             "gameEnd";
         UtilLogger.logChimpleEvent(eventName, {
-            chapterName: config.chapterObj.name,
-            chapterId: config.chapter,
-            lessonName: config.lessonObj.name,
-            lessonId: config.lesson,
-            courseName: config.course,
+            chapterName: config.chapter.name,
+            chapterId: config.chapterId,
+            lessonName: config.lesson.name,
+            lessonId: config.lessonId,
+            courseName: config.courseId,
             problemNo: config.problem,
             timeSpent: timeSpent,
             wrongMoves: this.wrongMoves,
             correctMoves: this.rightMoves,
-            skills: config.lessonObj.skills && config.lessonObj.skills.length > 0 ? config.lessonObj.skills.join(",") : "",
+            skills: config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
             game_completed: config.game.toLowerCase().includes("quiz") ? false : true,
             quiz_completed: config.game.toLowerCase().includes("quiz") ? true : false
         });
@@ -213,22 +213,22 @@ export default class LessonController extends cc.Component {
         this.total = Math.max(0, 100 - this.wrongMoves * 10);
 
         const user = User.getCurrentUser();
-        user.updateLessonProgress(config.lesson, this.total);
+        user.updateLessonProgress(config.lessonId, this.total);
         let finishedLessons = 0;
         let percentageComplete = 0;
-        if (config.chapterObj && config.chapterObj.lessons &&
-            config.chapterObj.lessons.length > 0) {
-            config.chapterObj.lessons.forEach(
+        if (config.chapter && config.chapter.lessons &&
+            config.chapter.lessons.length > 0) {
+            config.chapter.lessons.forEach(
                 (lesson: Lesson) => {
                     user.lessonProgressMap.has(lesson.id) ? finishedLessons++ : '';
                 }
             );
-            percentageComplete = finishedLessons / config.chapterObj.lessons.length;
+            percentageComplete = finishedLessons / config.chapter.lessons.length;
         }
 
         let updateInfo = {
-            chapter: config.chapter,
-            lesson: config.lesson,
+            chapter: config.chapterId,
+            lesson: config.lessonId,
             percentComplete: percentageComplete,
             timespent: timeSpent,
             assessment: this.total,
@@ -242,14 +242,14 @@ export default class LessonController extends cc.Component {
         Queue.getInstance().push(updateInfo);
 
         UtilLogger.logChimpleEvent("lessonEnd", {
-            chapterName: config.chapterObj.name,
-            chapterId: config.chapter,
-            lessonName: config.lessonObj.name,
-            lessonId: config.lesson,
-            courseName: config.course,
+            chapterName: config.chapter.name,
+            chapterId: config.chapterId,
+            lessonName: config.lesson.name,
+            lessonId: config.lessonId,
+            courseName: config.courseId,
             score: config.game.toLowerCase().includes("quiz") ? this.quizScore : this.total,
             timeSpent: timeSpent,
-            skills: config.lessonObj.skills ? config.lessonObj.skills.join(",") : "",
+            skills: config.lesson.skills ? config.lesson.skills.join(",") : "",
             game_completed: config.game.toLowerCase().includes("quiz") ? false : true,
             quiz_completed: config.game.toLowerCase().includes("quiz") ? true : false
         });

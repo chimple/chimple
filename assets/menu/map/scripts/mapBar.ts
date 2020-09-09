@@ -55,7 +55,7 @@ export default class MapBar extends cc.Component {
         }
         this.node.width = cc.winSize.width
         this.node.height = cc.winSize.height
-        if (Config.i.course == 'en-maths') {
+        if (Config.i.courseId == 'en-maths') {
             this.icons.children.forEach((icon, index) => {
                 const text = icon.getChildByName('text')
                 if (text) {
