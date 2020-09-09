@@ -118,13 +118,14 @@ export default class Inventory extends cc.Component {
         let nodeName = ("acc" + this.lastSelectedButton.toString())
         // reset last selected first
         if (this.lastSelectedButton > -1) {
-            this.node.getChildByName("acc_layout").getChildByName(nodeName).getChildByName(this.lastSelectedButton.toString()).getComponent(cc.Button).pressedSprite = this.node.getChildByName("acc_layout").getChildByName(nodeName).getChildByName(this.lastSelectedButton.toString()).getComponent(cc.Button).normalSprite
-            this.node.getChildByName("acc_layout").getChildByName(nodeName).getChildByName(this.lastSelectedButton.toString()).getComponent(cc.Button).normalSprite = this.normalSprite
+            let color = cc.Color.BLACK;
+            this.node.getChildByName("acc_layout").getChildByName(nodeName).getChildByName(this.lastSelectedButton.toString()).getChildByName("Background").color = color.fromHEX("#282C65")
+            this.node.getChildByName("acc_layout").getChildByName(nodeName).getChildByName(this.lastSelectedButton.toString()).getChildByName("icon").color = color.fromHEX("#FFFFFF")
         }
         nodeName = ("acc" + event.currentTarget.name)
-        this.normalSprite = this.node.getChildByName("acc_layout").getChildByName(nodeName).getChildByName(event.currentTarget.name).getComponent(cc.Button).normalSprite
-        this.node.getChildByName("acc_layout").getChildByName(nodeName).getChildByName(event.currentTarget.name).getComponent(cc.Button).normalSprite = this.node.getChildByName("acc_layout").getChildByName(nodeName).getChildByName(event.currentTarget.name).getComponent(cc.Button).pressedSprite
-        this.node.getChildByName("acc_layout").getChildByName(nodeName).getChildByName(event.currentTarget.name).getComponent(cc.Button).pressedSprite = this.normalSprite
+        let color = cc.Color.BLACK;
+        this.node.getChildByName("acc_layout").getChildByName(nodeName).getChildByName(event.currentTarget.name).getChildByName("Background").color = color.fromHEX("#FFFFFF")
+        this.node.getChildByName("acc_layout").getChildByName(nodeName).getChildByName(event.currentTarget.name).getChildByName("icon").color = color.fromHEX("#282C65FFFFFF")
         // recreate list 
         this.buildIndividualItems(this.inventoryData[parseInt(event.currentTarget.name)])
         this.lastSelectedButton = parseInt(event.currentTarget.name)

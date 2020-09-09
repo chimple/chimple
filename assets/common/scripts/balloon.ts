@@ -107,7 +107,7 @@ export default class Balloon extends cc.Component {
 
 
     private setIcon() {
-        const iconFile = (COURSES.indexOf(this.game) >= 0 ? this.game : Config.i.course) + '/common/res/icons/' + this.game + '.png'
+        const iconFile = (COURSES.indexOf(this.game) >= 0 ? this.game : Config.i.courseId) + '/common/res/icons/' + this.game + '.png'
         Util.load(iconFile, (err, texture) => {
             if (!err) {
                 this.icon.spriteFrame = new cc.SpriteFrame(texture);

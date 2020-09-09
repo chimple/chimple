@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "bg",
+    "_name": "cakeBg",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -157,12 +157,15 @@
       },
       {
         "__id__": 206
+      },
+      {
+        "__id__": 300
       }
     ],
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 300
+      "__id__": 309
     },
     "_opacity": 255,
     "_color": {
@@ -241,7 +244,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1300,
+      "width": 1600,
       "height": 768
     },
     "_anchorPoint": {
@@ -280,7 +283,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 2
@@ -320,7 +323,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1300,
+      "width": 1600,
       "height": 768
     },
     "_resize": 0,
@@ -422,7 +425,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 6
@@ -564,7 +567,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 10
@@ -706,7 +709,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 14
@@ -848,7 +851,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 18
@@ -990,7 +993,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 22
@@ -1132,7 +1135,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 26
@@ -1274,7 +1277,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 30
@@ -1416,7 +1419,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 34
@@ -1558,7 +1561,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 38
@@ -1700,7 +1703,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 42
@@ -1842,7 +1845,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 46
@@ -1984,7 +1987,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 50
@@ -2126,7 +2129,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 54
@@ -2268,7 +2271,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 58
@@ -2410,7 +2413,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 62
@@ -2552,7 +2555,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 66
@@ -2694,7 +2697,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 70
@@ -2836,7 +2839,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 74
@@ -2978,7 +2981,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 78
@@ -3120,7 +3123,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 82
@@ -3262,7 +3265,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 86
@@ -3404,7 +3407,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 90
@@ -3546,7 +3549,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 94
@@ -3688,7 +3691,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 98
@@ -3830,7 +3833,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 102
@@ -3972,7 +3975,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 106
@@ -4114,7 +4117,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 110
@@ -4256,7 +4259,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 114
@@ -4398,7 +4401,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 118
@@ -4540,7 +4543,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 122
@@ -4682,7 +4685,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 126
@@ -4824,7 +4827,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 130
@@ -4966,7 +4969,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 134
@@ -5108,7 +5111,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 138
@@ -5250,7 +5253,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 142
@@ -5392,7 +5395,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 146
@@ -5534,7 +5537,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 150
@@ -5676,7 +5679,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 154
@@ -5818,7 +5821,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 158
@@ -5960,7 +5963,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 162
@@ -6102,7 +6105,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 166
@@ -6244,7 +6247,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 170
@@ -6383,7 +6386,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "drag_fridge<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 174
@@ -6569,7 +6572,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "oven<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 178
@@ -6711,7 +6714,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "oven copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 182
@@ -6850,7 +6853,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "drag_button<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 186
@@ -6957,7 +6960,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "drag_button copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 189
@@ -7064,7 +7067,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "drag_button copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 192
@@ -7256,7 +7259,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "New Layout<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 197
@@ -7395,7 +7398,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "drag_shelf copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 201
@@ -7438,7 +7441,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "drag_shelf<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 196
@@ -7642,7 +7645,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1300,
+      "width": 1600,
       "height": 217
     },
     "_anchorPoint": {
@@ -7681,7 +7684,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 207
@@ -7721,7 +7724,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1300,
+      "width": 1600,
       "height": 217
     },
     "_resize": 0,
@@ -7823,7 +7826,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 211
@@ -7965,7 +7968,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 215
@@ -8107,7 +8110,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 219
@@ -8249,7 +8252,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 223
@@ -8391,7 +8394,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 227
@@ -8533,7 +8536,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 231
@@ -8675,7 +8678,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 235
@@ -8817,7 +8820,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 239
@@ -8959,7 +8962,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 243
@@ -9101,7 +9104,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 247
@@ -9243,7 +9246,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 251
@@ -9385,7 +9388,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 255
@@ -9527,7 +9530,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 259
@@ -9669,7 +9672,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 263
@@ -9811,7 +9814,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 267
@@ -9953,7 +9956,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 271
@@ -10095,7 +10098,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 275
@@ -10237,7 +10240,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 279
@@ -10379,7 +10382,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 283
@@ -10518,7 +10521,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "drag_bowl2<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 287
@@ -10625,7 +10628,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "drag_bowl1<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 290
@@ -10732,7 +10735,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "drag_milk<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 293
@@ -10839,7 +10842,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "drag_eggs<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 296
@@ -10889,6 +10892,302 @@
       "__uuid__": "6935eaee-01ad-461f-9c37-b1229a559469"
     },
     "fileId": "03OIXtyhBC+6m8tYZet/oy",
+    "sync": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "drop",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [
+      {
+        "__id__": 301
+      },
+      {
+        "__id__": 304
+      }
+    ],
+    "_active": true,
+    "_components": [],
+    "_prefab": {
+      "__id__": 308
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        509.924,
+        203.591,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 9,
+    "groupIndex": 9,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "drag_cake",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 300
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 302
+      }
+    ],
+    "_prefab": {
+      "__id__": 303
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 349,
+      "height": 241
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 9,
+    "groupIndex": 9,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "drag_cake<Sprite>",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 301
+    },
+    "_enabled": true,
+    "_materials": [
+      {
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+      }
+    ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_spriteFrame": {
+      "__uuid__": "e0f6abfb-ded4-457f-bfd8-3a988e5dc53d"
+    },
+    "_type": 0,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_atlas": null,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "6935eaee-01ad-461f-9c37-b1229a559469"
+    },
+    "fileId": "42E0hmXXlJXYF5giVNacGh",
+    "sync": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "drop_collider",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 300
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 305
+      },
+      {
+        "__id__": 306
+      }
+    ],
+    "_prefab": {
+      "__id__": 307
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 300,
+      "height": 150
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        0,
+        108.094,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 9,
+    "groupIndex": 9,
+    "_id": ""
+  },
+  {
+    "__type__": "08edb7X3GlB7rjongfPHlr4",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 304
+    },
+    "_enabled": true,
+    "allowDrop": true,
+    "allowOnlyOneDrop": true,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.BoxCollider",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 304
+    },
+    "_enabled": true,
+    "tag": 0,
+    "_offset": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_size": {
+      "__type__": "cc.Size",
+      "width": 300,
+      "height": 150
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "6935eaee-01ad-461f-9c37-b1229a559469"
+    },
+    "fileId": "beqbFvos9L7bu8ep3etfnB",
+    "sync": false
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "6935eaee-01ad-461f-9c37-b1229a559469"
+    },
+    "fileId": "caCkR1j71DPbLrdX+Y/+qv",
     "sync": false
   },
   {

@@ -1,10 +1,11 @@
 import { Util } from "../util";
 import Profile, { User } from "./profile";
-import { Course } from "./convert";
+import { Chapter, Course, Lesson } from "./convert";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
-export const COURSES = ['en', 'en-maths', 'hi', 'hi-maths', 'ur', 'ur-maths']
+export const COURSES = ['en', 'en-maths', 'hi', 'hi-maths', 'ur', 'ur-maths'];
+
 export enum Flow {
     Default,
     Platformer,
@@ -21,7 +22,8 @@ export enum Direction {
     LTR,
     RTL
 }
-const RTL_COURSES = ['ur', 'ur-maths']
+
+const RTL_COURSES = ['ur', 'ur-maths'];
 
 export class World {
     scene: string;
@@ -65,15 +67,19 @@ export default class Config {
     private _textFontMap = new Map();
     private _lessonData;
 
-    course: string;
-    lesson: string;
-    chapter: string;
+    courseId: string;
+    lessonId: string;
+    chapterId: string;
+    course: Course;
+    lesson: Lesson;
+    chapter: Chapter;
     game: string;
     problem: number;
     totalProblems: number;
     data: Array<Array<string>>;
     currentFontName: string;
-    curriculum: Map<string, Course> = new Map()
+    curriculum: Map<string, Course> = new Map();
+    curriculumLoaded: boolean = false;
 
     //currently used in story remove later
     gameLevelName: string;
@@ -88,7 +94,7 @@ export default class Config {
     static getInstance(): Config {
         if (!Config.instance) {
             Config.instance = new Config();
-            Config.instance.course = 'en';
+            Config.instance.courseId = 'en';
             Config.instance.gameLevelName = '1';
             Config.instance.worksheet = 1;
             Config.instance.problem = 1;
@@ -101,13 +107,17 @@ export default class Config {
         return Config.instance;
     }
 
-    static get i(): Config { return Config.getInstance() }
-
-    static get dir(): string {
-        return Config.getInstance().course + '/';
+    static get i(): Config {
+        return Config.getInstance();
     }
 
-    get direction(): Direction { return RTL_COURSES.indexOf(this.course) != -1 ? Direction.RTL : Direction.LTR }
+    static get dir(): string {
+        return Config.getInstance().courseId + '/';
+    }
+
+    get direction(): Direction {
+        return RTL_COURSES.indexOf(this.courseId) != -1 ? Direction.RTL : Direction.LTR;
+    }
 
     addTextFont(fontName: string, newVal: cc.Font) {
         this._textFontMap.set(fontName, newVal);
@@ -141,9 +151,9 @@ export default class Config {
                         if (callback != null) {
                             callback();
                         }
-                    })
-                })
-            })
+                    });
+                });
+            });
         } else {
             cc.director.loadScene(scene, () => {
                 cc.sys.garbageCollect();
@@ -162,7 +172,7 @@ export default class Config {
     popScene() {
         this._scenes.pop();
         var sceneDef = this._scenes[this._scenes.length - 1];
-        var scene = sceneDef.scene
+        var scene = sceneDef.scene;
         if (scene.startsWith('menu/map/scene/map')) {
             scene = scene.substr(0, scene.length - 1) + Profile.lastWorld;
         }
@@ -171,7 +181,7 @@ export default class Config {
 
     prePopScene(callback: Function) {
         var sceneDef = this._scenes[this._scenes.length - 2];
-        var scene = sceneDef.scene
+        var scene = sceneDef.scene;
         if (scene.startsWith('menu/map/scene/map')) {
             scene = scene.substr(0, scene.length - 1) + Profile.lastWorld;
         }
@@ -206,14 +216,14 @@ export default class Config {
 
     loadLessonJson(callback: Function) {
         if (this.problem != 0) {
-            callback(this._lessonData.rows[this.problem - 1])
+            callback(this._lessonData.rows[this.problem - 1]);
         } else {
-            const jsonFile = this.course + '/' + this.lesson + '/res/' + this.lesson + '.json';
+            const jsonFile = this.courseId + '/' + this.lessonId + '/res/' + this.lessonId + '.json';
             Util.load(jsonFile, (err, jsonAsset) => {
                 this._lessonData = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
-                this.totalProblems = this._lessonData.rows.length
-                this.problem = 1
-                if (callback != null) callback(this._lessonData.rows[this.problem - 1])
+                this.totalProblems = this._lessonData.rows.length;
+                this.problem = 1;
+                if (callback != null) callback(this._lessonData.rows[this.problem - 1]);
             }, true);
         }
     }
@@ -255,8 +265,6 @@ export default class Config {
         }
     }
 
-
-
     loadPathJSON(fileName: string, callback: Function, isNumber: boolean = false) {
         let data: any[] = [];
         let jsonData: string = null;
@@ -269,7 +277,7 @@ export default class Config {
             const isUpperCase: boolean = fileName === fileName.toUpperCase();
             appendPath = isNumber ? 'numbers' : isUpperCase ? 'upper' : 'lower';
         }
-        let jsonFile = this.course + '/course/res/paths/' + appendPath + '/' + fileName; //default
+        let jsonFile = this.courseId + '/course/res/paths/' + appendPath + '/' + fileName; //default
         jsonFile = jsonFile + ".json";
         Util.load(jsonFile, (err, jsonAsset) => {
             data = [];
@@ -291,31 +299,36 @@ export default class Config {
     }
 
     loadCourseJsons(node: cc.Node, callBack: Function) {
-        const user = User.getCurrentUser()
-        let numCourses = user.courseProgressMap.size
-        user.courseProgressMap.forEach((courseProgress, name) => {
-            cc.assetManager.loadBundle(name, (err, bundle) => {
-                if (err) {
-                    return console.error(err);
-                }
-                Util.bundles.set(name, bundle);
-                const jsonFile = name + '/course/res/course.json';
-                Util.load(jsonFile, (err: Error, jsonAsset) => {
-                    if (!err) {
-                        this.curriculum.set(name, jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset);
+        if(this.curriculumLoaded) {
+            callBack()
+        } else {
+            const user = User.getCurrentUser();
+            let numCourses = user.courseProgressMap.size;
+            user.courseProgressMap.forEach((courseProgress, name) => {
+                cc.assetManager.loadBundle(name, (err, bundle) => {
+                    if (err) {
+                        return console.error(err);
                     }
-                    numCourses--
-                })
-            })
-        })
-
-        const checkAllLoaded = () => {
-            if (numCourses <= 0) {
-                cc.director.getScheduler().unschedule(checkAllLoaded, node)
-                callBack()
-            }
+                    Util.bundles.set(name, bundle);
+                    const jsonFile = name + '/course/res/course.json';
+                    Util.load(jsonFile, (err: Error, jsonAsset) => {
+                        if (!err) {
+                            this.curriculum.set(name, jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset);
+                        }
+                        numCourses--;
+                    });
+                });
+            });
+    
+            const checkAllLoaded = () => {
+                if (numCourses <= 0) {
+                    this.curriculumLoaded = true;
+                    cc.director.getScheduler().unschedule(checkAllLoaded, node);
+                    callBack();
+                }
+            };
+            cc.director.getScheduler().schedule(checkAllLoaded, node, 1);    
         }
-        cc.director.getScheduler().schedule(checkAllLoaded, node, 1)
     }
 
     get friend(): string {

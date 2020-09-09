@@ -5,6 +5,8 @@ import LessonButton from "./lessonButton";
 import HeaderButton from "./headerButton";
 import { Util } from "../../../common/scripts/util";
 import ChapterContent from "./chapterContent";
+import StartContent from "./startContent";
+import CourseContent from "./courseContent";
 
 const { ccclass, property } = cc._decorator;
 
@@ -28,40 +30,62 @@ export default class Start extends cc.Component {
     @property(cc.Node)
     homeButton: cc.Node = null
 
+    @property(cc.Node)
+    loading: cc.Node = null;
+
     selectedHeaderButton: HeaderButton
 
     onLoad() {
+        this.loading.width = cc.winSize.width
         const config = Config.i
-        config.curriculum.forEach((course: Course, name: string) => {
+        let index = 0
+        User.getCurrentUser().courseProgressMap.forEach(() => {
             const headerButton = cc.instantiate(this.headerButtonPrefab)
             const headerButtonComp = headerButton.getComponent(HeaderButton)
-            headerButtonComp.label.string = name
+            headerButtonComp.label.string = ''
+            headerButtonComp.sprite.spriteFrame = null
             headerButtonComp.selected.node.active = false
-            Util.load(name + '/course/res/icons/' + name + '.png', (err, texture) => {
-                if (!err) {
-                    headerButtonComp.sprite.spriteFrame = new cc.SpriteFrame(texture);
-                }
-            })
-            headerButtonComp.button.node.on('click', () => {
-                this.selectHeaderButton(headerButtonComp)
-                config.course = name
-                this.content.removeAllChildren()
-                this.content.addChild(cc.instantiate(this.courseContentPrefab))
-            })
-            this.header.insertChild(headerButton, 1)
+            this.header.insertChild(headerButton, ++index)
         })
         this.homeButton.getComponent(HeaderButton).button.node.on('click', () => {
             this.onHomeClick()
         })
         this.header.width = cc.winSize.width
-        this.header.getComponent(cc.Layout).spacingX = Math.max(0, cc.winSize.width / (config.curriculum.size + 2) - this.homeButton.width)
-        this.onHomeClick()
+        this.header.getComponent(cc.Layout).spacingX = Math.max(0, cc.winSize.width / (index + 2) - this.homeButton.width)
+        index = 0
+        config.loadCourseJsons(this.node, () => {
+            config.curriculum.forEach((course: Course, name: string) => {
+                const headerButton = this.header.children[++index]
+                const headerButtonComp = headerButton.getComponent(HeaderButton)
+                headerButtonComp.label.string = name
+                Util.load(name + '/course/res/icons/' + name + '.png', (err, texture) => {
+                    if (!err) {
+                        headerButtonComp.sprite.spriteFrame = new cc.SpriteFrame(texture);
+                    }
+                })
+                headerButtonComp.button.node.on('click', () => {
+                    this.selectHeaderButton(headerButtonComp)
+                    config.courseId = name
+                    config.course = course
+                    this.content.removeAllChildren()
+                    const courseContent = cc.instantiate(this.courseContentPrefab)
+                    const courseContentComp = courseContent.getComponent(CourseContent)
+                    courseContentComp.loading = this.loading
+                    this.content.addChild(courseContent)
+                })
+            })
+            this.onHomeClick()
+            this.loading.active = false
+        })
     }
 
     onHomeClick() {
         this.selectHeaderButton(this.homeButton.getComponent(HeaderButton))
         this.content.removeAllChildren()
-        this.content.addChild(cc.instantiate(this.startContentPrefab))
+        const startContent = cc.instantiate(this.startContentPrefab)
+        const startContentComp = startContent.getComponent(StartContent)
+        startContentComp.loading = this.loading
+        this.content.addChild(startContent)
     }
 
     onProfileClick() {
