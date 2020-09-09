@@ -2,6 +2,7 @@ import Config from "./common/scripts/lib/config";
 import Profile, { Gender, User } from "./common/scripts/lib/profile";
 import { D_MODE, DeployMode, Mode, MODE } from "./common/scripts/lib/constants";
 import { Queue } from "./queue";
+import UtilLogger from "./common/scripts/util-logger";
 
 const { ccclass, property } = cc._decorator;
 
@@ -20,6 +21,7 @@ export const START_SCENE = 'menu/start/scenes/start';
 @ccclass
 export default class Chimple extends cc.Component {
     async onLoad() {
+        UtilLogger.initPluginFirebase();
 
         const deployMode: number = D_MODE;
         const selectedMode: number = Number(cc.sys.localStorage.getItem(CHIMPLE_MODE)) || MODE;
