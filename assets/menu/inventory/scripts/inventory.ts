@@ -158,9 +158,9 @@ export default class Inventory extends cc.Component {
                 item.getChildByName("New Button").getChildByName("Background").getComponent(cc.Sprite).spriteFrame = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).getComponent(cc.Sprite).spriteFrame;
                 item.getChildByName("New Button").height = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).height
                 item.getChildByName("New Button").width = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).width
-                // if (User.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === "false" || User.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === undefined) {
-                //     item.getChildByName("New Button").getChildByName("lock_icon").active = true
-                // }
+                if (User.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === "false" || User.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === undefined) {
+                    item.getChildByName("New Button").getChildByName("lock_icon").active = true
+                }
                 let itemComp = item.getComponent(Item);
 
                 itemComp.onClickCallback = (name) => {
@@ -180,9 +180,9 @@ export default class Inventory extends cc.Component {
                     let characterAndSlot = this.characterName.concat("-", slot_name)
                     User.getCurrentUser().inventory[characterAndSlot] = armature_name;
                 }
-                // if (User.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === "false" || User.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === undefined) {
-                //     itemComp.isLocked = true;
-                // }
+                if (User.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === "false" || User.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === undefined) {
+                    itemComp.isLocked = true;
+                }
                 item.getChildByName("New Button").getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = element
                 item.getChildByName("New Button").name = element
                 this.layoutNode.addChild(item);
