@@ -66,6 +66,7 @@ export default class Start extends cc.Component {
                 headerButtonComp.button.node.on('click', () => {
                     this.selectHeaderButton(headerButtonComp)
                     config.course = name
+                    config.courseObj = course
                     this.content.removeAllChildren()
                     const courseContent = cc.instantiate(this.courseContentPrefab)
                     const courseContentComp = courseContent.getComponent(CourseContent)

@@ -38,7 +38,7 @@ export default class StartContent extends cc.Component {
 
             const lessonButton = cc.instantiate(this.startLessonButtonPrefab)
             const lessonButtonComp = lessonButton.getComponent(LessonButton)
-            lessonButtonComp.courseName = name
+            lessonButtonComp.course = course
             lessonButtonComp.chapter = currentChapter
             lessonButtonComp.lesson = currentLesson
             lessonButtonComp.loading = this.loading

@@ -70,6 +70,7 @@ export default class Config {
     course: string;
     lesson: string;
     chapter: string;
+    courseObj: Course;
     lessonObj: Lesson;
     chapterObj: Chapter;
     game: string;
