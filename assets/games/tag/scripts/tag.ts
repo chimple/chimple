@@ -210,7 +210,7 @@ export default class Tag extends cc.Component {
     Util.loadFriend((friendNode: cc.Node) => {
       this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay);
       this.friendPos.addChild(friendNode);
-      this.friend.playAnimation('face_touch', 1)
+      this.friend.playAnimation('face_happy', 2)
       this.friendPos.scale = 0.5;
     })
   }
