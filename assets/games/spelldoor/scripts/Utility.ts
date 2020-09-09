@@ -1,5 +1,6 @@
 import { Util } from "../../../common/scripts/util";
 import Config from "../../../common/scripts/lib/config";
+import { LANG } from "../../../common/scripts/lib/constants"
 
 export enum LetterType {
     Consonant,
@@ -23,16 +24,16 @@ export class AlphabetUtil {
     static isConsonantOrVowel(character: string): LetterType {
 
         let letterType;
-        AlphabetUtil.contains(langMap[Config.dir][0], character) ? letterType = LetterType.Vowel : letterType = LetterType.Consonant;
+        AlphabetUtil.contains(langMap[LANG + '/'][0], character) ? letterType = LetterType.Vowel : letterType = LetterType.Consonant;
         return letterType;
     }
 
     static getRandomVowel(): string {
-        return langMap[Config.dir][0][Math.floor(Math.random() * langMap[Config.dir][0].length)].toUpperCase();
+        return langMap[LANG + '/'][0][Math.floor(Math.random() * langMap[LANG + '/'][0].length)].toUpperCase();
     }
 
     static getRandomConsonant(): string {
-        return langMap[Config.dir][1][Math.floor(Math.random() * langMap[Config.dir][1].length)].toUpperCase();
+        return langMap[LANG + '/'][1][Math.floor(Math.random() * langMap[LANG + '/'][1].length)].toUpperCase();
     }
 
     static getRandomConsonantArray(lang: string): Array<string> {
@@ -67,15 +68,15 @@ export class AlphabetUtil {
     static playLetterSound(letterOrWord: string, isWord: boolean) {
         if (isWord) {
             Util.load(Config.dir + "sound/wordvoice/" + letterOrWord + ".mp3", function (err, clip) {
-                    cc.log("Audio Error: " + err);
-                    var audioID = cc.audioEngine.play(clip, false, 1)
-                }, true
+                cc.log("Audio Error: " + err);
+                var audioID = cc.audioEngine.play(clip, false, 1)
+            }, true
             )
         } else {
             Util.load(Config.dir + "sound/lettervoice/" + letterOrWord + ".mp3", function (err, clip) {
-                    cc.log("Audio Error: " + err);
-                    var audioID = cc.audioEngine.play(clip, false, 1)
-                }, true
+                cc.log("Audio Error: " + err);
+                var audioID = cc.audioEngine.play(clip, false, 1)
+            }, true
             )
         }
 
