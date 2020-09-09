@@ -55,7 +55,7 @@ export default class SequenceBox extends cc.Component {
             const newBox = cc.instantiate(this.box)
             if (element == '?') {
                 const layout = newBox.getChildByName('layout')
-                if (suggest == 'NA') {
+                if (suggest == '') {
                     this.answer.split('').forEach(digit => {
                         this.createDropBox(this.singleDrop, digit, layout)
                     })
@@ -104,7 +104,7 @@ export default class SequenceBox extends cc.Component {
                 .start()
         })
         const suggestions: Array<string> = []
-        if (suggest == 'NA') {
+        if (suggest == '') {
             for (let index = 0; index < 10; index++) {
                 suggestions.push(index.toString())
             }
@@ -115,7 +115,7 @@ export default class SequenceBox extends cc.Component {
         }
         var firstDrag: cc.Node = null
         suggestions.forEach(element => {
-            const card = cc.instantiate(suggest == 'NA' ? this.singleCard : this.longCard)
+            const card = cc.instantiate(suggest == '' ? this.singleCard : this.longCard)
             card.name = element
             const dragComp = card.getComponent(MissingNumberDrag)
             dragComp.missingNumber = this.node

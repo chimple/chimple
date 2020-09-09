@@ -564,10 +564,8 @@ export class Util {
             if (helpComp != null) {
               helpComp.initNodes(from, to, callBack);
             }
-            if (lessonComp != null) {
-              // @ts-ignore
-              lessonComp.gameNode.addChild(help);
-            }
+            // @ts-ignore
+            lessonNode.addChild(help);
           }
         });
       }
