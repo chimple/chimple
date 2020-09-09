@@ -2,8 +2,9 @@ import { Util } from "../../../common/scripts/util";
 import Config from "../../../common/scripts/lib/config";
 import { Lesson, Chapter } from "../../../common/scripts/lib/convert";
 import { User } from "../../../common/scripts/lib/profile";
+import LessonController from "../../../common/scripts/lessonController";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class LessonButton extends cc.Component {
@@ -32,9 +33,10 @@ export default class LessonButton extends cc.Component {
     lesson: Lesson
     courseName: string
     chapter: Chapter
+    loading: cc.Node
 
     onLoad() {
-        if(this.lesson != null && this.courseName != null && this.chapter != null) {
+        if (this.lesson != null && this.courseName != null && this.chapter != null) {
             const config = Config.i
             this.label.string = this.lesson.name
             Util.load(this.courseName + '/course/res/icons/' + this.lesson.image, (err, texture) => {
@@ -46,15 +48,20 @@ export default class LessonButton extends cc.Component {
                 config.lesson = this.lesson.id
                 config.chapter = this.chapter.id
                 config.course = this.courseName
-                config.pushScene('common/scenes/lessonController')
+                config.lessonObj = this.lesson;
+                config.chapterObj = this.chapter;
+                this.loading.active = true
+                LessonController.preloadLesson(() => {
+                    config.pushScene('common/scenes/lessonController')
+                })
             })
-            if(this.chapterLabel != null) this.chapterLabel.string = this.chapter.name
-            if(this.courseSprite != null) {
+            if (this.chapterLabel != null) this.chapterLabel.string = this.chapter.name
+            if (this.courseSprite != null) {
                 Util.load(this.courseName + '/course/res/icons/' + this.courseName + '_bg.png', (err, texture) => {
                     if (!err) {
                         this.courseSprite.spriteFrame = new cc.SpriteFrame(texture);
                     }
-                })    
+                })
             }
             const user = User.getCurrentUser()
             if (!user.lessonProgressMap.has(this.lesson.id)) {

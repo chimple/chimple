@@ -1,7 +1,7 @@
 import ccclass = cc._decorator.ccclass;
-import {CLEAR_BUTTON_CLICKED} from "./answer-grid";
 import property = cc._decorator.property;
 import catchError from "../../../common/scripts/lib/error-handler";
+import { CLEAR_BUTTON_CLICKED } from "../../../common/scripts/answer-grid";
 
 @ccclass
 export default class ClearScript extends cc.Component {

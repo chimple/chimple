@@ -1,8 +1,9 @@
 import UtilLogger from "../util-logger";
 import Config from "./config";
-import {Queue} from "../../../queue";
-import {CURRENT_STUDENT_ID} from "./constants";
-import {Course} from "./convert";
+import { Queue } from "../../../queue";
+import { CURRENT_STUDENT_ID } from "./constants";
+import { Course } from "./convert";
+import { Util } from "../util";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -44,13 +45,16 @@ export class CourseProgressClass implements CourseProgress {
 
 export interface LessonProgress {
     score: number;
+    quizAttempts: number;
 }
 
 export class LessonProgressClass implements LessonProgress {
     score: number;
+    quizAttempts: number;
 
-    constructor(score: number) {
+    constructor(score: number, quizAttempts: number = 0) {
         this.score = score;
+        this.quizAttempts = quizAttempts;
     }
 }
 
@@ -64,7 +68,7 @@ export const languageSelect = [
     ["english", "A", "#FFBC00"],
     ["हिन्दी", "अ", "#3E99E7"],
     ["english", "C", "#3CBD93"],
-    ["hindi", "Z", "#F55B5D"],
+    ["hindi", "Z", "#F55B5D"]
 ];
 
 export class User {
@@ -238,12 +242,12 @@ export class User {
     updateLessonProgress(lessonId: string, score: number) {
         if (this._lessonProgressMap.has(lessonId)) {
             if (score > this._lessonProgressMap.get(lessonId).score) {
-                this._lessonProgressMap.get(lessonId).score = score
+                this._lessonProgressMap.get(lessonId).score = score;
             }
         } else {
-            this._lessonProgressMap.set(lessonId, new LessonProgressClass(score))
+            this._lessonProgressMap.set(lessonId, new LessonProgressClass(score));
         }
-        this._storeUser()
+        this._storeUser();
     }
 
     private _storeUser() {
@@ -253,10 +257,17 @@ export class User {
     static storeUser(user: User) {
         cc.sys.localStorage.setItem(user.id, User.toJson(user));
         let profileInfo = {
-            profile: User.toJson(user),
-            kind: 'Profile',
+            profile  : User.toJson(user),
+            kind     : 'Profile',
             studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)
         };
+
+        // log to ff userProfile
+        UtilLogger.logChimpleEvent("userProfile", {
+            userAge: user.age,
+            gender : user.gender,
+            userId : user.id
+        });
         Queue.getInstance().push(profileInfo);
     }
 
@@ -326,15 +337,15 @@ export class User {
     }
 
     static fromJson(jsonStr: string): User {
-        const data = JSON.parse(jsonStr)
+        const data = JSON.parse(jsonStr);
         if (!data) return null;
-        const courseProgressMap = new Map<string, CourseProgress>()
+        const courseProgressMap = new Map<string, CourseProgress>();
         for (const key in data.courseProgressMap) {
-            courseProgressMap.set(key, data.courseProgressMap[key])
+            courseProgressMap.set(key, data.courseProgressMap[key]);
         }
-        const lessonProgressMap = new Map<string, LessonProgress>()
+        const lessonProgressMap = new Map<string, LessonProgress>();
         for (const key in data.lessonProgressMap) {
-            lessonProgressMap.set(key, data.lessonProgressMap[key])
+            lessonProgressMap.set(key, data.lessonProgressMap[key]);
         }
         let user = new User(
             data.id,
@@ -357,31 +368,31 @@ export class User {
     }
 
     static toJson(user: User): string {
-        const courseProgressObj = {}
+        const courseProgressObj = {};
         user.courseProgressMap.forEach((cp, name) => {
-            courseProgressObj[name] = cp
-        })
-        const lessonProgressObj = {}
+            courseProgressObj[name] = cp;
+        });
+        const lessonProgressObj = {};
         user.lessonProgressMap.forEach((lp, id) => {
-            lessonProgressObj[id] = lp
-        })
+            lessonProgressObj[id] = lp;
+        });
         return JSON.stringify({
-            'id': user.id,
-            'name': user.name,
-            'age': user.age,
-            'gender': user.gender,
-            'imgPath': user.imgPath,
-            'avatarImage': user.avatarImage,
-            'isTeacher': user.isTeacher,
-            'sfxOff': user._sfxOff,
-            'musicOff': user._musicOff,
-            'inventory': user.inventory,
-            'currentBg': user.currentBg,
-            'currentCharacter': user.currentCharacter,
+            'id'               : user.id,
+            'name'             : user.name,
+            'age'              : user.age,
+            'gender'           : user.gender,
+            'imgPath'          : user.imgPath,
+            'avatarImage'      : user.avatarImage,
+            'isTeacher'        : user.isTeacher,
+            'sfxOff'           : user._sfxOff,
+            'musicOff'         : user._musicOff,
+            'inventory'        : user.inventory,
+            'currentBg'        : user.currentBg,
+            'currentCharacter' : user.currentCharacter,
             'courseProgressMap': courseProgressObj,
             'lessonProgressMap': lessonProgressObj,
             'unlockedInventory': user.inventory
-        })
+        });
     }
 
     static setCurrentUser(user: User) {
