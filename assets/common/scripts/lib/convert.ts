@@ -6,18 +6,22 @@
 
 export interface Course {
     chapters: Chapter[];
+    id: string;
+    name: string;
+    lang: string;
 }
 
 export interface Chapter {
-    id:      string;
+    id: string;
     lessons: Lesson[];
-    name:    string;
+    name: string;
 }
 
 export interface Lesson {
-    id:    string;
+    id: string;
     image: string;
-    name:  string;
+    name: string;
+    skills: Array<string>;
 }
 
 // Converts JSON strings to/from your types

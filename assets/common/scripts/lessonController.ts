@@ -1,20 +1,14 @@
 import Balloon from "./balloon";
-import Config, { DEFAULT_FONT, QUIZ_LITERACY, QUIZ_MATHS } from "./lib/config";
+import Config, { DEFAULT_FONT } from "./lib/config";
 import { GAME_CONFIGS } from "./lib/gameConfigs";
 import ProgressMonitor from "./progressMonitor";
-import QuizMonitor, { QUIZ_ANSWERED } from "./quiz-monitor";
+import { QUIZ_ANSWERED } from "./quiz-monitor";
 import { Util } from "./util";
 import { Queue } from "../../queue";
-import {
-    CURRENT_CLASS_ID,
-    CURRENT_SCHOOL_ID,
-    CURRENT_SECTION_ID,
-    CURRENT_STUDENT_ID,
-    CURRENT_SUBJECT_ID,
-    COURSES_URL
-} from "./lib/constants";
+import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID } from "./lib/constants";
 import { User } from "./lib/profile";
-import { Chapter, Course } from "./lib/convert";
+import { Lesson } from "./lib/convert";
+import UtilLogger from "./util-logger";
 
 const { ccclass, property } = cc._decorator;
 
@@ -48,6 +42,9 @@ export default class LessonController extends cc.Component {
     @property(cc.Node)
     gameParent: cc.Node = null;
 
+    @property(cc.Node)
+    loading: cc.Node = null;
+
     progressMonitorNode: cc.Node = null;
     quizMonitorNode: cc.Node = null;
     gameNode: cc.Node = null;
@@ -59,79 +56,102 @@ export default class LessonController extends cc.Component {
     total: number = 0;
     isQuizAnsweredCorrectly: boolean = false;
     lessonStartTime: number = 0;
+    problemStartTime: number = 0;
+    problemTime: number = 0;
+    isGameCompleted: boolean = false;
+    isQuizCompleted: boolean = false;
+    gameTime: number = 0;
+    quizTime: number = 0;
+
+    static gamePrefab: cc.Prefab
 
     onLoad() {
+        this.loading.width = cc.winSize.width
+        this.loading.zIndex = 10
+        this.progressMonitorNode = cc.instantiate(this.progressMonitor);
+        this.progressMonitorNode.zIndex = 2;
+        this.node.addChild(this.progressMonitorNode);
         this.lessonStart();
     }
 
-    private lessonStart() {
-        const config = Config.getInstance();
+    static preloadLesson(callback: Function) {
+        const config = Config.i
         config.problem = 0;
-        // cc.assetManager.loadBundle(COURSES_URL == '' ? config.lesson : COURSES_URL + '/' + config.course + '/' + config.lesson, (err, bundle) => {
-        cc.assetManager.loadBundle(config.lesson, (err, bundle) => {
+        cc.assetManager.loadBundle(config.lessonId, (err, bundle) => {
             if (err) {
                 return console.error(err);
             }
-            this.lessonStartTime = new Date().getTime();
 
-            bundle.preloadDir('resources', null, null, (err: Error, items) => {
-                Util.bundles.set(config.lesson, bundle);
+            bundle.preloadDir('res', null, null, (err: Error, items) => {
+                Util.bundles.set(config.lessonId, bundle);
                 config.loadLessonJson((data: Array<string>) => {
                     config.data = [data];
-                    // if ((config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS)) {
-                    //     this.quizMonitorNode = cc.instantiate(this.quizMonitor);
-                    //     this.quizMonitorNode.zIndex = 2;
-                    //     this.node.addChild(this.quizMonitorNode);
-                    // } else {
-                    this.progressMonitorNode = cc.instantiate(this.progressMonitor);
-                    this.progressMonitorNode.zIndex = 2;
-                    this.node.addChild(this.progressMonitorNode);
-                    // }
-                    this.problemStart(true, () => {
+                    this.preloadGame((prefab: cc.Prefab) => {
+                        this.gamePrefab = prefab
+                        callback()
                     });
                 });
             });
         })
+
     }
 
-    private problemStart(replaceScene: boolean, callback: Function) {
-        const config = Config.getInstance();
+    static preloadGame(callback: Function) {
+        const config = Config.i
+        config.game = config.data[0][0];
+        const gameConfig = GAME_CONFIGS[config.game];
+        let fontName: string = config.courseId.split('-')[0] + '-' + DEFAULT_FONT;
+        if (gameConfig.fontName != null) {
+            fontName = gameConfig.fontName;
+        }
+        config.loadFontDynamically(fontName);
 
+        cc.assetManager.loadBundle(gameConfig.bundle, (err, bundle) => {
+            bundle.load(gameConfig.prefab, cc.Prefab, (err, prefab) => {
+                callback(prefab)
+            })
+        })
+    }
+
+    private lessonStart() {
+        this.startGame(LessonController.gamePrefab)
+        this.loading.active = false;
+    }
+
+    private problemStart(replaceScene: boolean) {
+        this.problemStartTime = new Date().getTime();
         if (replaceScene) {
-            config.game = config.data[0][0];
-            const gameConfig = GAME_CONFIGS[config.game];
-            let fontName: string = config.course.split('-')[0] + '-' + DEFAULT_FONT;
-            if (gameConfig.fontName != null) {
-                fontName = gameConfig.fontName;
-            }
-            config.loadFontDynamically(fontName);
-
-            cc.assetManager.loadBundle(gameConfig.bundle, (err, bundle) => {
-                bundle.load(gameConfig.prefab, cc.Prefab, (err, prefab) => {
-                    if (this.gameNode != null) this.gameNode.removeFromParent();
-                    this.gameNode = cc.instantiate(prefab);
-                    this.gameParent.addChild(this.gameNode);
-                    if (gameConfig.center) {
-                        this.gameNode.x = -512;
-                        this.gameNode.y = -384;
-                    } else {
-                        this.gameNode.x = 0;
-                        this.gameNode.y = 0;
-                    }
-                    this.setupEventHandlers();
-                    callback();
-                });
-            });
+            LessonController.preloadGame((prefab: cc.Prefab) => {
+                this.startGame(prefab);
+                this.loading.active = false;
+            })
         } else {
             if (this.gameNode != null) this.gameNode.emit('nextIteration');
-            callback();
+            this.loading.active = false;
         }
 
+    }
+
+    private startGame(prefab: cc.Prefab) {
+        if (this.gameNode != null) this.gameNode.removeFromParent();
+        this.gameNode = cc.instantiate(prefab);
+        this.gameParent.addChild(this.gameNode);
+        const gameConfig = GAME_CONFIGS[Config.i.game];
+        if (gameConfig.center) {
+            this.gameNode.x = -512;
+            this.gameNode.y = -384;
+        }
+        else {
+            this.gameNode.x = 0;
+            this.gameNode.y = 0;
+        }
+        this.setupEventHandlers();
     }
 
     private problemEnd(replaceScene: boolean) {
         let monitor = null;
         const config = Config.i;
+        const timeSpent = Math.ceil((new Date().getTime() - this.problemStartTime) / 1000);
         // if (config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS) {
         //     monitor = this.quizMonitorNode.getComponent(QuizMonitor);
         //     monitor.stopStar = this.isQuizAnsweredCorrectly;
@@ -139,17 +159,17 @@ export default class LessonController extends cc.Component {
         monitor = this.progressMonitorNode.getComponent(ProgressMonitor);
         // }
         const currentProblem = config.problem;
-        const block = cc.instantiate(this.blockPrefab);
-        this.node.addChild(block);
+        this.loading.active = true
 
+        const score: number = config.game.toLowerCase().includes("quiz") ? this.quizScore : this.total;
         let monitorInfo = {
-            chapter: config.chapter,
-            lesson: config.lesson,
-            incorrect: 0,
-            totalQuestions: 1,
-            correct: 1,
-            totalChallenges: 0,
-            totalSeconds: 100,
+            chapter: config.chapterId,
+            lesson: config.lessonId,
+            incorrect: this.wrongMoves,
+            totalQuestions: config.totalProblems,
+            correct: this.rightMoves,
+            totalChallenges: config.totalProblems,
+            totalSeconds: timeSpent,
             activity: config.game,
             kind: 'Monitor',
             schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
@@ -158,13 +178,28 @@ export default class LessonController extends cc.Component {
         };
 
         Queue.getInstance().push(monitorInfo);
+        const eventName: string = config.game.toLowerCase().includes("quiz") ? "quizEnd" :
+            "gameEnd";
+        UtilLogger.logChimpleEvent(eventName, {
+            chapterName: config.chapter.name,
+            chapterId: config.chapterId,
+            lessonName: config.lesson.name,
+            lessonId: config.lessonId,
+            courseName: config.courseId,
+            problemNo: config.problem,
+            timeSpent: timeSpent,
+            wrongMoves: this.wrongMoves,
+            correctMoves: this.rightMoves,
+            skills: config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
+            game_completed: config.game.toLowerCase().includes("quiz") ? false : true,
+            quiz_completed: config.game.toLowerCase().includes("quiz") ? true : false
+        });
+
         monitor.updateProgress(currentProblem, () => {
             monitor.stopStar = false;
             if (currentProblem < config.totalProblems) {
                 config.nextProblem();
-                this.problemStart(replaceScene, () => {
-                    if (this.gameNode != null) block.removeFromParent();
-                });
+                this.problemStart(replaceScene)
             } else {
                 this.lessonEnd();
             }
@@ -174,33 +209,28 @@ export default class LessonController extends cc.Component {
     private lessonEnd() {
         Util.playSfx(this.startAudio);
         const config = Config.getInstance();
-        const timespent = new Date().getTime() - this.lessonStartTime;
-        this.total = Math.max(0, 100 - this.wrongMoves * 10)
+        const timeSpent = Math.ceil((new Date().getTime() - this.lessonStartTime) / 1000);
+        this.total = Math.max(0, 100 - this.wrongMoves * 10);
 
-        const user = User.getCurrentUser()
-        user.updateLessonProgress(config.lesson, this.total)
-
-        const selectedCourse: Course = config.curriculum.get(config.course);
-        const chapters: Chapter[] = selectedCourse.chapters.filter(c => c.id === config.chapter);
-        let allLessonIdsInChapter: string[] = []
+        const user = User.getCurrentUser();
+        user.updateLessonProgress(config.lessonId, this.total);
         let finishedLessons = 0;
         let percentageComplete = 0;
-        if (Array.isArray(chapters) && chapters.length > 0) {
-            const currentChapter: Chapter = chapters[0];
-            allLessonIdsInChapter = currentChapter.lessons.map(lesson => lesson.id)
-            allLessonIdsInChapter.forEach(
-                lid => {
-                    user.lessonProgressMap.has(lid) ? finishedLessons++ : ''
+        if (config.chapter && config.chapter.lessons &&
+            config.chapter.lessons.length > 0) {
+            config.chapter.lessons.forEach(
+                (lesson: Lesson) => {
+                    user.lessonProgressMap.has(lesson.id) ? finishedLessons++ : '';
                 }
-            )
-            percentageComplete = finishedLessons / allLessonIdsInChapter.length;
+            );
+            percentageComplete = finishedLessons / config.chapter.lessons.length;
         }
 
         let updateInfo = {
-            chapter: config.chapter,
-            lesson: config.lesson,
+            chapter: config.chapterId,
+            lesson: config.lessonId,
             percentComplete: percentageComplete,
-            timespent: timespent,
+            timespent: timeSpent,
             assessment: this.total,
             kind: 'Progress',
             schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
@@ -211,7 +241,18 @@ export default class LessonController extends cc.Component {
 
         Queue.getInstance().push(updateInfo);
 
-        // generic firebase logging
+        UtilLogger.logChimpleEvent("lessonEnd", {
+            chapterName: config.chapter.name,
+            chapterId: config.chapterId,
+            lessonName: config.lesson.name,
+            lessonId: config.lessonId,
+            courseName: config.courseId,
+            score: config.game.toLowerCase().includes("quiz") ? this.quizScore : this.total,
+            timeSpent: timeSpent,
+            skills: config.lesson.skills ? config.lesson.skills.join(",") : "",
+            game_completed: config.game.toLowerCase().includes("quiz") ? false : true,
+            quiz_completed: config.game.toLowerCase().includes("quiz") ? true : false
+        });
 
         const block = cc.instantiate(this.blockPrefab);
         this.node.addChild(block);

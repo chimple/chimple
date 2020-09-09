@@ -90,7 +90,7 @@ export default class QuizMaths extends cc.Component {
 
         const config = Config.getInstance();
         this._mathsConfig = this.processConfiguration(config.data[0]);
-        this._assetDir = Config.dir + `${config.lesson}/res`;
+        this._assetDir = Config.dir + `${config.lessonId}/res`;
 
         this.node.on(QUIZ_CORRECT, event => {
             this.next(event, true);

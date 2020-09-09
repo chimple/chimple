@@ -279,7 +279,7 @@ export class Util {
   public static loadGameSound(path: string, callBack: Function) {
     const filePath = path.startsWith(Config.dir)
       ? path
-      : Config.dir + `${Config.i.lesson}/res/${path}`;
+      : Config.dir + `${Config.i.lessonId}/res/${path}`;
     const fullFilePath =
       filePath + (path.endsWith(".mp3") || path.endsWith(".m4a") ? "" : ".mp3");
     Util.load(
@@ -307,7 +307,7 @@ export class Util {
       path.endsWith(".png") || path.endsWith(".jpg") ? path : path + ".png";
     const fullFilePath = path.startsWith(Config.dir)
       ? path
-      : Config.dir + `${Config.i.lesson}/res/${path}`;
+      : Config.dir + `${Config.i.lessonId}/res/${path}`;
     Util.load(
       fullFilePath,
       (err, texture) => {
@@ -462,7 +462,7 @@ export class Util {
         cc.audioEngine.setFinishCallback(audioId, callback);
       } else {
         const wordLoc =
-          Config.dir + Config.i.course + "/res/" + audio;
+          Config.dir + Config.i.courseId + "/res/" + audio;
         Util.loadGameSound(wordLoc, (clip) => {
           if (clip != null) {
             audioId = cc.audioEngine.play(clip, false, 1);
@@ -578,7 +578,7 @@ export class Util {
         chimp.playAnimation("talking", 0);
       }
       Util.playHelpAudio(
-        config.course + "/course/res/sound/game/" + config.game + ".mp3",
+        config.courseId + "/course/res/sound/game/" + config.game + ".mp3",
         () => {
           if (chimp) chimp.playAnimation("idle", 1);
           if (callBack != null) callBack();

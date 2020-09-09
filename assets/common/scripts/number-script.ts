@@ -1,7 +1,7 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
-import catchError from "../../../common/scripts/lib/error-handler";
-import { BACK_GROUND, NUMBER_LABEL, ANSWER_GRID_BUTTON_CLICKED } from "../../../common/scripts/answer-grid";
+import catchError from "./lib/error-handler";
+import { BACK_GROUND, NUMBER_LABEL, ANSWER_GRID_BUTTON_CLICKED } from "./answer-grid";
 
 @ccclass
 export default class NumberScript extends cc.Component {

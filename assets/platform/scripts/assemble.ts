@@ -196,7 +196,7 @@ export default class Assemble extends cc.Component {
                     log[`${LOG_TYPE}`] = FAIL_TO_COLLECT_ALL_REWARDS;
                     // log[`${LOG_WORLD}`] = config.world;
                     // log[`${LOG_LEVEL}`] = config.level;
-                    log[`${COURSE}`] = config.course;
+                    log[`${COURSE}`] = config.courseId;
                     UtilLogger.logEvent(log);
                     this.afterRewardsCollected();
                 }
