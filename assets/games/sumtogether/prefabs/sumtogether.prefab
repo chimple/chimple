@@ -143,8 +143,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -508.786,
-        -392.682,
+        -512,
+        -382,
         0,
         0,
         0,
@@ -237,7 +237,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 3
@@ -379,7 +379,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 7
@@ -518,7 +518,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_cloud<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 11
@@ -599,7 +599,7 @@
       "ctor": "Float64Array",
       "array": [
         512.685,
-        567.158,
+        548.861,
         0,
         0,
         0,
@@ -625,7 +625,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_moutain<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 14
@@ -706,7 +706,7 @@
       "ctor": "Float64Array",
       "array": [
         147.116,
-        465.635,
+        440.019,
         0,
         0,
         0,
@@ -732,7 +732,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_grass<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 17
@@ -839,7 +839,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_grass copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 20
@@ -920,7 +920,7 @@
       "ctor": "Float64Array",
       "array": [
         883.838,
-        465.635,
+        436.36,
         0,
         0,
         0,
@@ -946,7 +946,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_grass copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 23
@@ -1051,7 +1051,7 @@
       "ctor": "Float64Array",
       "array": [
         -41.595,
-        505.981,
+        465.269,
         0,
         0,
         0,
@@ -1141,7 +1141,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_bridge<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 27
@@ -1248,7 +1248,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_bridge copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 30
@@ -1355,7 +1355,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_bridge copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 33
@@ -1462,7 +1462,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_bridge copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 36
@@ -1569,7 +1569,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_bridge copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 39
@@ -1676,7 +1676,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_bridge copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 42
@@ -1783,7 +1783,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_bridge copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 45
@@ -1890,7 +1890,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_bridge copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 48
@@ -1997,7 +1997,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_bridge copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 51
@@ -2108,7 +2108,7 @@
       "ctor": "Float64Array",
       "array": [
         516,
-        0,
+        -25.616,
         0,
         0,
         0,
@@ -2198,7 +2198,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_pattern1<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 56
@@ -2305,7 +2305,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_pattern1 copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 59
@@ -2412,7 +2412,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_pattern1 copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 62
@@ -2519,7 +2519,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_pattern2<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 65
@@ -2626,7 +2626,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "sumtogether_pattern2 copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 68
@@ -2669,7 +2669,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "bg copy<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 55
@@ -2806,7 +2806,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        -30,
         0,
         0,
         0,
