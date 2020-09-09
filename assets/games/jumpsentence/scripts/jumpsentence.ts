@@ -99,7 +99,7 @@ export default class JumpSentence extends cc.Component {
 
   @catchError()
   ChooseKeyboardType() {
-    if (Config.dir == "en/") {
+    if (Config.i.course.lang == "en") {
       if (this.keyboardType == "locked") {
         this.lockedKeyboard.active = true;
         this.unlockedKeyboard.active = false;
