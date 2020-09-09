@@ -11,10 +11,19 @@ export default class DragTheAlphabet extends cc.Component {
     cakeBg: cc.Prefab = null;
 
     @property(cc.Prefab)
-    cakeDrop: cc.Prefab = null;
+    cakeDrag: cc.Prefab = null;
 
     @property(cc.Prefab)
-    cakeDrag: cc.Prefab = null;
+    flowerBg: cc.Prefab = null;
+
+    @property(cc.Prefab)
+    flowerDrag: cc.Prefab = null;
+
+    @property(cc.Prefab)
+    sandcastleBg: cc.Prefab = null;
+
+    @property(cc.Prefab)
+    sandcastleDrag: cc.Prefab = null;
 
     @property(cc.Node)
     layout: cc.Node = null;
@@ -22,31 +31,27 @@ export default class DragTheAlphabet extends cc.Component {
     @property({ type: cc.AudioClip })
     pick: cc.AudioClip = null;
 
-    // data: string[] = ["1", "1", "1", "cakeBg", "cakeDrop", "cakeDrag", "q", "a,d,f"];
+    theme: string;
     solution: string;
     choices: string;
-    dragUnit: string;
     totalPieces: number = 0;
-
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
         cc.director.getCollisionManager().enabled = true;
-        const [level, worksheet, problem, background, dropUnit, dragUnit, solution, choices] = Config.i.data[0];
+        const [level, worksheet, problem, theme, solution, choices] = Config.i.data[0];
+        this.theme = theme;
         this.choices = choices;
         this.solution = solution;
-        this.dragUnit = dragUnit;
         this.totalPieces++;
 
-        let bg = cc.instantiate(this[background]);
+        let bg = cc.instantiate(this[theme + "Bg"]);
         this.node.addChild(bg);
 
         this.layout.zIndex = 1;
 
-        let drop = cc.instantiate(this[dropUnit]);
-        drop.getChildByName("drop").name = this.solution;
-        this.node.addChild(drop);
+        bg.getChildByName("drop").getChildByName("drop_collider").name = this.solution;
         this.createChoices();
     }
 
@@ -59,7 +64,7 @@ export default class DragTheAlphabet extends cc.Component {
 
         Util.shuffle(choices);
         for (let i = 0; i < choices.length; i++) {
-            let choice = cc.instantiate(this[this.dragUnit]);
+            let choice = cc.instantiate(this[this.theme + "Drag"]);
             choice.on('DragTheAlphabetOnTouch', () => {
                 cc.audioEngine.playEffect(this.pick, false);
                 this.onTouchAudio(choices[i]);

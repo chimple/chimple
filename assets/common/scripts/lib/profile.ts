@@ -492,22 +492,22 @@ export default class Profile {
     }
 
     static get lastWorld(): number {
-        return this.getItem(Config.getInstance().course + WORLD);
+        return this.getItem(Config.getInstance().courseId + WORLD);
     }
 
     static set lastWorld(newVal: number) {
-        this.setItem(Config.getInstance().course + WORLD, newVal);
-        this.setItem(Config.getInstance().course + LEVEL, 0);
+        this.setItem(Config.getInstance().courseId + WORLD, newVal);
+        this.setItem(Config.getInstance().courseId + LEVEL, 0);
         this.toJson();
     }
 
     static get lastLevel(): number {
-        return this.getItem(Config.getInstance().course + LEVEL);
+        return this.getItem(Config.getInstance().courseId + LEVEL);
     }
 
     static set lastLevel(newVal) {
         if (this.lastLevel < newVal) {
-            this.setItem(Config.getInstance().course + LEVEL, newVal);
+            this.setItem(Config.getInstance().courseId + LEVEL, newVal);
             this.toJson();
         }
     }
@@ -515,7 +515,7 @@ export default class Profile {
     static isGameCompleted(world: number, level: number, game: string): boolean {
         return (
             this.getItem(
-                Config.getInstance().course + "_" + world + "_" + level + "_" + game
+                Config.getInstance().courseId + "_" + world + "_" + level + "_" + game
             ) == 1
         );
     }
@@ -527,7 +527,7 @@ export default class Profile {
         completed: boolean = true
     ) {
         this.setItem(
-            Config.getInstance().course + "_" + world + "_" + level + "_" + game,
+            Config.getInstance().courseId + "_" + world + "_" + level + "_" + game,
             completed ? 1 : 0
         );
         this.toJson();

@@ -67,11 +67,12 @@ export default class Config {
     private _textFontMap = new Map();
     private _lessonData;
 
-    course: string;
-    lesson: string;
-    chapter: string;
-    lessonObj: Lesson;
-    chapterObj: Chapter;
+    courseId: string;
+    lessonId: string;
+    chapterId: string;
+    course: Course;
+    lesson: Lesson;
+    chapter: Chapter;
     game: string;
     problem: number;
     totalProblems: number;
@@ -93,7 +94,7 @@ export default class Config {
     static getInstance(): Config {
         if (!Config.instance) {
             Config.instance = new Config();
-            Config.instance.course = 'en';
+            Config.instance.courseId = 'en';
             Config.instance.gameLevelName = '1';
             Config.instance.worksheet = 1;
             Config.instance.problem = 1;
@@ -111,11 +112,11 @@ export default class Config {
     }
 
     static get dir(): string {
-        return Config.getInstance().course + '/';
+        return Config.getInstance().courseId + '/';
     }
 
     get direction(): Direction {
-        return RTL_COURSES.indexOf(this.course) != -1 ? Direction.RTL : Direction.LTR;
+        return RTL_COURSES.indexOf(this.courseId) != -1 ? Direction.RTL : Direction.LTR;
     }
 
     addTextFont(fontName: string, newVal: cc.Font) {
@@ -217,7 +218,7 @@ export default class Config {
         if (this.problem != 0) {
             callback(this._lessonData.rows[this.problem - 1]);
         } else {
-            const jsonFile = this.course + '/' + this.lesson + '/res/' + this.lesson + '.json';
+            const jsonFile = this.courseId + '/' + this.lessonId + '/res/' + this.lessonId + '.json';
             Util.load(jsonFile, (err, jsonAsset) => {
                 this._lessonData = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
                 this.totalProblems = this._lessonData.rows.length;
@@ -276,7 +277,7 @@ export default class Config {
             const isUpperCase: boolean = fileName === fileName.toUpperCase();
             appendPath = isNumber ? 'numbers' : isUpperCase ? 'upper' : 'lower';
         }
-        let jsonFile = this.course + '/course/res/paths/' + appendPath + '/' + fileName; //default
+        let jsonFile = this.courseId + '/course/res/paths/' + appendPath + '/' + fileName; //default
         jsonFile = jsonFile + ".json";
         Util.load(jsonFile, (err, jsonAsset) => {
             data = [];

@@ -1,6 +1,6 @@
 import { Util } from "../../../common/scripts/util";
 import Config from "../../../common/scripts/lib/config";
-import { Lesson, Chapter } from "../../../common/scripts/lib/convert";
+import { Lesson, Chapter, Course } from "../../../common/scripts/lib/convert";
 import { User } from "../../../common/scripts/lib/profile";
 import LessonController from "../../../common/scripts/lessonController";
 
@@ -31,25 +31,26 @@ export default class LessonButton extends cc.Component {
     downloadSprite: cc.Sprite
 
     lesson: Lesson
-    courseName: string
+    course: Course
     chapter: Chapter
     loading: cc.Node
 
     onLoad() {
-        if (this.lesson != null && this.courseName != null && this.chapter != null) {
+        if (this.lesson != null && this.course.id != null && this.chapter != null) {
             const config = Config.i
             this.label.string = this.lesson.name
-            Util.load(this.courseName + '/course/res/icons/' + this.lesson.image, (err, texture) => {
+            Util.load(this.course.id + '/course/res/icons/' + this.lesson.image, (err, texture) => {
                 if (!err) {
                     this.sprite.spriteFrame = new cc.SpriteFrame(texture);
                 }
             })
             this.button.node.on('click', () => {
-                config.lesson = this.lesson.id
-                config.chapter = this.chapter.id
-                config.course = this.courseName
-                config.lessonObj = this.lesson;
-                config.chapterObj = this.chapter;
+                config.lessonId = this.lesson.id
+                config.chapterId = this.chapter.id
+                config.courseId = this.course.id
+                config.lesson = this.lesson;
+                config.chapter = this.chapter;
+                config.course = this.course;
                 this.loading.active = true
                 LessonController.preloadLesson(() => {
                     config.pushScene('common/scenes/lessonController')
@@ -57,7 +58,7 @@ export default class LessonButton extends cc.Component {
             })
             if (this.chapterLabel != null) this.chapterLabel.string = this.chapter.name
             if (this.courseSprite != null) {
-                Util.load(this.courseName + '/course/res/icons/' + this.courseName + '_bg.png', (err, texture) => {
+                Util.load(this.course.id + '/course/res/icons/' + this.course.id + '_bg.png', (err, texture) => {
                     if (!err) {
                         this.courseSprite.spriteFrame = new cc.SpriteFrame(texture);
                     }
