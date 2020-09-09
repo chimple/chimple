@@ -24,16 +24,16 @@ export class AlphabetUtil {
     static isConsonantOrVowel(character: string): LetterType {
 
         let letterType;
-        AlphabetUtil.contains(langMap[LANG + '/'][0], character) ? letterType = LetterType.Vowel : letterType = LetterType.Consonant;
+        AlphabetUtil.contains(langMap[Config.i.course.lang +'/'][0], character) ? letterType = LetterType.Vowel : letterType = LetterType.Consonant;
         return letterType;
     }
 
     static getRandomVowel(): string {
-        return langMap[LANG + '/'][0][Math.floor(Math.random() * langMap[LANG + '/'][0].length)].toUpperCase();
+        return langMap[Config.i.course.lang +'/'][0][Math.floor(Math.random() * langMap[Config.i.course.lang +'/'][0].length)].toUpperCase();
     }
 
     static getRandomConsonant(): string {
-        return langMap[LANG + '/'][1][Math.floor(Math.random() * langMap[LANG + '/'][1].length)].toUpperCase();
+        return langMap[Config.i.course.lang +'/'][1][Math.floor(Math.random() * langMap[Config.i.course.lang +'/'][1].length)].toUpperCase();
     }
 
     static getRandomConsonantArray(lang: string): Array<string> {
