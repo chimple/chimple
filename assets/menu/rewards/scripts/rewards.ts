@@ -9,33 +9,26 @@ export default class Rewards extends cc.Component {
     layoutHolder: cc.Node = null;
     normalSprite: cc.SpriteFrame = null;
     lastSelectedButton: number = -1;
-
     leftSideNormalSprite: cc.SpriteFrame = null;
-    leftSideLastSelectedButton: number = -1;
 
-    onLoad() {
-        this.layoutHolder.getChildByName("0").active = true
-        this.node.getChildByName("side_buttons_layout").children["0"].opacity = 255
-    }
+    @property(cc.Node)
+    sideLayoutNode: cc.Node = null;
 
-    start() { }
+    onLoad() { }
 
     onContentClick(event, customEventData) {
         for (let i = 0; i < 3; i++) {
             if (parseInt(customEventData) === i) {
                 this.layoutHolder.getChildByName(i.toString()).active = true
-                // reset last selected first
-                if (this.leftSideLastSelectedButton > -1) {
-                    this.node.getChildByName("side_buttons_layout").children[this.leftSideLastSelectedButton].getComponent(cc.Button).pressedSprite = this.node.getChildByName("side_buttons_layout").children[this.leftSideLastSelectedButton].getComponent(cc.Button).normalSprite
-                    this.node.getChildByName("side_buttons_layout").children[this.leftSideLastSelectedButton].getComponent(cc.Button).normalSprite = this.leftSideNormalSprite
-                }
-                this.leftSideNormalSprite = this.node.getChildByName("side_buttons_layout").children[i].getComponent(cc.Button).normalSprite
-                this.node.getChildByName("side_buttons_layout").children[i].getComponent(cc.Button).normalSprite = this.node.getChildByName("side_buttons_layout").children[i].getComponent(cc.Button).pressedSprite
-                this.node.getChildByName("side_buttons_layout").children[i].getComponent(cc.Button).pressedSprite = this.leftSideNormalSprite
-                this.leftSideLastSelectedButton = i
+                let color = cc.Color.BLACK;
+                this.sideLayoutNode.children[i].getChildByName("Background").color = color.fromHEX("#17ADEC")
+                this.sideLayoutNode.children[i].getChildByName("Background").children[0].color = color.fromHEX("#17ADEC")
             }
             else {
                 this.layoutHolder.getChildByName(i.toString()).active = false
+                let color = cc.Color.BLACK;
+                this.sideLayoutNode.children[i].getChildByName("Background").color = color.fromHEX("#FFFFFF")
+                this.sideLayoutNode.children[i].getChildByName("Background").children[0].color = color.fromHEX("#FFFFFF")
             }
 
         }
