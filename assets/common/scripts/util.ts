@@ -655,7 +655,7 @@ export class Util {
     return -1;
   }
 
-  public static stopInGameAudio() {
+  public static stopHelpAudio() {
     try {
       cc.audioEngine.stopEffect(this.audioId);
     } catch (e) {
