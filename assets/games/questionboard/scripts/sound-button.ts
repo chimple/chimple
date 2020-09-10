@@ -28,7 +28,6 @@ export default class SoundButton extends cc.Component {
             button.normalSprite = this._pressedSpriteFrame;
             const location = `${this._soundClip}`;
             Util.loadGameSound(`${this._soundClip}`,function (clip){
-                cc.log("ayayayaya")
                 if (clip != null) {
                     cc.audioEngine.play(clip, false, 1);
                     this._isSoundPlaying = false;  
@@ -52,6 +51,7 @@ export default class SoundButton extends cc.Component {
 
     soundOnLoad() {
         this.playSound(this.node);
+
     }
 
     onButtonClick(event, customEventData) {
