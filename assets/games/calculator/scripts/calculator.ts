@@ -150,12 +150,12 @@ export default class Calculator extends cc.Component {
         return helpNodes[Symbol.iterator]();
     }
     @catchError()
-    showHelp(helpIterator) {
+    showHelp(helpIterator, playAudio: boolean = true) {
         let nextItem = helpIterator.next();
         if (!nextItem.done) {
             Util.showHelp(nextItem.value, nextItem.value, () => {
-                this.showHelp(helpIterator);
-            });
+                this.showHelp(helpIterator, false);
+            }, playAudio);
         }
 
     }

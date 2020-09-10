@@ -550,7 +550,8 @@ export class Util {
   public static showHelp(
     from: cc.Node,
     to: cc.Node,
-    callBack: Function = null
+    callBack: Function = null,
+    playAudio: boolean = true
   ) {
     const config = Config.getInstance();
     if (config.problem == 1) {
@@ -570,18 +571,22 @@ export class Util {
           }
         });
       }
-      var chimp: dragonBones.ArmatureDisplay;
-      if (lessonComp != null) {
-        chimp = lessonComp.chimp;
-        chimp.playAnimation("talking", 0);
-      }
-      Util.playHelpAudio(
-        config.courseId + "/course/res/sound/game/" + config.game + ".mp3",
-        () => {
-          if (chimp) chimp.playAnimation("idle", 1);
-          if (callBack != null) callBack();
+      if (playAudio) {
+        var chimp: dragonBones.ArmatureDisplay;
+        if (lessonComp != null) {
+          chimp = lessonComp.chimp;
+          chimp.playAnimation("talking", 0);
         }
-      );
+        Util.playHelpAudio(
+          config.courseId + "/course/res/sound/game/" + config.game + ".mp3",
+          () => {
+            if (chimp) chimp.playAnimation("idle", 1);
+            if (callBack != null) callBack();
+          }
+        );
+      } else {
+        if (callBack != null) callBack();
+      }
     } else {
       if (callBack != null) callBack();
     }
