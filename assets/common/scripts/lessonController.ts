@@ -309,6 +309,6 @@ export default class LessonController extends cc.Component {
 
     onBackClick() {
         Config.i.popScene();
+        Util.stopHelpAudio();
     }
-
 }

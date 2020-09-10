@@ -15,6 +15,7 @@ export default class KeyboardButton extends cc.Component {
   collidingBox: cc.Node;
   isDone: boolean;
   bridgeComp: BridgeBuilder;
+
   private _soundClip: cc.AudioClip = null;
 
   @property(cc.Prefab)
@@ -37,7 +38,7 @@ export default class KeyboardButton extends cc.Component {
     this.bridgeComp = this.node.parent.parent.parent.getComponent(BridgeBuilder);
     let text = this.node.getChildByName("Label").getComponent(cc.Label).string;
     if (
-      Config.dir == "en/" &&
+      Config.i.course.lang == "en" &&
       (text == this.bridgeComp.firstDragData.toUpperCase() ||
         text == this.bridgeComp.firstDragData.toLowerCase())
     ) {
@@ -45,7 +46,7 @@ export default class KeyboardButton extends cc.Component {
     }
     let temp = this.node.getChildByName("Label").getComponent(cc.Label).string;
     let reg = new RegExp("[a-z]|[A-Z]");
-    if (Config.dir == "en/" && reg.test(temp)) {  // To seperate Hindi voice
+    if (Config.i.course.lang == "en" && reg.test(temp)) {  // To seperate Hindi voice
       Util.loadsLetter(temp.toLowerCase(), (clip) => {
         this._soundClip = clip
       });
@@ -150,7 +151,7 @@ export default class KeyboardButton extends cc.Component {
           this.node.getChildByName("Label").getComponent(cc.Label).string &&
           !this.isDone
         ) {
-          if (Config.dir == "en/") {
+          if (Config.i.course.lang == "en") {
             this.node.parent.parent.parent.emit("correct");
           } else {
             this.node.parent.emit("correct");
@@ -175,7 +176,7 @@ export default class KeyboardButton extends cc.Component {
           "Setting Back to Original Location on Touch End if not colliding"
         );
         this.node.position = this.myOriginalLocation;
-        if (Config.dir == "en/") {
+        if (Config.i.course.lang == "en") {
           this.node.parent.parent.parent.emit("wrong");
         } else {
           this.node.parent.emit("wrong");

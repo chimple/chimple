@@ -35,6 +35,7 @@ export class Util {
   private static _i18NMap = new Map();
   private static _resources: string[] = [];
   static bundles: Map<string, cc.AssetManager.Bundle> = new Map();
+  private static helpAudioId: number = -1;
 
   public static shuffle<T>(arr): T[] {
     let ctr = arr.length;
@@ -574,7 +575,7 @@ export class Util {
         chimp = lessonComp.chimp;
         chimp.playAnimation("talking", 0);
       }
-      Util.speak(
+      Util.playHelpAudio(
         config.courseId + "/course/res/sound/game/" + config.game + ".mp3",
         () => {
           if (chimp) chimp.playAnimation("idle", 1);
@@ -585,6 +586,30 @@ export class Util {
       if (callBack != null) callBack();
     }
   }
+
+  public static playHelpAudio(audio: string, callback: Function) {
+    Util.load(
+      audio,
+      (err, clip) => {
+        if (clip != null) {
+          if (Array.isArray(clip) && clip.length === 0) {
+            callback();
+          } else {
+            this.helpAudioId = Util.play(clip, false);
+            if (this.helpAudioId != -1) {
+              cc.audioEngine.setFinishCallback(this.helpAudioId, callback);
+            } else {
+              callback();
+            }
+          }
+        } else {
+          callback();
+        }
+      },
+      true
+    );
+  }
+
 
   public static computeTimeDiff(
     append: string,
@@ -628,6 +653,16 @@ export class Util {
     return -1;
   }
 
+  public static stopHelpAudio() {
+    try {
+      cc.audioEngine.stopEffect(this.helpAudioId);
+    } catch (e) {
+      cc.log(e);
+    }
+    return this.helpAudioId;
+  }
+
+
   public static play(audioClip: cc.AudioClip, loop: boolean = false) {
     let audioId = -1;
     try {
@@ -637,7 +672,6 @@ export class Util {
     } catch (e) {
       cc.log(e);
     }
-
     return audioId;
   }
 
