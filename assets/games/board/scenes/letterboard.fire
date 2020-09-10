@@ -57,8 +57,8 @@
     "_is3DNode": true,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "autoReleaseAssets": false,
-    "_id": "6a83a903-f04b-41fb-b6c0-f155afd5d820"
+    "autoReleaseAssets": true,
+    "_id": "bb875bdb-3935-4155-b8ca-188648b36959"
   },
   {
     "__type__": "cc.Node",
@@ -78,10 +78,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 7
+        "__id__": 6
       },
       {
-        "__id__": 8
+        "__id__": 7
       }
     ],
     "_prefab": null,
@@ -171,7 +171,7 @@
       "array": [
         0,
         0,
-        479.77807369657904,
+        275.9156989315218,
         0,
         0,
         0,
@@ -232,16 +232,33 @@
   },
   {
     "__type__": "cc.Node",
+    "_name": "letterboard",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
     },
-    "_id": "47qmuXyJpHo65BN/bwpCkz",
-    "_prefab": {
-      "__id__": 6
-    },
-    "_name": "letterboard",
+    "_children": [],
     "_active": true,
+    "_components": [],
+    "_prefab": null,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
     "_trs": {
       "__type__": "TypedArray",
       "ctor": "Float64Array",
@@ -263,18 +280,13 @@
       "x": 0,
       "y": 0,
       "z": 0
-    }
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 5
     },
-    "asset": {
-      "__uuid__": "ace8e413-6eb5-4113-a258-a57c09307514"
-    },
-    "fileId": "47qmuXyJpHo65BN/bwpCkz",
-    "sync": true
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": "47qmuXyJpHo65BN/bwpCkz"
   },
   {
     "__type__": "cc.Canvas",
