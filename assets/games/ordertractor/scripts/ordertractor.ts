@@ -12,7 +12,7 @@ export default class OrderTractor extends cc.Component {
     @property(cc.Prefab)
     drag: cc.Prefab = null
 
-    @property(cc.Prefab)
+    @property(cc.Prefab) 
     outerDrop: cc.Prefab = null
 
     @property(cc.Node)
