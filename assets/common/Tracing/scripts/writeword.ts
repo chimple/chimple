@@ -188,7 +188,7 @@ export default class WriteWord extends cc.Component {
     @catchError()
     private buildLetters() {
         this._wordLayout = this.words.getComponent(cc.Layout);
-        this._wordLayout.padding = 50;
+        // this._wordLayout.padding = 50;
         this._wordLayout.spacingX = 50;
         if (Config.i.direction == Direction.RTL) {
             this.words.scaleX = -LETTER_SCALE;

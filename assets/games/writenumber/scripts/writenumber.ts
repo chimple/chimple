@@ -3,11 +3,10 @@ import property = cc._decorator.property;
 import Layout = cc.Layout;
 import Config from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
-import { TRACE_HEIGHT } from "../../writeword/scripts/writeword";
-import { LETTER_SCALE, SingleLetterTracing } from "../../writeword/scripts/singlelettertracing";
 import { Anim } from "./anim";
 import catchError from "../../../common/scripts/lib/error-handler";
 import { CONFIG_LOADED, SOUND_LOADED_EVENT, TRACING_FINISHED, TRACING_CORRECT, TRACING_WRONG } from "../../../common/scripts/helper";
+import { SingleLetterTracing } from "../../../common/Tracing/scripts/singlelettertracing";
 
 interface WriteNumberConfig {
     level: string;
@@ -16,6 +15,8 @@ interface WriteNumberConfig {
     count: string;
 }
 
+const LETTER_SCALE = 0.95;
+const TRACE_HEIGHT = 768;
 const LENGTH_3 = 3;
 const LENGTH_2 = 2;
 const SPACING_1 = 660;
@@ -157,7 +158,7 @@ export class WriteNumber extends cc.Component {
     private buildLayout() {
         this._layout = this._words.getComponent(cc.Layout);
         this._layout.node.zIndex = 2;
-        this._layout.padding = 20;
+        // this._layout.padding = 20;
         this._layout.spacingX = 20;
         this._layout.spacingY = 0;
         this._layout.resizeMode = Layout.ResizeMode.CONTAINER;

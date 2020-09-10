@@ -2,8 +2,8 @@ import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import { CONFIG_LOADED } from "../../../common/scripts/helper";
 import { Util } from "../../../common/scripts/util";
-import WriteWord from "./writeword";
 import TracingContainer from "../../../common/Tracing/scripts/tracing-container";
+import WriteWord from "./writeword";
 
 
 export const LETTER_SCALE = 0.95;
