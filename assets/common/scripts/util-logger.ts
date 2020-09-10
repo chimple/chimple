@@ -75,15 +75,15 @@ export default class UtilLogger {
         }
     }
 
-    public static logChimpleEvent(name: string, error: object) {
-        error[`${USER_ID}`] = this.currentProfile() || "";
-        error[`${DEVICE_ID}`] = this.currentDeviceId() || "";
-        error[`${TIMESTAMP}`] = new Date().getTime();
-        UtilLogger.logEventToFireBaseWithKey(name, error);
+    public static logChimpleEvent(name: string, event: any) {
+        event[`${USER_ID}`] = event.userId? event.userId : (this.currentProfile() || "");
+        event[`${DEVICE_ID}`] = this.currentDeviceId() || "";
+        event[`${TIMESTAMP}`] = new Date().getTime();
+        UtilLogger.logEventToFireBaseWithKey(name, event);
     }
 
-    public static logEventToFireBase(eventInfo: object) {
-        eventInfo[`${USER_ID}`] = this.currentProfile() || "";
+    public static logEventToFireBase(eventInfo: any) {
+        eventInfo[`${USER_ID}`] = eventInfo.userId? eventInfo.userId : (this.currentProfile() || "");
         eventInfo[`${DEVICE_ID}`] = this.currentDeviceId() || "";
         eventInfo[`${TIMESTAMP}`] = new Date().getTime();
         UtilLogger.logEventToFireBaseWithKey("logInfo", eventInfo);

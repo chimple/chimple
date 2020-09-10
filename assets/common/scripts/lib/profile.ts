@@ -271,6 +271,16 @@ export class User {
         Queue.getInstance().push(profileInfo);
     }
 
+    static createUUID() {
+        var dt = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (dt + Math.random() * 16) % 16 | 0;
+            dt = Math.floor(dt / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        return uuid;
+    }
+
     static createUser(
         name: string,
         imgPath: string,
@@ -280,7 +290,7 @@ export class User {
         avatarImage: string = null,
         isTeacher: boolean = false
     ): User {
-        let uid = !!id ? id : new Date().toISOString();
+        let uid = !!id ? id : User.createUUID();
         let user = new User(
             uid,
             name,
