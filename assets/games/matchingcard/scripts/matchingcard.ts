@@ -34,6 +34,9 @@ export default class MatchingCard extends cc.Component {
     @property(cc.Node)
     choice: cc.Node = null
 
+    @property(cc.AudioClip)
+    trainClip:cc.AudioClip = null;
+
     isMoving: boolean = false
     friend: dragonBones.ArmatureDisplay = null
 
@@ -52,6 +55,7 @@ export default class MatchingCard extends cc.Component {
         const truckX = this.truck.x
         new cc.Tween().target(this.truck)
             .set({ x: cc.winSize.width })
+            .call(()=>{Util.playSfx(this.trainClip)})
             .to(3, { x: truckX }, { progress: null, easing: 'quadOut' })
             .call(() => {
                 const anim = this.truck.getComponent(cc.Animation)
@@ -129,6 +133,7 @@ export default class MatchingCard extends cc.Component {
                                     anim.play()
                                     new cc.Tween().target(this.truck)
                                         .delay(1)
+                                        .call(()=>{Util.playSfx(this.trainClip)})
                                         .to(2, { x: -cc.winSize.width * 1.5 }, { progress: null, easing: 'quadOut' })
                                         .call(() => {
                                             this.node.emit('nextProblem', true)
