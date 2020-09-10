@@ -83,6 +83,7 @@ export class User {
     private _courseProgressMap: Map<string, CourseProgress>;
     private _lessonProgressMap: Map<string, LessonProgress>;
     private _unlockedInventory: object;
+    private _unlockedRewards: object;
     private _isTeacher: boolean;
 
     constructor(
@@ -100,7 +101,8 @@ export class User {
         currentCharacter: string,
         courseProgressMap: Map<string, CourseProgress>,
         lessonProgressMap: Map<string, LessonProgress>,
-        unlockedInventory: object
+        unlockedInventory: object,
+        unlockedRewards: object
     ) {
         this._id = id;
         this._name = name;
@@ -111,6 +113,7 @@ export class User {
         this._isTeacher = isTeacher;
         this._inventory = inventory;
         this._unlockedInventory = unlockedInventory;
+        this._unlockedRewards = unlockedRewards;
         this._currentBg = currentBg;
         this._currentCharacter = currentCharacter;
         this._courseProgressMap = courseProgressMap;
@@ -225,6 +228,15 @@ export class User {
         return this._unlockedInventory;
     }
 
+    set unlockedRewards(unlockedRewards: object) {
+        this._unlockedRewards = {};
+        this._storeUser();
+    }
+
+    get unlockedRewards(): object {
+        return this._unlockedRewards;
+    }
+
     set isTeacher(isTeacher: boolean) {
         this._isTeacher = isTeacher;
         this._storeUser();
@@ -232,6 +244,11 @@ export class User {
 
     unlockInventoryForItem(item: string) {
         this._unlockedInventory[item] = true;
+        this._storeUser();
+    }
+
+    unlockRewardsForItem(item: string) {
+        this._unlockedRewards[item] = true;
         this._storeUser();
     }
 
@@ -288,6 +305,7 @@ export class User {
                 ['test-maths', new CourseProgressClass()]
             ]),
             new Map(),
+            {},
             {}
         );
         User.storeUser(user);
@@ -351,7 +369,8 @@ export class User {
             data.currentCharacter,
             courseProgressMap,
             lessonProgressMap,
-            data.unlockedInventory
+            data.unlockedInventory,
+            data.unlockedRewards
         );
         return user;
     }
@@ -380,7 +399,8 @@ export class User {
             'currentCharacter': user.currentCharacter,
             'courseProgressMap': courseProgressObj,
             'lessonProgressMap': lessonProgressObj,
-            'unlockedInventory': user.inventory
+            'unlockedInventory': user.unlockedInventory,
+            'unlockedRewards': user.unlockedRewards
         })
     }
 
