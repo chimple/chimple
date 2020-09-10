@@ -124,6 +124,9 @@ export default class OrderTractor extends cc.Component {
             Drag.letDrag = false
             new cc.Tween().target(this.train)
                 .delay(1)
+                .call(() => {
+                    Util.playSfx(this.trainClip);
+                })
                 .to(1, { x: this.train.x - cc.winSize.width }, { progress: null, easing: 'backIn' })
                 .call(() => {
                     this.node.emit('nextProblem')
