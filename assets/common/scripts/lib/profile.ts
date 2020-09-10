@@ -119,11 +119,29 @@ export class User {
         this._currentCharacter = currentCharacter;
         this._courseProgressMap = courseProgressMap;
         this._lessonProgressMap = lessonProgressMap;
+        UtilLogger.setUserPropertiesEvent("userName", name);
+        UtilLogger.setUserPropertiesEvent("userAge", age);
+        this._genderEvent(gender);
+    }
+
+    _genderEvent(gender: Gender) {
+        switch (gender) {
+            case Gender.BOY:
+                UtilLogger.setUserPropertiesEvent("userGender", "Boy");
+                break;
+            case Gender.GIRL:
+                UtilLogger.setUserPropertiesEvent("userGender", "Girl");
+                break;
+            case Gender.UNKNOWN:
+                UtilLogger.setUserPropertiesEvent("userGender", "Unknown");
+                break;
+        }
     }
 
     set id(id: string) {
         this._id = id;
         this._storeUser();
+        UtilLogger.setUserId(id);
     }
 
     get id(): string {
@@ -133,6 +151,7 @@ export class User {
     set name(name: string) {
         this._name = name;
         this._storeUser();
+        UtilLogger.setUserPropertiesEvent("userName", name);
     }
 
     get name(): string {
@@ -140,9 +159,9 @@ export class User {
     }
 
     set age(age: number) {
-        console.log("came setting age", age);
         this._age = age;
         this._storeUser();
+        UtilLogger.setUserPropertiesEvent("userAge", age);
     }
 
     get age(): number {
@@ -152,6 +171,7 @@ export class User {
     set gender(gender: Gender) {
         this._gender = gender;
         this._storeUser();
+        this._genderEvent();
     }
 
     get gender(): Gender {

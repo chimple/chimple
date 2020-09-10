@@ -1,9 +1,15 @@
 import { ASSET_LOAD_METHOD } from "./lib/constants";
-import { User } from "./lib/profile";
 
 const LOGGER_CLASS = "org/cocos2dx/javascript/logger/ChimpleLogger";
+
 const LOGGER_METHOD = "logEvent";
 const LOGGER_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
+
+const SET_USER_ID_METHOD = "setUserIdEvent";
+const SET_USER_ID_SIGNATURE = "(Ljava/lang/String;)V";
+
+const SET_USER_PROPERTY_METHOD = "setUserPropertiesEvent";
+const SET_USER_PROPERTY_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;)V";
 
 const PROFILE_METHOD = "logProfile";
 const PROFILE_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;)V";
@@ -61,6 +67,41 @@ export default class UtilLogger {
         }
     }
 
+    public static setUserId(userId: string) {
+        try {
+            if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
+                cc.log("setUserId event", userId);
+
+                jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    SET_USER_ID_METHOD,
+                    SET_USER_ID_SIGNATURE,
+                    userId
+                );
+
+            }
+        } catch (e) {
+        }
+    }
+
+    public static setUserPropertiesEvent(key: string, value) {
+        try {
+            if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
+                cc.log("setUserPropertiesEvent event", key, ":", value);
+
+                jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    SET_USER_PROPERTY_METHOD,
+                    SET_USER_PROPERTY_SIGNATURE,
+                    key,
+                    value
+                );
+
+            }
+        } catch (e) {
+        }
+    }
+
     public static logEventToFireBaseWithKey(key: string, data: object) {
         cc.log(
             "logging firebase event",
@@ -76,14 +117,14 @@ export default class UtilLogger {
     }
 
     public static logChimpleEvent(name: string, event: any) {
-        event[`${USER_ID}`] = event.userId? event.userId : (this.currentProfile() || "");
+        event[`${USER_ID}`] = event.userId ? event.userId : (this.currentProfile() || "");
         event[`${DEVICE_ID}`] = this.currentDeviceId() || "";
         event[`${TIMESTAMP}`] = new Date().getTime();
         UtilLogger.logEventToFireBaseWithKey(name, event);
     }
 
     public static logEventToFireBase(eventInfo: any) {
-        eventInfo[`${USER_ID}`] = eventInfo.userId? eventInfo.userId : (this.currentProfile() || "");
+        eventInfo[`${USER_ID}`] = eventInfo.userId ? eventInfo.userId : (this.currentProfile() || "");
         eventInfo[`${DEVICE_ID}`] = this.currentDeviceId() || "";
         eventInfo[`${TIMESTAMP}`] = new Date().getTime();
         UtilLogger.logEventToFireBaseWithKey("logInfo", eventInfo);
