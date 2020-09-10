@@ -24,6 +24,9 @@ export default class OrderTractor extends cc.Component {
     @property(cc.AudioClip)
     trainClip: cc.AudioClip = null
 
+    @property(cc.AudioClip)
+    metalClink:cc.AudioClip = null
+
     @property(cc.Node)
     friendPos: cc.Node = null
 
@@ -97,9 +100,16 @@ export default class OrderTractor extends cc.Component {
         }))
         const trainX = this.train.x
         new cc.Tween().target(this.train)
+            .call(() => {
+                Util.playSfx(this.trainClip);
+            })
             .set({ x: trainX + cc.winSize.width })
             .to(3, { x: trainX }, { progress: null, easing: 'backOut' })
             .call(() => {
+                Util.playSfx(this.metalClink);
+              })
+            .call(() => {
+                
                 Drag.letDrag = true
                 Util.showHelp(firstDrag, firstDrop)
             })
