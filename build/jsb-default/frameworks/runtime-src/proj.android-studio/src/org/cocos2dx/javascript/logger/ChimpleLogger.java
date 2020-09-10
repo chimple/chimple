@@ -648,6 +648,26 @@ public class ChimpleLogger {
         });
     }
 
+    public static void setUserIdEvent(final String userId) {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                Log.i(TAG, "firebase logging set userId: "+ userId );
+                firebaseAnalytics.setUserId(userId);
+            }
+        });
+    }
+
+    public static void setUserPropertiesEvent(final String key, final String value) {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                Log.i(TAG, "firebase logging set user property key: "+ key  + " value:" + value);
+                firebaseAnalytics.setUserProperty(key, value);
+            }
+        });
+    }
+
     public static void storeInSharedPreference(Context context, String key, String value) {
         Log.d(TAG, "diff Stored key:" + key + " value:" + value);
         SharedPreferences preference = context.getSharedPreferences(SHARED_ALARM_KEYS, Context.MODE_PRIVATE);
