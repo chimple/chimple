@@ -50,7 +50,12 @@ export default class SoundButton extends cc.Component {
     }
 
     soundOnLoad() {
-    // this.playSound(this.node);
+        let button = this.node.getComponent(cc.Button);
+        button.interactable = false;
+        setTimeout(() => {
+         this.playSound(this.node);    
+         button.interactable = true;
+        }, 7000);
 
     }
 
