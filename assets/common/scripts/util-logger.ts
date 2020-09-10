@@ -67,7 +67,7 @@ export default class UtilLogger {
         }
     }
 
-    public static setUserId(userId: string) {
+    public static setUserIdEvent(userId: string) {
         try {
             if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
                 cc.log("setUserId event", userId);

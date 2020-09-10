@@ -119,6 +119,7 @@ export class User {
         this._currentCharacter = currentCharacter;
         this._courseProgressMap = courseProgressMap;
         this._lessonProgressMap = lessonProgressMap;
+        UtilLogger.setUserIdEvent(id);
         UtilLogger.setUserPropertiesEvent("userName", name);
         UtilLogger.setUserPropertiesEvent("userAge", age);
         this._genderEvent(gender);
