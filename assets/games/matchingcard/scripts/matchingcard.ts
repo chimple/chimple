@@ -140,7 +140,7 @@ export default class MatchingCard extends cc.Component {
                                         })
                                         .start()
                                 } else {
-                                    this.node.emit('nextProblem', false)
+                                    this.node.emit('nextProblem', false) 
                                 }
 
                             }, 1)
