@@ -50,7 +50,7 @@ export default class SoundButton extends cc.Component {
     }
 
     soundOnLoad() {
-        this.playSound(this.node);
+    // this.playSound(this.node);
 
     }
 
