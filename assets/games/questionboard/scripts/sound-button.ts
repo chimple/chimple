@@ -4,7 +4,6 @@ import {ENABLE_BUTTONS, WRONG_ANSWER} from "./questionboard";
 import Config from "../../../common/scripts/lib/config";
 import { catchError } from "../../../common/scripts/lib/error-handler";
 
-export const WORD_WINDOW_SOUND = Config.dir+Config.i.lesson+'/res/';
 @ccclass
 export default class SoundButton extends cc.Component {
     private _isSoundPlaying = false;
