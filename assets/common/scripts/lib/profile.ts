@@ -277,11 +277,6 @@ export class User {
 
     static storeUser(user: User) {
         cc.sys.localStorage.setItem(user.id, User.toJson(user));
-        let profileInfo = {
-            profile  : User.toJson(user),
-            kind     : 'Profile',
-            studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)
-        };
 
         // log to ff userProfile
         UtilLogger.logChimpleEvent("userProfile", {
@@ -289,7 +284,16 @@ export class User {
             gender : user.gender,
             userId : user.id
         });
-        Queue.getInstance().push(profileInfo);
+
+        if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
+            let profileInfo = {
+                profile  : User.toJson(user),
+                kind     : 'Profile',
+                studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)
+            };
+
+            Queue.getInstance().push(profileInfo);
+        }
     }
 
     static createUUID() {
