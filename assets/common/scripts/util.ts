@@ -508,7 +508,7 @@ export class Util {
         callback(err, asset);
       })
     }
-    else if (resDir.split('.')[1] === "png") {
+    else if (resDir.split('.')[1] === "png" || "jpg") {
       bundle.load(resName, cc.Texture2D, function (err, asset) {
         if (err) {
           cc.log(JSON.stringify(err));
