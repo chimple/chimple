@@ -272,6 +272,7 @@ export default class Config {
         fileName = fileName.trim();
         isNumber = !isNaN(Number(fileName));
         if (fileName.indexOf("tutorial") !== -1) {
+            fileName = fileName.replace(".png","");
             appendPath = 'json';
         } else {
             const isUpperCase: boolean = fileName === fileName.toUpperCase();
