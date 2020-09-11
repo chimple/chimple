@@ -12,7 +12,7 @@ export default class OrderTractor extends cc.Component {
     @property(cc.Prefab)
     drag: cc.Prefab = null
 
-    @property(cc.Prefab)
+    @property(cc.Prefab) 
     outerDrop: cc.Prefab = null
 
     @property(cc.Node)
@@ -23,6 +23,9 @@ export default class OrderTractor extends cc.Component {
 
     @property(cc.AudioClip)
     trainClip: cc.AudioClip = null
+
+    @property(cc.AudioClip)
+    metalClink:cc.AudioClip = null
 
     @property(cc.Node)
     friendPos: cc.Node = null
@@ -97,9 +100,16 @@ export default class OrderTractor extends cc.Component {
         }))
         const trainX = this.train.x
         new cc.Tween().target(this.train)
+            .call(() => {
+                Util.playSfx(this.trainClip);
+            })
             .set({ x: trainX + cc.winSize.width })
             .to(3, { x: trainX }, { progress: null, easing: 'backOut' })
             .call(() => {
+                Util.playSfx(this.metalClink);
+              })
+            .call(() => {
+                
                 Drag.letDrag = true
                 Util.showHelp(firstDrag, firstDrop)
             })
@@ -114,6 +124,9 @@ export default class OrderTractor extends cc.Component {
             Drag.letDrag = false
             new cc.Tween().target(this.train)
                 .delay(1)
+                .call(() => {
+                    Util.playSfx(this.trainClip);
+                })
                 .to(1, { x: this.train.x - cc.winSize.width }, { progress: null, easing: 'backIn' })
                 .call(() => {
                     this.node.emit('nextProblem')
