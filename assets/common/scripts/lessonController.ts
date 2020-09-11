@@ -9,6 +9,7 @@ import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDEN
 import { User } from "./lib/profile";
 import { Lesson } from "./lib/convert";
 import UtilLogger from "./util-logger";
+import Loading from "./loading";
 
 const { ccclass, property } = cc._decorator;
 
@@ -157,6 +158,10 @@ export default class LessonController extends cc.Component {
         const monitor = this.progressMonitorNode.getComponent(ProgressMonitor);
         // }
         const currentProblem = config.problem;
+        if (currentProblem == config.totalProblems) {
+            const loadingComp = this.loading.getComponent(Loading)
+            loadingComp.animate = false
+        }
         this.loading.active = true;
         const isQuiz = config.game.toLowerCase().includes("quiz")
         const score: number = isQuiz ? this.quizScore : this.total;

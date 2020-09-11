@@ -8,6 +8,8 @@ export default class Loading extends cc.Component {
     @property(cc.Prefab)
     animationPrefab: cc.Prefab = null;
 
+    delay: number = 3
+    animate: boolean = true
     animation: cc.Node
 
     start() {
@@ -20,12 +22,14 @@ export default class Loading extends cc.Component {
         this.scheduleOnce(() => {
             this.block.color = cc.Color.GRAY;
             this.block.opacity = 128
-            if (this.animation == null) {
-                this.animation = cc.instantiate(this.animationPrefab);
-                this.node.addChild(this.animation)
+            if (this.animate) {
+                if (this.animation == null) {
+                    this.animation = cc.instantiate(this.animationPrefab);
+                    this.node.addChild(this.animation)
+                }
+                this.animation.active = true
             }
-            this.animation.active = true
-        }, 3);
+        }, this.delay);
     }
 
     onEnable() {

@@ -194,7 +194,10 @@ export default class ProgressMonitor extends cc.Component {
                         cc.v2(currentPos.add(newPos).mul(0.33).add(cc.v2(100, 0))),
                         newPos
                     ])),
-                    cc.rotateBy(0.5, 360),
+                    cc.rotateBy(0.1, 15),
+                    cc.rotateBy(0.1, -15),
+                    cc.rotateBy(0.1, 15),
+                    cc.rotateBy(0.1, -15),
                     cc.spawn(
                         cc.moveTo(0.5, currentSpriteNode.position),
                         cc.scaleTo(0.5, 1 / currentStarScale)
