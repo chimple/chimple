@@ -179,7 +179,7 @@ export default class LessonController extends cc.Component {
             };
             Queue.getInstance().push(monitorInfo);
         }
-        
+
         const eventName: string = config.game.toLowerCase().includes("quiz") ? "quizEnd" :
             "gameEnd";
         UtilLogger.logChimpleEvent(eventName, {

@@ -142,7 +142,7 @@ export class User {
     set id(id: string) {
         this._id = id;
         this._storeUser();
-        UtilLogger.setUserId(id);
+        UtilLogger.setUserIdEvent(id);
     }
 
     get id(): string {
@@ -172,7 +172,7 @@ export class User {
     set gender(gender: Gender) {
         this._gender = gender;
         this._storeUser();
-        this._genderEvent();
+        this._genderEvent(gender);
     }
 
     get gender(): Gender {
