@@ -94,7 +94,6 @@
     },
     "_resize": 1,
     "_N$layoutType": 1,
-    "_N$padding": 0,
     "_N$cellSize": {
       "__type__": "cc.Size",
       "width": 40,
@@ -148,13 +147,19 @@
     },
     "_enabled": true,
     "complete": {
-      "__uuid__": "115ceefb-0507-433c-9111-33fb581364b2"
+      "__uuid__": "f58839ae-0e7f-4de3-8cbf-55a9e12ce7ff"
     },
     "current": {
-      "__uuid__": "23e6b886-1eaa-47e5-937d-c30fd379eca4"
+      "__uuid__": "0c63fb76-9475-4a30-b983-937b3131ecb7"
     },
     "incomplete": {
-      "__uuid__": "e861329d-3065-4dd6-b02c-88313ba9124d"
+      "__uuid__": "8526dc2a-c7ea-4420-b80f-4e8848ff5887"
+    },
+    "correct": {
+      "__uuid__": "bea8d553-147b-4106-8fee-46f8e81223c0"
+    },
+    "wrong": {
+      "__uuid__": "400629d1-a3b2-4978-b2fd-221c6df5e620"
     },
     "_id": ""
   },

@@ -1,7 +1,7 @@
 import Balloon from "./balloon";
 import Config, { DEFAULT_FONT } from "./lib/config";
 import { GAME_CONFIGS } from "./lib/gameConfigs";
-import ProgressMonitor from "./progressMonitor";
+import ProgressMonitor, { StarType } from "./progressMonitor";
 import { QUIZ_ANSWERED } from "./quiz-monitor";
 import { Util } from "./util";
 import { Queue } from "../../queue";
@@ -10,7 +10,7 @@ import { User } from "./lib/profile";
 import { Lesson } from "./lib/convert";
 import UtilLogger from "./util-logger";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class LessonController extends cc.Component {
@@ -148,56 +148,55 @@ export default class LessonController extends cc.Component {
     }
 
     private problemEnd(replaceScene: boolean) {
-        let monitor = null;
         const config = Config.i;
         const timeSpent = Math.ceil((new Date().getTime() - this.problemStartTime) / 1000);
         // if (config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS) {
         //     monitor = this.quizMonitorNode.getComponent(QuizMonitor);
         //     monitor.stopStar = this.isQuizAnsweredCorrectly;
         // } else {
-        monitor = this.progressMonitorNode.getComponent(ProgressMonitor);
+        const monitor = this.progressMonitorNode.getComponent(ProgressMonitor);
         // }
         const currentProblem = config.problem;
         this.loading.active = true;
-
-        const score: number = config.game.toLowerCase().includes("quiz") ? this.quizScore : this.total;
+        const isQuiz = config.game.toLowerCase().includes("quiz")
+        const score: number = isQuiz ? this.quizScore : this.total;
 
         if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
             let monitorInfo = {
-                chapter        : config.chapterId,
-                lesson         : config.lessonId,
-                incorrect      : this.wrongMoves,
-                totalQuestions : config.totalProblems,
-                correct        : this.rightMoves,
+                chapter: config.chapterId,
+                lesson: config.lessonId,
+                incorrect: this.wrongMoves,
+                totalQuestions: config.totalProblems,
+                correct: this.rightMoves,
                 totalChallenges: config.totalProblems,
-                totalSeconds   : timeSpent,
-                activity       : config.game,
-                kind           : 'Monitor',
-                schoolId       : cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
-                studentId      : cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
-                classId        : cc.sys.localStorage.getItem(CURRENT_CLASS_ID)
+                totalSeconds: timeSpent,
+                activity: config.game,
+                kind: 'Monitor',
+                schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
+                studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
+                classId: cc.sys.localStorage.getItem(CURRENT_CLASS_ID)
             };
             Queue.getInstance().push(monitorInfo);
         }
 
-        const eventName: string = config.game.toLowerCase().includes("quiz") ? "quizEnd" :
-            "gameEnd";
+        const eventName: string = isQuiz ? "quizEnd" : "gameEnd";
         UtilLogger.logChimpleEvent(eventName, {
-            chapterName   : config.chapter.name,
-            chapterId     : config.chapterId,
-            lessonName    : config.lesson.name,
-            lessonId      : config.lessonId,
-            courseName    : config.courseId,
-            problemNo     : config.problem,
-            timeSpent     : timeSpent,
-            wrongMoves    : this.wrongMoves,
-            correctMoves  : this.rightMoves,
-            skills        : config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
-            game_completed: config.game.toLowerCase().includes("quiz") ? false : true,
-            quiz_completed: config.game.toLowerCase().includes("quiz") ? true : false
+            chapterName: config.chapter.name,
+            chapterId: config.chapterId,
+            lessonName: config.lesson.name,
+            lessonId: config.lessonId,
+            courseName: config.courseId,
+            problemNo: config.problem,
+            timeSpent: timeSpent,
+            wrongMoves: this.wrongMoves,
+            correctMoves: this.rightMoves,
+            skills: config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
+            game_completed: isQuiz ? false : true,
+            quiz_completed: isQuiz ? true : false
         });
 
-        monitor.updateProgress(currentProblem, () => {
+        const starType = isQuiz ? (this.isQuizAnsweredCorrectly ? StarType.Correct : StarType.Wrong) : StarType.Default;
+        monitor.updateProgress(currentProblem, starType, () => {
             monitor.stopStar = false;
             if (currentProblem < config.totalProblems) {
                 config.nextProblem();
@@ -230,30 +229,30 @@ export default class LessonController extends cc.Component {
 
         if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
             let updateInfo = {
-                chapter        : config.chapterId,
-                lesson         : config.lessonId,
+                chapter: config.chapterId,
+                lesson: config.lessonId,
                 percentComplete: percentageComplete,
-                timespent      : timeSpent,
-                assessment     : this.total,
-                kind           : 'Progress',
-                schoolId       : cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
-                studentId      : cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
-                sectionId      : cc.sys.localStorage.getItem(CURRENT_SECTION_ID),
-                subjectId      : cc.sys.localStorage.getItem(CURRENT_SUBJECT_ID)
+                timespent: timeSpent,
+                assessment: this.total,
+                kind: 'Progress',
+                schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
+                studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
+                sectionId: cc.sys.localStorage.getItem(CURRENT_SECTION_ID),
+                subjectId: cc.sys.localStorage.getItem(CURRENT_SUBJECT_ID)
             };
 
             Queue.getInstance().push(updateInfo);
         }
 
         UtilLogger.logChimpleEvent("lessonEnd", {
-            chapterName   : config.chapter.name,
-            chapterId     : config.chapterId,
-            lessonName    : config.lesson.name,
-            lessonId      : config.lessonId,
-            courseName    : config.courseId,
-            score         : config.game.toLowerCase().includes("quiz") ? this.quizScore : this.total,
-            timeSpent     : timeSpent,
-            skills        : config.lesson.skills ? config.lesson.skills.join(",") : "",
+            chapterName: config.chapter.name,
+            chapterId: config.chapterId,
+            lessonName: config.lesson.name,
+            lessonId: config.lessonId,
+            courseName: config.courseId,
+            score: config.game.toLowerCase().includes("quiz") ? this.quizScore : this.total,
+            timeSpent: timeSpent,
+            skills: config.lesson.skills ? config.lesson.skills.join(",") : "",
             game_completed: config.game.toLowerCase().includes("quiz") ? false : true,
             quiz_completed: config.game.toLowerCase().includes("quiz") ? true : false
         });
@@ -275,7 +274,7 @@ export default class LessonController extends cc.Component {
         cc.director.getScene().addChild(balloon);
         balloonComp.animateGlow();
         new cc.Tween().target(balloon)
-            .to(0.5, {position: cc.v2(cc.winSize.width / 2, 100)}, null)
+            .to(0.5, { position: cc.v2(cc.winSize.width / 2, 100) }, null)
             .delay(2)
             .call(() => {
                 balloonComp.onBalloonClick();
