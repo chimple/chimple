@@ -35,6 +35,7 @@ export class Util {
   private static _i18NMap = new Map();
   private static _resources: string[] = [];
   static bundles: Map<string, cc.AssetManager.Bundle> = new Map();
+  private static helpAudioId: number = -1;
 
   public static shuffle<T>(arr): T[] {
     let ctr = arr.length;
@@ -278,7 +279,7 @@ export class Util {
   public static loadGameSound(path: string, callBack: Function) {
     const filePath = path.startsWith(Config.dir)
       ? path
-      : Config.dir + `${Config.i.lesson}/res/${path}`;
+      : Config.dir + `${Config.i.lessonId}/res/${path}`;
     const fullFilePath =
       filePath + (path.endsWith(".mp3") || path.endsWith(".m4a") ? "" : ".mp3");
     Util.load(
@@ -306,7 +307,7 @@ export class Util {
       path.endsWith(".png") || path.endsWith(".jpg") ? path : path + ".png";
     const fullFilePath = path.startsWith(Config.dir)
       ? path
-      : Config.dir + `${Config.i.lesson}/res/${path}`;
+      : Config.dir + `${Config.i.lessonId}/res/${path}`;
     Util.load(
       fullFilePath,
       (err, texture) => {
@@ -461,7 +462,7 @@ export class Util {
         cc.audioEngine.setFinishCallback(audioId, callback);
       } else {
         const wordLoc =
-          Config.dir + Config.i.course + "/res/" + audio;
+          Config.dir + Config.i.courseId + "/res/" + audio;
         Util.loadGameSound(wordLoc, (clip) => {
           if (clip != null) {
             audioId = cc.audioEngine.play(clip, false, 1);
@@ -549,7 +550,8 @@ export class Util {
   public static showHelp(
     from: cc.Node,
     to: cc.Node,
-    callBack: Function = null
+    callBack: Function = null,
+    playAudio: boolean = true
   ) {
     const config = Config.getInstance();
     if (config.problem == 1) {
@@ -564,29 +566,55 @@ export class Util {
             if (helpComp != null) {
               helpComp.initNodes(from, to, callBack);
             }
-            if (lessonComp != null) {
-              // @ts-ignore
-              lessonComp.gameNode.addChild(help);
-            }
+            // @ts-ignore
+            lessonNode.addChild(help);
           }
         });
       }
-      var chimp: dragonBones.ArmatureDisplay;
-      if (lessonComp != null) {
-        chimp = lessonComp.chimp;
-        chimp.playAnimation("talking", 0);
-      }
-      Util.speak(
-        config.course + "/course/res/sound/game/" + config.game + ".mp3",
-        () => {
-          if (chimp) chimp.playAnimation("idle", 1);
-          if (callBack != null) callBack();
+      if (playAudio) {
+        var chimp: dragonBones.ArmatureDisplay;
+        if (lessonComp != null) {
+          chimp = lessonComp.chimp;
+          chimp.playAnimation("talking", 0);
         }
-      );
+        Util.playHelpAudio(
+          config.courseId + "/course/res/sound/game/" + config.game + ".mp3",
+          () => {
+            if (chimp) chimp.playAnimation("idle", 1);
+            if (callBack != null) callBack();
+          }
+        );
+      } else {
+        if (callBack != null) callBack();
+      }
     } else {
       if (callBack != null) callBack();
     }
   }
+
+  public static playHelpAudio(audio: string, callback: Function) {
+    Util.load(
+      audio,
+      (err, clip) => {
+        if (clip != null) {
+          if (Array.isArray(clip) && clip.length === 0) {
+            callback();
+          } else {
+            this.helpAudioId = Util.play(clip, false);
+            if (this.helpAudioId != -1) {
+              cc.audioEngine.setFinishCallback(this.helpAudioId, callback);
+            } else {
+              callback();
+            }
+          }
+        } else {
+          callback();
+        }
+      },
+      true
+    );
+  }
+
 
   public static computeTimeDiff(
     append: string,
@@ -630,6 +658,16 @@ export class Util {
     return -1;
   }
 
+  public static stopHelpAudio() {
+    try {
+      cc.audioEngine.stopEffect(this.helpAudioId);
+    } catch (e) {
+      cc.log(e);
+    }
+    return this.helpAudioId;
+  }
+
+
   public static play(audioClip: cc.AudioClip, loop: boolean = false) {
     let audioId = -1;
     try {
@@ -639,7 +677,6 @@ export class Util {
     } catch (e) {
       cc.log(e);
     }
-
     return audioId;
   }
 

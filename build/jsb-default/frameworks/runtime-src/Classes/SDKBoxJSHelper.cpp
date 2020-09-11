@@ -75,19 +75,30 @@ namespace sdkbox {
         std::vector<std::string> vect;
         sdkbox::split(name, ".", vect);
 
-        se::Object* root = obj;
+        se::Value parent(obj, true);
         se::Value ret;
         for (auto n : vect) {
-            root->getProperty(n.c_str(), &ret);
-            root = ret.toObject();
+            se::Object* pObj = parent.toObject();
+            if (nullptr == pObj) {
+                // shoudn't be here
+                break;
+            }
+            if (!pObj->getProperty(n.c_str(), &ret)) {
+                // shouldn't be here
+                break;
+            }
+            parent.setObject(ret.toObject(), true);
         }
         return ret;
     }
 }
 
 /**
-    sdkbox.getConfig
-    sdkbox.setConfig
+ *
+ * sdkbox.init
+ * sdkbox.getConfig
+ * sdkbox.setConfig
+ *
  */
 
 static bool js_SDKBox_init(se::State& s)
@@ -95,16 +106,34 @@ static bool js_SDKBox_init(se::State& s)
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
-    if (argc == 2) {
+    if (2 == argc || 3 == argc || 4 == argc) {
         const char* arg0 = nullptr;
         const char* arg1 = nullptr;
+        const char* arg2 = "all";
+        bool arg3 = false;
+
         std::string arg0_tmp; ok &= seval_to_std_string(args[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
         std::string arg1_tmp; ok &= seval_to_std_string(args[1], &arg1_tmp); arg1 = arg1_tmp.c_str();
+        
+        if (3 == argc || 4 == argc) {
+            std::string arg2_tmp; ok &= seval_to_std_string(args[2], &arg2_tmp); arg2 = arg2_tmp.c_str();
+        }
+        if (4 == argc) {
+            ok &= seval_to_boolean(args[3], &arg3);
+        }
+
         SE_PRECONDITION2(ok, false, "js_SDKBox_init : Error processing arguments");
-        sdkbox::init(arg0, arg1);
+
+        if (2 == argc) {
+            sdkbox::init(arg0, arg1);
+        } else if (3 == argc) {
+            sdkbox::init(arg0, arg1, arg2);
+        } else if (4 == argc) {
+            sdkbox::init(arg0, arg1, arg2, arg3);
+        }
         return true;
     }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
     return false;
 }
 SE_BIND_FUNC(js_SDKBox_init)

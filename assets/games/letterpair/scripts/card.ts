@@ -47,6 +47,7 @@ export default class Card extends cc.Component {
     particleNode: cc.Node = null;
     cardType: string = null;
     cardContent: string = null;
+    cardText: string = null;
     cardFontSize: string = null;
     cardFontColor: string = null;
     cardBgType: string = null;
@@ -86,7 +87,7 @@ export default class Card extends cc.Component {
             Util.loadTexture(this.cardContent, (texture) => {
                 const clNode = cc.instantiate(this.countingLayout);
                 const cl = clNode.getComponent(CountingLayout);
-                cl.fullCount = parseInt(this.cardFontSize);
+                cl.fullCount = parseInt(this.cardText);
                 cl.scale = 0.4
                 cl.fullTexture = new cc.SpriteFrame(texture)
                 if (this.cardType == 'stick') {
@@ -97,14 +98,14 @@ export default class Card extends cc.Component {
                 this.node.addChild(clNode)
             })
             if (this.audio.length == 0) {
-                Util.loadNumericSound(this.cardFontSize, (clip) => {
+                Util.loadNumericSound(this.cardText, (clip) => {
                     this.wordAudio = clip
                 })
             }
         } else {
             const labelNode = new cc.Node('label');
             const label = labelNode.addComponent(ChimpleLabel);
-            label.string = this.cardContent;
+            label.string = this.cardText;
             label.font = this.textFont;
             const fontColor = cc.Color.BLACK;
             if (this.cardFontColor != '') {
@@ -119,12 +120,12 @@ export default class Card extends cc.Component {
             }
             this.node.addChild(labelNode);
             if (this.audio.length == 0) {
-                if(isNaN(parseInt(this.cardContent))) {
-                    Util.loadsLetter(this.cardContent, (clip) => {
+                if(isNaN(parseInt(this.cardText))) {
+                    Util.loadsLetter(this.cardText, (clip) => {
                         this.wordAudio = clip
                     })    
                 } else {
-                    Util.loadNumericSound(this.cardContent, (clip) => {
+                    Util.loadNumericSound(this.cardText, (clip) => {
                         this.wordAudio = clip
                     })    
                 }

@@ -29,9 +29,9 @@
         }, 
         "version": [
             2, 
-            6, 
-            0, 
-            1
+            7, 
+            1, 
+            0
         ], 
         "result": "ok", 
         "message": "success", 
@@ -61,7 +61,7 @@
             "ANDROID_STUDIO_PROJECT_DIR": "frameworks/runtime-src/proj.android-studio/", 
             "VS_PROJECT_SLN_FILE": "n/a", 
             "COCOS_PROJECT_HINT": "frameworks/runtime-src/", 
-            "SDKBOX_DIR": "/Users/shyamalupadhyaya/.sdkbox/", 
+            "SDKBOX_DIR": "/Users/srikanth/.sdkbox/", 
             "ANDROID_STUDIO_PROPERTIES": "frameworks/runtime-src/proj.android-studio/app/project.properties", 
             "VS_PROJECT_PROJ_FILE": "n/a", 
             "check_str": "com.google.android.gms:play-services-base", 
@@ -92,13 +92,13 @@
             "XCODE_PROJECT_DIR": "frameworks/runtime-src/proj.ios_mac/bahama.xcodeproj/", 
             "firebase_sdk_analytics_old_path": "frameworks/runtime-src/proj.ios_mac/Firebase/Analytics/", 
             "ANDROID_MK_USES_WILDCARDS": "n/a", 
-            "COCOS_BACKUP_DIR": "backup-2020-06-29/", 
+            "COCOS_BACKUP_DIR": "backup-2020-09-09/", 
             "ANDROID_PROPERTIES": "n/a", 
             "SDKBOX_PACKAGE_NAME": "firebase", 
-            "COCOS_RESOURCES_DIR": "res/", 
-            "ANDROID_STUDIO_LIBS_DIR": "frameworks/runtime-src/proj.android-studio/app/libs/", 
+            "COCOS_RESOURCES_DIR": "assets/", 
+            "ANDROID_STUDIO_LIBS_DIR": "frameworks/runtime-src/proj.android-studio/libs/", 
             "SDKBOX_PLUGIN_NAME": "Firebase", 
-            "ANDROID_LIBS_DIR": "frameworks/runtime-src/proj.android-studio/app/libs/", 
+            "ANDROID_LIBS_DIR": "frameworks/runtime-src/proj.android-studio/libs/", 
             "ANDROID_MK": "n/a", 
             "APPLICATION_MK": "n/a"
         }
@@ -133,9 +133,9 @@
         }, 
         "version": [
             2, 
-            6, 
-            0, 
-            1
+            7, 
+            1, 
+            0
         ], 
         "result": "ok", 
         "message": "success", 
@@ -152,7 +152,7 @@
             "ANDROID_STUDIO_PROJECT_DIR": "frameworks/runtime-src/proj.android-studio/", 
             "VS_PROJECT_SLN_FILE": "n/a", 
             "COCOS_PROJECT_HINT": "frameworks/runtime-src/", 
-            "SDKBOX_DIR": "/Users/shyamalupadhyaya/.sdkbox/", 
+            "SDKBOX_DIR": "/Users/srikanth/.sdkbox/", 
             "ANDROID_STUDIO_PROPERTIES": "frameworks/runtime-src/proj.android-studio/app/project.properties", 
             "VS_PROJECT_PROJ_FILE": "n/a", 
             "check_str": "com.google.android.gms:play-services-base", 
@@ -173,11 +173,11 @@
             "ANDROID_STUDIO_MK": "frameworks/runtime-src/proj.android-studio/jni/Android.mk/", 
             "XCODE_PROJECT_DIR": "frameworks/runtime-src/proj.ios_mac/bahama.xcodeproj/", 
             "ANDROID_MK_USES_WILDCARDS": "n/a", 
-            "COCOS_BACKUP_DIR": "backup-2020-06-29/", 
+            "COCOS_BACKUP_DIR": "backup-2020-09-09/", 
             "ANDROID_PROPERTIES": "n/a", 
-            "COCOS_RESOURCES_DIR": "res/", 
-            "ANDROID_STUDIO_LIBS_DIR": "frameworks/runtime-src/proj.android-studio/app/libs/", 
-            "ANDROID_LIBS_DIR": "frameworks/runtime-src/proj.android-studio/app/libs/", 
+            "COCOS_RESOURCES_DIR": "assets/", 
+            "ANDROID_STUDIO_LIBS_DIR": "frameworks/runtime-src/proj.android-studio/libs/", 
+            "ANDROID_LIBS_DIR": "frameworks/runtime-src/proj.android-studio/libs/", 
             "ANDROID_MK": "n/a", 
             "APPLICATION_MK": "n/a"
         }

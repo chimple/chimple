@@ -1,8 +1,9 @@
 import UtilLogger from "../util-logger";
 import Config from "./config";
-import {Queue} from "../../../queue";
-import {CURRENT_STUDENT_ID} from "./constants";
-import {Course} from "./convert";
+import { Queue } from "../../../queue";
+import { CURRENT_STUDENT_ID } from "./constants";
+import { Course } from "./convert";
+import { Util } from "../util";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -44,13 +45,16 @@ export class CourseProgressClass implements CourseProgress {
 
 export interface LessonProgress {
     score: number;
+    quizAttempts: number;
 }
 
 export class LessonProgressClass implements LessonProgress {
     score: number;
+    quizAttempts: number;
 
-    constructor(score: number) {
+    constructor(score: number, quizAttempts: number = 0) {
         this.score = score;
+        this.quizAttempts = quizAttempts;
     }
 }
 
@@ -64,7 +68,7 @@ export const languageSelect = [
     ["english", "A", "#FFBC00"],
     ["हिन्दी", "अ", "#3E99E7"],
     ["english", "C", "#3CBD93"],
-    ["hindi", "Z", "#F55B5D"],
+    ["hindi", "Z", "#F55B5D"]
 ];
 
 export class User {
@@ -118,11 +122,30 @@ export class User {
         this._currentCharacter = currentCharacter;
         this._courseProgressMap = courseProgressMap;
         this._lessonProgressMap = lessonProgressMap;
+        UtilLogger.setUserIdEvent(id);
+        UtilLogger.setUserPropertiesEvent("userName", name);
+        UtilLogger.setUserPropertiesEvent("userAge", age);
+        this._genderEvent(gender);
+    }
+
+    _genderEvent(gender: Gender) {
+        switch (gender) {
+            case Gender.BOY:
+                UtilLogger.setUserPropertiesEvent("userGender", "Boy");
+                break;
+            case Gender.GIRL:
+                UtilLogger.setUserPropertiesEvent("userGender", "Girl");
+                break;
+            case Gender.UNKNOWN:
+                UtilLogger.setUserPropertiesEvent("userGender", "Unknown");
+                break;
+        }
     }
 
     set id(id: string) {
         this._id = id;
         this._storeUser();
+        UtilLogger.setUserIdEvent(id);
     }
 
     get id(): string {
@@ -132,6 +155,7 @@ export class User {
     set name(name: string) {
         this._name = name;
         this._storeUser();
+        UtilLogger.setUserPropertiesEvent("userName", name);
     }
 
     get name(): string {
@@ -139,9 +163,9 @@ export class User {
     }
 
     set age(age: number) {
-        console.log("came setting age", age);
         this._age = age;
         this._storeUser();
+        UtilLogger.setUserPropertiesEvent("userAge", age);
     }
 
     get age(): number {
@@ -151,6 +175,7 @@ export class User {
     set gender(gender: Gender) {
         this._gender = gender;
         this._storeUser();
+        this._genderEvent(gender);
     }
 
     get gender(): Gender {
@@ -255,12 +280,12 @@ export class User {
     updateLessonProgress(lessonId: string, score: number) {
         if (this._lessonProgressMap.has(lessonId)) {
             if (score > this._lessonProgressMap.get(lessonId).score) {
-                this._lessonProgressMap.get(lessonId).score = score
+                this._lessonProgressMap.get(lessonId).score = score;
             }
         } else {
-            this._lessonProgressMap.set(lessonId, new LessonProgressClass(score))
+            this._lessonProgressMap.set(lessonId, new LessonProgressClass(score));
         }
-        this._storeUser()
+        this._storeUser();
     }
 
     private _storeUser() {
@@ -269,12 +294,33 @@ export class User {
 
     static storeUser(user: User) {
         cc.sys.localStorage.setItem(user.id, User.toJson(user));
-        let profileInfo = {
-            profile: User.toJson(user),
-            kind: 'Profile',
-            studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)
-        };
-        Queue.getInstance().push(profileInfo);
+
+        // log to ff userProfile
+        UtilLogger.logChimpleEvent("userProfile", {
+            userAge: user.age,
+            gender : user.gender,
+            userId : user.id
+        });
+
+        if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
+            let profileInfo = {
+                profile  : User.toJson(user),
+                kind     : 'Profile',
+                studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)
+            };
+
+            Queue.getInstance().push(profileInfo);
+        }
+    }
+
+    static createUUID() {
+        var dt = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (dt + Math.random() * 16) % 16 | 0;
+            dt = Math.floor(dt / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        return uuid;
     }
 
     static createUser(
@@ -286,7 +332,7 @@ export class User {
         avatarImage: string = null,
         isTeacher: boolean = false
     ): User {
-        let uid = !!id ? id : new Date().toISOString();
+        let uid = !!id ? id : User.createUUID();
         let user = new User(
             uid,
             name,
@@ -344,15 +390,15 @@ export class User {
     }
 
     static fromJson(jsonStr: string): User {
-        const data = JSON.parse(jsonStr)
+        const data = JSON.parse(jsonStr);
         if (!data) return null;
-        const courseProgressMap = new Map<string, CourseProgress>()
+        const courseProgressMap = new Map<string, CourseProgress>();
         for (const key in data.courseProgressMap) {
-            courseProgressMap.set(key, data.courseProgressMap[key])
+            courseProgressMap.set(key, data.courseProgressMap[key]);
         }
-        const lessonProgressMap = new Map<string, LessonProgress>()
+        const lessonProgressMap = new Map<string, LessonProgress>();
         for (const key in data.lessonProgressMap) {
-            lessonProgressMap.set(key, data.lessonProgressMap[key])
+            lessonProgressMap.set(key, data.lessonProgressMap[key]);
         }
         let user = new User(
             data.id,
@@ -376,32 +422,32 @@ export class User {
     }
 
     static toJson(user: User): string {
-        const courseProgressObj = {}
+        const courseProgressObj = {};
         user.courseProgressMap.forEach((cp, name) => {
-            courseProgressObj[name] = cp
-        })
-        const lessonProgressObj = {}
+            courseProgressObj[name] = cp;
+        });
+        const lessonProgressObj = {};
         user.lessonProgressMap.forEach((lp, id) => {
-            lessonProgressObj[id] = lp
-        })
+            lessonProgressObj[id] = lp;
+        });
         return JSON.stringify({
-            'id': user.id,
-            'name': user.name,
-            'age': user.age,
-            'gender': user.gender,
-            'imgPath': user.imgPath,
-            'avatarImage': user.avatarImage,
-            'isTeacher': user.isTeacher,
-            'sfxOff': user._sfxOff,
-            'musicOff': user._musicOff,
-            'inventory': user.inventory,
-            'currentBg': user.currentBg,
-            'currentCharacter': user.currentCharacter,
+            'id'               : user.id,
+            'name'             : user.name,
+            'age'              : user.age,
+            'gender'           : user.gender,
+            'imgPath'          : user.imgPath,
+            'avatarImage'      : user.avatarImage,
+            'isTeacher'        : user.isTeacher,
+            'sfxOff'           : user._sfxOff,
+            'musicOff'         : user._musicOff,
+            'inventory'        : user.inventory,
+            'currentBg'        : user.currentBg,
+            'currentCharacter' : user.currentCharacter,
             'courseProgressMap': courseProgressObj,
             'lessonProgressMap': lessonProgressObj,
             'unlockedInventory': user.unlockedInventory,
             'unlockedRewards': user.unlockedRewards
-        })
+        });
     }
 
     static setCurrentUser(user: User) {
@@ -501,22 +547,22 @@ export default class Profile {
     }
 
     static get lastWorld(): number {
-        return this.getItem(Config.getInstance().course + WORLD);
+        return this.getItem(Config.getInstance().courseId + WORLD);
     }
 
     static set lastWorld(newVal: number) {
-        this.setItem(Config.getInstance().course + WORLD, newVal);
-        this.setItem(Config.getInstance().course + LEVEL, 0);
+        this.setItem(Config.getInstance().courseId + WORLD, newVal);
+        this.setItem(Config.getInstance().courseId + LEVEL, 0);
         this.toJson();
     }
 
     static get lastLevel(): number {
-        return this.getItem(Config.getInstance().course + LEVEL);
+        return this.getItem(Config.getInstance().courseId + LEVEL);
     }
 
     static set lastLevel(newVal) {
         if (this.lastLevel < newVal) {
-            this.setItem(Config.getInstance().course + LEVEL, newVal);
+            this.setItem(Config.getInstance().courseId + LEVEL, newVal);
             this.toJson();
         }
     }
@@ -524,7 +570,7 @@ export default class Profile {
     static isGameCompleted(world: number, level: number, game: string): boolean {
         return (
             this.getItem(
-                Config.getInstance().course + "_" + world + "_" + level + "_" + game
+                Config.getInstance().courseId + "_" + world + "_" + level + "_" + game
             ) == 1
         );
     }
@@ -536,7 +582,7 @@ export default class Profile {
         completed: boolean = true
     ) {
         this.setItem(
-            Config.getInstance().course + "_" + world + "_" + level + "_" + game,
+            Config.getInstance().courseId + "_" + world + "_" + level + "_" + game,
             completed ? 1 : 0
         );
         this.toJson();

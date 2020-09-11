@@ -146,6 +146,7 @@ export default class ShapeTractor extends cc.Component {
         }))
         const trainX = this.train.x
         new cc.Tween().target(this.train)
+            .call(()=> {Util.playSfx(this.trainClip)})
             .set({ x: trainX + cc.winSize.width })
             .to(3, { x: trainX }, { progress: null, easing: 'backOut' })
             .call(() => {
@@ -206,6 +207,7 @@ export default class ShapeTractor extends cc.Component {
             Drag.letDrag = false
             new cc.Tween().target(this.train)
                 .delay(1)
+                .call(()=>{Util.playSfx(this.trainClip)})
                 .to(1, { x: this.train.x - cc.winSize.width }, { progress: null, easing: 'backIn' })
                 .call(() => {
                     this.node.emit('nextProblem')

@@ -200,7 +200,7 @@ export default class Blender extends cc.Component {
 
     @catchError()
     moveCupToBlender(blender: cc.Node, textNode: cc.Node, collected: string) {
-        const cupPosition = this.node.convertToNodeSpaceAR(blender.convertToWorldSpaceAR(cc.p(0, 0)));
+        const cupPosition = this.node.convertToNodeSpaceAR(blender.convertToWorldSpaceAR(cc.v3(0, 0)));
         new cc.Tween()
             .target(this._cup)
             .to(1, {position: new cc.Vec2(cupPosition.x, this._cup.position.y)}, {
@@ -208,7 +208,7 @@ export default class Blender extends cc.Component {
                 easing  : 'quadOut'
             })
             .call(() => {
-                var oldWorPos = textNode.convertToWorldSpaceAR(cc.p(0, 0));
+                var oldWorPos = textNode.convertToWorldSpaceAR(cc.v3(0, 0));
                 var newLocPos = this.node.convertToNodeSpaceAR(oldWorPos);
                 textNode.removeFromParent(false);
                 this.node.addChild(textNode);

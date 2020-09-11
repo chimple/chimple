@@ -60,6 +60,13 @@ export default class Board extends cc.Component {
 
     @property(cc.Node)
     friendPos: cc.Node = null
+    
+    @property(cc.AudioClip)
+    truckInClip: cc.AudioClip = null
+
+    @property(cc.AudioClip)
+    truckOutClip: cc.AudioClip = null
+
 
     friend: dragonBones.ArmatureDisplay = null
     letters: Array<string> = null
@@ -156,6 +163,7 @@ export default class Board extends cc.Component {
             this.letters = Util.shuffle(this.letters)
         }
         new cc.Tween().target(this.truck)
+             .call(()=>{Util.playSfx(this.truckInClip)})
             .to(1.5, { x: (this.truck.x + this.xpos) / 2 }, { progress: null, easing: 'quadOut' })
             .delay(0.5)
             .to(1.5, { x: this.xpos }, { progress: null, easing: 'quadIn' })
@@ -182,6 +190,7 @@ export default class Board extends cc.Component {
             anim.play()
             new cc.Tween().target(this.truck)
                 .delay(1)
+                .call(()=>{Util.playSfx(this.truckOutClip)})
                 .to(3.0, { x: -cc.winSize.width * 2 }, { progress: null, easing: 'quadOut' })
                 .call(() => {
                     this.node.emit('nextProblem')

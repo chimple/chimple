@@ -192,7 +192,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1300,
+      "width": 1600,
       "height": 768
     },
     "_anchorPoint": {
@@ -271,7 +271,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1300,
+      "width": 1600,
       "height": 768
     },
     "_resize": 0,
@@ -2074,7 +2074,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1300,
+      "width": 1600,
       "height": 143.9
     },
     "_anchorPoint": {
@@ -2153,7 +2153,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1300,
+      "width": 1600,
       "height": 143.9
     },
     "_resize": 0,
@@ -2216,7 +2216,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1300,
+      "width": 1600,
       "height": 102.6
     },
     "_anchorPoint": {
@@ -2295,7 +2295,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1300,
+      "width": 1600,
       "height": 102.6
     },
     "_resize": 0,
@@ -4845,6 +4845,12 @@
     },
     "friendPos": {
       "__id__": 122
+    },
+    "truckInAudio": {
+      "__uuid__": "2f142aa5-afbe-4267-a68c-cc254fd1e6b7"
+    },
+    "truckOutAudio": {
+      "__uuid__": "166c112c-21bf-4b40-9207-680351328d93"
     },
     "_id": ""
   },

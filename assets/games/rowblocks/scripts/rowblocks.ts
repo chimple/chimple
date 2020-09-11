@@ -56,6 +56,12 @@ export default class RowBlocks extends cc.Component {
     @property(cc.Node)
     friendPos: cc.Node = null;
 
+    @property(cc.AudioClip)
+    truckInAudio: cc.AudioClip = null;
+
+    @property(cc.AudioClip)
+    truckOutAudio: cc.AudioClip = null
+
     friend: dragonBones.ArmatureDisplay = null;
 
     private currentConfig: RowBlocksConfig = null;
@@ -150,6 +156,7 @@ export default class RowBlocks extends cc.Component {
 
         new cc.Tween().target(this.truck)
             .set({ x: cc.winSize.width })
+            .call(()=>{Util.playSfx(this.truckInAudio)})
             .to(3, { x: truckX }, { progress: null, easing: 'quadOut' })
             .call(() => {
                 const anim = this.truck.getComponent(cc.Animation);
@@ -197,9 +204,10 @@ export default class RowBlocks extends cc.Component {
             anim.play();
             new cc.Tween().target(this.truck)
                 .call(() => {
-                    this.truckAudioId = Util.playSfx(this.truckAudio, false, true);
+                    this.truckInAudio = Util.playSfx(this.truckAudio, false, true);
                 })
                 .delay(2)
+                .call(()=>{Util.playSfx(this.truckOutAudio)})
                 .to(3, { x: -cc.winSize.width * 2 }, { progress: null, easing: 'quadOut' })
                 .call(() => {
                     cc.audioEngine.stop(this.truckAudioId);

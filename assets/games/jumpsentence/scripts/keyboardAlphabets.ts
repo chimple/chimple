@@ -21,12 +21,12 @@ export default class KeyboardAlphabets extends cc.Component {
 
   @catchError()
   onLoad() {
-    switch (Config.dir) {
-      case 'en/': this.language = Language.English
+    switch (Config.i.course.lang) {
+      case 'en': this.language = Language.English
         break;
-      case 'ur/': this.language = Language.Urdu
+      case 'ur': this.language = Language.Urdu
         break;
-      case 'hi/': this.language = Language.Hindi
+      case 'hi': this.language = Language.Hindi
     }
     let alphabets = Alphabets.GetAlphabets(this.language, this.case);
     this.keys.forEach((key, index) => {

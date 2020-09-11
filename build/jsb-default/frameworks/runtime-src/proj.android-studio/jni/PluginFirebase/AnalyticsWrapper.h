@@ -1,6 +1,6 @@
 /****************************************************************************
 
- Copyright (c) 2014-2016 SDKBOX Inc
+ Copyright (c) 2014-2020 SDKBOX Inc
 
  ****************************************************************************/
 
@@ -27,7 +27,7 @@ namespace sdkbox {
             virtual void logEvent(const std::string event, const std::map<std::string, std::string> params)=0;
             virtual void resetAnalyticsData() { }
             virtual void setAnalyticsCollectionEnabled (bool enabled) { }
-            
+
         protected:
             bool _inited = false;
         };

@@ -40,6 +40,10 @@ export default class Tag extends cc.Component {
   @property(cc.Node)
   truck: cc.Node = null;
 
+  @property(cc.Node)
+  friendPos: cc.Node = null
+
+  friend: dragonBones.ArmatureDisplay = null
   quePos: Map<string, cc.Vec2>;
   queAudio: Map<string, string>;
   totalPieces: number = 0;
@@ -100,7 +104,7 @@ export default class Tag extends cc.Component {
           // let bgWorld = this.node
           // .getChildByName("background")
           // .convertToNodeSpaceAR(cc.Vec2.ZERO);
-          dropBox.position = cc.v2(
+          dropBox.position = cc.v3(
             +itemPos[0] / 2.27 - 340,
             -+itemPos[1] / 1.92 - 490
           );
@@ -202,6 +206,13 @@ export default class Tag extends cc.Component {
         });
       }, 5);
     });
+
+    Util.loadFriend((friendNode: cc.Node) => {
+      this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay);
+      this.friendPos.addChild(friendNode);
+      this.friend.playAnimation('face_happy', 2)
+      this.friendPos.scale = 0.5;
+    })
   }
 
   @catchError()

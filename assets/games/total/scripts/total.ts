@@ -122,8 +122,10 @@ export default class Total extends cc.Component {
 
     @catchError()
     correctAnimations() {
-        this.node.emit('correct');
-        try {
+        setTimeout(() => {
+            this.node.emit('correct');    
+        }, 2000);
+              try {
             Util.speakEquation([String(this._totalCount)], (index) => {
                 this.node.emit('nextProblem');
             });

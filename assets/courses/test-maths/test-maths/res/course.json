@@ -1,4 +1,7 @@
 {
+  "id": "test-maths",
+  "name": "Test Maths",
+  "lang": "en",
   "chapters": [
     {
       "id": "chapter_0",
@@ -159,17 +162,6 @@
         }
       ],
       "name": "Chapter 4"
-    },
-    {
-      "id": "chapter_5",
-      "lessons": [
-        {
-          "id": "test-maths-eggquizmaths",
-          "image": "eggquizmaths.png",
-          "name": "eggquizmaths"
-        }
-      ],
-      "name": "Chapter 5"
     }
   ]
 }

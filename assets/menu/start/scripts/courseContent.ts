@@ -15,6 +15,8 @@ export default class CourseContent extends cc.Component {
     @property(cc.Node)
     chaptersLayout: cc.Node = null
 
+    loading: cc.Node
+
     static colors: Array<string> = [
         '#511F73',
         '#26A699',
@@ -27,7 +29,7 @@ export default class CourseContent extends cc.Component {
         this.chaptersLayout.removeAllChildren()
         let lessonContentNode: cc.Node = null
         let colorIndex = 0
-        for (const chapter of config.curriculum.get(config.course).chapters) {
+        for (const chapter of config.curriculum.get(config.courseId).chapters) {
             const chapterContents = cc.instantiate(this.chapterContentPrefab)
             chapterContents.width = cc.winSize.width
             const chapterContentsComp = chapterContents.getComponent(ChapterContent)
@@ -38,9 +40,10 @@ export default class CourseContent extends cc.Component {
             for (const lesson of chapter.lessons) {
                 const lessonButton = cc.instantiate(this.lessonButtonPrefab)
                 const lessonButtonComp = lessonButton.getComponent(LessonButton)
-                lessonButtonComp.courseName = config.course
+                lessonButtonComp.course = config.course
                 lessonButtonComp.chapter = chapter
                 lessonButtonComp.lesson = lesson
+                lessonButtonComp.loading = this.loading
                 lessonContentNode.addChild(lessonButton)
             }
             const lessonContentLayout = lessonContentNode.getComponent(cc.Layout)
