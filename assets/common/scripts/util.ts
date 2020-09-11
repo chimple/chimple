@@ -499,8 +499,8 @@ export class Util {
     const resDir = resArray.slice(2).join('/')
     const resName = resDir.split('.')[0]
     const bundle = this.bundles.get(lessonName == 'course' ? courseName : lessonName)
-
-    if (resDir.split('.')[1] === ("mp3" || "m4a")) {
+    const ext = resDir.split('.')[1]
+    if (ext === "mp3" || ext === "m4a") {
       bundle.load(resName, cc.AudioClip, function (err, asset) {
         if (err) {
           cc.log(JSON.stringify(err));
@@ -508,7 +508,7 @@ export class Util {
         callback(err, asset);
       })
     }
-    else if (resDir.split('.')[1] === ("png" || "jpg")) {
+    else if (ext === "png" || ext === "jpg") {
       bundle.load(resName, cc.Texture2D, function (err, asset) {
         if (err) {
           cc.log(JSON.stringify(err));
