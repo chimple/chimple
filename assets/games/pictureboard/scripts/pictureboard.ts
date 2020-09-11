@@ -28,6 +28,13 @@ export default class PictureBoard extends cc.Component {
     @property(cc.Node)
     friendPos: cc.Node = null
 
+    @property(cc.AudioClip)
+    truckInAudio:cc.AudioClip = null
+
+    @property(cc.AudioClip)
+    truckOutAudio:cc.AudioClip = null
+
+
     friend: dragonBones.ArmatureDisplay = null
     numPieces: number = 0;
     text: string = null
@@ -121,6 +128,7 @@ export default class PictureBoard extends cc.Component {
             this.truck.scaleX = -1;
             new cc.Tween().target(this.truck)
                 .set({ x: -cc.winSize.width })
+                .call(()=>{Util.playSfx(this.truckInAudio)})
                 .to(3, { x: -truckX }, { progress: null, easing: 'quadOut' })
                 .call(() => {
                     const anim = this.truck.getComponent(cc.Animation)
@@ -130,6 +138,7 @@ export default class PictureBoard extends cc.Component {
         } else {
             new cc.Tween().target(this.truck)
                 .set({ x: cc.winSize.width })
+                .call(()=>{Util.playSfx(this.truckInAudio)})
                 .to(3, { x: truckX }, { progress: null, easing: 'quadOut' })
                 .call(() => {
                     const anim = this.truck.getComponent(cc.Animation)
@@ -154,6 +163,7 @@ export default class PictureBoard extends cc.Component {
                     anim.play()
                     if (Config.i.direction === Direction.RTL) {
                         new cc.Tween().target(this.truck)
+                        .call(()=>{Util.playSfx(this.truckOutAudio)})
                             .to(3.0, { x: cc.winSize.width * 2 }, { progress: null, easing: 'quadOut' })
                             .call(() => {
                                 this.node.emit('nextProblem')
@@ -162,6 +172,7 @@ export default class PictureBoard extends cc.Component {
                     }
                     else {
                         new cc.Tween().target(this.truck)
+                        .call(()=>{Util.playSfx(this.truckOutAudio)})
                             .to(3.0, { x: -cc.winSize.width * 2 }, { progress: null, easing: 'quadOut' })
                             .call(() => {
                                 this.node.emit('nextProblem')
