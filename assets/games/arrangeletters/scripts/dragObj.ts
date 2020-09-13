@@ -101,7 +101,7 @@ export default class DragObj extends Drag {
         this.allSwapCorrect[i] = true;
       }
     }
-    this.done = this.allSwapCorrect.every((val, i, arr) => val === arr[0]);
+    this.done = this.allSwapCorrect.every((val, i, arr) => val === true);
     cc.log(this.allSwapCorrect)
     cc.log(ArrangeLetters.correctPosition)
     if (this.done) {
