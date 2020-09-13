@@ -1,0 +1,801 @@
+window.__require = function t(e, o, i) {
+function n(a, c) {
+if (!o[a]) {
+if (!e[a]) {
+var s = a.split("/");
+s = s[s.length - 1];
+if (!e[s]) {
+var l = "function" == typeof __require && __require;
+if (!c && l) return l(s, !0);
+if (r) return r(s, !0);
+throw new Error("Cannot find module '" + a + "'");
+}
+a = s;
+}
+var p = o[a] = {
+exports: {}
+};
+e[a][0].call(p.exports, function(t) {
+return n(e[a][1][t] || t);
+}, p, p.exports, t, e, o, i);
+}
+return o[a].exports;
+}
+for (var r = "function" == typeof __require && __require, a = 0; a < i.length; a++) n(i[a]);
+return n;
+}({
+BridgeBuilder: [ function(t, e, o) {
+"use strict";
+cc._RF.push(e, "564342jP1ZJRJCTnRdZqqhf", "BridgeBuilder");
+var i = this && this.__extends || function() {
+var t = function(e, o) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, e) {
+t.__proto__ = e;
+} || function(t, e) {
+for (var o in e) e.hasOwnProperty(o) && (t[o] = e[o]);
+})(e, o);
+};
+return function(e, o) {
+t(e, o);
+function i() {
+this.constructor = e;
+}
+e.prototype = null === o ? Object.create(o) : (i.prototype = o.prototype, new i());
+};
+}(), n = this && this.__decorate || function(t, e, o, i) {
+var n, r = arguments.length, a = r < 3 ? e : null === i ? i = Object.getOwnPropertyDescriptor(e, o) : i;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) a = Reflect.decorate(t, e, o, i); else for (var c = t.length - 1; c >= 0; c--) (n = t[c]) && (a = (r < 3 ? n(a) : r > 3 ? n(e, o, a) : n(e, o)) || a);
+return r > 3 && a && Object.defineProperty(e, o, a), a;
+};
+Object.defineProperty(o, "__esModule", {
+value: !0
+});
+var r = t("./jumpsentence"), a = t("./emptyBox"), c = t("../../../common/scripts/util"), s = t("../../../common/scripts/lib/error-handler"), l = cc._decorator, p = l.ccclass, h = l.property, d = function(t) {
+i(e, t);
+function e() {
+var e = null !== t && t.apply(this, arguments) || this;
+e.layout = null;
+e.filledPrefab = null;
+e.boxPrefab = null;
+e.capsulePrefab = null;
+e.emptyBoxPrefab = null;
+e.emptyCapsulePrefab = null;
+e.answerIndices = new Set();
+e.sentence = "";
+e.boxWidth = 0;
+e.positions = [];
+e.nodeUuid = [];
+e.firstDrag = null;
+e.firstDrop = null;
+e.firstDragData = "";
+e.isCharacterSet = !1;
+e.count = 0;
+return e;
+}
+e.prototype.Build = function(t) {
+this.resetMembers();
+var e = new GraphemeSplitter();
+this.positions = e.splitGraphemes(t);
+for (var o = !0, i = 0; i < this.positions.length; i++) {
+var n = this.positions[i];
+if ("[" != n) if ("]" != n) {
+if ("@" != n && !o) {
+this.answerIndices.add(i);
+this.count++;
+}
+} else o = !0; else o = !1;
+}
+if (!this.isCharacterSet) {
+this.isCharacterSet = !0;
+this.node.getComponent(r.default).SetCharacters(this.answerIndices.size);
+}
+this.buildBridge();
+};
+e.prototype.resetMembers = function() {
+this.answerIndices.clear();
+this.multiLineStartIndex = 0;
+this.sentence = "";
+this.boxWidth = 0;
+this.positions = null;
+this.firstDrag = null;
+this.firstDrop = null;
+this.firstDragData = "";
+};
+e.prototype.buildBridge = function() {
+this.layout.node.width = cc.winSize.width - 200;
+for (var t = "", e = 0; e < this.positions.length; e++) {
+var o = this.positions[e];
+if ("[" != o && "]" != o && "@" != o) if (this.answerIndices.has(e)) if (this.isSpecialCharacter(o)) {
+var i = cc.instantiate(this.emptyCapsulePrefab);
+this.layout.node.insertChild(i, e);
+i.getComponent(a.default).myCharacter = o;
+i.getComponent(a.default).characterIndex = e;
+this.nodeUuid.push(i.uuid);
+this.initializeFirstDrop(i, e);
+} else {
+var n = cc.instantiate(this.emptyBoxPrefab);
+this.layout.node.insertChild(n, e);
+n.getComponent(a.default).myCharacter = o;
+n.getComponent(a.default).characterIndex = e;
+this.nodeUuid.push(n.uuid);
+this.initializeFirstDrop(n, e);
+} else if (e + 1 == this.positions.length || "[" == this.positions[e + 1] || "@" == this.positions[e + 1]) {
+t += o;
+this.boxWidth += 30;
+var r = cc.instantiate(this.filledPrefab);
+this.layout.node.insertChild(r, e);
+this.nodeUuid.push(r.uuid);
+r.getChildByName("Label").getComponent(cc.Label).string = t;
+t = "";
+} else {
+t += o;
+this.boxWidth += 30;
+}
+}
+};
+e.prototype.joinBridge = function(t, e) {
+cc.log("first ", t);
+var o, i, n = this.nodeUuid.indexOf(t.uuid);
+i = n == this.nodeUuid.length - 1 ? new cc.Node() : this.layout.node.getChildByUuid(this.nodeUuid[n + 1]);
+o = 0 == n ? new cc.Node() : this.layout.node.getChildByUuid(this.nodeUuid[n - 1]);
+cc.log(" count  ", this.count);
+if (--this.count < 5) {
+cc.log("reduce bridge manual");
+this.layout.node.width -= 120;
+this.layout.updateLayout();
+}
+if (o.getChildByName("Label") && i.getChildByName("Label")) {
+var r = o.getChildByName("Label").getComponent(cc.Label).string + e + i.getChildByName("Label").getComponent(cc.Label).string, a = this.bridgeUnit(r), c = o.getSiblingIndex();
+o.removeFromParent(!0);
+i.removeFromParent(!0);
+t.removeFromParent(!0);
+this.layout.node.insertChild(a, c);
+this.nodeUuid.splice(n, 2);
+this.nodeUuid[n - 1] = a.uuid;
+} else if (o.getChildByName("Label") && !i.getChildByName("Label")) {
+o.getChildByName("Label").getComponent(cc.Label).string += e;
+t.removeFromParent(!0);
+this.nodeUuid.splice(n, 1);
+} else if (!o.getChildByName("Label") && i.getChildByName("Label")) {
+cc.log("no left ");
+var s = i.getChildByName("Label").getComponent(cc.Label);
+s.string = e + s.string;
+t.removeFromParent(!0);
+this.nodeUuid.splice(n, 1);
+} else {
+cc.log("Middle single cell ");
+c = t.getSiblingIndex(), a = this.bridgeUnit(e);
+t.removeFromParent(!0);
+this.layout.node.insertChild(a, c);
+this.nodeUuid[n] = a.uuid;
+}
+};
+e.prototype.bridgeUnit = function(t) {
+var e = cc.instantiate(this.filledPrefab);
+e.getChildByName("Label").getComponent(cc.Label).string = t;
+e.getComponent(cc.Layout).paddingLeft += 20;
+e.getComponent(cc.Layout).paddingRight += 20;
+return e;
+};
+e.prototype.initializeFirstDrop = function(t, e) {
+if (null == this.firstDrop) {
+this.firstDrop = t;
+this.firstDragData = this.positions[e];
+}
+};
+e.prototype.createChoiceBoxes = function() {
+var t = this, e = [];
+this.answerIndices.forEach(function(o) {
+-1 == e.indexOf(t.positions[o]) && e.push(t.positions[o]);
+});
+var o, i, n = 90 * (o = c.Util.shuffle(e)).length + 10 * (o.length - 1);
+i = n < 1024 ? n / 2 - 45 : 467;
+for (var r = 0, a = 0; r < o.length; r++) {
+var s = o[r], l = this.isSpecialCharacter(s) ? cc.instantiate(this.capsulePrefab) : cc.instantiate(this.boxPrefab);
+s == this.firstDragData && (this.firstDrag = l);
+l.getChildByName("Label").getComponent(cc.Label).string = s;
+l.parent = this.node;
+var p = 100 * r;
+if (p < 1024) {
+cc.log("left " + p);
+l.position = cc.v2(p - i, -200);
+} else {
+p = 100 * a++;
+l.position = cc.v2(p - i, -310);
+}
+}
+cc.log(this.firstDrop + " check " + this.firstDrag);
+};
+e.prototype.isSpecialCharacter = function(t) {
+return " " == t || "!" == t || "?" == t || "," == t || "." == t;
+};
+e.prototype.start = function() {
+var t = this, e = 0;
+this.layout.node.children.forEach(function(t) {
+cc.log("check " + t.name + t.width);
+"Capsule Empty" != t.name && "Box Empty" != t.name || (e += t.width + 5);
+});
+if ((e += this.boxWidth) < cc.winSize.width - 360) {
+this.firstDrop = null;
+this.layout.type = cc.Layout.Type.HORIZONTAL;
+this.layout.resizeMode = cc.Layout.ResizeMode.CONTAINER;
+this.layout.updateLayout();
+this.layout.node.children.forEach(function(o) {
+if ("Capsule Empty" == o.name || "Box Empty" == o.name) {
+e += o.width + 5;
+if (null == t.firstDrop) {
+cc.log("came inside ");
+t.firstDrop = o;
+}
+}
+cc.log("name " + o.name);
+});
+}
+null != this.firstDrag && this.showHelp(this.firstDrag);
+};
+e.prototype.showHelp = function(t) {
+var e = this;
+this.scheduleOnce(function() {
+c.Util.showHelp(t, e.firstDrop);
+}, 1);
+};
+n([ h(cc.Layout) ], e.prototype, "layout", void 0);
+n([ h(cc.Prefab) ], e.prototype, "filledPrefab", void 0);
+n([ h(cc.Prefab) ], e.prototype, "boxPrefab", void 0);
+n([ h(cc.Prefab) ], e.prototype, "capsulePrefab", void 0);
+n([ h(cc.Prefab) ], e.prototype, "emptyBoxPrefab", void 0);
+n([ h(cc.Prefab) ], e.prototype, "emptyCapsulePrefab", void 0);
+n([ s.catchError() ], e.prototype, "Build", null);
+n([ s.catchError() ], e.prototype, "resetMembers", null);
+n([ s.catchError() ], e.prototype, "buildBridge", null);
+n([ s.catchError() ], e.prototype, "joinBridge", null);
+n([ s.catchError() ], e.prototype, "bridgeUnit", null);
+n([ s.catchError() ], e.prototype, "initializeFirstDrop", null);
+n([ s.catchError() ], e.prototype, "createChoiceBoxes", null);
+n([ s.catchError() ], e.prototype, "isSpecialCharacter", null);
+n([ s.catchError() ], e.prototype, "start", null);
+n([ s.catchError() ], e.prototype, "showHelp", null);
+return e = n([ p ], e);
+}(cc.Component);
+o.default = d;
+cc._RF.pop();
+}, {
+"../../../common/scripts/lib/error-handler": void 0,
+"../../../common/scripts/util": void 0,
+"./emptyBox": "emptyBox",
+"./jumpsentence": "jumpsentence"
+} ],
+emptyBox: [ function(t, e, o) {
+"use strict";
+cc._RF.push(e, "87d68E75UVIcpIkjrJbYFtl", "emptyBox");
+var i = this && this.__extends || function() {
+var t = function(e, o) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, e) {
+t.__proto__ = e;
+} || function(t, e) {
+for (var o in e) e.hasOwnProperty(o) && (t[o] = e[o]);
+})(e, o);
+};
+return function(e, o) {
+t(e, o);
+function i() {
+this.constructor = e;
+}
+e.prototype = null === o ? Object.create(o) : (i.prototype = o.prototype, new i());
+};
+}(), n = this && this.__decorate || function(t, e, o, i) {
+var n, r = arguments.length, a = r < 3 ? e : null === i ? i = Object.getOwnPropertyDescriptor(e, o) : i;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) a = Reflect.decorate(t, e, o, i); else for (var c = t.length - 1; c >= 0; c--) (n = t[c]) && (a = (r < 3 ? n(a) : r > 3 ? n(e, o, a) : n(e, o)) || a);
+return r > 3 && a && Object.defineProperty(e, o, a), a;
+};
+Object.defineProperty(o, "__esModule", {
+value: !0
+});
+var r = t("../../../common/scripts/lib/error-handler"), a = cc._decorator, c = a.ccclass, s = a.property, l = function(t) {
+i(e, t);
+function e() {
+var e = null !== t && t.apply(this, arguments) || this;
+e.labelPrefab = null;
+e.myCharacter = "";
+e.characterIndex = -1;
+return e;
+}
+e.prototype.onLoad = function() {
+cc.director.getCollisionManager().enabled = !0;
+this.isDone = !1;
+};
+n([ s(cc.Prefab) ], e.prototype, "labelPrefab", void 0);
+n([ r.catchError() ], e.prototype, "onLoad", null);
+return e = n([ c ], e);
+}(cc.Component);
+o.default = l;
+cc._RF.pop();
+}, {
+"../../../common/scripts/lib/error-handler": void 0
+} ],
+jumpsentence: [ function(t, e, o) {
+"use strict";
+cc._RF.push(e, "30cddqvwJFCyrWv25GpOdqo", "jumpsentence");
+var i = this && this.__extends || function() {
+var t = function(e, o) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, e) {
+t.__proto__ = e;
+} || function(t, e) {
+for (var o in e) e.hasOwnProperty(o) && (t[o] = e[o]);
+})(e, o);
+};
+return function(e, o) {
+t(e, o);
+function i() {
+this.constructor = e;
+}
+e.prototype = null === o ? Object.create(o) : (i.prototype = o.prototype, new i());
+};
+}(), n = this && this.__decorate || function(t, e, o, i) {
+var n, r = arguments.length, a = r < 3 ? e : null === i ? i = Object.getOwnPropertyDescriptor(e, o) : i;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) a = Reflect.decorate(t, e, o, i); else for (var c = t.length - 1; c >= 0; c--) (n = t[c]) && (a = (r < 3 ? n(a) : r > 3 ? n(e, o, a) : n(e, o)) || a);
+return r > 3 && a && Object.defineProperty(e, o, a), a;
+};
+Object.defineProperty(o, "__esModule", {
+value: !0
+});
+var r = t("../../../common/scripts/lib/config"), a = t("./BridgeBuilder"), c = t("../../../common/scripts/util"), s = t("./keyboardAlphabets"), l = t("../../../common/scripts/lib/error-handler"), p = cc._decorator, h = p.ccclass, d = p.property, u = function(t) {
+i(e, t);
+function e() {
+var e = null !== t && t.apply(this, arguments) || this;
+e.soundClip = null;
+e._isRTL = !1;
+e.caseButtonNode = null;
+e.audioNode = null;
+e.lockedKeyboard = null;
+e.unlockedKeyboard = null;
+e.bridgePrefab = null;
+e.charNode = null;
+e.friend = null;
+return e;
+}
+o = e;
+e.prototype.onLoad = function() {
+this._isRTL = r.default.i.direction == r.Direction.RTL;
+var t = r.default.getInstance().data[0];
+this.callCount = 1;
+var e = t.toString().split(",").map(function(t) {
+return /^\d*\.?\d+$/.test(t) ? Number(t) : t;
+});
+this.level = e[0], this.worksheet = e[1], this.problemNo = e[2], this.problem = e[3], 
+this.soundFile = e[4], this.upperCase = e[5], this.keyboardType = e[6];
+cc.log("sound file " + this.soundFile + "F_arr " + e);
+o.updatedSentence = this.problem;
+this.StartGame();
+};
+e.prototype.StartGame = function() {
+this.checkRTLAndChange();
+this.node.getComponent(a.default).Build(this.problem);
+this.ChooseKeyboardType();
+this.onClickPlayAudio();
+this.placeCharNode();
+};
+e.prototype.checkRTLAndChange = function() {
+if (this._isRTL) {
+this.node.getChildByName("Bridge").x = -100;
+this.caseButtonNode.x = -426;
+this.charNode.scaleX = -.3;
+}
+};
+e.prototype.placeCharNode = function() {
+var t = this;
+c.Util.loadFriend(function(e) {
+t.friend = e.getComponent(dragonBones.ArmatureDisplay);
+t.charNode.addChild(e);
+t.friend.playAnimation("idle", 1);
+t.charNode.x = (cc.winSize.width / 2 - 120) * (t._isRTL ? 1 : -1);
+t.node.getChildByName("Wooden Log").x = t.charNode.x;
+});
+};
+e.prototype.ChooseKeyboardType = function() {
+if ("en" == r.default.i.course.lang) if ("locked" == this.keyboardType) {
+this.lockedKeyboard.active = !0;
+this.unlockedKeyboard.active = !1;
+} else {
+this.lockedKeyboard.active = !1;
+this.unlockedKeyboard.active = !0;
+this.caseButtonNode.active = !0;
+"y" == this.upperCase && this.unlockedKeyboard.getChildByName("Alphabets").getComponent(s.default).onClickSwitchCaseButton();
+} else this.node.getComponent(a.default).createChoiceBoxes();
+};
+e.prototype.SetCharacters = function(t) {
+this.charactersLeft = t;
+cc.log("Characters Left " + this.charactersLeft);
+};
+e.prototype.decreaseCharacterByOne = function() {
+var t = this;
+this.charactersLeft -= 1;
+if (0 == this.charactersLeft) {
+null != this.friend && this.friend.armature().animation.stop("jumping2");
+new cc.Tween().target(this.charNode).call(function() {
+null != t.friend && t.friend.playAnimation("jumping2", 1);
+}).to(2, {
+x: this._isRTL ? -50 : 50
+}, {
+progress: null,
+easing: "sineOut"
+}).delay(.5).call(function() {
+null != t.friend && t.friend.playAnimation("jumping2", 1);
+}).to(2, {
+x: (cc.winSize.width / 2 + 150) * (this._isRTL ? -1 : 1)
+}, {
+progress: null,
+easing: "sineOut"
+}).start();
+this.isGameFinished = !0;
+this.PlayAudioOnGameEnd();
+}
+};
+e.prototype.DelayBySeconds = function(t, e) {
+cc.log("In delay function......");
+var o = cc.callFunc(e, this), i = cc.sequence(cc.delayTime(t), o);
+this.node.runAction(i);
+};
+e.prototype.PlayAudioOnGameEnd = function() {
+cc.log("Playing Audio On Game End");
+this.onClickPlayAudio();
+};
+e.prototype.NextGame = function() {
+if (0 == --this.callCount) {
+cc.log("Moving on to Next Problem");
+this.node.emit("nextProblem");
+}
+};
+e.prototype.onClickPlayAudio = function() {
+var t = this;
+cc.log("Audio Play Button " + this.audioNode.name);
+var e = this.audioNode.getComponent(cc.Button);
+e.interactable = !1;
+c.Util.loadGameSound(this.soundFile, function(o) {
+var i = -1;
+if (null != o) {
+t.soundClip = o;
+i = cc.audioEngine.play(t.soundClip, !1, 1);
+}
+if (i >= 0) cc.audioEngine.setFinishCallback(i, function() {
+t.isGameFinished && t.DelayBySeconds(3, t.NextGame);
+e.getComponent(cc.Button).interactable = !0;
+}); else {
+t.isGameFinished && t.DelayBySeconds(3, t.NextGame);
+e.getComponent(cc.Button).interactable = !0;
+}
+});
+};
+e.prototype.onDestroy = function() {
+o.updatedSentence = null;
+};
+var o;
+e.updatedSentence = "";
+n([ d(cc.Node) ], e.prototype, "caseButtonNode", void 0);
+n([ d(cc.Node) ], e.prototype, "audioNode", void 0);
+n([ d(cc.Node) ], e.prototype, "lockedKeyboard", void 0);
+n([ d(cc.Node) ], e.prototype, "unlockedKeyboard", void 0);
+n([ d(cc.Prefab) ], e.prototype, "bridgePrefab", void 0);
+n([ d(cc.Node) ], e.prototype, "charNode", void 0);
+n([ l.catchError() ], e.prototype, "onLoad", null);
+n([ l.catchError() ], e.prototype, "StartGame", null);
+n([ l.catchError() ], e.prototype, "checkRTLAndChange", null);
+n([ l.catchError() ], e.prototype, "placeCharNode", null);
+n([ l.catchError() ], e.prototype, "ChooseKeyboardType", null);
+n([ l.catchError() ], e.prototype, "SetCharacters", null);
+n([ l.catchError() ], e.prototype, "decreaseCharacterByOne", null);
+n([ l.catchError() ], e.prototype, "DelayBySeconds", null);
+n([ l.catchError() ], e.prototype, "PlayAudioOnGameEnd", null);
+n([ l.catchError() ], e.prototype, "NextGame", null);
+n([ l.catchError() ], e.prototype, "onClickPlayAudio", null);
+n([ l.catchError() ], e.prototype, "onDestroy", null);
+return e = o = n([ h ], e);
+}(cc.Component);
+o.default = u;
+cc._RF.pop();
+}, {
+"../../../common/scripts/lib/config": void 0,
+"../../../common/scripts/lib/error-handler": void 0,
+"../../../common/scripts/util": void 0,
+"./BridgeBuilder": "BridgeBuilder",
+"./keyboardAlphabets": "keyboardAlphabets"
+} ],
+keyboardAlphabets: [ function(t, e, o) {
+"use strict";
+cc._RF.push(e, "cd9b9bRGx1DPrIQXfAGL8ud", "keyboardAlphabets");
+var i = this && this.__extends || function() {
+var t = function(e, o) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, e) {
+t.__proto__ = e;
+} || function(t, e) {
+for (var o in e) e.hasOwnProperty(o) && (t[o] = e[o]);
+})(e, o);
+};
+return function(e, o) {
+t(e, o);
+function i() {
+this.constructor = e;
+}
+e.prototype = null === o ? Object.create(o) : (i.prototype = o.prototype, new i());
+};
+}(), n = this && this.__decorate || function(t, e, o, i) {
+var n, r = arguments.length, a = r < 3 ? e : null === i ? i = Object.getOwnPropertyDescriptor(e, o) : i;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) a = Reflect.decorate(t, e, o, i); else for (var c = t.length - 1; c >= 0; c--) (n = t[c]) && (a = (r < 3 ? n(a) : r > 3 ? n(e, o, a) : n(e, o)) || a);
+return r > 3 && a && Object.defineProperty(e, o, a), a;
+};
+Object.defineProperty(o, "__esModule", {
+value: !0
+});
+var r = t("./language"), a = t("../../../common/scripts/lib/config"), c = t("./language"), s = t("./language"), l = t("../../../common/scripts/lib/error-handler"), p = cc._decorator, h = p.ccclass, d = p.property, u = function(t) {
+i(e, t);
+function e() {
+var e = null !== t && t.apply(this, arguments) || this;
+e.keys = [];
+e.language = r.Language.English;
+e.case = c.Case.Lower;
+return e;
+}
+e.prototype.onLoad = function() {
+switch (a.default.i.course.lang) {
+case "en":
+this.language = r.Language.English;
+break;
+
+case "ur":
+this.language = r.Language.Urdu;
+break;
+
+case "hi":
+this.language = r.Language.Hindi;
+}
+var t = s.default.GetAlphabets(this.language, this.case);
+this.keys.forEach(function(e, o) {
+e.string = t[o];
+e.fontSize = 60;
+e.lineHeight = 65;
+});
+0 == this.keys.length && this.hideKeyboard();
+};
+e.prototype.hideKeyboard = function() {
+this.node.parent.active = !1;
+};
+e.prototype.onClickSwitchCaseButton = function() {
+var t = this.node.parent.parent.getChildByName("Case");
+if (this.case == c.Case.Lower) {
+t.getChildByName("Upper Case").active = !1;
+t.getChildByName("Lower Case").active = !0;
+this.case = c.Case.Upper;
+var e = s.default.GetAlphabets(this.language, this.case);
+this.keys.forEach(function(t, o) {
+t.string = e[o];
+});
+} else if (this.case == c.Case.Upper) {
+t.getChildByName("Lower Case").active = !1;
+t.getChildByName("Upper Case").active = !0;
+this.case = c.Case.Lower;
+var o = s.default.GetAlphabets(this.language, this.case);
+this.keys.forEach(function(t, e) {
+t.string = o[e];
+});
+}
+};
+e.prototype.start = function() {};
+n([ d(cc.Label) ], e.prototype, "keys", void 0);
+n([ d({
+type: cc.Enum(r.Language)
+}) ], e.prototype, "language", void 0);
+n([ d({
+type: cc.Enum(c.Case)
+}) ], e.prototype, "case", void 0);
+n([ l.catchError() ], e.prototype, "onLoad", null);
+n([ l.catchError() ], e.prototype, "hideKeyboard", null);
+n([ l.catchError() ], e.prototype, "onClickSwitchCaseButton", null);
+return e = n([ h ], e);
+}(cc.Component);
+o.default = u;
+cc._RF.pop();
+}, {
+"../../../common/scripts/lib/config": void 0,
+"../../../common/scripts/lib/error-handler": void 0,
+"./language": "language"
+} ],
+keyboardbutton: [ function(t, e, o) {
+"use strict";
+cc._RF.push(e, "f69cfaE/GZDaaJTkALjL45G", "keyboardbutton");
+var i = this && this.__extends || function() {
+var t = function(e, o) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, e) {
+t.__proto__ = e;
+} || function(t, e) {
+for (var o in e) e.hasOwnProperty(o) && (t[o] = e[o]);
+})(e, o);
+};
+return function(e, o) {
+t(e, o);
+function i() {
+this.constructor = e;
+}
+e.prototype = null === o ? Object.create(o) : (i.prototype = o.prototype, new i());
+};
+}(), n = this && this.__decorate || function(t, e, o, i) {
+var n, r = arguments.length, a = r < 3 ? e : null === i ? i = Object.getOwnPropertyDescriptor(e, o) : i;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) a = Reflect.decorate(t, e, o, i); else for (var c = t.length - 1; c >= 0; c--) (n = t[c]) && (a = (r < 3 ? n(a) : r > 3 ? n(e, o, a) : n(e, o)) || a);
+return r > 3 && a && Object.defineProperty(e, o, a), a;
+};
+Object.defineProperty(o, "__esModule", {
+value: !0
+});
+var r = t("./emptyBox"), a = t("./jumpsentence"), c = t("./BridgeBuilder"), s = t("../../../common/scripts/lib/config"), l = t("../../../common/scripts/util"), p = t("../../../common/scripts/lib/error-handler"), h = cc._decorator, d = h.ccclass, u = h.property, f = function(t) {
+i(e, t);
+function e() {
+var e = null !== t && t.apply(this, arguments) || this;
+e._soundClip = null;
+e.labelPrefab = null;
+e.fillSprite = null;
+e.hindiKeyBoard = !1;
+return e;
+}
+e.prototype.onLoad = function() {
+var t = this;
+cc.director.getCollisionManager().enabled = !0;
+this.node.on("touchstart", this.onTouchStart, this);
+this.node.on("touchmove", this.onTouchMove, this);
+this.node.on("touchend", this.onTouchEnd, this);
+this.node.on("touchcancel", this.onTouchEnd, this);
+this.bridgeComp = this.node.parent.parent.parent.getComponent(c.default);
+var e = this.node.getChildByName("Label").getComponent(cc.Label).string;
+"en" != s.default.i.course.lang || e != this.bridgeComp.firstDragData.toUpperCase() && e != this.bridgeComp.firstDragData.toLowerCase() || this.bridgeComp.showHelp(this.node);
+var o = this.node.getChildByName("Label").getComponent(cc.Label).string, i = new RegExp("[a-z]|[A-Z]");
+"en" == s.default.i.course.lang && i.test(o) && l.Util.loadsLetter(o.toLowerCase(), function(e) {
+t._soundClip = e;
+});
+};
+e.prototype.onCollisionStay = function(t, e) {
+cc.log("Colliding with empty box expecting " + t.node.getComponent(r.default).myCharacter + " getting : " + this.node.getChildByName("Label").getComponent(cc.Label).string);
+this.collidingBox && t.node.name != this.collidingBox.name && this.onCollisionExit(t, e);
+this.collidingBox = t.node;
+if (this.collidingBox.getComponent(r.default).myCharacter === this.node.getChildByName("Label").getComponent(cc.Label).string) {
+this.collidingBox.getChildByName("Glow Box").opacity = 255;
+this.isProcessing = !0;
+this.isDone = !1;
+this.collidingBox = t.node;
+} else this.isProcessing = !1;
+};
+e.prototype.onCollisionExit = function(t, e) {
+this.collidingBox && (this.collidingBox.getChildByName("Glow Box").opacity = 0);
+this.isProcessing = !1;
+};
+e.prototype.onTouchStart = function(t) {
+if (0 == t.getID()) {
+this.myOriginalLocation = this.node.position;
+cc.log("Original Location " + this.myOriginalLocation);
+this.isTouchEnded = !1;
+this.isProcessing = !1;
+try {
+this._soundClip && l.Util.play(this._soundClip, !1);
+} catch (t) {
+console.log("Failed playing sound");
+}
+}
+};
+e.prototype.onTouchMove = function(t) {
+if (0 == t.getID()) {
+this.node.position = this.node.position.add(t.getDelta());
+if (this.isProcessing) {
+cc.log("Empty Box Chr " + this.collidingBox.getComponent(r.default).myCharacter + "label " + this.node.getChildByName("Label").getComponent(cc.Label).string + "!is Done " + !this.isDone);
+if (this.collidingBox.getComponent(r.default).myCharacter === this.node.getChildByName("Label").getComponent(cc.Label).string && !this.isDone) if ("Empty Box" == this.collidingBox.name || "Capsule Empty" == this.collidingBox.name) {
+cc.log("came active " + this.collidingBox.children[0]);
+this.collidingBox.getChildByName("Glow Box").opacity = 255;
+} else this.collidingBox.getChildByName("Glow Box").opacity = 0;
+}
+}
+};
+e.prototype.onTouchEnd = function(t) {
+if (0 == t.getID()) if (this.isProcessing) {
+console.log(this.collidingBox.getComponent(r.default).characterIndex, " This is myindex ");
+if (this.collidingBox.getComponent(r.default).myCharacter === this.node.getChildByName("Label").getComponent(cc.Label).string && !this.isDone) {
+"en" == s.default.i.course.lang ? this.node.parent.parent.parent.emit("correct") : this.node.parent.emit("correct");
+this.isDone = !0;
+this.bridgeComp.joinBridge(this.collidingBox, this.node.getChildByName("Label").getComponent(cc.Label).string);
+var e = cc.callFunc(this.onBacktoOriginalPlace, this);
+cc.log("Setting Back to Original Location on Touch End after success");
+var o = cc.sequence(cc.moveTo(.05, this.myOriginalLocation), e);
+this.node.runAction(o);
+this.node.position = this.myOriginalLocation;
+}
+} else {
+this.isProcessing = !1;
+cc.log("Setting Back to Original Location on Touch End if not colliding");
+this.node.position = this.myOriginalLocation;
+"en" == s.default.i.course.lang ? this.node.parent.parent.parent.emit("wrong") : this.node.parent.emit("wrong");
+}
+};
+e.prototype.onBacktoOriginalPlace = function() {
+cc.log("Setting Back Opacity to Opaque");
+this.node.opacity = 255;
+this.collidingBox.getComponent(cc.BoxCollider).enabled = !1;
+if (this.hindiKeyBoard) {
+cc.log("came hindi touch end");
+this.node.parent.getComponent(a.default).decreaseCharacterByOne();
+} else this.node.getParent().getParent().getParent().getComponent(a.default).decreaseCharacterByOne();
+};
+n([ u(cc.Prefab) ], e.prototype, "labelPrefab", void 0);
+n([ u(cc.SpriteFrame) ], e.prototype, "fillSprite", void 0);
+n([ u({
+type: Boolean
+}) ], e.prototype, "hindiKeyBoard", void 0);
+n([ p.catchError() ], e.prototype, "onLoad", null);
+n([ p.catchError() ], e.prototype, "onCollisionStay", null);
+n([ p.catchError() ], e.prototype, "onCollisionExit", null);
+n([ p.catchError() ], e.prototype, "onTouchStart", null);
+n([ p.catchError() ], e.prototype, "onTouchMove", null);
+n([ p.catchError() ], e.prototype, "onTouchEnd", null);
+n([ p.catchError() ], e.prototype, "onBacktoOriginalPlace", null);
+return e = n([ d ], e);
+}(cc.Component);
+o.default = f;
+cc._RF.pop();
+}, {
+"../../../common/scripts/lib/config": void 0,
+"../../../common/scripts/lib/error-handler": void 0,
+"../../../common/scripts/util": void 0,
+"./BridgeBuilder": "BridgeBuilder",
+"./emptyBox": "emptyBox",
+"./jumpsentence": "jumpsentence"
+} ],
+language: [ function(t, e, o) {
+"use strict";
+cc._RF.push(e, "97503HpiJlAYY3tniA34wcI", "language");
+Object.defineProperty(o, "__esModule", {
+value: !0
+});
+o.Case = o.Language = void 0;
+var i, n;
+(function(t) {
+t[t.English = 0] = "English";
+t[t.Hindi = 1] = "Hindi";
+t[t.Urdu = 2] = "Urdu";
+})(i = o.Language || (o.Language = {}));
+(function(t) {
+t[t.Upper = 0] = "Upper";
+t[t.Lower = 1] = "Lower";
+t[t.None = 2] = "None";
+})(n = o.Case || (o.Case = {}));
+var r = function() {
+function t() {}
+t.GetAlphabets = function(t, e) {
+switch (t) {
+case i.English:
+return e == n.Upper ? this.alphabets.en.upper : this.alphabets.en.lower;
+
+case i.Hindi:
+return this.alphabets.hi;
+
+case i.Urdu:
+return this.alphabets.ur;
+}
+};
+t.alphabets = {
+en: {
+upper: [ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" ],
+lower: [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" ]
+},
+ur: {},
+hi: {}
+};
+return t;
+}();
+o.default = r;
+cc._RF.pop();
+}, {} ]
+}, {}, [ "BridgeBuilder", "emptyBox", "jumpsentence", "keyboardAlphabets", "keyboardbutton", "language" ]);

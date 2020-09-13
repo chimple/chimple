@@ -1,0 +1,6768 @@
+window.__require = function e(t, n, o) {
+function r(c, a) {
+if (!n[c]) {
+if (!t[c]) {
+var s = c.split("/");
+s = s[s.length - 1];
+if (!t[s]) {
+var u = "function" == typeof __require && __require;
+if (!a && u) return u(s, !0);
+if (i) return i(s, !0);
+throw new Error("Cannot find module '" + c + "'");
+}
+c = s;
+}
+var l = n[c] = {
+exports: {}
+};
+t[c][0].call(l.exports, function(e) {
+return r(t[c][1][e] || e);
+}, l, l.exports, e, t, n, o);
+}
+return n[c].exports;
+}
+for (var i = "function" == typeof __require && __require, c = 0; c < o.length; c++) r(o[c]);
+return r;
+}({
+ParseImageDownloader: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "b1d9baNS35ECb5weFAJ5gKr", "ParseImageDownloader");
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ParseImageDownloader = void 0;
+var o = e("./ParseNetwork"), r = e("../../common/scripts/util-logger"), i = function() {
+function e() {}
+e.checkIfImageAlreadyDownloaded = function(e) {
+return o.ParseNetwork.getStringFromCache(e);
+};
+e.loadImage = function(t, n) {
+if (e.downloadStatuses.get(t)) cc.log("downloading in progress ...", t); else {
+e.downloadStatuses.set(t, !0);
+e.isNative() ? e.downloadImageFromNetworkAndSave(t, n) : e.loadImageFromNetwork(t, n);
+}
+};
+e.downloadImageFromNetworkAndSave = function(t, n) {
+var i = this, c = jsb.fileUtils.getWritablePath() + "/school-photos/";
+cc.log("_storagePath", c);
+if (jsb.fileUtils.createDirectory(c)) {
+var a = c + t.substring(t.lastIndexOf("/") + 1), s = r.default.isNetworkAvailable();
+if (o.ParseNetwork.getStringFromCache(a)) {
+cc.log("image found in cache", a);
+this.loadImageFromNetwork(a, n);
+} else if (s) {
+var u = new jsb.Downloader();
+u.setOnFileTaskSuccess(function(e) {
+cc.log("setOnFileTaskSuccess called for:", e.requestURL, " stored: ", e.storagePath);
+o.ParseNetwork.storeIntoCache(e.storagePath, "true");
+i.loadImageFromNetwork(e.storagePath, n);
+});
+u.setOnTaskError(function(t, n, o, r) {
+e.downloadStatuses.set(t.requestURL, !1);
+cc.log("Failed to download file (" + t.requestURL + "): " + r + "(" + n + ")");
+i.clearDownloadStatus(t.requestURL);
+});
+u.createDownloadFileTask(t, a);
+}
+} else {
+cc.log("Failed to create storage path, downloader won't work correctly");
+e.downloadStatuses.set(t, !1);
+}
+};
+e.clearDownloadStatus = function(t) {
+cc.log("clear download status", t);
+e.downloadStatuses.delete(t);
+};
+e.loadImageFromNetwork = function(e, t) {
+try {
+cc.assetManager.loadRemote(e, function(n, o) {
+if (!n && o) {
+cc.log("successfully loadImageFromNetwork", e);
+t(o);
+} else cc.log("failed loadImageFromNetwork", e);
+});
+} catch (e) {
+cc.error(e);
+t(null);
+} finally {
+this.clearDownloadStatus(e);
+}
+};
+e.isNative = function() {
+return cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID;
+};
+e.downloadStatuses = new Map();
+return e;
+}();
+n.ParseImageDownloader = i;
+cc._RF.pop();
+}, {
+"../../common/scripts/util-logger": void 0,
+"./ParseNetwork": "ParseNetwork"
+} ],
+ParseNetwork: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "0488c1hOmBHirQ4TvGnU1WD", "ParseNetwork");
+var o = this && this.__awaiter || function(e, t, n, o) {
+function r(e) {
+return e instanceof n ? e : new n(function(t) {
+t(e);
+});
+}
+return new (n || (n = Promise))(function(n, i) {
+function c(e) {
+try {
+s(o.next(e));
+} catch (e) {
+i(e);
+}
+}
+function a(e) {
+try {
+s(o.throw(e));
+} catch (e) {
+i(e);
+}
+}
+function s(e) {
+e.done ? n(e.value) : r(e.value).then(c, a);
+}
+s((o = o.apply(e, t || [])).next());
+});
+}, r = this && this.__generator || function(e, t) {
+var n, o, r, i, c = {
+label: 0,
+sent: function() {
+if (1 & r[0]) throw r[1];
+return r[1];
+},
+trys: [],
+ops: []
+};
+return i = {
+next: a(0),
+throw: a(1),
+return: a(2)
+}, "function" == typeof Symbol && (i[Symbol.iterator] = function() {
+return this;
+}), i;
+function a(e) {
+return function(t) {
+return s([ e, t ]);
+};
+}
+function s(i) {
+if (n) throw new TypeError("Generator is already executing.");
+for (;c; ) try {
+if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 
+0) : o.next) && !(r = r.call(o, i[1])).done) return r;
+(o = 0, r) && (i = [ 2 & i[0], r.value ]);
+switch (i[0]) {
+case 0:
+case 1:
+r = i;
+break;
+
+case 4:
+c.label++;
+return {
+value: i[1],
+done: !1
+};
+
+case 5:
+c.label++;
+o = i[1];
+i = [ 0 ];
+continue;
+
+case 7:
+i = c.ops.pop();
+c.trys.pop();
+continue;
+
+default:
+if (!(r = c.trys, r = r.length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
+c = 0;
+continue;
+}
+if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
+c.label = i[1];
+break;
+}
+if (6 === i[0] && c.label < r[1]) {
+c.label = r[1];
+r = i;
+break;
+}
+if (r && c.label < r[2]) {
+c.label = r[2];
+c.ops.push(i);
+break;
+}
+r[2] && c.ops.pop();
+c.trys.pop();
+continue;
+}
+i = t.call(e, c);
+} catch (e) {
+i = [ 6, e ];
+o = 0;
+} finally {
+n = r = 0;
+}
+if (5 & i[0]) throw i[1];
+return {
+value: i[0] ? i[1] : void 0,
+done: !0
+};
+}
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ParseNetwork = n.PARSE_CACHE = void 0;
+var i = e("../domain/parseConstants"), c = e("./parseApi"), a = e("../../queue"), s = e("../../common/scripts/lib/constants");
+n.PARSE_CACHE = "PARSE_CACHE";
+cc.processQueue = function() {
+u.getInstance().consumeMessage();
+};
+var u = function() {
+function e() {
+this.cacheTimeInMillis = 9e5;
+this.cachedApiTimings = new Map();
+this.isHandlerBusy = !1;
+this.handler = null;
+}
+e.init = function() {
+e.getInstance();
+};
+e.getInstance = function() {
+if (!e.instance) {
+e.instance = new e();
+var t = e.instance.getParseObjectFromCache(n.PARSE_CACHE);
+t && Object.keys(t).forEach(function(n) {
+e.instance.cachedApiTimings.set(n, t[n]);
+});
+c.ParseApi.getInstance();
+e.instance.startOnlyIfWeb();
+}
+return e.instance;
+};
+e.prototype.clearCache = function() {
+var t = e.instance.getParseObjectFromCache(n.PARSE_CACHE);
+Object.keys(t).forEach(function(t) {
+e.instance.cachedApiTimings.delete(t);
+cc.sys.localStorage.removeFromCache(t);
+});
+};
+e.prototype.withQuery = function(e, t, n, o, r) {
+if (!t) return e;
+var i = this.queryParams(t, n), c = -1 === e.indexOf("?") ? "?" : "&";
+return i ? e + c + i + (o ? "&include=" + o : "") + (r ? "&keys=" + r : "") : e;
+};
+e.prototype.queryParams = function(e, t) {
+return t ? "where=" + JSON.stringify(e) : Object.keys(e).map(function(t) {
+return encodeURIComponent(t) + "=" + encodeURIComponent(e[t]);
+}).join("&");
+};
+e.prototype.parseXHRResult = function(e) {
+var t = "" === e.responseType || "text" === e.responseType;
+e.responseType;
+return {
+ok: e.status >= 200 && e.status < 300,
+status: e.status,
+statusText: e.statusText,
+responseType: e.responseType,
+headers: e.getAllResponseHeaders(),
+data: t ? e.responseText : e.response
+};
+};
+e.prototype.errorResponse = function(e, t) {
+void 0 === t && (t = null);
+return {
+ok: !1,
+status: e.status,
+statusText: e.statusText,
+headers: e.getAllResponseHeaders(),
+data: t || e.statusText
+};
+};
+e.prototype.storeIntoCache = function(e, t) {
+var n = "object" == typeof t ? JSON.stringify(t) : t;
+cc.sys.localStorage.setItem(e, n);
+};
+e.prototype.removeFromCache = function(e) {
+cc.sys.localStorage.removeItem(e);
+};
+e.prototype.getStringFromCache = function(e) {
+return cc.sys.localStorage.getItem(e);
+};
+e.prototype.getParseObjectFromCache = function(e) {
+try {
+return JSON.parse(cc.sys.localStorage.getItem(e));
+} catch (e) {
+return null;
+}
+};
+e.prototype.getAuthHeader = function() {
+var e = c.ParseApi.getInstance().getLoggedInUser(), t = {
+"X-Parse-Application-Id": i.APPLICATION_ID,
+"X-Parse-REST-API-Key": i.PARSE_REST_API_KEY,
+Accept: "application/json"
+};
+e && e.sessionToken && (t["x-parse-session-token"] = e.sessionToken);
+return t;
+};
+e.prototype.createMonitor = function(t, n) {
+void 0 === n && (n = null);
+return o(this, void 0, void 0, function() {
+var o, c, a;
+return r(this, function(r) {
+switch (r.label) {
+case 0:
+n = n || {
+ignoreCache: !1,
+headers: e.getInstance().getAuthHeader(),
+timeout: i.DEFAULT_TIMEOUT
+};
+o = null;
+r.label = 1;
+
+case 1:
+r.trys.push([ 1, 3, , 4 ]);
+return [ 4, e.getInstance().request(i.POST, t, n) ];
+
+case 2:
+c = r.sent();
+cc.log(c);
+return [ 3, 4 ];
+
+case 3:
+a = r.sent();
+cc.log("exception:", a);
+return [ 3, 4 ];
+
+case 4:
+return [ 2, o ];
+}
+});
+});
+};
+e.prototype.isEmpty = function(e) {
+for (var t in e) if (e.hasOwnProperty(t)) return !1;
+return !0;
+};
+e.prototype.isCacheValidForKey = function(t) {
+var n = new Date().getTime(), o = e.getInstance().cachedApiTimings.get(t) || 0, r = e.getInstance().getStringFromCache(t), i = !1;
+try {
+var c = JSON.parse(r);
+i = !e.getInstance().isEmpty(c);
+} catch (e) {}
+return n < o && i;
+};
+e.prototype.get = function(t, n, c) {
+void 0 === n && (n = null);
+void 0 === c && (c = null);
+return o(this, void 0, void 0, function() {
+var o, a, s;
+return r(this, function(r) {
+switch (r.label) {
+case 0:
+c = c || {
+ignoreCache: !1,
+headers: e.getInstance().getAuthHeader(),
+timeout: i.DEFAULT_TIMEOUT
+};
+o = null;
+!1;
+r.label = 1;
+
+case 1:
+r.trys.push([ 1, 5, , 6 ]);
+if (!(n && e.getInstance().isCacheValidForKey(n))) return [ 3, 2 ];
+o = e.getInstance().getParseObjectFromCache(n);
+return [ 3, 4 ];
+
+case 2:
+return [ 4, e.getInstance().request(i.GET, t, c) ];
+
+case 3:
+a = r.sent();
+o = e.getInstance().processResult(a, n);
+r.label = 4;
+
+case 4:
+return [ 3, 6 ];
+
+case 5:
+s = r.sent();
+cc.log("exception:", s);
+return [ 3, 6 ];
+
+case 6:
+return [ 2, o ];
+}
+});
+});
+};
+e.prototype.update = function(t, n) {
+void 0 === n && (n = null);
+return o(this, void 0, Promise, function() {
+var o, c;
+return r(this, function(r) {
+switch (r.label) {
+case 0:
+n = n || {
+ignoreCache: !1,
+headers: e.getInstance().getAuthHeader(),
+timeout: i.DEFAULT_TIMEOUT
+};
+r.label = 1;
+
+case 1:
+r.trys.push([ 1, 3, , 4 ]);
+return [ 4, e.getInstance().request(i.PUT, t, n) ];
+
+case 2:
+o = r.sent();
+cc.log("result:", o);
+return [ 3, 4 ];
+
+case 3:
+c = r.sent();
+cc.log("exception:", c);
+return [ 3, 4 ];
+
+case 4:
+return [ 2 ];
+}
+});
+});
+};
+e.prototype.post = function(t, n) {
+void 0 === n && (n = null);
+return o(this, void 0, Promise, function() {
+var o, c;
+return r(this, function(r) {
+switch (r.label) {
+case 0:
+n = n || {
+ignoreCache: !1,
+headers: e.getInstance().getAuthHeader(),
+timeout: i.DEFAULT_TIMEOUT
+};
+r.label = 1;
+
+case 1:
+r.trys.push([ 1, 3, , 4 ]);
+return [ 4, e.getInstance().request(i.POST, t, n) ];
+
+case 2:
+o = r.sent();
+cc.log("result:", o);
+return [ 3, 4 ];
+
+case 3:
+c = r.sent();
+cc.log("exception:", c);
+return [ 3, 4 ];
+
+case 4:
+return [ 2 ];
+}
+});
+});
+};
+e.prototype.createPointer = function(e, t) {
+return {
+__type: "Pointer",
+className: e,
+objectId: t
+};
+};
+e.prototype.createFilePointer = function(e, t) {
+return {
+__type: "File",
+name: e,
+url: t
+};
+};
+e.prototype.processResult = function(t, o) {
+var r = null;
+try {
+if (t && t.data && t.ok && !t.data.error) {
+"" === t.responseType || t.responseType;
+var i = "json" === t.responseType, c = "arraybuffer" === t.responseType, a = new Date().getTime() + e.getInstance().cacheTimeInMillis;
+if (i) {
+"results" in (r = t.data) && Array.isArray(r.results) && (r = r.results);
+o && e.getInstance().storeIntoCache(o, r);
+e.getInstance().cachedApiTimings.set(o, a);
+} else if (c) {
+var s = this.createBase64Image(t);
+o && e.getInstance().storeIntoCache(o, s);
+e.getInstance().cachedApiTimings.set(o, a);
+}
+} else r = o ? e.getInstance().getParseObjectFromCache(o) : null;
+} catch (e) {
+cc.log("exception", e);
+} finally {
+var u = {};
+e.getInstance().cachedApiTimings.forEach(function(e, t) {
+t && (u[t] = e);
+});
+e.getInstance().storeIntoCache(n.PARSE_CACHE, u);
+}
+return r;
+};
+e.prototype.createBase64Image = function(e) {
+for (var t = new Uint8Array(e.data), n = t.length, o = new Array(n); n--; ) o[n] = String.fromCharCode(t[n]);
+return window.btoa(o.join(""));
+};
+e.prototype.request = function(e, t, n) {
+var o = this, r = t.url, c = t.queryParams, a = t.body, s = t.isWhereQuery, u = t.includeParam, l = t.keysParam, p = n.ignoreCache || !1, d = n.headers, h = n.timeout || i.DEFAULT_TIMEOUT;
+return new Promise(function(t, f) {
+var g = cc.loader.getXMLHttpRequest();
+g.responseType = n.responseType ? n.responseType : "json";
+var m = o.withQuery(r, c, s, u, l);
+g.open(e, m, !0);
+d && Object.keys(d).forEach(function(e) {
+return g.setRequestHeader(e, d[e]);
+});
+p && g.setRequestHeader("Cache-Control", "no-cache");
+g.timeout = h;
+g.onload = function(e) {
+t(o.parseXHRResult(g));
+};
+g.onerror = function(e) {
+t(o.errorResponse(g, "Failed to make request."));
+};
+g.ontimeout = function(e) {
+t(o.errorResponse(g, "Request took longer than expected."));
+};
+if (e !== i.POST && e !== i.PUT || !a) g.send(); else {
+g.setRequestHeader("Content-Type", "application/json");
+g.send(JSON.stringify(a));
+}
+});
+};
+e.prototype.consumeMessage = function() {
+if (!e.getInstance().isHandlerBusy) {
+this.isHandlerBusy = !0;
+for (var t = function() {
+var e = a.Queue.getInstance().pop();
+cc.log("found payload to process", e);
+if (e && e.studentId) switch (e.kind) {
+case "Progress":
+cc.log("calling update progress API");
+c.ParseApi.getInstance().updateProgress(e).then(function(e) {
+return cc.log(e);
+}).catch(function(t) {
+a.Queue.getInstance().push(e);
+});
+break;
+
+case "Monitor":
+cc.log("calling update monitor API");
+c.ParseApi.getInstance().updateMonitor(e).then(function(e) {
+return cc.log(e);
+}).catch(function(t) {
+a.Queue.getInstance().push(e);
+});
+break;
+
+case "Profile":
+cc.log("calling update profile API");
+c.ParseApi.getInstance().updateProfile(e).then(function(t) {
+return cc.log("successfully updated profile ", e.studentId);
+}).catch(function(t) {
+cc.log("failed to update profile ", e.studentId, " with error ", t);
+a.Queue.getInstance().push(e);
+});
+break;
+
+default:
+cc.log("found payload with no handler.. ignoring", e);
+}
+}; !a.Queue.getInstance().isEmpty(); ) t();
+this.isHandlerBusy = !1;
+cc.log("finished queue processing -> resetting isHandlerBusy", this.isHandlerBusy);
+}
+};
+e.prototype.startOnlyIfWeb = function() {
+if (cc.sys.isBrowser) {
+e.getInstance().clearScheduler();
+e.getInstance().startScheduler();
+}
+};
+e.prototype.startScheduler = function() {
+this.handler = setInterval(this.consumeMessage, s.QUEUE_OFFLOAD_FREQUENCY);
+};
+e.prototype.clearScheduler = function() {
+this.handler && clearInterval(this.handler);
+};
+return e;
+}();
+n.ParseNetwork = u;
+cc._RF.pop();
+}, {
+"../../common/scripts/lib/constants": void 0,
+"../../queue": void 0,
+"../domain/parseConstants": "parseConstants",
+"./parseApi": "parseApi"
+} ],
+ageAndGender: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "31f817xNj1LHLaIlwOOEhQn", "ageAndGender");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("./collectUserInfo"), c = e("../../../../common/scripts/lib/profile"), a = cc._decorator, s = a.ccclass, u = a.property, l = function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.ageNode = null;
+t.genderNode = null;
+t.lastSelectedGender = -1;
+t.normalSprite = null;
+t.lastSelectedAge = -1;
+t.normalAgeSprite = null;
+t.nextButtonLabel = null;
+return t;
+}
+t.prototype.onLoad = function() {
+this.nextButtonLabel.string = "start";
+};
+t.prototype.onAgeClick = function(e) {
+if (this.lastSelectedAge > -1) {
+this.ageNode.getChildByName(this.lastSelectedAge.toString()).getComponent(cc.Button).pressedSprite = this.ageNode.getChildByName(this.lastSelectedAge.toString()).getComponent(cc.Button).normalSprite;
+this.ageNode.getChildByName(this.lastSelectedAge.toString()).getComponent(cc.Button).normalSprite = this.normalSprite;
+}
+this.normalSprite = this.ageNode.getChildByName(e.currentTarget.name).getComponent(cc.Button).normalSprite;
+this.ageNode.getChildByName(e.currentTarget.name).getComponent(cc.Button).normalSprite = this.ageNode.getChildByName(e.currentTarget.name).getComponent(cc.Button).pressedSprite;
+this.ageNode.getChildByName(e.currentTarget.name).getComponent(cc.Button).pressedSprite = this.normalSprite;
+this.lastSelectedAge = parseInt(e.currentTarget.name);
+for (var t = 0; t < this.ageNode.childrenCount; t++) this.ageNode.children[t].getChildByName("Background").getChildByName("Label").color = new cc.Color().fromHEX("#325B6B");
+e.target.getChildByName("Background").getChildByName("Label").color = new cc.Color().fromHEX("#3DC911");
+this.node.getParent().getParent().getComponent(i.default).userAge = parseInt(e.currentTarget.name);
+this.node.getParent().getParent().getComponent(i.default).nextButton.interactable = !0;
+this.node.getParent().getParent().getComponent(i.default).isLastScene = !0;
+};
+t.prototype.onGenderClick = function(e) {
+var t = "indiegenderprefab" + this.lastSelectedGender.toString();
+if (this.lastSelectedGender > -1) {
+this.genderNode.getChildByName(t).getChildByName(this.lastSelectedGender.toString()).getComponent(cc.Button).pressedSprite = this.genderNode.getChildByName(t).getChildByName(this.lastSelectedGender.toString()).getComponent(cc.Button).normalSprite;
+this.genderNode.getChildByName(t).getChildByName(this.lastSelectedGender.toString()).getComponent(cc.Button).normalSprite = this.normalAgeSprite;
+this.genderNode.getChildByName(t).getChildByName(this.lastSelectedGender.toString()).getChildByName("tick").active = !1;
+}
+t = "indiegenderprefab" + e.currentTarget.name;
+this.normalAgeSprite = this.genderNode.getChildByName(t).getChildByName(e.currentTarget.name).getComponent(cc.Button).normalSprite;
+this.genderNode.getChildByName(t).getChildByName(e.currentTarget.name).getComponent(cc.Button).normalSprite = this.genderNode.getChildByName(t).getChildByName(e.currentTarget.name).getComponent(cc.Button).pressedSprite;
+this.genderNode.getChildByName(t).getChildByName(e.currentTarget.name).getComponent(cc.Button).pressedSprite = this.normalAgeSprite;
+this.genderNode.getChildByName(t).getChildByName(e.currentTarget.name).getChildByName("tick").active = !0;
+this.lastSelectedGender = parseInt(e.currentTarget.name);
+0 === this.lastSelectedGender ? this.node.getParent().getParent().getComponent(i.default).userGender = c.Gender.BOY : 1 === this.lastSelectedGender && (this.node.getParent().getParent().getComponent(i.default).userGender = c.Gender.GIRL);
+};
+r([ u(cc.Node) ], t.prototype, "ageNode", void 0);
+r([ u(cc.Node) ], t.prototype, "genderNode", void 0);
+r([ u(cc.Label) ], t.prototype, "nextButtonLabel", void 0);
+return t = r([ s ], t);
+}(cc.Component);
+n.default = l;
+cc._RF.pop();
+}, {
+"../../../../common/scripts/lib/profile": void 0,
+"./collectUserInfo": "collectUserInfo"
+} ],
+ageSelect: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "bf311IChwtJJqbXzEtl/pwc", "ageSelect");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("./userInput"), c = e("../../../../common/scripts/lib/profile"), a = cc._decorator, s = a.ccclass, u = (a.property, 
+function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.maxAge = c.MAX_AGE;
+return t;
+}
+t.prototype.onLoad = function() {
+this.selectedAge = "";
+this.ageNum = 0;
+i.default.nextButtonBool = !1;
+};
+t.prototype.ageVal = function(e) {
+this.ageNum = Math.ceil(e.getComponent(cc.Slider).progress * this.maxAge);
+e.node.getChildByName("Handle").getChildByName("ageLabel").getComponent(cc.Label).string = this.ageNum.toString();
+this.selectedAge = this.ageNum.toString();
+e.node.getChildByName("warning").getComponent(cc.Label).string = "";
+i.default.nextButtonBool = !0;
+i.default.initAge = this.ageNum;
+cc.log(i.default.initAge);
+};
+return t = r([ s ], t);
+}(cc.Component));
+n.default = u;
+cc._RF.pop();
+}, {
+"../../../../common/scripts/lib/profile": void 0,
+"./userInput": "userInput"
+} ],
+buttons: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "7793fF9ndRNg6rjI+lzwM+z", "buttons");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("../../../../common/scripts/lib/config"), c = e("../../../../common/scripts/lib/profile"), a = e("./welcomePage"), s = cc._decorator, u = s.ccclass, l = (s.property, 
+function(e) {
+o(t, e);
+function t() {
+return null !== e && e.apply(this, arguments) || this;
+}
+t.prototype.addButtonCallback = function() {
+a.default.userArr.length < c.MAX_USERS ? i.default.loadScene("private/home/loginnew/scenes/homeLoginScene") : cc.log(">>max reached");
+};
+t.prototype.userButtonCallback = function() {
+var e = this;
+c.User.getUsers().forEach(function(t) {
+e.node.name == t.id && c.User.setCurrentUser(t);
+});
+i.default.i.pushScene("menu/start/scenes/start", "menu", null);
+};
+t.prototype.onClickParentButton = function() {
+i.default.getInstance().pushScene("private/home/secondscreen/scenes/profilePage", "private");
+};
+return t = r([ u ], t);
+}(cc.Component));
+n.default = l;
+cc._RF.pop();
+}, {
+"../../../../common/scripts/lib/config": void 0,
+"../../../../common/scripts/lib/profile": void 0,
+"./welcomePage": "welcomePage"
+} ],
+cameraButton: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "d41f2/FkVhDZq/1OFjqZHuj", "cameraButton");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("./userInput"), c = e("../../../../common/scripts/util"), a = cc._decorator, s = a.ccclass, u = a.property, l = function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.userImg = null;
+return t;
+}
+t.prototype.cameraButtonCallback = function(e) {
+var t = this;
+c.Util.takePictureFromCamera(function(e) {
+null != e && cc.loader.load(e, function(n, o) {
+console.log("Got back ", o);
+if (!n) {
+var r = new cc.SpriteFrame(o);
+t.userImg.spriteFrame = r;
+i.default.imgPath = e;
+}
+});
+});
+};
+r([ u(cc.Sprite) ], t.prototype, "userImg", void 0);
+return t = r([ s ], t);
+}(cc.Component);
+n.default = l;
+cc._RF.pop();
+}, {
+"../../../../common/scripts/util": void 0,
+"./userInput": "userInput"
+} ],
+cameraScene: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "11f3eLMYlhEz7tNDXk1PVdD", "cameraScene");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("./collectUserInfo"), c = cc._decorator, a = c.ccclass, s = c.property, u = function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.lastSelectedAvatar = -1;
+t.normalSprite = null;
+t.buttonContainerNode = null;
+return t;
+}
+t.prototype.onAvatarButtonClick = function(e, t) {
+if (this.lastSelectedAvatar > -1) {
+this.buttonContainerNode.getChildByName(this.lastSelectedAvatar.toString()).getComponent(cc.Button).pressedSprite = this.buttonContainerNode.getChildByName(this.lastSelectedAvatar.toString()).getComponent(cc.Button).normalSprite;
+this.buttonContainerNode.getChildByName(this.lastSelectedAvatar.toString()).getComponent(cc.Button).normalSprite = this.normalSprite;
+this.buttonContainerNode.getChildByName(this.lastSelectedAvatar.toString()).getChildByName("tick").active = !1;
+}
+this.normalSprite = this.buttonContainerNode.getChildByName(e.currentTarget.name).getComponent(cc.Button).normalSprite;
+this.buttonContainerNode.getChildByName(e.currentTarget.name).getComponent(cc.Button).normalSprite = this.buttonContainerNode.getChildByName(e.currentTarget.name).getComponent(cc.Button).pressedSprite;
+this.buttonContainerNode.getChildByName(e.currentTarget.name).getComponent(cc.Button).pressedSprite = this.normalSprite;
+this.buttonContainerNode.getChildByName(e.currentTarget.name).getChildByName("tick").active = !0;
+this.lastSelectedAvatar = parseInt(e.currentTarget.name);
+this.node.getParent().getParent().getComponent(i.default).nextButton.interactable = !0;
+var n = t;
+this.node.getParent().getParent().getComponent(i.default).avatarImage = n;
+};
+r([ s(cc.Node) ], t.prototype, "buttonContainerNode", void 0);
+return t = r([ a ], t);
+}(cc.Component);
+n.default = u;
+cc._RF.pop();
+}, {
+"./collectUserInfo": "collectUserInfo"
+} ],
+chapterButton: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "4a7f7/PmDtII7ZqR7U2H9wI", "chapterButton");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+}, i = this && this.__awaiter || function(e, t, n, o) {
+function r(e) {
+return e instanceof n ? e : new n(function(t) {
+t(e);
+});
+}
+return new (n || (n = Promise))(function(n, i) {
+function c(e) {
+try {
+s(o.next(e));
+} catch (e) {
+i(e);
+}
+}
+function a(e) {
+try {
+s(o.throw(e));
+} catch (e) {
+i(e);
+}
+}
+function s(e) {
+e.done ? n(e.value) : r(e.value).then(c, a);
+}
+s((o = o.apply(e, t || [])).next());
+});
+}, c = this && this.__generator || function(e, t) {
+var n, o, r, i, c = {
+label: 0,
+sent: function() {
+if (1 & r[0]) throw r[1];
+return r[1];
+},
+trys: [],
+ops: []
+};
+return i = {
+next: a(0),
+throw: a(1),
+return: a(2)
+}, "function" == typeof Symbol && (i[Symbol.iterator] = function() {
+return this;
+}), i;
+function a(e) {
+return function(t) {
+return s([ e, t ]);
+};
+}
+function s(i) {
+if (n) throw new TypeError("Generator is already executing.");
+for (;c; ) try {
+if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 
+0) : o.next) && !(r = r.call(o, i[1])).done) return r;
+(o = 0, r) && (i = [ 2 & i[0], r.value ]);
+switch (i[0]) {
+case 0:
+case 1:
+r = i;
+break;
+
+case 4:
+c.label++;
+return {
+value: i[1],
+done: !1
+};
+
+case 5:
+c.label++;
+o = i[1];
+i = [ 0 ];
+continue;
+
+case 7:
+i = c.ops.pop();
+c.trys.pop();
+continue;
+
+default:
+if (!(r = c.trys, r = r.length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
+c = 0;
+continue;
+}
+if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
+c.label = i[1];
+break;
+}
+if (6 === i[0] && c.label < r[1]) {
+c.label = r[1];
+r = i;
+break;
+}
+if (r && c.label < r[2]) {
+c.label = r[2];
+c.ops.push(i);
+break;
+}
+r[2] && c.ops.pop();
+c.trys.pop();
+continue;
+}
+i = t.call(e, c);
+} catch (e) {
+i = [ 6, e ];
+o = 0;
+} finally {
+n = r = 0;
+}
+if (5 & i[0]) throw i[1];
+return {
+value: i[0] ? i[1] : void 0,
+done: !0
+};
+}
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ChapterButton = n.CHAPTER_ITEM_SELECTED_EVENT = void 0;
+var a = cc._decorator.ccclass;
+n.CHAPTER_ITEM_SELECTED_EVENT = "CHAPTER_ITEM_SELECTED_EVENT";
+var s = !0, u = function(e) {
+o(t, e);
+function t() {
+return e.call(this) || this;
+}
+t.prototype.onLoad = function() {
+s = !0;
+};
+t.prototype.onClicked = function() {
+return i(this, void 0, void 0, function() {
+return c(this, function(e) {
+if (s) {
+s = !1;
+this.itemSelectedEvent();
+cc.log("item clicked", this.node.name);
+}
+return [ 2 ];
+});
+});
+};
+t.prototype.itemSelectedEvent = function() {
+var e = new cc.Event.EventCustom(n.CHAPTER_ITEM_SELECTED_EVENT, !0), t = {
+subjectId: this._subjectId,
+chapterId: this._chapterId,
+chapterName: this._chapterName,
+subject: this._subject
+};
+e.setUserData(t);
+this.node.dispatchEvent(e);
+};
+Object.defineProperty(t.prototype, "subjectId", {
+set: function(e) {
+this._subjectId = e;
+},
+enumerable: !1,
+configurable: !0
+});
+Object.defineProperty(t.prototype, "chapterId", {
+set: function(e) {
+this._chapterId = e;
+},
+enumerable: !1,
+configurable: !0
+});
+Object.defineProperty(t.prototype, "chapterName", {
+set: function(e) {
+this._chapterName = e;
+},
+enumerable: !1,
+configurable: !0
+});
+Object.defineProperty(t.prototype, "subject", {
+set: function(e) {
+this._subject = e;
+},
+enumerable: !1,
+configurable: !0
+});
+return t = r([ a ], t);
+}(cc.Component);
+n.ChapterButton = u;
+cc._RF.pop();
+}, {} ],
+collectUserInfo: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "2f505Ok+DNDRZR8ekhN2Rjd", "collectUserInfo");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("../../../../common/scripts/lib/profile"), c = e("../../../../common/scripts/lib/config"), a = cc._decorator, s = a.ccclass, u = a.property, l = function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.nextButton = null;
+t.prefabContainer = null;
+t.userAge = 0;
+t.userName = "";
+t.userlanguage = "english";
+t.imgPath = "";
+t.avatarImage = "";
+t.currentPrefabNumber = 0;
+t.isLastScene = !1;
+return t;
+}
+t.prototype.onLoad = function() {
+this.nextButton.interactable = !1;
+this.activateCurrentPrefab();
+};
+t.prototype.activateCurrentPrefab = function() {
+for (var e = 0; e < this.prefabContainer.childrenCount; e++) this.prefabContainer.children[e].active = !1;
+this.prefabContainer.children[this.currentPrefabNumber].active = !0;
+};
+t.prototype.onNextButtonClicked = function(e) {
+if (this.isLastScene) {
+i.User.createUser(this.userName, this.imgPath, this.userAge, this.userGender, null, this.avatarImage);
+c.default.getInstance().pushScene("chimple");
+} else {
+this.currentPrefabNumber++;
+this.activateCurrentPrefab();
+this.nextButton.interactable = !1;
+}
+};
+r([ u(cc.Button) ], t.prototype, "nextButton", void 0);
+r([ u(cc.Node) ], t.prototype, "prefabContainer", void 0);
+return t = r([ s ], t);
+}(cc.Component);
+n.default = l;
+cc._RF.pop();
+}, {
+"../../../../common/scripts/lib/config": void 0,
+"../../../../common/scripts/lib/profile": void 0
+} ],
+customEditBox: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "eca5eATQF5M7p9mWJr29Ecd", "customEditBox");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.CustomEditBox = n.EDIT_STARTED_EVENT = n.EDIT_ENDED_EVENT = void 0;
+var i = cc._decorator.ccclass, c = e("../../../common/scripts/lib/error-handler");
+n.EDIT_ENDED_EVENT = "editEndedCustomEvent";
+n.EDIT_STARTED_EVENT = "editStartedCustomEvent";
+var a = function(e) {
+o(t, e);
+function t() {
+var t = e.call(this) || this;
+t.text = "";
+t.detectParent = "";
+return t;
+}
+t.prototype.onLoad = function() {
+this.registerListeners();
+};
+t.prototype.registerListeners = function() {
+var e = this.node.getChildByName("base");
+if (null != e) {
+e.on("text-changed", this.textChanged, this);
+e.on("editing-did-began", this.editBegan, this);
+e.on("editing-did-ended", this.editEnded, this);
+}
+};
+t.prototype.textChanged = function(e) {
+cc.log("text", e.string, "for", e.node.parent.name);
+this.text = e.string;
+this.detectParent = e.node.parent.name;
+};
+t.prototype.editBegan = function(e) {
+var t = new cc.Event.EventCustom(n.EDIT_STARTED_EVENT, !0);
+this.node.dispatchEvent(t);
+};
+t.prototype.editEnded = function(e) {
+this.textChangedEvent();
+};
+t.prototype.textChangedEvent = function() {
+var e = new cc.Event.EventCustom(n.EDIT_ENDED_EVENT, !0), t = {
+text: this.text,
+detectParent: this.detectParent
+};
+e.setUserData(t);
+this.node.dispatchEvent(e);
+};
+r([ c.catchError() ], t.prototype, "onLoad", null);
+return t = r([ i ], t);
+}(cc.Component);
+n.CustomEditBox = a;
+cc._RF.pop();
+}, {
+"../../../common/scripts/lib/error-handler": void 0
+} ],
+editprofile: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "bb068UCjT5F+bOoXOg37uLf", "editprofile");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("../../../../common/scripts/lib/profile"), c = e("../../../../common/scripts/util"), a = e("../../../../common/scripts/lib/config"), s = cc._decorator, u = s.ccclass, l = s.property, p = function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.userName = null;
+t.userImg = null;
+t.ageSlider = null;
+t.boySelect = null;
+t.girlSelect = null;
+return t;
+}
+t.prototype.onLoad = function() {
+var e = cc.sys.localStorage.getItem("userToEdit");
+this.user = i.User.getUser(e);
+console.log("came in edit profile", this.user);
+this.userName.getComponent(cc.Label).string = this.user.name;
+this.onSelectGirlOrBoy(this.user.gender);
+this.ageSlider.progress = this.user.age / i.MAX_AGE;
+"" != this.user.imgPath && cc.loader.load(this.user.imgPath, function(e, t) {
+if (!e) {
+var n = new cc.SpriteFrame(t);
+this.userImg.spriteFrame = n;
+}
+});
+};
+t.prototype.onClickCamera = function() {
+var e = this;
+c.Util.takePictureFromCamera(function(t) {
+null != t && cc.loader.load(t, function(n, o) {
+console.log("Got back ", o);
+if (!n) {
+var r = new cc.SpriteFrame(o);
+e.userImg.spriteFrame = r;
+e.user.imgPath = t;
+}
+});
+});
+};
+t.prototype.ageVal = function(e) {
+var t = Math.ceil(e.getComponent(cc.Slider).progress * i.MAX_AGE);
+e.node.getChildByName("Handle").getChildByName("ageLabel").getComponent(cc.Label).string = t.toString();
+this.selectedAge = t;
+};
+t.prototype.onClickGenderSelect = function(e, t) {
+if ("Boy" == t) {
+this.user.gender = i.Gender.BOY;
+this.onSelectGirlOrBoy(i.Gender.BOY);
+} else {
+this.user.gender = i.Gender.GIRL;
+this.onSelectGirlOrBoy(i.Gender.GIRL);
+}
+};
+t.prototype.onSelectGirlOrBoy = function(e) {
+if (e == i.Gender.BOY) {
+this.girlSelect.active = !1;
+this.boySelect.active = !0;
+} else {
+this.girlSelect.active = !0;
+this.boySelect.active = !1;
+}
+};
+t.prototype.onClickDelete = function() {
+i.User.deleteUser(this.user.id);
+a.default.getInstance().popScene();
+};
+t.prototype.onClickBackBtn = function() {
+this.user.age = this.selectedAge;
+a.default.getInstance().popScene();
+};
+r([ l(cc.Node) ], t.prototype, "userName", void 0);
+r([ l(cc.Sprite) ], t.prototype, "userImg", void 0);
+r([ l(cc.Slider) ], t.prototype, "ageSlider", void 0);
+r([ l(cc.Node) ], t.prototype, "boySelect", void 0);
+r([ l(cc.Node) ], t.prototype, "girlSelect", void 0);
+return t = r([ u ], t);
+}(cc.Component);
+n.default = p;
+cc._RF.pop();
+}, {
+"../../../../common/scripts/lib/config": void 0,
+"../../../../common/scripts/lib/profile": void 0,
+"../../../../common/scripts/util": void 0
+} ],
+genderSelect: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "66fe5nTgLxD/bzNSm/cF7Sb", "genderSelect");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("./userInput"), c = cc._decorator, a = c.ccclass, s = (c.property, function(e) {
+o(t, e);
+function t() {
+return null !== e && e.apply(this, arguments) || this;
+}
+t.prototype.genderVal = function(e) {
+cc.log(i.default.prevName);
+null != i.default.normalSprite && (i.default.blockSelect.getChildByName(i.default.prevName).getComponent(cc.Button).normalSprite = i.default.normalSprite);
+cc.log("$" + e.currentTarget.name + "rr" + i.default.blockSelect.name);
+i.default.normalSprite = i.default.blockSelect.getChildByName(e.currentTarget.name).getComponent(cc.Button).normalSprite;
+i.default.blockSelect.getChildByName(e.currentTarget.name).getComponent(cc.Button).normalSprite = i.default.blockSelect.getChildByName(e.currentTarget.name).getComponent(cc.Button).pressedSprite;
+i.default.initGender = e.currentTarget.name;
+cc.log("gender" + i.default.initGender);
+i.default.prevName = e.currentTarget.name;
+};
+return t = r([ a ], t);
+}(cc.Component));
+n.default = s;
+cc._RF.pop();
+}, {
+"./userInput": "userInput"
+} ],
+itemButton: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "c9c13wcU3lEi7kYWmv3X4Zg", "itemButton");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+}, i = this && this.__awaiter || function(e, t, n, o) {
+function r(e) {
+return e instanceof n ? e : new n(function(t) {
+t(e);
+});
+}
+return new (n || (n = Promise))(function(n, i) {
+function c(e) {
+try {
+s(o.next(e));
+} catch (e) {
+i(e);
+}
+}
+function a(e) {
+try {
+s(o.throw(e));
+} catch (e) {
+i(e);
+}
+}
+function s(e) {
+e.done ? n(e.value) : r(e.value).then(c, a);
+}
+s((o = o.apply(e, t || [])).next());
+});
+}, c = this && this.__generator || function(e, t) {
+var n, o, r, i, c = {
+label: 0,
+sent: function() {
+if (1 & r[0]) throw r[1];
+return r[1];
+},
+trys: [],
+ops: []
+};
+return i = {
+next: a(0),
+throw: a(1),
+return: a(2)
+}, "function" == typeof Symbol && (i[Symbol.iterator] = function() {
+return this;
+}), i;
+function a(e) {
+return function(t) {
+return s([ e, t ]);
+};
+}
+function s(i) {
+if (n) throw new TypeError("Generator is already executing.");
+for (;c; ) try {
+if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 
+0) : o.next) && !(r = r.call(o, i[1])).done) return r;
+(o = 0, r) && (i = [ 2 & i[0], r.value ]);
+switch (i[0]) {
+case 0:
+case 1:
+r = i;
+break;
+
+case 4:
+c.label++;
+return {
+value: i[1],
+done: !1
+};
+
+case 5:
+c.label++;
+o = i[1];
+i = [ 0 ];
+continue;
+
+case 7:
+i = c.ops.pop();
+c.trys.pop();
+continue;
+
+default:
+if (!(r = c.trys, r = r.length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
+c = 0;
+continue;
+}
+if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
+c.label = i[1];
+break;
+}
+if (6 === i[0] && c.label < r[1]) {
+c.label = r[1];
+r = i;
+break;
+}
+if (r && c.label < r[2]) {
+c.label = r[2];
+c.ops.push(i);
+break;
+}
+r[2] && c.ops.pop();
+c.trys.pop();
+continue;
+}
+i = t.call(e, c);
+} catch (e) {
+i = [ 6, e ];
+o = 0;
+} finally {
+n = r = 0;
+}
+if (5 & i[0]) throw i[1];
+return {
+value: i[0] ? i[1] : void 0,
+done: !0
+};
+}
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ItemButton = n.PARSE_ITEM_SELECTED_EVENT = void 0;
+var a = cc._decorator.ccclass, s = !0;
+n.PARSE_ITEM_SELECTED_EVENT = "parseItemSelectedEvent";
+var u = function(e) {
+o(t, e);
+function t() {
+var t = e.call(this) || this;
+t._item = null;
+return t;
+}
+t.prototype.onLoad = function() {
+s = !0;
+};
+t.prototype.onItemClicked = function() {
+return i(this, void 0, void 0, function() {
+return c(this, function(e) {
+if (s) {
+s = !1;
+this.itemSelectedEvent();
+cc.log("item clicked", this.node.name);
+}
+return [ 2 ];
+});
+});
+};
+t.prototype.itemSelectedEvent = function() {
+var e = new cc.Event.EventCustom(n.PARSE_ITEM_SELECTED_EVENT, !0), t = {
+data: this._item,
+type: this._type
+};
+e.setUserData(t);
+this.node.dispatchEvent(e);
+};
+Object.defineProperty(t.prototype, "item", {
+set: function(e) {
+this._item = e;
+},
+enumerable: !1,
+configurable: !0
+});
+Object.defineProperty(t.prototype, "type", {
+set: function(e) {
+this._type = e;
+},
+enumerable: !1,
+configurable: !0
+});
+return t = r([ a ], t);
+}(cc.Component);
+n.ItemButton = u;
+cc._RF.pop();
+}, {} ],
+landing: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "01eaaurT2JPkbtbuAWBd1mN", "landing");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+}, i = this && this.__awaiter || function(e, t, n, o) {
+function r(e) {
+return e instanceof n ? e : new n(function(t) {
+t(e);
+});
+}
+return new (n || (n = Promise))(function(n, i) {
+function c(e) {
+try {
+s(o.next(e));
+} catch (e) {
+i(e);
+}
+}
+function a(e) {
+try {
+s(o.throw(e));
+} catch (e) {
+i(e);
+}
+}
+function s(e) {
+e.done ? n(e.value) : r(e.value).then(c, a);
+}
+s((o = o.apply(e, t || [])).next());
+});
+}, c = this && this.__generator || function(e, t) {
+var n, o, r, i, c = {
+label: 0,
+sent: function() {
+if (1 & r[0]) throw r[1];
+return r[1];
+},
+trys: [],
+ops: []
+};
+return i = {
+next: a(0),
+throw: a(1),
+return: a(2)
+}, "function" == typeof Symbol && (i[Symbol.iterator] = function() {
+return this;
+}), i;
+function a(e) {
+return function(t) {
+return s([ e, t ]);
+};
+}
+function s(i) {
+if (n) throw new TypeError("Generator is already executing.");
+for (;c; ) try {
+if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 
+0) : o.next) && !(r = r.call(o, i[1])).done) return r;
+(o = 0, r) && (i = [ 2 & i[0], r.value ]);
+switch (i[0]) {
+case 0:
+case 1:
+r = i;
+break;
+
+case 4:
+c.label++;
+return {
+value: i[1],
+done: !1
+};
+
+case 5:
+c.label++;
+o = i[1];
+i = [ 0 ];
+continue;
+
+case 7:
+i = c.ops.pop();
+c.trys.pop();
+continue;
+
+default:
+if (!(r = c.trys, r = r.length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
+c = 0;
+continue;
+}
+if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
+c.label = i[1];
+break;
+}
+if (6 === i[0] && c.label < r[1]) {
+c.label = r[1];
+r = i;
+break;
+}
+if (r && c.label < r[2]) {
+c.label = r[2];
+c.ops.push(i);
+break;
+}
+r[2] && c.ops.pop();
+c.trys.pop();
+continue;
+}
+i = t.call(e, c);
+} catch (e) {
+i = [ 6, e ];
+o = 0;
+} finally {
+n = r = 0;
+}
+if (5 & i[0]) throw i[1];
+return {
+value: i[0] ? i[1] : void 0,
+done: !0
+};
+}
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.Landing = n.HOME_SCENE = n.REGISTER_SCENE = n.TEACHER_REPORT_METRICS_SCENE = n.TEACHER_REPORT_CARD_SCENE = n.TEACHER_REGISTRATION_SCENE = n.SCHOOL_REGISTRATION_SCENE = n.SELECT_SECTIONS_SCENE = void 0;
+var a = cc._decorator.ccclass, s = e("../../../common/scripts/lib/constants"), u = e("../../../chimple"), l = e("../../../common/scripts/lib/config"), p = e("../../services/parseApi"), d = e("../../services/ParseNetwork"), h = e("../../../common/scripts/lib/profile");
+n.SELECT_SECTIONS_SCENE = "private/school/scenes/selectSections";
+n.SCHOOL_REGISTRATION_SCENE = "private/school/scenes/schoolRegistration";
+n.TEACHER_REGISTRATION_SCENE = "private/teacher/scenes/teacherRegistration";
+n.TEACHER_REPORT_CARD_SCENE = "private/teacher/scenes/teacherReportCard";
+n.TEACHER_REPORT_METRICS_SCENE = "private/teacher/scenes/teacherReportMetrics";
+n.REGISTER_SCENE = "private/register/scenes/register";
+n.HOME_SCENE = "menu/home/scenes/home";
+var f = function(e) {
+o(t, e);
+function t() {
+return null !== e && e.apply(this, arguments) || this;
+}
+t.prototype.onLoad = function() {
+return i(this, void 0, void 0, function() {
+var e;
+return c(this, function(t) {
+switch (t.label) {
+case 0:
+d.ParseNetwork.init();
+e = Number(cc.sys.localStorage.getItem(u.CHIMPLE_MODE)) || s.MODE;
+switch (e) {
+case s.Mode.Home:
+return [ 3, 1 ];
+
+case s.Mode.School:
+return [ 3, 2 ];
+
+case s.Mode.Teacher:
+return [ 3, 4 ];
+}
+return [ 3, 6 ];
+
+case 1:
+this.navigateToHome();
+return [ 3, 7 ];
+
+case 2:
+return [ 4, this.navigateToSchool() ];
+
+case 3:
+t.sent();
+return [ 3, 7 ];
+
+case 4:
+return [ 4, this.navigateToTeacher() ];
+
+case 5:
+t.sent();
+return [ 3, 7 ];
+
+case 6:
+l.default.loadScene(n.REGISTER_SCENE, "private", null);
+return [ 3, 7 ];
+
+case 7:
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.navigateToHome = function() {
+l.default.loadScene("private/home/login/scenes/welcomePage", "private", null);
+};
+t.prototype.navigateToSchool = function() {
+return i(this, void 0, void 0, function() {
+var e, t;
+return c(this, function(o) {
+switch (o.label) {
+case 0:
+e = p.ParseApi.getInstance().getLoggedInUser();
+return [ 4, p.ParseApi.getInstance().connections() ];
+
+case 1:
+t = o.sent();
+!e || d.ParseNetwork.getInstance().isEmpty(e) || d.ParseNetwork.getInstance().isEmpty(t) ? l.default.loadScene(n.SCHOOL_REGISTRATION_SCENE, "private", null) : l.default.loadScene(n.SELECT_SECTIONS_SCENE, "private", null);
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.navigateToTeacher = function() {
+return i(this, void 0, void 0, function() {
+var e;
+return c(this, function(t) {
+switch (t.label) {
+case 0:
+return !(e = p.ParseApi.getInstance().getLoggedInUser()) || d.ParseNetwork.getInstance().isEmpty(e) ? [ 3, 2 ] : [ 4, h.default.teacherPostLoginActivity(e.objectId) ];
+
+case 1:
+t.sent();
+l.default.loadScene(n.TEACHER_REPORT_CARD_SCENE, "private", null);
+return [ 3, 3 ];
+
+case 2:
+l.default.loadScene(n.TEACHER_REGISTRATION_SCENE, "private", null);
+t.label = 3;
+
+case 3:
+return [ 2 ];
+}
+});
+});
+};
+return t = r([ a ], t);
+}(cc.Component);
+n.Landing = f;
+cc._RF.pop();
+}, {
+"../../../chimple": void 0,
+"../../../common/scripts/lib/config": void 0,
+"../../../common/scripts/lib/constants": void 0,
+"../../../common/scripts/lib/profile": void 0,
+"../../services/ParseNetwork": "ParseNetwork",
+"../../services/parseApi": "parseApi"
+} ],
+languageSelectButton: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "48eb6tizRxA/7bJfBnttzF3", "languageSelectButton");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("./languageSelectLayout"), c = e("./userInput"), a = e("../../../../common/scripts/util"), s = cc._decorator, u = s.ccclass, l = s.property, p = function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.langButtonAudio = null;
+return t;
+}
+t.prototype.languageSelectCallback = function(e) {
+a.Util.playSfx(this.langButtonAudio);
+null != c.default.normalSprite && (c.default.blockSelect.getChildByName("view").getChildByName("content").getChildByName(c.default.prevName).getComponent(cc.Button).normalSprite = c.default.normalSprite);
+c.default.normalSprite = c.default.blockSelect.getChildByName("view").getChildByName("content").getChildByName(e.currentTarget.name).getComponent(cc.Button).normalSprite;
+c.default.blockSelect.getChildByName("view").getChildByName("content").getChildByName(e.currentTarget.name).getComponent(cc.Button).normalSprite = c.default.blockSelect.getChildByName("view").getChildByName("content").getChildByName(e.currentTarget.name).getComponent(cc.Button).pressedSprite;
+c.default.nextButtonBool = !0;
+cc.log(e.currentTarget.name);
+c.default.initLang = e.currentTarget.name;
+i.default.selectedLang = e.currentTarget.name;
+c.default.prevName = e.currentTarget.name;
+cc.log(c.default.initLang);
+};
+r([ l({
+type: cc.AudioClip
+}) ], t.prototype, "langButtonAudio", void 0);
+return t = r([ u ], t);
+}(cc.Component);
+n.default = p;
+cc._RF.pop();
+}, {
+"../../../../common/scripts/util": void 0,
+"./languageSelectLayout": "languageSelectLayout",
+"./userInput": "userInput"
+} ],
+languageSelectLayout: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "b33ebbJpxlBzrJsRed8T4SA", "languageSelectLayout");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("../../../../common/scripts/util"), c = e("./userInput"), a = cc._decorator, s = a.ccclass, u = a.property, l = function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.langadd = null;
+t.langtitle = null;
+t.languages = [ "ENGLISH", "HINDI", "URDU", "SWAHILI", "GUJRATI", "CHINESE", "FRENCH", "GERMAN" ];
+return t;
+}
+t.prototype.onLoad = function() {
+var e = this;
+c.default.nextButtonBool = !1;
+this.languages.forEach(function(t) {
+var n = cc.instantiate(e.langadd);
+n.name = i.Util.i18NText(t.toString());
+n.getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = i.Util.i18NText(t.toString());
+e.node.getChildByName("view").getChildByName("content").addChild(n);
+});
+};
+t.selectedLang = "";
+r([ u(cc.Prefab) ], t.prototype, "langadd", void 0);
+r([ u(cc.Prefab) ], t.prototype, "langtitle", void 0);
+return t = r([ s ], t);
+}(cc.Component);
+n.default = l;
+cc._RF.pop();
+}, {
+"../../../../common/scripts/util": void 0,
+"./userInput": "userInput"
+} ],
+languageSelect: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "39e2eFSW1FJt5k3PDCn0OFu", "languageSelect");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("./collectUserInfo"), c = e("../../../../common/scripts/lib/profile"), a = cc._decorator, s = a.ccclass, u = a.property, l = function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.languageNode = null;
+t.indieLangPrefab = null;
+t.lastSelectedlang = -1;
+t.normalSprite = null;
+t.languageContainerNode = null;
+return t;
+}
+t.prototype.onLoad = function() {
+var e = this;
+c.languageSelect.forEach(function(t, n) {
+var o = cc.instantiate(e.indieLangPrefab), r = new cc.Component.EventHandler();
+r.target = e.node;
+r.component = "languageSelect";
+r.handler = "onLanguageClick";
+r.customEventData = "" + t[0];
+o.children[0].getComponent(cc.Button).clickEvents.push(r);
+o.children[0].name = "" + n;
+o.name = "languageprefabnew" + n;
+var i = cc.Color.BLACK;
+o.children[0].getChildByName("Background").color = i.fromHEX("" + t[2]);
+o.getChildByName("namesymbol").getComponent(cc.Label).string = t[1];
+o.getChildByName("namelabel").getComponent(cc.Label).string = t[0];
+e.languageContainerNode.addChild(o);
+});
+this.node.getChildByName("horiscrollview").getComponent(cc.ScrollView).scrollToLeft();
+};
+t.prototype.onLanguageClick = function(e, t) {
+var n = "languageprefabnew" + this.lastSelectedlang.toString();
+if (this.lastSelectedlang > -1) {
+this.languageNode.getChildByName(n).getChildByName(this.lastSelectedlang.toString()).getComponent(cc.Button).pressedSprite = this.languageNode.getChildByName(n).getChildByName(this.lastSelectedlang.toString()).getComponent(cc.Button).normalSprite;
+this.languageNode.getChildByName(n).getChildByName(this.lastSelectedlang.toString()).getComponent(cc.Button).normalSprite = this.normalSprite;
+this.languageNode.getChildByName(n).getChildByName("ticksprite").active = !1;
+}
+n = "languageprefabnew" + e.currentTarget.name;
+this.normalSprite = this.languageNode.getChildByName(n).getChildByName(e.currentTarget.name).getComponent(cc.Button).normalSprite;
+this.languageNode.getChildByName(n).getChildByName(e.currentTarget.name).getComponent(cc.Button).normalSprite = this.languageNode.getChildByName(n).getChildByName(e.currentTarget.name).getComponent(cc.Button).pressedSprite;
+this.languageNode.getChildByName(n).getChildByName(e.currentTarget.name).getComponent(cc.Button).pressedSprite = this.normalSprite;
+this.languageNode.getChildByName(n).getChildByName("ticksprite").active = !0;
+this.lastSelectedlang = parseInt(e.currentTarget.name);
+this.node.getParent().getParent().getComponent(i.default).userlanguage = t;
+this.node.getParent().getParent().getComponent(i.default).nextButton.interactable = !0;
+};
+r([ u(cc.Node) ], t.prototype, "languageNode", void 0);
+r([ u(cc.Prefab) ], t.prototype, "indieLangPrefab", void 0);
+r([ u(cc.Node) ], t.prototype, "languageContainerNode", void 0);
+return t = r([ s ], t);
+}(cc.Component);
+n.default = l;
+cc._RF.pop();
+}, {
+"../../../../common/scripts/lib/profile": void 0,
+"./collectUserInfo": "collectUserInfo"
+} ],
+loginButton: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "dbb09Ek+bJAu4UovutTtQH8", "loginButton");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+}, i = this && this.__awaiter || function(e, t, n, o) {
+function r(e) {
+return e instanceof n ? e : new n(function(t) {
+t(e);
+});
+}
+return new (n || (n = Promise))(function(n, i) {
+function c(e) {
+try {
+s(o.next(e));
+} catch (e) {
+i(e);
+}
+}
+function a(e) {
+try {
+s(o.throw(e));
+} catch (e) {
+i(e);
+}
+}
+function s(e) {
+e.done ? n(e.value) : r(e.value).then(c, a);
+}
+s((o = o.apply(e, t || [])).next());
+});
+}, c = this && this.__generator || function(e, t) {
+var n, o, r, i, c = {
+label: 0,
+sent: function() {
+if (1 & r[0]) throw r[1];
+return r[1];
+},
+trys: [],
+ops: []
+};
+return i = {
+next: a(0),
+throw: a(1),
+return: a(2)
+}, "function" == typeof Symbol && (i[Symbol.iterator] = function() {
+return this;
+}), i;
+function a(e) {
+return function(t) {
+return s([ e, t ]);
+};
+}
+function s(i) {
+if (n) throw new TypeError("Generator is already executing.");
+for (;c; ) try {
+if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 
+0) : o.next) && !(r = r.call(o, i[1])).done) return r;
+(o = 0, r) && (i = [ 2 & i[0], r.value ]);
+switch (i[0]) {
+case 0:
+case 1:
+r = i;
+break;
+
+case 4:
+c.label++;
+return {
+value: i[1],
+done: !1
+};
+
+case 5:
+c.label++;
+o = i[1];
+i = [ 0 ];
+continue;
+
+case 7:
+i = c.ops.pop();
+c.trys.pop();
+continue;
+
+default:
+if (!(r = c.trys, r = r.length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
+c = 0;
+continue;
+}
+if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
+c.label = i[1];
+break;
+}
+if (6 === i[0] && c.label < r[1]) {
+c.label = r[1];
+r = i;
+break;
+}
+if (r && c.label < r[2]) {
+c.label = r[2];
+c.ops.push(i);
+break;
+}
+r[2] && c.ops.pop();
+c.trys.pop();
+continue;
+}
+i = t.call(e, c);
+} catch (e) {
+i = [ 6, e ];
+o = 0;
+} finally {
+n = r = 0;
+}
+if (5 & i[0]) throw i[1];
+return {
+value: i[0] ? i[1] : void 0,
+done: !0
+};
+}
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.LoginButton = n.PARSE_LOGIN_EVENT = void 0;
+var a = cc._decorator.ccclass;
+n.PARSE_LOGIN_EVENT = "parseLoginEvent";
+var s = function(e) {
+o(t, e);
+function t() {
+var t = e.call(this) || this;
+t._normalSpriteFrame = null;
+t._pressedSpriteFrame = null;
+return t;
+}
+t.prototype.onLoad = function() {
+var e = this.node.getComponent(cc.Button);
+this._normalSpriteFrame = e.normalSprite;
+this._pressedSpriteFrame = e.pressedSprite;
+null != e && (e.interactable = !1);
+};
+t.prototype.onLoginButtonClick = function() {
+return i(this, void 0, void 0, function() {
+var e;
+return c(this, function(t) {
+(e = this.node.getComponent(cc.Button)).normalSprite = this._pressedSpriteFrame;
+null != e && (e.interactable = !1);
+this.playSound();
+this.startParseLoginEvent();
+return [ 2 ];
+});
+});
+};
+t.prototype.playSound = function() {
+this.node.getComponent(cc.AudioSource).play();
+};
+Object.defineProperty(t.prototype, "email", {
+set: function(e) {
+this._email = e;
+},
+enumerable: !1,
+configurable: !0
+});
+Object.defineProperty(t.prototype, "password", {
+set: function(e) {
+this._password = e;
+},
+enumerable: !1,
+configurable: !0
+});
+t.prototype.startParseLoginEvent = function() {
+var e = new cc.Event.EventCustom(n.PARSE_LOGIN_EVENT, !0), t = {
+node: this.node,
+email: this._email,
+password: this._password
+};
+e.setUserData(t);
+this.node.dispatchEvent(e);
+this.node.active = !1;
+};
+t.prototype.activate = function() {
+var e = this.node.getComponent(cc.Button);
+this.node.getChildByName("next").getComponent(cc.Sprite).spriteFrame = this._pressedSpriteFrame;
+e.interactable = !0;
+this.node.active = !0;
+};
+t.prototype.deActivate = function() {
+var e = this.node.getComponent(cc.Button);
+this.node.getChildByName("next").getComponent(cc.Sprite).spriteFrame = this._normalSpriteFrame;
+e.interactable = !1;
+};
+return t = r([ a ], t);
+}(cc.Component);
+n.LoginButton = s;
+cc._RF.pop();
+}, {} ],
+nameInputScene: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "21217fBOTxCVqonM4RSKS+v", "nameInputScene");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("./collectUserInfo"), c = cc._decorator, a = c.ccclass, s = c.property, u = function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.nameTextLabel = null;
+return t;
+}
+t.prototype.onLoad = function() {
+var e = this.node.getChildByName("usernameeditBox");
+null != e && e.on("text-changed", this.textChanged, this);
+};
+t.prototype.textChanged = function(e) {
+this.node.getParent().getParent().getComponent(i.default).nextButton.interactable = !1;
+if (e.string.length > 0) {
+this.node.getParent().getParent().getComponent(i.default).userName = e.string;
+this.node.getParent().getParent().getComponent(i.default).nextButton.interactable = !0;
+}
+};
+t.prototype.onResetClick = function(e) {
+this.node.getChildByName("usernameeditBox").getComponent(cc.EditBox).string = "";
+this.node.getParent().getParent().getComponent(i.default).nextButton.interactable = !1;
+};
+r([ s(cc.Label) ], t.prototype, "nameTextLabel", void 0);
+return t = r([ a ], t);
+}(cc.Component);
+n.default = u;
+cc._RF.pop();
+}, {
+"./collectUserInfo": "collectUserInfo"
+} ],
+nextButton: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "a3845x7bEpLUKWeCHHa1v4w", "nextButton");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+}, i = this && this.__awaiter || function(e, t, n, o) {
+function r(e) {
+return e instanceof n ? e : new n(function(t) {
+t(e);
+});
+}
+return new (n || (n = Promise))(function(n, i) {
+function c(e) {
+try {
+s(o.next(e));
+} catch (e) {
+i(e);
+}
+}
+function a(e) {
+try {
+s(o.throw(e));
+} catch (e) {
+i(e);
+}
+}
+function s(e) {
+e.done ? n(e.value) : r(e.value).then(c, a);
+}
+s((o = o.apply(e, t || [])).next());
+});
+}, c = this && this.__generator || function(e, t) {
+var n, o, r, i, c = {
+label: 0,
+sent: function() {
+if (1 & r[0]) throw r[1];
+return r[1];
+},
+trys: [],
+ops: []
+};
+return i = {
+next: a(0),
+throw: a(1),
+return: a(2)
+}, "function" == typeof Symbol && (i[Symbol.iterator] = function() {
+return this;
+}), i;
+function a(e) {
+return function(t) {
+return s([ e, t ]);
+};
+}
+function s(i) {
+if (n) throw new TypeError("Generator is already executing.");
+for (;c; ) try {
+if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 
+0) : o.next) && !(r = r.call(o, i[1])).done) return r;
+(o = 0, r) && (i = [ 2 & i[0], r.value ]);
+switch (i[0]) {
+case 0:
+case 1:
+r = i;
+break;
+
+case 4:
+c.label++;
+return {
+value: i[1],
+done: !1
+};
+
+case 5:
+c.label++;
+o = i[1];
+i = [ 0 ];
+continue;
+
+case 7:
+i = c.ops.pop();
+c.trys.pop();
+continue;
+
+default:
+if (!(r = c.trys, r = r.length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
+c = 0;
+continue;
+}
+if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
+c.label = i[1];
+break;
+}
+if (6 === i[0] && c.label < r[1]) {
+c.label = r[1];
+r = i;
+break;
+}
+if (r && c.label < r[2]) {
+c.label = r[2];
+c.ops.push(i);
+break;
+}
+r[2] && c.ops.pop();
+c.trys.pop();
+continue;
+}
+i = t.call(e, c);
+} catch (e) {
+i = [ 6, e ];
+o = 0;
+} finally {
+n = r = 0;
+}
+if (5 & i[0]) throw i[1];
+return {
+value: i[0] ? i[1] : void 0,
+done: !0
+};
+}
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.NextButton = n.PARSE_LOGIN_EVENT = void 0;
+var a = cc._decorator.ccclass;
+n.PARSE_LOGIN_EVENT = "parseLoginEvent";
+var s = function(e) {
+o(t, e);
+function t() {
+var t = e.call(this) || this;
+t._normalSpriteFrame = null;
+t._pressedSpriteFrame = null;
+return t;
+}
+t.prototype.onLoad = function() {
+var e = this.node.getComponent(cc.Button);
+this._normalSpriteFrame = e.normalSprite;
+this._pressedSpriteFrame = e.pressedSprite;
+null != e && (e.interactable = !1);
+};
+t.prototype.onNextButtonClick = function() {
+return i(this, void 0, void 0, function() {
+var e;
+return c(this, function(t) {
+(e = this.node.getComponent(cc.Button)).normalSprite = this._pressedSpriteFrame;
+null != e && (e.interactable = !1);
+this.playSound();
+this.startParseLoginEvent();
+return [ 2 ];
+});
+});
+};
+t.prototype.playSound = function() {
+this.node.getComponent(cc.AudioSource).play();
+};
+Object.defineProperty(t.prototype, "schoolCode", {
+set: function(e) {
+this._code = e;
+},
+enumerable: !1,
+configurable: !0
+});
+Object.defineProperty(t.prototype, "password", {
+set: function(e) {
+this._password = e;
+},
+enumerable: !1,
+configurable: !0
+});
+t.prototype.startParseLoginEvent = function() {
+var e = new cc.Event.EventCustom(n.PARSE_LOGIN_EVENT, !0), t = {
+node: this.node,
+code: this._code,
+password: this._password
+};
+e.setUserData(t);
+this.node.dispatchEvent(e);
+this.node.active = !1;
+};
+t.prototype.activate = function() {
+var e = this.node.getComponent(cc.Button);
+this.node.getChildByName("next").getComponent(cc.Sprite).spriteFrame = this._pressedSpriteFrame;
+e.interactable = !0;
+this.node.active = !0;
+};
+t.prototype.deActivate = function() {
+var e = this.node.getComponent(cc.Button);
+this.node.getChildByName("next").getComponent(cc.Sprite).spriteFrame = this._normalSpriteFrame;
+e.interactable = !1;
+};
+return t = r([ a ], t);
+}(cc.Component);
+n.NextButton = s;
+cc._RF.pop();
+}, {} ],
+parseACL: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "cf983q0+mVH+61RSwOZxCBw", "parseACL");
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ReadWriteACL = n.ParseACL = void 0;
+var o = function() {
+return function() {};
+}();
+n.ParseACL = o;
+var r = function() {
+return function() {};
+}();
+n.ReadWriteACL = r;
+cc._RF.pop();
+}, {} ],
+parseApi: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "2f3b4FOtDhA+6YMUhF2+Mai", "parseApi");
+var o = this && this.__awaiter || function(e, t, n, o) {
+function r(e) {
+return e instanceof n ? e : new n(function(t) {
+t(e);
+});
+}
+return new (n || (n = Promise))(function(n, i) {
+function c(e) {
+try {
+s(o.next(e));
+} catch (e) {
+i(e);
+}
+}
+function a(e) {
+try {
+s(o.throw(e));
+} catch (e) {
+i(e);
+}
+}
+function s(e) {
+e.done ? n(e.value) : r(e.value).then(c, a);
+}
+s((o = o.apply(e, t || [])).next());
+});
+}, r = this && this.__generator || function(e, t) {
+var n, o, r, i, c = {
+label: 0,
+sent: function() {
+if (1 & r[0]) throw r[1];
+return r[1];
+},
+trys: [],
+ops: []
+};
+return i = {
+next: a(0),
+throw: a(1),
+return: a(2)
+}, "function" == typeof Symbol && (i[Symbol.iterator] = function() {
+return this;
+}), i;
+function a(e) {
+return function(t) {
+return s([ e, t ]);
+};
+}
+function s(i) {
+if (n) throw new TypeError("Generator is already executing.");
+for (;c; ) try {
+if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 
+0) : o.next) && !(r = r.call(o, i[1])).done) return r;
+(o = 0, r) && (i = [ 2 & i[0], r.value ]);
+switch (i[0]) {
+case 0:
+case 1:
+r = i;
+break;
+
+case 4:
+c.label++;
+return {
+value: i[1],
+done: !1
+};
+
+case 5:
+c.label++;
+o = i[1];
+i = [ 0 ];
+continue;
+
+case 7:
+i = c.ops.pop();
+c.trys.pop();
+continue;
+
+default:
+if (!(r = c.trys, r = r.length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
+c = 0;
+continue;
+}
+if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
+c.label = i[1];
+break;
+}
+if (6 === i[0] && c.label < r[1]) {
+c.label = r[1];
+r = i;
+break;
+}
+if (r && c.label < r[2]) {
+c.label = r[2];
+c.ops.push(i);
+break;
+}
+r[2] && c.ops.pop();
+c.trys.pop();
+continue;
+}
+i = t.call(e, c);
+} catch (e) {
+i = [ 6, e ];
+o = 0;
+} finally {
+n = r = 0;
+}
+if (5 & i[0]) throw i[1];
+return {
+value: i[0] ? i[1] : void 0,
+done: !0
+};
+}
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ParseApi = n.SelectionMode = void 0;
+var i = e("./ParseNetwork"), c = e("../domain/parseConstants"), a = e("../domain/parseUser"), s = e("../domain/parseSection"), u = e("../domain/parseStudent"), l = e("../domain/parseConnection"), p = e("../domain/parseClass"), d = e("../domain/parseSubject"), h = e("../domain/parseMonitor"), f = e("../../common/scripts/lib/profile"), g = e("../../common/scripts/lib/constants");
+(function(e) {
+e[e.Home = 0] = "Home";
+e[e.Section = 1] = "Section";
+e[e.Student = 2] = "Student";
+e[e.Subject = 3] = "Subject";
+})(n.SelectionMode || (n.SelectionMode = {}));
+var m = function() {
+function e() {}
+e.getInstance = function() {
+e.instance || (e.instance = new e());
+return e.instance;
+};
+e.prototype.login = function(t, n) {
+return o(this, void 0, Promise, function() {
+var o;
+return r(this, function(r) {
+switch (r.label) {
+case 0:
+null;
+o = {
+url: c.LOGIN_URL,
+queryParams: {
+username: t,
+password: n
+}
+};
+return [ 4, i.ParseNetwork.getInstance().get(o, c.LOGGED_IN_USER) ];
+
+case 1:
+r.sent();
+return [ 2, e.instance.getLoggedInUser() ];
+}
+});
+});
+};
+e.prototype.registerUserOrLogin = function(t, n) {
+return o(this, void 0, Promise, function() {
+return r(this, function(o) {
+switch (o.label) {
+case 0:
+return [ 4, e.instance.isUserExists(t) ];
+
+case 1:
+return o.sent() ? [ 3, 3 ] : [ 4, e.instance.registerUser(t, n) ];
+
+case 2:
+o.sent();
+o.label = 3;
+
+case 3:
+return [ 2, e.instance.login(t, n) ];
+}
+});
+});
+};
+e.prototype.registerUser = function(e, t) {
+return o(this, void 0, Promise, function() {
+var n, o;
+return r(this, function(r) {
+switch (r.label) {
+case 0:
+(n = new a.ParseUser()).email = e;
+n.username = e;
+n.password = t;
+o = {
+url: c.USER_URL,
+body: n
+};
+return [ 4, i.ParseNetwork.getInstance().post(o) ];
+
+case 1:
+return [ 2, r.sent() ];
+}
+});
+});
+};
+e.prototype.isUserExists = function(e) {
+return o(this, void 0, Promise, function() {
+var t, n;
+return r(this, function(o) {
+switch (o.label) {
+case 0:
+!1;
+t = {
+url: c.USER_URL,
+queryParams: {
+username: e
+},
+isWhereQuery: !0
+};
+return [ 4, i.ParseNetwork.getInstance().get(t, e) ];
+
+case 1:
+n = o.sent();
+return [ 2, !!(n && Array.isArray(n) && n.length > 0) ];
+}
+});
+});
+};
+e.prototype.getLoggedInUser = function() {
+return e.instance.fromJson(i.ParseNetwork.getInstance().getParseObjectFromCache(c.LOGGED_IN_USER), a.ParseUser);
+};
+e.prototype.connections = function() {
+return o(this, void 0, Promise, function() {
+var t, n, o;
+return r(this, function(r) {
+switch (r.label) {
+case 0:
+null;
+t = e.instance.getLoggedInUser();
+n = {
+user: i.ParseNetwork.getInstance().createPointer("_User", t.objectId)
+};
+o = {
+url: c.CONNECTION_URL,
+queryParams: n,
+isWhereQuery: !0,
+includeParam: "school,school.user"
+};
+return [ 4, i.ParseNetwork.getInstance().get(o, c.CURRENT_CONNECTION) ];
+
+case 1:
+r.sent();
+return [ 2, e.instance.selectedConnections() ];
+}
+});
+});
+};
+e.prototype.selectedConnections = function() {
+return e.instance.fromJson(i.ParseNetwork.getInstance().getParseObjectFromCache(c.CURRENT_CONNECTION), l.ParseConnection);
+};
+e.prototype.getAllSubjects = function() {
+return o(this, void 0, Promise, function() {
+var t;
+return r(this, function(n) {
+switch (n.label) {
+case 0:
+t = {
+url: c.SUBJECT_URL
+};
+return [ 4, i.ParseNetwork.getInstance().get(t, c.SUBJECTS) ];
+
+case 1:
+n.sent();
+return [ 2, e.instance.allSubjects() ];
+}
+});
+});
+};
+e.prototype.getSectionsForSchool = function(t) {
+return o(this, void 0, Promise, function() {
+var n, o;
+return r(this, function(r) {
+switch (r.label) {
+case 0:
+[];
+n = {
+school: i.ParseNetwork.getInstance().createPointer("School", t.objectId)
+};
+o = {
+url: c.SECTION_URL,
+queryParams: n,
+isWhereQuery: !0
+};
+return [ 4, i.ParseNetwork.getInstance().get(o, c.SECTIONS + t.objectId) ];
+
+case 1:
+r.sent();
+return [ 2, e.instance.fromJson(i.ParseNetwork.getInstance().getParseObjectFromCache(c.SECTIONS + t.objectId), s.ParseSection) ];
+}
+});
+});
+};
+e.prototype.getStudentsForTeacher = function() {
+return o(this, void 0, Promise, function() {
+var t, n, o, a;
+return r(this, function(r) {
+switch (r.label) {
+case 0:
+t = e.instance.getLoggedInUser();
+n = [];
+o = {
+teacher: i.ParseNetwork.getInstance().createPointer("_User", t.objectId)
+};
+a = {
+url: c.TUITION_URL,
+queryParams: o,
+isWhereQuery: !0,
+includeParam: "student",
+keysParam: "student"
+};
+return [ 4, i.ParseNetwork.getInstance().get(a, c.STUDENTS_FOR_TEACHER + t.objectId) ];
+
+case 1:
+n = r.sent();
+return [ 2, n.map(function(e) {
+return {
+name: e.student.name,
+objectId: e.student.objectId,
+image: e.student.image ? e.student.image.url : ""
+};
+}) ];
+}
+});
+});
+};
+e.prototype.getProgressForChapter = function(e) {
+return o(this, void 0, Promise, function() {
+var t, n, o, a, s;
+return r(this, function(r) {
+switch (r.label) {
+case 0:
+t = [];
+if (!e.studentInfos) return [ 3, 2 ];
+o = e.studentInfos.map(function(e) {
+return {
+student: i.ParseNetwork.getInstance().createPointer("Student", e.objectId)
+};
+});
+a = {
+chapter: e.chapterId,
+max: !0,
+subject: i.ParseNetwork.getInstance().createPointer("Subject", e.subjectId),
+$or: o
+};
+s = {
+url: c.PROGRESS_URL,
+queryParams: a,
+isWhereQuery: !0,
+includeParam: "student",
+keysParam: "student,lesson,assessment,timeSpent"
+};
+return [ 4, i.ParseNetwork.getInstance().get(s) ];
+
+case 1:
+t = r.sent();
+n = t.map(function(e) {
+return {
+objectId: e.student.objectId,
+lesson: e.lesson,
+assessment: e.assessment,
+timeSpent: e.timeSpent,
+studentName: e.student.name
+};
+});
+cc.log("result", n);
+r.label = 2;
+
+case 2:
+return [ 2, n ];
+}
+});
+});
+};
+e.prototype.selectedSection = function(t) {
+var n = e.instance.fromJson(i.ParseNetwork.getInstance().getParseObjectFromCache(c.SECTIONS + t), s.ParseSection), o = i.ParseNetwork.getInstance().getStringFromCache(g.CURRENT_SECTION_ID);
+return n.filter(function(e) {
+return e.objectId === o;
+});
+};
+e.prototype.allSubjects = function() {
+return e.instance.fromJson(i.ParseNetwork.getInstance().getParseObjectFromCache(c.SUBJECTS), d.ParseSubject);
+};
+e.prototype.selectedClasses = function(t) {
+return e.instance.fromJson(i.ParseNetwork.getInstance().getParseObjectFromCache(c.CLASSES + t), p.ParseClass);
+};
+e.prototype.getStudentsForSection = function(t, n) {
+return o(this, void 0, Promise, function() {
+var o, a;
+return r(this, function(r) {
+switch (r.label) {
+case 0:
+o = [];
+a = {
+url: c.STUDENT_URL,
+queryParams: {
+school: i.ParseNetwork.getInstance().createPointer("School", t),
+section: i.ParseNetwork.getInstance().createPointer("Section", n)
+},
+isWhereQuery: !0
+};
+return [ 4, i.ParseNetwork.getInstance().get(a, c.STUDENTS + t + n) ];
+
+case 1:
+o = r.sent();
+return [ 2, e.instance.fromJson(o, u.ParseStudent) ];
+}
+});
+});
+};
+e.prototype.selectedStudents = function(t, n) {
+return e.instance.fromJson(i.ParseNetwork.getInstance().getParseObjectFromCache(c.STUDENTS + t + n), u.ParseStudent);
+};
+e.prototype.getActiveClassesForSchoolAndSection = function(t, n) {
+void 0 === n && (n = null);
+return o(this, void 0, Promise, function() {
+var n, o, a;
+return r(this, function(r) {
+switch (r.label) {
+case 0:
+[];
+n = {
+school: i.ParseNetwork.getInstance().createPointer("School", t),
+active: !0
+};
+o = {
+url: c.CLASS_URL,
+queryParams: n,
+isWhereQuery: !0,
+includeParam: "subject,teacher"
+};
+return [ 4, i.ParseNetwork.getInstance().get(o, c.CLASSES + t) ];
+
+case 1:
+r.sent();
+a = e.instance.selectedClasses(t);
+cc.log("classes", a);
+a.map(function(t) {
+var n = {
+subject: t.subject,
+teacher: t.teacher,
+classId: t.objectId
+};
+e.instance.storeSubjectAndTeacherByClass(t.objectId, n);
+});
+return [ 2, a ];
+}
+});
+});
+};
+e.prototype.storeSubjectAndTeacherByClass = function(e, t) {
+i.ParseNetwork.getInstance().storeIntoCache(c.SUBJECT + e, t.subject);
+i.ParseNetwork.getInstance().storeIntoCache(c.TEACHER + e, t.teacher);
+};
+e.prototype.getSubjectByClass = function(t) {
+return e.instance.fromJson(i.ParseNetwork.getInstance().getParseObjectFromCache(c.SUBJECT + t), d.ParseSubject);
+};
+e.prototype.getTeacherByClass = function(t) {
+return e.instance.fromJson(i.ParseNetwork.getInstance().getParseObjectFromCache(c.TEACHER + t), a.ParseUser);
+};
+e.prototype.fromJson = function(e, t) {
+var n = null;
+if (Array.isArray(e)) n = e.map(function(e) {
+var n = new t();
+return Object.assign(n, e);
+}); else {
+var o = new t();
+n = Object.assign(o, e);
+}
+return n;
+};
+e.prototype.asyncForEach = function(e, t) {
+return o(this, void 0, void 0, function() {
+var n;
+return r(this, function(o) {
+switch (o.label) {
+case 0:
+n = 0;
+o.label = 1;
+
+case 1:
+return n < e.length ? [ 4, t(e[n], n, e) ] : [ 3, 4 ];
+
+case 2:
+o.sent();
+o.label = 3;
+
+case 3:
+n++;
+return [ 3, 1 ];
+
+case 4:
+return [ 2 ];
+}
+});
+});
+};
+e.prototype.convertDataURIToBinary = function(e) {
+for (var t = e.indexOf(";base64,") + ";base64,".length, n = e.substring(t), o = window.atob(n), r = o.length, i = new Uint8Array(new ArrayBuffer(r)), c = 0; c < r; c++) i[c] = o.charCodeAt(c);
+return i;
+};
+e.prototype.findOrCreateMonitor = function(t, n, a, s, u) {
+return o(this, void 0, void 0, function() {
+var o;
+return r(this, function(r) {
+switch (r.label) {
+case 0:
+r.trys.push([ 0, 3, 4, 5 ]);
+return [ 4, e.instance.getMonitorBySchoolAndStudentAndClass(t, n, a) ];
+
+case 1:
+return r.sent() ? [ 2 ] : [ 4, e.instance.createMonitor(t, n, a) ];
+
+case 2:
+r.sent();
+return [ 3, 5 ];
+
+case 3:
+o = r.sent();
+cc.log(o);
+return [ 3, 5 ];
+
+case 4:
+i.ParseNetwork.getInstance().storeIntoCache(g.CURRENT_SCHOOL_ID, t);
+i.ParseNetwork.getInstance().storeIntoCache(g.CURRENT_STUDENT_ID, n);
+i.ParseNetwork.getInstance().storeIntoCache(g.CURRENT_CLASS_ID, a);
+i.ParseNetwork.getInstance().storeIntoCache(c.CURRENT_SUBJECT_NAME, s);
+i.ParseNetwork.getInstance().storeIntoCache(g.CURRENT_SUBJECT_ID, u);
+return [ 7 ];
+
+case 5:
+return [ 2 ];
+}
+});
+});
+};
+e.prototype.buildAndLoginUser = function(t) {
+return o(this, void 0, void 0, function() {
+var n, o, a, s, u;
+return r(this, function(r) {
+switch (r.label) {
+case 0:
+r.trys.push([ 0, 2, , 3 ]);
+n = i.ParseNetwork.getInstance().getStringFromCache(c.SCHOOL_CODE);
+o = i.ParseNetwork.getInstance().getStringFromCache(c.SCHOOL_PASSWORD);
+return [ 4, e.instance.login(n, o) ];
+
+case 1:
+r.sent();
+a = t.gender ? "male" === t.gender.toLowerCase() ? f.Gender.BOY : f.Gender.GIRL : f.Gender.UNKNOWN;
+s = f.User.createUserOrFindExistingUser({
+id: t.objectId,
+name: t.name,
+age: t.age,
+gender: a,
+imgPath: t.image ? t.image.url : ""
+});
+f.User.setCurrentUser(s);
+f.default.fromJsonUsingParse(t.profile);
+return [ 3, 3 ];
+
+case 2:
+u = r.sent();
+cc.log(u);
+return [ 3, 3 ];
+
+case 3:
+return [ 2 ];
+}
+});
+});
+};
+e.prototype.createMonitor = function(t, n, a) {
+return o(this, void 0, Promise, function() {
+var o, s;
+return r(this, function(r) {
+switch (r.label) {
+case 0:
+(o = new h.ParseMonitor()).school = e.instance.createPointer("School", t);
+o.student = e.instance.createPointer("Student", n);
+o.class = e.instance.createPointer("Class", a);
+o.activity = "school-class";
+s = {
+url: c.MONITOR_URL,
+body: o
+};
+return [ 4, i.ParseNetwork.getInstance().post(s) ];
+
+case 1:
+r.sent();
+return [ 2 ];
+}
+});
+});
+};
+e.prototype.updateProgress = function(e) {
+return o(this, void 0, Promise, function() {
+var t;
+return r(this, function(n) {
+switch (n.label) {
+case 0:
+if (!(e.studentId && e.studentId.length > 0)) return [ 3, 2 ];
+t = {
+url: c.UPDATE_PROGRESS_URL,
+body: e
+};
+return [ 4, i.ParseNetwork.getInstance().post(t) ];
+
+case 1:
+return [ 2, n.sent() ];
+
+case 2:
+return [ 2 ];
+}
+});
+});
+};
+e.prototype.updateMonitor = function(e) {
+return o(this, void 0, Promise, function() {
+var t;
+return r(this, function(n) {
+switch (n.label) {
+case 0:
+if (!(e.studentId && e.studentId.length > 0)) return [ 3, 2 ];
+t = {
+url: c.UPDATE_MONITOR_URL,
+body: e
+};
+return [ 4, i.ParseNetwork.getInstance().post(t) ];
+
+case 1:
+return [ 2, n.sent() ];
+
+case 2:
+return [ 2 ];
+}
+});
+});
+};
+e.prototype.updateProfile = function(e) {
+return o(this, void 0, Promise, function() {
+var t, n;
+return r(this, function(o) {
+switch (o.label) {
+case 0:
+if (!((t = e.studentId) && t.length > 0)) return [ 3, 2 ];
+n = {
+url: c.STUDENT_URL + "/" + t,
+body: {
+profile: e.profile
+}
+};
+return [ 4, i.ParseNetwork.getInstance().update(n) ];
+
+case 1:
+return [ 2, o.sent() ];
+
+case 2:
+return [ 2 ];
+}
+});
+});
+};
+e.prototype.getMonitorBySchoolAndStudentAndClass = function(t, n, a) {
+return o(this, void 0, Promise, function() {
+var o, s, u;
+return r(this, function(r) {
+switch (r.label) {
+case 0:
+o = [];
+null;
+s = {
+url: c.MONITOR_URL,
+queryParams: {
+school: i.ParseNetwork.getInstance().createPointer("School", t),
+student: i.ParseNetwork.getInstance().createPointer("Student", n),
+class: i.ParseNetwork.getInstance().createPointer("Class", a)
+},
+isWhereQuery: !0
+};
+return [ 4, i.ParseNetwork.getInstance().get(s) ];
+
+case 1:
+o = r.sent();
+u = e.instance.fromJson(o, h.ParseMonitor);
+return [ 2, u && u.length > 0 ? u[0] : null ];
+}
+});
+});
+};
+e.prototype.createPointer = function(e, t) {
+return {
+__type: "Pointer",
+className: e,
+objectId: t
+};
+};
+return e;
+}();
+n.ParseApi = m;
+cc._RF.pop();
+}, {
+"../../common/scripts/lib/constants": void 0,
+"../../common/scripts/lib/profile": void 0,
+"../domain/parseClass": "parseClass",
+"../domain/parseConnection": "parseConnection",
+"../domain/parseConstants": "parseConstants",
+"../domain/parseMonitor": "parseMonitor",
+"../domain/parseSection": "parseSection",
+"../domain/parseStudent": "parseStudent",
+"../domain/parseSubject": "parseSubject",
+"../domain/parseUser": "parseUser",
+"./ParseNetwork": "ParseNetwork"
+} ],
+parseChapter: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "0e4c5JAtXJCY6A9EsSGR85e", "parseChapter");
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ParseChapter = void 0;
+var o = function() {
+return function() {};
+}();
+n.ParseChapter = o;
+cc._RF.pop();
+}, {} ],
+parseClass: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "1a89e795RNCsZtKwQ1AFQ9R", "parseClass");
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ParseClass = void 0;
+var o = function() {
+return function() {};
+}();
+n.ParseClass = o;
+cc._RF.pop();
+}, {} ],
+parseConnection: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "352115XVTNLhbSKoWKum1oP", "parseConnection");
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ParseConnection = void 0;
+var o = function() {
+return function() {};
+}();
+n.ParseConnection = o;
+cc._RF.pop();
+}, {} ],
+parseConstants: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "0457bG92QRKcKcRDWQsqcDr", "parseConstants");
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.PROGRESS_URL = n.TUITION_URL = n.UPDATE_MONITOR_URL = n.UPDATE_PROGRESS_URL = n.STUDENT_URL = n.USER_URL = n.MONITOR_URL = n.CLASS_URL = n.SUBJECT_URL = n.SECTION_URL = n.SCHOOL_URL = n.CONNECTION_URL = n.LOGIN_URL = n.CURRENT_SUBJECT_NAME = n.STUDENTS_FOR_TEACHER = n.MONITORS = n.TEACHER = n.SUBJECT = n.CLASSES = n.STUDENTS = n.SUBJECTS = n.SECTIONS = n.CURRENT_CONNECTION = n.CURRENT_SELECTED_SCHOOL = n.LOGGED_IN_USER = n.TEACHER_PASSWORD = n.TEACHER_EMAIL = n.SCHOOL_PASSWORD = n.SCHOOL_CODE = n.PUT = n.POST = n.GET = n.DEFAULT_TIMEOUT = n.PARSE_REST_API_KEY = n.APPLICATION_ID = void 0;
+n.APPLICATION_ID = "x45P2SW2h1UfyDT8F0C9vpKmOGe7eFCnIo33Q2dk";
+n.PARSE_REST_API_KEY = "PIvgGRHCSFYNN9h1qhpHQ9KtEbtbwNbZ2oGknZ3g";
+n.DEFAULT_TIMEOUT = 5e3;
+n.GET = "get";
+n.POST = "post";
+n.PUT = "put";
+n.SCHOOL_CODE = "SCHOOL_CODE";
+n.SCHOOL_PASSWORD = "SCHOOL_PASSWORD";
+n.TEACHER_EMAIL = "TEACHER_EMAIL";
+n.TEACHER_PASSWORD = "TEACHER_PASSWORD";
+n.LOGGED_IN_USER = "loggedInUser";
+n.CURRENT_SELECTED_SCHOOL = "selectedSchool";
+n.CURRENT_CONNECTION = "selectedConnection";
+n.SECTIONS = "sections";
+n.SUBJECTS = "subjects";
+n.STUDENTS = "students";
+n.CLASSES = "classes";
+n.SUBJECT = "subject";
+n.TEACHER = "teacher";
+n.MONITORS = "monitors";
+n.STUDENTS_FOR_TEACHER = "studentsForTeacher";
+n.CURRENT_SUBJECT_NAME = "CURRENT_SUBJECT_NAME";
+n.LOGIN_URL = "https://parseapi.back4app.com/login";
+n.CONNECTION_URL = "https://parseapi.back4app.com/classes/Connection";
+n.SCHOOL_URL = "https://parseapi.back4app.com/classes/School";
+n.SECTION_URL = "https://parseapi.back4app.com/classes/Section";
+n.SUBJECT_URL = "https://parseapi.back4app.com/classes/Subject";
+n.CLASS_URL = "https://parseapi.back4app.com/classes/Class";
+n.MONITOR_URL = "https://parseapi.back4app.com/classes/Monitor";
+n.USER_URL = "https://parseapi.back4app.com/users";
+n.STUDENT_URL = "https://parseapi.back4app.com/classes/Student";
+n.UPDATE_PROGRESS_URL = "https://parseapi.back4app.com/functions/updateProgress";
+n.UPDATE_MONITOR_URL = "https://parseapi.back4app.com/functions/updateMonitor";
+n.TUITION_URL = "https://parseapi.back4app.com/classes/Tuition";
+n.PROGRESS_URL = "https://parseapi.back4app.com/classes/Progress";
+cc._RF.pop();
+}, {} ],
+parseMonitor: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "1d7c1bWu75IM6h4Qbsbf7XZ", "parseMonitor");
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ParseMonitor = void 0;
+var o = function() {
+return function() {};
+}();
+n.ParseMonitor = o;
+cc._RF.pop();
+}, {} ],
+parseProgress: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "0e5c03JcvhOQ7sSwEI5D6Fl", "parseProgress");
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ParseProgress = void 0;
+var o = function() {
+return function() {};
+}();
+n.ParseProgress = o;
+cc._RF.pop();
+}, {} ],
+parseSchool: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "4535amQJ29GB4/ktUT/Uxzp", "parseSchool");
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ParseSchool = void 0;
+var o = function() {
+return function() {};
+}();
+n.ParseSchool = o;
+cc._RF.pop();
+}, {} ],
+parseSection: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "44cd6SSTEBA3YGj3eJ5Uasp", "parseSection");
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ParseSection = void 0;
+var o = function() {
+return function() {};
+}();
+n.ParseSection = o;
+cc._RF.pop();
+}, {} ],
+parseStudent: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "b6ec9aklhxLX7oVcfkhoBjU", "parseStudent");
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ParseStudent = void 0;
+var o = function() {
+return function() {};
+}();
+n.ParseStudent = o;
+cc._RF.pop();
+}, {} ],
+parseSubject: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "657d7HSnyFPbptfVc+X9L3S", "parseSubject");
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ParseSubject = void 0;
+var o = function() {
+return function() {};
+}();
+n.ParseSubject = o;
+cc._RF.pop();
+}, {} ],
+parseTuition: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "f48b1lL7nJIxrdwyrwCd0yz", "parseTuition");
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ParseTuition = void 0;
+var o = function() {
+return function() {};
+}();
+n.ParseTuition = o;
+cc._RF.pop();
+}, {} ],
+parseUser: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "32690Lm67pC5JfFr5+f7Pfy", "parseUser");
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.ParseUser = void 0;
+var o = function() {
+return function() {};
+}();
+n.ParseUser = o;
+cc._RF.pop();
+}, {} ],
+registerButton: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "cc3daIWYGBAUYjAAtXofv6w", "registerButton");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+}, i = this && this.__awaiter || function(e, t, n, o) {
+function r(e) {
+return e instanceof n ? e : new n(function(t) {
+t(e);
+});
+}
+return new (n || (n = Promise))(function(n, i) {
+function c(e) {
+try {
+s(o.next(e));
+} catch (e) {
+i(e);
+}
+}
+function a(e) {
+try {
+s(o.throw(e));
+} catch (e) {
+i(e);
+}
+}
+function s(e) {
+e.done ? n(e.value) : r(e.value).then(c, a);
+}
+s((o = o.apply(e, t || [])).next());
+});
+}, c = this && this.__generator || function(e, t) {
+var n, o, r, i, c = {
+label: 0,
+sent: function() {
+if (1 & r[0]) throw r[1];
+return r[1];
+},
+trys: [],
+ops: []
+};
+return i = {
+next: a(0),
+throw: a(1),
+return: a(2)
+}, "function" == typeof Symbol && (i[Symbol.iterator] = function() {
+return this;
+}), i;
+function a(e) {
+return function(t) {
+return s([ e, t ]);
+};
+}
+function s(i) {
+if (n) throw new TypeError("Generator is already executing.");
+for (;c; ) try {
+if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 
+0) : o.next) && !(r = r.call(o, i[1])).done) return r;
+(o = 0, r) && (i = [ 2 & i[0], r.value ]);
+switch (i[0]) {
+case 0:
+case 1:
+r = i;
+break;
+
+case 4:
+c.label++;
+return {
+value: i[1],
+done: !1
+};
+
+case 5:
+c.label++;
+o = i[1];
+i = [ 0 ];
+continue;
+
+case 7:
+i = c.ops.pop();
+c.trys.pop();
+continue;
+
+default:
+if (!(r = c.trys, r = r.length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
+c = 0;
+continue;
+}
+if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
+c.label = i[1];
+break;
+}
+if (6 === i[0] && c.label < r[1]) {
+c.label = r[1];
+r = i;
+break;
+}
+if (r && c.label < r[2]) {
+c.label = r[2];
+c.ops.push(i);
+break;
+}
+r[2] && c.ops.pop();
+c.trys.pop();
+continue;
+}
+i = t.call(e, c);
+} catch (e) {
+i = [ 6, e ];
+o = 0;
+} finally {
+n = r = 0;
+}
+if (5 & i[0]) throw i[1];
+return {
+value: i[0] ? i[1] : void 0,
+done: !0
+};
+}
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.RegisterButton = n.REGISTER_ITEM_SELECTED_EVENT = n.RegisterType = void 0;
+var a = cc._decorator.ccclass, s = cc._decorator.property;
+(function(e) {
+e[e.Child = 1] = "Child";
+e[e.Teacher = 2] = "Teacher";
+e[e.School = 3] = "School";
+})(n.RegisterType || (n.RegisterType = {}));
+n.REGISTER_ITEM_SELECTED_EVENT = "REGISTER_ITEM_SELECTED_EVENT";
+var u = !0, l = function(e) {
+o(t, e);
+function t() {
+var t = e.call(this) || this;
+t.regType = 0;
+return t;
+}
+t.prototype.onLoad = function() {
+u = !0;
+};
+t.prototype.onClicked = function() {
+return i(this, void 0, void 0, function() {
+return c(this, function(e) {
+if (u) {
+u = !1;
+this.itemSelectedEvent();
+}
+return [ 2 ];
+});
+});
+};
+t.prototype.itemSelectedEvent = function() {
+var e = new cc.Event.EventCustom(n.REGISTER_ITEM_SELECTED_EVENT, !0), t = {
+type: this.regType
+};
+e.setUserData(t);
+this.node.dispatchEvent(e);
+};
+r([ s ], t.prototype, "regType", void 0);
+return t = r([ a ], t);
+}(cc.Component);
+n.RegisterButton = l;
+cc._RF.pop();
+}, {} ],
+register: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "f2caa7WuFZN+Y3b/p1vf5Ji", "register");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+}, i = this && this.__awaiter || function(e, t, n, o) {
+function r(e) {
+return e instanceof n ? e : new n(function(t) {
+t(e);
+});
+}
+return new (n || (n = Promise))(function(n, i) {
+function c(e) {
+try {
+s(o.next(e));
+} catch (e) {
+i(e);
+}
+}
+function a(e) {
+try {
+s(o.throw(e));
+} catch (e) {
+i(e);
+}
+}
+function s(e) {
+e.done ? n(e.value) : r(e.value).then(c, a);
+}
+s((o = o.apply(e, t || [])).next());
+});
+}, c = this && this.__generator || function(e, t) {
+var n, o, r, i, c = {
+label: 0,
+sent: function() {
+if (1 & r[0]) throw r[1];
+return r[1];
+},
+trys: [],
+ops: []
+};
+return i = {
+next: a(0),
+throw: a(1),
+return: a(2)
+}, "function" == typeof Symbol && (i[Symbol.iterator] = function() {
+return this;
+}), i;
+function a(e) {
+return function(t) {
+return s([ e, t ]);
+};
+}
+function s(i) {
+if (n) throw new TypeError("Generator is already executing.");
+for (;c; ) try {
+if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 
+0) : o.next) && !(r = r.call(o, i[1])).done) return r;
+(o = 0, r) && (i = [ 2 & i[0], r.value ]);
+switch (i[0]) {
+case 0:
+case 1:
+r = i;
+break;
+
+case 4:
+c.label++;
+return {
+value: i[1],
+done: !1
+};
+
+case 5:
+c.label++;
+o = i[1];
+i = [ 0 ];
+continue;
+
+case 7:
+i = c.ops.pop();
+c.trys.pop();
+continue;
+
+default:
+if (!(r = c.trys, r = r.length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
+c = 0;
+continue;
+}
+if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
+c.label = i[1];
+break;
+}
+if (6 === i[0] && c.label < r[1]) {
+c.label = r[1];
+r = i;
+break;
+}
+if (r && c.label < r[2]) {
+c.label = r[2];
+c.ops.push(i);
+break;
+}
+r[2] && c.ops.pop();
+c.trys.pop();
+continue;
+}
+i = t.call(e, c);
+} catch (e) {
+i = [ 6, e ];
+o = 0;
+} finally {
+n = r = 0;
+}
+if (5 & i[0]) throw i[1];
+return {
+value: i[0] ? i[1] : void 0,
+done: !0
+};
+}
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.Register = void 0;
+var a = cc._decorator.ccclass, s = e("../../../common/scripts/lib/error-handler"), u = e("../../../common/scripts/chimple-label"), l = e("../../../common/scripts/util"), p = e("./registerButton"), d = e("../../../common/scripts/lib/constants"), h = e("../../../common/scripts/lib/config"), f = e("../../services/parseApi"), g = e("../../services/ParseNetwork"), m = e("../../../common/scripts/lib/profile"), y = e("../../school/scripts/landing"), b = function(e) {
+o(t, e);
+function t() {
+return e.call(this) || this;
+}
+t.prototype.onLoad = function() {
+this.registerTypeEvent();
+this.renderUI();
+};
+t.prototype.renderUI = function() {
+var e = this.node.getChildByName("layout");
+e.getComponent(cc.Layout);
+e.children.forEach(function(e) {
+var t = e.getChildByName("photo").getChildByName("name").getComponent(u.default);
+t.string = l.Util.i18NText(t.string);
+});
+};
+t.prototype.registerTypeEvent = function() {
+var e = this;
+this.node.on(p.REGISTER_ITEM_SELECTED_EVENT, function(t) {
+return i(e, void 0, void 0, function() {
+var e;
+return c(this, function(n) {
+switch (n.label) {
+case 0:
+t.stopPropagation();
+e = t.getUserData();
+switch (e.type) {
+case p.RegisterType.Child:
+return [ 3, 1 ];
+
+case p.RegisterType.Teacher:
+return [ 3, 2 ];
+
+case p.RegisterType.School:
+return [ 3, 4 ];
+}
+return [ 3, 6 ];
+
+case 1:
+d.MODE = d.Mode.Home;
+this.navigateToHome();
+return [ 3, 6 ];
+
+case 2:
+d.MODE = d.Mode.Teacher;
+return [ 4, this.navigateToTeacher() ];
+
+case 3:
+n.sent();
+return [ 3, 6 ];
+
+case 4:
+cc.log("registration type", p.RegisterType.School);
+d.MODE = d.Mode.School;
+return [ 4, this.navigateToSchool() ];
+
+case 5:
+n.sent();
+return [ 3, 6 ];
+
+case 6:
+return [ 2 ];
+}
+});
+});
+});
+};
+t.prototype.navigateToHome = function() {
+h.default.loadScene("private/home/login/scenes/welcomePage", "private", null);
+};
+t.prototype.navigateToSchool = function() {
+return i(this, void 0, void 0, function() {
+var e, t;
+return c(this, function(n) {
+switch (n.label) {
+case 0:
+e = f.ParseApi.getInstance().getLoggedInUser();
+return [ 4, f.ParseApi.getInstance().connections() ];
+
+case 1:
+t = n.sent();
+!e || g.ParseNetwork.getInstance().isEmpty(e) || g.ParseNetwork.getInstance().isEmpty(t) ? h.default.loadScene(y.SCHOOL_REGISTRATION_SCENE, "private", null) : h.default.loadScene(y.SELECT_SECTIONS_SCENE, "private", null);
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.navigateToTeacher = function() {
+return i(this, void 0, void 0, function() {
+var e;
+return c(this, function(t) {
+switch (t.label) {
+case 0:
+return !(e = f.ParseApi.getInstance().getLoggedInUser()) || g.ParseNetwork.getInstance().isEmpty(e) ? [ 3, 2 ] : [ 4, m.default.teacherPostLoginActivity(e.objectId) ];
+
+case 1:
+t.sent();
+h.default.loadScene(y.TEACHER_REPORT_CARD_SCENE, "private", null);
+return [ 3, 3 ];
+
+case 2:
+h.default.loadScene(y.TEACHER_REGISTRATION_SCENE, "private", null);
+t.label = 3;
+
+case 3:
+return [ 2 ];
+}
+});
+});
+};
+r([ s.catchError() ], t.prototype, "onLoad", null);
+return t = r([ a ], t);
+}(cc.Component);
+n.Register = b;
+cc._RF.pop();
+}, {
+"../../../common/scripts/chimple-label": void 0,
+"../../../common/scripts/lib/config": void 0,
+"../../../common/scripts/lib/constants": void 0,
+"../../../common/scripts/lib/error-handler": void 0,
+"../../../common/scripts/lib/profile": void 0,
+"../../../common/scripts/util": void 0,
+"../../school/scripts/landing": "landing",
+"../../services/ParseNetwork": "ParseNetwork",
+"../../services/parseApi": "parseApi",
+"./registerButton": "registerButton"
+} ],
+schoolBackButton: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "99930asPRRJYLkyrWkOoY87", "schoolBackButton");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.SchoolBackButton = void 0;
+var i = cc._decorator.ccclass, c = e("../../../common/scripts/lib/config"), a = e("../../services/parseApi"), s = e("./selectionScene"), u = e("./landing"), l = function(e) {
+o(t, e);
+function t() {
+return null !== e && e.apply(this, arguments) || this;
+}
+t.prototype.onButtonClick = function(e, t) {
+s.currentSelectMode = s.currentSelectMode === a.SelectionMode.Student ? a.SelectionMode.Section : a.SelectionMode.Subject ? a.SelectionMode.Student : a.SelectionMode.Section;
+c.default.loadScene(u.SELECT_SECTIONS_SCENE, "private", null);
+};
+return t = r([ i ], t);
+}(cc.Component);
+n.SchoolBackButton = l;
+cc._RF.pop();
+}, {
+"../../../common/scripts/lib/config": void 0,
+"../../services/parseApi": "parseApi",
+"./landing": "landing",
+"./selectionScene": "selectionScene"
+} ],
+schoolRegistration: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "f992aetn+tBxJz04xkwgPJz", "schoolRegistration");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+}, i = this && this.__awaiter || function(e, t, n, o) {
+function r(e) {
+return e instanceof n ? e : new n(function(t) {
+t(e);
+});
+}
+return new (n || (n = Promise))(function(n, i) {
+function c(e) {
+try {
+s(o.next(e));
+} catch (e) {
+i(e);
+}
+}
+function a(e) {
+try {
+s(o.throw(e));
+} catch (e) {
+i(e);
+}
+}
+function s(e) {
+e.done ? n(e.value) : r(e.value).then(c, a);
+}
+s((o = o.apply(e, t || [])).next());
+});
+}, c = this && this.__generator || function(e, t) {
+var n, o, r, i, c = {
+label: 0,
+sent: function() {
+if (1 & r[0]) throw r[1];
+return r[1];
+},
+trys: [],
+ops: []
+};
+return i = {
+next: a(0),
+throw: a(1),
+return: a(2)
+}, "function" == typeof Symbol && (i[Symbol.iterator] = function() {
+return this;
+}), i;
+function a(e) {
+return function(t) {
+return s([ e, t ]);
+};
+}
+function s(i) {
+if (n) throw new TypeError("Generator is already executing.");
+for (;c; ) try {
+if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 
+0) : o.next) && !(r = r.call(o, i[1])).done) return r;
+(o = 0, r) && (i = [ 2 & i[0], r.value ]);
+switch (i[0]) {
+case 0:
+case 1:
+r = i;
+break;
+
+case 4:
+c.label++;
+return {
+value: i[1],
+done: !1
+};
+
+case 5:
+c.label++;
+o = i[1];
+i = [ 0 ];
+continue;
+
+case 7:
+i = c.ops.pop();
+c.trys.pop();
+continue;
+
+default:
+if (!(r = c.trys, r = r.length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
+c = 0;
+continue;
+}
+if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
+c.label = i[1];
+break;
+}
+if (6 === i[0] && c.label < r[1]) {
+c.label = r[1];
+r = i;
+break;
+}
+if (r && c.label < r[2]) {
+c.label = r[2];
+c.ops.push(i);
+break;
+}
+r[2] && c.ops.pop();
+c.trys.pop();
+continue;
+}
+i = t.call(e, c);
+} catch (e) {
+i = [ 6, e ];
+o = 0;
+} finally {
+n = r = 0;
+}
+if (5 & i[0]) throw i[1];
+return {
+value: i[0] ? i[1] : void 0,
+done: !0
+};
+}
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.SchoolRegistration = n.EditOptions = void 0;
+var a, s = cc._decorator.ccclass, u = cc._decorator.property, l = cc.EditBox, p = e("../../../common/scripts/lib/error-handler"), d = e("../../../common/scripts/chimple-label"), h = e("./customEditBox"), f = e("./nextButton"), g = e("../../services/parseApi"), m = e("../../../common/scripts/lib/config"), y = e("./selectionScene"), b = e("../../services/ParseNetwork"), v = e("../../domain/parseConstants"), _ = e("./landing");
+(function(e) {
+e.SchoolCodeChanged = "0";
+e.PasswordChanged = "1";
+})(a = n.EditOptions || (n.EditOptions = {}));
+var C = function(e) {
+o(t, e);
+function t() {
+var t = e.call(this) || this;
+t.customEditBoxPrefab = null;
+t.nextButtonPrefab = null;
+t.loadingPrefab = null;
+t.warningPrefab = null;
+t.schoolEditBox = null;
+t.passwordEditBox = null;
+t.nextButton = null;
+t.schoolCode = null;
+t.password = null;
+t.loading = null;
+t.warning = null;
+return t;
+}
+t.prototype.onLoad = function() {
+return i(this, void 0, Promise, function() {
+return c(this, function(e) {
+switch (e.label) {
+case 0:
+return [ 4, this.renderUI() ];
+
+case 1:
+e.sent();
+return [ 4, this.registerEditBoxCustomEvent() ];
+
+case 2:
+e.sent();
+return [ 4, this.registerLoginEvent() ];
+
+case 3:
+e.sent();
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.renderUI = function() {
+this.createLoading();
+this.schoolEditBox = this.renderSchoolCodeBox();
+this.node.addChild(this.schoolEditBox);
+this.schoolEditBox.setPosition(new cc.Vec2(this.schoolEditBox.x, this.schoolEditBox.y + 150));
+this.passwordEditBox = this.renderPasswordBox();
+this.node.addChild(this.passwordEditBox);
+this.passwordEditBox.setPosition(new cc.Vec2(this.passwordEditBox.x, this.passwordEditBox.y));
+this.nextButton = cc.instantiate(this.nextButtonPrefab);
+this.nextButton.setPosition(new cc.Vec2(cc.winSize.width / 4, -cc.winSize.height / 3));
+this.node.addChild(this.nextButton);
+this.warning = cc.instantiate(this.warningPrefab);
+this.warning.active = !1;
+this.warning.setPosition(new cc.Vec2(0, -125));
+this.node.addChild(this.warning);
+};
+t.prototype.createLoading = function() {
+this.loading = cc.instantiate(this.loadingPrefab);
+this.loading.zIndex = 3;
+this.node.addChild(this.loading);
+this.loading.active = !1;
+};
+t.prototype.showLoading = function() {
+this.loading.active = !0;
+};
+t.prototype.hideLoading = function() {
+this.loading.active = !1;
+};
+t.prototype.registerEditBoxCustomEvent = function() {
+var e = this;
+this.node.on(h.EDIT_STARTED_EVENT, function(t) {
+e.warning.active = !1;
+e.hidePassword();
+});
+this.node.on(h.EDIT_ENDED_EVENT, function(t) {
+t.stopPropagation();
+var n = t.getUserData();
+switch (n.detectParent) {
+case a.SchoolCodeChanged:
+e.schoolCode = n.text;
+break;
+
+case a.PasswordChanged:
+e.password = n.text;
+}
+e.showNext();
+});
+};
+t.prototype.registerLoginEvent = function() {
+return i(this, void 0, void 0, function() {
+var e = this;
+return c(this, function(t) {
+this.node.on(f.PARSE_LOGIN_EVENT, function(t) {
+t.stopPropagation();
+var n = t.getUserData();
+cc.log("selected item", n.node);
+cc.log("code", n.code);
+cc.log("password", n.password);
+e.parseLogin(n.node, n.code, n.password);
+});
+return [ 2 ];
+});
+});
+};
+t.prototype.parseLogin = function(e, t, n) {
+return i(this, void 0, void 0, function() {
+var o, r, i;
+return c(this, function(c) {
+switch (c.label) {
+case 0:
+this.showLoading();
+this.warning.active = !1;
+b.ParseNetwork.getInstance().storeIntoCache(v.SCHOOL_CODE, t);
+b.ParseNetwork.getInstance().storeIntoCache(v.SCHOOL_PASSWORD, n);
+return [ 4, g.ParseApi.getInstance().login(t, n) ];
+
+case 1:
+c.sent();
+cc.log("loggedInUser", g.ParseApi.getInstance().getLoggedInUser());
+o = g.ParseApi.getInstance().getLoggedInUser();
+return [ 4, g.ParseApi.getInstance().connections() ];
+
+case 2:
+r = c.sent();
+if (b.ParseNetwork.getInstance().isEmpty(o) || b.ParseNetwork.getInstance().isEmpty(r)) {
+e.getComponent(cc.Button).interactable = !0;
+this.hideLoading();
+this.warning.active = !0;
+this.showPassword();
+b.ParseNetwork.getInstance().removeFromCache(v.SCHOOL_CODE);
+b.ParseNetwork.getInstance().removeFromCache(v.SCHOOL_PASSWORD);
+this.showNext();
+} else {
+i = _.SELECT_SECTIONS_SCENE;
+y.currentSelectMode = g.SelectionMode.Section;
+m.default.loadScene(i, "private", null);
+}
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.showNext = function() {
+var e = this.nextButton.getComponent(f.NextButton);
+e.schoolCode = this.schoolCode;
+e.password = this.password;
+!(!this.schoolCode || !this.password) ? e.activate() : e.deActivate();
+};
+t.prototype.renderSchoolCodeBox = function() {
+this.schoolEditBox = cc.instantiate(this.customEditBoxPrefab);
+this.schoolEditBox.name = a.SchoolCodeChanged;
+var e = this.getChimpleLabel(this.schoolEditBox);
+null != e && (e.string = "school code");
+return this.schoolEditBox;
+};
+t.prototype.renderPasswordBox = function() {
+this.passwordEditBox = cc.instantiate(this.customEditBoxPrefab);
+this.passwordEditBox.name = a.PasswordChanged;
+this.passwordEditBox.getChildByName("base").getComponent(cc.EditBox).inputFlag = l.InputFlag.PASSWORD;
+var e = this.getChimpleLabel(this.passwordEditBox);
+null != e && (e.string = "password");
+return this.passwordEditBox;
+};
+t.prototype.showPassword = function() {
+this.passwordEditBox.getChildByName("base").getComponent(cc.EditBox).inputFlag = l.InputFlag.DEFAULT;
+};
+t.prototype.hidePassword = function() {
+this.passwordEditBox.getChildByName("base").getComponent(cc.EditBox).inputFlag = l.InputFlag.PASSWORD;
+};
+t.prototype.getChimpleLabel = function(e) {
+var t = null, n = e.getChildByName("PLACEHOLDER_LABEL");
+null != n && (t = n.getComponent(d.default));
+return t;
+};
+r([ u(cc.Prefab) ], t.prototype, "customEditBoxPrefab", void 0);
+r([ u(cc.Prefab) ], t.prototype, "nextButtonPrefab", void 0);
+r([ u(cc.Prefab) ], t.prototype, "loadingPrefab", void 0);
+r([ u(cc.Prefab) ], t.prototype, "warningPrefab", void 0);
+r([ p.catchError() ], t.prototype, "onLoad", null);
+return t = r([ s ], t);
+}(cc.Component);
+n.SchoolRegistration = C;
+cc._RF.pop();
+}, {
+"../../../common/scripts/chimple-label": void 0,
+"../../../common/scripts/lib/config": void 0,
+"../../../common/scripts/lib/error-handler": void 0,
+"../../domain/parseConstants": "parseConstants",
+"../../services/ParseNetwork": "ParseNetwork",
+"../../services/parseApi": "parseApi",
+"./customEditBox": "customEditBox",
+"./landing": "landing",
+"./nextButton": "nextButton",
+"./selectionScene": "selectionScene"
+} ],
+secondscreen: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "1e091pYv81BPbP8UkNwGn4Z", "secondscreen");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("./usercomponent"), c = e("../../../../common/scripts/lib/profile"), a = e("../../../../common/scripts/lib/config"), s = cc._decorator, u = s.ccclass, l = s.property, p = function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.userNode = null;
+t.settingNode = null;
+t.profileNode = null;
+t.helpNode = null;
+t.soundHandle = null;
+t.musicHandle = null;
+t.languageLabel = null;
+t.userPrefab = null;
+t.popUpNode = null;
+t.userLayout = null;
+t.snackBar = null;
+t.soundToggle = !1;
+t.musicToggle = !1;
+t.isContactPopUp = !0;
+return t;
+}
+t.prototype.onLoad = function() {
+this.setMusicSlider();
+this.setSoundSlider();
+this.languageLabel.string = c.default.getValue(c.LANGUAGE);
+this.makeUsers();
+};
+t.prototype.makeUsers = function() {
+var e = this;
+c.User.getUsers().forEach(function(t) {
+var n = cc.instantiate(e.userPrefab);
+n.getComponent(i.default).user = t;
+"" != t.imgPath && cc.loader.load(t.imgPath, function(e, t) {
+if (!e) {
+var o = new cc.SpriteFrame(t);
+n.getChildByName("Avatar").getChildByName("Img").getComponent(cc.Sprite).spriteFrame = o;
+}
+});
+e.userLayout.node.addChild(n);
+});
+};
+t.prototype.onClickOpenPopUp = function(e, t) {
+this.profileNode.getChildByName("Contact Button").active = !1;
+this.popUpNode.active = !0;
+this.popUpNode.getChildByName("title").getComponent(cc.Label).string = t;
+this.popUpNode.getChildByName("editbox1").getComponent(cc.EditBox).string = "";
+this.popUpNode.getChildByName("editbox2").getComponent(cc.EditBox).string = "";
+this.label_1 = this.popUpNode.getChildByName("editbox1").getChildByName("placeholder").getComponent(cc.Label);
+this.label_2 = this.popUpNode.getChildByName("editbox2").getChildByName("placeholder").getComponent(cc.Label);
+var n = c.default.getValue(c.EMAIL), o = c.default.getValue(c.CONTACT), r = c.default.getValue(c.PASSWORD);
+if ("Contact Number" != t) {
+this.label_1.string = n || "Add Email";
+this.label_2.string = r || "Add Password";
+this.isContactPopUp = !1;
+this.popUpNode.getChildByName("editbox2").getComponent(cc.EditBox).enabled = !0;
+} else {
+this.label_1.string = o || "Add Contact No";
+this.label_2.string = "OTP";
+this.popUpNode.getChildByName("editbox2").getComponent(cc.EditBox).enabled = !1;
+this.isContactPopUp = !0;
+}
+};
+t.prototype.onClickAddEmailOrContact = function(e, t) {
+var n = this, o = e.node.getChildByName("text").getComponent(cc.Label).string;
+if (this.isContactPopUp) {
+if ("button1" == t) if (isNaN(o)) {
+this.snackBar.active = !0;
+this.snackBar.getChildByName("label").getComponent(cc.Label).string = "Cannot save contact,Only numbers allowed!";
+setTimeout(function() {
+n.snackBar.active = !1;
+}, 2e3);
+} else c.default.setValue(c.CONTACT, o);
+} else "button1" == t ? c.default.setValue(c.EMAIL, o) : c.default.setValue(c.PASSWORD, o);
+};
+t.prototype.onClickClosePopUp = function() {
+this.profileNode.getChildByName("Contact Button").active = !0;
+this.popUpNode.active = !1;
+};
+t.prototype.setMusicSlider = function() {
+"true" == c.default.getValue(c.MUSIC_OFF) && this.musicButtonToggle();
+};
+t.prototype.setSoundSlider = function() {
+"true" == c.default.getValue(c.SFX_OFF) && this.musicButtonToggle();
+};
+t.prototype.tabNavigator = function(e, t) {
+this.settingNode.parent.children.forEach(function(e) {
+e.active = !1;
+});
+e.target.parent.children.forEach(function(e) {
+return e.getChildByName("Active Tab").active = !1;
+});
+e.target.getChildByName("Active Tab").active = !0;
+switch (t) {
+case "User":
+this.userNode.active = !0;
+break;
+
+case "Help":
+this.helpNode.active = !0;
+break;
+
+case "Setting":
+this.settingNode.active = !0;
+break;
+
+case "Profile":
+this.profileNode.active = !0;
+}
+};
+t.prototype.soundButtonToggle = function() {
+if (this.soundToggle) {
+this.soundToggle = !this.soundToggle;
+this.soundHandle.x = -92;
+this.changeSliderLabel("Off", this.soundHandle.parent);
+c.default.setValue(c.MUSIC_OFF, "true");
+} else {
+this.soundToggle = !this.soundToggle;
+this.soundHandle.x = 95;
+this.changeSliderLabel("On", this.soundHandle.parent);
+c.default.setValue(c.MUSIC_OFF, "true");
+}
+};
+t.prototype.musicButtonToggle = function() {
+if (this.musicToggle) {
+this.musicToggle = !this.musicToggle;
+this.musicHandle.x = -92;
+this.changeSliderLabel("Off", this.musicHandle.parent);
+c.default.setValue(c.SFX_OFF, "true");
+cc.audioEngine.stopMusic();
+} else {
+this.musicToggle = !this.musicToggle;
+this.musicHandle.x = 95;
+this.changeSliderLabel("On", this.musicHandle.parent);
+c.default.setValue(c.SFX_OFF, "false");
+}
+};
+t.prototype.languageSelector = function() {
+var e = c.availLanguages.length, t = c.availLanguages.indexOf(c.default.getValue(c.LANGUAGE)), n = c.availLanguages[(t + 1) % e];
+this.languageLabel.string = n;
+c.default.setValue(c.LANGUAGE, n);
+};
+t.prototype.openHelpUri = function(e, t) {
+"Visit" == t ? a.default.getInstance().pushScene("webViewer") : "Email" == t ? cc.sys.openURL("mailto:help@chimple.org") : cc.sys.openURL("tel:+91-70912 70679");
+};
+t.prototype.changeSliderLabel = function(e, t) {
+if ("Off" == e) {
+t.getChildByName("Off").active = 1;
+t.getChildByName("On").active = 0;
+} else {
+t.getChildByName("Off").active = 0;
+t.getChildByName("On").active = 1;
+}
+};
+t.prototype.onClickBackButton = function() {
+cc.director.loadScene("welcomePage");
+};
+t.prototype.start = function() {};
+r([ l(cc.Node) ], t.prototype, "userNode", void 0);
+r([ l(cc.Node) ], t.prototype, "settingNode", void 0);
+r([ l(cc.Node) ], t.prototype, "profileNode", void 0);
+r([ l(cc.Node) ], t.prototype, "helpNode", void 0);
+r([ l(cc.Node) ], t.prototype, "soundHandle", void 0);
+r([ l(cc.Node) ], t.prototype, "musicHandle", void 0);
+r([ l(cc.Label) ], t.prototype, "languageLabel", void 0);
+r([ l(cc.Prefab) ], t.prototype, "userPrefab", void 0);
+r([ l(cc.Node) ], t.prototype, "popUpNode", void 0);
+r([ l(cc.Layout) ], t.prototype, "userLayout", void 0);
+r([ l(cc.Node) ], t.prototype, "snackBar", void 0);
+return t = r([ u ], t);
+}(cc.Component);
+n.default = p;
+cc._RF.pop();
+}, {
+"../../../../common/scripts/lib/config": void 0,
+"../../../../common/scripts/lib/profile": void 0,
+"./usercomponent": "usercomponent"
+} ],
+selectionScene: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "f3084iAFZRBsr0x4T8lGRNp", "selectionScene");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+}, i = this && this.__awaiter || function(e, t, n, o) {
+function r(e) {
+return e instanceof n ? e : new n(function(t) {
+t(e);
+});
+}
+return new (n || (n = Promise))(function(n, i) {
+function c(e) {
+try {
+s(o.next(e));
+} catch (e) {
+i(e);
+}
+}
+function a(e) {
+try {
+s(o.throw(e));
+} catch (e) {
+i(e);
+}
+}
+function s(e) {
+e.done ? n(e.value) : r(e.value).then(c, a);
+}
+s((o = o.apply(e, t || [])).next());
+});
+}, c = this && this.__generator || function(e, t) {
+var n, o, r, i, c = {
+label: 0,
+sent: function() {
+if (1 & r[0]) throw r[1];
+return r[1];
+},
+trys: [],
+ops: []
+};
+return i = {
+next: a(0),
+throw: a(1),
+return: a(2)
+}, "function" == typeof Symbol && (i[Symbol.iterator] = function() {
+return this;
+}), i;
+function a(e) {
+return function(t) {
+return s([ e, t ]);
+};
+}
+function s(i) {
+if (n) throw new TypeError("Generator is already executing.");
+for (;c; ) try {
+if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 
+0) : o.next) && !(r = r.call(o, i[1])).done) return r;
+(o = 0, r) && (i = [ 2 & i[0], r.value ]);
+switch (i[0]) {
+case 0:
+case 1:
+r = i;
+break;
+
+case 4:
+c.label++;
+return {
+value: i[1],
+done: !1
+};
+
+case 5:
+c.label++;
+o = i[1];
+i = [ 0 ];
+continue;
+
+case 7:
+i = c.ops.pop();
+c.trys.pop();
+continue;
+
+default:
+if (!(r = c.trys, r = r.length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
+c = 0;
+continue;
+}
+if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
+c.label = i[1];
+break;
+}
+if (6 === i[0] && c.label < r[1]) {
+c.label = r[1];
+r = i;
+break;
+}
+if (r && c.label < r[2]) {
+c.label = r[2];
+c.ops.push(i);
+break;
+}
+r[2] && c.ops.pop();
+c.trys.pop();
+continue;
+}
+i = t.call(e, c);
+} catch (e) {
+i = [ 6, e ];
+o = 0;
+} finally {
+n = r = 0;
+}
+if (5 & i[0]) throw i[1];
+return {
+value: i[0] ? i[1] : void 0,
+done: !0
+};
+}
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.SelectionScene = n.currentSelectMode = void 0;
+var a = cc._decorator.ccclass, s = cc._decorator.property, u = e("../../services/parseApi"), l = e("../../../common/scripts/lib/error-handler"), p = e("../../../common/scripts/chimple-label"), d = e("../../services/ParseImageDownloader"), h = e("./itemButton"), f = e("../../../common/scripts/lib/config"), g = e("../../../chimple"), m = e("../../../common/scripts/util"), y = e("../../services/ParseNetwork"), b = e("./landing"), v = e("../../../common/scripts/lib/constants");
+n.currentSelectMode = u.SelectionMode.Section;
+var _ = function(e) {
+o(t, e);
+function t() {
+var t = e.call(this) || this;
+t.sectionItemPrefab = null;
+t.sectionStackedItemPrefab = null;
+t.loadingPrefab = null;
+t.data = [];
+t.school = null;
+t.photoInfos = [];
+t.loading = null;
+t.viewPort = null;
+t.content = null;
+t.schoolLabel = null;
+t.displayLabel = null;
+t.backButton = null;
+return t;
+}
+t.prototype.onLoad = function() {
+return i(this, void 0, void 0, function() {
+return c(this, function(e) {
+switch (e.label) {
+case 0:
+this.initUI();
+return [ 4, this.determineSelectionScene() ];
+
+case 1:
+e.sent();
+return [ 4, this.renderUI() ];
+
+case 2:
+e.sent();
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.determineSelectionScene = function() {
+return i(this, void 0, void 0, function() {
+var e;
+return c(this, function(t) {
+switch (t.label) {
+case 0:
+this.showLoading();
+return [ 4, this.loadSelectedSchool() ];
+
+case 1:
+t.sent();
+if (y.ParseNetwork.getInstance().isEmpty(this.school)) return [ 3, 9 ];
+switch (n.currentSelectMode) {
+case u.SelectionMode.Section:
+return [ 3, 2 ];
+
+case u.SelectionMode.Student:
+return [ 3, 4 ];
+
+case u.SelectionMode.Subject:
+return [ 3, 6 ];
+}
+return [ 3, 8 ];
+
+case 2:
+return [ 4, this.loadSectionsForSchool() ];
+
+case 3:
+t.sent();
+this.hideLoading();
+return [ 3, 9 ];
+
+case 4:
+e = y.ParseNetwork.getInstance().getStringFromCache(v.CURRENT_SECTION_ID);
+return [ 4, this.loadStudentForSection(this.school.objectId, e) ];
+
+case 5:
+t.sent();
+this.hideLoading();
+this.showBackButton();
+return [ 3, 9 ];
+
+case 6:
+return [ 4, this.loadSubjectAndTeacherForSchool(this.school.objectId) ];
+
+case 7:
+t.sent();
+if (this.data && this.data.length > 0) {
+this.hideLoading();
+this.showBackButton();
+} else f.default.loadScene(g.HOME_SCENE, "menu", null);
+return [ 3, 9 ];
+
+case 8:
+return [ 3, 9 ];
+
+case 9:
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.loadSelectedSchool = function() {
+return i(this, void 0, void 0, function() {
+var e, t = this;
+return c(this, function(n) {
+switch (n.label) {
+case 0:
+return [ 4, u.ParseApi.getInstance().connections() ];
+
+case 1:
+e = n.sent();
+return [ 4, u.ParseApi.getInstance().asyncForEach(e, function(e) {
+return i(t, void 0, void 0, function() {
+return c(this, function(t) {
+this.school = e.school;
+cc.log("got school", this.school.name + " " + this.school.objectId);
+return [ 2 ];
+});
+});
+}) ];
+
+case 2:
+n.sent();
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.loadSectionsForSchool = function() {
+return i(this, void 0, Promise, function() {
+var e;
+return c(this, function(t) {
+switch (t.label) {
+case 0:
+e = this;
+return [ 4, u.ParseApi.getInstance().getSectionsForSchool(this.school) ];
+
+case 1:
+e.data = t.sent();
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.loadSubjectAndTeacherForSchool = function(e) {
+return i(this, void 0, void 0, function() {
+var t;
+return c(this, function(n) {
+switch (n.label) {
+case 0:
+return [ 4, u.ParseApi.getInstance().selectedClasses(e) ];
+
+case 1:
+t = n.sent();
+this.data = t.map(function(e) {
+return {
+subject: u.ParseApi.getInstance().getSubjectByClass(e.objectId),
+teacher: u.ParseApi.getInstance().getTeacherByClass(e.objectId),
+classId: e.objectId
+};
+});
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.loadStudentForSection = function(e, t) {
+return i(this, void 0, Promise, function() {
+var e;
+return c(this, function(n) {
+switch (n.label) {
+case 0:
+e = this;
+return [ 4, u.ParseApi.getInstance().getStudentsForSection(this.school.objectId, t) ];
+
+case 1:
+e.data = n.sent();
+return [ 4, u.ParseApi.getInstance().getActiveClassesForSchoolAndSection(this.school.objectId, t) ];
+
+case 2:
+n.sent();
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.renderUI = function() {
+return i(this, void 0, void 0, function() {
+return c(this, function(e) {
+switch (e.label) {
+case 0:
+return [ 4, this.registerItemSelectedEvent() ];
+
+case 1:
+e.sent();
+return [ 4, this.renderScrollContents() ];
+
+case 2:
+e.sent();
+return [ 4, this.renderSchoolLabel() ];
+
+case 3:
+e.sent();
+this.loadImages();
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.renderSchoolLabel = function() {
+return i(this, void 0, void 0, function() {
+var e, t, o, r;
+return c(this, function(i) {
+switch (i.label) {
+case 0:
+e = "";
+t = "";
+o = [];
+switch (n.currentSelectMode) {
+case u.SelectionMode.Section:
+return [ 3, 1 ];
+
+case u.SelectionMode.Student:
+return [ 3, 2 ];
+
+case u.SelectionMode.Subject:
+return [ 3, 4 ];
+}
+return [ 3, 6 ];
+
+case 1:
+e = this.school.name;
+t = m.Util.i18NText("Choose Your Section");
+return [ 3, 6 ];
+
+case 2:
+return [ 4, u.ParseApi.getInstance().selectedSection(this.school.objectId) ];
+
+case 3:
+o = i.sent();
+e = o && o.length > 0 ? o[0].name : "";
+t = m.Util.i18NText("Choose Student");
+return [ 3, 6 ];
+
+case 4:
+return [ 4, u.ParseApi.getInstance().selectedSection(this.school.objectId) ];
+
+case 5:
+o = i.sent();
+e = o && o.length > 0 ? o[0].name : "";
+t = m.Util.i18NText("Choose Subject");
+return [ 3, 6 ];
+
+case 6:
+r = this.schoolLabel.getComponent(p.default);
+this.school && (r.string = e);
+this.displayLabel.getComponent(p.default).string = t;
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.initUI = function() {
+this.backButton = this.node.getChildByName("backbutton");
+this.viewPort = this.node.getChildByName("viewport");
+this.content = this.viewPort.getChildByName("content");
+this.schoolLabel = this.node.getChildByName("schoolLabel");
+this.displayLabel = this.node.getChildByName("displayLabel");
+this.createLoading();
+};
+t.prototype.renderScrollContents = function() {
+var e = this;
+this.photoInfos = [];
+this.data.forEach(function(t) {
+var n = e.createFrame(t);
+e.content.addChild(n);
+e.content.height += n.height;
+});
+};
+t.prototype.createLoading = function() {
+this.loading = cc.instantiate(this.loadingPrefab);
+this.loading.zIndex = 3;
+this.node.addChild(this.loading);
+this.loading.active = !1;
+};
+t.prototype.showLoading = function() {
+this.loading.active = !0;
+this.viewPort.active = !1;
+this.schoolLabel.active = !1;
+this.displayLabel.active = !1;
+this.backButton.active = !1;
+};
+t.prototype.hideLoading = function() {
+this.loading.active = !1;
+this.viewPort.active = !0;
+this.schoolLabel.active = !0;
+this.displayLabel.active = !0;
+};
+t.prototype.showBackButton = function() {
+this.backButton.active = !0;
+};
+t.prototype.registerItemSelectedEvent = function() {
+return i(this, void 0, void 0, function() {
+var e = this;
+return c(this, function(t) {
+this.node.on(h.PARSE_ITEM_SELECTED_EVENT, function(t) {
+return i(e, void 0, void 0, function() {
+var e, o, r, i, a, s, l;
+return c(this, function(c) {
+switch (c.label) {
+case 0:
+t.stopPropagation();
+e = t.getUserData();
+switch (e.type) {
+case u.SelectionMode.Section:
+return [ 3, 1 ];
+
+case u.SelectionMode.Student:
+return [ 3, 2 ];
+
+case u.SelectionMode.Subject:
+return [ 3, 3 ];
+}
+return [ 3, 7 ];
+
+case 1:
+n.currentSelectMode = u.SelectionMode.Student;
+o = e.data;
+y.ParseNetwork.getInstance().storeIntoCache(v.CURRENT_SECTION_ID, o.objectId);
+f.default.loadScene(b.SELECT_SECTIONS_SCENE, "private", null);
+return [ 3, 7 ];
+
+case 2:
+n.currentSelectMode = u.SelectionMode.Subject;
+r = e.data;
+y.ParseNetwork.getInstance().storeIntoCache(v.CURRENT_STUDENT_ID, r.objectId);
+f.default.loadScene(b.SELECT_SECTIONS_SCENE, "private", null);
+return [ 3, 7 ];
+
+case 3:
+n.currentSelectMode = u.SelectionMode.Home;
+i = e.data;
+a = y.ParseNetwork.getInstance().getStringFromCache(v.CURRENT_STUDENT_ID);
+if (!((s = u.ParseApi.getInstance().selectedStudents(this.school.objectId, y.ParseNetwork.getInstance().getStringFromCache(v.CURRENT_SECTION_ID)).filter(function(e) {
+return e.objectId === a;
+})) && s.length > 0)) return [ 3, 6 ];
+l = s[0];
+return [ 4, u.ParseApi.getInstance().buildAndLoginUser(l) ];
+
+case 4:
+c.sent();
+return [ 4, u.ParseApi.getInstance().findOrCreateMonitor(this.school.objectId, l.objectId, i.classId, i.subject.name, i.subject.objectId) ];
+
+case 5:
+c.sent();
+f.default.i.loadCourseJsons(this.node, function() {
+f.default.loadScene(g.START_SCENE, "menu", null);
+});
+c.label = 6;
+
+case 6:
+return [ 3, 7 ];
+
+case 7:
+return [ 2 ];
+}
+});
+});
+});
+return [ 2 ];
+});
+});
+};
+t.prototype.isParseSectionOrStudent = function(e) {
+return void 0 !== e.name;
+};
+t.prototype.createFrame = function(e) {
+var t = null;
+if (this.isParseSectionOrStudent(e)) {
+t = cc.instantiate(this.sectionItemPrefab);
+this.renderPhoto({
+item: t,
+photoChildName: "photo",
+photoUrl: e.image.url,
+labelChildName: "name",
+label: e.name
+});
+} else {
+var o = (t = cc.instantiate(this.sectionStackedItemPrefab)).getChildByName("photo");
+this.renderPhoto({
+item: t,
+photoChildName: "photo",
+photoUrl: e.subject.image.url,
+labelChildName: "name",
+label: e.subject.name
+});
+this.renderPhoto({
+item: o,
+photoChildName: "photo",
+photoUrl: e.teacher.image.url,
+scale: .5
+});
+}
+var r = t.getComponent(h.ItemButton);
+r.item = e;
+r.type = n.currentSelectMode;
+return t;
+};
+t.prototype.renderPhoto = function(e) {
+try {
+var t = e.item.getChildByName(e.photoChildName);
+t.scale = e.scale ? e.scale : 1;
+if (null != e.labelChildName) {
+t.getChildByName(e.labelChildName).getComponent(p.default).string = e.label;
+}
+e.photoUrl && this.photoInfos.push({
+photoNode: t,
+photoUrl: e.photoUrl
+});
+} catch (e) {
+cc.log(e);
+}
+};
+t.prototype.loadImages = function() {
+this.photoInfos.forEach(function(e) {
+cc.log("section image", e.photoUrl);
+d.ParseImageDownloader.loadImage(e.photoUrl, function(t) {
+if (t && e.photoNode) {
+var n = new cc.SpriteFrame(t), o = e.photoNode.getChildByName("mask");
+if (o) {
+o.getChildByName("image").getComponent(cc.Sprite).spriteFrame = n;
+}
+}
+});
+});
+};
+r([ s(cc.Prefab) ], t.prototype, "sectionItemPrefab", void 0);
+r([ s(cc.Prefab) ], t.prototype, "sectionStackedItemPrefab", void 0);
+r([ s(cc.Prefab) ], t.prototype, "loadingPrefab", void 0);
+r([ l.default() ], t.prototype, "renderScrollContents", null);
+return t = r([ a ], t);
+}(cc.Component);
+n.SelectionScene = _;
+cc._RF.pop();
+}, {
+"../../../chimple": void 0,
+"../../../common/scripts/chimple-label": void 0,
+"../../../common/scripts/lib/config": void 0,
+"../../../common/scripts/lib/constants": void 0,
+"../../../common/scripts/lib/error-handler": void 0,
+"../../../common/scripts/util": void 0,
+"../../services/ParseImageDownloader": "ParseImageDownloader",
+"../../services/ParseNetwork": "ParseNetwork",
+"../../services/parseApi": "parseApi",
+"./itemButton": "itemButton",
+"./landing": "landing"
+} ],
+startEffects: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "1affcygs89EOpICIX8L6AEo", "startEffects");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = cc._decorator, c = i.ccclass, a = (i.property, function(e) {
+o(t, e);
+function t() {
+return null !== e && e.apply(this, arguments) || this;
+}
+t.prototype.onLoad = function() {
+this.onStartEffects();
+};
+t.prototype.onStartEffects = function() {
+var e = cc.moveTo(1, cc.v2(0, cc.winSize.width / 6));
+this.node.getChildByName("Main Camera").getChildByName("chimple logo").runAction(e);
+};
+return t = r([ c ], t);
+}(cc.Component));
+n.default = a;
+cc._RF.pop();
+}, {} ],
+subjectButton: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "035cbp/RIVHoLwz0yFoiIMd", "subjectButton");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+}, i = this && this.__awaiter || function(e, t, n, o) {
+function r(e) {
+return e instanceof n ? e : new n(function(t) {
+t(e);
+});
+}
+return new (n || (n = Promise))(function(n, i) {
+function c(e) {
+try {
+s(o.next(e));
+} catch (e) {
+i(e);
+}
+}
+function a(e) {
+try {
+s(o.throw(e));
+} catch (e) {
+i(e);
+}
+}
+function s(e) {
+e.done ? n(e.value) : r(e.value).then(c, a);
+}
+s((o = o.apply(e, t || [])).next());
+});
+}, c = this && this.__generator || function(e, t) {
+var n, o, r, i, c = {
+label: 0,
+sent: function() {
+if (1 & r[0]) throw r[1];
+return r[1];
+},
+trys: [],
+ops: []
+};
+return i = {
+next: a(0),
+throw: a(1),
+return: a(2)
+}, "function" == typeof Symbol && (i[Symbol.iterator] = function() {
+return this;
+}), i;
+function a(e) {
+return function(t) {
+return s([ e, t ]);
+};
+}
+function s(i) {
+if (n) throw new TypeError("Generator is already executing.");
+for (;c; ) try {
+if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 
+0) : o.next) && !(r = r.call(o, i[1])).done) return r;
+(o = 0, r) && (i = [ 2 & i[0], r.value ]);
+switch (i[0]) {
+case 0:
+case 1:
+r = i;
+break;
+
+case 4:
+c.label++;
+return {
+value: i[1],
+done: !1
+};
+
+case 5:
+c.label++;
+o = i[1];
+i = [ 0 ];
+continue;
+
+case 7:
+i = c.ops.pop();
+c.trys.pop();
+continue;
+
+default:
+if (!(r = c.trys, r = r.length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
+c = 0;
+continue;
+}
+if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
+c.label = i[1];
+break;
+}
+if (6 === i[0] && c.label < r[1]) {
+c.label = r[1];
+r = i;
+break;
+}
+if (r && c.label < r[2]) {
+c.label = r[2];
+c.ops.push(i);
+break;
+}
+r[2] && c.ops.pop();
+c.trys.pop();
+continue;
+}
+i = t.call(e, c);
+} catch (e) {
+i = [ 6, e ];
+o = 0;
+} finally {
+n = r = 0;
+}
+if (5 & i[0]) throw i[1];
+return {
+value: i[0] ? i[1] : void 0,
+done: !0
+};
+}
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.SubjectButton = n.SUBJECT_ITEM_SELECTED_EVENT = void 0;
+var a = cc._decorator.ccclass;
+n.SUBJECT_ITEM_SELECTED_EVENT = "SUBJECT_ITEM_SELECTED_EVENT";
+var s = !1, u = function(e) {
+o(t, e);
+function t() {
+return e.call(this) || this;
+}
+t.prototype.onLoad = function() {
+s = !0;
+};
+t.prototype.onClicked = function() {
+return i(this, void 0, void 0, function() {
+return c(this, function(e) {
+if (s) {
+s = !1;
+this.itemSelectedEvent();
+cc.log("item clicked", this.node.name);
+}
+return [ 2 ];
+});
+});
+};
+t.prototype.itemSelectedEvent = function() {
+var e = new cc.Event.EventCustom(n.SUBJECT_ITEM_SELECTED_EVENT, !0), t = {
+subject: this._subject,
+id: this._id
+};
+e.setUserData(t);
+this.node.dispatchEvent(e);
+};
+Object.defineProperty(t.prototype, "subject", {
+set: function(e) {
+this._subject = e;
+},
+enumerable: !1,
+configurable: !0
+});
+Object.defineProperty(t.prototype, "id", {
+set: function(e) {
+this._id = e;
+},
+enumerable: !1,
+configurable: !0
+});
+t.clickedEnabled = function(e) {
+s = e;
+};
+return t = r([ a ], t);
+}(cc.Component);
+n.SubjectButton = u;
+cc._RF.pop();
+}, {} ],
+teacherRegistration: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "c4116tpEAVFhrPfdznd29DL", "teacherRegistration");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+}, i = this && this.__awaiter || function(e, t, n, o) {
+function r(e) {
+return e instanceof n ? e : new n(function(t) {
+t(e);
+});
+}
+return new (n || (n = Promise))(function(n, i) {
+function c(e) {
+try {
+s(o.next(e));
+} catch (e) {
+i(e);
+}
+}
+function a(e) {
+try {
+s(o.throw(e));
+} catch (e) {
+i(e);
+}
+}
+function s(e) {
+e.done ? n(e.value) : r(e.value).then(c, a);
+}
+s((o = o.apply(e, t || [])).next());
+});
+}, c = this && this.__generator || function(e, t) {
+var n, o, r, i, c = {
+label: 0,
+sent: function() {
+if (1 & r[0]) throw r[1];
+return r[1];
+},
+trys: [],
+ops: []
+};
+return i = {
+next: a(0),
+throw: a(1),
+return: a(2)
+}, "function" == typeof Symbol && (i[Symbol.iterator] = function() {
+return this;
+}), i;
+function a(e) {
+return function(t) {
+return s([ e, t ]);
+};
+}
+function s(i) {
+if (n) throw new TypeError("Generator is already executing.");
+for (;c; ) try {
+if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 
+0) : o.next) && !(r = r.call(o, i[1])).done) return r;
+(o = 0, r) && (i = [ 2 & i[0], r.value ]);
+switch (i[0]) {
+case 0:
+case 1:
+r = i;
+break;
+
+case 4:
+c.label++;
+return {
+value: i[1],
+done: !1
+};
+
+case 5:
+c.label++;
+o = i[1];
+i = [ 0 ];
+continue;
+
+case 7:
+i = c.ops.pop();
+c.trys.pop();
+continue;
+
+default:
+if (!(r = c.trys, r = r.length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
+c = 0;
+continue;
+}
+if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
+c.label = i[1];
+break;
+}
+if (6 === i[0] && c.label < r[1]) {
+c.label = r[1];
+r = i;
+break;
+}
+if (r && c.label < r[2]) {
+c.label = r[2];
+c.ops.push(i);
+break;
+}
+r[2] && c.ops.pop();
+c.trys.pop();
+continue;
+}
+i = t.call(e, c);
+} catch (e) {
+i = [ 6, e ];
+o = 0;
+} finally {
+n = r = 0;
+}
+if (5 & i[0]) throw i[1];
+return {
+value: i[0] ? i[1] : void 0,
+done: !0
+};
+}
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.TeacherRegistration = n.EditOptions = void 0;
+var a, s = cc._decorator.ccclass, u = cc._decorator.property, l = cc.EditBox, p = e("../../../common/scripts/lib/error-handler"), d = e("../../school/scripts/customEditBox"), h = e("../../services/ParseNetwork"), f = e("../../services/parseApi"), g = e("../../../common/scripts/chimple-label"), m = e("../../domain/parseConstants"), y = e("./loginButton"), b = e("../../../common/scripts/lib/config"), v = e("../../../common/scripts/lib/profile"), _ = e("../../school/scripts/landing");
+(function(e) {
+e.EmailChanged = "0";
+e.PasswordChanged = "1";
+})(a = n.EditOptions || (n.EditOptions = {}));
+var C = function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.customEditBoxPrefab = null;
+t.loginButtonPrefab = null;
+t.loadingPrefab = null;
+t.emailEditBox = null;
+t.passwordEditBox = null;
+t.loginButton = null;
+t.email = null;
+t.password = null;
+t.loading = null;
+return t;
+}
+t.prototype.onLoad = function() {
+return i(this, void 0, Promise, function() {
+return c(this, function(e) {
+switch (e.label) {
+case 0:
+return [ 4, this.renderUI() ];
+
+case 1:
+e.sent();
+return [ 4, this.registerEditBoxCustomEvent() ];
+
+case 2:
+e.sent();
+return [ 4, this.registerLoginEvent() ];
+
+case 3:
+e.sent();
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.renderUI = function() {
+this.createLoading();
+this.emailEditBox = this.renderEmailBox();
+this.node.addChild(this.emailEditBox);
+this.emailEditBox.setPosition(new cc.Vec2(this.emailEditBox.x, this.emailEditBox.y + 75));
+this.passwordEditBox = this.renderPasswordBox();
+this.node.addChild(this.passwordEditBox);
+this.passwordEditBox.setPosition(new cc.Vec2(this.passwordEditBox.x, this.passwordEditBox.y - 75));
+this.loginButton = cc.instantiate(this.loginButtonPrefab);
+this.loginButton.setPosition(new cc.Vec2(cc.winSize.width / 4, -cc.winSize.height / 3));
+this.node.addChild(this.loginButton);
+};
+t.prototype.createLoading = function() {
+this.loading = cc.instantiate(this.loadingPrefab);
+this.loading.zIndex = 3;
+this.node.addChild(this.loading);
+this.loading.active = !1;
+};
+t.prototype.showLoading = function() {
+this.loading.active = !0;
+this.emailEditBox.active = !1;
+this.passwordEditBox.active = !1;
+};
+t.prototype.hideLoading = function() {
+this.loading.active = !1;
+this.emailEditBox.active = !0;
+this.passwordEditBox.active = !0;
+};
+t.prototype.registerEditBoxCustomEvent = function() {
+var e = this;
+this.node.on(d.EDIT_ENDED_EVENT, function(t) {
+t.stopPropagation();
+var n = t.getUserData();
+switch (n.detectParent) {
+case a.EmailChanged:
+e.email = n.text;
+break;
+
+case a.PasswordChanged:
+e.password = n.text;
+}
+e.showNext();
+});
+};
+t.prototype.registerLoginEvent = function() {
+return i(this, void 0, void 0, function() {
+var e = this;
+return c(this, function(t) {
+this.node.on(y.PARSE_LOGIN_EVENT, function(t) {
+t.stopPropagation();
+var n = t.getUserData();
+cc.log("selected item", n.node);
+cc.log("email", n.email);
+cc.log("password", n.password);
+e.parseLogin(n.node, n.email, n.password);
+});
+return [ 2 ];
+});
+});
+};
+t.prototype.parseLogin = function(e, t, n) {
+return i(this, void 0, void 0, function() {
+var o, r = this;
+return c(this, function(i) {
+switch (i.label) {
+case 0:
+this.showLoading();
+return [ 4, f.ParseApi.getInstance().registerUserOrLogin(t, n) ];
+
+case 1:
+i.sent();
+h.ParseNetwork.getInstance().storeIntoCache(m.TEACHER_EMAIL, t);
+h.ParseNetwork.getInstance().storeIntoCache(m.TEACHER_PASSWORD, n);
+cc.log("loggedInUser", f.ParseApi.getInstance().getLoggedInUser());
+o = f.ParseApi.getInstance().getLoggedInUser();
+return h.ParseNetwork.getInstance().isEmpty(o) ? [ 3, 3 ] : [ 4, v.default.teacherPostLoginActivity(o.objectId) ];
+
+case 2:
+i.sent();
+b.default.i.loadCourseJsons(this.node, function() {
+r.hideLoading();
+b.default.loadScene(_.TEACHER_REPORT_CARD_SCENE, "private", null);
+});
+return [ 3, 4 ];
+
+case 3:
+e.getComponent(cc.Button).interactable = !0;
+this.hideLoading();
+h.ParseNetwork.getInstance().removeFromCache(m.TEACHER_EMAIL);
+h.ParseNetwork.getInstance().removeFromCache(m.TEACHER_PASSWORD);
+this.showNext();
+i.label = 4;
+
+case 4:
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.showNext = function() {
+var e = this.loginButton.getComponent(y.LoginButton);
+e.email = this.email;
+e.password = this.password;
+!(!this.email || !this.password) ? e.activate() : e.deActivate();
+};
+t.prototype.renderEmailBox = function() {
+this.emailEditBox = cc.instantiate(this.customEditBoxPrefab);
+this.emailEditBox.name = a.EmailChanged;
+var e = this.getChimpleLabel(this.emailEditBox);
+null != e && (e.string = "email");
+return this.emailEditBox;
+};
+t.prototype.renderPasswordBox = function() {
+this.passwordEditBox = cc.instantiate(this.customEditBoxPrefab);
+this.passwordEditBox.name = a.PasswordChanged;
+this.passwordEditBox.getChildByName("base").getComponent(cc.EditBox).inputFlag = l.InputFlag.PASSWORD;
+var e = this.getChimpleLabel(this.passwordEditBox);
+null != e && (e.string = "password");
+return this.passwordEditBox;
+};
+t.prototype.getChimpleLabel = function(e) {
+var t = null, n = e.getChildByName("PLACEHOLDER_LABEL");
+null != n && (t = n.getComponent(g.default));
+return t;
+};
+r([ u(cc.Prefab) ], t.prototype, "customEditBoxPrefab", void 0);
+r([ u(cc.Prefab) ], t.prototype, "loginButtonPrefab", void 0);
+r([ u(cc.Prefab) ], t.prototype, "loadingPrefab", void 0);
+r([ p.catchError() ], t.prototype, "onLoad", null);
+return t = r([ s ], t);
+}(cc.Component);
+n.TeacherRegistration = C;
+cc._RF.pop();
+}, {
+"../../../common/scripts/chimple-label": void 0,
+"../../../common/scripts/lib/config": void 0,
+"../../../common/scripts/lib/error-handler": void 0,
+"../../../common/scripts/lib/profile": void 0,
+"../../domain/parseConstants": "parseConstants",
+"../../school/scripts/customEditBox": "customEditBox",
+"../../school/scripts/landing": "landing",
+"../../services/ParseNetwork": "ParseNetwork",
+"../../services/parseApi": "parseApi",
+"./loginButton": "loginButton"
+} ],
+teacherReportCard: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "bb8cdRd5rpDE5Ri6TjunzAj", "teacherReportCard");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+}, i = this && this.__awaiter || function(e, t, n, o) {
+function r(e) {
+return e instanceof n ? e : new n(function(t) {
+t(e);
+});
+}
+return new (n || (n = Promise))(function(n, i) {
+function c(e) {
+try {
+s(o.next(e));
+} catch (e) {
+i(e);
+}
+}
+function a(e) {
+try {
+s(o.throw(e));
+} catch (e) {
+i(e);
+}
+}
+function s(e) {
+e.done ? n(e.value) : r(e.value).then(c, a);
+}
+s((o = o.apply(e, t || [])).next());
+});
+}, c = this && this.__generator || function(e, t) {
+var n, o, r, i, c = {
+label: 0,
+sent: function() {
+if (1 & r[0]) throw r[1];
+return r[1];
+},
+trys: [],
+ops: []
+};
+return i = {
+next: a(0),
+throw: a(1),
+return: a(2)
+}, "function" == typeof Symbol && (i[Symbol.iterator] = function() {
+return this;
+}), i;
+function a(e) {
+return function(t) {
+return s([ e, t ]);
+};
+}
+function s(i) {
+if (n) throw new TypeError("Generator is already executing.");
+for (;c; ) try {
+if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 
+0) : o.next) && !(r = r.call(o, i[1])).done) return r;
+(o = 0, r) && (i = [ 2 & i[0], r.value ]);
+switch (i[0]) {
+case 0:
+case 1:
+r = i;
+break;
+
+case 4:
+c.label++;
+return {
+value: i[1],
+done: !1
+};
+
+case 5:
+c.label++;
+o = i[1];
+i = [ 0 ];
+continue;
+
+case 7:
+i = c.ops.pop();
+c.trys.pop();
+continue;
+
+default:
+if (!(r = c.trys, r = r.length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
+c = 0;
+continue;
+}
+if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
+c.label = i[1];
+break;
+}
+if (6 === i[0] && c.label < r[1]) {
+c.label = r[1];
+r = i;
+break;
+}
+if (r && c.label < r[2]) {
+c.label = r[2];
+c.ops.push(i);
+break;
+}
+r[2] && c.ops.pop();
+c.trys.pop();
+continue;
+}
+i = t.call(e, c);
+} catch (e) {
+i = [ 6, e ];
+o = 0;
+} finally {
+n = r = 0;
+}
+if (5 & i[0]) throw i[1];
+return {
+value: i[0] ? i[1] : void 0,
+done: !0
+};
+}
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.TeacherReportCard = n.SELECTED_SUBJECT = n.CHAPTER_NAME = n.SUBJECT_ID = n.CHAPTER_ID = void 0;
+var a = cc._decorator.ccclass, s = cc._decorator.property, u = e("../../services/parseApi"), l = e("../../services/ParseImageDownloader"), p = e("../../../common/scripts/chimple-label"), d = e("./subjectButton"), h = e("../../../common/scripts/lib/config"), f = e("./chapterButton"), g = e("../../services/ParseNetwork"), m = e("../../school/scripts/landing");
+n.CHAPTER_ID = "chapterId";
+n.SUBJECT_ID = "subjectId";
+n.CHAPTER_NAME = "chapterName";
+n.SELECTED_SUBJECT = "selectedSubject";
+var y = function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.subjectItemPrefab = null;
+t.chapterPrefab = null;
+t.photoInfos = [];
+t.body = null;
+t.view = null;
+t.content = null;
+t.bodyLayout = null;
+return t;
+}
+t.prototype.onLoad = function() {
+return i(this, void 0, void 0, function() {
+var e = this;
+return c(this, function(t) {
+h.default.i.loadCourseJsons(this.node, function() {
+return i(e, void 0, void 0, function() {
+return c(this, function(e) {
+switch (e.label) {
+case 0:
+return [ 4, this.renderUI() ];
+
+case 1:
+e.sent();
+return [ 4, this.registerSubjectSelectedEvent() ];
+
+case 2:
+e.sent();
+return [ 4, this.registerChapterSelectedEvent() ];
+
+case 3:
+e.sent();
+return [ 2 ];
+}
+});
+});
+});
+return [ 2 ];
+});
+});
+};
+t.prototype.renderUI = function() {
+return i(this, void 0, void 0, function() {
+return c(this, function(e) {
+switch (e.label) {
+case 0:
+this.body = this.node.getChildByName("body");
+this.view = this.body.getChildByName("view");
+this.content = this.view.getChildByName("content");
+this.bodyLayout = this.content.getChildByName("bodyLayout");
+return [ 4, this.renderSubjects() ];
+
+case 1:
+e.sent();
+this.loadImages();
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.registerSubjectSelectedEvent = function() {
+return i(this, void 0, void 0, function() {
+var e = this;
+return c(this, function(t) {
+this.node.on(d.SUBJECT_ITEM_SELECTED_EVENT, function(t) {
+return i(e, void 0, void 0, function() {
+var e, n, o;
+return c(this, function(r) {
+t.stopPropagation();
+this.bodyLayout.removeAllChildren(!0);
+e = t.getUserData();
+if ((n = h.default.i.curriculum.get(e.subject)) && Array.isArray(n.chapters) && n.chapters.length > 0) {
+o = n.chapters;
+this.renderChapters(e, o);
+}
+return [ 2 ];
+});
+});
+});
+return [ 2 ];
+});
+});
+};
+t.prototype.registerChapterSelectedEvent = function() {
+return i(this, void 0, void 0, function() {
+var e = this;
+return c(this, function(t) {
+this.node.on(f.CHAPTER_ITEM_SELECTED_EVENT, function(t) {
+return i(e, void 0, void 0, function() {
+var e;
+return c(this, function(o) {
+t.stopPropagation();
+e = t.getUserData();
+g.ParseNetwork.getInstance().storeIntoCache(n.CHAPTER_ID, e.chapterId);
+g.ParseNetwork.getInstance().storeIntoCache(n.SUBJECT_ID, e.subjectId);
+g.ParseNetwork.getInstance().storeIntoCache(n.CHAPTER_NAME, e.chapterName);
+g.ParseNetwork.getInstance().storeIntoCache(n.SELECTED_SUBJECT, e.subject);
+h.default.loadScene(m.TEACHER_REPORT_METRICS_SCENE, "private", null);
+return [ 2 ];
+});
+});
+});
+return [ 2 ];
+});
+});
+};
+t.prototype.renderSubjects = function() {
+return i(this, void 0, void 0, function() {
+var e, t = this;
+return c(this, function(n) {
+switch (n.label) {
+case 0:
+e = this;
+return [ 4, u.ParseApi.getInstance().allSubjects() ];
+
+case 1:
+e.subjects = n.sent();
+this.subjects.forEach(function(e) {
+t.renderSubject(e);
+});
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.renderChapters = function(e, t) {
+var n = this;
+t.forEach(function(t) {
+var o = cc.instantiate(n.chapterPrefab), r = o.getComponent(f.ChapterButton);
+r.subjectId = e.id;
+r.subject = e.subject;
+r.chapterId = t.id;
+r.chapterName = t.name;
+o.getChildByName("label").getComponent(p.default).string = t.name;
+n.bodyLayout.addChild(o);
+n.content.height += o.height;
+});
+this.bodyLayout.getComponent(cc.Layout).updateLayout();
+this.view.height = this.content.height;
+this.body.height = this.content.height;
+d.SubjectButton.clickedEnabled(!0);
+};
+t.prototype.renderSubject = function(e) {
+var t = this.node.getChildByName("subjects"), n = cc.instantiate(this.subjectItemPrefab), o = n.getComponent(d.SubjectButton);
+o.id = e.objectId;
+o.subject = e.courseCode;
+this.renderPhoto({
+item: n,
+photoChildName: "photo",
+photoUrl: e.image.url,
+labelChildName: "name",
+label: e.name
+});
+t.addChild(n);
+return n;
+};
+t.prototype.renderPhoto = function(e) {
+try {
+var t = e.item.getChildByName(e.photoChildName);
+t.scale = e.scale ? e.scale : 1;
+if (null != e.labelChildName) {
+t.getChildByName(e.labelChildName).getComponent(p.default).string = e.label;
+}
+e.photoUrl && this.photoInfos.push({
+photoNode: t,
+photoUrl: e.photoUrl
+});
+} catch (e) {
+cc.log(e);
+}
+};
+t.prototype.loadImages = function() {
+this.photoInfos.forEach(function(e) {
+cc.log("section image", e.photoUrl);
+l.ParseImageDownloader.loadImage(e.photoUrl, function(t) {
+if (t && e.photoNode) {
+var n = new cc.SpriteFrame(t), o = e.photoNode.getChildByName("mask");
+if (o) {
+o.getChildByName("image").getComponent(cc.Sprite).spriteFrame = n;
+}
+}
+});
+});
+};
+r([ s(cc.Prefab) ], t.prototype, "subjectItemPrefab", void 0);
+r([ s(cc.Prefab) ], t.prototype, "chapterPrefab", void 0);
+return t = r([ a ], t);
+}(cc.Component);
+n.TeacherReportCard = y;
+cc._RF.pop();
+}, {
+"../../../common/scripts/chimple-label": void 0,
+"../../../common/scripts/lib/config": void 0,
+"../../school/scripts/landing": "landing",
+"../../services/ParseImageDownloader": "ParseImageDownloader",
+"../../services/ParseNetwork": "ParseNetwork",
+"../../services/parseApi": "parseApi",
+"./chapterButton": "chapterButton",
+"./subjectButton": "subjectButton"
+} ],
+teacherReportMetrics: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "3c9b8Kpau1MRYIZVW377n+B", "teacherReportMetrics");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+}, i = this && this.__awaiter || function(e, t, n, o) {
+function r(e) {
+return e instanceof n ? e : new n(function(t) {
+t(e);
+});
+}
+return new (n || (n = Promise))(function(n, i) {
+function c(e) {
+try {
+s(o.next(e));
+} catch (e) {
+i(e);
+}
+}
+function a(e) {
+try {
+s(o.throw(e));
+} catch (e) {
+i(e);
+}
+}
+function s(e) {
+e.done ? n(e.value) : r(e.value).then(c, a);
+}
+s((o = o.apply(e, t || [])).next());
+});
+}, c = this && this.__generator || function(e, t) {
+var n, o, r, i, c = {
+label: 0,
+sent: function() {
+if (1 & r[0]) throw r[1];
+return r[1];
+},
+trys: [],
+ops: []
+};
+return i = {
+next: a(0),
+throw: a(1),
+return: a(2)
+}, "function" == typeof Symbol && (i[Symbol.iterator] = function() {
+return this;
+}), i;
+function a(e) {
+return function(t) {
+return s([ e, t ]);
+};
+}
+function s(i) {
+if (n) throw new TypeError("Generator is already executing.");
+for (;c; ) try {
+if (n = 1, o && (r = 2 & i[0] ? o.return : i[0] ? o.throw || ((r = o.return) && r.call(o), 
+0) : o.next) && !(r = r.call(o, i[1])).done) return r;
+(o = 0, r) && (i = [ 2 & i[0], r.value ]);
+switch (i[0]) {
+case 0:
+case 1:
+r = i;
+break;
+
+case 4:
+c.label++;
+return {
+value: i[1],
+done: !1
+};
+
+case 5:
+c.label++;
+o = i[1];
+i = [ 0 ];
+continue;
+
+case 7:
+i = c.ops.pop();
+c.trys.pop();
+continue;
+
+default:
+if (!(r = c.trys, r = r.length > 0 && r[r.length - 1]) && (6 === i[0] || 2 === i[0])) {
+c = 0;
+continue;
+}
+if (3 === i[0] && (!r || i[1] > r[0] && i[1] < r[3])) {
+c.label = i[1];
+break;
+}
+if (6 === i[0] && c.label < r[1]) {
+c.label = r[1];
+r = i;
+break;
+}
+if (r && c.label < r[2]) {
+c.label = r[2];
+c.ops.push(i);
+break;
+}
+r[2] && c.ops.pop();
+c.trys.pop();
+continue;
+}
+i = t.call(e, c);
+} catch (e) {
+i = [ 6, e ];
+o = 0;
+} finally {
+n = r = 0;
+}
+if (5 & i[0]) throw i[1];
+return {
+value: i[0] ? i[1] : void 0,
+done: !0
+};
+}
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+n.TeacherReportMetrics = void 0;
+var a = cc._decorator.ccclass, s = cc._decorator.property, u = e("../../services/ParseNetwork"), l = e("./teacherReportCard"), p = e("../../services/parseApi"), d = e("../../../common/scripts/lib/config"), h = e("../../../common/scripts/chimple-label"), f = function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.labelPrefab = null;
+t.checkPrefab = null;
+t.lessonNames = [];
+t.studentNames = [];
+t.tableData = [];
+t.callBackReceived = !1;
+t.pageView = null;
+t.view = null;
+t.content = null;
+t.page = null;
+t.studentNodes = [];
+return t;
+}
+t.prototype.onLoad = function() {
+var e = this;
+d.default.i.loadCourseJsons(this.node, function() {
+return i(e, void 0, void 0, function() {
+var e, t, n, o = this;
+return c(this, function(r) {
+switch (r.label) {
+case 0:
+if (this.callBackReceived) return [ 3, 3 ];
+this.callBackReceived = !0;
+e = u.ParseNetwork.getInstance().getStringFromCache(l.SELECTED_SUBJECT);
+t = u.ParseNetwork.getInstance().getStringFromCache(l.CHAPTER_ID);
+n = d.default.i.curriculum.get(e).chapters;
+n.filter(function(e) {
+return e.id === t;
+}).map(function(e) {
+return e.lessons;
+}).forEach(function(e) {
+e.forEach(function(e) {
+o.lessonNames.push(e.name);
+});
+});
+this.chapterId = u.ParseNetwork.getInstance().getStringFromCache(l.CHAPTER_ID);
+this.subjectId = u.ParseNetwork.getInstance().getStringFromCache(l.SUBJECT_ID);
+this.chapterName = u.ParseNetwork.getInstance().getStringFromCache(l.CHAPTER_NAME);
+cc.log("this.lessonNames", this.lessonNames);
+return [ 4, this.fetchLessonProgressData() ];
+
+case 1:
+r.sent();
+this.pageView = this.node.getChildByName("pageView");
+if (this.pageView) {
+this.view = this.pageView.getChildByName("view");
+this.content = this.view.getChildByName("content");
+this.page = this.content.getChildByName("page");
+}
+return [ 4, this.renderUI() ];
+
+case 2:
+r.sent();
+r.label = 3;
+
+case 3:
+return [ 2 ];
+}
+});
+});
+});
+};
+t.prototype.fetchLessonProgressData = function() {
+return i(this, void 0, void 0, function() {
+var e, t, n;
+return c(this, function(o) {
+switch (o.label) {
+case 0:
+return [ 4, p.ParseApi.getInstance().getStudentsForTeacher() ];
+
+case 1:
+e = o.sent();
+t = {
+chapterId: this.chapterId,
+subjectId: this.subjectId,
+studentInfos: e
+};
+n = this;
+return [ 4, p.ParseApi.getInstance().getProgressForChapter(t) ];
+
+case 2:
+n.studentLessonInfos = o.sent();
+this.studentNames = this.studentLessonInfos.map(function(e) {
+return e.studentName;
+});
+cc.log("this.studentLessonInfos", this.studentLessonInfos);
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.renderUI = function() {
+return i(this, void 0, void 0, function() {
+var e = this;
+return c(this, function(t) {
+switch (t.label) {
+case 0:
+return this.labelPrefab ? [ 4, this.addHeader() ] : [ 3, 3 ];
+
+case 1:
+t.sent();
+return [ 4, this.addRows() ];
+
+case 2:
+t.sent();
+cc.log("tableData", this.tableData);
+this.content.height += 100;
+this.tableData.forEach(function(t) {
+t.forEach(function(t) {
+e.page.addChild(t);
+if (e.studentNodes.includes(t)) {
+cc.log(t.width, t.height);
+e.content.width += t.width;
+e.content.height += t.height + 50;
+}
+});
+});
+this.page.getComponent(cc.Layout).updateLayout();
+this.page.width = this.content.width;
+this.pageView.width = this.content.width;
+this.page.height = this.content.height;
+this.pageView.height = this.content.height;
+cc.log("111", this.content.width, this.content.height);
+t.label = 3;
+
+case 3:
+return [ 2 ];
+}
+});
+});
+};
+t.prototype.addHeader = function() {
+return i(this, void 0, void 0, function() {
+var e, t, n = this;
+return c(this, function(o) {
+e = [ "" ].concat(this.lessonNames);
+t = [];
+e.forEach(function(e) {
+if (n.labelPrefab) {
+var o = n.createLabel(e);
+t.push(o);
+}
+});
+this.tableData.push(t);
+return [ 2 ];
+});
+});
+};
+t.prototype.addRows = function() {
+return i(this, void 0, void 0, function() {
+var e = this;
+return c(this, function(t) {
+new Set(this.studentNames).forEach(function(t) {
+var n = [];
+if (e.labelPrefab) {
+var o = e.createLabel(t);
+n.push(o);
+e.studentNodes.push(o);
+}
+e.lessonNames.forEach(function(o) {
+var r = e.studentLessonInfos.filter(function(e) {
+return e.studentName === t && e.lesson === o;
+});
+if (0 === r.length) {
+var i = cc.instantiate(e.checkPrefab);
+i.opacity = 10;
+n.push(i);
+}
+r.forEach(function(t) {
+var o = cc.instantiate(e.checkPrefab);
+n.push(o);
+});
+});
+e.tableData.push(n);
+});
+return [ 2 ];
+});
+});
+};
+t.prototype.createLabel = function(e) {
+var t = cc.instantiate(this.labelPrefab);
+t.getComponent(h.default).string = e;
+return t;
+};
+r([ s(cc.Prefab) ], t.prototype, "labelPrefab", void 0);
+r([ s(cc.Prefab) ], t.prototype, "checkPrefab", void 0);
+return t = r([ a ], t);
+}(cc.Component);
+n.TeacherReportMetrics = f;
+cc._RF.pop();
+}, {
+"../../../common/scripts/chimple-label": void 0,
+"../../../common/scripts/lib/config": void 0,
+"../../services/ParseNetwork": "ParseNetwork",
+"../../services/parseApi": "parseApi",
+"./teacherReportCard": "teacherReportCard"
+} ],
+userInput: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "23d41AdTSxB0INd9XkGKtSm", "userInput");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("../../../../common/scripts/util"), c = e("../../../../common/scripts/lib/profile"), a = cc._decorator, s = a.ccclass, u = a.property, l = function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.holder = null;
+t.block1 = null;
+t.block2 = null;
+t.block3 = null;
+t.block4 = null;
+t.editBox = null;
+t.nextButtonAudio = null;
+t.maxAge = 12;
+t.prefabNumber = 1;
+t.userParam = "";
+return t;
+}
+n = t;
+t.prototype.onLoad = function() {
+n.blockSelect = cc.instantiate(this.editBox);
+if (null != n.blockSelect) {
+this.holder.addChild(n.blockSelect);
+this.nameLabel = this.holder.getChildByName("nameBox");
+this.nameLabel.on("text-changed", this.nameVal, this);
+this.nameLabel.on("editing-did-began", this.editBegan, this);
+this.nameLabel.on("editing-did-ended", this.editReturn, this);
+}
+this.nameLabelPos = this.nameLabel.position;
+};
+t.prototype.nextButton = function() {
+n.normalSprite = null;
+if (n.nextButtonBool) {
+if (this.prefabNumber <= 4) {
+this.holder.removeAllChildren();
+n.blockSelect = cc.instantiate(this["block" + [ this.prefabNumber ]]);
+null != n.blockSelect && this.holder.addChild(n.blockSelect);
+this.prefabNumber = this.prefabNumber + 1;
+} else if (5 == this.prefabNumber) {
+this.saveAndCreateUser();
+cc.director.loadScene("welcomePage");
+}
+} else this.nameLabel.getChildByName("warnUser").getComponent(cc.Label).string = "Enter a valid value";
+i.Util.playSfx(this.nextButtonAudio);
+};
+t.prototype.nameVal = function(e) {
+cc.log("()" + this.nameLabel.getChildByName("PLACEHOLDER_LABEL").getComponent(cc.Label).string);
+cc.log("()" + this.nameLabel.getChildByName("TEXT_LABEL").getComponent(cc.Label).string);
+var t = this.nameLabel.getChildByName("TEXT_LABEL").getComponent(cc.Label).string;
+n.initName = t;
+cc.log("userName" + n.initName);
+"" != n.initName ? n.nextButtonBool = !0 : n.nextButtonBool = !1;
+};
+t.prototype.editBegan = function(e) {
+this.offsetVal = cc.winSize.height / 5;
+this.nameLabel.position = cc.v2(this.nameLabelPos.x, this.nameLabelPos.y + this.offsetVal);
+};
+t.prototype.editReturn = function(e) {
+this.nameLabel.position = cc.v2(this.nameLabelPos.x, this.nameLabelPos.y);
+};
+t.prototype.saveAndCreateUser = function() {
+var e = n.initName, t = n.initAge;
+n.initCamera;
+if ("MALE" == n.initGender) var o = c.Gender.BOY; else if ("FEMALE" == n.initGender) o = c.Gender.GIRL;
+this.getLanguage();
+cc.log("=<>=" + n.initAge);
+c.User.createUser(e, n.imgPath, t, o);
+};
+t.prototype.getLanguage = function() {
+switch (n.initLang) {
+case "ENGLISH":
+return c.Language.ENGLISH;
+
+case "HINDI":
+return c.Language.HINDI;
+}
+};
+var n;
+t.imgPath = "";
+t.normalSprite = null;
+t.nextButtonBool = !1;
+r([ u(cc.Node) ], t.prototype, "holder", void 0);
+r([ u(cc.Prefab) ], t.prototype, "block1", void 0);
+r([ u(cc.Prefab) ], t.prototype, "block2", void 0);
+r([ u(cc.Prefab) ], t.prototype, "block3", void 0);
+r([ u(cc.Prefab) ], t.prototype, "block4", void 0);
+r([ u(cc.Prefab) ], t.prototype, "editBox", void 0);
+r([ u({
+type: cc.AudioClip
+}) ], t.prototype, "nextButtonAudio", void 0);
+return t = n = r([ s ], t);
+}(cc.Component);
+n.default = l;
+cc._RF.pop();
+}, {
+"../../../../common/scripts/lib/profile": void 0,
+"../../../../common/scripts/util": void 0
+} ],
+usercomponent: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "fe3ecYSXCFGYIg7ramzW4AP", "usercomponent");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("../../../../common/scripts/lib/config"), c = cc._decorator, a = c.ccclass, s = (c.property, 
+function(e) {
+o(t, e);
+function t() {
+return null !== e && e.apply(this, arguments) || this;
+}
+t.prototype.onLoad = function() {
+var e = this;
+this.node.getChildByName("Label").getComponent(cc.Label).string = this.user.name;
+this.node.getChildByName("Edit").on("touchend", function() {
+return e.onClickEdit();
+}, this);
+};
+t.prototype.onClickEdit = function() {
+cc.sys.localStorage.setItem("userToEdit", this.user.id);
+i.default.getInstance().pushScene("editProfile");
+};
+return t = r([ a ], t);
+}(cc.Component));
+n.default = s;
+cc._RF.pop();
+}, {
+"../../../../common/scripts/lib/config": void 0
+} ],
+webview: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "269f7wTocdJyL/VWi5y/vGh", "webview");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("../../../../common/scripts/lib/config"), c = cc._decorator, a = c.ccclass, s = (c.property, 
+function(e) {
+o(t, e);
+function t() {
+return null !== e && e.apply(this, arguments) || this;
+}
+t.prototype.start = function() {};
+t.prototype.onClickBackButton = function() {
+console.log("Button click");
+i.default.getInstance().popScene();
+};
+return t = r([ a ], t);
+}(cc.Component));
+n.default = s;
+cc._RF.pop();
+}, {
+"../../../../common/scripts/lib/config": void 0
+} ],
+welcomePage: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "173c64DVKFDsbp8mGTJRGi5", "welcomePage");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("../../../../common/scripts/lib/profile"), c = cc._decorator, a = c.ccclass, s = c.property, u = function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.addButton = null;
+t.userButton = null;
+return t;
+}
+n = t;
+t.prototype.onLoad = function() {
+this.layoutManager();
+i.default.initialize();
+};
+t.prototype.layoutManager = function() {
+var e = this;
+n.userArr = i.User.getUsers();
+cc.log("=<>=" + n.userArr.length);
+if (n.userArr.length < i.MAX_USERS) {
+var t = cc.instantiate(this.addButton);
+this.node.getChildByName("userLayout").addChild(t);
+this.node.getChildByName("messageLabel").getComponent(cc.Label).string = "";
+}
+i.User.getUsers().forEach(function(t) {
+cc.log(t);
+var n = cc.instantiate(e.userButton);
+n.getChildByName("Label").getComponent(cc.Label).string = t.name;
+cc.resources.load("avatars/" + t.avatarImage, function(e, t) {
+n.getChildByName("Background").getChildByName("avatar").getChildByName("icon").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(t);
+});
+n.name = t.id;
+e.node.getChildByName("userLayout").addChild(n);
+});
+cc.sys.localStorage.getItem("userId");
+};
+var n;
+r([ s(cc.Prefab) ], t.prototype, "addButton", void 0);
+r([ s(cc.Prefab) ], t.prototype, "userButton", void 0);
+return t = n = r([ a ], t);
+}(cc.Component);
+n.default = u;
+cc._RF.pop();
+}, {
+"../../../../common/scripts/lib/profile": void 0
+} ],
+welcomeScene: [ function(e, t, n) {
+"use strict";
+cc._RF.push(t, "2f443NhHCxAe77xbLEAurjz", "welcomeScene");
+var o = this && this.__extends || function() {
+var e = function(t, n) {
+return (e = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(e, t) {
+e.__proto__ = t;
+} || function(e, t) {
+for (var n in t) t.hasOwnProperty(n) && (e[n] = t[n]);
+})(t, n);
+};
+return function(t, n) {
+e(t, n);
+function o() {
+this.constructor = t;
+}
+t.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), r = this && this.__decorate || function(e, t, n, o) {
+var r, i = arguments.length, c = i < 3 ? t : null === o ? o = Object.getOwnPropertyDescriptor(t, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(e, t, n, o); else for (var a = e.length - 1; a >= 0; a--) (r = e[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(t, n, c) : r(t, n)) || c);
+return i > 3 && c && Object.defineProperty(t, n, c), c;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var i = e("../../../../common/scripts/lib/config"), c = cc._decorator, a = c.ccclass, s = c.property, u = function(e) {
+o(t, e);
+function t() {
+var t = null !== e && e.apply(this, arguments) || this;
+t.label = null;
+t.text = "hello";
+return t;
+}
+t.prototype.onLoad = function() {
+setTimeout(function() {
+i.default.loadScene("homeLoginScene", "private", null);
+}, 3500);
+};
+r([ s(cc.Label) ], t.prototype, "label", void 0);
+r([ s ], t.prototype, "text", void 0);
+return t = r([ a ], t);
+}(cc.Component);
+n.default = u;
+cc._RF.pop();
+}, {
+"../../../../common/scripts/lib/config": void 0
+} ]
+}, {}, [ "parseACL", "parseChapter", "parseClass", "parseConnection", "parseConstants", "parseMonitor", "parseProgress", "parseSchool", "parseSection", "parseStudent", "parseSubject", "parseTuition", "parseUser", "ageSelect", "buttons", "cameraButton", "genderSelect", "languageSelectButton", "languageSelectLayout", "startEffects", "userInput", "welcomePage", "ageAndGender", "cameraScene", "collectUserInfo", "languageSelect", "nameInputScene", "welcomeScene", "editprofile", "secondscreen", "usercomponent", "webview", "register", "registerButton", "customEditBox", "itemButton", "landing", "nextButton", "schoolBackButton", "schoolRegistration", "selectionScene", "ParseImageDownloader", "ParseNetwork", "parseApi", "chapterButton", "loginButton", "subjectButton", "teacherRegistration", "teacherReportCard", "teacherReportMetrics" ]);

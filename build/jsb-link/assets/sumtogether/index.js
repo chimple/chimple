@@ -1,0 +1,530 @@
+window.__require = function t(o, e, n) {
+function i(c, s) {
+if (!e[c]) {
+if (!o[c]) {
+var a = c.split("/");
+a = a[a.length - 1];
+if (!o[a]) {
+var p = "function" == typeof __require && __require;
+if (!s && p) return p(a, !0);
+if (r) return r(a, !0);
+throw new Error("Cannot find module '" + c + "'");
+}
+c = a;
+}
+var u = e[c] = {
+exports: {}
+};
+o[c][0].call(u.exports, function(t) {
+return i(o[c][1][t] || t);
+}, u, u.exports, t, o, e, n);
+}
+return e[c].exports;
+}
+for (var r = "function" == typeof __require && __require, c = 0; c < n.length; c++) i(n[c]);
+return i;
+}({
+"move-choice": [ function(t, o, e) {
+"use strict";
+cc._RF.push(o, "8c66eiPV19DvJxjaiL66KuI", "move-choice");
+var n = this && this.__extends || function() {
+var t = function(o, e) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, o) {
+t.__proto__ = o;
+} || function(t, o) {
+for (var e in o) o.hasOwnProperty(e) && (t[e] = o[e]);
+})(o, e);
+};
+return function(o, e) {
+t(o, e);
+function n() {
+this.constructor = o;
+}
+o.prototype = null === e ? Object.create(e) : (n.prototype = e.prototype, new n());
+};
+}(), i = this && this.__decorate || function(t, o, e, n) {
+var i, r = arguments.length, c = r < 3 ? o : null === n ? n = Object.getOwnPropertyDescriptor(o, e) : n;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(t, o, e, n); else for (var s = t.length - 1; s >= 0; s--) (i = t[s]) && (c = (r < 3 ? i(c) : r > 3 ? i(o, e, c) : i(o, e)) || c);
+return r > 3 && c && Object.defineProperty(o, e, c), c;
+};
+Object.defineProperty(e, "__esModule", {
+value: !0
+});
+var r = t("../../../common/scripts/util"), c = t("../../../common/scripts/auto-drag"), s = t("../../../common/scripts/helper"), a = cc._decorator.ccclass, p = function(t) {
+n(o, t);
+function o() {
+var o = null !== t && t.apply(this, arguments) || this;
+o.moveDropNode = null;
+o.value = null;
+o.parent = null;
+o.dragInProgress = !1;
+return o;
+}
+o.prototype.onLoad = function() {
+t.prototype.onLoad.call(this);
+};
+o.prototype.onTouchStart = function(o) {
+t.prototype.onTouchStart.call(this, o);
+if (this.allowDrag && !this.dragInProgress) {
+this.dragInProgress = !0;
+r.Util.speakEquation([ String(this.value) ], function(t) {});
+}
+};
+o.prototype.onTouchEnd = function(o) {
+t.prototype.onTouchEnd.call(this, o);
+this.dragInProgress = !0;
+new cc.Tween().target(this.node).to(.5, {
+scale: 1
+}, {
+progress: null,
+easing: "elasticOut"
+}).start();
+};
+o.prototype.onMatchOver = function() {
+t.prototype.onMatchOver.call(this);
+this.node.opacity = 255;
+this.node.dispatchEvent(new cc.Event.EventCustom(s.MOVE_MATCH, !0));
+};
+o.prototype.onMatchFail = function() {
+t.prototype.onMatchFail.call(this);
+var o = new cc.Event.EventCustom(s.MOVE_NOT_MATCH, !0);
+o.setUserData({
+choice: this.node
+});
+this.node.dispatchEvent(o);
+};
+o.prototype.findDropNode = function() {
+return this.moveDropNode;
+};
+return o = i([ a ], o);
+}(c.default);
+e.default = p;
+cc._RF.pop();
+}, {
+"../../../common/scripts/auto-drag": void 0,
+"../../../common/scripts/helper": void 0,
+"../../../common/scripts/util": void 0
+} ],
+"move-drop": [ function(t, o, e) {
+"use strict";
+cc._RF.push(o, "d33f3b2bKNCP7NdIzUjYn7B", "move-drop");
+var n = this && this.__extends || function() {
+var t = function(o, e) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, o) {
+t.__proto__ = o;
+} || function(t, o) {
+for (var e in o) o.hasOwnProperty(e) && (t[e] = o[e]);
+})(o, e);
+};
+return function(o, e) {
+t(o, e);
+function n() {
+this.constructor = o;
+}
+o.prototype = null === e ? Object.create(e) : (n.prototype = e.prototype, new n());
+};
+}(), i = this && this.__decorate || function(t, o, e, n) {
+var i, r = arguments.length, c = r < 3 ? o : null === n ? n = Object.getOwnPropertyDescriptor(o, e) : n;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(t, o, e, n); else for (var s = t.length - 1; s >= 0; s--) (i = t[s]) && (c = (r < 3 ? i(c) : r > 3 ? i(o, e, c) : i(o, e)) || c);
+return r > 3 && c && Object.defineProperty(o, e, c), c;
+};
+Object.defineProperty(e, "__esModule", {
+value: !0
+});
+var r = t("../../../common/scripts/drop"), c = cc._decorator.ccclass, s = function(t) {
+n(o, t);
+function o() {
+return null !== t && t.apply(this, arguments) || this;
+}
+return o = i([ c ], o);
+}(r.default);
+e.default = s;
+cc._RF.pop();
+}, {
+"../../../common/scripts/drop": void 0
+} ],
+sumtogether: [ function(t, o, e) {
+"use strict";
+cc._RF.push(o, "a3640KcMFxMZ5ZRS4dD5QX6", "sumtogether");
+var n = this && this.__extends || function() {
+var t = function(o, e) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, o) {
+t.__proto__ = o;
+} || function(t, o) {
+for (var e in o) o.hasOwnProperty(e) && (t[e] = o[e]);
+})(o, e);
+};
+return function(o, e) {
+t(o, e);
+function n() {
+this.constructor = o;
+}
+o.prototype = null === e ? Object.create(e) : (n.prototype = e.prototype, new n());
+};
+}(), i = this && this.__decorate || function(t, o, e, n) {
+var i, r = arguments.length, c = r < 3 ? o : null === n ? n = Object.getOwnPropertyDescriptor(o, e) : n;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(t, o, e, n); else for (var s = t.length - 1; s >= 0; s--) (i = t[s]) && (c = (r < 3 ? i(c) : r > 3 ? i(o, e, c) : i(o, e)) || c);
+return r > 3 && c && Object.defineProperty(o, e, c), c;
+};
+Object.defineProperty(e, "__esModule", {
+value: !0
+});
+e.SumTogether = e.GAME_VOICE = void 0;
+var r = t("../../../common/scripts/lib/config"), c = t("./move-choice"), s = t("./move-drop"), a = t("../../../common/scripts/util"), p = t("../../../common/scripts/drag"), u = cc._decorator.ccclass, h = cc._decorator.property, l = cc.Layout, d = t("../../../common/scripts/helper");
+e.GAME_VOICE = "games/lettertracing/sounds";
+var f;
+(function(t) {
+t.minus = "-";
+t.plus = "+";
+})(f || (f = {}));
+var y = function() {
+function t() {
+this._store = [];
+}
+t.prototype.push = function(t) {
+this._store.push(t);
+};
+t.prototype.pop = function() {
+return this._store.shift();
+};
+return t;
+}(), m = function(t) {
+n(o, t);
+function o() {
+var o = null !== t && t.apply(this, arguments) || this;
+o.progressMonitorPrefab = null;
+o.optionsLayout = null;
+o.equationLayout = null;
+o.choicesLayout = null;
+o.numberLabel = null;
+o.dropLabel = null;
+o.domino0 = null;
+o.domino1 = null;
+o.domino2 = null;
+o.domino3 = null;
+o.domino4 = null;
+o.domino5 = null;
+o.domino6 = null;
+o.domino7 = null;
+o.domino8 = null;
+o.domino9 = null;
+o.dogPrefab = null;
+o.friend = null;
+o._currentConfig = null;
+o._dropNode = null;
+o._answer = 0;
+o._operations = null;
+o._helpDragNode = null;
+o._helpShown = !1;
+return o;
+}
+o.prototype.onLoad = function() {
+var t = this;
+cc.director.getCollisionManager().enabled = !0;
+p.default.letDrag = !0;
+this._operations = new y();
+this.optionsLayout.width = cc.winSize.width;
+this._currentConfig = this.processConfiguration(r.default.getInstance().data[0]);
+if (null !== this._currentConfig) {
+console.log(this._currentConfig);
+this.createOptions();
+this.createEquation();
+this._operations.push(this.renderLHS);
+this._operations.push(this.speakLHS);
+this._operations.push(this.displayLHS);
+this._operations.push(this.displayOperator);
+this._operations.push(this.renderRHS);
+this._operations.push(this.speakRHS);
+this._operations.push(this.displayRHS);
+this._operations.push(this.displayEquals);
+this._operations.push(this.createChoices);
+this.node.on(d.MOVE_MATCH, function(o) {
+o.stopPropagation();
+t.disableTouchOnChoices();
+t.node.emit("correct");
+t.scheduleOnce(function() {
+t.node.emit("nextProblem");
+});
+});
+this.node.on(d.MOVE_NOT_MATCH, function(o) {
+o.stopPropagation();
+o.getUserData().choice.getComponent(c.default).dragInProgress = !1;
+t.node.emit("wrong");
+});
+this.processOperations();
+}
+};
+o.prototype.createOptions = function() {
+this.createDogs(Number(this._currentConfig.lhs), Number(this._currentConfig.rhs), this._currentConfig.op);
+};
+o.prototype.createEquation = function() {
+this.equationLayout.width = cc.winSize.width;
+this.equationLayout.addChild(this.createLabel(this._currentConfig.lhs, "L" + this._currentConfig.lhs, !0));
+this.equationLayout.addChild(this.createLabel(this._currentConfig.op, this._currentConfig.op, !0));
+this.equationLayout.addChild(this.createLabel(this._currentConfig.rhs, "R" + this._currentConfig.rhs, !0));
+this.equationLayout.addChild(this.createLabel("=", "=", !0));
+this.equationLayout.addChild(this.createDropNode("?"));
+};
+o.prototype.createDropNode = function(t, o) {
+void 0 === o && (o = !1);
+this._dropNode = cc.instantiate(this.dropLabel);
+this._dropNode.opacity = 0;
+this._dropNode.getComponent(s.default);
+this._dropNode.group = "drop";
+this._dropNode.name = "domino" + this._answer;
+var e = this._dropNode.getChildByName("label"), n = e.getComponent(cc.Label);
+e.addComponent(cc.LabelOutline).width = 2;
+n.string = t;
+if (o) {
+n.fontSize = 60;
+this._dropNode.width = e.width;
+}
+return this._dropNode;
+};
+o.prototype.renderLHS = function() {
+this.unHideDogs(0, Number(this._currentConfig.lhs) - 1);
+};
+o.prototype.displayLHS = function() {
+this.equationLayout.getChildByName("L" + this._currentConfig.lhs).opacity = 255;
+};
+o.prototype.displayRHS = function() {
+this.equationLayout.getChildByName("R" + this._currentConfig.rhs).opacity = 255;
+};
+o.prototype.displayEquals = function() {
+this.equationLayout.getChildByName("=").opacity = 255;
+a.Util.speakEquation([ "=" ], function(t) {});
+};
+o.prototype.displayOperator = function() {
+this.equationLayout.getChildByName(this._currentConfig.op).opacity = 255;
+a.Util.speakEquation([ this._currentConfig.op ], function(t) {});
+};
+o.prototype.renderRHS = function() {
+switch (this._currentConfig.op) {
+case f.minus:
+this.changeColors(Number(this._currentConfig.lhs) - Number(this._currentConfig.rhs), Number(this._currentConfig.rhs) + Number(this._currentConfig.lhs) - Number(this._currentConfig.rhs));
+break;
+
+case f.plus:
+this.unHideDogs(Number(this._currentConfig.lhs), Number(this._currentConfig.lhs) + Number(this._currentConfig.rhs) - 1, !0);
+}
+};
+o.prototype.changeColor = function(t, o) {
+console.log(t);
+t.children[0].getComponent(dragonBones.ArmatureDisplay).node.color = o;
+};
+o.prototype.changeColors = function(t, o) {
+var e = this;
+this.optionsLayout.children.filter(function(e, n) {
+return n >= t && n <= o;
+}).forEach(function(t, o) {
+e.changeColor(t, cc.Color.RED);
+});
+};
+o.prototype.processOperations = function() {
+var t = this;
+this.scheduleOnce(function() {
+t.executePop();
+}, .5);
+};
+o.prototype.executePop = function() {
+var t = this, o = this._operations.pop();
+if (o) {
+o.apply(this);
+this.scheduleOnce(function() {
+t.processOperations();
+}, 0);
+}
+};
+o.prototype.createDogs = function(t, o, e) {
+for (var n = 1; n <= t; n++) this.createDog(n);
+switch (e) {
+case f.minus:
+break;
+
+case f.plus:
+for (n = 1; n <= o; n++) this.createDog(n);
+}
+};
+o.prototype.createDog = function(t) {
+var o = this;
+a.Util.loadFriend(function(t) {
+o.friend = t.getComponent(dragonBones.ArmatureDisplay);
+var e = cc.instantiate(o.dogPrefab);
+e.addChild(t);
+e.scale = .25;
+e.setPosition(new cc.Vec2(e.position.x, -70));
+e.opacity = 0;
+o.optionsLayout.addChild(e);
+});
+};
+o.prototype.unHideDogs = function(t, o, e) {
+var n = this;
+void 0 === e && (e = !1);
+this.optionsLayout.children.filter(function(e, n) {
+return n >= t && n <= o;
+}).forEach(function(t, o) {
+e && n.changeColor(t, cc.Color.GREEN);
+new cc.Tween().target(t).to(.5 + .5 * o, {
+opacity: 255
+}, {
+progress: null,
+easing: "quadOut"
+}).start();
+});
+};
+o.prototype.speakLHS = function() {
+a.Util.speakEquation([ String(this._currentConfig.lhs) ], function(t) {});
+};
+o.prototype.speakRHS = function() {
+a.Util.speakEquation([ String(this._currentConfig.rhs) ], function() {});
+};
+o.prototype.disableTouchOnChoices = function() {
+this.choicesLayout.children.forEach(function(t) {
+t.getComponent(c.default).disableTouch();
+});
+};
+o.prototype.createChoices = function() {
+var t = this;
+this.choicesLayout.width = cc.winSize.width;
+for (var o = function(o) {
+var n = "domino" + o, i = cc.instantiate(e[n]);
+i.opacity = 255;
+i.width = 95;
+i.height = 178;
+e.choicesLayout.addChild(i);
+i.children.forEach(function(e) {
+if ("dominodiceblank_movingobjects" === e.name) {
+var n = i.getComponent(c.default);
+n.value = o;
+n.parent = t.node;
+var r = t.createLabel(String(o));
+r.name = "number" + String(o);
+Number(t._answer) === o && (t._helpDragNode = r);
+e.addChild(r);
+r.opacity = 0;
+n.label = r.getComponent(cc.Label);
+r.addComponent(cc.LabelOutline).width = 2;
+n.moveDropNode = t._dropNode;
+}
+});
+}, e = this, n = 0; n <= 9; n++) o(n);
+this.scheduleOnce(function() {
+t.showDominos();
+}, 1);
+};
+o.prototype.showDominos = function() {
+var t = this;
+this.choicesLayout.children.forEach(function(o, e) {
+new cc.Tween().target(o).to(.05 + .05 * e, {
+opacity: 255
+}, {
+progress: null,
+easing: "quadOut"
+}).to(.05, {
+scaleX: 0
+}, {
+progress: null,
+easing: "quadOut"
+}).call(function() {
+o.children.forEach(function(t) {
+if ("dominodiceblank_movingobjects" !== t.name) {
+t.opacity = 0;
+t.active = !1;
+} else {
+t.opacity = 255;
+var o = t.getChildByName("number" + e);
+o.active = !0;
+o.opacity = 255;
+}
+});
+}).to(.05, {
+scaleX: 1
+}, {
+progress: null,
+easing: "quadOut"
+}).call(function() {
+t.choicesLayout.getComponent(cc.Layout).type = l.Type.NONE;
+t._dropNode.opacity = 255;
+t.scheduleOnce(function() {
+if (!t._helpShown) {
+t._helpShown = !0;
+a.Util.showHelp(t._helpDragNode, t._helpDragNode);
+}
+}, 1);
+}).start();
+});
+};
+o.prototype.computeAnswer = function(t, o, e) {
+switch (e) {
+case f.minus:
+this._answer = Number(t) - Number(o);
+break;
+
+case f.plus:
+this._answer = Number(t) + Number(o);
+}
+};
+o.prototype.processConfiguration = function(t) {
+void 0 === t && (t = []);
+var o = [].concat.apply([], t), e = o[0], n = o[1], i = o[2], r = o[3], c = o[4], s = o[5];
+this.computeAnswer(c, s, r);
+return {
+level: e,
+workSheet: n,
+problemNo: i,
+op: r,
+lhs: c,
+rhs: s
+};
+};
+o.prototype.createLabel = function(t, o, e, n) {
+void 0 === o && (o = null);
+void 0 === e && (e = !1);
+void 0 === n && (n = !1);
+var i = cc.instantiate(this.numberLabel), r = i.getChildByName("label"), c = r.getComponent(cc.Label);
+o && (i.name = o);
+e && (i.opacity = 0);
+r.addComponent(cc.LabelOutline).width = 2;
+c.string = t;
+if (n) {
+c.fontSize = 60;
+i.width = r.width;
+}
+return i;
+};
+i([ h(cc.Prefab) ], o.prototype, "progressMonitorPrefab", void 0);
+i([ h(cc.Node) ], o.prototype, "optionsLayout", void 0);
+i([ h(cc.Node) ], o.prototype, "equationLayout", void 0);
+i([ h(cc.Node) ], o.prototype, "choicesLayout", void 0);
+i([ h(cc.Prefab) ], o.prototype, "numberLabel", void 0);
+i([ h(cc.Prefab) ], o.prototype, "dropLabel", void 0);
+i([ h(cc.Prefab) ], o.prototype, "domino0", void 0);
+i([ h(cc.Prefab) ], o.prototype, "domino1", void 0);
+i([ h(cc.Prefab) ], o.prototype, "domino2", void 0);
+i([ h(cc.Prefab) ], o.prototype, "domino3", void 0);
+i([ h(cc.Prefab) ], o.prototype, "domino4", void 0);
+i([ h(cc.Prefab) ], o.prototype, "domino5", void 0);
+i([ h(cc.Prefab) ], o.prototype, "domino6", void 0);
+i([ h(cc.Prefab) ], o.prototype, "domino7", void 0);
+i([ h(cc.Prefab) ], o.prototype, "domino8", void 0);
+i([ h(cc.Prefab) ], o.prototype, "domino9", void 0);
+i([ h(cc.Prefab) ], o.prototype, "dogPrefab", void 0);
+return o = i([ u ], o);
+}(cc.Component);
+e.SumTogether = m;
+cc._RF.pop();
+}, {
+"../../../common/scripts/drag": void 0,
+"../../../common/scripts/helper": void 0,
+"../../../common/scripts/lib/config": void 0,
+"../../../common/scripts/util": void 0,
+"./move-choice": "move-choice",
+"./move-drop": "move-drop"
+} ]
+}, {}, [ "move-choice", "move-drop", "sumtogether" ]);

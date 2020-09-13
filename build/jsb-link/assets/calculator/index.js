@@ -1,0 +1,301 @@
+window.__require = function t(e, o, r) {
+function n(s, a) {
+if (!o[s]) {
+if (!e[s]) {
+var l = s.split("/");
+l = l[l.length - 1];
+if (!e[l]) {
+var u = "function" == typeof __require && __require;
+if (!a && u) return u(l, !0);
+if (i) return i(l, !0);
+throw new Error("Cannot find module '" + s + "'");
+}
+s = l;
+}
+var c = o[s] = {
+exports: {}
+};
+e[s][0].call(c.exports, function(t) {
+return n(e[s][1][t] || t);
+}, c, c.exports, t, e, o, r);
+}
+return o[s].exports;
+}
+for (var i = "function" == typeof __require && __require, s = 0; s < r.length; s++) n(r[s]);
+return n;
+}({
+calculator: [ function(t, e, o) {
+"use strict";
+cc._RF.push(e, "21b29QgFZhAf5QS7MBl+Foz", "calculator");
+var r = this && this.__extends || function() {
+var t = function(e, o) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, e) {
+t.__proto__ = e;
+} || function(t, e) {
+for (var o in e) e.hasOwnProperty(o) && (t[o] = e[o]);
+})(e, o);
+};
+return function(e, o) {
+t(e, o);
+function r() {
+this.constructor = e;
+}
+e.prototype = null === o ? Object.create(o) : (r.prototype = o.prototype, new r());
+};
+}(), n = this && this.__decorate || function(t, e, o, r) {
+var n, i = arguments.length, s = i < 3 ? e : null === r ? r = Object.getOwnPropertyDescriptor(e, o) : r;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) s = Reflect.decorate(t, e, o, r); else for (var a = t.length - 1; a >= 0; a--) (n = t[a]) && (s = (i < 3 ? n(s) : i > 3 ? n(e, o, s) : n(e, o)) || s);
+return i > 3 && s && Object.defineProperty(e, o, s), s;
+};
+Object.defineProperty(o, "__esModule", {
+value: !0
+});
+var i = cc._decorator, s = i.ccclass, a = i.property, l = t("../../../common/scripts/lib/config"), u = t("../../../common/scripts/util"), c = t("../../../common/scripts/lib/error-handler"), d = t("../../../common/scripts/counting-answer"), h = t("../../../common/scripts/answer-grid"), p = function(t) {
+r(e, t);
+function e() {
+var e = null !== t && t.apply(this, arguments) || this;
+e.label = null;
+e.drawingDot = null;
+e.drawingAreaPrefab = null;
+e.countingAnswerPrefab = null;
+e.labelPrefab = null;
+e.layoutPrefab = null;
+e.text = "hello";
+e.highlightNode = null;
+e.startLocation = cc.v2(0, 0);
+e.adjustCords = cc.v2(0, 0);
+e.isOneTouched = !1;
+e._countingAnswer = null;
+e._currentConfig = null;
+e._drawingAreaNode = null;
+e._graphicsNode = null;
+e._layout = null;
+e.firstNumber = 30;
+e.secondNumber = 10;
+e.resultNumber = 20;
+e.isPlusSign = !1;
+e.problemCount = 5;
+e._answeredCorrectly = !1;
+return e;
+}
+e.prototype.onLoad = function() {
+var t = this;
+u.Util.loadi18NMapping(function() {
+t.node.getChildByName("writeLabel").getComponent(cc.Label).string = u.Util.i18NText("Write here");
+});
+this._currentConfig = this.processConfiguration(l.default.getInstance().data[0]);
+this.loadData();
+this._graphicsNode = cc.instantiate(this.drawingDot);
+this._graphicsNode.name = "canvas";
+this.node.addChild(this._graphicsNode);
+this.last_location = new cc.Vec2(0, 0);
+this.node.getChildByName("clearDraw").getComponent(cc.Button).node.on("click", this.clearDrawing, this);
+this._layout = cc.instantiate(this.layoutPrefab);
+this.node.getChildByName("layoutFolder").addChild(this._layout);
+this.setUpLayout();
+this._drawingAreaNode.on("touchstart", this.onTouchStart, this);
+this._drawingAreaNode.on("touchmove", this.onTouchMove, this);
+this._drawingAreaNode.on("touchend", this.onTouchEnd, this);
+var e = this.problemCount.valueOf();
+this.node.on(d.VALIDATE_RESULT, function(o) {
+o.stopPropagation();
+var r = o.getUserData();
+if (r.result != t.resultNumber || t._answeredCorrectly) {
+if (!t._answeredCorrectly) {
+console.log("You r wrong .right is >> " + t.resultNumber);
+t.node.emit("wrong");
+t._countingAnswer.getComponent(d.default).clearDigits(!1);
+}
+} else {
+for (var n = 4 - t.resultNumber.toString().trim().length + 1, i = 0; i < t.resultNumber.toString().trim().length; i++) {
+var s = cc.instantiate(t.labelPrefab);
+s.getComponent(cc.Label).string = t.resultNumber.toString().trim().charAt(i);
+s.name = i + "";
+t.node.getChildByName("answersLabel").getChildByName("answer_1").getChildByName("" + (i + n)).addChild(s);
+}
+e -= 1;
+t._answeredCorrectly = !0;
+t.problemCount = e;
+t.node.emit("nextProblem");
+t.node.emit("correct");
+t._countingAnswer.getComponent(d.default).isValidResult = !0;
+}
+console.log(r.result + " ::: ");
+});
+this.node.on(h.HELP_BTN, function(e) {
+e.stopPropagation();
+var o = e.getUserData();
+console.log(o, " [] ", o.helpNodes);
+t.showHelp(t.helpIterator(o.helpNodes));
+});
+};
+e.prototype.helpIterator = function(t) {
+return t[Symbol.iterator]();
+};
+e.prototype.showHelp = function(t, e) {
+var o = this;
+void 0 === e && (e = !0);
+var r = t.next();
+r.done || u.Util.showHelp(r.value, r.value, function() {
+o.showHelp(t, !1);
+}, e);
+};
+e.prototype.loadData = function() {
+var t = l.default.getInstance().data[0];
+this.rowData = t;
+this.setUpQuestionArea(t);
+this.clearDrawing();
+};
+e.prototype.processConfiguration = function(t) {
+void 0 === t && (t = []);
+var e = [].concat.apply([], t), o = e[0], r = e[1], n = e[2], i = e[3], s = e[4], a = e[5], l = e[6], u = e[7], c = e[8], d = e[9];
+return {
+level: o,
+worksheet: r,
+problemCount: n,
+number1: i,
+addition: s,
+subtraction: a,
+number2: l,
+result: u,
+regrouping: c,
+numberpads: d = d.split(",")
+};
+};
+e.prototype.setUpQuestionArea = function(t) {
+var e, o = (t[3] + "").indexOf(",");
+if (-1 != o) {
+e = (t[3] + "").split(",");
+this.firstNumber = this.selectRandomOne(e);
+}
+if (-1 != (o = (t[3] + "").indexOf("-"))) {
+e = (t[3] + "").split("-");
+this.firstNumber = this.generateRandomNumbers(e[0], e[1]);
+}
+1 == (t[3] + "").length && (this.firstNumber = parseInt(e[0]));
+console.log(this.firstNumber.toString().trim().length, " <<< Str length ", this.firstNumber.toString().trim());
+var r, n = (t[6] + "").indexOf(",");
+if (-1 != n) {
+r = (t[6] + "").split(",");
+this.secondNumber = this.selectRandomOne(r);
+}
+if (-1 != (n = (t[6] + "").indexOf("-"))) {
+r = (t[6] + "").split("-");
+this.secondNumber = this.generateRandomNumbers(r[0], r[1]);
+}
+1 == (t[6] + "").length && (this.secondNumber = parseInt(r[0]));
+"TRUE" == t[4] && (this.isPlusSign = !0);
+if (Number(this.secondNumber) > Number(this.firstNumber) && !this.isPlusSign) {
+this.secondNumber = Number(this.firstNumber) + Number(this.secondNumber);
+this.firstNumber = Number(this.secondNumber) - Number(this.firstNumber);
+this.secondNumber = Number(this.secondNumber) - Number(this.firstNumber);
+}
+for (var i = 4 - this.firstNumber.toString().trim().length + 1, s = 0; s < this.firstNumber.toString().trim().length; s++) {
+(u = cc.instantiate(this.labelPrefab)).getComponent(cc.Label).string = this.firstNumber.toString().trim().charAt(s);
+u.name = "" + s;
+this.node.getChildByName("answersLabel").getChildByName("firstNum_1").getChildByName("" + (s + i)).addChild(u);
+}
+var a = cc.instantiate(this.labelPrefab);
+a.getComponent(cc.Label).string = this.isPlusSign ? "+" : "-";
+a.name = this.isPlusSign ? "plus" : "minus";
+this.node.getChildByName("answersLabel").getChildByName("secondNum_1").getChildByName("" + (4 - this.secondNumber.toString().trim().length)).addChild(a);
+var l = 4 - this.secondNumber.toString().trim().length + 1;
+for (s = 0; s < this.secondNumber.toString().trim().length; s++) {
+var u;
+(u = cc.instantiate(this.labelPrefab)).getComponent(cc.Label).string = this.secondNumber.toString().trim().charAt(s);
+u.name = "" + s;
+this.node.getChildByName("answersLabel").getChildByName("secondNum_1").getChildByName("" + (s + l)).addChild(u);
+}
+this.isPlusSign ? this.resultNumber = Number(this.firstNumber) + Number(this.secondNumber) : this.resultNumber = Number(this.firstNumber) - Number(this.secondNumber);
+};
+e.prototype.setUpLayout = function() {
+this._drawingAreaNode = cc.instantiate(this.drawingAreaPrefab);
+this._layout.addChild(this._drawingAreaNode);
+this._countingAnswer = cc.instantiate(this.countingAnswerPrefab);
+this._countingAnswer.getComponent(d.default).numberpads = this._currentConfig.numberpads;
+this._countingAnswer.getComponent(d.default).result = "" + this.resultNumber;
+this._countingAnswer.getComponent(d.default).delay = 0;
+this._layout.addChild(this._countingAnswer);
+};
+e.prototype.clearDrawing = function() {
+void 0 != this.drawing && this.drawing.clear();
+};
+e.prototype.onTouchStart = function(t) {
+var e = t.getLocation();
+if (0 == t.getID()) {
+this.startLocation.x = this.node.getParent().convertToNodeSpaceAR(e).x - this.adjustCords.x;
+this.startLocation.y = this.node.getParent().convertToNodeSpaceAR(e).y - this.adjustCords.y;
+}
+cc.log("on touch start!!! " + this.node.getParent().convertToNodeSpaceAR(e));
+};
+e.prototype.generateRandomNumbers = function(t, e) {
+return Math.floor(Math.random() * (+e - +t)) + +t;
+};
+e.prototype.selectRandomOne = function(t) {
+return t[this.generateRandomNumbers(0, t.length)];
+};
+e.prototype.onTouchMove = function(t) {
+if (0 == t.getID()) {
+var e = t.getLocation(), o = this.node.getParent().convertToNodeSpaceAR(e), r = o.x - this.adjustCords.x, n = o.y - this.adjustCords.y;
+cc.log("on move!!! " + n);
+if (this.calculateMagnitute(o, this.last_location) > 10 && r > -460 && r < -50 && n > -250 && n < 250) {
+console.log("Prefab Spawned!!!");
+this.drawing = this.node.getChildByName("canvas").getChildByName("graphicsNode").getComponent(cc.Graphics);
+this.drawing.lineWidth = 6;
+this.drawing.moveTo(this.startLocation.x, this.startLocation.y);
+this.drawing.lineTo(o.x - this.adjustCords.x, o.y - this.adjustCords.y);
+this.drawing.strokeColor = cc.Color.BLACK;
+this.drawing.stroke();
+this.last_location = o;
+this.startLocation.x = o.x - this.adjustCords.x;
+this.startLocation.y = o.y - this.adjustCords.y;
+}
+}
+};
+e.prototype.onTouchEnd = function(t) {
+cc.log("on touch end!!!");
+};
+e.prototype.calculateMagnitute = function(t, e) {
+var o = t.x - e.x, r = t.y - e.y;
+return Math.sqrt(o * o + r * r);
+};
+e.prototype.start = function() {};
+e.prototype.onDestroy = function() {
+clearTimeout(this.clearTime);
+};
+n([ a(cc.Label) ], e.prototype, "label", void 0);
+n([ a(cc.Prefab) ], e.prototype, "drawingDot", void 0);
+n([ a(cc.Prefab) ], e.prototype, "drawingAreaPrefab", void 0);
+n([ a(cc.Prefab) ], e.prototype, "countingAnswerPrefab", void 0);
+n([ a(cc.Prefab) ], e.prototype, "labelPrefab", void 0);
+n([ a(cc.Prefab) ], e.prototype, "layoutPrefab", void 0);
+n([ a ], e.prototype, "text", void 0);
+n([ c.default() ], e.prototype, "onLoad", null);
+n([ c.default() ], e.prototype, "helpIterator", null);
+n([ c.default() ], e.prototype, "showHelp", null);
+n([ c.default() ], e.prototype, "loadData", null);
+n([ c.default() ], e.prototype, "setUpQuestionArea", null);
+n([ c.default() ], e.prototype, "setUpLayout", null);
+n([ c.default() ], e.prototype, "clearDrawing", null);
+n([ c.default() ], e.prototype, "onTouchStart", null);
+n([ c.default() ], e.prototype, "generateRandomNumbers", null);
+n([ c.default() ], e.prototype, "selectRandomOne", null);
+n([ c.default() ], e.prototype, "onTouchMove", null);
+n([ c.default() ], e.prototype, "onTouchEnd", null);
+n([ c.default() ], e.prototype, "calculateMagnitute", null);
+n([ c.default() ], e.prototype, "start", null);
+n([ c.default() ], e.prototype, "onDestroy", null);
+return e = n([ s ], e);
+}(cc.Component);
+o.default = p;
+cc._RF.pop();
+}, {
+"../../../common/scripts/answer-grid": void 0,
+"../../../common/scripts/counting-answer": void 0,
+"../../../common/scripts/lib/config": void 0,
+"../../../common/scripts/lib/error-handler": void 0,
+"../../../common/scripts/util": void 0
+} ]
+}, {}, [ "calculator" ]);

@@ -1,0 +1,349 @@
+window.__require = function t(o, e, n) {
+function r(c, a) {
+if (!e[c]) {
+if (!o[c]) {
+var p = c.split("/");
+p = p[p.length - 1];
+if (!o[p]) {
+var s = "function" == typeof __require && __require;
+if (!a && s) return s(p, !0);
+if (i) return i(p, !0);
+throw new Error("Cannot find module '" + c + "'");
+}
+c = p;
+}
+var l = e[c] = {
+exports: {}
+};
+o[c][0].call(l.exports, function(t) {
+return r(o[c][1][t] || t);
+}, l, l.exports, t, o, e, n);
+}
+return e[c].exports;
+}
+for (var i = "function" == typeof __require && __require, c = 0; c < n.length; c++) r(n[c]);
+return r;
+}({
+dragHay: [ function(t, o, e) {
+"use strict";
+cc._RF.push(o, "8a597rLBD5LBIbjLgK7InkY", "dragHay");
+var n = this && this.__extends || function() {
+var t = function(o, e) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, o) {
+t.__proto__ = o;
+} || function(t, o) {
+for (var e in o) o.hasOwnProperty(e) && (t[e] = o[e]);
+})(o, e);
+};
+return function(o, e) {
+t(o, e);
+function n() {
+this.constructor = o;
+}
+o.prototype = null === e ? Object.create(e) : (n.prototype = e.prototype, new n());
+};
+}(), r = this && this.__decorate || function(t, o, e, n) {
+var r, i = arguments.length, c = i < 3 ? o : null === n ? n = Object.getOwnPropertyDescriptor(o, e) : n;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(t, o, e, n); else for (var a = t.length - 1; a >= 0; a--) (r = t[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(o, e, c) : r(o, e)) || c);
+return i > 3 && c && Object.defineProperty(o, e, c), c;
+};
+Object.defineProperty(e, "__esModule", {
+value: !0
+});
+var i = t("../../../common/scripts/drag"), c = t("./dropCow"), a = t("../../../common/scripts/util"), p = cc._decorator, s = p.ccclass, l = p.property, u = function(t) {
+n(o, t);
+function o() {
+var o = null !== t && t.apply(this, arguments) || this;
+o.correctClip = null;
+o.richTextNode = null;
+o._text = null;
+o._soundName = null;
+o._soundClip = null;
+return o;
+}
+Object.defineProperty(o.prototype, "text", {
+get: function() {
+return this._text;
+},
+set: function(t) {
+this._text = t;
+this.richTextNode.string = t;
+},
+enumerable: !1,
+configurable: !0
+});
+Object.defineProperty(o.prototype, "soundName", {
+get: function() {
+return this._soundName;
+},
+set: function(t) {
+var o = this;
+this._soundName = t;
+a.Util.loadGameSound(this._soundName, function(t) {
+o._soundClip = t;
+});
+},
+enumerable: !1,
+configurable: !0
+});
+o.prototype.onTouchStart = function(o) {
+t.prototype.onTouchStart.call(this, o);
+null != this._soundClip && a.Util.play(this._soundClip, !1);
+};
+o.prototype.onTouchEnd = function(o) {
+t.prototype.onTouchEnd.call(this, o);
+this.match ? null != this._soundClip && a.Util.play(this._soundClip, !1) : this.node.emit("dragHayWrong");
+};
+o.prototype.onMatchOver = function() {
+var o = this;
+new cc.Tween().target(this.node).to(.5, {
+scale: .1
+}, null).hide().call(function() {
+o.matchingNode.getComponent(c.default).eat();
+o.node.emit("dragHayDone");
+t.prototype.onMatchOver.call(o);
+}).start();
+};
+r([ l(cc.AudioClip) ], o.prototype, "correctClip", void 0);
+r([ l(cc.RichText) ], o.prototype, "richTextNode", void 0);
+return o = r([ s ], o);
+}(i.default);
+e.default = u;
+cc._RF.pop();
+}, {
+"../../../common/scripts/drag": void 0,
+"../../../common/scripts/util": void 0,
+"./dropCow": "dropCow"
+} ],
+dropCow: [ function(t, o, e) {
+"use strict";
+cc._RF.push(o, "697e97AkHRJfoQYDbZSpuBf", "dropCow");
+var n = this && this.__extends || function() {
+var t = function(o, e) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, o) {
+t.__proto__ = o;
+} || function(t, o) {
+for (var e in o) o.hasOwnProperty(e) && (t[e] = o[e]);
+})(o, e);
+};
+return function(o, e) {
+t(o, e);
+function n() {
+this.constructor = o;
+}
+o.prototype = null === e ? Object.create(e) : (n.prototype = e.prototype, new n());
+};
+}(), r = this && this.__decorate || function(t, o, e, n) {
+var r, i = arguments.length, c = i < 3 ? o : null === n ? n = Object.getOwnPropertyDescriptor(o, e) : n;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(t, o, e, n); else for (var a = t.length - 1; a >= 0; a--) (r = t[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(o, e, c) : r(o, e)) || c);
+return i > 3 && c && Object.defineProperty(o, e, c), c;
+};
+Object.defineProperty(e, "__esModule", {
+value: !0
+});
+var i = t("../../../common/scripts/drop"), c = t("../../../common/scripts/util"), a = cc._decorator, p = a.ccclass, s = a.property, l = function(t) {
+n(o, t);
+function o() {
+var o = null !== t && t.apply(this, arguments) || this;
+o.animation = null;
+o._soundName = null;
+o._soundClip = null;
+return o;
+}
+Object.defineProperty(o.prototype, "soundName", {
+get: function() {
+return this._soundName;
+},
+set: function(t) {
+var o = this;
+this._soundName = t;
+c.Util.loadGameSound(this._soundName, function(t) {
+o._soundClip = t;
+});
+},
+enumerable: !1,
+configurable: !0
+});
+o.prototype.onLoad = function() {
+var o = this;
+t.prototype.onLoad.call(this);
+this.node.on("touchstart", function(t) {
+o.playSound();
+}, this);
+};
+o.prototype.onCollisionEnter = function(o, e) {
+t.prototype.onCollisionEnter.call(this, o, e);
+this.match && this.playSound();
+};
+o.prototype.beHappy = function() {
+var t = this.node.getChildByName("cat_pink_ske");
+if (null != t) {
+var o = t.getComponent(dragonBones.ArmatureDisplay).armature().animation;
+o.stop();
+o.play("happy", 1);
+}
+};
+o.prototype.eat = function() {
+this.match = !1;
+var t = this.node.getChildByName("cat_pink_ske");
+if (null != t) {
+var o = t.getComponent(dragonBones.ArmatureDisplay).armature().animation;
+o.stop();
+o.play("eating", 1);
+}
+};
+o.prototype.playSound = function() {
+var t = this.node.getChildByName("cat_pink_ske");
+if (null != t) {
+var o = t.getComponent(dragonBones.ArmatureDisplay).armature().animation;
+o.stop();
+o.play("talk", 1);
+}
+null != this._soundClip && c.Util.play(this._soundClip, !1);
+};
+r([ s(cc.Node) ], o.prototype, "animation", void 0);
+return o = r([ p ], o);
+}(i.default);
+e.default = l;
+cc._RF.pop();
+}, {
+"../../../common/scripts/drop": void 0,
+"../../../common/scripts/util": void 0
+} ],
+speakingpet: [ function(t, o, e) {
+"use strict";
+cc._RF.push(o, "4b702LThMdKXbrAvIxS4uxl", "speakingpet");
+var n = this && this.__extends || function() {
+var t = function(o, e) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, o) {
+t.__proto__ = o;
+} || function(t, o) {
+for (var e in o) o.hasOwnProperty(e) && (t[e] = o[e]);
+})(o, e);
+};
+return function(o, e) {
+t(o, e);
+function n() {
+this.constructor = o;
+}
+o.prototype = null === e ? Object.create(e) : (n.prototype = e.prototype, new n());
+};
+}(), r = this && this.__decorate || function(t, o, e, n) {
+var r, i = arguments.length, c = i < 3 ? o : null === n ? n = Object.getOwnPropertyDescriptor(o, e) : n;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(t, o, e, n); else for (var a = t.length - 1; a >= 0; a--) (r = t[a]) && (c = (i < 3 ? r(c) : i > 3 ? r(o, e, c) : r(o, e)) || c);
+return i > 3 && c && Object.defineProperty(o, e, c), c;
+};
+Object.defineProperty(e, "__esModule", {
+value: !0
+});
+var i = t("../../../common/scripts/lib/config"), c = t("./dropCow"), a = t("./dragHay"), p = t("../../../common/scripts/drag"), s = t("../../../common/scripts/util"), l = t("../../../common/scripts/lib/error-handler"), u = cc._decorator, d = u.ccclass, f = u.property, h = function(t) {
+n(o, t);
+function o() {
+var o = null !== t && t.apply(this, arguments) || this;
+o.hay1 = null;
+o.hay2 = null;
+o.hay3 = null;
+o.hay4 = null;
+o.cow1 = null;
+o.cow2 = null;
+o._numHays = 4;
+return o;
+}
+o.prototype.onLoad = function() {
+cc.director.getCollisionManager().enabled = !0;
+p.default.letDrag = !1;
+var t = this.cow1.getPosition(), o = this.cow2.getPosition();
+this.cow1.position = cc.v2(t.x - 1e3, t.y);
+this.cow2.position = cc.v2(o.x + 1e3, o.y);
+var e = i.default.getInstance().data[0], n = (e[0], e[1], e[2], e[3]), r = e[4], a = e[5], l = e[6], u = e[7], d = e[8], f = e[9], h = e[10], y = e[11], m = e[12], _ = e[13], g = e[14], v = e[15], w = e[16], C = e[17], b = e[18], O = e[19], N = e[20];
+this.cow1.getComponent(c.default).soundName = n;
+this.cow1.name = "A";
+this.cow2.getComponent(c.default).soundName = r;
+this.cow2.name = "B";
+var j = [ this.hay1, this.hay2, this.hay3, this.hay4 ];
+s.Util.shuffle(j);
+this._makeHay(j[0], a, l, u, d);
+this._makeHay(j[1], f, h, y, m);
+this._makeHay(j[2], _, g, v, w);
+this._makeHay(j[3], C, b, O, N);
+this._moveCows(!0);
+};
+o.prototype._moveCows = function(t) {
+var o = this, e = this.cow1.getPosition(), n = this.cow2.getPosition();
+if (t) {
+e.x += 1e3;
+n.x -= 1e3;
+} else {
+e.x -= 1e3;
+n.x += 1e3;
+}
+new cc.Tween().target(this.cow1).to(.5, {
+position: e
+}, null).call(function() {
+t && o.cow1.getComponent(c.default).playSound();
+}).delay(1).call(function() {
+new cc.Tween().target(o.cow2).to(.5, {
+position: n
+}, null).call(function() {
+if (t) {
+o.cow2.getComponent(c.default).playSound();
+o.scheduleOnce(function() {
+p.default.letDrag = !0;
+s.Util.showHelp(o.hay1, o.cow1.name == o.hay1.name ? o.cow1 : o.cow2);
+}, .5);
+}
+}).start();
+}).start();
+};
+o.prototype._makeHay = function(t, o, e, n, r) {
+var i = this, c = t.getComponent(a.default);
+c.soundName = e;
+t.name = n;
+t.on("dragHayDone", this._dragDone, this);
+t.on("dragHayWrong", function() {
+i.node.emit("wrong");
+});
+var p = r.split(","), s = parseInt(p[0]), l = parseInt(p[p.length - 1]), u = new GraphemeSplitter().splitGraphemes(o), d = u.slice(0, s - 1).join(""), f = u.slice(l).join(""), h = u.slice(s - 1, l).join("");
+c.text = d + "<color=#DCC994>" + h + "</color>" + f;
+};
+o.prototype._dragDone = function() {
+var t = this;
+this.node.emit("correct");
+if (--this._numHays <= 0) {
+this.cow1.getComponent(c.default).beHappy();
+this.cow2.getComponent(c.default).beHappy();
+this.scheduleOnce(function() {
+t._moveCows(!1);
+}, 2);
+this.scheduleOnce(function() {
+t.node.emit("nextProblem");
+}, 4);
+}
+};
+r([ f(cc.Node) ], o.prototype, "hay1", void 0);
+r([ f(cc.Node) ], o.prototype, "hay2", void 0);
+r([ f(cc.Node) ], o.prototype, "hay3", void 0);
+r([ f(cc.Node) ], o.prototype, "hay4", void 0);
+r([ f(cc.Node) ], o.prototype, "cow1", void 0);
+r([ f(cc.Node) ], o.prototype, "cow2", void 0);
+r([ l.default() ], o.prototype, "onLoad", null);
+r([ l.default() ], o.prototype, "_dragDone", null);
+return o = r([ d ], o);
+}(cc.Component);
+e.default = h;
+cc._RF.pop();
+}, {
+"../../../common/scripts/drag": void 0,
+"../../../common/scripts/lib/config": void 0,
+"../../../common/scripts/lib/error-handler": void 0,
+"../../../common/scripts/util": void 0,
+"./dragHay": "dragHay",
+"./dropCow": "dropCow"
+} ]
+}, {}, [ "dragHay", "dropCow", "speakingpet" ]);

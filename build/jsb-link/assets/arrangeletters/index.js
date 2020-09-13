@@ -1,0 +1,224 @@
+window.__require = function t(e, o, r) {
+function n(c, a) {
+if (!o[c]) {
+if (!e[c]) {
+var l = c.split("/");
+l = l[l.length - 1];
+if (!e[l]) {
+var s = "function" == typeof __require && __require;
+if (!a && s) return s(l, !0);
+if (i) return i(l, !0);
+throw new Error("Cannot find module '" + c + "'");
+}
+c = l;
+}
+var u = o[c] = {
+exports: {}
+};
+e[c][0].call(u.exports, function(t) {
+return n(e[c][1][t] || t);
+}, u, u.exports, t, e, o, r);
+}
+return o[c].exports;
+}
+for (var i = "function" == typeof __require && __require, c = 0; c < r.length; c++) n(r[c]);
+return n;
+}({
+arrangeLetters: [ function(t, e, o) {
+"use strict";
+cc._RF.push(e, "2137c29qlpJiK1XLcEby1WA", "arrangeLetters");
+var r = this && this.__extends || function() {
+var t = function(e, o) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, e) {
+t.__proto__ = e;
+} || function(t, e) {
+for (var o in e) e.hasOwnProperty(o) && (t[o] = e[o]);
+})(e, o);
+};
+return function(e, o) {
+t(e, o);
+function r() {
+this.constructor = e;
+}
+e.prototype = null === o ? Object.create(o) : (r.prototype = o.prototype, new r());
+};
+}(), n = this && this.__decorate || function(t, e, o, r) {
+var n, i = arguments.length, c = i < 3 ? e : null === r ? r = Object.getOwnPropertyDescriptor(e, o) : r;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(t, e, o, r); else for (var a = t.length - 1; a >= 0; a--) (n = t[a]) && (c = (i < 3 ? n(c) : i > 3 ? n(e, o, c) : n(e, o)) || c);
+return i > 3 && c && Object.defineProperty(e, o, c), c;
+};
+Object.defineProperty(o, "__esModule", {
+value: !0
+});
+var i = t("../../../common/scripts/util"), c = t("../../../common/scripts/lib/config"), a = cc._decorator, l = a.ccclass, s = a.property, u = function(t) {
+r(e, t);
+function e() {
+var e = null !== t && t.apply(this, arguments) || this;
+e.playground = null;
+e.playground2 = null;
+e.ball2 = null;
+e.ball = null;
+return e;
+}
+o = e;
+e.prototype.onLoad = function() {
+var t;
+t = c.default.getInstance().data[0], this.level = t[0], this.worksheet = t[1], this.problem = t[2], 
+this.backgroundName = t[3], this.objectName = t[4], this.word = t[5];
+this.correctLetterArray = this.word.split(",");
+o.correctPosition = new Map();
+o.wordLength = this.correctLetterArray.length;
+this.loadBackground();
+this.makeDragObjects();
+o.letterArray = this.word.split(",");
+};
+e.prototype.makeDragObjects = function() {
+for (var t = i.Util.shuffle(this.correctLetterArray), e = 0; e < this.correctLetterArray.length; e++) {
+var r = cc.instantiate(this[this.objectName]);
+r.parent = this.node;
+r.name = t[e];
+if (this.correctLetterArray.length > 4) {
+r.width = .7 * r.width;
+r.height = .7 * r.height;
+}
+r.position = cc.v3(-cc.winSize.width / 2.8 + e * cc.winSize.width / this.correctLetterArray.length, -cc.winSize.height / 4);
+o.correctPosition.set(r.name, r.position.x);
+r.getChildByName("objLabel").getComponent(cc.Label).string = t[e];
+}
+};
+e.prototype.loadBackground = function() {
+var t = cc.instantiate(this[this.backgroundName]);
+this.node.addChild(t);
+};
+var o;
+n([ s(cc.Prefab) ], e.prototype, "playground", void 0);
+n([ s(cc.Prefab) ], e.prototype, "playground2", void 0);
+n([ s(cc.Prefab) ], e.prototype, "ball2", void 0);
+n([ s(cc.Prefab) ], e.prototype, "ball", void 0);
+return e = o = n([ l ], e);
+}(cc.Component);
+o.default = u;
+cc._RF.pop();
+}, {
+"../../../common/scripts/lib/config": void 0,
+"../../../common/scripts/util": void 0
+} ],
+dragObj: [ function(t, e, o) {
+"use strict";
+cc._RF.push(e, "9def2ENnVJIraLwiLEaCkx3", "dragObj");
+var r = this && this.__extends || function() {
+var t = function(e, o) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, e) {
+t.__proto__ = e;
+} || function(t, e) {
+for (var o in e) e.hasOwnProperty(o) && (t[o] = e[o]);
+})(e, o);
+};
+return function(e, o) {
+t(e, o);
+function r() {
+this.constructor = e;
+}
+e.prototype = null === o ? Object.create(o) : (r.prototype = o.prototype, new r());
+};
+}(), n = this && this.__decorate || function(t, e, o, r) {
+var n, i = arguments.length, c = i < 3 ? e : null === r ? r = Object.getOwnPropertyDescriptor(e, o) : r;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) c = Reflect.decorate(t, e, o, r); else for (var a = t.length - 1; a >= 0; a--) (n = t[a]) && (c = (i < 3 ? n(c) : i > 3 ? n(e, o, c) : n(e, o)) || c);
+return i > 3 && c && Object.defineProperty(e, o, c), c;
+};
+Object.defineProperty(o, "__esModule", {
+value: !0
+});
+var i = t("../../../common/scripts/drag"), c = t("./arrangeLetters"), a = t("../../../common/scripts/util"), l = cc._decorator, s = l.ccclass, u = l.property, p = function(t) {
+r(e, t);
+function e() {
+var e = null !== t && t.apply(this, arguments) || this;
+e.correctClip = null;
+e.richTextNode = null;
+e._text = null;
+e._soundName = null;
+e._soundClip = null;
+e.isCollisionEnable = !1;
+e.goToOriginalPosition = !0;
+e.positionArray = [];
+e.currentXPos = null;
+e.done = !1;
+e.allSwapCorrect = [];
+return e;
+}
+e.prototype.onLoad = function() {
+cc.director.getCollisionManager().enabled = !0;
+cc.macro.ENABLE_MULTI_TOUCH = !1;
+for (var t = 0; t < c.default.wordLength - 1; t++) this.allSwapCorrect[t] = !1;
+};
+e.prototype.onTouchStart = function(e) {
+this.goToOriginalPosition = !0;
+this.isCollisionEnable = !0;
+t.prototype.onTouchStart.call(this, e);
+};
+e.prototype.onTouchMove = function(e) {
+t.prototype.onTouchMove.call(this, e);
+this.node.setPosition(this.node.position.x, -cc.winSize.height / 4);
+e.currentTarget.position.z = 1;
+};
+e.prototype.onTouchEnd = function(e) {
+t.prototype.onTouchEnd.call(this, e);
+var o = cc.moveTo(.1, cc.v2(c.default.correctPosition.get(e.currentTarget.name), -cc.winSize.height / 4));
+this.node.runAction(o);
+this.checkIfMatch();
+};
+e.prototype.onCollisionEnter = function(t, e) {
+if (this.isCollisionEnable) {
+this.isCollisionEnable = !1;
+this.selfName = e.node.name;
+this.otherName = t.node.name;
+var o = cc.moveTo(.1, cc.v2(c.default.correctPosition.get(this.selfName), -cc.winSize.height / 4));
+t.node.runAction(o);
+var r = c.default.correctPosition.get(this.selfName);
+c.default.correctPosition.set(this.selfName, c.default.correctPosition.get(this.otherName));
+c.default.correctPosition.set(this.otherName, r);
+}
+};
+e.prototype.onCollisionExit = function(t, e) {};
+e.prototype.checkIfMatch = function() {
+var t = this;
+this.allSwapCorrect.forEach(function(e, o) {
+t.allSwapCorrect[o] = !1;
+});
+for (var e = 0; e < c.default.wordLength; e++) if (c.default.correctPosition.get(c.default.letterArray[e]) < c.default.correctPosition.get(c.default.letterArray[e + 1])) {
+cc.log(c.default.correctPosition.get(c.default.letterArray[e]) + c.default.correctPosition.get(c.default.letterArray[e + 1]));
+this.allSwapCorrect[e] = !0;
+}
+this.done = this.allSwapCorrect.every(function(t, e, o) {
+return t === o[0];
+});
+cc.log(this.allSwapCorrect);
+cc.log(c.default.correctPosition);
+this.done && this.effectsAfterMatch();
+};
+e.prototype.playAudio = function(t) {
+a.Util.loadGameSound(t, function(t) {
+null != t && cc.audioEngine.play(t, !1, 1);
+});
+};
+e.prototype.effectsAfterMatch = function() {
+cc.log("i executed");
+this.node.parent.emit("correct");
+this.node.parent.emit("nextProblem");
+};
+n([ u(cc.AudioClip) ], e.prototype, "correctClip", void 0);
+n([ u(cc.RichText) ], e.prototype, "richTextNode", void 0);
+return e = n([ s ], e);
+}(i.default);
+o.default = p;
+cc._RF.pop();
+}, {
+"../../../common/scripts/drag": void 0,
+"../../../common/scripts/util": void 0,
+"./arrangeLetters": "arrangeLetters"
+} ]
+}, {}, [ "arrangeLetters", "dragObj" ]);

@@ -1,0 +1,310 @@
+window.__require = function t(o, e, r) {
+function n(a, c) {
+if (!e[a]) {
+if (!o[a]) {
+var s = a.split("/");
+s = s[s.length - 1];
+if (!o[s]) {
+var h = "function" == typeof __require && __require;
+if (!c && h) return h(s, !0);
+if (i) return i(s, !0);
+throw new Error("Cannot find module '" + a + "'");
+}
+a = s;
+}
+var l = e[a] = {
+exports: {}
+};
+o[a][0].call(l.exports, function(t) {
+return n(o[a][1][t] || t);
+}, l, l.exports, t, o, e, r);
+}
+return e[a].exports;
+}
+for (var i = "function" == typeof __require && __require, a = 0; a < r.length; a++) n(r[a]);
+return n;
+}({
+windowgen: [ function(t, o, e) {
+"use strict";
+cc._RF.push(o, "ffc239JYDlPKZ6LqEUcLRtY", "windowgen");
+var r = this && this.__extends || function() {
+var t = function(o, e) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, o) {
+t.__proto__ = o;
+} || function(t, o) {
+for (var e in o) o.hasOwnProperty(e) && (t[e] = o[e]);
+})(o, e);
+};
+return function(o, e) {
+t(o, e);
+function r() {
+this.constructor = o;
+}
+o.prototype = null === e ? Object.create(e) : (r.prototype = e.prototype, new r());
+};
+}(), n = this && this.__decorate || function(t, o, e, r) {
+var n, i = arguments.length, a = i < 3 ? o : null === r ? r = Object.getOwnPropertyDescriptor(o, e) : r;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) a = Reflect.decorate(t, o, e, r); else for (var c = t.length - 1; c >= 0; c--) (n = t[c]) && (a = (i < 3 ? n(a) : i > 3 ? n(o, e, a) : n(o, e)) || a);
+return i > 3 && a && Object.defineProperty(o, e, a), a;
+}, i = this && this.__spreadArrays || function() {
+for (var t = 0, o = 0, e = arguments.length; o < e; o++) t += arguments[o].length;
+var r = Array(t), n = 0;
+for (o = 0; o < e; o++) for (var i = arguments[o], a = 0, c = i.length; a < c; a++, 
+n++) r[n] = i[a];
+return r;
+};
+Object.defineProperty(e, "__esModule", {
+value: !0
+});
+var a = t("../../../common/scripts/lib/config"), c = t("../../../common/scripts/util"), s = t("../../../common/scripts/lib/error-handler"), h = cc._decorator, l = h.ccclass, p = h.property, u = function(t) {
+r(o, t);
+function o() {
+var o = null !== t && t.apply(this, arguments) || this;
+o.dragPrefab = null;
+o.blinds = null;
+o.window = null;
+o.linestartaud = null;
+o.linebackaud = null;
+o.victoryaud = null;
+o.correctaud = null;
+o.totalPieces = 4;
+return o;
+}
+o.prototype.onLoad = function() {
+var t, o, e, r, n, i, s, h, l = a.default.getInstance().data[0].toString().split(",").map(function(t) {
+return /^\d*\.?\d+$/.test(t) ? Number(t) : t;
+});
+cc.log("love " + l);
+this.level = l[0], this.worksheet = l[1], this.problem = l[2], this.nowin = l[3], 
+t = l[4], o = l[5], e = l[6], r = l[7], n = l[8], i = l[9], s = l[10], h = l[11];
+this.qarray = [ t, o, e, r ];
+this.ansarray = [ n, i, s, h ];
+cc.log("qarray" + this.qarray);
+cc.log("ansarray" + this.ansarray);
+this.x0 = -300;
+this.y0 = -265;
+this.xoff = 600;
+this.yoff = 140;
+this.dropArea = new Map();
+this.dropAreab = new Map();
+this.currentTouchID = -1;
+this.createWindows();
+this.createWindowsb();
+this.auther = 1;
+this.authmov = 1;
+this.makegameagain = [ "a", "b", "c", "d" ];
+this.drawing = this.node.getChildByName("linedraw").getComponent(cc.Graphics);
+c.Util.showHelp(this.firstDrag, this.firstDrop);
+this.node.children.forEach(function(t) {
+cc.log(" nodes" + t.name);
+});
+};
+o.prototype.createWindows = function() {
+for (var t, o = this, e = function(e) {
+cc.log("This is just a test");
+var n = cc.instantiate(r.window);
+t = cc.instantiate(r.dragPrefab);
+n.position = cc.v2(r.x0, r.y0 + e * r.yoff);
+t.position = cc.v2(r.x0, r.y0 - 30 + e * r.yoff);
+n.parent = r.node;
+t.parent = r.node;
+c.Util.loadTexture(r.qarray[e], function(t, r) {
+console.log(o.qarray[e] + r);
+n.getChildByName("dyna").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(t);
+});
+t.name = e.toString();
+t.on(cc.Node.EventType.TOUCH_START, r.onTouchStart, r);
+t.on(cc.Node.EventType.TOUCH_MOVE, r.onTouchMove, r);
+t.on(cc.Node.EventType.TOUCH_END, r.onTouchEnd, r);
+t.on(cc.Node.EventType.TOUCH_CANCEL, r.onTouchEnd, r);
+3 == e && (r.firstDrag = n);
+r.dropAreab.set(e.toString(), n.getBoundingBox());
+}, r = this, n = 0; n < 4; n++) e(n);
+};
+o.prototype.createWindowsb = function() {
+var t = this;
+this.orgAddr = [];
+this.temparr = [];
+this.temparray = i(this.ansarray);
+this.ansarray;
+this.temparray = this.shuffle(this.temparray);
+cc.log("bogo" + this.temparray);
+cc.log("bogo" + this.ansarray);
+for (var o = 0; o < 4; o++) for (var e = 0; e < 4; e++) {
+cc.log("printj" + e);
+this.temparray[o] == this.ansarray[e] && (this.orgAddr[o] = e.toString());
+}
+cc.log("bogo" + this.orgAddr);
+var r = function(o) {
+var e = cc.instantiate(n.window);
+e.position = cc.v2(n.x0 + n.xoff, n.y0 + o * n.yoff);
+n.selectedObject = e;
+e.parent = n.node;
+cc.log("<>", n.temparray);
+c.Util.loadTexture(n.temparray[o], function(r, n) {
+console.log(t.temparray[o] + n);
+e.getChildByName("dyna").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(r);
+});
+e.name = o.toString();
+n.dropArea.set(n.orgAddr[o], e.getBoundingBox());
+var r = cc.instantiate(n.dragPrefab);
+r.position = cc.v2(n.x0 + n.xoff, n.y0 - 30 + o * n.yoff);
+r.parent = n.node;
+r.name = n.orgAddr[o];
+3 == parseInt(n.orgAddr[o]) && (n.firstDrop = e);
+cc.log("yol" + r.name);
+r.on(cc.Node.EventType.TOUCH_START, n.onTouchStart, n);
+r.on(cc.Node.EventType.TOUCH_MOVE, n.onTouchMove, n);
+r.on(cc.Node.EventType.TOUCH_END, n.onTouchEnd, n);
+r.on(cc.Node.EventType.TOUCH_CANCEL, n.onTouchEnd, n);
+}, n = this;
+for (o = 0; o < 4; o++) r(o);
+};
+o.prototype.shuffle = function(t) {
+for (var o, e, r = t.length; 0 !== r; ) {
+e = Math.floor(Math.random() * r);
+o = t[r -= 1];
+t[r] = t[e];
+t[e] = o;
+}
+return t;
+};
+o.prototype.onTouchStart = function(t) {
+t.currentTarget.name == this.delDupes && this.scheduleOnce(function() {
+t.currentTarget.removeFromParent(!0);
+this.auther = 1;
+}, .1);
+cc.log("go" + t.currentTarget.name);
+if (1 == this.auther && 0 == t.getID()) {
+this.auther = 0;
+this.originalLocation = t.currentTarget.position;
+this.lineStartPoint = t.currentTarget.position;
+cc.log("trialsa" + this.originalLocation);
+}
+cc.log("nam" + this.originalLocation);
+cc.log("touch start", this.tstore);
+this.drawing.lineWidth = 20;
+this.authmov = 1;
+};
+o.prototype.onTouchMove = function(t) {
+if (0 == t.getID()) {
+this.tstore = t.currentTarget.name;
+cc.log("high" + this.tstore);
+cc.log("movv" + t.getID());
+t.currentTarget.position = t.currentTarget.getParent().convertToNodeSpaceAR(t.getLocation());
+cc.log("pos" + t.currentTarget.position);
+this.lineEndPoint = t.currentTarget.position;
+this.lineType = !0;
+this.authmov = 1;
+}
+};
+o.prototype.onTouchEnd = function(t) {
+cc.log("starting" + t.getStartLocation());
+t.currentTarget.off;
+this.finalLocationb = this.dropAreab.get(this.tstore);
+this.finalLocation = this.dropArea.get(this.tstore);
+this.lineType = !1;
+this.authmov = 0;
+this.auther = 1;
+cc.log("name onEnd" + t.currentTarget.position);
+if (this.dropArea.get(this.tstore).intersects(t.currentTarget.getBoundingBox()) && this.finalLocation.x > -200 && this.originalLocation.x < -200) {
+this.node.emit("correct");
+cc.log("ringer" + this.finalLocation);
+this.finalLocationb = this.dropAreab.get(this.tstore);
+cc.log("centaur" + this.dropArea.get(this.tstore).intersects(t.currentTarget.getBoundingBox()));
+cc.log("got");
+this.finalLocation = this.dropArea.get(this.tstore);
+cc.log("In touchend" + this.finalLocation);
+this.delDupes = t.currentTarget.name;
+(o = cc.instantiate(this.blinds)).position = cc.v2(this.originalLocation.x, this.originalLocation.y + 26);
+o.parent = this.node;
+(e = cc.instantiate(this.blinds)).position = cc.v2(300, this.finalLocation.y + 59);
+e.parent = this.node;
+this.match();
+this.auther = 1;
+this.scheduleOnce(function() {
+t.currentTarget.removeFromParent(!0);
+}, .1);
+} else if (this.dropAreab.get(this.tstore).intersects(t.currentTarget.getBoundingBox()) && this.originalLocation.x > 200) {
+this.node.emit("correct");
+this.delDupes = t.currentTarget.name;
+var o, e;
+(o = cc.instantiate(this.blinds)).position = cc.v2(this.originalLocation.x, this.originalLocation.y + 26);
+o.parent = this.node;
+(e = cc.instantiate(this.blinds)).position = cc.v2(-300, this.finalLocationb.y + 59);
+e.parent = this.node;
+this.match();
+this.auther = 1;
+this.scheduleOnce(function() {
+t.currentTarget.removeFromParent(!0);
+}, .1);
+} else if (0 == this.authmov && 0 == t.getID()) {
+cc.log("endd" + t.getID());
+t.currentTarget.position = this.originalLocation;
+this.node.emit("wrong");
+this.auther = 1;
+cc.log("not  got");
+this.node.children.forEach(function(t) {
+cc.log("bird nodes" + t.name);
+});
+}
+};
+o.prototype.update = function() {
+this.drawing.clear();
+switch (this.lineType) {
+case !1:
+cc.log("Don't Draw");
+break;
+
+case !0:
+cc.log("Drawing Line.................");
+this.drawing.moveTo(this.lineStartPoint.x, this.lineStartPoint.y);
+this.drawing.lineTo(this.lineEndPoint.x, this.lineEndPoint.y);
+this.drawing.stroke();
+this.drawing.lineWidth = 10;
+this.drawing.strokeColor = cc.Color.RED;
+}
+};
+o.prototype.match = function() {
+a.default.getInstance();
+if (--this.totalPieces <= 0) {
+cc.log("chk" + this.totalPieces);
+this.node.emit("nextProblem");
+}
+};
+n([ p(cc.Prefab) ], o.prototype, "dragPrefab", void 0);
+n([ p(cc.Prefab) ], o.prototype, "blinds", void 0);
+n([ p(cc.Prefab) ], o.prototype, "window", void 0);
+n([ p({
+type: cc.AudioClip
+}) ], o.prototype, "linestartaud", void 0);
+n([ p({
+type: cc.AudioClip
+}) ], o.prototype, "linebackaud", void 0);
+n([ p({
+type: cc.AudioClip
+}) ], o.prototype, "victoryaud", void 0);
+n([ p({
+type: cc.AudioClip
+}) ], o.prototype, "correctaud", void 0);
+n([ s.default() ], o.prototype, "onLoad", null);
+n([ s.default() ], o.prototype, "createWindows", null);
+n([ s.default() ], o.prototype, "createWindowsb", null);
+n([ s.default() ], o.prototype, "shuffle", null);
+n([ s.default() ], o.prototype, "onTouchStart", null);
+n([ s.default() ], o.prototype, "onTouchMove", null);
+n([ s.default() ], o.prototype, "onTouchEnd", null);
+n([ s.default() ], o.prototype, "update", null);
+n([ s.default() ], o.prototype, "match", null);
+return o = n([ l ], o);
+}(cc.Component);
+e.default = u;
+cc._RF.pop();
+}, {
+"../../../common/scripts/lib/config": void 0,
+"../../../common/scripts/lib/error-handler": void 0,
+"../../../common/scripts/util": void 0
+} ]
+}, {}, [ "windowgen" ]);

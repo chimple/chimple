@@ -1,0 +1,361 @@
+window.__require = function t(e, r, n) {
+function o(i, c) {
+if (!r[i]) {
+if (!e[i]) {
+var p = i.split("/");
+p = p[p.length - 1];
+if (!e[p]) {
+var l = "function" == typeof __require && __require;
+if (!c && l) return l(p, !0);
+if (a) return a(p, !0);
+throw new Error("Cannot find module '" + i + "'");
+}
+i = p;
+}
+var s = r[i] = {
+exports: {}
+};
+e[i][0].call(s.exports, function(t) {
+return o(e[i][1][t] || t);
+}, s, s.exports, t, e, r, n);
+}
+return r[i].exports;
+}
+for (var a = "function" == typeof __require && __require, i = 0; i < n.length; i++) o(n[i]);
+return o;
+}({
+patterntrainDrag: [ function(t, e, r) {
+"use strict";
+cc._RF.push(e, "96333ZTyOhGy6Vt492j+m1D", "patterntrainDrag");
+var n = this && this.__extends || function() {
+var t = function(e, r) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, e) {
+t.__proto__ = e;
+} || function(t, e) {
+for (var r in e) e.hasOwnProperty(r) && (t[r] = e[r]);
+})(e, r);
+};
+return function(e, r) {
+t(e, r);
+function n() {
+this.constructor = e;
+}
+e.prototype = null === r ? Object.create(r) : (n.prototype = r.prototype, new n());
+};
+}(), o = this && this.__decorate || function(t, e, r, n) {
+var o, a = arguments.length, i = a < 3 ? e : null === n ? n = Object.getOwnPropertyDescriptor(e, r) : n;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) i = Reflect.decorate(t, e, r, n); else for (var c = t.length - 1; c >= 0; c--) (o = t[c]) && (i = (a < 3 ? o(i) : a > 3 ? o(e, r, i) : o(e, r)) || i);
+return a > 3 && i && Object.defineProperty(e, r, i), i;
+};
+Object.defineProperty(r, "__esModule", {
+value: !0
+});
+var a = t("../../../common/scripts/drag"), i = cc._decorator, c = i.ccclass, p = i.property, l = function(t) {
+n(e, t);
+function e() {
+var e = null !== t && t.apply(this, arguments) || this;
+e.pattern = null;
+e.patterntrain = null;
+return e;
+}
+e.prototype.onTouchEnd = function(e) {
+t.prototype.onTouchEnd.call(this, e);
+this.isDragging && (this.match ? this.patterntrain.emit("patterntrainMatch", this) : this.patterntrain.emit("patterntrainNoMatch"));
+};
+o([ p(cc.Sprite) ], e.prototype, "pattern", void 0);
+o([ p(cc.Node) ], e.prototype, "patterntrain", void 0);
+return e = o([ c ], e);
+}(a.default);
+r.default = l;
+cc._RF.pop();
+}, {
+"../../../common/scripts/drag": void 0
+} ],
+patterntrainDrop: [ function(t, e, r) {
+"use strict";
+cc._RF.push(e, "a8067jtko9PFLADt8d6rwY9", "patterntrainDrop");
+var n = this && this.__extends || function() {
+var t = function(e, r) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, e) {
+t.__proto__ = e;
+} || function(t, e) {
+for (var r in e) e.hasOwnProperty(r) && (t[r] = e[r]);
+})(e, r);
+};
+return function(e, r) {
+t(e, r);
+function n() {
+this.constructor = e;
+}
+e.prototype = null === r ? Object.create(r) : (n.prototype = r.prototype, new n());
+};
+}(), o = this && this.__decorate || function(t, e, r, n) {
+var o, a = arguments.length, i = a < 3 ? e : null === n ? n = Object.getOwnPropertyDescriptor(e, r) : n;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) i = Reflect.decorate(t, e, r, n); else for (var c = t.length - 1; c >= 0; c--) (o = t[c]) && (i = (a < 3 ? o(i) : a > 3 ? o(e, r, i) : o(e, r)) || i);
+return a > 3 && i && Object.defineProperty(e, r, i), i;
+};
+Object.defineProperty(r, "__esModule", {
+value: !0
+});
+var a = t("../../../common/scripts/drop"), i = cc._decorator, c = i.ccclass, p = (i.property, 
+function(t) {
+n(e, t);
+function e() {
+return null !== t && t.apply(this, arguments) || this;
+}
+return e = o([ c ], e);
+}(a.default));
+r.default = p;
+cc._RF.pop();
+}, {
+"../../../common/scripts/drop": void 0
+} ],
+shapetractor: [ function(t, e, r) {
+"use strict";
+cc._RF.push(e, "1e6f07b/oZANqQsqZCfgNY+", "shapetractor");
+var n = this && this.__extends || function() {
+var t = function(e, r) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, e) {
+t.__proto__ = e;
+} || function(t, e) {
+for (var r in e) e.hasOwnProperty(r) && (t[r] = e[r]);
+})(e, r);
+};
+return function(e, r) {
+t(e, r);
+function n() {
+this.constructor = e;
+}
+e.prototype = null === r ? Object.create(r) : (n.prototype = r.prototype, new n());
+};
+}(), o = this && this.__decorate || function(t, e, r, n) {
+var o, a = arguments.length, i = a < 3 ? e : null === n ? n = Object.getOwnPropertyDescriptor(e, r) : n;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) i = Reflect.decorate(t, e, r, n); else for (var c = t.length - 1; c >= 0; c--) (o = t[c]) && (i = (a < 3 ? o(i) : a > 3 ? o(e, r, i) : o(e, r)) || i);
+return a > 3 && i && Object.defineProperty(e, r, i), i;
+}, a = this && this.__spreadArrays || function() {
+for (var t = 0, e = 0, r = arguments.length; e < r; e++) t += arguments[e].length;
+var n = Array(t), o = 0;
+for (e = 0; e < r; e++) for (var a = arguments[e], i = 0, c = a.length; i < c; i++, 
+o++) n[o] = a[i];
+return n;
+};
+Object.defineProperty(r, "__esModule", {
+value: !0
+});
+var i = t("./patterntrainDrag"), c = t("../../../common/scripts/lib/config"), p = t("../../../common/scripts/drag"), l = t("../../../common/scripts/lib/error-handler"), s = t("../../../common/scripts/util"), u = cc._decorator, f = u.ccclass, d = u.property, h = [ "dummy", "circle", "hexagon", "octagon", "oval", "parallelogram", "pentagon", "rectangle", "rhombus", "square", "star", "trapezoid", "triangle" ], g = function(t) {
+n(e, t);
+function e() {
+var e = null !== t && t.apply(this, arguments) || this;
+e.drag = null;
+e.drop = null;
+e.trainBogey = null;
+e.threeCarBogey = null;
+e.choices = null;
+e.train = null;
+e.trainClip = null;
+e.friendPos = null;
+e.circle = null;
+e.hexagon = null;
+e.octagon = null;
+e.oval = null;
+e.parallelogram = null;
+e.pentagon = null;
+e.rectangle = null;
+e.rhombus = null;
+e.square = null;
+e.star = null;
+e.trapezoid = null;
+e.triangle = null;
+e.friend = null;
+e.empty = 0;
+e.firstDrag = null;
+e.firstDrop = null;
+return e;
+}
+e.prototype.onLoad = function() {
+var t = this;
+cc.director.getCollisionManager().enabled = !0;
+p.default.letDrag = !1;
+s.Util.loadFriend(function(e) {
+t.friend = e.getComponent(dragonBones.ArmatureDisplay);
+t.friendPos.addChild(e);
+t.friend.playAnimation("face_eating", 1);
+});
+this.node.on("patterntrainMatch", this.onMatch.bind(this));
+this.node.on("patterntrainNoMatch", function() {
+t.node.emit("wrong");
+null != t.friend && t.friend.playAnimation("face_wrong", 1);
+});
+var e = c.default.getInstance().data[0], r = (e[0], e[1], e[2], e[3]), n = e[4], o = parseInt(r), a = parseInt(n), l = this.generatePatterns(o, a), u = o >= 4 ? Math.floor(Math.random() * (h.length - 1)) + 1 : 0;
+l.forEach(function(e, r) {
+t.addBogey(e, r, u);
+});
+var f = o >= 4 ? [ 1, 2, 3 ] : l[0];
+f = f.filter(function(t, e) {
+return f.indexOf(t) === e;
+});
+for (;f.length < l[0].length; ) {
+var d = Math.floor(Math.random() * (h.length - 1)) + 1;
+-1 == f.indexOf(d) && f.push(d);
+}
+s.Util.shuffle(f);
+f.forEach(function(e) {
+var r = cc.instantiate(t.drag);
+r.name = e.toString();
+var n = r.getComponent(i.default);
+n.pattern.spriteFrame = t[h[u > 0 ? u : e]];
+u > 0 && (n.pattern.node.scale = 1 / e);
+n.patterntrain = t.node;
+var o = new cc.Node();
+o.width = r.width;
+o.height = r.height;
+o.addChild(r);
+t.choices.addChild(o);
+r.name == t.firstDrop.name && null == t.firstDrag && (t.firstDrag = r);
+});
+var g = this.train.x;
+new cc.Tween().target(this.train).call(function() {
+s.Util.playSfx(t.trainClip);
+}).set({
+x: g + cc.winSize.width
+}).to(3, {
+x: g
+}, {
+progress: null,
+easing: "backOut"
+}).call(function() {
+p.default.letDrag = !0;
+s.Util.showHelp(t.firstDrag, t.firstDrop);
+}).start();
+};
+e.prototype.addBogey = function(t, e, r) {
+var n = this, o = cc.instantiate(this.trainBogey), a = o.getChildByName("cargo");
+if (3 == t.length) {
+var c = o.getChildByName("car");
+if (null != c) {
+c.getComponent(cc.Sprite).spriteFrame = this.threeCarBogey;
+c.width = 444;
+o.width = 444;
+}
+}
+null != a && t.forEach(function(t) {
+if (t > 0) {
+var e = cc.instantiate(n.drag), o = e.getComponent(i.default);
+o.allowDrag = !1;
+o.pattern.spriteFrame = n[h[r > 0 ? r : t]];
+r > 0 && (o.pattern.node.scale = 1 / t);
+a.addChild(e);
+} else {
+var c = cc.instantiate(n.drop);
+null != c && (c.name = (-t).toString());
+a.addChild(c);
+null == n.firstDrop && (n.firstDrop = c);
+}
+});
+this.train.addChild(o);
+new cc.Tween().target(o).set({
+x: 40 * (e + 1)
+}).delay(2).to(1, {
+x: 0
+}, {
+progress: null,
+easing: "sineIn"
+}).start();
+};
+e.prototype.onMatch = function() {
+var t = this;
+this.node.emit("correct");
+null != this.friend && this.friend.playAnimation("face_happy", 1);
+if (--this.empty <= 0) {
+p.default.letDrag = !1;
+new cc.Tween().target(this.train).delay(1).call(function() {
+s.Util.playSfx(t.trainClip);
+}).to(1, {
+x: this.train.x - cc.winSize.width
+}, {
+progress: null,
+easing: "backIn"
+}).call(function() {
+t.node.emit("nextProblem");
+}).start();
+}
+};
+e.prototype.generatePatterns = function(t, e) {
+switch (t) {
+case 1:
+this.empty = 1;
+if (1 == e) {
+var r = Math.floor(Math.random() * (h.length - 1)) + 1;
+return this.generateSequence(2, 2, r, r + 1);
+}
+return this.generateSequence(2, 2, 1, h.length);
+
+case 2:
+this.empty = 1;
+return this.generateSequence(3, 2, 1, h.length);
+
+case 3:
+this.empty = 2;
+return this.generateSequence(3, 2, 1, h.length);
+
+case 4:
+this.empty = 2;
+return this.generateSequence(2, 3, 1, 4);
+
+case 5:
+this.empty = 3;
+return this.generateSequence(3, 2, 1, 4);
+}
+};
+e.prototype.generateSequence = function(t, e, r, n) {
+for (var o = this.empty, i = [], c = [], p = 0; p < t; p++) c.push(Math.floor(Math.random() * (n - r)) + r);
+i.push(c);
+for (p = 0; p < e - 1; p++) i.push(a(c));
+for (var l = i[i.length - 1]; o > 0; ) {
+if (l[p = Math.floor(Math.random() * t)] > 0) {
+l[p] *= -1;
+o--;
+}
+}
+return i;
+};
+o([ d(cc.Prefab) ], e.prototype, "drag", void 0);
+o([ d(cc.Prefab) ], e.prototype, "drop", void 0);
+o([ d(cc.Prefab) ], e.prototype, "trainBogey", void 0);
+o([ d(cc.SpriteFrame) ], e.prototype, "threeCarBogey", void 0);
+o([ d(cc.Node) ], e.prototype, "choices", void 0);
+o([ d(cc.Node) ], e.prototype, "train", void 0);
+o([ d(cc.AudioClip) ], e.prototype, "trainClip", void 0);
+o([ d(cc.Node) ], e.prototype, "friendPos", void 0);
+o([ d(cc.SpriteFrame) ], e.prototype, "circle", void 0);
+o([ d(cc.SpriteFrame) ], e.prototype, "hexagon", void 0);
+o([ d(cc.SpriteFrame) ], e.prototype, "octagon", void 0);
+o([ d(cc.SpriteFrame) ], e.prototype, "oval", void 0);
+o([ d(cc.SpriteFrame) ], e.prototype, "parallelogram", void 0);
+o([ d(cc.SpriteFrame) ], e.prototype, "pentagon", void 0);
+o([ d(cc.SpriteFrame) ], e.prototype, "rectangle", void 0);
+o([ d(cc.SpriteFrame) ], e.prototype, "rhombus", void 0);
+o([ d(cc.SpriteFrame) ], e.prototype, "square", void 0);
+o([ d(cc.SpriteFrame) ], e.prototype, "star", void 0);
+o([ d(cc.SpriteFrame) ], e.prototype, "trapezoid", void 0);
+o([ d(cc.SpriteFrame) ], e.prototype, "triangle", void 0);
+o([ l.default() ], e.prototype, "onLoad", null);
+o([ l.default() ], e.prototype, "onMatch", null);
+return e = o([ f ], e);
+}(cc.Component);
+r.default = g;
+cc._RF.pop();
+}, {
+"../../../common/scripts/drag": void 0,
+"../../../common/scripts/lib/config": void 0,
+"../../../common/scripts/lib/error-handler": void 0,
+"../../../common/scripts/util": void 0,
+"./patterntrainDrag": "patterntrainDrag"
+} ]
+}, {}, [ "patterntrainDrag", "patterntrainDrop", "shapetractor" ]);

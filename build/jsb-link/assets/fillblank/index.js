@@ -1,0 +1,271 @@
+window.__require = function t(e, n, o) {
+function i(l, c) {
+if (!n[l]) {
+if (!e[l]) {
+var a = l.split("/");
+a = a[a.length - 1];
+if (!e[a]) {
+var u = "function" == typeof __require && __require;
+if (!c && u) return u(a, !0);
+if (r) return r(a, !0);
+throw new Error("Cannot find module '" + l + "'");
+}
+l = a;
+}
+var s = n[l] = {
+exports: {}
+};
+e[l][0].call(s.exports, function(t) {
+return i(e[l][1][t] || t);
+}, s, s.exports, t, e, n, o);
+}
+return n[l].exports;
+}
+for (var r = "function" == typeof __require && __require, l = 0; l < o.length; l++) i(o[l]);
+return i;
+}({
+animationEvent: [ function(t, e, n) {
+"use strict";
+cc._RF.push(e, "2158b6z985AaKJeKWVKF/jy", "animationEvent");
+var o = this && this.__extends || function() {
+var t = function(e, n) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, e) {
+t.__proto__ = e;
+} || function(t, e) {
+for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n]);
+})(e, n);
+};
+return function(e, n) {
+t(e, n);
+function o() {
+this.constructor = e;
+}
+e.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), i = this && this.__decorate || function(t, e, n, o) {
+var i, r = arguments.length, l = r < 3 ? e : null === o ? o = Object.getOwnPropertyDescriptor(e, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) l = Reflect.decorate(t, e, n, o); else for (var c = t.length - 1; c >= 0; c--) (i = t[c]) && (l = (r < 3 ? i(l) : r > 3 ? i(e, n, l) : i(e, n)) || l);
+return r > 3 && l && Object.defineProperty(e, n, l), l;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var r = t("../../../common/scripts/lib/error-handler"), l = cc._decorator, c = l.ccclass, a = (l.property, 
+function(t) {
+o(e, t);
+function e() {
+return null !== t && t.apply(this, arguments) || this;
+}
+e.prototype.start = function() {};
+e.prototype.onRightAns = function(t) {
+cc.log("sdfsdhf awejsf ahgdsfvhdsGASDJS");
+var e = cc.moveTo(2, 0, 540), n = this.node.getParent().getChildByName("board_question_wordkicker");
+n.runAction(cc.sequence([ e, cc.callFunc(this.nextQuestion, this) ]));
+var o = cc.moveTo(2, 0, -443);
+n.getParent().getChildByName("buttons").runAction(o);
+};
+e.prototype.nextQuestion = function() {
+this.node.getParent().emit("nextProblem");
+};
+i([ r.default() ], e.prototype, "onRightAns", null);
+i([ r.default() ], e.prototype, "nextQuestion", null);
+return e = i([ c ], e);
+}(cc.Component));
+n.default = a;
+cc._RF.pop();
+}, {
+"../../../common/scripts/lib/error-handler": void 0
+} ],
+fillblank: [ function(t, e, n) {
+"use strict";
+cc._RF.push(e, "ecf83FCqjBOG4x20zbiUIJv", "fillblank");
+var o = this && this.__extends || function() {
+var t = function(e, n) {
+return (t = Object.setPrototypeOf || {
+__proto__: []
+} instanceof Array && function(t, e) {
+t.__proto__ = e;
+} || function(t, e) {
+for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n]);
+})(e, n);
+};
+return function(e, n) {
+t(e, n);
+function o() {
+this.constructor = e;
+}
+e.prototype = null === n ? Object.create(n) : (o.prototype = n.prototype, new o());
+};
+}(), i = this && this.__decorate || function(t, e, n, o) {
+var i, r = arguments.length, l = r < 3 ? e : null === o ? o = Object.getOwnPropertyDescriptor(e, n) : o;
+if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) l = Reflect.decorate(t, e, n, o); else for (var c = t.length - 1; c >= 0; c--) (i = t[c]) && (l = (r < 3 ? i(l) : r > 3 ? i(e, n, l) : i(e, n)) || l);
+return r > 3 && l && Object.defineProperty(e, n, l), l;
+};
+Object.defineProperty(n, "__esModule", {
+value: !0
+});
+var r = t("../../../common/scripts/lib/config"), l = t("../../../common/scripts/util"), c = t("../../../common/scripts/lib/error-handler"), a = cc._decorator, u = a.ccclass, s = a.property, d = function(t) {
+o(e, t);
+function e() {
+var e = null !== t && t.apply(this, arguments) || this;
+e.label = null;
+e.question = "";
+e.ans_button = 0;
+e.rightSprite = null;
+e.wrongSprite = null;
+e.friendPos = null;
+e.soundFile = null;
+e.soundClip = null;
+e.disableCorrectButton = !1;
+e.friend = null;
+return e;
+}
+e.prototype.onLoad = function() {
+var t = this;
+l.Util.loadFriend(function(e) {
+t.friend = e.getComponent(dragonBones.ArmatureDisplay);
+t.friendPos.addChild(e);
+null != t.friend && t.friend.playAnimation("jumping", 1);
+new cc.Tween().target(e).set({
+x: -cc.winSize.width
+}).to(1, {
+x: 0
+}, null).start();
+});
+var e = null;
+r.default.getInstance().data.forEach(function(n) {
+t.question = n[3];
+var o = t.question.indexOf("["), i = t.question.indexOf("]"), r = t.question.substring(o + 1, i);
+t.question = t.question.replace(t.question.substring(o, i + 1), "______");
+t.soundFile = n[4];
+l.Util.loadGameSound(t.soundFile, function(n) {
+if (null != n) {
+t.soundClip = n;
+t.timeout = setTimeout(function() {
+return t.playsound(!1, function() {
+l.Util.showHelp(e, e, function() {
+e = t.enableButtons(c, e, a, !0);
+});
+});
+}, 2e3);
+} else t.scheduleOnce(function() {
+l.Util.showHelp(e, e, function() {
+e = t.enableButtons(c, e, a, !0);
+});
+}, 2);
+});
+var c = t.node;
+c.getChildByName("board_question_wordkicker").getChildByName("question").getComponent(cc.Label).string = t.question;
+var a = [ r, n[5], n[6], n[7] ];
+a = t.shuffle(a);
+t.ans_button = a.indexOf(r) + 1;
+e = t.enableButtons(c, e, a, !1);
+});
+var n = this.node.getChildByName("board_question_wordkicker");
+if (null != n) {
+var o = n.getChildByName("speaker");
+null != o && ("" != this.soundFile ? o.on("click", function() {
+t.playsound(!1, null);
+}) : o.active = !1);
+}
+};
+e.prototype.enableButtons = function(t, e, n, o) {
+for (var i = 0; i < 4; i++) {
+var r = "button_" + (i + 1), l = t.getChildByName("buttons").getChildByName(r);
+i + 1 == this.ans_button && (e = l);
+l.getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = n[i];
+o ? l.on("click", this.callback.bind(this), this) : l.off("click", this.callback.bind(this), this);
+}
+return e;
+};
+e.prototype.playsound = function(t, e) {
+cc.log(this.node.name);
+var n = this.node.getChildByName("board_question_wordkicker").getChildByName("speaker").getComponent(cc.Button);
+n.interactable = !1;
+var o = -1;
+null != this.soundClip && (o = cc.audioEngine.play(this.soundClip, !1, 1));
+if (o >= 0) {
+t && null != this.friend && this.friend.playAnimation("dance", 1);
+cc.audioEngine.setFinishCallback(o, function() {
+n.getComponent(cc.Button).interactable = !0;
+null != e && e();
+});
+} else {
+t && null != this.friend && this.friend.playAnimation("dance", 1);
+n.getComponent(cc.Button).interactable = !0;
+null != e && e();
+}
+};
+e.prototype.callback = function(t) {
+var e = this;
+cc.log(" y i m getting called" + t.node.name);
+if (!this.disableCorrectButton) if (t.node.name === "button_" + this.ans_button) {
+cc.log("this is right answer");
+this.playsound(!0, function() {
+e.node.emit("correct");
+});
+this.disableCorrectButton = !0;
+for (var n = 1; n < 5; n++) {
+if (t.node.name != "button_" + n) {
+this.node.getChildByName("buttons").getChildByName("button_" + n).getComponent(cc.Button).interactable = !1;
+}
+}
+var o = this.question.replace("______", this.node.getChildByName("buttons").getChildByName(t.node.name).getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string);
+this.node.getChildByName("board_question_wordkicker").getChildByName("question").getComponent(cc.Label).string = o;
+this.node.getChildByName("buttons").getChildByName(t.node.name).getChildByName("Background").getComponent(cc.Sprite).spriteFrame = this.rightSprite;
+var i = this.node.getChildByName("flower_anim");
+i.x = 0;
+i.getComponent(cc.Animation).play();
+} else {
+this.node.emit("wrong");
+this.friend.playAnimation("sad", 1);
+this.node.getChildByName("buttons").getChildByName(t.node.name).getChildByName("Background").getComponent(cc.Sprite).spriteFrame = this.wrongSprite;
+var r = this.node.getChildByName("flower_wrong");
+r.x = 140;
+r.getComponent(cc.Animation).play();
+}
+};
+e.prototype.shuffle = function(t) {
+for (var e, n, o = t.length; 0 !== o; ) {
+n = Math.floor(Math.random() * o);
+e = t[o -= 1];
+t[o] = t[n];
+t[n] = e;
+}
+return t;
+};
+e.prototype.start = function() {
+var t = cc.moveTo(1, 0, 278);
+this.node.getChildByName("board_question_wordkicker").runAction(t);
+var e = cc.moveTo(1, 0, 0);
+this.node.getChildByName("buttons").runAction(e);
+};
+e.prototype.onDestroy = function() {
+clearTimeout(this.timeout);
+};
+i([ s(cc.Label) ], e.prototype, "label", void 0);
+i([ s ], e.prototype, "question", void 0);
+i([ s ], e.prototype, "ans_button", void 0);
+i([ s(cc.SpriteFrame) ], e.prototype, "rightSprite", void 0);
+i([ s(cc.SpriteFrame) ], e.prototype, "wrongSprite", void 0);
+i([ s(cc.Node) ], e.prototype, "friendPos", void 0);
+i([ s ], e.prototype, "timeout", void 0);
+i([ c.default() ], e.prototype, "onLoad", null);
+i([ c.default() ], e.prototype, "enableButtons", null);
+i([ c.default() ], e.prototype, "playsound", null);
+i([ c.default() ], e.prototype, "callback", null);
+i([ c.default() ], e.prototype, "shuffle", null);
+i([ c.default() ], e.prototype, "start", null);
+i([ c.default() ], e.prototype, "onDestroy", null);
+return e = i([ u ], e);
+}(cc.Component);
+n.default = d;
+cc._RF.pop();
+}, {
+"../../../common/scripts/lib/config": void 0,
+"../../../common/scripts/lib/error-handler": void 0,
+"../../../common/scripts/util": void 0
+} ]
+}, {}, [ "animationEvent", "fillblank" ]);
