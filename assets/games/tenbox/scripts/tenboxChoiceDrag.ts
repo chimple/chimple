@@ -15,9 +15,9 @@ export default class TenBoxChoiceDrag extends Drag {
         super.onTouchEnd(touch)
         if(isDragging) {
             if (this.match) {
-                this.missingNumber.emit('missingNumberMatch', this)
+                this.missingNumber.emit('tenBoxChoiceMatch', this)
             } else {
-                this.missingNumber.emit('missingNumberNoMatch')
+                this.missingNumber.emit('tenBoxChoiceNoMatch')
             }    
         }
     }

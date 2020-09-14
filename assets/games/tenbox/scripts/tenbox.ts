@@ -37,8 +37,8 @@ export default class Tenbox extends cc.Component {
     onLoad() {
         cc.director.getCollisionManager().enabled = true
         Drag.letDrag = false
-        this.node.on('missingNumberMatch', this.onMatch.bind(this))
-        this.node.on('missingNumberNoMatch', () => {
+        this.node.on('tenBoxChoiceMatch', this.onMatch.bind(this))
+        this.node.on('tenBoxChoiceNoMatch', () => {
             this.node.emit('wrong')
         })
         const [level, worksheet, problem, category, question, answerStr] = Config.getInstance().data[0]
