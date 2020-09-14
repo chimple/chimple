@@ -15,6 +15,7 @@ export interface Chapter {
     id: string;
     lessons: Lesson[];
     name: string;
+    image: string;
 }
 
 export interface Lesson {

@@ -71,6 +71,7 @@ export default class Start extends cc.Component {
                     const courseContent = cc.instantiate(this.courseContentPrefab)
                     const courseContentComp = courseContent.getComponent(CourseContent)
                     courseContentComp.loading = this.loading
+                    courseContentComp.content = this.content
                     this.content.addChild(courseContent)
                 })
             })

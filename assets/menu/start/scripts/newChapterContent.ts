@@ -2,22 +2,23 @@ import Config from "../../../common/scripts/lib/config";
 import ChapterContent from "./chapterContent";
 import LessonButton from "./lessonButton";
 import ChapterMenuButton from "./chapterMenuButton";
+import CourseContent from "./courseContent";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class CourseContent extends cc.Component {
+export default class NewChapterContent extends cc.Component {
     @property(cc.Prefab)
     lessonButtonPrefab: cc.Prefab = null
-
-    @property(cc.Prefab)
-    chapterContentPrefab: cc.Prefab = null
 
     @property(cc.Node)
     chaptersLayout: cc.Node = null
 
+    @property(cc.Label)
+    label: cc.Label = null
+
     @property(cc.Prefab)
-    chapterMenuButtonPrefab: cc.Prefab = null
+    courseContentPrefab: cc.Prefab = null
 
     loading: cc.Node
     content: cc.Node
@@ -31,10 +32,8 @@ export default class CourseContent extends cc.Component {
 
     onLoad() {
         const config = Config.i
-        // this.chaptersLayout.removeAllChildren()
-        // let lessonContentNode: cc.Node = null
-        // let colorIndex = 0
-        for (const chapter of config.course.chapters) {
+        this.label.string = config.chapter.name
+        for (const lesson of config.chapter.lessons) {
             // const chapterContents = cc.instantiate(this.chapterContentPrefab)
             // chapterContents.width = cc.winSize.width
             // const chapterContentsComp = chapterContents.getComponent(ChapterContent)
@@ -56,12 +55,11 @@ export default class CourseContent extends cc.Component {
             // const chapterContentLayout = chapterContents.getComponent(cc.Layout)
             // if (chapterContentLayout != null) chapterContentLayout.updateLayout()
             // chapterContents.color = new cc.Color().fromHEX(CourseContent.colors[colorIndex++ % CourseContent.colors.length])
-            const chapterMenuButton = cc.instantiate(this.chapterMenuButtonPrefab)
-            const chapterMenuButtonComp = chapterMenuButton.getComponent(ChapterMenuButton)
-            chapterMenuButtonComp.chapter = chapter
-            chapterMenuButtonComp.content = this.content
-            chapterMenuButtonComp.loading = this.loading
-            this.chaptersLayout.addChild(chapterMenuButton)
+            const lessonButton = cc.instantiate(this.lessonButtonPrefab)
+            const lessonButtonComp = lessonButton.getComponent(LessonButton)
+            lessonButtonComp.lesson = lesson
+            lessonButtonComp.loading = this.loading
+            this.chaptersLayout.addChild(lessonButton)
         }
         // const layoutComp = this.chaptersLayout.getComponent(cc.Layout)
         // layoutComp.updateLayout()
@@ -69,5 +67,16 @@ export default class CourseContent extends cc.Component {
         this.chaptersLayout.parent.height = this.chaptersLayout.height
         this.chaptersLayout.parent.width = cc.winSize.width
         this.chaptersLayout.parent.parent.width = cc.winSize.width
+    }
+
+    onBackClick(event: cc.Event, customEventData) {
+        const node = event.target.parent
+        const nodeComp = node.getComponent(NewChapterContent)
+        nodeComp.content.removeAllChildren()
+        const courseContent = cc.instantiate(nodeComp.courseContentPrefab)
+        const courseContentComp = courseContent.getComponent(CourseContent)
+        courseContentComp.loading = nodeComp.loading
+        courseContentComp.content = nodeComp.content
+        nodeComp.content.addChild(courseContent)
     }
 }
