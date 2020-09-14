@@ -18,9 +18,6 @@ export default class Inventory extends cc.Component {
     @property(cc.Node)
     individualLayoutNode: cc.Node = null;
 
-    @property(cc.Label)
-    characterNameLabel: cc.Label = null;
-
     currentScrollValue: number = 1000
 
     @property(dragonBones.ArmatureDisplay)
@@ -88,8 +85,6 @@ export default class Inventory extends cc.Component {
             console.log("error reading character name");
         }
 
-        // update character name
-        this.characterNameLabel.getComponent(cc.Label).string = this.characterName;
         this.node.getChildByName(`${this.characterName}_dragon`).active = true;
         try {
             this.loadSavedCharacterAcc()
