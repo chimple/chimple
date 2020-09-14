@@ -146,7 +146,7 @@ export default class NimbleTable extends cc.Component {
                 const choices = cc.instantiate(this.choicesPrefab);
                 choices.getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = el[i];
                 if (el[i] === this.rightAnswer && choices != null) {
-                    answerNode = choices
+                    answerNode = choices;
                 }
                 this.node.getChildByName("examples").getChildByName("layoutExamples").addChild(choices);
                 choices.name = "2_" + i;
@@ -165,7 +165,6 @@ export default class NimbleTable extends cc.Component {
         for (let i = 0; i < 4; i++) {          // extra 4 to show
             const el = this.arr_name[i + this.currentProblem + 1];
             let labelNode = this.node.getChildByName("nextQues").getChildByName("transparentBg").getChildByName("containerNode").getChildByName("" + (i + 1));
-            console.log("el ", el)
             if (el[5] != "") {
                 let questionString = "";
                 labelNode.getComponent(cc.Label).string = questionString + el[4] + " " + el[6] + " " + el[5] + " = " + "?";
@@ -201,16 +200,7 @@ export default class NimbleTable extends cc.Component {
                 let timeFactor = 0.5
                 let nextProblemAnimation = cc.moveBy(timeFactor, 0, 132);
                 let questionUpAction = cc.moveBy(timeFactor / 3, 2, 50);
-
-                try {
-                    Util.loadNumericSound(String(this._totalCount), (clip) => {
-                        Util.speakClip(clip, null);
-                    })
-                } catch (e) {
-                    console.log("audio fetch error", e);
-                    // this.node.emit('nextProblem', false)
-                }
-
+                Util.speakEquation([String(this._totalCount)], (index) => { });
 
                 this.nextProblemTimeout2 = setTimeout(() => {
                     this.node.getChildByName("questionboard_quickfacts").getChildByName("question").runAction(cc.sequence(questionUpAction, cc.callFunc(() => {
@@ -218,7 +208,6 @@ export default class NimbleTable extends cc.Component {
                             getComponent(cc.Label).string = ""
                         this.node.getChildByName("questionboard_quickfacts").getChildByName("question").position = new cc.Vec3(-7, -70);
                     })));
-
 
                     this.node.getChildByName("nextQues").getChildByName("transparentBg").getChildByName("containerNode").runAction(
                         cc.sequence(nextProblemAnimation, cc.callFunc(() => {
@@ -228,8 +217,6 @@ export default class NimbleTable extends cc.Component {
                     );
                 }, 3000);
             }, 300);
-
-
 
         } else {
             this.node.emit('wrong');
