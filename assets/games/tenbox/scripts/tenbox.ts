@@ -1,10 +1,10 @@
-import MissingNumberDrag from "../../sequencebox/scripts/missingnumberdrag";
 import TenboxDrop from "./tenboxDrop";
 import TenboxSub from "./tenboxSub";
 import Config from "../../../common/scripts/lib/config";
 import Drag from "../../../common/scripts/drag";
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
+import TenBoxChoiceDrag from "./tenboxChoiceDrag";
 
 const { ccclass, property } = cc._decorator;
 
@@ -58,7 +58,7 @@ export default class Tenbox extends cc.Component {
         for (let index = 0; index < 10; index++) {
             const card = cc.instantiate(this.numberDrag)
             card.name = index.toString()
-            const dragComp = card.getComponent(MissingNumberDrag)
+            const dragComp = card.getComponent(TenBoxChoiceDrag)
             dragComp.missingNumber = this.node
             dragComp.label.string = index.toString()
             const tempNode = new cc.Node()
