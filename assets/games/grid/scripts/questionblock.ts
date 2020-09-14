@@ -33,6 +33,7 @@ export default class QuestionBlock extends CommonBlock {
         this.node.on(TouchEvents.TOUCH_START, this.onTouchStart, this);
         this.node.on(TouchEvents.TOUCH_MOVE, this.onTouchMove, this);
         this.node.on(TouchEvents.TOUCH_END, this.onTouchEnd, this);
+        this.node.on(TouchEvents.TOUCH_CANCEL, this.onTouchEnd, this);
         this.fontColor = '#654321';
         const label: cc.Node = this.createLabelNode(this.textFont, this.contentText, this.fontSize, this.fontColor);
         this.node.addChild(label);
