@@ -8,6 +8,9 @@ export default class PicDisplayPrefab extends cc.Component {
     @property(cc.Node)
     picNode: cc.Node = null;
 
+    @property(cc.Node)
+    usernameNode: cc.Node = null;
+
     onLoad() {
         this.loadUserImageOrAvatar();
     }
@@ -29,5 +32,6 @@ export default class PicDisplayPrefab extends cc.Component {
                 this.picNode.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
             });
         }
+        this.usernameNode.getComponent(cc.Label).string = currentUser.name;
     }
 }
