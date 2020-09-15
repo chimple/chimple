@@ -1,5 +1,6 @@
 import Item from "./item";
 import Profile, { User } from "../../../common/scripts/lib/profile";
+import Config from "../../../common/scripts/lib/config";
 
 const { ccclass, property } = cc._decorator;
 
@@ -183,6 +184,11 @@ export default class Inventory extends cc.Component {
                 this.layoutNode.addChild(item);
             }
         });
+    }
+
+    onLogoutButtonClick(event) {
+        User.setCurrentUser(null);
+        cc.director.loadScene("welcomePage")
     }
 
     start() {
