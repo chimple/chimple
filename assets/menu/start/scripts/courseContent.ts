@@ -1,6 +1,4 @@
 import Config from "../../../common/scripts/lib/config";
-import ChapterContent from "./chapterContent";
-import LessonButton from "./lessonButton";
 import ChapterMenuButton from "./chapterMenuButton";
 
 const { ccclass, property } = cc._decorator;
