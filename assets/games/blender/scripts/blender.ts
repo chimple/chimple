@@ -523,7 +523,7 @@ export default class Blender extends cc.Component {
         // set up mixture
         // build suggestions
         // build logic for showing draggable objects
-        this._mixture.setPosition(new cc.Vec2(this._mixture.x - cc.winSize.width / 4, this._mixture.y - 25));
+        this._mixture.setPosition(new cc.Vec2(this._mixture.x - cc.winSize.width / 4.5, this._mixture.y - 25));
         this.node.addChild(this._mixture);
 
         const blender1 = this._mixture.getChildByName(BLENDER1_NODE);
