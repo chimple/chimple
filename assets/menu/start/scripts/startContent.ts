@@ -1,9 +1,6 @@
-import { User } from "../../../common/scripts/lib/profile";
-
 import Config from "../../../common/scripts/lib/config";
-
-import { Course, Lesson, Chapter } from "../../../common/scripts/lib/convert";
-
+import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
+import { User } from "../../../common/scripts/lib/profile";
 import LessonButton from "./lessonButton";
 
 const {ccclass, property} = cc._decorator;
@@ -39,6 +36,8 @@ export default class StartContent extends cc.Component {
             const lessonButton = cc.instantiate(this.startLessonButtonPrefab)
             const lessonButtonComp = lessonButton.getComponent(LessonButton)
             lessonButtonComp.lesson = currentLesson
+            lessonButtonComp.chapter = currentChapter
+            lessonButtonComp.course = course
             lessonButtonComp.loading = this.loading
             this.layout.addChild(lessonButton)
         })

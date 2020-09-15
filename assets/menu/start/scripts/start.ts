@@ -1,12 +1,10 @@
 import Config from "../../../common/scripts/lib/config";
-import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
+import { Course } from "../../../common/scripts/lib/convert";
 import { User } from "../../../common/scripts/lib/profile";
-import LessonButton from "./lessonButton";
-import HeaderButton from "./headerButton";
 import { Util } from "../../../common/scripts/util";
-import ChapterContent from "./chapterContent";
-import StartContent from "./startContent";
 import CourseContent from "./courseContent";
+import HeaderButton from "./headerButton";
+import StartContent from "./startContent";
 
 const { ccclass, property } = cc._decorator;
 
