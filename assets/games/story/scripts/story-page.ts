@@ -7,9 +7,7 @@ import catchError from "../../../common/scripts/lib/error-handler";
 import { SOUND_LOADED_EVENT } from "../../../common/scripts/helper";
 
 interface StoryConfig {
-    level: string;
-    workSheet: string;
-    problemNo: string;
+    pageNo: string;
     text: string;
     image: string;
     layout: string;
@@ -65,9 +63,9 @@ export class StoryPage extends cc.Component {
     @catchError()
     protected onLoad(): void {
         const config = Config.getInstance();
-        this._storyDir = Config.dir + `${config.game}/${config.gameLevelName}/res/${config.worksheet}/`;
-        this._soundDir = Config.dir + `${config.game}/${config.gameLevelName}/res/${config.worksheet}/${config.problem}/`;
         this._storyConfig = this.processConfiguration(config.data[0]);
+        this._storyDir = Config.dir + `${config.lessonId}/res/`;
+        this._soundDir = Config.dir + `${config.lessonId}/res/${this._storyConfig.pageNo}/`;
         this._isSideBySide = this._storyConfig.layout === LANDSCAPE ? true : false;
         if (this._isSideBySide) {
             this._storyContent = cc.instantiate(this.landscape);
@@ -97,12 +95,16 @@ export class StoryPage extends cc.Component {
                     t = t.toString().replace(/"/g, "");
                     this._inOrderWords.push(t);
                     // const soundT = t.replace(/[\.!,\?]/g,'');
-                    Util.loadGameSound(this._soundDir + index + ".m4a", (clip) => {
-                        this._words.set(t, clip);
-                        if (index === texts.length - 1) {
-                            this.node.emit(SOUND_LOADED_EVENT);
-                        }
-                    });
+                    try {
+                        Util.loadGameSound(this._soundDir + index + ".m4a", (clip) => {
+                            this._words.set(t, clip);
+                            if (index === texts.length - 1) {
+                                this.node.emit(SOUND_LOADED_EVENT);
+                            }
+                        });
+                    } catch (e) {
+
+                    }
                 }
             );
         }
@@ -130,7 +132,6 @@ export class StoryPage extends cc.Component {
                     const scale = Math.min(xScale, yScale);
                     imageNode.width = scale * size.width;
                     imageNode.height = scale * size.height;
-
                 }
             });
         }
@@ -139,13 +140,13 @@ export class StoryPage extends cc.Component {
 
     @catchError()
     private isTitlePage() {
-        return this._storyConfig.problemNo === "1";
+        return this._storyConfig.pageNo === "1";
     }
 
     @catchError()
     private isLastPage() {
         const config = Config.getInstance();
-        return Number(this._storyConfig.problemNo) === config.totalProblems;
+        return Number(this._storyConfig.pageNo) === config.totalProblems;
     }
 
     @catchError()
@@ -205,7 +206,10 @@ export class StoryPage extends cc.Component {
         }
 
         const sheet = this.node.getChildByName('sheet');
-        sheet.addChild(this._storyContent);
+        if(sheet)
+            sheet.addChild(this._storyContent);
+        else
+            this.node.addChild(this._storyContent);
 
         this._imageNode = this.renderImage();
         this._textNode = this.renderText();
@@ -332,12 +336,10 @@ export class StoryPage extends cc.Component {
 
     private processConfiguration(data: any[] = []): StoryConfig {
         const configurations: any[] = [].concat(...data);
-        let [level, workSheet, problemNo, type, text, image, layout, storySound] = configurations;
+        let [name, level, description, pageNo, type, text, image, layout, storySound] = configurations;
         let storySoundFile = storySound.split(',');
         return {
-            level,
-            workSheet,
-            problemNo,
+            pageNo,
             text,
             image,
             layout,

@@ -41,7 +41,7 @@ export class Selector extends cc.Component {
 
     private processConfiguration(data: any[] = []): ConfigType {
         const configurations: any[] = [].concat(...data);
-        let [level, workSheet, problemNo, type, ...params] = configurations;
+        let [name, level, description, type, ...params] = configurations;
         return type === 'S' ? ConfigType.Story : ConfigType.Quiz;
     }
 }
