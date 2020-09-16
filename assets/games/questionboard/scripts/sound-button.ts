@@ -28,7 +28,6 @@ export default class SoundButton extends cc.Component {
             const location = `${this._soundClip}`;
             Util.loadGameSound(`${this._soundClip}`, function (clip) {
                 if (clip != null) {
-                    // cc.audioEngine.play(clip, false, 1);
                     Util.speakClip(clip,()=>{this._isSoundPlaying = false; button.interactable = true;})
                     if (this.node != null) {
                         this.node.dispatchEvent(new cc.Event.EventCustom(ENABLE_BUTTONS, true));
