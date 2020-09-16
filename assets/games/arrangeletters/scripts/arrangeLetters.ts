@@ -33,7 +33,7 @@ export default class ArrangeLetters extends cc.Component {
   static letterArray:Array<string>
 
   onLoad() {
-    [
+    [ 
       this.level,
       this.worksheet,
       this.problem,
