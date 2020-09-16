@@ -62,23 +62,38 @@ export default class Start extends cc.Component {
                     }
                 })
                 headerButtonComp.button.node.on('click', () => {
-                    this.selectHeaderButton(headerButtonComp)
-                    config.courseId = name
-                    config.course = course
-                    this.content.removeAllChildren()
-                    const courseContent = cc.instantiate(this.courseContentPrefab)
-                    const courseContentComp = courseContent.getComponent(CourseContent)
-                    courseContentComp.loading = this.loading
-                    courseContentComp.content = this.content
-                    this.content.addChild(courseContent)
+                    this.selectHeaderButton(headerButtonComp);
+                    config.courseId = name;
+                    config.course = course;
+                    this.content.removeAllChildren();
+                    this.onCourseClick();
                 })
+                if(config.course && config.course.id == course.id) {
+                    this.selectHeaderButton(headerButtonComp);
+                }
             })
-            this.onHomeClick()
+            if(config.course == null) {
+                this.onHomeClick()
+            } else {
+                this.onCourseClick()
+            }
             this.loading.active = false
         })
     }
 
+    private onCourseClick() {
+        const courseContent = cc.instantiate(this.courseContentPrefab);
+        const courseContentComp = courseContent.getComponent(CourseContent);
+        courseContentComp.loading = this.loading;
+        courseContentComp.content = this.content;
+        this.content.addChild(courseContent);
+    }
+
     onHomeClick() {
+        const config = Config.i
+        config.course = null
+        config.chapter = null
+        config.lesson = null
         this.selectHeaderButton(this.homeButton.getComponent(HeaderButton))
         this.content.removeAllChildren()
         const startContent = cc.instantiate(this.startContentPrefab)

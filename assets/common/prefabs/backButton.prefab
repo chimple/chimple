@@ -42,8 +42,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 128,
-      "height": 65
+      "width": 107,
+      "height": 106
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -87,6 +87,8 @@
       "__id__": 1
     },
     "_enabled": true,
+    "_normalMaterial": null,
+    "_grayMaterial": null,
     "duration": 0.1,
     "zoomScale": 1.1,
     "clickEvents": [
@@ -165,9 +167,7 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": {
-      "__id__": 1
-    },
+    "target": null,
     "component": "",
     "_componentId": "7082dngCaFG/b2DSeSfDxXQ",
     "handler": "onButtonClick",
