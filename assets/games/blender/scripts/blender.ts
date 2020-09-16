@@ -369,7 +369,7 @@ export default class Blender extends cc.Component {
         new cc.Tween()
             .target(this._cup)
             .parallel(
-                new cc.Tween().to(1, {position: new cc.Vec2(-cc.winSize.width * 3 / 8, cc.winSize.height * 5 / 12 + 15)}, null),
+                new cc.Tween().to(1, {position: new cc.Vec2(100 + -cc.winSize.width * 3 / 8, cc.winSize.height * 5 / 12 + 15)}, null),
                 //@ts-ignore
                 new cc.Tween().to(1, {scale: 1}, {progress: null, easing: 'backOut'})
             )
@@ -523,7 +523,7 @@ export default class Blender extends cc.Component {
         // set up mixture
         // build suggestions
         // build logic for showing draggable objects
-        this._mixture.setPosition(new cc.Vec2(this._mixture.x - cc.winSize.width / 4, this._mixture.y - 25));
+        this._mixture.setPosition(new cc.Vec2(100 + this._mixture.x - cc.winSize.width / 4, this._mixture.y - 25));
         this.node.addChild(this._mixture);
 
         const blender1 = this._mixture.getChildByName(BLENDER1_NODE);
