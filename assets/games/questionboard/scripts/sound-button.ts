@@ -1,6 +1,6 @@
 import ccclass = cc._decorator.ccclass;
 import { Util } from "../../../common/scripts/util";
-import {ENABLE_BUTTONS, WRONG_ANSWER} from "./questionboard";
+import { ENABLE_BUTTONS, WRONG_ANSWER } from "./questionboard";
 import Config from "../../../common/scripts/lib/config";
 import { catchError } from "../../../common/scripts/lib/error-handler";
 
@@ -26,15 +26,17 @@ export default class SoundButton extends cc.Component {
             this._isSoundPlaying = true;
             button.normalSprite = this._pressedSpriteFrame;
             const location = `${this._soundClip}`;
-            Util.loadGameSound(`${this._soundClip}`,function (clip){
+            Util.loadGameSound(`${this._soundClip}`, function (clip) {
                 if (clip != null) {
                     cc.audioEngine.play(clip, false, 1);
-                    this._isSoundPlaying = false;  
-                    this.node.dispatchEvent(new cc.Event.EventCustom(ENABLE_BUTTONS, true));
+                    this._isSoundPlaying = false;
+                    if (this.node != null) {
+                        this.node.dispatchEvent(new cc.Event.EventCustom(ENABLE_BUTTONS, true));
+                    }
                 }
-             });
-             button.normalSprite = this._normalSpriteFrame;
-                
+            });
+            button.normalSprite = this._normalSpriteFrame;
+
         }
 
     }
@@ -52,8 +54,10 @@ export default class SoundButton extends cc.Component {
         let button = this.node.getComponent(cc.Button);
         button.interactable = false;
         setTimeout(() => {
-         this.playSound(this.node);    
-         button.interactable = true;
+            if (this.node != null) {
+                this.playSound(this.node);
+            }
+            button.interactable = true;
         }, 7000);
 
     }
