@@ -32,6 +32,7 @@ export default class Start extends cc.Component {
     loading: cc.Node = null;
 
     selectedHeaderButton: HeaderButton
+    static homeSelected: boolean = true
 
     onLoad() {
         this.loading.width = cc.winSize.width
@@ -68,11 +69,11 @@ export default class Start extends cc.Component {
                     this.content.removeAllChildren();
                     this.onCourseClick();
                 })
-                if (config.course && config.course.id == course.id) {
+                if (!Start.homeSelected && config.course && config.course.id == course.id) {
                     this.selectHeaderButton(headerButtonComp);
                 }
             })
-            if (config.course == null) {
+            if (Start.homeSelected) {
                 this.onHomeClick()
             } else {
                 this.onCourseClick()
@@ -82,6 +83,7 @@ export default class Start extends cc.Component {
     }
 
     private onCourseClick() {
+        Start.homeSelected = false
         const courseContent = cc.instantiate(this.courseContentPrefab);
         const courseContentComp = courseContent.getComponent(CourseContent);
         courseContentComp.loading = this.loading;
@@ -90,6 +92,7 @@ export default class Start extends cc.Component {
     }
 
     onHomeClick() {
+        Start.homeSelected = true
         const config = Config.i
         config.course = null
         config.chapter = null
