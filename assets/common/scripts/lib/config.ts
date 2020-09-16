@@ -188,6 +188,10 @@ export default class Config {
         Config.preloadScene(scene, callback);
     }
 
+    popAllScenes() {
+        this._scenes = [];
+    }
+
     get canPop(): boolean {
         return this._scenes.length > 1;
     }
@@ -272,7 +276,7 @@ export default class Config {
         fileName = fileName.trim();
         isNumber = !isNaN(Number(fileName));
         if (fileName.indexOf("tutorial") !== -1) {
-            fileName = fileName.replace(".png","");
+            fileName = fileName.replace(".png", "");
             appendPath = 'json';
         } else {
             const isUpperCase: boolean = fileName === fileName.toUpperCase();
@@ -300,7 +304,7 @@ export default class Config {
     }
 
     loadCourseJsons(node: cc.Node, callBack: Function) {
-        if(this.curriculumLoaded) {
+        if (this.curriculumLoaded) {
             callBack()
         } else {
             const user = User.getCurrentUser();
@@ -320,7 +324,7 @@ export default class Config {
                     });
                 });
             });
-    
+
             const checkAllLoaded = () => {
                 if (numCourses <= 0) {
                     this.curriculumLoaded = true;
@@ -328,7 +332,7 @@ export default class Config {
                     callBack();
                 }
             };
-            cc.director.getScheduler().schedule(checkAllLoaded, node, 1);    
+            cc.director.getScheduler().schedule(checkAllLoaded, node, 1);
         }
     }
 
