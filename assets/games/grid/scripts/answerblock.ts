@@ -186,6 +186,7 @@ export default class AnswerBlock extends CommonBlock {
         // this.node.setPosition(this.node.getParent().convertToNodeSpaceAR(touch.getLocation()));
         if (this.node.getBoundingBox().intersects(this.matchRect)) {
             this.match = true;
+            this.pairingPlaceHolderBlock.removeHighLightedNode();
             this.pairingPlaceHolderBlock.addHighLightedNode();
 
             const questions: string[] = this.questionBlocksMap.get(this.contentText);
