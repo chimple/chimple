@@ -122,7 +122,7 @@ export class QuizLiteracy extends cc.Component {
         collisionManager.enabled = true;
         const config = Config.getInstance();
         this._quizLiteracyConfig = this.processConfiguration(config.data[0]);
-        this._assetDir = Config.dir + `${config.lessonId}/res`;
+        this._assetDir = Config.dir + `${config.lesson.id}/res`;
         this.node.on(QUIZ_CORRECT, (event) => {
             this.next(event, true);
         });

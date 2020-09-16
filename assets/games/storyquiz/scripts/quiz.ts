@@ -148,8 +148,8 @@ export default class Quiz extends cc.Component {
         const config = Config.getInstance();
         this.registerNotifications();
         this._currentConfig = this.processConfiguration(Config.getInstance().data[0]);
-        this._quizDir = Config.dir + `${config.lessonId}/res/`;
-        this._soundDir = Config.dir + `${config.lessonId}/res/`;
+        this._quizDir = Config.dir + `${config.lesson.id}/res/`;
+        this._soundDir = Config.dir + `${config.lesson.id}/res/`;
         this._page = this.node;
         this._currentConfig = this.processConfiguration(Config.getInstance().data[0]);
         console.log("quiz", JSON.stringify(this._currentConfig));

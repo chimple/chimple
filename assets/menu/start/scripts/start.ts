@@ -45,6 +45,7 @@ export default class Start extends cc.Component {
             headerButtonComp.selected.node.active = false
             this.header.insertChild(headerButton, ++index)
         })
+        this.selectedHeaderButton = this.homeButton.getComponent(HeaderButton)
         this.homeButton.getComponent(HeaderButton).button.node.on('click', () => {
             this.onHomeClick()
         })
@@ -63,16 +64,15 @@ export default class Start extends cc.Component {
                 })
                 headerButtonComp.button.node.on('click', () => {
                     this.selectHeaderButton(headerButtonComp);
-                    config.courseId = name;
                     config.course = course;
                     this.content.removeAllChildren();
                     this.onCourseClick();
                 })
-                if(config.course && config.course.id == course.id) {
+                if (config.course && config.course.id == course.id) {
                     this.selectHeaderButton(headerButtonComp);
                 }
             })
-            if(config.course == null) {
+            if (config.course == null) {
                 this.onHomeClick()
             } else {
                 this.onCourseClick()

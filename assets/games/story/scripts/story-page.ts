@@ -64,8 +64,8 @@ export class StoryPage extends cc.Component {
     protected onLoad(): void {
         const config = Config.getInstance();
         this._storyConfig = this.processConfiguration(config.data[0]);
-        this._storyDir = Config.dir + `${config.lessonId}/res/`;
-        this._soundDir = Config.dir + `${config.lessonId}/res/${this._storyConfig.pageNo}/`;
+        this._storyDir = Config.dir + `${config.lesson.id}/res/`;
+        this._soundDir = Config.dir + `${config.lesson.id}/res/${this._storyConfig.pageNo}/`;
         this._isSideBySide = this._storyConfig.layout === LANDSCAPE ? true : false;
         if (this._isSideBySide) {
             this._storyContent = cc.instantiate(this.landscape);
