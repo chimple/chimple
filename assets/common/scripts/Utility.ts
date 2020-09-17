@@ -1,6 +1,6 @@
-import { Util } from "../../../common/scripts/util";
-import Config from "../../../common/scripts/lib/config";
-import { LANG } from "../../../common/scripts/lib/constants"
+import Config from "./lib/config";
+import { Util } from "./util";
+
 
 export enum LetterType {
     Consonant,
