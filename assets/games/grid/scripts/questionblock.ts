@@ -74,13 +74,10 @@ export default class QuestionBlock extends CommonBlock {
             if (!!this._sound) {
                 this._soundID = Util.play(this._sound, false);
                 if (this._soundID === -1) {
-                    Util.speakPhonicsOrLetter(this.contentText, () => {
-
-                    });
+                    this.node.parent.getComponent(Grid).playGameSound(this.contentText)
                 }
             } else {
-                Util.speakPhonicsOrLetter(this.contentText, () => {
-                })
+                this.node.parent.getComponent(Grid).playGameSound(this.contentText)
             }
         } catch (e) {
 
