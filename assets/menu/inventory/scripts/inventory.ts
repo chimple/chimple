@@ -1,6 +1,11 @@
 import Item from "./item";
 import Profile, { User } from "../../../common/scripts/lib/profile";
 import Config from "../../../common/scripts/lib/config";
+import { CURRENT_STUDENT_ID } from "../../../common/scripts/lib/constants";
+import { SELECT_SECTIONS_SCENE } from "../../../private/school/scripts/landing";
+import { LANDING_SCENE } from "../../../chimple";
+import { currentSelectMode } from "../../../private/school/scripts/selectionScene";
+import { SelectionMode } from "../../../private/services/parseApi";
 
 const { ccclass, property } = cc._decorator;
 
@@ -56,26 +61,26 @@ export default class Inventory extends cc.Component {
     onLoad() {
         this.buildIndividualItems(this.inventoryData[0])
 
-        // load all hats here 
+        // load all hats here
         for (let i = 1; i < this.inventoryData[0].length; i++) {
             this.hatArmature.armatureName = this.inventoryData[0][i].split("-")[1];
         }
-        // load all hand here 
+        // load all hand here
         for (let i = 1; i < this.inventoryData[1].length; i++) {
             this.handArmature.armatureName = this.inventoryData[1][i].split("-")[1];
         }
 
-        // load all glasses here 
+        // load all glasses here
         for (let i = 1; i < this.inventoryData[2].length; i++) {
             this.glassArmature.armatureName = this.inventoryData[2][i].split("-")[1];
         }
 
-        // load all shoes here 
+        // load all shoes here
         for (let i = 1; i < this.inventoryData[3].length; i++) {
             this.shoeArmature.armatureName = this.inventoryData[3][i].split("-")[1];
         }
 
-        // load all neck here 
+        // load all neck here
         for (let i = 1; i < this.inventoryData[4].length; i++) {
             this.neckArmature.armatureName = this.inventoryData[4][i].split("-")[1];
         }
@@ -122,7 +127,7 @@ export default class Inventory extends cc.Component {
         let color = cc.Color.BLACK;
         this.node.getChildByName("acc_layout").getChildByName(nodeName).getChildByName(event.currentTarget.name).getChildByName("Background").color = color.fromHEX("#FFFFFF")
         this.node.getChildByName("acc_layout").getChildByName(nodeName).getChildByName(event.currentTarget.name).getChildByName("icon").color = color.fromHEX("#282C65FFFFFF")
-        // recreate list 
+        // recreate list
         this.buildIndividualItems(this.inventoryData[parseInt(event.currentTarget.name)])
         this.lastSelectedButton = parseInt(event.currentTarget.name)
     }
@@ -189,7 +194,13 @@ export default class Inventory extends cc.Component {
     onLogoutButtonClick(event) {
         User.setCurrentUser(null);
         Config.i.popAllScenes();
-        cc.director.loadScene("welcomePage")
+        if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
+            // @ts-ignore
+            currentSelectMode = SelectionMode.Section;
+            Config.loadScene(LANDING_SCENE, 'private', null);
+        } else {
+            cc.director.loadScene("welcomePage")
+        }
     }
 
     start() {
