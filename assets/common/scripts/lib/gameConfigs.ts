@@ -94,6 +94,11 @@ export const GAME_CONFIGS = {
         "prefab": "prefabs/story",
         "fontName": "en-trace",
     },
+    "storyquiz": {
+        "bundle": "storyquiz",
+        "prefab": "prefabs/storyquiz",
+        "fontName": "en-trace",
+    },
     "monster": {
         "bundle": "monster",
         "prefab": "prefabs/monster",

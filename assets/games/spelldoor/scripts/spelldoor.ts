@@ -2,8 +2,8 @@ import Config from "../../../common/scripts/lib/config";
 import Drag from "../../../common/scripts/drag";
 import SpellingDrag from "./spellingDrag";
 import { Util } from "../../../common/scripts/util";
-import { AlphabetUtil, LetterType } from "./Utility";
 import catchError from "../../../common/scripts/lib/error-handler";
+import { AlphabetUtil, LetterType } from "../../../common/scripts/Utility";
 
 const { ccclass, property } = cc._decorator;
 

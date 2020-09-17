@@ -1,12 +1,10 @@
 import Config from "../../../common/scripts/lib/config";
-import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
+import { Course } from "../../../common/scripts/lib/convert";
 import { User } from "../../../common/scripts/lib/profile";
-import LessonButton from "./lessonButton";
-import HeaderButton from "./headerButton";
 import { Util } from "../../../common/scripts/util";
-import ChapterContent from "./chapterContent";
-import StartContent from "./startContent";
 import CourseContent from "./courseContent";
+import HeaderButton from "./headerButton";
+import StartContent from "./startContent";
 
 const { ccclass, property } = cc._decorator;
 
@@ -34,6 +32,7 @@ export default class Start extends cc.Component {
     loading: cc.Node = null;
 
     selectedHeaderButton: HeaderButton
+    static homeSelected: boolean = true
 
     onLoad() {
         this.loading.width = cc.winSize.width
@@ -47,6 +46,7 @@ export default class Start extends cc.Component {
             headerButtonComp.selected.node.active = false
             this.header.insertChild(headerButton, ++index)
         })
+        this.selectedHeaderButton = this.homeButton.getComponent(HeaderButton)
         this.homeButton.getComponent(HeaderButton).button.node.on('click', () => {
             this.onHomeClick()
         })
@@ -64,23 +64,39 @@ export default class Start extends cc.Component {
                     }
                 })
                 headerButtonComp.button.node.on('click', () => {
-                    this.selectHeaderButton(headerButtonComp)
-                    config.courseId = name
-                    config.course = course
-                    this.content.removeAllChildren()
-                    const courseContent = cc.instantiate(this.courseContentPrefab)
-                    const courseContentComp = courseContent.getComponent(CourseContent)
-                    courseContentComp.loading = this.loading
-                    courseContentComp.content = this.content
-                    this.content.addChild(courseContent)
+                    this.selectHeaderButton(headerButtonComp);
+                    config.course = course;
+                    this.content.removeAllChildren();
+                    this.onCourseClick();
                 })
+                if (!Start.homeSelected && config.course && config.course.id == course.id) {
+                    this.selectHeaderButton(headerButtonComp);
+                }
             })
-            this.onHomeClick()
+            if (Start.homeSelected) {
+                this.onHomeClick()
+            } else {
+                this.onCourseClick()
+            }
             this.loading.active = false
         })
     }
 
+    private onCourseClick() {
+        Start.homeSelected = false
+        const courseContent = cc.instantiate(this.courseContentPrefab);
+        const courseContentComp = courseContent.getComponent(CourseContent);
+        courseContentComp.loading = this.loading;
+        courseContentComp.content = this.content;
+        this.content.addChild(courseContent);
+    }
+
     onHomeClick() {
+        Start.homeSelected = true
+        const config = Config.i
+        config.course = null
+        config.chapter = null
+        config.lesson = null
         this.selectHeaderButton(this.homeButton.getComponent(HeaderButton))
         this.content.removeAllChildren()
         const startContent = cc.instantiate(this.startContentPrefab)

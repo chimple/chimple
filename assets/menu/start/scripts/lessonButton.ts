@@ -30,29 +30,32 @@ export default class LessonButton extends cc.Component {
     @property(cc.Sprite)
     downloadSprite: cc.Sprite
 
+    course: Course
+    chapter: Chapter
     lesson: Lesson
     loading: cc.Node
 
     onLoad() {
         const config = Config.i
-        if (this.lesson != null && config.course.id != null && config.chapter != null) {
+        if (this.lesson != null && this.course != null && this.lesson != null) {
             this.label.string = this.lesson.name
-            Util.load(config.course.id + '/course/res/icons/' + this.lesson.image, (err, texture) => {
+            Util.load(this.course.id + '/course/res/icons/' + this.lesson.image, (err, texture) => {
                 if (!err) {
                     this.sprite.spriteFrame = new cc.SpriteFrame(texture);
                 }
             })
             this.button.node.on('click', () => {
-                config.lessonId = this.lesson.id
+                config.course = this.course
+                config.chapter = this.chapter
                 config.lesson = this.lesson;
                 this.loading.active = true
                 LessonController.preloadLesson(() => {
                     config.pushScene('common/scenes/lessonController')
                 })
             })
-            if (this.chapterLabel != null) this.chapterLabel.string = config.chapter.name
+            if (this.chapterLabel != null) this.chapterLabel.string = this.chapter.name
             if (this.courseSprite != null) {
-                Util.load(config.course.id + '/course/res/icons/' + config.course.id + '_bg.png', (err, texture) => {
+                Util.load(this.course.id + '/course/res/icons/' + this.course.id + '_bg.png', (err, texture) => {
                     if (!err) {
                         this.courseSprite.spriteFrame = new cc.SpriteFrame(texture);
                     }

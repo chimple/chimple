@@ -1,10 +1,8 @@
-import { User } from "../../../common/scripts/lib/profile";
-
 import Config from "../../../common/scripts/lib/config";
-
-import { Course, Lesson, Chapter } from "../../../common/scripts/lib/convert";
-
+import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
+import { User } from "../../../common/scripts/lib/profile";
 import LessonButton from "./lessonButton";
+import { Util } from "../../../common/scripts/util";
 
 const {ccclass, property} = cc._decorator;
 
@@ -19,28 +17,26 @@ export default class StartContent extends cc.Component {
     loading: cc.Node
 
     onLoad () {
-        const courseProgress = User.getCurrentUser().courseProgressMap
+        const buttons: Array<cc.Node> = []
         Config.i.curriculum.forEach((course: Course, name: string) => {
-            const currentLessonId = courseProgress.get(name).currentLessonId
-            let currentLesson: Lesson = null
-            let currentChapter: Chapter = null
-            course.chapters.some((chapter) => {
-                currentLesson = chapter.lessons.find(lesson => lesson.id == currentLessonId)
-                if (currentLesson != null) {
-                    currentChapter = chapter
-                    return true
-                }
+            course.chapters.forEach((chapter: Chapter) => {
+                const lesson = chapter.lessons[Math.floor(Math.random() * chapter.lessons.length)]
+                buttons.push(this.createButton(lesson, chapter, course));
             })
-            if (currentLesson == null) {
-                currentChapter = course.chapters[0]
-                currentLesson = currentChapter.lessons[0]
-            }
-
-            const lessonButton = cc.instantiate(this.startLessonButtonPrefab)
-            const lessonButtonComp = lessonButton.getComponent(LessonButton)
-            lessonButtonComp.lesson = currentLesson
-            lessonButtonComp.loading = this.loading
-            this.layout.addChild(lessonButton)
         })
+        Util.shuffle(buttons)
+        buttons.forEach((node: cc.Node) => {
+            this.layout.addChild(node)
+        })
+    }
+
+    private createButton(lesson: Lesson, chapter: Chapter, course: Course) : cc.Node {
+        const lessonButton = cc.instantiate(this.startLessonButtonPrefab);
+        const lessonButtonComp = lessonButton.getComponent(LessonButton);
+        lessonButtonComp.lesson = lesson;
+        lessonButtonComp.chapter = chapter;
+        lessonButtonComp.course = course;
+        lessonButtonComp.loading = this.loading;
+        return lessonButton
     }
 }

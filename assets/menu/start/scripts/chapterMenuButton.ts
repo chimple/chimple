@@ -37,16 +37,16 @@ export default class ChapterMenuButton extends cc.Component {
                 }
             })
             this.button.node.on('click', () => {
-                const chapterContents = cc.instantiate(this.chapterContentPrefab)
-                chapterContents.width = cc.winSize.width
-                const chapterContentsComp = chapterContents.getComponent(NewChapterContent)
-                // chapterContentsComp.label.string = this.chapter.name
-                chapterContentsComp.loading = this.loading
-                chapterContentsComp.content = this.content
+                // const chapterContents = cc.instantiate(this.chapterContentPrefab)
+                // chapterContents.width = cc.winSize.width
+                // const chapterContentsComp = chapterContents.getComponent(NewChapterContent)
+                // // chapterContentsComp.label.string = this.chapter.name
+                // chapterContentsComp.loading = this.loading
+                // chapterContentsComp.content = this.content
                 config.chapter = this.chapter
-                config.chapterId = this.chapter.id
-                this.content.removeAllChildren()
-                this.content.addChild(chapterContents)
+                // this.content.removeAllChildren()
+                // this.content.addChild(chapterContents)
+                config.pushScene('menu/start/scenes/chapterLessons', 'menu')
             })
         }
     }

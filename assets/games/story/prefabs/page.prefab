@@ -185,7 +185,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "7672626f-2967-4090-bb63-705f8a71aebb"
     },
     "fileId": "a0E9FAzkRAx6A9XpW3iTl2",
     "sync": false
@@ -292,7 +292,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "7672626f-2967-4090-bb63-705f8a71aebb"
     },
     "fileId": "e5pn3/yJVOnZ3RuCt1jZS+",
     "sync": false
@@ -312,9 +312,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "09828d5c-6403-4abe-98be-23d7527276ed"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -330,51 +328,39 @@
     "_id": ""
   },
   {
-    "__type__": "2f88buLnpxFyZ7jLwYaHUoI",
+    "__type__": "7d2edAAWHhOoawyDyowtMdn",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "titleSection": {
-      "__uuid__": "0e24da3f-55b3-456c-aff0-ba96ddd10186"
+    "landscape": {
+      "__uuid__": "be48353a-3eea-47a8-9194-92ceae6ce30f"
     },
-    "middleSection": {
-      "__uuid__": "f34dba36-f09d-4def-a7cc-59ca68138e6e"
+    "portrait": {
+      "__uuid__": "0bf9afc9-6d4d-41e6-b626-8381b8b15d8b"
     },
-    "imageSection": {
-      "__uuid__": "3f1845f1-2ff9-43ea-a782-ef0f87877dc6"
+    "word": {
+      "__uuid__": "1f9e63f8-6a7f-4eaa-bbb3-7c9826357692"
     },
-    "bottomSection": {
-      "__uuid__": "a20ea6ca-2b7c-4855-82fa-019998411914"
+    "lleft": {
+      "__uuid__": "c4e17ea6-6f1c-4a24-bbc1-9fc3702baf22"
     },
-    "bottomSectionLayout": {
-      "__uuid__": "5f4db593-f34b-41d0-ba19-d9c5f7fe7356"
+    "lright": {
+      "__uuid__": "887c03c8-6de2-48b1-b0e1-beb36d27d1c2"
     },
-    "quizTracing": {
-      "__uuid__": "2a1d4018-9033-4e83-aff4-25e5787188e7"
+    "pleft": {
+      "__uuid__": "9be2cfb8-da5e-491f-8377-d44bc284a6c6"
     },
-    "fillBlankDrag": {
-      "__uuid__": "4c96b55f-3723-4ed5-8d87-9aac5c18f996"
+    "pright": {
+      "__uuid__": "34bd6d16-c962-4429-9b0d-6a9735664b76"
     },
-    "fillBlankDrop": {
-      "__uuid__": "bc37180e-a28e-466c-830d-4fe7f4be31e1"
+    "nextButton": {
+      "__uuid__": "35c0c62d-3ea0-4631-8683-a10979e55d22"
     },
-    "textsLayout": {
-      "__uuid__": "f9851673-2ffc-4e38-9786-847a5f5e8eb5"
-    },
-    "quizLabel": {
-      "__uuid__": "259c3216-5d5c-4393-9cb6-704739ae49b5"
-    },
-    "textChoiceButtonPrefab": {
-      "__uuid__": "35009b19-44d4-4b0f-a423-20b2b7ba114f"
-    },
-    "imageChoiceButtonPrefab": {
-      "__uuid__": "91d016e6-aebe-4b74-8781-22d1fb650303"
-    },
-    "choicePrefab": {
-      "__uuid__": "e5c8802d-7ae7-449f-a0d1-b4dfaef1b55e"
+    "prevButton": {
+      "__uuid__": "66608fb7-e2ed-48c3-95ee-39e09c150ab8"
     },
     "_id": ""
   },
@@ -384,7 +370,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "7672626f-2967-4090-bb63-705f8a71aebb"
     },
     "fileId": "1d3xSAT4RGDbP0jP0Q699b",
     "sync": false

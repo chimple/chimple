@@ -1,3 +1,5 @@
+import { SingleLetterTracing } from "../Tracing/scripts/singlelettertracing";
+
 export const GROUND_GROUP = "ground";
 export const WALL_GROUP = "wall";
 export const PLAYER_GROUP = "player";
@@ -61,4 +63,24 @@ export class Helper {
         });
     }
 
+    public static buildLetters(node: cc.Node, words: cc.Node, characters: string[], singleLetterPrefab: cc.Prefab,
+                               width: number, height: number) {
+        const wordLayout = words.getComponent(cc.Layout);
+        // wordLayout.padding = 50;
+        wordLayout.spacingX = 50;
+        words.scale = 0.75;
+        characters.forEach(
+            (c, i) => {
+                const singleLetter: cc.Node = cc.instantiate(singleLetterPrefab);
+                singleLetter.width = width;
+                singleLetter.height = height;
+                singleLetter.name = 'L' + i;
+                const singleLetterComponent = singleLetter.getComponent(SingleLetterTracing);
+                singleLetterComponent.order = i;
+                singleLetterComponent.letter = c;
+                singleLetterComponent.wordTracingContainer = node;
+                wordLayout.node.addChild(singleLetter);
+            }
+        );
+    }
 }
