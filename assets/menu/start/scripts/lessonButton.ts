@@ -45,7 +45,8 @@ export default class LessonButton extends cc.Component {
                 }
             })
             this.button.node.on('click', () => {
-                config.lessonId = this.lesson.id
+                config.course = this.course
+                config.chapter = this.chapter
                 config.lesson = this.lesson;
                 this.loading.active = true
                 LessonController.preloadLesson(() => {

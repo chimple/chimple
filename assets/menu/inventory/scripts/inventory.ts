@@ -188,6 +188,7 @@ export default class Inventory extends cc.Component {
 
     onLogoutButtonClick(event) {
         User.setCurrentUser(null);
+        Config.i.popAllScenes();
         cc.director.loadScene("welcomePage")
     }
 

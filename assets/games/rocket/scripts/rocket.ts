@@ -7,8 +7,8 @@ import { Util } from "../../../common/scripts/util";
 import WordSoundButton from "./word-sound-button";
 import Drag from "../../../common/scripts/drag";
 import StickerChoice from "./sticker-choice";
-import { AlphabetUtil } from "../../spelldoor/scripts/Utility";
 import catchError from "../../../common/scripts/lib/error-handler";
+import { AlphabetUtil } from "../../../common/scripts/Utility";
 
 const MAX_CHOICE_IN_ROW = 13;
 export const STICK_CHOICE_CORRECT = 'stickChoiceCorrect';
