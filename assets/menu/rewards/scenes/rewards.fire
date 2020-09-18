@@ -174,7 +174,7 @@
       "array": [
         0,
         0,
-        340.3479836872844,
+        537.2605098727712,
         0,
         0,
         0,
@@ -1524,8 +1524,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 86,
-      "height": 93
+      "width": 71,
+      "height": 67
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1537,7 +1537,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        228.5,
+        241.5,
         0,
         0,
         0,
@@ -1593,8 +1593,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 86,
-      "height": 93
+      "width": 71,
+      "height": 67
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1925,7 +1925,7 @@
       "ctor": "Float64Array",
       "array": [
         0.317,
-        80.5,
+        106.5,
         0,
         0,
         0,
@@ -2313,7 +2313,7 @@
       "ctor": "Float64Array",
       "array": [
         2.511,
-        -61.5,
+        -35.5,
         0,
         0,
         0,
@@ -3634,8 +3634,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        52,
-        85,
+        -7.881,
+        -77.712,
         0,
         0,
         0,
@@ -3745,8 +3745,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -7,
-        -76,
+        52.468,
+        83.821,
         0,
         0,
         0,
@@ -6243,8 +6243,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 107,
-      "height": 106
+      "width": 70,
+      "height": 70
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -6423,9 +6423,7 @@
     "root": {
       "__id__": 147
     },
-    "asset": {
-      "__uuid__": "88d6621c-a971-4532-a49e-0b66aa864f9b"
-    },
+    "asset": null,
     "fileId": "ffTaK4aJFPfa0dchGVVC8H",
     "sync": false
   },
@@ -6522,9 +6520,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "2205cb11-31c7-404c-a46d-72628d718d1c"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
