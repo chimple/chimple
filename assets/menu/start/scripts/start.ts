@@ -106,7 +106,7 @@ export default class Start extends cc.Component {
     }
 
     onProfileClick() {
-        Config.i.pushScene('menu/inventory/scenes/inventory', 'menu')
+        Config.i.pushScene('menu/rewards/scenes/rewards', 'menu')
     }
 
     selectHeaderButton(newButton: HeaderButton) {
