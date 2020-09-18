@@ -70,10 +70,10 @@ export default class Total extends cc.Component {
         this._layout = cc.instantiate(this.layoutPrefab);
 
         this._totalCount = !!this._currentConfig.stoneCount &&
-        this._currentConfig.stoneCount !== this._currentConfig.numberpads[0] ?
+            this._currentConfig.stoneCount !== this._currentConfig.numberpads[0] ?
             this._currentConfig.stoneCount
             : !!this._currentConfig.tallyCount &&
-            this._currentConfig.tallyCount !== this._currentConfig.numberpads[0] ? this._currentConfig.tallyCount : null;
+                this._currentConfig.tallyCount !== this._currentConfig.numberpads[0] ? this._currentConfig.tallyCount : null;
 
         this.setUpLayout();
         this.node.addChild(this._layout);
@@ -112,25 +112,23 @@ export default class Total extends cc.Component {
     @catchError()
     showHelp(helpIterator) {
         let nextItem = helpIterator.next();
-        if(!nextItem.done) {
+        if (!nextItem.done) {
             Util.showHelp(nextItem.value, nextItem.value, () => {
                 this.showHelp(helpIterator);
             });
         }
-        
+
     }
 
     @catchError()
     correctAnimations() {
-        setTimeout(() => {
-            this.node.emit('correct');    
-        }, 2000);
-              try {
+        try {
             Util.speakEquation([String(this._totalCount)], (index) => {
+                this.node.emit('correct');    
                 this.node.emit('nextProblem');
             });
         } catch (e) {
-            this.node.emit('nextProblem');
+                this.node.emit('nextProblem');
         }
     }
 
@@ -161,7 +159,7 @@ export default class Total extends cc.Component {
             this._countingQuestion.children.forEach(
                 (n, i) => {
                     new cc.Tween().target(n)
-                        .to(0.5 + 0.2 * i, {opacity: 255}, null)
+                        .to(0.5 + 0.2 * i, { opacity: 255 }, null)
                         .call(() => {
                             const itemComponent = n.getComponent(CountingItem);
                             itemComponent.reCount();
@@ -232,7 +230,7 @@ export default class Total extends cc.Component {
             (n, i) => {
                 new cc.Tween().target(n)
                     .to(0.5 + 0.2 * i / 4,
-                        {position: new cc.Vec2(this._randomPositions[i].x, this._randomPositions[i].y)}, null)
+                        { position: new cc.Vec2(this._randomPositions[i].x, this._randomPositions[i].y) }, null)
                     .call(() => {
                         n.getComponent(CountingItem).playLoadingSound();
                     })
