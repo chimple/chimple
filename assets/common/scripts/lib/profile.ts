@@ -79,8 +79,6 @@ export class User {
     private _gender: Gender;
     private _imgPath: string;
     private _avatarImage: string;
-    private _sfxOff: boolean;
-    private _musicOff: boolean;
     private _inventory: object;
     private _currentBg: string;
     private _currentCharacter: string;
@@ -98,8 +96,6 @@ export class User {
         imgPath: string,
         avatarImage: string,
         isTeacher: boolean,
-        sfxOff: boolean,
-        musicOff: boolean,
         inventory: object,
         currentBg: string,
         currentCharacter: string,
@@ -341,8 +337,6 @@ export class User {
             imgPath,
             avatarImage,
             isTeacher,
-            true,
-            true,
             {},
             "",
             "bear",
@@ -408,8 +402,6 @@ export class User {
             data.imgPath,
             data.avatarImage,
             data.isTeacher,
-            data.sfxOff,
-            data.musicOff,
             data.inventory,
             data.currentBg,
             data.currentCharacter,
@@ -431,18 +423,16 @@ export class User {
             lessonProgressObj[id] = lp;
         });
         return JSON.stringify({
-            'id'               : user.id,
-            'name'             : user.name,
-            'age'              : user.age,
-            'gender'           : user.gender,
-            'imgPath'          : user.imgPath,
-            'avatarImage'      : user.avatarImage,
-            'isTeacher'        : user.isTeacher,
-            'sfxOff'           : user._sfxOff,
-            'musicOff'         : user._musicOff,
-            'inventory'        : user.inventory,
-            'currentBg'        : user.currentBg,
-            'currentCharacter' : user.currentCharacter,
+            'id': user.id,
+            'name': user.name,
+            'age': user.age,
+            'gender': user.gender,
+            'imgPath': user.imgPath,
+            'avatarImage': user.avatarImage,
+            'isTeacher': user.isTeacher,
+            'inventory': user.inventory,
+            'currentBg': user.currentBg,
+            'currentCharacter': user.currentCharacter,
             'courseProgressMap': courseProgressObj,
             'lessonProgressMap': lessonProgressObj,
             'unlockedInventory': user.unlockedInventory,
@@ -496,8 +486,8 @@ export default class Profile {
     static initialize() {
         if (Object.keys(this._settings).length == 0) {
             this.setValue(LANGUAGE, availLanguages[0]);
-            this.setValue(SFX_OFF, "false");
-            this.setValue(MUSIC_OFF, "false");
+            this.setItem(SFX_OFF, 1);
+            this.setItem(MUSIC_OFF, 1);
         }
     }
 
