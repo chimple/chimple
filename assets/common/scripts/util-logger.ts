@@ -218,6 +218,24 @@ export default class UtilLogger {
         }
     }
 
+    public static initYoutubePlugin() {
+        try {
+            if ("undefined" == typeof sdkbox) {
+                cc.log("sdkbox is undefined");
+                return;
+            }
+
+            // @ts-ignore
+            if ('undefined' == typeof sdkbox.PluginYoutube) {
+                cc.log('sdkbox.PluginYoutube is undefined');
+                return;
+            }
+
+            // @ts-ignore
+            sdkbox.PluginYoutube.init();
+        } catch (e) {
+        }
+    }
     public static downloadFile(url: string, downloadDirectory: string) {
         try {
             if (
