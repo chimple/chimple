@@ -272,8 +272,8 @@ export class User {
         this._storeUser();
     }
 
-    unlockRewardsForItem(item: string) {
-        this._unlockedRewards[item] = true;
+    unlockRewardsForItem(item: string, value: number) {
+        this._unlockedRewards[item] = value;
         this._storeUser();
     }
 
@@ -298,14 +298,14 @@ export class User {
         // log to ff userProfile
         UtilLogger.logChimpleEvent("userProfile", {
             userAge: user.age,
-            gender : user.gender,
-            userId : user.id
+            gender: user.gender,
+            userId: user.id
         });
 
         if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
             let profileInfo = {
-                profile  : User.toJson(user),
-                kind     : 'Profile',
+                profile: User.toJson(user),
+                kind: 'Profile',
                 studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)
             };
 
@@ -590,8 +590,8 @@ export default class Profile {
 
     static async teacherPostLoginActivity(objectId: string) {
         const currentUser: User = User.createUserOrFindExistingUser({
-                id: objectId
-            }
+            id: objectId
+        }
         );
         User.setCurrentUser(currentUser);
         let courseProgress = {};
