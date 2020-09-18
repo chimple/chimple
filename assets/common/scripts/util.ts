@@ -449,6 +449,39 @@ export class Util {
     );
   }
 
+  public static speakPhonicsOrGameAudio(audio: string, callback: Function) {
+    audio = audio.replace(".m4a", "");
+    audio = !audio.endsWith(".mp3") ? audio + ".mp3" : audio;
+    const phonicsLoc = Config.dir + PHONIC_VOICE + audio;
+    Util.load(
+      phonicsLoc,
+      (err, clip) => {
+        if (!err && clip != null) {
+          const audioId = Util.play(clip, false);
+          if (audioId !== -1) {
+            cc.audioEngine.setFinishCallback(audioId, callback);
+          } else {
+            this.playGameSound(audio,callback)
+          }
+          cc.audioEngine.setFinishCallback(audioId, callback);
+        } else if (err != null) {
+          this.playGameSound(audio,callback)
+        }
+      },
+      true
+    );
+  }
+  public static playGameSound(nameOfSound,callback:Function) {
+    Util.loadGameSound(nameOfSound, function (clip) {
+      if (clip != null) {
+        const audioId = Util.play(clip, false);
+        if (audioId != -1) {
+          cc.audioEngine.setFinishCallback(audioId, () => {callback()});
+        }
+      }
+    });
+  }
+
   public static speakLettersOrWords(audio: string, callback: Function) {
     audio = audio.replace(".m4a", "");
     audio = !audio.endsWith(".mp3") ? audio + ".mp3" : audio;
