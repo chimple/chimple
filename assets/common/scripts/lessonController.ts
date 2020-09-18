@@ -6,7 +6,7 @@ import { QUIZ_ANSWERED } from "./quiz-monitor";
 import { Util } from "./util";
 import { Queue } from "../../queue";
 import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID } from "./lib/constants";
-import { User } from "./lib/profile";
+import Profile, { User } from "./lib/profile";
 import { Lesson } from "./lib/convert";
 import UtilLogger from "./util-logger";
 import Loading from "./loading";
@@ -57,6 +57,8 @@ export default class LessonController extends cc.Component {
     total: number = 0;
     isQuizAnsweredCorrectly: boolean = false;
     lessonStartTime: number = 0;
+    lessonSessionId: string = null;
+    problemSessionId: string = null;
     problemStartTime: number = 0;
     problemTime: number = 0;
     isGameCompleted: boolean = false;
@@ -116,12 +118,15 @@ export default class LessonController extends cc.Component {
     }
 
     private lessonStart() {
+        this.lessonStartTime = new Date().getTime();
+        this.lessonSessionId = User.createUUID();
         this.startGame(LessonController.gamePrefab);
         this.loading.active = false;
     }
 
     private problemStart(replaceScene: boolean) {
         this.problemStartTime = new Date().getTime();
+        this.problemSessionId = User.createUUID();
         if (replaceScene) {
             LessonController.preloadGame((prefab: cc.Prefab) => {
                 this.startGame(prefab);
@@ -189,18 +194,20 @@ export default class LessonController extends cc.Component {
 
         const eventName: string = this.isQuiz ? "quizEnd" : "gameEnd";
         UtilLogger.logChimpleEvent(eventName, {
-            chapterName   : config.chapter.name,
-            chapterId     : config.chapter.id,
-            lessonName    : config.lesson.name,
-            lessonId      : config.lesson.id,
-            courseName    : config.course.id,
-            problemNo     : config.problem,
-            timeSpent     : timeSpent,
-            wrongMoves    : this.wrongMoves,
-            correctMoves  : this.rightMoves,
-            skills        : config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
-            game_completed: this.isGameCompleted,
-            quiz_completed: this.isQuizCompleted
+            lessonSessionId : this.lessonSessionId,
+            problemSessionId: this.problemSessionId,
+            chapterName     : config.chapter.name,
+            chapterId       : config.chapter.id,
+            lessonName      : config.lesson.name,
+            lessonId        : config.lesson.id,
+            courseName      : config.course.id,
+            problemNo       : config.problem,
+            timeSpent       : timeSpent,
+            wrongMoves      : this.wrongMoves,
+            correctMoves    : this.rightMoves,
+            skills          : config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
+            game_completed  : this.isGameCompleted,
+            quiz_completed  : this.isQuizCompleted
         });
 
         const starType = this.isQuiz ? (this.isQuizAnsweredCorrectly ? StarType.Correct : StarType.Wrong) : StarType.Default;
@@ -253,16 +260,17 @@ export default class LessonController extends cc.Component {
         }
 
         UtilLogger.logChimpleEvent("lessonEnd", {
-            chapterName   : config.chapter.name,
-            chapterId     : config.chapter.id,
-            lessonName    : config.lesson.name,
-            lessonId      : config.lesson.id,
-            courseName    : config.course.id,
-            score         : config.game.toLowerCase().includes("quiz") ? this.quizScore : this.total,
-            timeSpent     : timeSpent,
-            skills        : config.lesson.skills ? config.lesson.skills.join(",") : "",
-            game_completed: config.game.toLowerCase().includes("quiz") ? false : true,
-            quiz_completed: config.game.toLowerCase().includes("quiz") ? true : false
+            lessonSessionId: this.lessonSessionId,
+            chapterName    : config.chapter.name,
+            chapterId      : config.chapter.id,
+            lessonName     : config.lesson.name,
+            lessonId       : config.lesson.id,
+            courseName     : config.course.id,
+            score          : config.game.toLowerCase().includes("quiz") ? this.quizScore : this.total,
+            timeSpent      : timeSpent,
+            skills         : config.lesson.skills ? config.lesson.skills.join(",") : "",
+            game_completed : config.game.toLowerCase().includes("quiz") ? false : true,
+            quiz_completed : config.game.toLowerCase().includes("quiz") ? true : false
         });
 
         const block = cc.instantiate(this.blockPrefab);
@@ -329,18 +337,20 @@ export default class LessonController extends cc.Component {
             const eventName: string = this.isQuiz ? "quizSkipped" : "gameSkipped";
             const config = Config.i;
             UtilLogger.logChimpleEvent(eventName, {
-                chapterName   : config.chapter.name,
-                chapterId     : config.chapter.id,
-                lessonName    : config.lesson.name,
-                lessonId      : config.lesson.id,
-                courseName    : config.course.id,
-                problemNo     : config.problem,
-                timeSpent     : timeSpent,
-                wrongMoves    : this.wrongMoves,
-                correctMoves  : this.rightMoves,
-                skills        : "",
-                game_completed: this.isGameCompleted,
-                quiz_completed: this.isQuizCompleted
+                lessonSessionId : this.lessonSessionId,
+                problemSessionId: this.problemSessionId,
+                chapterName     : config.chapter.name,
+                chapterId       : config.chapter.id,
+                lessonName      : config.lesson.name,
+                lessonId        : config.lesson.id,
+                courseName      : config.course.id,
+                problemNo       : config.problem,
+                timeSpent       : timeSpent,
+                wrongMoves      : this.wrongMoves,
+                correctMoves    : this.rightMoves,
+                skills          : "",
+                game_completed  : this.isGameCompleted,
+                quiz_completed  : this.isQuizCompleted
             });
         }
 
