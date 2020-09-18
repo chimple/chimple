@@ -30,6 +30,14 @@ export class Youtube extends cc.Component {
         sdkbox.PluginYoutube.setListener({
             onPlayEnds: (ok) => {
                 cc.log("onPlayEnds:" + ok);
+                this.scheduleOnce(
+                    () => {
+                        sdkbox.PluginYoutube.close();
+                        // Config.getInstance().nextProblem();
+                        this.node.emit('nextProblem');
+                    }
+                    , 0.25)
+
             }
         });
         // @ts-ignore
