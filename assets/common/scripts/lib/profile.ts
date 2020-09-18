@@ -79,8 +79,6 @@ export class User {
     private _gender: Gender;
     private _imgPath: string;
     private _avatarImage: string;
-    private _sfxOff: boolean;
-    private _musicOff: boolean;
     private _inventory: object;
     private _currentBg: string;
     private _currentCharacter: string;
@@ -98,8 +96,6 @@ export class User {
         imgPath: string,
         avatarImage: string,
         isTeacher: boolean,
-        sfxOff: boolean,
-        musicOff: boolean,
         inventory: object,
         currentBg: string,
         currentCharacter: string,
@@ -298,14 +294,14 @@ export class User {
         // log to ff userProfile
         UtilLogger.logChimpleEvent("userProfile", {
             userAge: user.age,
-            gender : user.gender,
-            userId : user.id
+            gender: user.gender,
+            userId: user.id
         });
 
         if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
             let profileInfo = {
-                profile  : User.toJson(user),
-                kind     : 'Profile',
+                profile: User.toJson(user),
+                kind: 'Profile',
                 studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)
             };
 
@@ -341,8 +337,6 @@ export class User {
             imgPath,
             avatarImage,
             isTeacher,
-            true,
-            true,
             {},
             "",
             "bear",
@@ -408,8 +402,6 @@ export class User {
             data.imgPath,
             data.avatarImage,
             data.isTeacher,
-            data.sfxOff,
-            data.musicOff,
             data.inventory,
             data.currentBg,
             data.currentCharacter,
@@ -431,18 +423,16 @@ export class User {
             lessonProgressObj[id] = lp;
         });
         return JSON.stringify({
-            'id'               : user.id,
-            'name'             : user.name,
-            'age'              : user.age,
-            'gender'           : user.gender,
-            'imgPath'          : user.imgPath,
-            'avatarImage'      : user.avatarImage,
-            'isTeacher'        : user.isTeacher,
-            'sfxOff'           : user._sfxOff,
-            'musicOff'         : user._musicOff,
-            'inventory'        : user.inventory,
-            'currentBg'        : user.currentBg,
-            'currentCharacter' : user.currentCharacter,
+            'id': user.id,
+            'name': user.name,
+            'age': user.age,
+            'gender': user.gender,
+            'imgPath': user.imgPath,
+            'avatarImage': user.avatarImage,
+            'isTeacher': user.isTeacher,
+            'inventory': user.inventory,
+            'currentBg': user.currentBg,
+            'currentCharacter': user.currentCharacter,
             'courseProgressMap': courseProgressObj,
             'lessonProgressMap': lessonProgressObj,
             'unlockedInventory': user.unlockedInventory,
@@ -496,8 +486,8 @@ export default class Profile {
     static initialize() {
         if (Object.keys(this._settings).length == 0) {
             this.setValue(LANGUAGE, availLanguages[0]);
-            this.setValue(SFX_OFF, "false");
-            this.setValue(MUSIC_OFF, "false");
+            this.setItem(SFX_OFF, 1);
+            this.setItem(MUSIC_OFF, 1);
         }
     }
 
@@ -547,22 +537,22 @@ export default class Profile {
     }
 
     static get lastWorld(): number {
-        return this.getItem(Config.getInstance().courseId + WORLD);
+        return this.getItem(Config.getInstance().course.id + WORLD);
     }
 
     static set lastWorld(newVal: number) {
-        this.setItem(Config.getInstance().courseId + WORLD, newVal);
-        this.setItem(Config.getInstance().courseId + LEVEL, 0);
+        this.setItem(Config.getInstance().course.id + WORLD, newVal);
+        this.setItem(Config.getInstance().course.id + LEVEL, 0);
         this.toJson();
     }
 
     static get lastLevel(): number {
-        return this.getItem(Config.getInstance().courseId + LEVEL);
+        return this.getItem(Config.getInstance().course.id + LEVEL);
     }
 
     static set lastLevel(newVal) {
         if (this.lastLevel < newVal) {
-            this.setItem(Config.getInstance().courseId + LEVEL, newVal);
+            this.setItem(Config.getInstance().course.id + LEVEL, newVal);
             this.toJson();
         }
     }
@@ -570,7 +560,7 @@ export default class Profile {
     static isGameCompleted(world: number, level: number, game: string): boolean {
         return (
             this.getItem(
-                Config.getInstance().courseId + "_" + world + "_" + level + "_" + game
+                Config.getInstance().course.id + "_" + world + "_" + level + "_" + game
             ) == 1
         );
     }
@@ -582,7 +572,7 @@ export default class Profile {
         completed: boolean = true
     ) {
         this.setItem(
-            Config.getInstance().courseId + "_" + world + "_" + level + "_" + game,
+            Config.getInstance().course.id + "_" + world + "_" + level + "_" + game,
             completed ? 1 : 0
         );
         this.toJson();
@@ -590,8 +580,8 @@ export default class Profile {
 
     static async teacherPostLoginActivity(objectId: string) {
         const currentUser: User = User.createUserOrFindExistingUser({
-                id: objectId
-            }
+            id: objectId
+        }
         );
         User.setCurrentUser(currentUser);
         let courseProgress = {};
