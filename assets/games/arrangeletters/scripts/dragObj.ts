@@ -29,6 +29,7 @@ export default class DragObj extends Drag {
   otherName: string;
   static tempArr: Map<string, number>;
   allSwapCorrect: Array<boolean> = [];
+  touchSoundIsPlaying: boolean = false
 
   onLoad() {
     cc.director.getCollisionManager().enabled = true;
@@ -39,7 +40,10 @@ export default class DragObj extends Drag {
   }
 
   onTouchStart(touch: cc.Touch) {
-    // this.playAudio(touch.currentTarget.name);
+    if (!this.touchSoundIsPlaying) {
+      this.touchSoundIsPlaying = true
+      Util.speakLettersOrWords(touch.currentTarget.name, () => { this.touchSoundIsPlaying = false });
+    }
     this.goToOriginalPosition = true;
     this.isCollisionEnable = true;
     super.onTouchStart(touch);
@@ -86,18 +90,18 @@ export default class DragObj extends Drag {
     }
   }
 
-  onCollisionExit(other: cc.Collider, self: cc.Collider) {}
+  onCollisionExit(other: cc.Collider, self: cc.Collider) { }
 
   checkIfMatch() {
-    this.allSwapCorrect.forEach((element,index)=>{
-          this.allSwapCorrect[index] = false
+    this.allSwapCorrect.forEach((element, index) => {
+      this.allSwapCorrect[index] = false
     })
     for (let i = 0; i < ArrangeLetters.wordLength; i++) {
       if (
         ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i]) <
         ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i + 1])
       ) {
-        cc.log(ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i])+ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i+1]))
+        cc.log(ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i]) + ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i + 1]))
         this.allSwapCorrect[i] = true;
       }
     }
@@ -109,16 +113,36 @@ export default class DragObj extends Drag {
     }
   }
 
-  playAudio(file: string) {
-    Util.loadGameSound(file, function (clip) {
-      if (clip != null) {
-        cc.audioEngine.play(clip, false, 1);
+
+  effectsAfterMatch() {
+    // this.node.parent.child
+    this.playSoundAndHighlight(ArrangeLetters.letterArray, 0,
+      () => { })
+  }
+
+  playSoundAndHighlight(
+    audios: Array<string>,
+    index: number,
+    callbackOnEnd: (index: number) => void
+  ) {
+    Util.speakLettersOrWords(audios[index], () => {
+      callbackOnEnd(index);
+      this.node.parent.getChildByName(audios[index]).getChildByName('slot_area_selected').opacity = 255;
+      if (++index < audios.length) {
+        setTimeout(() => {
+          this.playSoundAndHighlight(audios, index, callbackOnEnd);
+          this.node.parent.getChildByName(audios[index]).getChildByName('slot_area_selected').opacity = 255;
+        }, 600);
+      } else {
+        setTimeout(() => {
+        let wordAudio = this.node.parent.getComponent(ArrangeLetters).wordAudioFileName
+        Util.speakPhonicsOrGameAudio(wordAudio, () => {
+        this.node.parent.emit("correct");
+        this.node.parent.emit('nextProblem');
+        })}, 600);
       }
     });
   }
-  effectsAfterMatch() {
-    cc.log("i executed")
-    this.node.parent.emit("correct");
-    this.node.parent.emit('nextProblem');
-  }
+
+
 }
