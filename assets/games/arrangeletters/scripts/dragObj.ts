@@ -29,7 +29,7 @@ export default class DragObj extends Drag {
   otherName: string;
   static tempArr: Map<string, number>;
   allSwapCorrect: Array<boolean> = [];
-  touchSoundIsPlaying: boolean = false
+  touchSoundIsPlaying: boolean = false;
 
   onLoad() {
     cc.director.getCollisionManager().enabled = true;
@@ -37,22 +37,28 @@ export default class DragObj extends Drag {
     for (let i = 0; i < ArrangeLetters.wordLength - 1; i++) {
       this.allSwapCorrect[i] = false;
     }
+    // if(this.node.name ='done'){
+    //   super.onDisable()
+    // }
   }
 
   onTouchStart(touch: cc.Touch) {
+      super.onTouchStart(touch);
     if (!this.touchSoundIsPlaying) {
-      this.touchSoundIsPlaying = true
-      Util.speakLettersOrWords(touch.currentTarget.name, () => { this.touchSoundIsPlaying = false });
+      this.touchSoundIsPlaying = true;
+      Util.speakPhonicsOrLetter(touch.currentTarget.name, () => {
+        this.touchSoundIsPlaying = false;
+      });
     }
     this.goToOriginalPosition = true;
     this.isCollisionEnable = true;
-    super.onTouchStart(touch);
   }
 
   onTouchMove(touch: cc.Touch) {
     super.onTouchMove(touch);
     this.node.setPosition(this.node.position.x, -cc.winSize.height / 4);
     touch.currentTarget.position.z = 1;
+    
   }
 
   onTouchEnd(touch: cc.Touch) {
@@ -90,59 +96,41 @@ export default class DragObj extends Drag {
     }
   }
 
-  onCollisionExit(other: cc.Collider, self: cc.Collider) { }
+  onCollisionExit(other: cc.Collider, self: cc.Collider) {}
 
   checkIfMatch() {
     this.allSwapCorrect.forEach((element, index) => {
-      this.allSwapCorrect[index] = false
-    })
+      this.allSwapCorrect[index] = false;
+    });
     for (let i = 0; i < ArrangeLetters.wordLength; i++) {
       if (
         ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i]) <
         ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i + 1])
       ) {
-        cc.log(ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i]) + ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i + 1]))
+        cc.log(
+          ArrangeLetters.correctPosition.get(ArrangeLetters.letterArray[i]) +
+            ArrangeLetters.correctPosition.get(
+              ArrangeLetters.letterArray[i + 1]
+            )
+        );
         this.allSwapCorrect[i] = true;
       }
     }
     this.done = this.allSwapCorrect.every((val, i, arr) => val === true);
-    cc.log(this.allSwapCorrect)
-    cc.log(ArrangeLetters.correctPosition)
+    cc.log(this.allSwapCorrect);
+    cc.log(ArrangeLetters.correctPosition);
     if (this.done) {
       this.effectsAfterMatch();
+      this.node.parent.emit('correct')
+      this.node.parent.emit('nextProblem')
     }
   }
 
-
   effectsAfterMatch() {
-    // this.node.parent.child
-    this.playSoundAndHighlight(ArrangeLetters.letterArray, 0,
-      () => { })
+      this.node.parent
+      .getChildByName("imageNode")
+      .getChildByName("sound")
+      .getComponent(cc.Button).interactable = false;
   }
-
-  playSoundAndHighlight(
-    audios: Array<string>,
-    index: number,
-    callbackOnEnd: (index: number) => void
-  ) {
-    Util.speakLettersOrWords(audios[index], () => {
-      callbackOnEnd(index);
-      this.node.parent.getChildByName(audios[index]).getChildByName('slot_area_selected').opacity = 255;
-      if (++index < audios.length) {
-        setTimeout(() => {
-          this.playSoundAndHighlight(audios, index, callbackOnEnd);
-          this.node.parent.getChildByName(audios[index]).getChildByName('slot_area_selected').opacity = 255;
-        }, 600);
-      } else {
-        setTimeout(() => {
-        let wordAudio = this.node.parent.getComponent(ArrangeLetters).wordAudioFileName
-        Util.speakPhonicsOrGameAudio(wordAudio, () => {
-        this.node.parent.emit("correct");
-        this.node.parent.emit('nextProblem');
-        })}, 600);
-      }
-    });
-  }
-
-
+  
 }

@@ -33,6 +33,7 @@ export default class ArrangeLetters extends cc.Component {
   wordAudioFileName:string;
   imageFileName:string;
   isSoundPlaying:boolean = false;
+
   
   onLoad() {
     [ 
