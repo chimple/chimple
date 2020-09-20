@@ -1,5 +1,5 @@
 import UtilLogger from "../util-logger";
-import Config from "./config";
+import Config, { ALL_LANGS } from "./config";
 import { Queue } from "../../../queue";
 import { CURRENT_STUDENT_ID } from "./constants";
 import { Course } from "./convert";
@@ -58,18 +58,6 @@ export class LessonProgressClass implements LessonProgress {
     }
 }
 
-export enum Language {
-    ENGLISH,
-    HINDI,
-}
-
-export const availLanguages = ["english", "hindi"];
-export const languageSelect = [
-    ["english", "A", "#FFBC00"],
-    ["हिन्दी", "अ", "#3E99E7"],
-    ["english", "C", "#3CBD93"],
-    ["hindi", "Z", "#F55B5D"]
-];
 
 export class User {
     private static _currentUser: User;
@@ -485,35 +473,26 @@ export default class Profile {
 
     static initialize() {
         if (Object.keys(this._settings).length == 0) {
-            this.setValue(LANGUAGE, availLanguages[0]);
+            this.setValue(LANGUAGE, ALL_LANGS[1]);
             this.setItem(SFX_OFF, 1);
             this.setItem(MUSIC_OFF, 1);
         }
     }
 
     static getValue(item: string) {
-        return this._settings[item];
+        return cc.sys.localStorage.getItem(item)
     }
 
     static setValue(item: string, value: string) {
-        this._settings[item] = value;
         cc.sys.localStorage.setItem(item, value);
     }
 
     static getItem(item: string): number {
-        return Number(this._profile[item] || 0);
-    }
-
-    static deleteItem(item: string): number {
-        return Number(this._profile[item] || 0);
+        return Number(Profile.getValue(item) || 0);
     }
 
     static setItem(item: string, val: number) {
-        this._profile[item] = val;
-        cc.sys.localStorage.setItem(
-            UtilLogger.currentProfile(),
-            JSON.stringify(this._profile)
-        );
+        Profile.setValue(item, val.toString())
     }
 
     static fromJsonUsingParse(parseStoredProfile: string) {

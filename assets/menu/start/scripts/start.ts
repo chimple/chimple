@@ -47,9 +47,10 @@ export default class Start extends cc.Component {
             this.header.insertChild(headerButton, ++index)
         })
         this.selectedHeaderButton = this.homeButton.getComponent(HeaderButton)
-        this.homeButton.getComponent(HeaderButton).button.node.on('click', () => {
+        this.selectedHeaderButton.button.node.on('click', () => {
             this.onHomeClick()
         })
+        this.selectedHeaderButton.label.string = Util.i18NText('Home')
         this.header.width = cc.winSize.width
         this.header.getComponent(cc.Layout).spacingX = Math.max(0, cc.winSize.width / (index + 2) - this.homeButton.width)
         index = 0
