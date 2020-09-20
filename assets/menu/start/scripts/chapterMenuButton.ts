@@ -8,6 +8,9 @@ import NewChapterContent from "./newChapterContent";
 
 const { ccclass, property } = cc._decorator;
 
+const RADIUS = 64
+const WIDTH = 11
+
 @ccclass
 export default class ChapterMenuButton extends cc.Component {
 
@@ -22,6 +25,9 @@ export default class ChapterMenuButton extends cc.Component {
 
     @property(cc.Prefab)
     chapterContentPrefab: cc.Prefab = null
+
+    @property(cc.Graphics)
+    graphics: cc.Graphics = null
 
     chapter: Chapter
     content: cc.Node
@@ -48,6 +54,15 @@ export default class ChapterMenuButton extends cc.Component {
                 // this.content.addChild(chapterContents)
                 config.pushScene('menu/start/scenes/chapterLessons', 'menu')
             })
+            const completedLessons = this.chapter.lessons.filter((les) => {
+                return User.getCurrentUser().lessonProgressMap.has(les.id)
+            }).length
+            const totalLessons = this.chapter.lessons.length
+            const endAngle = completedLessons / totalLessons * Math.PI * 2
+            this.graphics.circle(0, 0, RADIUS + WIDTH)
+            this.graphics.fill()
+            this.graphics.arc(0, 0, RADIUS + WIDTH / 2, Math.PI * 1 / 2, -endAngle + Math.PI * 1 / 2)
+            this.graphics.stroke()
         }
     }
 }
