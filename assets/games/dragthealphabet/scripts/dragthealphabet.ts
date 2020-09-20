@@ -6,7 +6,6 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class DragTheAlphabet extends cc.Component {
 
-
     @property(cc.Prefab)
     cakeBg: cc.Prefab = null;
 
@@ -31,12 +30,15 @@ export default class DragTheAlphabet extends cc.Component {
     @property({ type: cc.AudioClip })
     pick: cc.AudioClip = null;
 
+    @property(cc.Node)
+    friendNode: cc.Node = null
+
+    friend: dragonBones.ArmatureDisplay = null
     theme: string;
     solution: string;
     choices: string;
     totalPieces: number = 0;
-
-    // LIFE-CYCLE CALLBACKS:
+    firstDrag: cc.Node = null;
 
     onLoad() {
         cc.director.getCollisionManager().enabled = true;
@@ -48,11 +50,35 @@ export default class DragTheAlphabet extends cc.Component {
 
         let bg = cc.instantiate(this[theme + "Bg"]);
         this.node.addChild(bg);
-
         this.layout.zIndex = 1;
 
         bg.getChildByName("drop").getChildByName("drop_collider").name = this.solution;
         this.createChoices();
+
+        Util.loadFriend((friendNode: cc.Node) => {
+            this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay);
+            this.friendNode.addChild(friendNode)
+            this.friendNode.zIndex = 1;
+            let pos = -cc.winSize.width / 2 + 200;
+            this.friendNode.x = pos - 300;
+            new cc.Tween()
+                .target(this.friendNode)
+                .call(() => {
+                    this.friend.playAnimation("jumping2", 1)
+                })
+                .to(2, { x: pos }, { progress: null, easing: "sineOut" })
+                .call(() => {
+                    this.onTouchAudio(this.solution);
+                    this.friend.playAnimation("popup", 1);
+                })
+                .start();
+            this.friendNode.on('touchstart', () => {
+                this.onTouchAudio(this.solution);
+                this.friend.playAnimation("popup", 1);
+            });
+        })
+        Util.showHelp(this.firstDrag, bg.getChildByName("drop").getChildByName("drop_collider"));
+
     }
 
     createChoices() {
@@ -79,6 +105,7 @@ export default class DragTheAlphabet extends cc.Component {
             temp.name = choices[i];
             this.layout.insertChild(temp, i)
             choice.name = choices[i];
+            this.firstDrag = choice.name == this.solution ? temp : null;
         }
     }
 
