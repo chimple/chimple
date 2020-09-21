@@ -30,10 +30,15 @@ export default class LessonButton extends cc.Component {
     @property(cc.Sprite)
     downloadSprite: cc.Sprite
 
+    @property(cc.Material)
+    grayMaterial: cc.Material
+
+
     course: Course
     chapter: Chapter
     lesson: Lesson
     loading: cc.Node
+    open: boolean = false
 
     onLoad() {
         const config = Config.i
@@ -61,8 +66,12 @@ export default class LessonButton extends cc.Component {
                     }
                 })
             }
-            const user = User.getCurrentUser()
-            if (!user.lessonProgressMap.has(this.lesson.id)) {
+            if(!this.open) {
+                this.button.interactable = false
+                this.sprite.setMaterial(0, this.grayMaterial)
+            }
+            const lessonProgress = User.getCurrentUser().lessonProgressMap.get(this.lesson.id)
+            if (!lessonProgress || lessonProgress.score < 0) {
                 this.completedSprite.node.active = false
             }
         }

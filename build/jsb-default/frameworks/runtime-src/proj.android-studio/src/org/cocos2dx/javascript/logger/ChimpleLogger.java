@@ -442,7 +442,7 @@ public class ChimpleLogger {
 
         if (isDownloaded != null) {
             Log.i(TAG, "checkIfUrlDownloaded -> Download fileName:" + saveAsFileName + "status:" + isDownloaded);
-            ChimpleLogger.logEventToFireBase("check_if_file_downloaded", saveAsBaseFileName, isDownloaded + "");
+//            ChimpleLogger.logEventToFireBase("check_if_file_downloaded", saveAsBaseFileName, isDownloaded + "");
         }
         return isDownloaded;
     }

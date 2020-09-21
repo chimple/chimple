@@ -496,7 +496,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 78.3,
+      "width": 113.84,
       "height": 40.32
     },
     "_anchorPoint": {
@@ -514,7 +514,7 @@
         0,
         0,
         0,
-        1,
+      1,
         1,
         1,
         1
@@ -534,8 +534,8 @@
     "_id": ""
   },
   {
-    "__type__": "cc.Label",
-    "_name": "",
+    "__type__": "0ddb3t+49REZ5s0SVkIuotE",
+    "_name": "label<chimple-label>",
     "_objFlags": 0,
     "node": {
       "__id__": 13
@@ -549,8 +549,8 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_useOriginalSize": false,
-    "_string": "Label",
-    "_N$string": "Label",
+    "_string": "Chapter",
+    "_N$string": "Chapter",
     "_fontSize": 32,
     "_lineHeight": 32,
     "_enableWrapText": true,
@@ -611,8 +611,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 107,
-      "height": 106
+      "width": 70,
+      "height": 70
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -623,8 +623,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -450.5,
-        259,
+        -469,
+        277,
         0,
         0,
         0,

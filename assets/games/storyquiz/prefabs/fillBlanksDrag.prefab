@@ -207,7 +207,9 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": null,
+    "_spriteFrame": {
+      "__uuid__": "e1bf9320-5c67-418e-9ec9-f2cceccda6b7"
+    },
     "_type": 1,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -254,7 +256,7 @@
     "label": {
       "__id__": 3
     },
-    "resizeWithLabel": false,
+    "resizeWithLabel": true,
     "fixOnMatch": true,
     "allowDrag": true,
     "returnBackOnNoMatch": true,

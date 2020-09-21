@@ -99,6 +99,11 @@ export const GAME_CONFIGS = {
         "prefab": "prefabs/storyquiz",
         "fontName": "en-trace",
     },
+    "youtube": {
+        "bundle": "youtube",
+        "prefab": "prefabs/youtube"
+    },
+
     "monster": {
         "bundle": "monster",
         "prefab": "prefabs/monster",

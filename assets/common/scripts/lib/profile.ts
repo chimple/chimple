@@ -1,5 +1,5 @@
 import UtilLogger from "../util-logger";
-import Config from "./config";
+import Config, { ALL_LANGS } from "./config";
 import { Queue } from "../../../queue";
 import { CURRENT_STUDENT_ID } from "./constants";
 import { Course } from "./convert";
@@ -58,18 +58,6 @@ export class LessonProgressClass implements LessonProgress {
     }
 }
 
-export enum Language {
-    ENGLISH,
-    HINDI,
-}
-
-export const availLanguages = ["english", "hindi"];
-export const languageSelect = [
-    ["english", "A", "#FFBC00"],
-    ["हिन्दी", "अ", "#3E99E7"],
-    ["english", "C", "#3CBD93"],
-    ["hindi", "Z", "#F55B5D"]
-];
 
 export class User {
     private static _currentUser: User;
@@ -79,8 +67,6 @@ export class User {
     private _gender: Gender;
     private _imgPath: string;
     private _avatarImage: string;
-    private _sfxOff: boolean;
-    private _musicOff: boolean;
     private _inventory: object;
     private _currentBg: string;
     private _currentCharacter: string;
@@ -98,8 +84,6 @@ export class User {
         imgPath: string,
         avatarImage: string,
         isTeacher: boolean,
-        sfxOff: boolean,
-        musicOff: boolean,
         inventory: object,
         currentBg: string,
         currentCharacter: string,
@@ -272,8 +256,8 @@ export class User {
         this._storeUser();
     }
 
-    unlockRewardsForItem(item: string) {
-        this._unlockedRewards[item] = true;
+    unlockRewardsForItem(item: string, value: number) {
+        this._unlockedRewards[item] = value;
         this._storeUser();
     }
 
@@ -285,6 +269,19 @@ export class User {
         } else {
             this._lessonProgressMap.set(lessonId, new LessonProgressClass(score));
         }
+
+        // open the next lesson
+        const lessons = Config.i.chapter.lessons
+        const lessonIndex = lessons.findIndex((les) => {
+            return les.id == lessonId
+        })
+        if (lessons.length > lessonIndex + 1) {
+            const nextLesson = lessons[lessonIndex + 1]
+            if (!this._lessonProgressMap.has(nextLesson.id)) {
+                this._lessonProgressMap.set(nextLesson.id, new LessonProgressClass(-1));
+            }
+        }
+
         this._storeUser();
     }
 
@@ -298,14 +295,14 @@ export class User {
         // log to ff userProfile
         UtilLogger.logChimpleEvent("userProfile", {
             userAge: user.age,
-            gender : user.gender,
-            userId : user.id
+            gender: user.gender,
+            userId: user.id
         });
 
         if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
             let profileInfo = {
-                profile  : User.toJson(user),
-                kind     : 'Profile',
+                profile: User.toJson(user),
+                kind: 'Profile',
                 studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)
             };
 
@@ -341,8 +338,6 @@ export class User {
             imgPath,
             avatarImage,
             isTeacher,
-            true,
-            true,
             {},
             "",
             "bear",
@@ -408,8 +403,6 @@ export class User {
             data.imgPath,
             data.avatarImage,
             data.isTeacher,
-            data.sfxOff,
-            data.musicOff,
             data.inventory,
             data.currentBg,
             data.currentCharacter,
@@ -431,18 +424,16 @@ export class User {
             lessonProgressObj[id] = lp;
         });
         return JSON.stringify({
-            'id'               : user.id,
-            'name'             : user.name,
-            'age'              : user.age,
-            'gender'           : user.gender,
-            'imgPath'          : user.imgPath,
-            'avatarImage'      : user.avatarImage,
-            'isTeacher'        : user.isTeacher,
-            'sfxOff'           : user._sfxOff,
-            'musicOff'         : user._musicOff,
-            'inventory'        : user.inventory,
-            'currentBg'        : user.currentBg,
-            'currentCharacter' : user.currentCharacter,
+            'id': user.id,
+            'name': user.name,
+            'age': user.age,
+            'gender': user.gender,
+            'imgPath': user.imgPath,
+            'avatarImage': user.avatarImage,
+            'isTeacher': user.isTeacher,
+            'inventory': user.inventory,
+            'currentBg': user.currentBg,
+            'currentCharacter': user.currentCharacter,
             'courseProgressMap': courseProgressObj,
             'lessonProgressMap': lessonProgressObj,
             'unlockedInventory': user.unlockedInventory,
@@ -495,35 +486,26 @@ export default class Profile {
 
     static initialize() {
         if (Object.keys(this._settings).length == 0) {
-            this.setValue(LANGUAGE, availLanguages[0]);
-            this.setValue(SFX_OFF, "false");
-            this.setValue(MUSIC_OFF, "false");
+            this.setValue(LANGUAGE, ALL_LANGS[1]);
+            this.setItem(SFX_OFF, 1);
+            this.setItem(MUSIC_OFF, 1);
         }
     }
 
     static getValue(item: string) {
-        return this._settings[item];
+        return cc.sys.localStorage.getItem(item)
     }
 
     static setValue(item: string, value: string) {
-        this._settings[item] = value;
         cc.sys.localStorage.setItem(item, value);
     }
 
     static getItem(item: string): number {
-        return Number(this._profile[item] || 0);
-    }
-
-    static deleteItem(item: string): number {
-        return Number(this._profile[item] || 0);
+        return Number(Profile.getValue(item) || 0);
     }
 
     static setItem(item: string, val: number) {
-        this._profile[item] = val;
-        cc.sys.localStorage.setItem(
-            UtilLogger.currentProfile(),
-            JSON.stringify(this._profile)
-        );
+        Profile.setValue(item, val.toString())
     }
 
     static fromJsonUsingParse(parseStoredProfile: string) {
@@ -590,8 +572,8 @@ export default class Profile {
 
     static async teacherPostLoginActivity(objectId: string) {
         const currentUser: User = User.createUserOrFindExistingUser({
-                id: objectId
-            }
+            id: objectId
+        }
         );
         User.setCurrentUser(currentUser);
         let courseProgress = {};

@@ -3,6 +3,7 @@ import ChapterContent from "./chapterContent";
 import LessonButton from "./lessonButton";
 import ChapterMenuButton from "./chapterMenuButton";
 import CourseContent from "./courseContent";
+import { User } from "../../../common/scripts/lib/profile";
 
 const { ccclass, property } = cc._decorator;
 
@@ -23,38 +24,10 @@ export default class NewChapterContent extends cc.Component {
     loading: cc.Node
     content: cc.Node
 
-    static colors: Array<string> = [
-        '#511F73',
-        '#26A699',
-        '#F29727',
-        '#F24C3D'
-    ]
-
     onLoad() {
         const config = Config.i
         this.label.string = config.chapter.name
-        for (const lesson of config.chapter.lessons) {
-            // const chapterContents = cc.instantiate(this.chapterContentPrefab)
-            // chapterContents.width = cc.winSize.width
-            // const chapterContentsComp = chapterContents.getComponent(ChapterContent)
-            // chapterContentsComp.label.string = chapter.name
-            // this.chaptersLayout.addChild(chapterContents)
-            // lessonContentNode = chapterContentsComp.layout
-            // lessonContentNode.width = cc.winSize.width
-            // for (const lesson of chapter.lessons) {
-            //     const lessonButton = cc.instantiate(this.lessonButtonPrefab)
-            //     const lessonButtonComp = lessonButton.getComponent(LessonButton)
-            //     lessonButtonComp.course = config.course
-            //     lessonButtonComp.chapter = chapter
-            //     lessonButtonComp.lesson = lesson
-            //     lessonButtonComp.loading = this.loading
-            //     lessonContentNode.addChild(lessonButton)
-            // }
-            // const lessonContentLayout = lessonContentNode.getComponent(cc.Layout)
-            // if (lessonContentLayout != null) lessonContentLayout.updateLayout()
-            // const chapterContentLayout = chapterContents.getComponent(cc.Layout)
-            // if (chapterContentLayout != null) chapterContentLayout.updateLayout()
-            // chapterContents.color = new cc.Color().fromHEX(CourseContent.colors[colorIndex++ % CourseContent.colors.length])
+        config.chapter.lessons.forEach((lesson, index) => {
             const lessonButton = cc.instantiate(this.lessonButtonPrefab)
             const lessonButtonComp = lessonButton.getComponent(LessonButton)
             lessonButtonComp.lesson = lesson
@@ -62,9 +35,8 @@ export default class NewChapterContent extends cc.Component {
             lessonButtonComp.course = config.course
             lessonButtonComp.loading = this.loading
             this.chaptersLayout.addChild(lessonButton)
-        }
-        // const layoutComp = this.chaptersLayout.getComponent(cc.Layout)
-        // layoutComp.updateLayout()
+            lessonButtonComp.open = (index == 0 || User.getCurrentUser().lessonProgressMap.has(lesson.id))
+        })
         this.chaptersLayout.width = cc.winSize.width
         this.chaptersLayout.parent.height = this.chaptersLayout.height
         this.chaptersLayout.parent.width = cc.winSize.width

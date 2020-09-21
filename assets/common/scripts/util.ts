@@ -3,7 +3,7 @@ import Help from "./help";
 import { DEFAULT_FONT_COLOR, LETTER_VOICE, NUMBER_VOICE, PHONIC_VOICE } from "./helper";
 import Config, { COURSES, STORY } from "./lib/config";
 import { ASSET_LOAD_METHOD, COURSES_URL, SIMULATOR_ROOT_DIR } from "./lib/constants";
-import Profile, { SFX_OFF } from "./lib/profile";
+import Profile, { SFX_OFF, LANGUAGE } from "./lib/profile";
 import UtilLogger from "./util-logger";
 import Overflow = cc.Label.Overflow;
 import HorizontalAlign = cc.Label.HorizontalAlign;
@@ -528,8 +528,8 @@ export class Util {
   }
 
   public static loadi18NMapping(callBack: Function) {
-    let jsonFile = Config.dir + "course/res/i18N.json";
-    Util.load(jsonFile, (err, jsonAsset) => {
+    let jsonFile = 'lang/' + Profile.getValue(LANGUAGE) + '/i18n'
+    cc.resources.load(jsonFile, (err, jsonAsset) => {
       if (!err && !!jsonAsset) {
         const data =
           jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
@@ -598,7 +598,7 @@ export class Util {
           chimp.playAnimation("talking", 0);
         }
         Util.playHelpAudio(
-          config.course.id + "/course/res/sound/game/" + config.game + ".mp3",
+          config.game,
           () => {
             if (chimp) chimp.playAnimation("idle", 1);
             if (callBack != null) callBack();
@@ -613,26 +613,24 @@ export class Util {
   }
 
   public static playHelpAudio(audio: string, callback: Function) {
-    Util.load(
-      audio,
-      (err, clip) => {
-        if (clip != null) {
-          if (Array.isArray(clip) && clip.length === 0) {
-            callback();
-          } else {
+    cc.assetManager.loadBundle(Profile.getValue(LANGUAGE) + '-help', (err, bundle) => {
+      if (!err) {
+        bundle.load(audio, cc.AudioClip, (err, clip) => {
+          if (!err) {
             this.helpAudioId = Util.play(clip, false);
             if (this.helpAudioId != -1) {
               cc.audioEngine.setFinishCallback(this.helpAudioId, callback);
             } else {
               callback();
             }
+          } else {
+            callback()
           }
-        } else {
-          callback();
-        }
-      },
-      true
-    );
+        })
+      } else {
+        callback()
+      }
+    })
   }
 
 

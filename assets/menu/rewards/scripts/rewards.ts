@@ -24,9 +24,16 @@ export default class Rewards extends cc.Component {
     checkLockStatus(saveItems: string[]) {
         saveItems.forEach((ele, index) => {
             let numberOfChildren = this.layoutHolder.children[index].children[0].children[0].childrenCount
+
             for (let i = 0; i < numberOfChildren; i++) {
-                if (User.getCurrentUser().unlockedRewards[`${ele}-${i}`] === "false" || User.getCurrentUser().unlockedRewards[`${this.saveConstants[0]}-${i}`] === undefined) {
+                let eachElement = this.layoutHolder.children[index].children[0].children[0].children[i];
+                let elementId = eachElement.getChildByName("id").getComponent(cc.Label).string;
+                if (User.getCurrentUser().unlockedRewards[`${ele}-${elementId}`] === 0 || User.getCurrentUser().unlockedRewards[`${ele}-${elementId}`] === undefined) {
                     // make lock texture active
+                }
+                else if (User.getCurrentUser().unlockedRewards[`${ele}-${elementId}`] >= 1) {
+                    // show according to level
+                    // 1 - gold or unlock for bg and achmts , 3 - bronze
                 }
             }
         })
@@ -63,7 +70,7 @@ export default class Rewards extends cc.Component {
         // save to profile
         User.getCurrentUser().currentCharacter = customEventData.toString().trim();
         // switch scene
-        Config.getInstance().pushScene("inventory");
+        Config.getInstance().pushScene("inventory", "menu");
     }
 
     onBgClick(event, customEventData) {

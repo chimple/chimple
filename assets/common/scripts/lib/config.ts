@@ -25,6 +25,22 @@ export enum Direction {
 
 const RTL_COURSES = ['ur', 'ur-maths'];
 
+export enum Lang {
+    ENGLISH = 'en',
+    HINDI = 'hi',
+}
+
+export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI];
+
+export class LangConfig {
+    font: string;
+}
+
+export const LANG_CONFIGS = new Map<Lang, LangConfig>([
+    [Lang.ENGLISH, { 'font': 'en-main' }],
+    [Lang.HINDI, { 'font': 'hi-main' }]
+])
+
 export class World {
     scene: string;
     mapPrefab: string;
