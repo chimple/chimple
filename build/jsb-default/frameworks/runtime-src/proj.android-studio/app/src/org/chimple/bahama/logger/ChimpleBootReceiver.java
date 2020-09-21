@@ -1,4 +1,4 @@
-package org.cocos2dx.javascript.logger;
+package org.chimple.bahama.logger;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
