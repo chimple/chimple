@@ -275,7 +275,7 @@ export class User {
         const lessonIndex = lessons.findIndex((les) => {
             return les.id == lessonId
         })
-        if (lessons.length > lessonIndex) {
+        if (lessons.length > lessonIndex + 1) {
             const nextLesson = lessons[lessonIndex + 1]
             if (!this._lessonProgressMap.has(nextLesson.id)) {
                 this._lessonProgressMap.set(nextLesson.id, new LessonProgressClass(-1));
