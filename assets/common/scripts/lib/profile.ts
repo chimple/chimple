@@ -269,6 +269,19 @@ export class User {
         } else {
             this._lessonProgressMap.set(lessonId, new LessonProgressClass(score));
         }
+
+        // open the next lesson
+        const lessons = Config.i.chapter.lessons
+        const lessonIndex = lessons.findIndex((les) => {
+            return les.id == lessonId
+        })
+        if (lessons.length > lessonIndex) {
+            const nextLesson = lessons[lessonIndex + 1]
+            if (!this._lessonProgressMap.has(nextLesson.id)) {
+                this._lessonProgressMap.set(nextLesson.id, new LessonProgressClass(-1));
+            }
+        }
+
         this._storeUser();
     }
 

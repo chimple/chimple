@@ -22,6 +22,7 @@ export interface Lesson {
     id: string;
     image: string;
     name: string;
+    open: boolean;
     skills: Array<string>;
 }
 
