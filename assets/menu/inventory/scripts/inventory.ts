@@ -191,18 +191,6 @@ export default class Inventory extends cc.Component {
         });
     }
 
-    onLogoutButtonClick(event) {
-        User.setCurrentUser(null);
-        Config.i.popAllScenes();
-        if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
-            // @ts-ignore
-            currentSelectMode = SelectionMode.Section;
-            Config.loadScene(LANDING_SCENE, 'private', null);
-        } else {
-            cc.director.loadScene("welcomePage")
-        }
-    }
-
     start() {
 
     }
