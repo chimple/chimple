@@ -1,7 +1,8 @@
-package org.cocos2dx.javascript.logger;
+package org.chimple.bahama.logger;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
+import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -9,8 +10,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
@@ -30,7 +29,7 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.apache.commons.io.FilenameUtils;
-import org.cocos2dx.javascript.AppActivity;
+import org.chimple.bahama.AppActivity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -56,12 +55,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
+import static org.chimple.bahama.AppActivity.YOUTUBE_CODE;
 
 public class ChimpleLogger {
 
@@ -76,7 +78,7 @@ public class ChimpleLogger {
     public static final String DOWNLOAD_STARTED = "DOWNLOAED_STARTED";
     public static final String DOWNLOAD_SUCCESS = "DOWNLOAD_SUCCESS";
     public static final String DOWNLOAD_FAILED = "DOWNLOAD_FAILED";
-
+    private final Executor backgroundExecutor = Executors.newSingleThreadExecutor();
     public static String REPEAT_MORNING_HOUR = "9";
     public static String REPEAT_MORNING_MIN = "0";
 
@@ -648,11 +650,19 @@ public class ChimpleLogger {
         });
     }
 
+    public static void launchYoutube(final String videoId) {
+        Log.d(TAG, "launchYoutube 1111");
+        Intent i = new Intent(AppActivity.getContext(),
+                org.chimple.bahama.YoutubeActivity.class);
+        i.putExtra("videoId", videoId);
+        AppActivity.app.startActivityForResult(i, YOUTUBE_CODE);
+    }
+
     public static void setUserIdEvent(final String userId) {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                Log.i(TAG, "firebase logging set userId: "+ userId );
+                Log.i(TAG, "firebase logging set userId: " + userId);
                 firebaseAnalytics.setUserId(userId);
             }
         });
@@ -662,7 +672,7 @@ public class ChimpleLogger {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                Log.i(TAG, "firebase logging set user property key: "+ key  + " value:" + value);
+                Log.i(TAG, "firebase logging set user property key: " + key + " value:" + value);
                 firebaseAnalytics.setUserProperty(key, value);
             }
         });
