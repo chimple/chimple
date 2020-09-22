@@ -7,6 +7,7 @@ import { Util } from "../util";
 
 const WORLD = "World";
 const LEVEL = "Level";
+const IS_INITIALIZED = "isInitialized"
 export const SFX_OFF = "sfxOff";
 export const GENDER = "gender";
 export const MUSIC_OFF = "musicOff";
@@ -480,15 +481,13 @@ export class User {
 // Do not use anymore
 export default class Profile {
     static _profile = {};
-    static _loaded: boolean = false;
-    static _userIdList = [];
-    static _settings = {};
 
     static initialize() {
-        if (Object.keys(this._settings).length == 0) {
+        if (Profile.getValue(IS_INITIALIZED) != "true") {
             this.setValue(LANGUAGE, ALL_LANGS[1]);
-            this.setItem(SFX_OFF, 1);
-            this.setItem(MUSIC_OFF, 1);
+            this.setItem(SFX_OFF, 0);
+            this.setItem(MUSIC_OFF, 0);
+            this.setValue(IS_INITIALIZED, "true");
         }
     }
 
