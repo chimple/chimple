@@ -22,7 +22,7 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-package org.cocos2dx.javascript;
+package org.chimple.bahama;
 
 
 import android.Manifest;
@@ -60,9 +60,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
-import org.cocos2dx.javascript.logger.ChimpleLogger;
-import org.cocos2dx.javascript.logger.LockScreenReceiver;
-import org.cocos2dx.javascript.logger.NotificationData;
+import org.chimple.bahama.logger.ChimpleLogger;
+import org.chimple.bahama.logger.LockScreenReceiver;
+import org.chimple.bahama.logger.NotificationData;
+import org.cocos2dx.javascript.SDKWrapper;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 
@@ -78,11 +79,11 @@ import java.util.UUID;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import static org.cocos2dx.javascript.logger.ChimpleLogger.ADVERTISING_ID;
-import static org.cocos2dx.javascript.logger.ChimpleLogger.APP_INSTALLED_TIME;
-import static org.cocos2dx.javascript.logger.ChimpleLogger.APP_LAST_PLAYED_TIME;
-import static org.cocos2dx.javascript.logger.ChimpleLogger.FIREBASE_MESSAGES_SYNC;
-import static org.cocos2dx.javascript.logger.ChimpleLogger.FIREBASE_MESSAGE_TOKEN;
+import static org.chimple.bahama.logger.ChimpleLogger.ADVERTISING_ID;
+import static org.chimple.bahama.logger.ChimpleLogger.APP_INSTALLED_TIME;
+import static org.chimple.bahama.logger.ChimpleLogger.APP_LAST_PLAYED_TIME;
+import static org.chimple.bahama.logger.ChimpleLogger.FIREBASE_MESSAGES_SYNC;
+import static org.chimple.bahama.logger.ChimpleLogger.FIREBASE_MESSAGE_TOKEN;
 
 public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private static final int STORAGE_PERMISSION_CODE = 101;
@@ -97,8 +98,9 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private final Executor advertisingApiBackgroundExecutor = Executors.newSingleThreadExecutor();
     private FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
     private static final int CAMERA_CODE = 31;
-    private static String cameraResult=null;
-    private static AppActivity app = null;
+    public static final int YOUTUBE_CODE = 32;
+    private static String cameraResult = null;
+    public static AppActivity app = null;
     private CountDownTimer repeatHandShakeTimer = null;
     private static final int REPEAT_HANDSHAKE_TIMER = 1 * 5 * 1000; // 5 second
 
@@ -352,7 +354,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         });
     }
 
-    private static String checkCameraResult(){
+    private static String checkCameraResult() {
         return cameraResult;
     }
 
@@ -362,7 +364,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         SDKWrapper.getInstance().onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_CODE) {
             Bitmap original = (Bitmap) data.getExtras().get("data");
-            final File basePath = new File(getContext().getFilesDir(), UUID.randomUUID().toString()+".png");
+            final File basePath = new File(getContext().getFilesDir(), UUID.randomUUID().toString() + ".png");
             if (!basePath.exists()) {
                 try {
                     basePath.createNewFile();
@@ -370,15 +372,25 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                     e.printStackTrace();
                 }
             }
-            try {      
+            try {
                 FileOutputStream stream = new FileOutputStream(basePath);
                 original.compress(Bitmap.CompressFormat.PNG, 50, stream);
                 original.recycle(); // ensure the image is freed;
                 stream.close();
-                cameraResult=basePath.getAbsolutePath();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                cameraResult = basePath.getAbsolutePath();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (requestCode == YOUTUBE_CODE) {
+            finishActivity(requestCode);
+            Log.d(TAG, "calling next in youtube...");
+            app.runOnGLThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "calling next in youtube 1111...");
+                    Cocos2dxJavascriptJavaBridge.evalString("cc.nextYoutube()");
                 }
+            });
         }
     }
 
@@ -614,7 +626,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                                     app.runOnGLThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            if(ChimpleLogger.isNetworkAvailable()) {
+                                            if (ChimpleLogger.isNetworkAvailable()) {
                                                 System.out.println("calling process Queue...");
                                                 Cocos2dxJavascriptJavaBridge.evalString("cc.processQueue()");
                                             }
@@ -632,4 +644,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             e.printStackTrace();
         }
     }
+
+
 }

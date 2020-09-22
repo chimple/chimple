@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "fillblank",
+    "_name": "fillanswer",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -4181,7 +4181,7 @@
       "ctor": "Float64Array",
       "array": [
         -1014.779,
-        -231.45,
+        0,
         0,
         0,
         0,
@@ -4831,7 +4831,7 @@
     "_batchAsBitmap": false,
     "_styleFlags": 0,
     "_underlineHeight": 0,
-    "_N$horizontalAlign": 0,
+    "_N$horizontalAlign": 2,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 3,

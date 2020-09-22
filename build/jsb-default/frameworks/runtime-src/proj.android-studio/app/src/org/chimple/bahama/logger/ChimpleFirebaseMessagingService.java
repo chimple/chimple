@@ -1,11 +1,10 @@
-package org.cocos2dx.javascript.logger;
+package org.chimple.bahama.logger;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.util.Log;
 
@@ -15,7 +14,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 
-import org.cocos2dx.javascript.AppActivity;
+import org.chimple.bahama.AppActivity;
 
 public class ChimpleFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "AlarmReceiver";

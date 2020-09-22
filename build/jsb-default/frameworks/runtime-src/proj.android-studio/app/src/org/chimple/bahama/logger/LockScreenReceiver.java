@@ -1,4 +1,4 @@
-package org.cocos2dx.javascript.logger;
+package org.chimple.bahama.logger;
 
 import android.app.Activity;
 import android.app.ActivityManager;

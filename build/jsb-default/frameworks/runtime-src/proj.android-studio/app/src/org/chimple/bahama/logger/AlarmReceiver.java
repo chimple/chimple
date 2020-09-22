@@ -1,4 +1,4 @@
-package org.cocos2dx.javascript.logger;
+package org.chimple.bahama.logger;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -10,21 +10,19 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
-import static org.cocos2dx.javascript.logger.ChimpleLogger.EN_LANG;
-import static org.cocos2dx.javascript.logger.ChimpleLogger.HI_LANG;
-import static org.cocos2dx.javascript.logger.ChimpleLogger.MESSAGE_CONTENT;
-import static org.cocos2dx.javascript.logger.ChimpleLogger.MESSAGE_TITLE;
-import static org.cocos2dx.javascript.logger.ChimpleLogger.UNIQUE_REPEAT_NOTIFICATION_ID_5_PM;
-import static org.cocos2dx.javascript.logger.ChimpleLogger.UNIQUE_REPEAT_NOTIFICATION_ID_9_AM;
-import static org.cocos2dx.javascript.logger.ChimpleLogger.mm;
+import static org.chimple.bahama.logger.ChimpleLogger.EN_LANG;
+import static org.chimple.bahama.logger.ChimpleLogger.HI_LANG;
+import static org.chimple.bahama.logger.ChimpleLogger.MESSAGE_CONTENT;
+import static org.chimple.bahama.logger.ChimpleLogger.MESSAGE_TITLE;
+import static org.chimple.bahama.logger.ChimpleLogger.UNIQUE_REPEAT_NOTIFICATION_ID_5_PM;
+import static org.chimple.bahama.logger.ChimpleLogger.UNIQUE_REPEAT_NOTIFICATION_ID_9_AM;
+import static org.chimple.bahama.logger.ChimpleLogger.mm;
 
 
 public class AlarmReceiver extends BroadcastReceiver {
