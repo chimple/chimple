@@ -132,15 +132,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         filter.addAction(Intent.ACTION_SCREEN_OFF);
 
         //Deep Links
-        Intent intent = getIntent();
-        if (intent != null) {
-            String action = intent.getAction();
-            Uri uri = intent.getData();
-            if (uri != null && action != null && action.equalsIgnoreCase("android.intent.action.VIEW")) {
-                Log.d(TAG, "deep link uri:" + uri);
-                this.createOneTimeHandShakeTimer(uri.toString());
-            }
-        }
+        this.processDeepLink();
 
         //Set up a receiver to listen for the Intents in this Service
         lockScreenReceiver = new LockScreenReceiver(this);
@@ -182,6 +174,21 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                 }
             }
         }.start();
+    }
+
+    public void processDeepLink() {
+        //Deep Links
+        Intent intent = getIntent();
+        Log.d(TAG, "intent:" + intent);
+        if (intent != null) {
+            String action = intent.getAction();
+            Uri uri = intent.getData();
+            Log.d(TAG, "deep link action:" + action);
+            Log.d(TAG, "deep link uri:" + uri);
+            if (uri != null && action != null && action.equalsIgnoreCase("android.intent.action.VIEW")) {
+                this.createOneTimeHandShakeTimer(uri.toString());
+            }
+        }
     }
 
     public void initFirebaseMessageClient() {
