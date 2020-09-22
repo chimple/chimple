@@ -486,7 +486,7 @@ export default class Profile {
 
     static initialize() {
         if (Object.keys(this._settings).length == 0) {
-            this.setValue(LANGUAGE, ALL_LANGS[1]);
+            this.setValue(LANGUAGE, ALL_LANGS[0]);
             this.setItem(SFX_OFF, 1);
             this.setItem(MUSIC_OFF, 1);
         }
