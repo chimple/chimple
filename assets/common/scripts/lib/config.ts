@@ -349,6 +349,7 @@ export default class Config {
     }
 
     get friend(): string {
-        return WORLDS[0].armature;
+        // return WORLDS[0].armature;
+        return 'chimp'
     }
 }

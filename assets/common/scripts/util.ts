@@ -592,18 +592,7 @@ export class Util {
         });
       }
       if (playAudio) {
-        var chimp: dragonBones.ArmatureDisplay;
-        if (lessonComp != null) {
-          chimp = lessonComp.chimp;
-          chimp.playAnimation("talking", 0);
-        }
-        Util.playHelpAudio(
-          config.game,
-          () => {
-            if (chimp) chimp.playAnimation("idle", 1);
-            if (callBack != null) callBack();
-          }
-        );
+        lessonComp.friend.talkHelp(callBack)
       } else {
         if (callBack != null) callBack();
       }
@@ -612,26 +601,6 @@ export class Util {
     }
   }
 
-  public static playHelpAudio(audio: string, callback: Function) {
-    cc.assetManager.loadBundle(Profile.getValue(LANGUAGE) + '-help', (err, bundle) => {
-      if (!err) {
-        bundle.load(audio, cc.AudioClip, (err, clip) => {
-          if (!err) {
-            this.helpAudioId = Util.play(clip, false);
-            if (this.helpAudioId != -1) {
-              cc.audioEngine.setFinishCallback(this.helpAudioId, callback);
-            } else {
-              callback();
-            }
-          } else {
-            callback()
-          }
-        })
-      } else {
-        callback()
-      }
-    })
-  }
 
 
   public static computeTimeDiff(
@@ -675,16 +644,6 @@ export class Util {
     }
     return -1;
   }
-
-  public static stopHelpAudio() {
-    try {
-      cc.audioEngine.stopEffect(this.helpAudioId);
-    } catch (e) {
-      cc.log(e);
-    }
-    return this.helpAudioId;
-  }
-
 
   public static play(audioClip: cc.AudioClip, loop: boolean = false) {
     let audioId = -1;

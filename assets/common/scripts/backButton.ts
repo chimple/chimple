@@ -4,8 +4,11 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class BackButton extends cc.Component {
+    extraFunction: Function = null
+
     onLoad() {
         this.node.on('click', () => {
+            if(this.extraFunction) this.extraFunction()
             Config.i.popScene()
         })
     }

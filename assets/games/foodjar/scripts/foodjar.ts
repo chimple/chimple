@@ -4,6 +4,8 @@ import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
 import Drag from "../../../common/scripts/drag";
 import CountingLayout from "../../../common/scripts/countingLayout";
+import Friend from "../../../common/scripts/friend";
+import LessonController from "../../../common/scripts/lessonController";
 
 const { ccclass, property } = cc._decorator;
 
@@ -123,7 +125,8 @@ export default class FoodJar extends cc.Component {
     subEmptyTexture3: cc.SpriteFrame = null
 
     choiceNodes: Array<cc.Node> = [];
-    friend: dragonBones.ArmatureDisplay = null
+    // friend: dragonBones.ArmatureDisplay = null
+    friend: Friend
 
     problem: FoodJarProblem = new FoodJarProblem();
     notSolved: number = 0;
@@ -133,16 +136,17 @@ export default class FoodJar extends cc.Component {
     firstDrag: cc.Node = null
     firstDrop: cc.Node = null
 
-    @catchError()
+    // @catchError()
     onLoad() {
         Drag.letDrag = false
         cc.director.getCollisionManager().enabled = true
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
-            this.friendPos.addChild(friendNode)
-            this.friend.playAnimation('laugh', 1)
-        })
-
+        // Util.loadFriend((friendNode: cc.Node) => {
+        //     this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
+        //     this.friendPos.addChild(friendNode)
+        //     this.friend.playAnimation('laugh', 1)
+        // })
+        this.friend = LessonController.getFriend()
+        this.friendPos.addChild(this.friend.node)
         const row = Config.getInstance().data[0];
         const [level, worksheet, problem, type, mathSign, minNumber, maxNumber, repeat, line1BlankCount, panelCount] = row;
 
