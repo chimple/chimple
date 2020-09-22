@@ -19,6 +19,13 @@ export const NONE: string = "NONE";
 export const LANDING_SCENE = 'private/school/scenes/landing';
 export const HOME_SCENE = 'menu/home/scenes/home';
 export const START_SCENE = 'menu/start/scenes/start';
+
+//@ts-ignore
+cc.deep_link = function (url) {
+    cc.log("deep link called with url:" + url);
+};
+
+
 @ccclass
 export default class Chimple extends cc.Component {
     async onLoad() {
