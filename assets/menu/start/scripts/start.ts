@@ -1,12 +1,15 @@
 import Config from "../../../common/scripts/lib/config";
-import { Course } from "../../../common/scripts/lib/convert";
-import { User } from "../../../common/scripts/lib/profile";
-import { Util } from "../../../common/scripts/util";
+import {Course} from "../../../common/scripts/lib/convert";
+import {User} from "../../../common/scripts/lib/profile";
+import {Util} from "../../../common/scripts/util";
 import CourseContent from "./courseContent";
 import HeaderButton from "./headerButton";
 import StartContent from "./startContent";
+import {ADD_TEACHER} from "../../../chimple";
+import TeacherAddedDialog, {TEACHER_ADD_DIALOG_CLOSED} from "../../../common/scripts/teacherAddedDialog";
+import {TEACHER_ADD_STUDENT_SELECTED} from "../../../common/scripts/studentPreviewInfo";
 
-const { ccclass, property } = cc._decorator;
+const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class Start extends cc.Component {
@@ -31,6 +34,10 @@ export default class Start extends cc.Component {
     @property(cc.Node)
     loading: cc.Node = null;
 
+    @property(cc.Prefab)
+    teacherDialogPrefab: cc.Prefab = null;
+
+
     selectedHeaderButton: HeaderButton
     static homeSelected: boolean = true
 
@@ -38,6 +45,7 @@ export default class Start extends cc.Component {
         this.loading.width = cc.winSize.width
         const config = Config.i
         let index = 0
+
         User.getCurrentUser().courseProgressMap.forEach(() => {
             const headerButton = cc.instantiate(this.headerButtonPrefab)
             const headerButtonComp = headerButton.getComponent(HeaderButton)
@@ -79,8 +87,38 @@ export default class Start extends cc.Component {
             } else {
                 this.onCourseClick()
             }
-            this.loading.active = false
+            this.loading.active = false;
+            this.setUpTeacherDialog();
         })
+    }
+
+    private registerTeacherDialogCloseEvent() {
+        this.node.on(TEACHER_ADD_DIALOG_CLOSED, async (event) => {
+            event.stopPropagation();
+            this.showTeacherDialog();
+        });
+    }
+
+    private showTeacherDialog() {
+        try {
+            const messages: any[] = JSON.parse(cc.sys.localStorage.getItem(ADD_TEACHER));
+            if (messages && messages.length > 0) {
+                const curMessage = messages.splice(0, 1)[0];
+                cc.sys.localStorage.setItem(ADD_TEACHER, JSON.stringify(messages));
+                const teacherDialog: cc.Node = cc.instantiate(this.teacherDialogPrefab);
+                const script: TeacherAddedDialog = teacherDialog.getComponent(TeacherAddedDialog);
+                script.TeacherName = curMessage['name'];
+                script.TeacherId = curMessage['id'];
+                this.node.addChild(teacherDialog);
+            }
+        } catch (e) {
+
+        }
+    }
+
+    private setUpTeacherDialog() {
+        this.registerTeacherDialogCloseEvent();
+        this.showTeacherDialog();
     }
 
     private onCourseClick() {

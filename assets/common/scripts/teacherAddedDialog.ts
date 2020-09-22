@@ -1,0 +1,82 @@
+import ccclass = cc._decorator.ccclass;
+import property = cc._decorator.property;
+import {User} from "./lib/profile";
+import StudentPreviewInfo, {TEACHER_ADD_STUDENT_SELECTED} from "./studentPreviewInfo";
+import ChimpleLabel from "./chimple-label";
+import {Queue} from "../../queue";
+import {UpdateHomeTeacher} from "../../private/services/parseApi";
+
+export const TEACHER_ADD_DIALOG_CLOSED = 'TEACHER_ADD_DIALOG_CLOSED';
+@ccclass
+export default class TeacherAddedDialog extends cc.Component {
+    @property(cc.Prefab)
+    studentPreviewInfoPrefab: cc.Prefab = null
+
+    @property(cc.Node)
+    text: cc.Node = null;
+
+    @property(cc.Node)
+    studentLayout: cc.Node = null;
+
+    users: User[];
+    selectedStudentId: string;
+
+    _teacherId: string;
+    _teacherName: string;
+
+    protected onLoad() {
+        this.node.on(TEACHER_ADD_STUDENT_SELECTED, async (event) => {
+            event.stopPropagation();
+            const item = event.getUserData();
+            this.selectedStudentId = item.selectedStudent;
+            cc.log('selectedStudentId', this.selectedStudentId)
+        });
+        // get all Users
+        this.users = User.getUsers();
+        this.render();
+    }
+
+    private render() {
+        const chimpleLabel = this.text.getComponent(ChimpleLabel);
+        chimpleLabel.string = 'Add Teacher ' + this._teacherName;
+        this.users.forEach(
+            (user) => {
+                const studentPreviewInfoNode: cc.Node = cc.instantiate(this.studentPreviewInfoPrefab);
+                studentPreviewInfoNode.scale = 2;
+                const script: StudentPreviewInfo = studentPreviewInfoNode.getComponent(StudentPreviewInfo);
+                script.setUser(user);
+                script.setParent(this.studentLayout);
+                script.renderStudent();
+                this.studentLayout.addChild(studentPreviewInfoNode);
+            }
+        )
+    }
+
+    onYesClicked(event) {
+        let updateHomeTeacherInfo: UpdateHomeTeacher = {
+            studentId: this.selectedStudentId,
+            teacherId: this._teacherId
+        };
+        Queue.getInstance().push(updateHomeTeacherInfo);
+        const customEvent: cc.Event.EventCustom = new cc.Event.EventCustom(TEACHER_ADD_DIALOG_CLOSED, true);
+        this.node.dispatchEvent(customEvent);
+        this.scheduleOnce(() => {
+            this.node.destroy();
+        }, 0.25)
+
+    }
+
+
+    onNoClicked(event) {
+        this.node.destroy();
+    }
+
+    set TeacherId(_teacherId: string) {
+        this._teacherId = _teacherId;
+    }
+
+    set TeacherName(_name: string) {
+        this._teacherName = _name;
+    }
+
+}
