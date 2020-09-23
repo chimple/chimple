@@ -71,7 +71,8 @@ export default class TeacherAddedDialog extends cc.Component {
         const customEvent: cc.Event.EventCustom = new cc.Event.EventCustom(TEACHER_ADD_DIALOG_CLOSED, true);
         this.node.dispatchEvent(customEvent);
         this.scheduleOnce(() => {
-            this.node.removeFromParent(true);}, 0.25)
+            this.node.removeFromParent(true);
+        }, 0.25)
     }
 
     onNoClicked(event) {

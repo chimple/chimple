@@ -103,7 +103,8 @@ export default class Start extends cc.Component {
 
     private showTeacherDialog() {
         try {
-            const messages: any[] = JSON.parse(cc.sys.localStorage.getItem(ADD_TEACHER));
+            const messageStr: string = cc.sys.localStorage.getItem(ADD_TEACHER) || '[]';
+            const messages: any[] = JSON.parse(messageStr);
             if (messages && messages.length > 0) {
                 const curMessage = messages.splice(0, 1)[0];
                 const name: string = curMessage[TEACHER_NAME_KEY];
