@@ -2,10 +2,11 @@ import Config, { Direction } from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
 import PhonicTractorDrag from "./phonictractor_drag";
 import { catchError } from "../../../common/scripts/lib/error-handler";
+import Game from "../../../common/scripts/game";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class PhonicTractor extends cc.Component {
+export default class PhonicTractor extends Game {
   @property(cc.Node)
   truckNode: cc.Node = null;
 
@@ -30,11 +31,6 @@ export default class PhonicTractor extends cc.Component {
   })
   truckOutAudio: cc.AudioClip = null;
 
-  @property(cc.Node)
-  friendPos: cc.Node = null
-
-  friend: dragonBones.ArmatureDisplay = null
-
   answer: string;
   wordAudio: Map<string, string>;
   initialPlace: cc.Vec2;
@@ -54,6 +50,7 @@ export default class PhonicTractor extends cc.Component {
   onLoad() {
     cc.director.getCollisionManager().enabled = true
     this._isRTL = Config.i.direction == Direction.RTL;
+    this.friend.isFace = true
     this.totalPieces++;
     this.completed = [];
     this.wordAudio = new Map();
@@ -103,12 +100,6 @@ export default class PhonicTractor extends cc.Component {
       this.truckNode.x = -cc.winSize.width / 2;
       this.finishTruckMoveTo = 2000;
     }
-
-    Util.loadFriend((friendNode: cc.Node) => {
-      this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
-      this.friendPos.addChild(friendNode)
-      this.friend.playAnimation('face_touch', 1)
-    })
 
     this.wordAudio.set(this.answer, this.temp);
     this.wordAudio.set(word1, audio1);
@@ -167,10 +158,10 @@ export default class PhonicTractor extends cc.Component {
       .getComponent(cc.Label).string = this.answer;
   }
 
-  @catchError()
-  onTouchAudioCaller(touch) {
-    this.onTouchAudio(this.wordAudio.get(this.answer));
-  }
+  // @catchError()
+  // onTouchAudioCaller(touch) {
+  //   this.onTouchAudio(this.wordAudio.get(this.answer));
+  // }
 
   @catchError()
   instantiateTrolley(i: number) {
@@ -212,14 +203,19 @@ export default class PhonicTractor extends cc.Component {
         dragBox.addChild(newNode)
       }
     }
-    Util.showHelp(this.firstDrag, this.firstDrop);
+    Util.loadGameSound(this.wordAudio.get(this.answer),  (err, clip) => {
+      if (clip != null) {
+        this.friend.extraClip = clip
+      }
+      Util.showHelp(this.firstDrag, this.firstDrop);
+    });
   }
 
   @catchError()
   onTouchAudio(file: string) {
-    Util.loadGameSound(file, function (clip) {
+    Util.loadGameSound(file, (err, clip) => {
       if (clip != null) {
-        cc.audioEngine.play(clip, false, 1);
+        this.friend.speak(clip)
       }
     });
   }
@@ -228,17 +224,17 @@ export default class PhonicTractor extends cc.Component {
   onMatch() {
     this.node.emit("correct");
     if (--this.count == 0) {
-      if (this.friend != null) this.friend.playAnimation('face_happy', 2);
 
       new cc.Tween()
         .target(this.truckNode)
         .delay(1)
         .call(() => {
-          this.onTouchAudio(this.wordAudio.get(this.answer));
-          this.node
-            .getChildByName("board")
-            .getChildByName("speaker_button_workkicker")
-            .getComponent(cc.Button).enabled = false;
+          this.friend.speakExtra()
+          // this.onTouchAudio(this.wordAudio.get(this.answer));
+          // this.node
+          //   .getChildByName("board")
+          //   .getChildByName("speaker_button_workkicker")
+          //   .getComponent(cc.Button).enabled = false;
         })
         .delay(1)
         .call(() => {

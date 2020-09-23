@@ -7,6 +7,7 @@ import Vec2 = cc.Vec2;
 import QuestionBlock from "./questionblock";
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
+import Game from "../../../common/scripts/game";
 
 export const GAME_SOUND = 'games/grid/sound/';
 
@@ -64,7 +65,7 @@ export const enum TouchEvents {
 }
 
 @ccclass
-export class Grid extends cc.Component {
+export class Grid extends Game {
 
     @property(cc.Prefab)
     groundPrefab: cc.Prefab = null;

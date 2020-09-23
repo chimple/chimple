@@ -1,11 +1,12 @@
 import Config from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
+import Game from "../../../common/scripts/game";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class MatchingCard extends cc.Component {
+export default class MatchingCard extends Game {
 
     @property(cc.SpriteFrame)
     back: cc.SpriteFrame = null
@@ -29,24 +30,15 @@ export default class MatchingCard extends cc.Component {
     truck: cc.Node = null
 
     @property(cc.Node)
-    friendPos: cc.Node = null
-
-    @property(cc.Node)
     choice: cc.Node = null
 
     isMoving: boolean = false
-    friend: dragonBones.ArmatureDisplay = null
 
     cards: Array<cc.Node> = null
     choiceY: number = null
 
     @catchError()
     onLoad() {
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
-            this.friendPos.addChild(friendNode)
-            this.friend.playAnimation('laugh', 1)
-        })
         this.choiceY = this.choice.y
         this.choice.y = -cc.winSize.height
         const truckX = this.truck.x
@@ -117,7 +109,6 @@ export default class MatchingCard extends cc.Component {
                     .call(() => {
                         if (index == 0) {
                             this.node.emit('correct')
-                            if(this.friend != null) this.friend.playAnimation('happy', 1)
                             this.scheduleOnce(() => {
                                 cardNode.removeFromParent(false);
                                 cardNode.position = cc.Vec2.ZERO
@@ -141,7 +132,6 @@ export default class MatchingCard extends cc.Component {
                             }, 1)
                         } else {
                             this.node.emit('wrong')
-                            if(this.friend != null) this.friend.playAnimation('sad', 1)
                             new cc.Tween().target(cardNode)
                                 .to(0.25, { position: cc.Vec2.ZERO }, { progress: null, easing: 'quadOut' })
                                 .call(() => {

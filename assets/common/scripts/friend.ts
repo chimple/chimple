@@ -14,63 +14,100 @@ export default class Friend extends cc.Component {
     button: cc.Button = null
 
     isFace: boolean = false
+    extraClip: cc.AudioClip = null
     helpAudioId: number = -1
 
-    // onLoad () {}
+    public playHappyAnimation(playTimes: number) {
+        this.playAnimation(this.isFace? 'face_happy':'happy', playTimes)
+    }
+
+    public playSadAnimation(playTimes: number) {
+        this.playAnimation(this.isFace? 'face_wrong':'sad', playTimes)
+    }
+
+    public playSpeakAnimation(playTimes: number) {
+        this.playAnimation(this.isFace? 'face_eating':'talking_long', playTimes)
+    }
+
+    public playIdleAnimation(playTimes: number) {
+        this.playAnimation(this.isFace? 'face_touch':'idle', playTimes)
+    }
 
     public playAnimation(animName: string, playTimes: number) {
         this.db.playAnimation(animName, playTimes)
     }
 
-    public talkHelp(callback: Function = null) {
-        this.db.playAnimation("talking_long", 0)
-        this.button.interactable = false
-        this.playHelpAudio(
-            Config.i.game,
-            () => {
-                this.db.playAnimation("idle", 1);
-                this.button.interactable = true
-                if(callback) callback();
-            }
-        );
-    }
-
-    public talk(clip: cc.AudioClip, callback: Function) {
-        this.db.playAnimation("talking_long", 0)
-        this.button.interactable = false
-        if(clip) {
-            this.helpAudioId = Util.play(clip, false);
-            if (this.helpAudioId != -1) {
-                cc.audioEngine.setFinishCallback(this.helpAudioId, callback);
+    public speakHelp(callback: Function = null) {
+        const extraCallback = () => {
+            if (this.extraClip) {
+                this.speak(this.extraClip, callback)
             } else {
-                callback();
+                if (callback) callback()
             }
-
         }
-    }
-
-    public playHelpAudio(audio: string, callback: Function) {
         cc.assetManager.loadBundle(Profile.getValue(LANGUAGE) + '-help', (err, bundle) => {
             if (!err) {
-                bundle.load(audio, cc.AudioClip, (err, clip) => {
+                bundle.load(Config.i.game, cc.AudioClip, (err, clip) => {
                     if (!err) {
-                        this.helpAudioId = Util.play(clip, false);
-                        if (this.helpAudioId != -1) {
-                            cc.audioEngine.setFinishCallback(this.helpAudioId, callback);
-                        } else {
-                            callback();
-                        }
+                        this.speak(clip, extraCallback)
                     } else {
-                        callback()
+                        extraCallback()
                     }
                 })
             } else {
-                callback()
+                extraCallback()
             }
         })
     }
 
-    public stopHelpAudio() {
+    public speakExtra(callback: Function = null) {
+        this.speak(this.extraClip, callback)
+    }
+
+    public speak(clip: cc.AudioClip, callback: Function = null) {
+        if (clip) {
+            this.helpAudioId = Util.play(clip, false);
+            if (this.helpAudioId != -1) {
+                this.playSpeakAnimation(0)
+                this.button.interactable = false
+                cc.audioEngine.setFinishCallback(this.helpAudioId, () => {
+                    this.playIdleAnimation(1);
+                    this.button.interactable = true
+                    if (callback) callback()
+                });
+            } else {
+                if (callback) callback();
+            }
+        } else {
+            if (callback) callback()
+        }
+    }
+
+    public speakEquation(nums: Array<string>, callback: (index: number) => void) {
+        const extraCallback = (index: number) => {
+            if (index + 1 >= nums.length) {
+                this.playIdleAnimation(1);
+                this.button.interactable = true
+            }
+            callback(index)
+        }
+        this.playSpeakAnimation(0)
+        this.button.interactable = false
+        Util.speakEquation(nums, extraCallback)
+    }
+
+    public speakPhonicsOrLetter(audio: string, callback: Function) {
+        const extraCallback = (index: number) => {
+            this.playIdleAnimation(1);
+            this.button.interactable = true
+            callback(index)
+        }
+        this.playSpeakAnimation(0)
+        this.button.interactable = false
+        Util.speakPhonicsOrLetter(audio, extraCallback)
+    }
+
+    public stopAudio() {
         try {
             cc.audioEngine.stopEffect(this.helpAudioId);
         } catch (e) {
@@ -79,8 +116,43 @@ export default class Friend extends cc.Component {
         return this.helpAudioId;
     }
 
+    public stopAnimation(name: string) {
+        this.db.armature().animation.stop(name)
+    }
+
+    public showHelp(
+        from: cc.Node,
+        to: cc.Node,
+        callBack: Function = null,
+        playAudio: boolean = true
+    ) {
+        const config = Config.getInstance();
+        const lessonNode = cc.Canvas.instance.node
+        if (config.problem == 1) {
+            if (from != null && to != null) {
+                cc.resources.load("prefabs/help", function (err, prefab) {
+                    if (!err) {
+                        const help = cc.instantiate(prefab);
+                        // @ts-ignore
+                        const helpComp = help.getComponent(Help);
+                        if (helpComp != null) {
+                            helpComp.initNodes(from, to, callBack);
+                        }
+                        // @ts-ignore
+                        lessonNode.addChild(help);
+                    }
+                });
+            }
+        }
+        if (playAudio) {
+            this.speakHelp(callBack)
+        } else {
+            if (callBack != null) callBack();
+        }
+    }
+
     onClick() {
-        this.talkHelp()
+        this.speakHelp()
     }
 
 

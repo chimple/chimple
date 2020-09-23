@@ -1,10 +1,11 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
+import Game from "../../../common/scripts/game";
 import Config from "../../../common/scripts/lib/config";
-import AddButton from "./add-button";
-import RemoveButton from "./remove-button";
 import { catchError } from "../../../common/scripts/lib/error-handler";
 import { Util } from "../../../common/scripts/util";
+import AddButton from "./add-button";
+import RemoveButton from "./remove-button";
 
 export interface BlenderConfig {
     level: string;
@@ -52,7 +53,7 @@ export const ADDED_PLACE_VALUE_ITEM = 'ADDED_PLACE_VALUE_ITEM';
 export const MOVE_IF_NEEDED = 'MOVE_IF_NEEDED';
 
 @ccclass
-export default class Blender extends cc.Component {
+export default class Blender extends Game {
     @property(cc.Prefab)
     mixturePrefab: cc.Prefab = null;
 
@@ -115,7 +116,6 @@ export default class Blender extends cc.Component {
             event.stopPropagation();
             this.moveIfNeeded();
         });
-
         this.node.on(REMOVED_PLACE_VALUE_ITEM, (event) => {
             event.stopPropagation();
             this.moveIfNeeded();
@@ -168,7 +168,7 @@ export default class Blender extends cc.Component {
                 () => {
                     const equations = this.formatFinalTextForSpeak(this._finalText);
                     if (!!equations && equations.length > 0) {
-                        Util.speakEquation(equations, (index) => {
+                        this.friend.speakEquation(equations, (index) => {
                             if (index + 1 === equations.length) {
                                 this._finalText = null;
                                 this._collectStarted = false;
@@ -353,7 +353,7 @@ export default class Blender extends cc.Component {
             }
         }
         try {
-            Util.speakEquation(text, (index) => {
+            this.friend.speakEquation(text, (index) => {
                 if (index + 1 == text.length) {
                     if (!!callBack) {
                         callBack();
@@ -376,7 +376,7 @@ export default class Blender extends cc.Component {
             .call(() => {
                 const equations = this.formatFinalTextForSpeak(Number(this._currentConfig.objectNo));
                 if (!!equations && equations.length > 0) {
-                    Util.speakEquation(equations, (index) => {
+                    this.friend.speakEquation(equations, (index) => {
                         if (index + 1 === equations.length) {
                             this.scheduleOnce(
                                 () => {
@@ -499,7 +499,7 @@ export default class Blender extends cc.Component {
                 if (!!speakText && !isNaN(Number(speakText))
                     && eStr !== displayText && (!allZeros || shouldAlwaysSpeak)) {
                     try {
-                        Util.speakEquation([speakText], (index) => {
+                        this.friend.speakEquation([speakText], (index) => {
                         });
                     } catch (e) {
                     }
@@ -523,7 +523,7 @@ export default class Blender extends cc.Component {
         // set up mixture
         // build suggestions
         // build logic for showing draggable objects
-        this._mixture.setPosition(new cc.Vec2(100 + this._mixture.x - cc.winSize.width / 4, this._mixture.y - 25));
+        this._mixture.setPosition(new cc.Vec2(-125, -25));
         this.node.addChild(this._mixture);
 
         const blender1 = this._mixture.getChildByName(BLENDER1_NODE);
@@ -599,12 +599,11 @@ export default class Blender extends cc.Component {
         // this.showLandTen();
         // this.showLandOne();
         //
-        // this.scheduleOnce(
-        //     () => {
-        //         this._helpMode = false;
-        //         this.showHelp(this.helpIterator(this._helpNodes));
-        //     }, 0.5
-        // );
+        this.scheduleOnce(
+            () => {
+                Util.showHelp(null, null)
+            }, 0.5
+        );
     }
 
     @catchError()
