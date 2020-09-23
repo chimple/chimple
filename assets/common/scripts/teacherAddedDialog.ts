@@ -56,7 +56,9 @@ export default class TeacherAddedDialog extends cc.Component {
         if (!!this.selectedStudentId && this._teacherId) {
             let updateHomeTeacherInfo: UpdateHomeTeacher = {
                 studentId: this.selectedStudentId,
-                teacherId: this._teacherId
+                teacherId: this._teacherId,
+                kind: "UpdateHomeTeacher",
+                name: "test"
             };
             Queue.getInstance().push(updateHomeTeacherInfo);
         }

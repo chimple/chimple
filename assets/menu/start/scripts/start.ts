@@ -95,7 +95,9 @@ export default class Start extends cc.Component {
     private registerTeacherDialogCloseEvent() {
         this.node.on(TEACHER_ADD_DIALOG_CLOSED, async (event) => {
             event.stopPropagation();
-            this.showTeacherDialog();
+            this.scheduleOnce(() => {
+                this.showTeacherDialog();
+            }, 1)
         });
     }
 
