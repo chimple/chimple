@@ -89,7 +89,7 @@ export default class ArrangeLetters extends cc.Component {
   startGameSound(){
    if(!this.isSoundPlaying){
      this.isSoundPlaying = true
-   Util.speakPhonicsOrGameAudio(this.wordAudioFileName,()=>{this.isSoundPlaying = false})
+   Util.speakGameAudioOrPhonics(this.wordAudioFileName,()=>{this.isSoundPlaying = false})
   }
   }
 
