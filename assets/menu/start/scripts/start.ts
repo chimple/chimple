@@ -1,15 +1,15 @@
 import Config from "../../../common/scripts/lib/config";
-import {Course} from "../../../common/scripts/lib/convert";
-import {User} from "../../../common/scripts/lib/profile";
-import {Util} from "../../../common/scripts/util";
+import { Course } from "../../../common/scripts/lib/convert";
+import { User } from "../../../common/scripts/lib/profile";
+import { Util } from "../../../common/scripts/util";
 import CourseContent from "./courseContent";
 import HeaderButton from "./headerButton";
 import StartContent from "./startContent";
-import {ADD_TEACHER, TEACHER_ID_KEY, TEACHER_NAME_KEY} from "../../../chimple";
-import TeacherAddedDialog, {TEACHER_ADD_DIALOG_CLOSED} from "../../../common/scripts/teacherAddedDialog";
-import {TEACHER_ADD_STUDENT_SELECTED} from "../../../common/scripts/studentPreviewInfo";
+import { ADD_TEACHER, TEACHER_ID_KEY, TEACHER_NAME_KEY } from "../../../chimple";
+import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
+import { TEACHER_ADD_STUDENT_SELECTED } from "../../../common/scripts/studentPreviewInfo";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class Start extends cc.Component {
@@ -37,11 +37,22 @@ export default class Start extends cc.Component {
     @property(cc.Prefab)
     teacherDialogPrefab: cc.Prefab = null;
 
+    @property(cc.Node)
+    bgHolder: cc.Node = null;
 
     selectedHeaderButton: HeaderButton
     static homeSelected: boolean = true
 
     onLoad() {
+
+        this.bgHolder.removeAllChildren();
+        if (!!User.getCurrentUser().currentBg) {
+            this.setBackground(User.getCurrentUser().currentBg);
+        } else {
+            this.setBackground("forest");
+        }
+
+
         this.loading.width = cc.winSize.width
         const config = Config.i
         let index = 0
@@ -100,6 +111,20 @@ export default class Start extends cc.Component {
             }, 1)
         });
     }
+
+    private setBackground(bgprefabName: string) {
+        cc.resources.load(`backgrounds/prefabs/${bgprefabName}`, (err, sp) => {
+            let bgPrefabInstance = cc.instantiate(sp);
+            // @ts-ignore
+            bgPrefabInstance.y = 0
+            // @ts-ignore
+            bgPrefabInstance.x = 0
+            // @ts-ignore
+            this.bgHolder.addChild(bgPrefabInstance);
+            // userButtonRef.getChildByName("Background").getChildByName("avatar").getChildByName("icon").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
+        });
+    }
+
 
     private showTeacherDialog() {
         try {
