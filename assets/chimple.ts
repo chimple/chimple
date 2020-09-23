@@ -1,11 +1,11 @@
-import Config, { LANG_CONFIGS, Lang } from "./common/scripts/lib/config";
-import Profile, { Gender, User, LANGUAGE } from "./common/scripts/lib/profile";
-import { D_MODE, DeployMode, Mode, MODE } from "./common/scripts/lib/constants";
-import { Queue } from "./queue";
+import Config, {LANG_CONFIGS, Lang} from "./common/scripts/lib/config";
+import Profile, {Gender, User, LANGUAGE} from "./common/scripts/lib/profile";
+import {D_MODE, DeployMode, Mode, MODE} from "./common/scripts/lib/constants";
+import {Queue} from "./queue";
 import UtilLogger from "./common/scripts/util-logger";
-import { Util } from "./common/scripts/util";
+import {Util} from "./common/scripts/util";
 
-const { ccclass, property } = cc._decorator;
+const {ccclass, property} = cc._decorator;
 
 export const CHIMPLE_MODE = 'CHIMPLE_MODE';
 export const DEPLOY_MODE = 'DEPLOY_MODE';
@@ -16,17 +16,64 @@ export const SCHOOL: string = "SCHOOL";
 export const REGISTER: string = "REGISTER";
 export const NONE: string = "NONE";
 
+export const ADD_TEACHER: string = 'add_teacher';
+
 export const LANDING_SCENE = 'private/school/scenes/landing';
 export const HOME_SCENE = 'menu/home/scenes/home';
 export const START_SCENE = 'menu/start/scenes/start';
+
+//@ts-ignore
+cc.deep_link = function (url) {
+    cc.log("deep link called with url:" + url);
+    if (url !== null && url.includes("chimple://")) {
+        let messageType: string = null;
+        let splits = url.split("://");
+        if (splits !== null && splits.length === 2) {
+            let elements = splits[1].split('/');
+            messageType = elements.splice(0, 1)[0];
+            if (messageType === ADD_TEACHER) {
+                let data = Object.assign({});
+                if (elements !== null && (elements.length % 2 === 0)) {
+                    let all_keys = elements;
+                    let all_values = [];
+                    for (let i = 0; i < elements.length; i++) {
+                        all_values.push(all_keys.splice(i + 1, 1)[0]);
+                    }
+                    let mappings = all_keys.map(function (e, i) {
+                        return [e, all_values[i]];
+                    });
+
+                    mappings.forEach(arr => {
+                        if (arr && arr.length === 2) {
+                            data[arr[0]] = arr[1];
+                        }
+                    })
+                }
+                try {
+                    const messages = cc.sys.localStorage.getItem(messageType) || '[]';
+                    const jsonMessages: any[] = JSON.parse(messages);
+                    jsonMessages.push(data);
+                    cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
+                } catch (e) {
+
+                }
+            }
+        }
+        cc.log('saved into local storage:' + cc.sys.localStorage.getItem(messageType));
+    }
+};
+
+
+
 @ccclass
 export default class Chimple extends cc.Component {
     async onLoad() {
         UtilLogger.initPluginFirebase();
-        Util.loadi18NMapping(() => {})
+        Util.loadi18NMapping(() => {
+        })
         const lang = Profile.getValue(LANGUAGE) || Lang.ENGLISH
         const langConfig = LANG_CONFIGS.get(lang)
-        if(langConfig) Config.i.loadFontDynamically(langConfig.font)
+        if (langConfig) Config.i.loadFontDynamically(langConfig.font)
         const deployMode: number = D_MODE;
         const selectedMode: number = Number(cc.sys.localStorage.getItem(CHIMPLE_MODE)) || MODE;
         switch (deployMode) {
