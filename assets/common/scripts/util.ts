@@ -456,27 +456,29 @@ export class Util {
     Util.load(
       phonicsLoc,
       (err, clip) => {
-        if (!err && clip != null) {
+        if (err! = null) {
+          this.playGameSound(audio, callback);
+        } else if (!err && clip != null) {
           const audioId = Util.play(clip, false);
           if (audioId !== -1) {
             cc.audioEngine.setFinishCallback(audioId, callback);
           } else {
-            this.playGameSound(audio,callback)
+            this.playGameSound(audio, callback);
           }
           cc.audioEngine.setFinishCallback(audioId, callback);
-        } else if (err != null) {
-          this.playGameSound(audio,callback)
         }
       },
       true
     );
   }
-  public static playGameSound(nameOfSound,callback:Function) {
+  public static playGameSound(nameOfSound, callback: Function) {
     Util.loadGameSound(nameOfSound, function (clip) {
       if (clip != null) {
         const audioId = Util.play(clip, false);
         if (audioId != -1) {
-          cc.audioEngine.setFinishCallback(audioId, () => {callback()});
+          cc.audioEngine.setFinishCallback(audioId, () => {
+            callback();
+          });
         }
       }
     });
@@ -494,8 +496,7 @@ export class Util {
       if (audioId >= 0) {
         cc.audioEngine.setFinishCallback(audioId, callback);
       } else {
-        const wordLoc =
-          Config.dir + Config.i.course.id + "/res/" + audio;
+        const wordLoc = Config.dir + Config.i.course.id + "/res/" + audio;
         Util.loadGameSound(wordLoc, (clip) => {
           if (clip != null) {
             audioId = cc.audioEngine.play(clip, false, 1);
@@ -515,7 +516,7 @@ export class Util {
       try {
         cc.log("free resource ---->:", this._resources[i]);
         cc.resources.release(this._resources[i]);
-      } catch (e) { }
+      } catch (e) {}
       this._resources.splice(i, 1);
     }
     cc.log("resources left: --->", this._resources.length);
@@ -526,37 +527,36 @@ export class Util {
     callback: Function,
     needsRelease: boolean = true
   ) {
-    const resArray = res.split('/')
-    const courseName = resArray[0]
-    const lessonName = resArray[1]
-    const resDir = resArray.slice(2).join('/')
-    const resName = resDir.split('.')[0]
-    const bundle = this.bundles.get(lessonName == 'course' ? courseName : lessonName)
-    const ext = resDir.split('.')[1]
+    const resArray = res.split("/");
+    const courseName = resArray[0];
+    const lessonName = resArray[1];
+    const resDir = resArray.slice(2).join("/");
+    const resName = resDir.split(".")[0];
+    const bundle = this.bundles.get(
+      lessonName == "course" ? courseName : lessonName
+    );
+    const ext = resDir.split(".")[1];
     if (ext === "mp3" || ext === "m4a") {
       bundle.load(resName, cc.AudioClip, function (err, asset) {
         if (err) {
           cc.log(JSON.stringify(err));
         }
         callback(err, asset);
-      })
-    }
-    else if (ext === "png" || ext === "jpg") {
+      });
+    } else if (ext === "png" || ext === "jpg") {
       bundle.load(resName, cc.Texture2D, function (err, asset) {
         if (err) {
           cc.log(JSON.stringify(err));
         }
         callback(err, asset);
-      })
-
-    }
-    else {
+      });
+    } else {
       bundle.load(resName, (err, asset) => {
         if (err) {
           cc.log(JSON.stringify(err));
         }
         callback(err, asset);
-      })
+      });
     }
   }
 
@@ -608,8 +608,8 @@ export class Util {
   ) {
     const config = Config.getInstance();
     if (config.problem == 1) {
-      const lessonNode = cc.Canvas.instance.node
-      const lessonComp = lessonNode.getComponent(LessonController)
+      const lessonNode = cc.Canvas.instance.node;
+      const lessonComp = lessonNode.getComponent(LessonController);
       if (from != null && to != null) {
         cc.resources.load("prefabs/help", function (err, prefab) {
           if (!err) {
@@ -668,7 +668,6 @@ export class Util {
     );
   }
 
-
   public static computeTimeDiff(
     append: string,
     startDate: Date = new Date(),
@@ -706,7 +705,7 @@ export class Util {
         return isMusic
           ? cc.audioEngine.playMusic(audioClip, loop)
           : cc.audioEngine.playEffect(audioClip, loop);
-      } catch (e) { }
+      } catch (e) {}
     }
     return -1;
   }
@@ -719,7 +718,6 @@ export class Util {
     }
     return this.helpAudioId;
   }
-
 
   public static play(audioClip: cc.AudioClip, loop: boolean = false) {
     let audioId = -1;
