@@ -36,6 +36,7 @@ export class Util {
   private static _resources: string[] = [];
   static bundles: Map<string, cc.AssetManager.Bundle> = new Map();
   private static helpAudioId: number = -1;
+  static chimp: dragonBones.ArmatureDisplay = null;
 
   public static shuffle<T>(arr): T[] {
     let ctr = arr.length;
@@ -592,15 +593,14 @@ export class Util {
         });
       }
       if (playAudio) {
-        var chimp: dragonBones.ArmatureDisplay;
         if (lessonComp != null) {
-          chimp = lessonComp.chimp;
-          chimp.playAnimation("talking", 0);
+          this.chimp = lessonComp.chimp;
+          this.chimp.playAnimation("talking", 0);
         }
         Util.playHelpAudio(
           config.game,
           () => {
-            if (chimp) chimp.playAnimation("idle", 1);
+            if (this.chimp) this.chimp.playAnimation("idle", 1);
             if (callBack != null) callBack();
           }
         );
@@ -679,6 +679,7 @@ export class Util {
   public static stopHelpAudio() {
     try {
       cc.audioEngine.stopEffect(this.helpAudioId);
+      if (this.chimp) this.chimp.playAnimation("idle", 1);
     } catch (e) {
       cc.log(e);
     }
