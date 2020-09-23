@@ -34,6 +34,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -74,6 +75,7 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.Executor;
@@ -102,7 +104,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private static String cameraResult = null;
     public static AppActivity app = null;
     private CountDownTimer repeatHandShakeTimer = null;
-    private static final int REPEAT_HANDSHAKE_TIMER = 1 * 5 * 1000; // 5 second
+    private static final int REPEAT_HANDSHAKE_TIMER = 1 * 30 * 1000; // 30 second
 
 
     @Override
@@ -129,6 +131,8 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
 
+        //Deep Links
+        this.processDeepLink();
 
         //Set up a receiver to listen for the Intents in this Service
         lockScreenReceiver = new LockScreenReceiver(this);
@@ -170,6 +174,21 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                 }
             }
         }.start();
+    }
+
+    public void processDeepLink() {
+        //Deep Links
+        Intent intent = getIntent();
+        Log.d(TAG, "intent:" + intent);
+        if (intent != null) {
+            String action = intent.getAction();
+            Uri uri = intent.getData();
+            Log.d(TAG, "deep link action:" + action);
+            Log.d(TAG, "deep link uri:" + uri);
+            if (uri != null && action != null && action.equalsIgnoreCase("android.intent.action.VIEW")) {
+                this.createOneTimeHandShakeTimer(uri.toString());
+            }
+        }
     }
 
     public void initFirebaseMessageClient() {
@@ -607,6 +626,43 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                             Log.d(TAG, "Failed to update fmcs:" + e.toString());
                         }
                     });
+        }
+    }
+
+    /*
+
+     */
+
+    private void createOneTimeHandShakeTimer(final String url) {
+        try {
+            synchronized (this) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (app != null) {
+                            new CountDownTimer(REPEAT_HANDSHAKE_TIMER, 10000) {
+                                public void onTick(long millisUntilFinished) {
+                                    Log.d(TAG, "createOneTimeHandShakeTimer ticking ...");
+                                }
+
+                                public void onFinish() {
+                                    app.runOnGLThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            String javaScriptVariable = "cc.deep_link($url)";
+                                            javaScriptVariable = javaScriptVariable.replace("$url", "'" + url + "'");
+                                            Log.d(TAG, "calling deep link with: " + javaScriptVariable);
+                                            Cocos2dxJavascriptJavaBridge.evalString(javaScriptVariable);
+                                        }
+                                    });
+                                }
+                            }.start();
+                        }
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
