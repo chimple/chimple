@@ -31,20 +31,10 @@ export default class Start extends cc.Component {
     @property(cc.Node)
     loading: cc.Node = null;
 
-    @property(cc.Node)
-    bgHolder: cc.Node = null;
-
     selectedHeaderButton: HeaderButton
     static homeSelected: boolean = true
 
     onLoad() {
-        this.bgHolder.removeAllChildren();
-        if (!!User.getCurrentUser().currentBg) {
-            this.setBackground(User.getCurrentUser().currentBg);
-        } else {
-            this.setBackground("forest");
-        }
-
         this.loading.width = cc.winSize.width
         const config = Config.i
         let index = 0
@@ -91,19 +81,6 @@ export default class Start extends cc.Component {
             }
             this.loading.active = false
         })
-    }
-
-    private setBackground(bgprefabName: string) {
-        cc.resources.load(`backgrounds/prefabs/${bgprefabName}`, (err, sp) => {
-            let bgPrefabInstance = cc.instantiate(sp);
-            // @ts-ignore
-            bgPrefabInstance.y = 0
-            // @ts-ignore
-            bgPrefabInstance.x = 0
-            // @ts-ignore
-            this.bgHolder.addChild(bgPrefabInstance);
-            // userButtonRef.getChildByName("Background").getChildByName("avatar").getChildByName("icon").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
-        });
     }
 
     private onCourseClick() {
