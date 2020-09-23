@@ -17,7 +17,7 @@ export default class QuitPopup extends cc.Component {
     }
 
     onClickHelpButton() {
-        cc.sys.openURL("https://wa.me/917091270679");
+        cc.sys.openURL("https://wa.me/917019270679");
         this.node.active = false;
         this.inputEventBlocker.active = false;
     }
