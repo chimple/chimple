@@ -131,9 +131,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
 
-        //Deep Links
-        this.processDeepLink();
-
         //Set up a receiver to listen for the Intents in this Service
         lockScreenReceiver = new LockScreenReceiver(this);
         registerReceiver(lockScreenReceiver, filter);
@@ -174,6 +171,14 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                 }
             }
         }.start();
+
+        //Deep Links
+        this.processDeepLink();
+
+        // ATTENTION: This was auto-generated to handle app links.
+        Intent appLinkIntent = getIntent();
+        String appLinkAction = appLinkIntent.getAction();
+        Uri appLinkData = appLinkIntent.getData();
     }
 
     public void processDeepLink() {
@@ -190,6 +195,8 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             }
         }
     }
+
+
 
     public void initFirebaseMessageClient() {
         advertisingApiBackgroundExecutor.execute(new Runnable() {
@@ -417,6 +424,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         SDKWrapper.getInstance().onNewIntent(intent);
+        this.processDeepLink();
     }
 
     @Override
