@@ -57,7 +57,8 @@ export default class StudentPreviewInfo extends cc.Component {
 
         const customEvent: cc.Event.EventCustom = new cc.Event.EventCustom(TEACHER_ADD_STUDENT_SELECTED, true);
         customEvent.setUserData({
-            selectedStudent: this._user.id
+            selectedStudent: this._user.id,
+            studentName: this._user.name || ''
         });
         this.node.dispatchEvent(customEvent);
     }

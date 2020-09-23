@@ -20,6 +20,7 @@ export default class TeacherAddedDialog extends cc.Component {
 
     users: User[];
     selectedStudentId: string;
+    selectedStudentName: string;
 
     _teacherId: string;
     _teacherName: string;
@@ -29,7 +30,7 @@ export default class TeacherAddedDialog extends cc.Component {
             event.stopPropagation();
             const item = event.getUserData();
             this.selectedStudentId = item.selectedStudent;
-            cc.log('selectedStudentId', this.selectedStudentId)
+            this.selectedStudentName = item.studentName;
         });
         // get all Users
         this.users = User.getUsers();
@@ -58,7 +59,7 @@ export default class TeacherAddedDialog extends cc.Component {
                 studentId: this.selectedStudentId,
                 teacherId: this._teacherId,
                 kind: "UpdateHomeTeacher",
-                name: "test"
+                name: this.selectedStudentName
             };
             Queue.getInstance().push(updateHomeTeacherInfo);
         }
