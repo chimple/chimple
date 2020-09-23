@@ -173,12 +173,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         }.start();
 
         //Deep Links
-        this.processDeepLink();
-
-        // ATTENTION: This was auto-generated to handle app links.
-        Intent appLinkIntent = getIntent();
-        String appLinkAction = appLinkIntent.getAction();
-        Uri appLinkData = appLinkIntent.getData();
+        this.processDeepLink();        
     }
 
     public void processDeepLink() {
