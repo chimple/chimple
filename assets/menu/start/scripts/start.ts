@@ -5,7 +5,7 @@ import {Util} from "../../../common/scripts/util";
 import CourseContent from "./courseContent";
 import HeaderButton from "./headerButton";
 import StartContent from "./startContent";
-import {ADD_TEACHER} from "../../../chimple";
+import {ADD_TEACHER, TEACHER_ID_KEY, TEACHER_NAME_KEY} from "../../../chimple";
 import TeacherAddedDialog, {TEACHER_ADD_DIALOG_CLOSED} from "../../../common/scripts/teacherAddedDialog";
 import {TEACHER_ADD_STUDENT_SELECTED} from "../../../common/scripts/studentPreviewInfo";
 
@@ -106,12 +106,16 @@ export default class Start extends cc.Component {
             const messages: any[] = JSON.parse(cc.sys.localStorage.getItem(ADD_TEACHER));
             if (messages && messages.length > 0) {
                 const curMessage = messages.splice(0, 1)[0];
+                const name: string = curMessage[TEACHER_NAME_KEY];
+                const id = curMessage[TEACHER_ID_KEY];
                 cc.sys.localStorage.setItem(ADD_TEACHER, JSON.stringify(messages));
-                const teacherDialog: cc.Node = cc.instantiate(this.teacherDialogPrefab);
-                const script: TeacherAddedDialog = teacherDialog.getComponent(TeacherAddedDialog);
-                script.TeacherName = curMessage['name'];
-                script.TeacherId = curMessage['id'];
-                this.node.addChild(teacherDialog);
+                if (!!id && !!name) {
+                    const teacherDialog: cc.Node = cc.instantiate(this.teacherDialogPrefab);
+                    const script: TeacherAddedDialog = teacherDialog.getComponent(TeacherAddedDialog);
+                    script.TeacherName = name;
+                    script.TeacherId = id;
+                    this.node.addChild(teacherDialog);
+                }
             }
         } catch (e) {
 

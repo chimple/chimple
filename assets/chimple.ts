@@ -17,6 +17,8 @@ export const REGISTER: string = "REGISTER";
 export const NONE: string = "NONE";
 
 export const ADD_TEACHER: string = 'add_teacher';
+export const TEACHER_ID_KEY ='id';
+export const TEACHER_NAME_KEY ='name';
 
 export const LANDING_SCENE = 'private/school/scenes/landing';
 export const HOME_SCENE = 'menu/home/scenes/home';
@@ -45,7 +47,7 @@ cc.deep_link = function (url) {
 
                     mappings.forEach(arr => {
                         if (arr && arr.length === 2) {
-                            data[arr[0]] = arr[1];
+                            data[arr[0].toLowerCase()] = arr[1].toLowerCase();
                         }
                     })
                 }
