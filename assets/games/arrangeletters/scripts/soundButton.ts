@@ -16,8 +16,8 @@ export default class SoundClass extends cc.Component {
         if (!this.isSoundPlaying) {
             this.isSoundPlaying = true
             let audio =this.node.parent.parent.getComponent(ArrangeLetters).wordAudioFileName
-            Util.speakGameAudioOrPhonics(audio,
-                () => { this.isSoundPlaying = false })
+            Util.playGameSound(audio,()=>{ this.isSoundPlaying = false})
+
         }
     }
 }
