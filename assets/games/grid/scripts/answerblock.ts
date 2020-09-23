@@ -183,10 +183,10 @@ export default class AnswerBlock extends CommonBlock {
       if (!!this._sound) {
         this._soundID = Util.play(this._sound, false);
         if (this._soundID === -1) {
-          Util.speakPhonicsOrGameAudio(this.contentText, () => {})
+          Util.speakGameAudioOrPhonics(this.contentText, () => {})
         }
       } else {
-        Util.speakPhonicsOrGameAudio(this.contentText, () => {})
+        Util.speakGameAudioOrPhonics(this.contentText, () => {})
       }
     } catch (e) {}
   }

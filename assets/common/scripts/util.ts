@@ -449,7 +449,7 @@ export class Util {
     );
   }
 
-  public static speakPhonicsOrGameAudio(audio: string, callback: Function) {
+  public static speakGameAudioOrPhonics(audio: string, callback: Function) {
     audio = audio.replace(".m4a", "");
     audio = !audio.endsWith(".mp3") ? audio + ".mp3" : audio;
     const phonicsLoc = Config.dir + PHONIC_VOICE + audio;
