@@ -328,15 +328,8 @@ export default class LessonController extends cc.Component {
     }
 
     onBackClick() {
-        let popup = this.node.getChildByName("popup");
-        popup.active=true;
-        if(0){
-         
-        }else{
-           // Config.i.popScene()
-        }
-
-        Util.stopHelpAudio();
+       Util.stopHelpAudio();
+       this.node.getChildByName("quit").active = true;
         
     }
 
