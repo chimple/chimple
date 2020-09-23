@@ -28,9 +28,10 @@ export const START_SCENE = 'menu/start/scenes/start';
 //@ts-ignore
 cc.deep_link = function (url) {
     cc.log("deep link called with url:" + url);
-    if (url !== null && url.includes("chimple://")) {
+    http://chimple.github.io
+    if (url !== null && url.includes("http://chimple.github.io/")) {
         let messageType: string = null;
-        let splits = url.split("://");
+        let splits = url.split("://chimple.github.io/");
         if (splits !== null && splits.length === 2) {
             let elements = splits[1].split('/');
             messageType = elements.splice(0, 1)[0];
