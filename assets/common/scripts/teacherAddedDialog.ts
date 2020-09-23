@@ -53,22 +53,27 @@ export default class TeacherAddedDialog extends cc.Component {
     }
 
     onYesClicked(event) {
-        let updateHomeTeacherInfo: UpdateHomeTeacher = {
-            studentId: this.selectedStudentId,
-            teacherId: this._teacherId
-        };
-        Queue.getInstance().push(updateHomeTeacherInfo);
+        if (!!this.selectedStudentId && this._teacherId) {
+            let updateHomeTeacherInfo: UpdateHomeTeacher = {
+                studentId: this.selectedStudentId,
+                teacherId: this._teacherId
+            };
+            Queue.getInstance().push(updateHomeTeacherInfo);
+        }
+        this.closeDialog();
+
+    }
+
+    closeDialog() {
         const customEvent: cc.Event.EventCustom = new cc.Event.EventCustom(TEACHER_ADD_DIALOG_CLOSED, true);
         this.node.dispatchEvent(customEvent);
         this.scheduleOnce(() => {
             this.node.destroy();
         }, 0.25)
-
     }
 
-
     onNoClicked(event) {
-        this.node.destroy();
+        this.closeDialog();
     }
 
     set TeacherId(_teacherId: string) {
