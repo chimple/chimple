@@ -16,6 +16,7 @@ export const SCHOOL: string = "SCHOOL";
 export const REGISTER: string = "REGISTER";
 export const NONE: string = "NONE";
 
+export const ASSIGNED_TEACHERS: string = 'assigned_teachers';
 export const ADD_TEACHER: string = 'add_teacher';
 export const TEACHER_ID_KEY ='id';
 export const TEACHER_NAME_KEY ='name';

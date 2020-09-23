@@ -5,6 +5,7 @@ import StudentPreviewInfo, {TEACHER_ADD_STUDENT_SELECTED} from "./studentPreview
 import ChimpleLabel from "./chimple-label";
 import {Queue} from "../../queue";
 import {UpdateHomeTeacher} from "../../private/services/parseApi";
+import {ASSIGNED_TEACHERS} from "../../chimple";
 
 export const TEACHER_ADD_DIALOG_CLOSED = 'TEACHER_ADD_DIALOG_CLOSED';
 @ccclass
@@ -62,7 +63,17 @@ export default class TeacherAddedDialog extends cc.Component {
                 name: this.selectedStudentName
             };
             Queue.getInstance().push(updateHomeTeacherInfo);
+
+            try {
+                const messages = cc.sys.localStorage.getItem(ASSIGNED_TEACHERS) || '[]';
+                const jsonMessages: any[] = JSON.parse(messages);
+                jsonMessages.push(this._teacherId);
+                cc.sys.localStorage.setItem(ASSIGNED_TEACHERS, JSON.stringify(jsonMessages));
+            } catch (e) {
+
+            }
         }
+
         this.closeDialog();
 
     }
