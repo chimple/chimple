@@ -46,8 +46,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 220,
-      "height": 240
+      "width": 136,
+      "height": 170
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -110,8 +110,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 77.86,
-      "height": 176.4
+      "width": 0,
+      "height": 50.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -122,8 +122,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        10,
-        25,
+        17,
+        28.486,
         0,
         0,
         0,
@@ -165,8 +165,8 @@
     "_useOriginalSize": true,
     "_string": "",
     "_N$string": "",
-    "_fontSize": 140,
-    "_lineHeight": 140,
+    "_fontSize": 40,
+    "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -174,7 +174,7 @@
     "_batchAsBitmap": false,
     "_styleFlags": 0,
     "_underlineHeight": 0,
-    "_N$horizontalAlign": 2,
+    "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
@@ -187,9 +187,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "432c24eb-926e-4935-afd8-9ab2dd1e4f9a"
+      "__uuid__": "0a45f162-5e48-4462-ae74-c2abb460f799"
     },
-    "fileId": "208QdbKF1EkIhxkdFw/iHB",
+    "fileId": "089NU2iW9O6b82UTVXjWJF",
     "sync": false
   },
   {
@@ -227,7 +227,7 @@
       "__uuid__": "8b0a2ffc-5ccf-423c-b679-85180aa80030"
     },
     "_type": 0,
-    "_sizeMode": 0,
+    "_sizeMode": 1,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -252,12 +252,12 @@
     "_offset": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 0
+      "y": 20
     },
     "_size": {
       "__type__": "cc.Size",
-      "width": 177,
-      "height": 190
+      "width": 136,
+      "height": 130
     },
     "_id": ""
   },
@@ -267,9 +267,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "432c24eb-926e-4935-afd8-9ab2dd1e4f9a"
+      "__uuid__": "0a45f162-5e48-4462-ae74-c2abb460f799"
     },
-    "fileId": "843Iks4BJABqfXK6xDxgGy",
+    "fileId": "22dxC208BIGL23oXNKyyZG",
     "sync": false
   }
 ]
