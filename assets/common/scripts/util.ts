@@ -1,7 +1,7 @@
 import ChimpleLabel from "./chimple-label";
 import Help from "./help";
-import {DEFAULT_FONT_COLOR, LETTER_VOICE, NUMBER_VOICE, PHONIC_VOICE} from "./helper";
-import Config, {COURSES, STORY} from "./lib/config";
+import { DEFAULT_FONT_COLOR, LETTER_VOICE, NUMBER_VOICE, PHONIC_VOICE } from "./helper";
+import Config, { COURSES, STORY } from "./lib/config";
 import {
     ASSET_LOAD_METHOD,
     COURSES_URL,
@@ -9,13 +9,13 @@ import {
     CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID,
     SIMULATOR_ROOT_DIR
 } from "./lib/constants";
-import Profile, {SFX_OFF, LANGUAGE} from "./lib/profile";
+import Profile, { SFX_OFF, LANGUAGE, User } from "./lib/profile";
 import UtilLogger from "./util-logger";
 import Overflow = cc.Label.Overflow;
 import HorizontalAlign = cc.Label.HorizontalAlign;
 import VerticalAlign = cc.Label.VerticalAlign;
 import LessonController from "./lessonController";
-import {Queue} from "../../queue";
+import { Queue } from "../../queue";
 
 export const SUBPACKAGES = 'subpackages'
 
@@ -61,7 +61,7 @@ export class Util {
 
     public static shuffleByMapSortMap<T>(unshuffled): T[] {
         return unshuffled
-            .map((a) => ({sort: Math.random(), value: a}))
+            .map((a) => ({ sort: Math.random(), value: a }))
             .sort((a, b) => a.sort - b.sort)
             .map((a) => a.value);
     }
@@ -684,7 +684,7 @@ export class Util {
         cc.log(`${append} -> computeTimeDiff in milliseconds ${diff}`);
     }
 
-    public static* shuffleGenerator(array) {
+    public static * shuffleGenerator(array) {
         let i = array.length;
         while (i--) {
             yield array.splice(Math.floor(Math.random() * (i + 1)), 1)[0];
@@ -693,7 +693,7 @@ export class Util {
 
     public static loadFriend(callback: Function) {
         cc.resources.load(
-            "prefabs/friend/" + Config.getInstance().friend,
+            "prefabs/friend/" + User.getCurrentUser().currentCharacter,
             (err, prefab) => {
                 if (err != null) cc.log(err);
                 const friendNode = prefab != null ? cc.instantiate(prefab) : null;
@@ -796,8 +796,8 @@ export class Util {
     }
 
     public static assignHomework(chapterId: string, lessonId: string,
-                                 schoolId: string, studentId: string,
-                                 subjectId: string) {
+        schoolId: string, studentId: string,
+        subjectId: string) {
 
         let updateInfo = {
             chapter: chapterId,
