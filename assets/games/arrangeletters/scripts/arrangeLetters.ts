@@ -17,10 +17,9 @@ export default class ArrangeLetters extends cc.Component {
   @property(cc.Prefab)
   ball: cc.Prefab = null;
 
-  // data: Array<Array<string>> = [
-  //   ["1", "1", "1", "playground", "ball2", "a,p,s,l"],
-  //   ["1", "1", "1", "playground2", "ball2", "c,a,t"],
-  // ];
+  @property(cc.Prefab)
+  imagePrefab:cc.Prefab = null;
+
   level: string;
   worksheet: string;
   problem: string;
@@ -28,10 +27,14 @@ export default class ArrangeLetters extends cc.Component {
   objectName: string;
   word: string;
   correctLetterArray: Array<string>;
-  static correctPosition: Map<string, number>
-  static wordLength:number 
-  static letterArray:Array<string>
+  static correctPosition: Map<string, number>;
+  static wordLength:number;
+  static letterArray:Array<string>;
+  wordAudioFileName:string;
+  imageFileName:string;
+  isSoundPlaying:boolean = false;
 
+  
   onLoad() {
     [ 
       this.level,
@@ -40,6 +43,8 @@ export default class ArrangeLetters extends cc.Component {
       this.backgroundName,
       this.objectName,
       this.word,
+      this.wordAudioFileName,
+      this.imageFileName
     ] = Config.getInstance().data[0];
 
     this.correctLetterArray = this.word.split(",");
@@ -48,6 +53,7 @@ export default class ArrangeLetters extends cc.Component {
     this.loadBackground();
     this.makeDragObjects();
     ArrangeLetters.letterArray = this.word.split(",");
+    this.startGameSound();
   }
 
   makeDragObjects() {
@@ -73,6 +79,18 @@ export default class ArrangeLetters extends cc.Component {
   loadBackground() {
     let loadbg = cc.instantiate(this[this.backgroundName]);
     this.node.addChild(loadbg);
+    let imgVal = cc.instantiate(this.imagePrefab);
+    this.node.addChild(imgVal);
+    Util.loadTexture(this.imageFileName, (texture, err) => {
+    imgVal.getChildByName("image").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+    });
+  }
+
+  startGameSound(){
+   if(!this.isSoundPlaying){
+     this.isSoundPlaying = true
+   Util.speakGameAudioOrPhonics(this.wordAudioFileName,()=>{this.isSoundPlaying = false})
+  }
   }
 
 }

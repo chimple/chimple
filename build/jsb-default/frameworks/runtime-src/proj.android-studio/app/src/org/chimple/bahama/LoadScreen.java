@@ -29,7 +29,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 import androidx.fragment.app.FragmentActivity;
-import org.cocos2dx.javascript.AppActivity;
+import org.chimple.bahama.AppActivity;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;

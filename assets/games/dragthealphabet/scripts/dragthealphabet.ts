@@ -7,6 +7,12 @@ const { ccclass, property } = cc._decorator;
 export default class DragTheAlphabet extends cc.Component {
 
     @property(cc.Prefab)
+    iceCreamBg: cc.Prefab = null;
+
+    @property(cc.Prefab)
+    iceCreamDrag: cc.Prefab = null;
+
+    @property(cc.Prefab)
     cakeBg: cc.Prefab = null;
 
     @property(cc.Prefab)

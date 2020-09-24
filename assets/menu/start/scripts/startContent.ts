@@ -20,7 +20,12 @@ export default class StartContent extends cc.Component {
         const buttons: Array<cc.Node> = []
         Config.i.curriculum.forEach((course: Course, name: string) => {
             course.chapters.forEach((chapter: Chapter) => {
-                const lesson = chapter.lessons[Math.floor(Math.random() * chapter.lessons.length)]
+                const firstClosedIndex = chapter.lessons.findIndex((lesson, index) => {
+                    return !(index == 0
+                        || lesson.open
+                        || User.getCurrentUser().lessonProgressMap.has(lesson.id))
+                })
+                const lesson = chapter.lessons[firstClosedIndex == -1 ? 0 : firstClosedIndex - 1]
                 buttons.push(this.createButton(lesson, chapter, course));
             })
         })
@@ -37,6 +42,7 @@ export default class StartContent extends cc.Component {
         lessonButtonComp.chapter = chapter;
         lessonButtonComp.course = course;
         lessonButtonComp.loading = this.loading;
+        lessonButtonComp.open = true
         return lessonButton
     }
 }

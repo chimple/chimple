@@ -1,6 +1,6 @@
 import { ASSET_LOAD_METHOD } from "./lib/constants";
 
-const LOGGER_CLASS = "org/cocos2dx/javascript/logger/ChimpleLogger";
+const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
 
 const LOGGER_METHOD = "logEvent";
 const LOGGER_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
@@ -36,6 +36,10 @@ const CURRENT_PROFILE_METHOD_SIGNATURE = "()Ljava/lang/String;";
 
 const DEVICE_ID_METHOD = "getDeviceId";
 const DEVICE_ID_METHOD_SIGNATURE = "()Ljava/lang/String;";
+
+const LAUNCH_YOUTUBE_METHOD = "launchYoutube";
+const LAUNCH_YOUTUBE_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
+
 
 const USER_ID = "userId";
 const DEVICE_ID = "deviceId";
@@ -270,6 +274,25 @@ export default class UtilLogger {
                 );
             }
             return false;
+        } catch (e) {
+        }
+    }
+
+    public static launchYoutube(videoId: string): void {
+        cc.log("calling launchYoutube");
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID
+            ) {
+                cc.log("calling launchYoutube 1111");
+                return jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    LAUNCH_YOUTUBE_METHOD,
+                    LAUNCH_YOUTUBE_METHOD_SIGNATURE,
+                    videoId
+                );
+            }
         } catch (e) {
         }
     }
