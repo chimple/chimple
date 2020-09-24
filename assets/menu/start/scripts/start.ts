@@ -5,6 +5,9 @@ import { Util } from "../../../common/scripts/util";
 import CourseContent from "./courseContent";
 import HeaderButton from "./headerButton";
 import StartContent from "./startContent";
+import { ADD_TEACHER, TEACHER_ID_KEY, TEACHER_NAME_KEY } from "../../../chimple";
+import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
+import { TEACHER_ADD_STUDENT_SELECTED } from "../../../common/scripts/studentPreviewInfo";
 
 const { ccclass, property } = cc._decorator;
 
@@ -31,13 +34,29 @@ export default class Start extends cc.Component {
     @property(cc.Node)
     loading: cc.Node = null;
 
+    @property(cc.Prefab)
+    teacherDialogPrefab: cc.Prefab = null;
+
+    @property(cc.Node)
+    bgHolder: cc.Node = null;
+
     selectedHeaderButton: HeaderButton
     static homeSelected: boolean = true
 
     onLoad() {
+
+        this.bgHolder.removeAllChildren();
+        if (!!User.getCurrentUser().currentBg) {
+            this.setBackground(User.getCurrentUser().currentBg);
+        } else {
+            this.setBackground("forest");
+        }
+
+
         this.loading.width = cc.winSize.width
         const config = Config.i
         let index = 0
+
         User.getCurrentUser().courseProgressMap.forEach(() => {
             const headerButton = cc.instantiate(this.headerButtonPrefab)
             const headerButtonComp = headerButton.getComponent(HeaderButton)
@@ -79,8 +98,59 @@ export default class Start extends cc.Component {
             } else {
                 this.onCourseClick()
             }
-            this.loading.active = false
+            this.loading.active = false;
+            this.setUpTeacherDialog();
         })
+    }
+
+    private registerTeacherDialogCloseEvent() {
+        this.node.on(TEACHER_ADD_DIALOG_CLOSED, async (event) => {
+            event.stopPropagation();
+            this.scheduleOnce(() => {
+                this.showTeacherDialog();
+            }, 1)
+        });
+    }
+
+    private setBackground(bgprefabName: string) {
+        cc.resources.load(`backgrounds/prefabs/${bgprefabName}`, (err, sp) => {
+            let bgPrefabInstance = cc.instantiate(sp);
+            // @ts-ignore
+            bgPrefabInstance.y = 0
+            // @ts-ignore
+            bgPrefabInstance.x = 0
+            // @ts-ignore
+            this.bgHolder.addChild(bgPrefabInstance);
+            // userButtonRef.getChildByName("Background").getChildByName("avatar").getChildByName("icon").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
+        });
+    }
+
+
+    private showTeacherDialog() {
+        try {
+            const messageStr: string = cc.sys.localStorage.getItem(ADD_TEACHER) || '[]';
+            const messages: any[] = JSON.parse(messageStr);
+            if (messages && messages.length > 0) {
+                const curMessage = messages.splice(0, 1)[0];
+                const name: string = curMessage[TEACHER_NAME_KEY];
+                const id = curMessage[TEACHER_ID_KEY];
+                cc.sys.localStorage.setItem(ADD_TEACHER, JSON.stringify(messages));
+                if (!!id && !!name) {
+                    const teacherDialog: cc.Node = cc.instantiate(this.teacherDialogPrefab);
+                    const script: TeacherAddedDialog = teacherDialog.getComponent(TeacherAddedDialog);
+                    script.TeacherName = name;
+                    script.TeacherId = id;
+                    this.node.addChild(teacherDialog);
+                }
+            }
+        } catch (e) {
+
+        }
+    }
+
+    private setUpTeacherDialog() {
+        this.registerTeacherDialogCloseEvent();
+        this.showTeacherDialog();
     }
 
     private onCourseClick() {

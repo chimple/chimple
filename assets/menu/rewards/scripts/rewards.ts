@@ -20,26 +20,67 @@ export default class Rewards extends cc.Component {
     saveConstants = ["character", "background", "achievement"]
 
     onLoad() {
-        this.checkLockStatus(this.saveConstants);
+        this.checkCharacterLockStatus();
+        this.checkBgLockStatus();
+        this.checkAchievementsLockStatus();
     }
 
-    checkLockStatus(saveItems: string[]) {
-        saveItems.forEach((ele, index) => {
-            let numberOfChildren = this.layoutHolder.children[index].children[0].children[0].childrenCount
-
-            for (let i = 0; i < numberOfChildren; i++) {
-                let eachElement = this.layoutHolder.children[index].children[0].children[0].children[i];
-                let elementId = eachElement.getChildByName("id").getComponent(cc.Label).string;
-                if (User.getCurrentUser().unlockedRewards[`${ele}-${elementId}`] === 0 || User.getCurrentUser().unlockedRewards[`${ele}-${elementId}`] === undefined) {
-                    // make lock texture active
-                }
-                else if (User.getCurrentUser().unlockedRewards[`${ele}-${elementId}`] >= 1) {
-                    // show according to level
-                    // 1 - gold or unlock for bg and achmts , 3 - bronze
-                }
+    checkCharacterLockStatus() {
+        let numberOfChildren = this.layoutHolder.children[0].children[0].children[0].childrenCount
+        for (let i = 0; i < numberOfChildren; i++) {
+            let eachElement = this.layoutHolder.children[0].children[0].children[0].children[i];
+            let elementId = eachElement.getChildByName("id").getComponent(cc.Label).string;
+            if (User.getCurrentUser().unlockedRewards[`${this.saveConstants[0]}-${elementId}`] === 0 || User.getCurrentUser().unlockedRewards[`${this.saveConstants[0]}-${elementId}`] === undefined) {
+                // make lock texture active
+                eachElement.getChildByName("lock").active = true
+                eachElement.getComponent(cc.Button).interactable = false
             }
-        })
+            if (eachElement.getComponent(cc.Button).clickEvents[0].customEventData === User.getCurrentUser().currentCharacter) {
+                // make edit button and selected show
+                eachElement.getChildByName("tick").active = true
+                eachElement.getChildByName("edit").active = true
+            }
+        }
     }
+
+    checkBgLockStatus() {
+        let numberOfChildren = this.layoutHolder.children[1].children[0].children[0].childrenCount
+
+        for (let i = 0; i < numberOfChildren; i++) {
+            let eachElement = this.layoutHolder.children[1].children[0].children[0].children[i];
+            let elementId = eachElement.getChildByName("id").getComponent(cc.Label).string;
+            if (User.getCurrentUser().unlockedRewards[`${this.saveConstants[1]}-${elementId}`] === 0 || User.getCurrentUser().unlockedRewards[`${this.saveConstants[1]}-${elementId}`] === undefined) {
+                // make lock texture active
+                eachElement.getComponent(cc.Button).interactable = false
+                eachElement.getChildByName("lock").active = true;
+            }
+            if (eachElement.getComponent(cc.Button).clickEvents[0].customEventData === User.getCurrentUser().currentBg) {
+                // make edit button and selected show
+                eachElement.getChildByName("tick").active = true
+                eachElement.getChildByName("edit").active = true
+            }
+        }
+    }
+
+    checkAchievementsLockStatus() {
+        let numberOfChildren = this.layoutHolder.children[2].children[0].children[0].childrenCount
+
+        for (let i = 0; i < numberOfChildren; i++) {
+            let eachElement = this.layoutHolder.children[2].children[0].children[0].children[i];
+            let elementId = eachElement.getChildByName("id").getComponent(cc.Label).string;
+            if (User.getCurrentUser().unlockedRewards[`${this.saveConstants[2]}-${elementId}`] === 0 || User.getCurrentUser().unlockedRewards[`${this.saveConstants[2]}-${elementId}`] === undefined) {
+                // make lock texture active
+                eachElement.getChildByName("lock").active = true;
+                eachElement.getChildByName("achievementnode").children[0].active = true
+            } else {
+                // enable it
+                // 1 - bronze 2 - silver 3- gold
+                let acvmtNumber = User.getCurrentUser().unlockedRewards[`${this.saveConstants[2]}-${elementId}`];
+                eachElement.getChildByName("achievementnode").children[acvmtNumber].active = true
+            }
+        }
+    }
+
 
     onContentClick(event, customEventData) {
         for (let i = 0; i < 3; i++) {
@@ -60,7 +101,6 @@ export default class Rewards extends cc.Component {
     }
 
     onCharacterClick(event, customEventData) {
-        console.log("hello character");
         let nodeName = ("indi_button_prefab" + this.lastSelectedButton.toString())
         // reset last selected first
         if (this.lastSelectedButton > -1) {
@@ -71,6 +111,24 @@ export default class Rewards extends cc.Component {
 
         // save to profile
         User.getCurrentUser().currentCharacter = customEventData.toString().trim();
+
+        // unselect show and edit button show
+        let numberOfChildren = this.layoutHolder.children[0].children[0].children[0].childrenCount
+        for (let i = 0; i < numberOfChildren; i++) {
+            let eachElement = this.layoutHolder.children[0].children[0].children[0].children[i];
+            eachElement.getChildByName("tick").active = false;
+            eachElement.getChildByName("edit").active = false;
+        }
+
+        // make this selected one
+        event.currentTarget.getChildByName("tick").active = true
+        event.currentTarget.getChildByName("edit").active = true
+    }
+
+    onEditButtonClicked(event, customEventData) {
+        // save to profile
+        User.getCurrentUser().currentCharacter = customEventData.toString().trim();
+
         // switch scene
         Config.getInstance().pushScene("inventory", "menu");
     }
@@ -86,6 +144,15 @@ export default class Rewards extends cc.Component {
 
         // save to profile
         User.getCurrentUser().currentBg = customEventData.toString().trim();
+
+        /// remove already selected 
+        let numberOfChildren = this.layoutHolder.children[1].children[0].children[0].childrenCount
+        for (let i = 0; i < numberOfChildren; i++) {
+            let eachElement = this.layoutHolder.children[1].children[0].children[0].children[i];
+            eachElement.getChildByName("tick").active = false;
+        }
+        // add current selected
+        event.currentTarget.getChildByName("tick").active = true
     }
 
     onLogoutButtonClick(event) {

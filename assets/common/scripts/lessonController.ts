@@ -87,6 +87,7 @@ export default class LessonController extends cc.Component {
             this.onBackClick()
         }
         this.lessonStart();
+        this.node.getChildByName("backButton").on('click', () => this.onBackClick());
     }
 
     static preloadLesson(callback: Function) {
@@ -159,8 +160,8 @@ export default class LessonController extends cc.Component {
         if (this.gameNode != null) this.gameNode.removeFromParent();
         this.gameNode = cc.instantiate(prefab);
         const gameComponent = this.gameNode.getComponent(Game)
-        if(gameComponent) {
-            if(!gameComponent.friendPos) {
+        if (gameComponent) {
+            if (!gameComponent.friendPos) {
                 gameComponent.friendPos = new cc.Node()
                 gameComponent.friendPos.position = cc.v3(-512, -384)
                 gameComponent.node.addChild(gameComponent.friendPos)
@@ -354,6 +355,7 @@ export default class LessonController extends cc.Component {
 
     onBackClick() {
         this.friend.stopAudio();
+        this.node.getChildByName("quit").active = true;
     }
 
     protected onDisable() {

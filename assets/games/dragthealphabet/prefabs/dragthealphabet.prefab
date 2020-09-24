@@ -107,7 +107,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 700,
+      "width": 900,
       "height": 200
     },
     "_anchorPoint": {
@@ -120,7 +120,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        240,
+        190,
         0,
         0,
         0,
@@ -154,7 +154,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 700,
+      "width": 900,
       "height": 200
     },
     "_resize": 1,
@@ -169,7 +169,7 @@
     "_N$paddingRight": 0,
     "_N$paddingTop": 0,
     "_N$paddingBottom": 0,
-    "_N$spacingX": 200,
+    "_N$spacingX": 280,
     "_N$spacingY": 0,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
@@ -266,6 +266,12 @@
       "__id__": 1
     },
     "_enabled": true,
+    "iceCreamBg": {
+      "__uuid__": "d5e3c3f5-1e97-4cae-a45e-da995618e7ea"
+    },
+    "iceCreamDrag": {
+      "__uuid__": "5f45d9bc-6e0c-4607-b2e4-d23f69870005"
+    },
     "cakeBg": {
       "__uuid__": "6935eaee-01ad-461f-9c37-b1229a559469"
     },
@@ -279,10 +285,10 @@
       "__uuid__": "5849314e-8be8-42a6-b481-eb546f50e069"
     },
     "sandcastleBg": {
-      "__uuid__": "5c3ef5ca-8054-40f3-8165-4f639fba7fa3"
+      "__uuid__": "a4493d01-34c5-4faf-85bf-866fa97fcaa7"
     },
     "sandcastleDrag": {
-      "__uuid__": "0a45f162-5e48-4462-ae74-c2abb460f799"
+      "__uuid__": "432c24eb-926e-4935-afd8-9ab2dd1e4f9a"
     },
     "layout": {
       "__id__": 2
