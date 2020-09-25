@@ -1,5 +1,6 @@
 import Drag from "../../../common/scripts/drag";
 import { Util } from "../../../common/scripts/util";
+import LessonController from "../../../common/scripts/lessonController";
 
 const { ccclass, property } = cc._decorator;
 
@@ -19,7 +20,7 @@ export default class SpellingDrag extends Drag {
         super.onTouchStart(touch)
         if (this._soundClip != null) {
             try {
-                Util.play(this._soundClip, false)
+                LessonController.getFriend().speak(this._soundClip)
             } catch (error) {
                 console.log('Failed playing sound')
             }

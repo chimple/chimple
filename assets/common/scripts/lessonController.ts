@@ -17,7 +17,7 @@ import UtilLogger from "./util-logger";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class LessonController extends cc.Component {
+export default class LessonController extends Game {
 
     @property(cc.Prefab)
     progressMonitor: cc.Prefab = null;

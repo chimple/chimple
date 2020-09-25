@@ -7,6 +7,7 @@ import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import Layout = cc.Layout;
 import { MOVE_MATCH, MOVE_NOT_MATCH } from "../../../common/scripts/helper";
+import Game from "../../../common/scripts/game";
 
 export const GAME_VOICE = "games/lettertracing/sounds";
 const BLANK_DOMINO = 'dominodiceblank_movingobjects';
@@ -40,7 +41,7 @@ class Queue<T> {
 }
 
 @ccclass
-export class SumTogether extends cc.Component {
+export class SumTogether extends Game {
 
     @property(cc.Prefab)
     progressMonitorPrefab: cc.Prefab = null;
@@ -91,9 +92,10 @@ export class SumTogether extends cc.Component {
     domino9: cc.Prefab = null;
 
     @property(cc.Prefab)
-    dogPrefab: cc.Prefab = null;
+    domino10: cc.Prefab = null;
 
-    friend: dragonBones.ArmatureDisplay = null;
+    @property(cc.Prefab)
+    dogPrefab: cc.Prefab = null;
 
     private _currentConfig: SumTogetherConfig = null;
     private _dropNode: cc.Node = null;
@@ -222,8 +224,10 @@ export class SumTogether extends cc.Component {
 
     changeColor(n, color) {
         console.log(n);
-        const db = n.children[0].getComponent(dragonBones.ArmatureDisplay);
-        db.node.color = color;
+        // const db = n.children[0].getComponent(dragonBones.ArmatureDisplay);
+        // db.node.color = color;
+        const node = n.getChildByName('dominodice_movingobjects')
+        if(node) node.color = color
     }
 
     changeColors(fromIndex: number, toIndex: number) {
@@ -274,15 +278,23 @@ export class SumTogether extends cc.Component {
     }
 
     createDog(i: number) {
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay);
-            const dog = cc.instantiate(this.dogPrefab);
-            dog.addChild(friendNode);
-            dog.scale = 0.25;
-            dog.setPosition(new cc.Vec2(dog.position.x, -70));
-            dog.opacity = 0;
-            this.optionsLayout.addChild(dog);
-        });
+        const dName: string = `${'domino' + i}`;
+        const domino: cc.Node = cc.instantiate(this[dName]);
+        domino.y = 30
+        // domino.setPosition(new cc.Vec2(domino.position.x, -205));
+        domino.opacity = 0;
+        domino.scale = 0.8
+        this.optionsLayout.addChild(domino);
+
+        // Util.loadFriend((friendNode: cc.Node) => {
+        //     this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay);
+        //     const dog = cc.instantiate(this.dogPrefab);
+        //     dog.addChild(friendNode);
+        //     dog.scale = 0.25;
+        //     dog.setPosition(new cc.Vec2(dog.position.x, -70));
+        //     dog.opacity = 0;
+        //     this.optionsLayout.addChild(dog);
+        // });
     }
 
     unHideDogs(fromIndex: number, toIndex: number, changeColor: boolean = false) {
