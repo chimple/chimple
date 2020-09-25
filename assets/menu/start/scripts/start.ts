@@ -99,8 +99,11 @@ export default class Start extends cc.Component {
                 this.onCourseClick()
             }
             this.loading.active = false;
-            this.setUpTeacherDialog();
         })
+    }
+
+    protected start() {
+        this.setUpTeacherDialog();
     }
 
     private registerTeacherDialogCloseEvent() {
