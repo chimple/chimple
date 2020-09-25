@@ -5,6 +5,7 @@ import Config from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
 import { LETTER_SCALE, SingleNumberTracing } from "./singlenumbertracing";
 import { CONFIG_LOADED, TRACING_FINISHED, TRACING_CORRECT, TRACING_WRONG } from "../../../common/scripts/helper";
+import Game from "../../../common/scripts/game";
 
 export const TRACE_HEIGHT = 768;
 const BAT_SIZE_X = 176;
@@ -21,7 +22,7 @@ interface WriteSetConfig {
 }
 
 @ccclass
-export class WriteSet extends cc.Component {
+export class WriteSet extends Game {
 
     @property(cc.Prefab)
     wordsPrefab: cc.Prefab = null;
@@ -73,13 +74,14 @@ export class WriteSet extends cc.Component {
                 String(Number(this._currentConfig.count) - (Number(this._currentConfig.count) % 10)),
                 String(Number(this._currentConfig.count) % 10)
             ];
-
-            Util.speakEquation(equations, (index) => {
-                // @ts-ignore
-                this.emitLetterEnabledEvent(
-                    this._layout.node.getChildByName(this._originalLetterName + '0'), 0
-                );
-            });
+            Util.showHelp(null, null, () => {
+                this.friend.speakEquation(equations, (index) => {
+                    // @ts-ignore
+                    this.emitLetterEnabledEvent(
+                        this._layout.node.getChildByName(this._originalLetterName + '0'), 0
+                    );
+                });
+            })
         }
     }
 

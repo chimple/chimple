@@ -35,7 +35,7 @@ export class Anim extends cc.Component {
                 this._touchEnabled = true;
                 this._component.updateSpeakCount();
                 this.animateOffScreen();
-                Util.speakEquation([String(this._component.speakCount)], (index) => {});
+                this._component.friend.speakEquation([String(this._component.speakCount)], (index) => {});
             }
         }
     }

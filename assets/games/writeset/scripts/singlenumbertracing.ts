@@ -5,6 +5,7 @@ import Config from "../../../common/scripts/lib/config";
 import catchError from "../../../common/scripts/lib/error-handler";
 import { CONFIG_LOADED, PHONIC_VOICE, LETTER_VOICE } from "../../../common/scripts/helper";
 import TracingContainer from "../../../common/Tracing/scripts/tracing-container";
+import LessonController from "../../../common/scripts/lessonController";
 
 export const LETTER_SCALE = 0.95;
 export const TRACE_NODE_POS_X = -256;
@@ -67,8 +68,9 @@ export class SingleNumberTracing extends cc.Component {
     }
 
     pronounce() {
-        if (!!this._sound)
-            this._soundID = Util.play(this._sound, false);
+        LessonController.getFriend().speak(this._sound)
+        // if (!!this._sound)
+        //     this._soundID = Util.play(this._sound, false);
     }
 
     @catchError()
