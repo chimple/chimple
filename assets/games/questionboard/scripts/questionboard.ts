@@ -711,7 +711,7 @@ export default class QuestionBoard extends Game {
         const equationText = cc.instantiate(this.equationTextPrefab);
         equationText.setPosition(new cc.Vec2(equationText.x, equationText.y + 30));
         const richText = equationText.getComponent(cc.RichText);
-        richText.string = isBold ? `<color=#4A3728><bold>${text}</bold></color>` : `<color=#4A3728>${text}</color>`;
+        richText.string = isBold ? `<color=#FFFFFFF><bold>${text}</bold></color>` : `<color=#FFFFFFF>${text}</color>`;
         richText.fontSize = 80;
         const layout = this._equations.getComponent(cc.Layout);
         layout.node.addChild(richText.node);

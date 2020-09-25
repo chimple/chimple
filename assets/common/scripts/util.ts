@@ -1,21 +1,15 @@
+import { Queue } from "../../queue";
 import ChimpleLabel from "./chimple-label";
 import Help from "./help";
 import { DEFAULT_FONT_COLOR, LETTER_VOICE, NUMBER_VOICE, PHONIC_VOICE } from "./helper";
-import Config, { COURSES, STORY } from "./lib/config";
-import {
-  ASSET_LOAD_METHOD,
-  COURSES_URL,
-  CURRENT_SCHOOL_ID, CURRENT_SECTION_ID,
-  CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID,
-  SIMULATOR_ROOT_DIR
-} from "./lib/constants";
-import Profile, { SFX_OFF, LANGUAGE } from "./lib/profile";
+import LessonController from "./lessonController";
+import Config from "./lib/config";
+import { ASSET_LOAD_METHOD, COURSES_URL } from "./lib/constants";
+import Profile, { LANGUAGE, SFX_OFF } from "./lib/profile";
 import UtilLogger from "./util-logger";
 import Overflow = cc.Label.Overflow;
 import HorizontalAlign = cc.Label.HorizontalAlign;
 import VerticalAlign = cc.Label.VerticalAlign;
-import LessonController from "./lessonController";
-import { Queue } from "../../queue";
 
 export const SUBPACKAGES = 'subpackages'
 
@@ -568,52 +562,6 @@ export class Util {
         callback(err, asset);
       });
     }
-    //<<<<<<< HEAD
-    //       callBack();
-    //     } else {
-    //       callBack();
-    //     }
-    //   });
-    // }
-
-    // public static i18NText(key: string) {
-    //   return Util._i18NMap.has(key) ? this._i18NMap.get(key) : key;
-    // }
-
-    // public static i18NNumberConvert(
-    //   lbString: string,
-    //   startWithDigit: boolean = true
-    // ) {
-    //   let regExCondition = startWithDigit
-    //     ? /^\d/.test(lbString)
-    //     : /\d/.test(lbString);
-    //   if (regExCondition) {
-    //     let numbers: string[] = lbString.split("");
-    //     numbers = numbers.map((n) => Util.i18NText(n));
-    //     console.log("converted ", Util.i18NText(numbers.join("")));
-    //     return Util.i18NText(numbers.join(""));
-    //   } else {
-    //     return lbString;
-    //   }
-    // }
-
-    // public static showHelp(
-    //   from: cc.Node,
-    //   to: cc.Node,
-    //   callBack: Function = null,
-    //   playAudio: boolean = true
-    // ) {
-    //   const config = Config.getInstance();
-    //   if (config.problem == 1) {
-    //     if (from != null && to != null) {
-    //       cc.resources.load("prefabs/help", function (err, prefab) {
-    //         if (!err) {
-    //           const help = cc.instantiate(prefab);
-    //           // @ts-ignore
-    //           const helpComp = help.getComponent(Help);
-    //           if (helpComp != null) {
-    //             helpComp.initNodes(from, to, callBack);
-    // =======
   }
 
   public static loadi18NMapping(callBack: Function) {
@@ -631,104 +579,8 @@ export class Util {
         callBack();
       } else {
         callBack();
-        // >>>>>>> master
       }
     });
-    //<<<<<<< HEAD
-    //     }
-    //   }
-    //   if (playAudio) {
-    //     const lessonNode = cc.Canvas.instance.node
-    //     const lessonComp = lessonNode.getComponent(LessonController)
-    //     lessonComp.friend.speakHelp(callBack)
-    //   } else {
-    //     if (callBack != null) callBack();
-    //   }
-    // }
-
-
-
-    // public static computeTimeDiff(
-    //   append: string,
-    //   startDate: Date = new Date(),
-    //   endDate: Date = new Date()
-    // ) {
-    //   let diff = endDate.getTime() - startDate.getTime();
-    //   cc.log(`${append} -> computeTimeDiff in milliseconds ${diff}`);
-    // }
-
-    // public static *shuffleGenerator(array) {
-    //   let i = array.length;
-    //   while (i--) {
-    //     yield array.splice(Math.floor(Math.random() * (i + 1)), 1)[0];
-    //   }
-    // }
-
-    // public static loadFriend(callback: Function) {
-    //   cc.resources.load(
-    //     "prefabs/friend/" + Config.getInstance().friend,
-    //     (err, prefab) => {
-    //       if (err != null) cc.log(err);
-    //       const friendNode = prefab != null ? cc.instantiate(prefab) : null;
-    //       if (callback != null) callback(friendNode);
-    //     }
-    //   );
-    // }
-
-    // public static playSfx(
-    //   audioClip: cc.AudioClip,
-    //   isMusic: boolean = false,
-    //   loop: boolean = false
-    // ): number {
-    //   if (Profile.getItem(SFX_OFF) == 0) {
-    //     try {
-    //       return isMusic
-    //         ? cc.audioEngine.playMusic(audioClip, loop)
-    //         : cc.audioEngine.playEffect(audioClip, loop);
-    //     } catch (e) { }
-    //   }
-    //   return -1;
-    // }
-
-    // public static play(audioClip: cc.AudioClip, loop: boolean = false) {
-    //   let audioId = -1;
-    //   try {
-    //     if (audioClip) {
-    //       audioId = cc.audioEngine.playEffect(audioClip, loop);
-    //     }
-    //   } catch (e) {
-    //     cc.log(e);
-    //   }
-    //   return audioId;
-    // }
-
-    // public static getSubpackages(): Array<string> {
-    //   const subpackages = JSON.parse(cc.sys.localStorage.getItem(SUBPACKAGES));
-    //   return subpackages ? subpackages : [];
-    // }
-
-    // public static addSubpackage(subpackage: string) {
-    //   const subpackages = this.getSubpackages();
-    //   subpackages.push(subpackage);
-    //   cc.sys.localStorage.setItem(SUBPACKAGES, JSON.stringify(subpackages));
-    // }
-
-    // public static downloadIfNeeded(
-    //   node: cc.Node,
-    //   course: string,
-    //   lesson: string,
-    //   callbackOnExists: Function
-    // ) {
-    //   const storageDir = course;
-    //   const manifestPath = storageDir + "/" + lesson;
-    //   const testFile = manifestPath + "/res/" + lesson + ".json";
-
-    //   if (
-    //     cc.sys.isNative &&
-    //     cc.sys.os == cc.sys.OS_ANDROID &&
-    //     ASSET_LOAD_METHOD === "file" &&
-    //     !jsb.fileUtils.isFileExist(testFile)
-    // =======
   }
 
   public static i18NText(key: string) {
@@ -807,7 +659,6 @@ export class Util {
     append: string,
     startDate: Date = new Date(),
     endDate: Date = new Date()
-    // >>>>>>> master
   ) {
     let diff = endDate.getTime() - startDate.getTime();
     cc.log(`${append} -> computeTimeDiff in milliseconds ${diff}`);
@@ -924,9 +775,9 @@ export class Util {
     }
   }
 
-  public static assignHomework(chapterId: string, lessonId: string,
-    schoolId: string, studentId: string,
-    subjectId: string) {
+    public static assignHomework(chapterId: string, lessonId: string,
+        schoolId: string, studentId: string,
+        subjectId: string) {
 
     let updateInfo = {
       chapter: chapterId,

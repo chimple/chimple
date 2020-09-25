@@ -49,7 +49,7 @@ cc.deep_link = function (url) {
 
                     mappings.forEach(arr => {
                         if (arr && arr.length === 2) {
-                            data[arr[0].toLowerCase()] = arr[1].toLowerCase();
+                            data[arr[0].toLowerCase()] = arr[1]
                         }
                     })
                 }
