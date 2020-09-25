@@ -1,4 +1,5 @@
 import Config from "./lib/config";
+import { Util } from "./util";
 
 const { ccclass, property } = cc._decorator;
 
@@ -8,7 +9,8 @@ export default class QuitPopup extends cc.Component {
     inputEventBlocker: cc.Node = null;
 
     onClickYesButton() {
-        Config.i.popScene()
+        Config.i.popScene();
+        Util.stopHelpAudio();
     }
 
     onClickNoButton() {
@@ -24,5 +26,12 @@ export default class QuitPopup extends cc.Component {
 
     onEnable() {
         this.inputEventBlocker.active = true;
+        cc.director.pause();
+        cc.audioEngine.pauseAllEffects();
+    }
+
+    onDisable() {
+        cc.director.resume();
+        cc.audioEngine.resumeAllEffects()
     }
 }
