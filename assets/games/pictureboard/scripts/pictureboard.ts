@@ -1,6 +1,7 @@
 import Drag from "../../../common/scripts/drag";
 import { Util } from "../../../common/scripts/util";
 import Config, { Direction } from "../../../common/scripts/lib/config";
+import Game from "../../../common/scripts/game";
 
 
 const { ccclass, property } = cc._decorator;
@@ -9,7 +10,7 @@ const bgHeight = 432
 const bgWidth = 802
 
 @ccclass
-export default class PictureBoard extends cc.Component {
+export default class PictureBoard extends Game {
     @property(cc.Prefab)
     pictureDrag: cc.Prefab = null
 
@@ -25,9 +26,6 @@ export default class PictureBoard extends cc.Component {
     @property(cc.Label)
     label: cc.Label = null
 
-    @property(cc.Node)
-    friendPos: cc.Node = null
-
     @property(cc.AudioClip)
     truckInAudio:cc.AudioClip = null
 
@@ -35,7 +33,6 @@ export default class PictureBoard extends cc.Component {
     truckOutAudio:cc.AudioClip = null
 
 
-    friend: dragonBones.ArmatureDisplay = null
     numPieces: number = 0;
     text: string = null
     audio: cc.AudioClip = null
@@ -44,11 +41,6 @@ export default class PictureBoard extends cc.Component {
         const config = Config.getInstance();
         cc.director.getCollisionManager().enabled = true
         Drag.letDrag = false
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
-            this.friendPos.addChild(friendNode)
-            this.friend.playAnimation('face_eating', 1)
-        })
         const [level, worksheet, problem, name, bgImage, num, y1, sound] = config.data[0]
         this.text = name
         this.numPieces = parseInt(num)
@@ -80,7 +72,6 @@ export default class PictureBoard extends cc.Component {
             drag.on('pictureMatch', this.onMatch.bind(this))
             drag.on('pictureNoMatch', () => {
                 this.node.emit('wrong')
-                if (this.friend != null) this.friend.playAnimation('face_wrong', 1)
             })
             this.bg.node.addChild(drag)
             //@ts-ignore
@@ -151,7 +142,6 @@ export default class PictureBoard extends cc.Component {
 
     onMatch() {
         this.node.emit('correct')
-        if (this.friend != null) this.friend.playAnimation('face_happy', 1)
         if (--this.numPieces <= 0) {
             Drag.letDrag = false
             this.scheduleOnce(() => {

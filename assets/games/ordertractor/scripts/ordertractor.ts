@@ -4,11 +4,12 @@ import Config from "../../../common/scripts/lib/config";
 import NumberTrainDrop from "./numbertrainDrop";
 import Drag from "../../../common/scripts/drag";
 import catchError from "../../../common/scripts/lib/error-handler";
+import Game from "../../../common/scripts/game";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class OrderTractor extends cc.Component {
+export default class OrderTractor extends Game {
     @property(cc.Prefab)
     drag: cc.Prefab = null
 
@@ -27,27 +28,16 @@ export default class OrderTractor extends cc.Component {
     @property(cc.AudioClip)
     metalClink:cc.AudioClip = null
 
-    @property(cc.Node)
-    friendPos: cc.Node = null
-
-    friend: dragonBones.ArmatureDisplay = null
-
     empty: number = 0
 
     onLoad() {
         cc.director.getCollisionManager().enabled = true
         Drag.letDrag = false
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
-            this.friendPos.addChild(friendNode)
-            this.friend.playAnimation('face_eating', 1)
-        })
         this.node.on('numbertrainMatch', this.onMatch.bind(this))
         this.node.on('numbertrainNoMatch', () => {
             this.node.emit('wrong')
-            if (this.friend != null) this.friend.playAnimation('face_wrong', 1)
         })
-
+        this.friend.isFace = true
         const [oldLevel, worksheet, oldProblem, level, reverseStr] = Config.getInstance().data[0];
         const reverse = reverseStr == 'true'
         const ordered: Array<number> = this.generateNumbers(parseInt(level))
@@ -119,7 +109,6 @@ export default class OrderTractor extends cc.Component {
     @catchError()
     onMatch() {
         this.node.emit('correct')
-        if (this.friend != null) this.friend.playAnimation('face_happy', 1)
         if (--this.empty <= 0) {
             Drag.letDrag = false
             new cc.Tween().target(this.train)

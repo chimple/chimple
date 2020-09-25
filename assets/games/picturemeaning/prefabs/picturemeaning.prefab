@@ -3538,19 +3538,19 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 200,
-      "height": 368
+      "height": 318
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0.5,
-      "y": 0.5
+      "y": 0
     },
     "_trs": {
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        -344.079,
         0,
         0,
         0,
@@ -3610,7 +3610,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        184,
+        318,
         0,
         0,
         0,
@@ -3685,7 +3685,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -35,
+        149,
         0,
         0,
         0,
@@ -3763,7 +3763,7 @@
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 200,
-      "height": 368
+      "height": 318
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -3778,7 +3778,7 @@
     "_N$paddingTop": 0,
     "_N$paddingBottom": 0,
     "_N$spacingX": 0,
-    "_N$spacingY": 70,
+    "_N$spacingY": 20,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
     "_N$affectedByScale": false,
@@ -3847,8 +3847,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        346.32598876953125,
-        0,
+        349.986,
+        -18.302,
         0,
         0,
         0,
@@ -3912,7 +3912,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        156.11099243164062,
+        152.45,
         0,
         0,
         0,
@@ -4368,8 +4368,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -379.4169921875,
-        0,
+        -379.417,
+        -21.963,
         0,
         0,
         0,
@@ -4412,6 +4412,9 @@
       "__id__": 1
     },
     "_enabled": true,
+    "friendPos": {
+      "__id__": 119
+    },
     "choiceLayout": {
       "__id__": 99
     },
@@ -4433,8 +4436,8 @@
     "trafficLight": {
       "__id__": 117
     },
-    "friendPos": {
-      "__id__": 119
+    "fullLayout": {
+      "__id__": 96
     },
     "_id": ""
   },

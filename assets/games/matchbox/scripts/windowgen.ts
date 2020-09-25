@@ -1,12 +1,13 @@
 import Config from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
+import Game from "../../../common/scripts/game";
 
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class window extends cc.Component {
+export default class window extends Game {
 
   @property(cc.Prefab)
   dragPrefab: cc.Prefab = null;
@@ -37,7 +38,8 @@ export default class window extends cc.Component {
   })
   correctaud: cc.AudioClip = null;
 
-
+  @property(cc.Node)
+  friendPos: cc.Node = null;
 
 
 
@@ -427,7 +429,9 @@ export default class window extends cc.Component {
       cc.log("chk" + this.totalPieces)
 
       // config.nextProblem();
-      this.node.emit('nextProblem');
+      this.scheduleOnce(() => {
+        this.node.emit('nextProblem');
+      }, 2)
       //End of setTimeout method
 
     }

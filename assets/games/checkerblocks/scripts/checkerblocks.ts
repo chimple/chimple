@@ -45,9 +45,6 @@ export default class CheckerBlocks extends cc.Component {
     @property(cc.Node)
     truck: cc.Node = null
 
-    @property(cc.Node)
-    friendPos: cc.Node = null
-    
     @property(cc.AudioClip)
     truckInAudio:cc.AudioClip =null
 
@@ -55,7 +52,6 @@ export default class CheckerBlocks extends cc.Component {
     truckOutAudio:cc.AudioClip =null
 
 
-    friend: dragonBones.ArmatureDisplay = null
     matchCount: number = 0
 
     boardContents: Array<Array<number>> = [
@@ -78,11 +74,6 @@ export default class CheckerBlocks extends cc.Component {
     onLoad() {
         cc.director.getCollisionManager().enabled = true
         Drag.letDrag = false
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
-            this.friendPos.addChild(friendNode)
-            this.friend.playAnimation('laugh', 1)
-        })
         const [oldLevel, worksheet, problem, level] = Config.getInstance().data[0];
         switch (level) {
             case "1":
@@ -162,7 +153,6 @@ export default class CheckerBlocks extends cc.Component {
                         dragTile.on('hundredpuzzleMatch', this.onMatch, this)
                         dragTile.on('hundredpuzzleNoMatch', () => {
                             this.node.emit('wrong')
-                            if (this.friend != null) this.friend.playAnimation('sad', 1)
                         })
                         if (firstDrag == null) {
                             firstDrag = dragTile
@@ -201,7 +191,6 @@ export default class CheckerBlocks extends cc.Component {
 
     private onMatch() {
         this.node.emit('correct')
-        if (this.friend != null) this.friend.playAnimation('happy', 1)
         if (++this.matchCount >= this.dragTiles.size) {
             const anim = this.truck.getComponent(cc.Animation)
             anim.play()

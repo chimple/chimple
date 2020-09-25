@@ -1,9 +1,10 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
+import Game from "../../../common/scripts/game";
 import Config from "../../../common/scripts/lib/config";
-import BalancingButton from "./balancing-button";
 import { catchError } from "../../../common/scripts/lib/error-handler";
 import { Util } from "../../../common/scripts/util";
+import BalancingButton from "./balancing-button";
 
 export const EQUAL_BTN = 'equalBtn';
 export const LEFT_BTN = 'leftBtn';
@@ -35,7 +36,7 @@ const LEFT = 'left';
 const RIGHT = 'right';
 
 @ccclass
-export default class Balancing extends cc.Component {
+export default class Balancing extends Game {
 
     private _currentConfig: BalancingConfig = null;
     private _images = ['apple', 'guava', 'orange', 'peach'];
@@ -67,10 +68,6 @@ export default class Balancing extends cc.Component {
     @property(cc.AudioClip)
     inCorrectAudio: cc.AudioClip = null;
 
-    @property(cc.Node)
-    friendPos: cc.Node = null;
-    friend: dragonBones.ArmatureDisplay = null;
-
     private _leftCount: number = null;
     private _rightCount: number = null;
     private _leftBucket: cc.Node = null;
@@ -85,20 +82,12 @@ export default class Balancing extends cc.Component {
     protected onLoad(): void {
         this._currentConfig = this.processConfiguration(Config.getInstance().data[0]);
         this.buildUI();
-        Util.loadFriend((friendNode: cc.Node) => this.onFriendLoaded(friendNode));
-
+    
         this.node.on(BALANCE_BTN_CLICKED, (event) => {
             event.stopPropagation();
             const data = event.getUserData();
             this.checkResult(data.type);
         });
-    }
-
-    @catchError()
-    onFriendLoaded(friendNode: cc.Node) {
-        this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay);
-        this.friendPos.addChild(friendNode);
-        this.playDogAnimation('face_touch');
     }
 
     checkResult(sign: string) {
@@ -124,7 +113,7 @@ export default class Balancing extends cc.Component {
         return new cc.Tween()
             .target(node)
             .call(() => {
-                this.playDogAnimation('face_eating');
+                this.friend.playAnimation('eating', 1);
             })
             .parallel(
                 new cc.Tween().to(0.75, {x: node.x + xMove}, {progress: null, easing: 'quadOut'}),
@@ -161,15 +150,17 @@ export default class Balancing extends cc.Component {
 
             if (!this._correctAnswered) {
                 this._correctAnswered = true;
-                this.playFeedDog()
+                this.node.emit('correct');
+                this.scheduleOnce(() => {
+                    this.playFeedDog()
                     .call(() => {
-                        this.node.emit('correct');
                         this.scheduleOnce(
                             () => {
                                 this.node.emit('nextProblem');
                             }, 1
                         );
                     }).start();
+                }, 2)
             }
         } catch (e) {
 
@@ -177,17 +168,9 @@ export default class Balancing extends cc.Component {
     }
 
     @catchError()
-    playDogAnimation(animationName: string, loop = 1) {
-        if (this.friend != null) {
-            this.friend.playAnimation(animationName, loop);
-        }
-    }
-
-    @catchError()
     playWrongAnimation() {
         try {
             if (!this._correctAnswered) {
-                this.playDogAnimation('face_wrong');
                 this.node.emit('wrong');
                 this.scheduleOnce(() => {
                     this._leftBtn.getComponent(BalancingButton).clicked = false;

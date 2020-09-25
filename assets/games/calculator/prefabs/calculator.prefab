@@ -31,16 +31,19 @@
       },
       {
         "__id__": 137
+      },
+      {
+        "__id__": 140
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 140
+        "__id__": 142
       }
     ],
     "_prefab": {
-      "__id__": 141
+      "__id__": 143
     },
     "_opacity": 255,
     "_color": {
@@ -5200,7 +5203,7 @@
     "_batchAsBitmap": false,
     "_styleFlags": 0,
     "_underlineHeight": 0,
-    "_N$horizontalAlign": 0,
+    "_N$horizontalAlign": 2,
     "_N$verticalAlign": 0,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
@@ -5219,6 +5222,77 @@
     "sync": false
   },
   {
+    "__type__": "cc.Node",
+    "_name": "friendPos",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [],
+    "_prefab": {
+      "__id__": 141
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        -427.696,
+        -362.454,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0.5,
+        0.5,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "4a664b17-cebb-4450-a0c4-3a479d7550f9"
+    },
+    "fileId": "fa9TIrWXxB842eO8G4KI4D",
+    "sync": false
+  },
+  {
     "__type__": "21b29QgFZhAf5QS7MBl+Foz",
     "_name": "",
     "_objFlags": 0,
@@ -5226,6 +5300,9 @@
       "__id__": 1
     },
     "_enabled": true,
+    "friendPos": {
+      "__id__": 140
+    },
     "label": null,
     "drawingDot": {
       "__uuid__": "cde0dff2-10b1-4628-b343-3d34c10743bb"

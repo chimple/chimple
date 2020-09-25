@@ -19,16 +19,19 @@
     "_children": [
       {
         "__id__": 2
+      },
+      {
+        "__id__": 121
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 121
+        "__id__": 123
       }
     ],
     "_prefab": {
-      "__id__": 122
+      "__id__": 124
     },
     "_opacity": 255,
     "_color": {
@@ -219,15 +222,15 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        515.889,
-        0,
+        512,
+        -70,
         0,
         0,
         0,
         0,
         1,
-        1,
-        1,
+        1.18,
+        1.18,
         1
       ]
     },
@@ -1304,8 +1307,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        960.077,
-        55.482,
+        15.393,
+        303.799,
         0,
         0,
         0,
@@ -1626,7 +1629,7 @@
       "ctor": "Float64Array",
       "array": [
         1044.505,
-        311.18,
+        373.259,
         0,
         0,
         0,
@@ -1732,8 +1735,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        26.534,
-        354.601,
+        -18.61,
+        550.14,
         0,
         0,
         0,
@@ -2051,8 +2054,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        993.153,
-        486.767,
+        968.861,
+        540.749,
         0,
         0,
         0,
@@ -4438,6 +4441,77 @@
     "sync": false
   },
   {
+    "__type__": "cc.Node",
+    "_name": "friendPos",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [],
+    "_prefab": {
+      "__id__": 122
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        507.43,
+        -342.786,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0.5,
+        0.5,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "7fae58c9-099a-4dcd-ac58-ed533912e9e6"
+    },
+    "fileId": "a3UsoVR95EequwI1QN4u9M",
+    "sync": false
+  },
+  {
     "__type__": "f00d6U85lNJf7T+QE5U3/2Z",
     "_name": "",
     "_objFlags": 0,
@@ -4445,6 +4519,9 @@
       "__id__": 1
     },
     "_enabled": true,
+    "friendPos": {
+      "__id__": 121
+    },
     "tracingContainerPrefab": {
       "__uuid__": "b520666e-033c-491d-bfc5-5d46b74dfe6d"
     },

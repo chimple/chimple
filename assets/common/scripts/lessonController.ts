@@ -1,20 +1,23 @@
+import { Queue } from "../../queue";
+import BackButton from "./backButton";
 import Balloon from "./balloon";
+import Friend from "./friend";
+import Game from "./game";
 import Config, { DEFAULT_FONT } from "./lib/config";
+import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID } from "./lib/constants";
+import { Lesson } from "./lib/convert";
 import { GAME_CONFIGS } from "./lib/gameConfigs";
+import { User } from "./lib/profile";
+import Loading from "./loading";
 import ProgressMonitor, { StarType } from "./progressMonitor";
 import { QUIZ_ANSWERED } from "./quiz-monitor";
 import { Util } from "./util";
-import { Queue } from "../../queue";
-import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID } from "./lib/constants";
-import Profile, { User } from "./lib/profile";
-import { Lesson } from "./lib/convert";
 import UtilLogger from "./util-logger";
-import Loading from "./loading";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class LessonController extends cc.Component {
+export default class LessonController extends Game {
 
     @property(cc.Prefab)
     progressMonitor: cc.Prefab = null;
@@ -46,6 +49,9 @@ export default class LessonController extends cc.Component {
     @property(cc.Node)
     loading: cc.Node = null;
 
+    @property(cc.Node)
+    backButton: cc.Node = null
+
     progressMonitorNode: cc.Node = null;
     quizMonitorNode: cc.Node = null;
     gameNode: cc.Node = null;
@@ -66,6 +72,7 @@ export default class LessonController extends cc.Component {
     isQuiz: boolean = false;
     gameTime: number = 0;
     quizTime: number = 0;
+    friend: Friend = null;
 
     static gamePrefab: cc.Prefab;
 
@@ -76,7 +83,7 @@ export default class LessonController extends cc.Component {
         this.progressMonitorNode.zIndex = 2;
         this.node.addChild(this.progressMonitorNode);
         this.lessonStart();
-        this.node.getChildByName("backButton").on('click', () => this.node.getChildByName("quit").active = true);
+        this.backButton.on('click', () => this.node.getChildByName("quit").active = true);
     }
 
     static preloadLesson(callback: Function) {
@@ -121,8 +128,11 @@ export default class LessonController extends cc.Component {
     private lessonStart() {
         this.lessonStartTime = new Date().getTime();
         this.lessonSessionId = User.createUUID();
-        this.startGame(LessonController.gamePrefab);
-        this.loading.active = false;
+        Util.loadFriend((friendNode: cc.Node) => {
+            this.friend = friendNode.getComponent(Friend)
+            this.startGame(LessonController.gamePrefab);
+            this.loading.active = false;
+        })
     }
 
     private problemStart(replaceScene: boolean) {
@@ -130,6 +140,8 @@ export default class LessonController extends cc.Component {
         this.problemSessionId = User.createUUID();
         if (replaceScene) {
             LessonController.preloadGame((prefab: cc.Prefab) => {
+                this.friend.node.removeFromParent()
+                this.friend.isFace = false
                 this.startGame(prefab);
                 this.loading.active = false;
             });
@@ -143,7 +155,18 @@ export default class LessonController extends cc.Component {
     private startGame(prefab: cc.Prefab) {
         if (this.gameNode != null) this.gameNode.removeFromParent();
         this.gameNode = cc.instantiate(prefab);
+        const gameComponent = this.gameNode.getComponent(Game)
+        if (gameComponent) {
+            if (!gameComponent.friendPos) {
+                gameComponent.friendPos = new cc.Node()
+                gameComponent.friendPos.position = cc.v3(-512, -384)
+                gameComponent.node.addChild(gameComponent.friendPos)
+            }
+            gameComponent.friend = this.friend
+            gameComponent.friendPos.addChild(this.friend.node)
+        }
         this.gameParent.addChild(this.gameNode);
+        this.friend.playIdleAnimation(1)
         const gameConfig = GAME_CONFIGS[Config.i.game];
         if (gameConfig.center) {
             this.gameNode.x = -512;
@@ -306,14 +329,13 @@ export default class LessonController extends cc.Component {
         this.gameNode.on('correct', () => {
             this.rightMoves++;
             Util.playSfx(this.correctAudio);
-            if (this.chimp != null)
-                this.chimp.playAnimation('correct', 1);
+            this.friend.playHappyAnimation(1)
         });
         this.gameNode.on('wrong', () => {
             this.wrongMoves++;
             Util.playSfx(this.wrongAudio);
-            if (this.chimp != null)
-                this.chimp.playAnimation('wrong', 1);
+            this.friend.playSadAnimation(1)
+
         });
         this.gameNode.on(QUIZ_ANSWERED, (isAnsweredCorrectly: boolean) => {
             if (isAnsweredCorrectly) {
@@ -350,6 +372,12 @@ export default class LessonController extends cc.Component {
             });
         }
 
+    }
+
+    public static getFriend(): Friend {
+        const lessonNode = cc.Canvas.instance.node
+        const lessonComp = lessonNode.getComponent(LessonController)
+        return lessonComp.friend
     }
 
 }

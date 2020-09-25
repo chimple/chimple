@@ -4,6 +4,7 @@ import Config from "../../../common/scripts/lib/config";
 import Drag from "../../../common/scripts/drag";
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
+import Game from "../../../common/scripts/game";
 
 const tileWidth = 80;
 const tileHeight = 80;
@@ -28,7 +29,7 @@ interface RowBlocksConfig {
 }
 
 @ccclass
-export default class RowBlocks extends cc.Component {
+export default class RowBlocks extends Game {
     @property(cc.Node)
     board: cc.Node = null;
 
@@ -53,16 +54,11 @@ export default class RowBlocks extends cc.Component {
     @property(cc.SpriteFrame)
     light: cc.SpriteFrame = null;
 
-    @property(cc.Node)
-    friendPos: cc.Node = null;
-
     @property(cc.AudioClip)
     truckInAudio: cc.AudioClip = null;
 
     @property(cc.AudioClip)
     truckOutAudio: cc.AudioClip = null
-
-    friend: dragonBones.ArmatureDisplay = null;
 
     private currentConfig: RowBlocksConfig = null;
 
@@ -83,11 +79,6 @@ export default class RowBlocks extends cc.Component {
         // cc.director.getCollisionManager().enabledDebugDraw = true;
         // cc.director.getCollisionManager().enabledDrawBoundingBox = true;
         this.currentConfig = this.processConfiguration(Config.getInstance().data[0]);
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay);
-            this.friendPos.addChild(friendNode);
-            this.friend.playAnimation('laugh', 1);
-        });
         this.generateAllSingleSquares();
         const howManyRows: number = Math.floor(this.currentConfig.columns.length / 10);
         var firstDrag: cc.Node = null;
@@ -135,7 +126,6 @@ export default class RowBlocks extends cc.Component {
                         dragTile.on('thirtypuzzleMatch', this.onMatch, this);
                         dragTile.on('thirtypuzzleNoMatch', () => {
                             this.node.emit('wrong');
-                            if (this.friend != null) this.friend.playAnimation('sad', 1);
                         });
 
                         if (firstDrag == null) {
@@ -198,7 +188,6 @@ export default class RowBlocks extends cc.Component {
 
     private onMatch() {
         this.node.emit('correct');
-        if (this.friend != null) this.friend.playAnimation('happy', 1);
         if (++this.matchCount >= this.dragTiles.size) {
             const anim = this.truck.getComponent(cc.Animation);
             anim.play();

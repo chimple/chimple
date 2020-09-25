@@ -3,6 +3,7 @@ import Color = cc.Color;
 import { Util } from "../../../common/scripts/util";
 import { WriteCard } from "./writecard";
 import { CONFIG_LOADED, DEFAULT_FONT_COLOR } from "../../../common/scripts/helper";
+import LessonController from "../../../common/scripts/lessonController";
 
 @ccclass
 export class LetterTracingBackCard extends cc.Component {
@@ -72,8 +73,9 @@ export class LetterTracingBackCard extends cc.Component {
     }
 
     pronounce() {
-        if (!!this._sound)
-            this._soundID = Util.play(this._sound, false);
+        LessonController.getFriend().speak(this._sound)
+        // if (!!this._sound)
+        //     this._soundID = Util.play(this._sound, false);
     }
 
     protected onDestroy(): void {
