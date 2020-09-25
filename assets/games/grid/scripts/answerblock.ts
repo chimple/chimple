@@ -183,10 +183,10 @@ export default class AnswerBlock extends CommonBlock {
       if (!!this._sound) {
         this._soundID = Util.play(this._sound, false);
         if (this._soundID === -1) {
-          Util.speakGameAudioOrPhonics(this.contentText, () => {})
+          Util.speakGameAudioOrPhonics(this.contentText, () => {});
         }
       } else {
-        Util.speakGameAudioOrPhonics(this.contentText, () => {})
+        Util.speakGameAudioOrPhonics(this.contentText, () => {});
       }
     } catch (e) {}
   }
@@ -314,18 +314,15 @@ export default class AnswerBlock extends CommonBlock {
 
   @catchError()
   private moveToPos(pos: Vec2): cc.Tween {
-    return new cc.Tween()
-      .target(this.node)
-      .to(
-        0.25,
-        {
-          position: this.node.position,
-          scaleX: this.checkRTLAndScale(1),
-          scaleY: SCALE,
-        },
-        { progress: null, easing: "elasticOut" }
-      )
-      .to(0.15, { position: pos }, { progress: null, easing: "quadOut" });
+    return new cc.Tween().target(this.node).to(
+      0.15,
+      {
+        position: pos,
+        scaleX: this.checkRTLAndScale(1),
+        scaleY: SCALE,
+      },
+      { progress: null, easing: "quadOut" }
+    );
   }
 
   protected onDestroy(): void {

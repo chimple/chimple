@@ -76,7 +76,7 @@ export default class LessonController extends cc.Component {
         this.progressMonitorNode.zIndex = 2;
         this.node.addChild(this.progressMonitorNode);
         this.lessonStart();
-        this.node.getChildByName("backButton").on('click', () => this.onBackClick());
+        this.node.getChildByName("backButton").on('click', () => this.node.getChildByName("quit").active = true);
     }
 
     static preloadLesson(callback: Function) {
@@ -325,12 +325,6 @@ export default class LessonController extends cc.Component {
                 this.isQuizAnsweredCorrectly = false;
             }
         });
-    }
-
-    onBackClick() {
-       Util.stopHelpAudio();
-       this.node.getChildByName("quit").active = true;
-        
     }
 
     protected onDisable() {
