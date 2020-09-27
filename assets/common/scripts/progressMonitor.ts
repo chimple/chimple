@@ -7,7 +7,9 @@ const currentStarScale: number = 2;
 export enum StarType {
     Default,
     Correct,
-    Wrong
+    Wrong,
+    NextPage,
+    PrevPage
 }
 
 
@@ -132,6 +134,9 @@ export default class ProgressMonitor extends cc.Component {
     @property(cc.SpriteFrame)
     wrong: cc.SpriteFrame = null;
 
+    @property(cc.Prefab)
+    glowPrefab: cc.Prefab = null;
+
     totalStars: number = 0;
     stopStar: boolean = false
     fruit: cc.SpriteFrame = null
@@ -163,55 +168,95 @@ export default class ProgressMonitor extends cc.Component {
             }
             node.width = spriteNode.width * currentStarScale;
             node.height = spriteNode.height * currentStarScale;
-            console.log(index);
             this.node.addChild(node);
         }
     }
 
     updateProgress(current: number, starType: StarType, callback: Function) {
-        const newNode = new cc.Node();
-        const sprite = newNode.addComponent(cc.Sprite);
-        sprite.spriteFrame = starType == StarType.Wrong ? this.wrong : this.fruit;
-        if(starType == StarType.Correct) {
-            const correctNode = new cc.Node();
-            const correctSprite = correctNode.addComponent(cc.Sprite);
-            correctSprite.spriteFrame = this.correct
-            newNode.addChild(correctNode)
-        }
-        newNode.name = current.toString();
-        newNode.scale = 1 / currentStarScale;
-        const currentPos = cc.v2(cc.winSize.width * Math.random() - cc.winSize.width / 2, -cc.winSize.height - 100)
-        newNode.setPosition(currentPos);
-        const currentNode = this.node.getChildByName(current.toString());
-        if (currentNode != null) {
-            const currentSpriteNode = currentNode.getChildByName('sprite');
-            if (currentSpriteNode != null) {
-                currentNode.addChild(newNode);
-                const newPos = cc.v2(cc.winSize.width / 2 * Math.random() - cc.winSize.width / 4, -cc.winSize.height / 2)
-                newNode.runAction(cc.sequence(cc.spawn(cc.scaleTo(0.5, 1),
-                    cc.bezierTo(0.5, [
-                        cc.v2(currentPos.add(newPos).mul(0.33).add(cc.v2(200, 0))),
-                        cc.v2(currentPos.add(newPos).mul(0.33).add(cc.v2(100, 0))),
-                        newPos
-                    ])),
-                    cc.rotateBy(0.1, 15),
-                    cc.rotateBy(0.1, -15),
-                    cc.rotateBy(0.1, 15),
-                    cc.rotateBy(0.1, -15),
-                    cc.spawn(
-                        cc.moveTo(0.5, currentSpriteNode.position),
-                        cc.scaleTo(0.5, 1 / currentStarScale)
-                    ),
-                    cc.callFunc(() => {
-                        currentSpriteNode.removeFromParent();
-                        if (current < this.totalStars) {
-                            const nowNode = this.node.getChildByName((current + 1).toString());
-                            const nowSpriteNode = nowNode.getChildByName('sprite');
-                            nowSpriteNode.getComponent(cc.Sprite).spriteFrame = this.current;
-                        }
-                        callback()
-                    })
-                ))
+        if (starType == StarType.NextPage) {
+            const nowNode = this.node.getChildByName((current).toString());
+            const nowSpriteNode = nowNode.getChildByName('sprite');
+            nowSpriteNode.getComponent(cc.Sprite).spriteFrame = this.complete;
+            if (current < this.totalStars) {
+                const nowNode = this.node.getChildByName((current + 1).toString());
+                const nowSpriteNode = nowNode.getChildByName('sprite');
+                nowSpriteNode.getComponent(cc.Sprite).spriteFrame = this.current;
+            }
+            callback()
+        } else if (starType == StarType.PrevPage) {
+            const nowNode = this.node.getChildByName((current).toString());
+            const nowSpriteNode = nowNode.getChildByName('sprite');
+            nowSpriteNode.getComponent(cc.Sprite).spriteFrame = this.incomplete;
+            if (current > 1) {
+                const nowNode = this.node.getChildByName((current - 1).toString());
+                const nowSpriteNode = nowNode.getChildByName('sprite');
+                nowSpriteNode.getComponent(cc.Sprite).spriteFrame = this.current;
+            }
+            callback()
+        } else {
+            const newNode = new cc.Node();
+            const glow = cc.instantiate(this.glowPrefab)
+            const anim = glow.getComponent(cc.Animation)
+            newNode.addChild(glow)
+            glow.active = false
+            const spriteNode = new cc.Node()
+            spriteNode.name = 'sprite'
+            const sprite = spriteNode.addComponent(cc.Sprite);
+            switch (starType) {
+                case StarType.Default:
+                    sprite.spriteFrame = this.fruit
+                    break;
+                case StarType.Correct:
+                    sprite.spriteFrame = this.correct
+                    break;
+                case StarType.Wrong:
+                    sprite.spriteFrame = this.wrong
+                    break;
+                default:
+                    break;
+            }
+            newNode.name = current.toString();
+            newNode.scale = 1 / currentStarScale;
+            newNode.addChild(spriteNode)
+            const currentNode = this.node.getChildByName(current.toString());
+            if (currentNode != null) {
+                const currentSpriteNode = currentNode.getChildByName('sprite');
+                if (currentSpriteNode != null) {
+                    const currentPos = cc.v2(cc.winSize.width * Math.random() - cc.winSize.width / 2, -cc.winSize.height - 100)
+                    newNode.setPosition(currentPos);
+                    const newPos = cc.v2(cc.winSize.width / 2 * Math.random() - cc.winSize.width / 4, -cc.winSize.height / 2)
+                    currentNode.addChild(newNode);
+                    newNode.runAction(cc.sequence(
+                        cc.spawn(cc.scaleTo(0.5, 1),
+                            cc.bezierTo(0.5, [
+                                cc.v2(currentPos.add(newPos).mul(0.33).add(cc.v2(200, 0))),
+                                cc.v2(currentPos.add(newPos).mul(0.33).add(cc.v2(100, 0))),
+                                newPos
+                            ])
+                        ),
+                        cc.callFunc(() => {
+                            glow.active = true
+                            anim.on('finished', () => {
+                                glow.active = false
+                            })
+                            anim.play()
+                        }),
+                        cc.delayTime(0.75),
+                        cc.spawn(
+                            cc.moveTo(0.5, currentSpriteNode.position),
+                            cc.scaleTo(0.5, 1 / currentStarScale)
+                        ),
+                        cc.callFunc(() => {
+                            currentSpriteNode.removeFromParent();
+                            if (current < this.totalStars) {
+                                const nowNode = this.node.getChildByName((current + 1).toString());
+                                const nowSpriteNode = nowNode.getChildByName('sprite');
+                                nowSpriteNode.getComponent(cc.Sprite).spriteFrame = this.current;
+                            }
+                            callback()
+                        })
+                    ))
+                }
             }
         }
     }

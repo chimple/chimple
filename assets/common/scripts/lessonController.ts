@@ -178,26 +178,16 @@ export default class LessonController extends Game {
         this.setupEventHandlers();
     }
 
-    private problemEnd(replaceScene: boolean) {
+    private problemEnd(replaceScene: boolean, forward: boolean = true) {
         const config = Config.i;
         const timeSpent = Math.ceil((new Date().getTime() - this.problemStartTime) / 1000);
-        // if (config.game === QUIZ_LITERACY || config.game === QUIZ_MATHS) {
-        //     monitor = this.quizMonitorNode.getComponent(QuizMonitor);
-        //     monitor.stopStar = this.isQuizAnsweredCorrectly;
-        // } else {
         const monitor = this.progressMonitorNode.getComponent(ProgressMonitor);
-        // }
         const currentProblem = config.problem;
-        if (currentProblem == config.totalProblems) {
-            const loadingComp = this.loading.getComponent(Loading);
-            loadingComp.animate = false;
-        }
-        this.loading.active = true;
         this.isQuiz = config.game.toLowerCase().includes("quiz");
         this.isQuizCompleted = this.isQuiz ? true : false;
         this.isGameCompleted = this.isQuiz ? false : true;
         const score: number = this.isQuiz ? this.quizScore : this.total;
-
+        const isStory = config.game == 'story'
         if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
             let monitorInfo = {
                 chapter: config.chapter.id,
@@ -234,11 +224,15 @@ export default class LessonController extends Game {
             quiz_completed: this.isQuizCompleted
         });
 
-        const starType = this.isQuiz ? (this.isQuizAnsweredCorrectly ? StarType.Correct : StarType.Wrong) : StarType.Default;
+        const starType = this.isQuiz 
+            ? (this.isQuizAnsweredCorrectly 
+                ? StarType.Correct : StarType.Wrong) 
+                : (isStory ? (forward ? StarType.NextPage: StarType.PrevPage) : StarType.Default);
         monitor.updateProgress(currentProblem, starType, () => {
             monitor.stopStar = false;
-            if (currentProblem < config.totalProblems) {
-                config.nextProblem();
+            if ((forward && currentProblem < config.totalProblems) || (!forward && currentProblem > 1)) {
+                this.loading.active = true
+                forward ? config.nextProblem() : config.prevProblem()
                 this.problemStart(replaceScene);
             } else {
                 this.lessonEnd();
@@ -324,7 +318,10 @@ export default class LessonController extends Game {
 
     private setupEventHandlers() {
         this.gameNode.on('nextProblem', (replaceScene: boolean = true) => {
-            this.problemEnd(replaceScene);
+            this.problemEnd(replaceScene, true);
+        });
+        this.gameNode.on('prevProblem', (replaceScene: boolean = true) => {
+            this.problemEnd(replaceScene, false);
         });
         this.gameNode.on('correct', () => {
             this.rightMoves++;
