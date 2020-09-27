@@ -20,9 +20,6 @@ export default class ChapterMenuButton extends cc.Component {
     @property(cc.Sprite)
     sprite: cc.Sprite
 
-    @property(cc.Prefab)
-    chapterContentPrefab: cc.Prefab = null
-
     @property(cc.Graphics)
     graphics: cc.Graphics = null
 

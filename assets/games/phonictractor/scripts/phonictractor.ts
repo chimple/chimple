@@ -203,7 +203,7 @@ export default class PhonicTractor extends Game {
         dragBox.addChild(newNode)
       }
     }
-    Util.loadGameSound(this.wordAudio.get(this.answer),  (err, clip) => {
+    Util.loadGameSound(this.wordAudio.get(this.answer),  (clip) => {
       if (clip != null) {
         this.friend.extraClip = clip
       }
@@ -213,7 +213,7 @@ export default class PhonicTractor extends Game {
 
   @catchError()
   onTouchAudio(file: string) {
-    Util.loadGameSound(file, (err, clip) => {
+    Util.loadGameSound(file, (clip) => {
       if (clip != null) {
         this.friend.speak(clip)
       }

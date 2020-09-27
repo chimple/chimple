@@ -8,9 +8,6 @@ export default class CourseContent extends cc.Component {
     @property(cc.Prefab)
     lessonButtonPrefab: cc.Prefab = null
 
-    @property(cc.Prefab)
-    chapterContentPrefab: cc.Prefab = null
-
     @property(cc.Node)
     chaptersLayout: cc.Node = null
 
