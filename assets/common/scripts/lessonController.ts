@@ -89,7 +89,7 @@ export default class LessonController extends Game {
     static preloadLesson(callback: Function) {
         const config = Config.i;
         config.problem = 0;
-        cc.assetManager.loadBundle('a' + config.lesson.id, (err, bundle) => {
+        cc.assetManager.loadBundle(config.lesson.id, (err, bundle) => {
             if (err) {
                 callback(err)
             } else {
