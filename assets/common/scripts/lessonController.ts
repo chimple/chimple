@@ -1,6 +1,4 @@
 import { Queue } from "../../queue";
-import BackButton from "./backButton";
-import Balloon from "./balloon";
 import Friend from "./friend";
 import Game from "./game";
 import Config, { DEFAULT_FONT } from "./lib/config";
@@ -8,11 +6,11 @@ import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDEN
 import { Lesson } from "./lib/convert";
 import { GAME_CONFIGS } from "./lib/gameConfigs";
 import { User } from "./lib/profile";
-import Loading from "./loading";
 import ProgressMonitor, { StarType } from "./progressMonitor";
 import { QUIZ_ANSWERED } from "./quiz-monitor";
 import { Util } from "./util";
 import UtilLogger from "./util-logger";
+import Scorecard from "../../menu/scorecard/scripts/scorecard";
 
 const { ccclass, property } = cc._decorator;
 
@@ -21,9 +19,6 @@ export default class LessonController extends Game {
 
     @property(cc.Prefab)
     progressMonitor: cc.Prefab = null;
-
-    @property(cc.Prefab)
-    quizMonitor: cc.Prefab = null;
 
     @property(cc.AudioClip)
     correctAudio: cc.AudioClip = null;
@@ -35,13 +30,10 @@ export default class LessonController extends Game {
     startAudio: cc.AudioClip = null;
 
     @property(cc.Prefab)
-    balloonPrefab: cc.Prefab = null;
+    scorecardPrefab: cc.Prefab = null;
 
     @property(cc.Prefab)
     blockPrefab: cc.Prefab = null;
-
-    @property(dragonBones.ArmatureDisplay)
-    chimp: dragonBones.ArmatureDisplay = null;
 
     @property(cc.Node)
     gameParent: cc.Node = null;
@@ -53,7 +45,6 @@ export default class LessonController extends Game {
     backButton: cc.Node = null
 
     progressMonitorNode: cc.Node = null;
-    quizMonitorNode: cc.Node = null;
     gameNode: cc.Node = null;
     wrongMoves: number = 0;
     rightMoves: number = 0;
@@ -224,10 +215,10 @@ export default class LessonController extends Game {
             quiz_completed: this.isQuizCompleted
         });
 
-        const starType = this.isQuiz 
-            ? (this.isQuizAnsweredCorrectly 
-                ? StarType.Correct : StarType.Wrong) 
-                : (isStory ? (forward ? StarType.NextPage: StarType.PrevPage) : StarType.Default);
+        const starType = this.isQuiz
+            ? (this.isQuizAnsweredCorrectly
+                ? StarType.Correct : StarType.Wrong)
+            : (isStory ? (forward ? StarType.NextPage : StarType.PrevPage) : StarType.Default);
         monitor.updateProgress(currentProblem, starType, () => {
             monitor.stopStar = false;
             if ((forward && currentProblem < config.totalProblems) || (!forward && currentProblem > 1)) {
@@ -293,27 +284,14 @@ export default class LessonController extends Game {
 
         const block = cc.instantiate(this.blockPrefab);
         this.node.addChild(block);
-
-        const balloon = cc.instantiate(this.balloonPrefab);
-        balloon.position = cc.director.getScene().convertToNodeSpaceAR(this.chimp.node.parent.convertToWorldSpaceAR(cc.v2(0, -118)));
-        const balloonComp = balloon.getComponent(Balloon);
-        balloonComp.game = config.game;
-        balloonComp.label.string = Util.i18NText('Game Over');
-        balloonComp.chimp = this.chimp.node;
-        this.chimp.node.removeFromParent();
-        balloonComp.seat.addChild(this.chimp.node);
-        balloonComp.onClickCallback = () => {
-            config.popScene();
-        };
-        cc.director.getScene().addChild(balloon);
-        balloonComp.animateGlow();
-        new cc.Tween().target(balloon)
-            .to(0.5, { position: cc.v2(cc.winSize.width / 2, 100) }, null)
-            .delay(2)
-            .call(() => {
-                balloonComp.onBalloonClick();
-            })
-            .start();
+        const scorecard = cc.instantiate(this.scorecardPrefab)
+        const scorecardComp = scorecard.getComponent(Scorecard)
+        scorecardComp.score = this.total
+        scorecardComp.text = config.lesson.name
+        this.friend.node.removeFromParent()
+        scorecardComp.friendPos.addChild(this.friend.node)
+        this.friend.playAnimation('joy', 1)
+        this.node.addChild(scorecard)
     }
 
     private setupEventHandlers() {
