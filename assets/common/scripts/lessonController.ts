@@ -89,21 +89,21 @@ export default class LessonController extends Game {
     static preloadLesson(callback: Function) {
         const config = Config.i;
         config.problem = 0;
-        cc.assetManager.loadBundle(config.lesson.id, (err, bundle) => {
+        cc.assetManager.loadBundle('a' + config.lesson.id, (err, bundle) => {
             if (err) {
-                return console.error(err);
-            }
-
-            bundle.preloadDir('res', null, null, (err: Error, items) => {
-                Util.bundles.set(config.lesson.id, bundle);
-                config.loadLessonJson((data: Array<string>) => {
-                    config.data = [data];
-                    this.preloadGame((prefab: cc.Prefab) => {
-                        this.gamePrefab = prefab;
-                        callback();
+                callback(err)
+            } else {
+                bundle.preloadDir('res', null, null, (err: Error, items) => {
+                    Util.bundles.set(config.lesson.id, bundle);
+                    config.loadLessonJson((data: Array<string>) => {
+                        config.data = [data];
+                        this.preloadGame((prefab: cc.Prefab) => {
+                            this.gamePrefab = prefab;
+                            callback();
+                        });
                     });
                 });
-            });
+            }
         });
 
     }

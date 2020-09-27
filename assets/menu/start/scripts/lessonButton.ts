@@ -3,6 +3,7 @@ import Config from "../../../common/scripts/lib/config";
 import { Lesson, Chapter, Course } from "../../../common/scripts/lib/convert";
 import { User } from "../../../common/scripts/lib/profile";
 import LessonController from "../../../common/scripts/lessonController";
+import Loading from "../../../common/scripts/loading";
 
 const { ccclass, property } = cc._decorator;
 
@@ -33,7 +34,6 @@ export default class LessonButton extends cc.Component {
     @property(cc.Material)
     grayMaterial: cc.Material
 
-
     course: Course
     chapter: Chapter
     lesson: Lesson
@@ -53,9 +53,14 @@ export default class LessonButton extends cc.Component {
                 config.course = this.course
                 config.chapter = this.chapter
                 config.lesson = this.lesson;
+                this.loading.getComponent(Loading).allowCancel = true
                 this.loading.active = true
-                LessonController.preloadLesson(() => {
-                    config.pushScene('common/scenes/lessonController')
+                LessonController.preloadLesson((err: Error) => {
+                    if(err) {
+                        this.loading.getComponent(Loading).addMessage(err.message, true, true)
+                    } else {
+                        config.pushScene('common/scenes/lessonController')
+                    }
                 })
             })
             if (this.chapterLabel != null) this.chapterLabel.string = this.chapter.name
