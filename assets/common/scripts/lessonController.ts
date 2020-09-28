@@ -10,7 +10,7 @@ import ProgressMonitor, { StarType } from "./progressMonitor";
 import { QUIZ_ANSWERED } from "./quiz-monitor";
 import { Util } from "./util";
 import UtilLogger from "./util-logger";
-import Scorecard from "../../menu/scorecard/scripts/scorecard";
+import Scorecard from "../scorecard/scripts/scorecard";
 
 const { ccclass, property } = cc._decorator;
 

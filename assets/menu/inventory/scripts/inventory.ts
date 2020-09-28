@@ -1,24 +1,8 @@
+import { User } from "../../../common/scripts/lib/profile";
+import { INVENTORY_DATA, INVENTORY_SAVE_CONSTANTS } from "../../../common/scripts/util";
 import Item from "./item";
-import Profile, { User } from "../../../common/scripts/lib/profile";
-import Config from "../../../common/scripts/lib/config";
-import { CURRENT_STUDENT_ID } from "../../../common/scripts/lib/constants";
-import { SELECT_SECTIONS_SCENE } from "../../../private/school/scripts/landing";
-import { LANDING_SCENE } from "../../../chimple";
-import { currentSelectMode } from "../../../private/school/scripts/selectionScene";
-import { SelectionMode } from "../../../private/services/parseApi";
 
 const { ccclass, property } = cc._decorator;
-
-export const inventoryData = [
-    ["hat1", "hat1-hat1", "hat1-hat2", "hat1-hat3", "hat1-hat4", "hat1-hat5", "hat1-hat6", "hat1-hat7", "hat1-hat8", "hat1-hat9", "hat1-hat10"],
-    ["hand", "handacc-hand1", "handacc-hand2", "handacc-hand3", "handacc-hand4", "handacc-hand5", "handacc-hand6", "handacc-hand7", "handacc-hand8"],
-    ["glasses", "glassacc-glass1", "glassacc-glass2", "glassacc-glass3", "glassacc-glass4", "glassacc-glass5", "glassacc-glass6", "glassacc-glass7", "glassacc-glass8", "glassacc-glass9", "glassacc-glass10"],
-    // ["shoes", "right_shoe-shoe1", "right_shoe-shoe2", "right_shoe-shoe3", "right_shoe-shoe4", "right_shoe-shoe5", "right_shoe-shoe6", "right_shoe-shoe7", "right_shoe-shoe8", "right_shoe-shoe9", "right_shoe-shoe10"],
-    ["shoes", "left_shoe-shoe1", "left_shoe-shoe2", "left_shoe-shoe3", "left_shoe-shoe4", "left_shoe-shoe5", "left_shoe-shoe6", "left_shoe-shoe7", "left_shoe-shoe8", "left_shoe-shoe9", "left_shoe-shoe10"],
-    ["neck", "neck_acc-neck1", "neck_acc-neck2", "neck_acc-neck3", "neck_acc-neck4", "neck_acc-neck5", "neck_acc-neck6", "neck_acc-neck7", "neck_acc-neck8", "neck_acc-neck9", "neck_acc-neck10"]
-];
-
-export const saveConstants = ["hat1", "handacc", "glassacc", "left_shoe", "neck_acc"]
 
 @ccclass
 export default class Inventory extends cc.Component {
@@ -58,30 +42,30 @@ export default class Inventory extends cc.Component {
     normalSprite: cc.SpriteFrame = null;
     animationNames = ["hat", "hand", "glass", "leg", "neck"]
     onLoad() {
-        this.buildIndividualItems(inventoryData[0])
+        this.buildIndividualItems(INVENTORY_DATA[0])
 
         // load all hats here
-        for (let i = 1; i < inventoryData[0].length; i++) {
-            this.hatArmature.armatureName = inventoryData[0][i].split("-")[1];
+        for (let i = 1; i < INVENTORY_DATA[0].length; i++) {
+            this.hatArmature.armatureName = INVENTORY_DATA[0][i].split("-")[1];
         }
         // load all hand here
-        for (let i = 1; i < inventoryData[1].length; i++) {
-            this.handArmature.armatureName = inventoryData[1][i].split("-")[1];
+        for (let i = 1; i < INVENTORY_DATA[1].length; i++) {
+            this.handArmature.armatureName = INVENTORY_DATA[1][i].split("-")[1];
         }
 
         // load all glasses here
-        for (let i = 1; i < inventoryData[2].length; i++) {
-            this.glassArmature.armatureName = inventoryData[2][i].split("-")[1];
+        for (let i = 1; i < INVENTORY_DATA[2].length; i++) {
+            this.glassArmature.armatureName = INVENTORY_DATA[2][i].split("-")[1];
         }
 
         // load all shoes here
-        for (let i = 1; i < inventoryData[3].length; i++) {
-            this.shoeArmature.armatureName = inventoryData[3][i].split("-")[1];
+        for (let i = 1; i < INVENTORY_DATA[3].length; i++) {
+            this.shoeArmature.armatureName = INVENTORY_DATA[3][i].split("-")[1];
         }
 
         // load all neck here
-        for (let i = 1; i < inventoryData[4].length; i++) {
-            this.neckArmature.armatureName = inventoryData[4][i].split("-")[1];
+        for (let i = 1; i < INVENTORY_DATA[4].length; i++) {
+            this.neckArmature.armatureName = INVENTORY_DATA[4][i].split("-")[1];
         }
 
         try {
@@ -101,7 +85,7 @@ export default class Inventory extends cc.Component {
     }
 
     loadSavedCharacterAcc() {
-        saveConstants.forEach((key) => {
+        INVENTORY_SAVE_CONSTANTS.forEach((key) => {
             console.log(" slotname ", key);
             let characterAndSlot = this.characterName.concat("-", key)
             var newHatName = User.getCurrentUser().inventory[characterAndSlot]
@@ -129,7 +113,7 @@ export default class Inventory extends cc.Component {
         this.node.getChildByName("acc_layout").getChildByName(nodeName).getChildByName(event.currentTarget.name).getChildByName("Background").color = color.fromHEX("#FFFFFF")
         this.node.getChildByName("acc_layout").getChildByName(nodeName).getChildByName(event.currentTarget.name).getChildByName("icon").color = color.fromHEX("#282C65FFFFFF")
         // recreate list
-        this.buildIndividualItems(inventoryData[parseInt(event.currentTarget.name)])
+        this.buildIndividualItems(INVENTORY_DATA[parseInt(event.currentTarget.name)])
         this.lastSelectedButton = parseInt(event.currentTarget.name)
     }
 

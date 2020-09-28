@@ -10,7 +10,17 @@ import UtilLogger from "./util-logger";
 import Overflow = cc.Label.Overflow;
 import HorizontalAlign = cc.Label.HorizontalAlign;
 import VerticalAlign = cc.Label.VerticalAlign;
-import { inventoryData, saveConstants } from '../../menu/inventory/scripts/inventory'
+
+export const INVENTORY_DATA = [
+  ["hat1", "hat1-hat1", "hat1-hat2", "hat1-hat3", "hat1-hat4", "hat1-hat5", "hat1-hat6", "hat1-hat7", "hat1-hat8", "hat1-hat9", "hat1-hat10"],
+  ["hand", "handacc-hand1", "handacc-hand2", "handacc-hand3", "handacc-hand4", "handacc-hand5", "handacc-hand6", "handacc-hand7", "handacc-hand8"],
+  ["glasses", "glassacc-glass1", "glassacc-glass2", "glassacc-glass3", "glassacc-glass4", "glassacc-glass5", "glassacc-glass6", "glassacc-glass7", "glassacc-glass8", "glassacc-glass9", "glassacc-glass10"],
+  // ["shoes", "right_shoe-shoe1", "right_shoe-shoe2", "right_shoe-shoe3", "right_shoe-shoe4", "right_shoe-shoe5", "right_shoe-shoe6", "right_shoe-shoe7", "right_shoe-shoe8", "right_shoe-shoe9", "right_shoe-shoe10"],
+  ["shoes", "left_shoe-shoe1", "left_shoe-shoe2", "left_shoe-shoe3", "left_shoe-shoe4", "left_shoe-shoe5", "left_shoe-shoe6", "left_shoe-shoe7", "left_shoe-shoe8", "left_shoe-shoe9", "left_shoe-shoe10"],
+  ["neck", "neck_acc-neck1", "neck_acc-neck2", "neck_acc-neck3", "neck_acc-neck4", "neck_acc-neck5", "neck_acc-neck6", "neck_acc-neck7", "neck_acc-neck8", "neck_acc-neck9", "neck_acc-neck10"]
+];
+
+export const INVENTORY_SAVE_CONSTANTS = ["hat1", "handacc", "glassacc", "left_shoe", "neck_acc"]
 
 export const SUBPACKAGES = 'subpackages'
 
@@ -693,11 +703,11 @@ export class Util {
 
   public static loadAccessoriesAndEquipAcc(accessoriesNode: cc.Node, friendNode: cc.Node): dragonBones.ArmatureDisplay {
     let accArmature: dragonBones.ArmatureDisplay;
-    for (let i = 0; i < inventoryData.length; i++) {
+    for (let i = 0; i < INVENTORY_DATA.length; i++) {
       accArmature = accessoriesNode.children[i].getComponent(dragonBones.ArmatureDisplay)
       console.log(" iii ", i)
-      for (let j = 1; j < inventoryData[i].length; j++) {
-        accArmature.armatureName = inventoryData[i][j].split("-")[1];
+      for (let j = 1; j < INVENTORY_DATA[i].length; j++) {
+        accArmature.armatureName = INVENTORY_DATA[i][j].split("-")[1];
       }
     }
     Util.equipAcc(friendNode);
@@ -707,7 +717,7 @@ export class Util {
   public static equipAcc(friendNode: cc.Node) {
     let factory = dragonBones.CCFactory.getInstance();
     let _armature = friendNode.getComponent(dragonBones.ArmatureDisplay).armature();
-    saveConstants.forEach((key) => {
+    INVENTORY_SAVE_CONSTANTS.forEach((key) => {
       let characterAndSlot = User.getCurrentUser().currentCharacter.concat("-", key)
       var newHatName = User.getCurrentUser().inventory[characterAndSlot]
       if (newHatName != undefined) {
