@@ -1,7 +1,7 @@
 import Config from '../../../common/scripts/lib/config'
 import Profile, { User } from '../../../common/scripts/lib/profile';
 import { LANDING_SCENE } from "../../../chimple";
-import { CURRENT_STUDENT_ID } from "../../../common/scripts/lib/constants";
+import {CURRENT_STUDENT_ID, LOGGED_IN_USER} from "../../../common/scripts/lib/constants";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -158,6 +158,7 @@ export default class Rewards extends cc.Component {
         User.setCurrentUser(null);
         Config.i.popAllScenes();
         if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
+            cc.sys.localStorage.removeItem(LOGGED_IN_USER);
             // @ts-ignore
             currentSelectMode = SelectionMode.Section;
             Config.loadScene(LANDING_SCENE, 'private', null);
