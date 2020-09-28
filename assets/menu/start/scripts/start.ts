@@ -1,13 +1,13 @@
+import { ADD_TEACHER, TEACHER_ID_KEY, TEACHER_NAME_KEY } from "../../../chimple";
 import Config from "../../../common/scripts/lib/config";
 import { Course } from "../../../common/scripts/lib/convert";
 import { User } from "../../../common/scripts/lib/profile";
+import Loading from "../../../common/scripts/loading";
+import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
 import { Util } from "../../../common/scripts/util";
 import CourseContent from "./courseContent";
 import HeaderButton from "./headerButton";
 import StartContent from "./startContent";
-import { ADD_TEACHER, TEACHER_ID_KEY, TEACHER_NAME_KEY } from "../../../chimple";
-import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
-import { TEACHER_ADD_STUDENT_SELECTED } from "../../../common/scripts/studentPreviewInfo";
 
 const { ccclass, property } = cc._decorator;
 
@@ -44,7 +44,6 @@ export default class Start extends cc.Component {
     static homeSelected: boolean = true
 
     onLoad() {
-
         this.bgHolder.removeAllChildren();
         if (!!User.getCurrentUser().currentBg) {
             this.setBackground(User.getCurrentUser().currentBg);
@@ -52,8 +51,7 @@ export default class Start extends cc.Component {
             this.setBackground("forest");
         }
 
-
-        this.loading.width = cc.winSize.width
+        this.loading.getComponent(Loading).allowCancel = false
         const config = Config.i
         let index = 0
 
@@ -78,9 +76,11 @@ export default class Start extends cc.Component {
                 const headerButton = this.header.children[++index]
                 const headerButtonComp = headerButton.getComponent(HeaderButton)
                 headerButtonComp.label.string = name
-                Util.load(name + '/course/res/icons/' + name + '.png', (err, texture) => {
+                Util.load(name + '/course/res/icons/' + name + '.png', (err: Error, texture) => {
                     if (!err) {
                         headerButtonComp.sprite.spriteFrame = new cc.SpriteFrame(texture);
+                    } else {
+                        this.loading.getComponent(Loading).addMessage(err.message, false)
                     }
                 })
                 headerButtonComp.button.node.on('click', () => {
@@ -99,8 +99,11 @@ export default class Start extends cc.Component {
                 this.onCourseClick()
             }
             this.loading.active = false;
-            this.setUpTeacherDialog();
         })
+    }
+
+    protected start() {
+        this.setUpTeacherDialog();
     }
 
     private registerTeacherDialogCloseEvent() {

@@ -1,10 +1,11 @@
 
 const { ccclass, property } = cc._decorator;
-import Config from "../../../common/scripts/lib/config";
-import { Util } from "../../../common/scripts/util";
-import catchError from "../../../common/scripts/lib/error-handler";
-import CountingAnswer, { VALIDATE_RESULT } from "../../../common/scripts/counting-answer";
 import { HELP_BTN } from "../../../common/scripts/answer-grid";
+import CountingAnswer, { VALIDATE_RESULT } from "../../../common/scripts/counting-answer";
+import Game from "../../../common/scripts/game";
+import Config from "../../../common/scripts/lib/config";
+import catchError from "../../../common/scripts/lib/error-handler";
+import { Util } from "../../../common/scripts/util";
 
 export interface CalculatorConfig {
     level: string,
@@ -20,7 +21,7 @@ export interface CalculatorConfig {
 }
 
 @ccclass
-export default class Calculator extends cc.Component {
+export default class Calculator extends Game {
 
     @property(cc.Label)
     label: cc.Label = null;

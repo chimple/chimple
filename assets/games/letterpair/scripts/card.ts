@@ -2,6 +2,7 @@ import { Util } from "../../../common/scripts/util";
 import LetterPair from "./letterpair";
 import ChimpleLabel from "../../../common/scripts/chimple-label";
 import CountingLayout from "../../../common/scripts/countingLayout";
+import LessonController from "../../../common/scripts/lessonController";
 
 const { ccclass, property } = cc._decorator;
 
@@ -215,7 +216,7 @@ export default class Card extends cc.Component {
                     .delay(0.5)
                     .call(() => {
                         if (this.wordAudio != null) {
-                            Util.play(this.wordAudio, false);
+                            LessonController.getFriend().speak(this.wordAudio);
                         }
                     })
                     .to(0.5, { position: cc.v2(-this.node.width / 2 - 20, 0) }, null)

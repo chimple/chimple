@@ -5,6 +5,7 @@ import { LETTER_SCALE, SingleLetterTracing } from "./singlelettertracing";
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
 import { MOVE_TO_NEXT_LETTER_EVENT, CONFIG_LOADED, SOUND_LOADED_EVENT, TRACING_FINISHED, TRACING_CORRECT, TRACING_WRONG } from "../../../common/scripts/helper";
+import Game from "../../scripts/game";
 
 export const TRACE_WIDTH = 512;
 export const TRACE_HEIGHT = 768;
@@ -19,7 +20,7 @@ export interface WriteWordConfig {
 }
 
 @ccclass
-export default class WriteWord extends cc.Component {
+export default class WriteWord extends Game {
 
     @property(cc.Node)
     words: cc.Node = null;
@@ -69,7 +70,8 @@ export default class WriteWord extends cc.Component {
             this.node.emit(CONFIG_LOADED);
             this.loadSounds(this._currentConfig.sound);
             this.node.on(SOUND_LOADED_EVENT, () => {
-                this.pronounce();
+                this.friend.extraClip = this._sound
+                Util.showHelp(null, null)
             });
 
             this.emitLetterEnabledEvent(
@@ -311,9 +313,10 @@ export default class WriteWord extends cc.Component {
     private pronounce() {
         if (this._currentLetterIndex === this._characters.length - 1) {
             this.scheduleOnce(() => {
-                if (!!this._sound)
-                    this._soundID = Util.play(this._sound, false);
-            }, 1);
+                // if (!!this._sound)
+                //     this._soundID = Util.play(this._sound, false);
+                this.friend.speak(this._sound)
+            }, 1.5);
         }
     }
 

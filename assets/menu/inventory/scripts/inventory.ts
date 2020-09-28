@@ -103,6 +103,7 @@ export default class Inventory extends cc.Component {
 
     loadSavedCharacterAcc() {
         this.saveConstants.forEach((key) => {
+            console.log(" slotname ", key);
             let characterAndSlot = this.characterName.concat("-", key)
             var newHatName = User.getCurrentUser().inventory[characterAndSlot]
             let factory = dragonBones.CCFactory.getInstance();

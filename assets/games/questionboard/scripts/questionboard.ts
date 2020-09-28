@@ -7,6 +7,7 @@ import OptionScript from "./option-script";
 import { Util } from "../../../common/scripts/util";
 import { catchError } from "../../../common/scripts/lib/error-handler";
 import CountingLayout from "../../../common/scripts/countingLayout";
+import Game from "../../../common/scripts/game";
 
 export const CORRECT_ANSWER = 'CORRECT_ANSWER';
 export const WRONG_ANSWER = 'WRONG_ANSWER';
@@ -64,7 +65,7 @@ export interface QuestionBoardConfig {
 }
 
 @ccclass
-export default class QuestionBoard extends cc.Component {
+export default class QuestionBoard extends Game {
     private _currentConfig: QuestionBoardConfig = null;
 
     @property(cc.Prefab)

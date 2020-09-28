@@ -1,9 +1,9 @@
-import Config from "../../../common/scripts/lib/config";
-import MultLayout from "../scripts/multLayout";
-import { Util } from "../../../common/scripts/util";
-import catchError from "../../../common/scripts/lib/error-handler";
-import Drag from "../../../common/scripts/drag";
 import CountingLayout from "../../../common/scripts/countingLayout";
+import Drag from "../../../common/scripts/drag";
+import Game from "../../../common/scripts/game";
+import Config from "../../../common/scripts/lib/config";
+import { Util } from "../../../common/scripts/util";
+import MultLayout from "../scripts/multLayout";
 
 const { ccclass, property } = cc._decorator;
 
@@ -45,7 +45,7 @@ enum LayoutType {
 }
 
 @ccclass
-export default class FoodJar extends cc.Component {
+export default class FoodJar extends Game {
 
     @property(cc.Node)
     firstLayout: cc.Node = null;
@@ -73,9 +73,6 @@ export default class FoodJar extends cc.Component {
 
     @property(cc.Prefab)
     multChoice: cc.Prefab = null;
-
-    @property(cc.Node)
-    friendPos: cc.Node = null
 
     @property(cc.SpriteFrame)
     addTexture1: cc.SpriteFrame = null
@@ -123,7 +120,6 @@ export default class FoodJar extends cc.Component {
     subEmptyTexture3: cc.SpriteFrame = null
 
     choiceNodes: Array<cc.Node> = [];
-    friend: dragonBones.ArmatureDisplay = null
 
     problem: FoodJarProblem = new FoodJarProblem();
     notSolved: number = 0;
@@ -133,16 +129,10 @@ export default class FoodJar extends cc.Component {
     firstDrag: cc.Node = null
     firstDrop: cc.Node = null
 
-    @catchError()
+    // @catchError()
     onLoad() {
         Drag.letDrag = false
         cc.director.getCollisionManager().enabled = true
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
-            this.friendPos.addChild(friendNode)
-            this.friend.playAnimation('laugh', 1)
-        })
-
         const row = Config.getInstance().data[0];
         const [level, worksheet, problem, type, mathSign, minNumber, maxNumber, repeat, line1BlankCount, panelCount] = row;
 
@@ -188,7 +178,7 @@ export default class FoodJar extends cc.Component {
                     this.choiceLayout.addChild(this.createLabel(this.problem.answer.toString()));
                 }
                 this.scaleForSpeaking(-1);
-                Util.speakEquation(this.problem.toStringArray(), this.scaleForSpeaking.bind(this));
+                this.friend.speakEquation(this.problem.toStringArray(), this.scaleForSpeaking.bind(this));
             }, 2);
         }
     }

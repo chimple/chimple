@@ -1,12 +1,13 @@
 import Drag from "../../../common/scripts/drag";
 import Config from "../../../common/scripts/lib/config";
+import Game from "../../../common/scripts/game";
 
 const { ccclass, property } = cc._decorator;
 
 const MIN_STICKERS_FOR_CAMERA = 5
 
 @ccclass
-export default class Monster extends cc.Component {
+export default class Monster extends Game {
     @property(cc.Node)
     background: cc.Node = null
 

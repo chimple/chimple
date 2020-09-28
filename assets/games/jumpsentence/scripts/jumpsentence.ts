@@ -3,11 +3,12 @@ import BridgeBuilder from "./BridgeBuilder";
 import { Util } from "../../../common/scripts/util";
 import KeyboardAlphabets from "./keyboardAlphabets";
 import { catchError } from "../../../common/scripts/lib/error-handler";
+import Game from "../../../common/scripts/game";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class JumpSentence extends cc.Component {
+export default class JumpSentence extends Game {
   level: number;
   worksheet: number;
   problemNo: number;
@@ -29,9 +30,6 @@ export default class JumpSentence extends cc.Component {
   caseButtonNode: cc.Node = null;
 
   @property(cc.Node)
-  audioNode: cc.Node = null;
-
-  @property(cc.Node)
   lockedKeyboard: cc.Node = null;
 
   @property(cc.Node)
@@ -41,9 +39,7 @@ export default class JumpSentence extends cc.Component {
   bridgePrefab: cc.Prefab = null;
 
   @property(cc.Node)
-  charNode: cc.Node = null;
-
-  friend: dragonBones.ArmatureDisplay = null
+  friendPos: cc.Node = null;
 
   @catchError()
   onLoad() {
@@ -81,20 +77,14 @@ export default class JumpSentence extends cc.Component {
     if (this._isRTL) {
       this.node.getChildByName("Bridge").x = -100;
       this.caseButtonNode.x = -426;
-      this.charNode.scaleX = -0.3;
+      this.friendPos.scaleX = -0.3;
     }
   }
 
   @catchError()
   placeCharNode() {
-    Util.loadFriend((friendNode: cc.Node) => {
-      this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
-      this.charNode.addChild(friendNode)
-      this.friend.playAnimation('idle', 1)
-      this.charNode.x = (cc.winSize.width / 2 - 120) * (this._isRTL ? 1 : -1);
-      this.node.getChildByName("Wooden Log").x = this.charNode.x;
-    })
-
+    this.friendPos.x = (cc.winSize.width / 2 - 120) * (this._isRTL ? 1 : -1);
+    this.node.getChildByName("Wooden Log").x = this.friendPos.x;
   }
 
   @catchError()
@@ -126,17 +116,17 @@ export default class JumpSentence extends cc.Component {
   public decreaseCharacterByOne() {
     this.charactersLeft -= 1;
     if (this.charactersLeft == 0) {
-      if (this.friend != null) this.friend.armature().animation.stop("jumping2")
+      this.friend.stopAnimation("jumping2")
 
       new cc.Tween()
-        .target(this.charNode)
+        .target(this.friendPos)
         .call(() => {
-          if (this.friend != null) this.friend.playAnimation("jumping2", 1)
+          this.friend.playAnimation("jumping2", 1)
         })
         .to(2, { x: this._isRTL ? -50 : 50 }, { progress: null, easing: "sineOut" })
         .delay(0.5)
         .call(() => {
-          if (this.friend != null) this.friend.playAnimation("jumping2", 1)
+          this.friend.playAnimation("jumping2", 1)
         })
         .to(
           2,
@@ -152,53 +142,20 @@ export default class JumpSentence extends cc.Component {
   }
 
   @catchError()
-  private DelayBySeconds(seconds: number, delayCompleteCallback: Function) {
-    cc.log("In delay function......");
-    var callback = cc.callFunc(delayCompleteCallback, this);
-    var delayOnCompletion = cc.sequence(cc.delayTime(seconds), callback);
-    this.node.runAction(delayOnCompletion);
-  }
-
-  @catchError()
   PlayAudioOnGameEnd() {
     cc.log("Playing Audio On Game End");
-    this.onClickPlayAudio();
-  }
-
-  @catchError()
-  NextGame() {
-    if (--this.callCount == 0) {
-      cc.log("Moving on to Next Problem");
-      this.node.emit("nextProblem");
-    }
+    this.friend.speakExtra(() => {
+      this.scheduleOnce(() => {
+        this.node.emit("nextProblem");
+      }, 3)
+    })
   }
 
   @catchError()
   public onClickPlayAudio() {
-    cc.log("Audio Play Button " + this.audioNode.name);
-    let audioPlayButton = this.audioNode.getComponent(cc.Button);
-    audioPlayButton.interactable = false;
-
     Util.loadGameSound(this.soundFile, (clip) => {
-      var audioID = -1
       if (clip != null) {
-        this.soundClip = clip
-        audioID = cc.audioEngine.play(this.soundClip, false, 1)
-
-      }
-      if (audioID >= 0) {
-        cc.audioEngine.setFinishCallback(audioID, () => {
-          if (this.isGameFinished) {
-            this.DelayBySeconds(3, this.NextGame);
-          }
-          audioPlayButton.getComponent(cc.Button).interactable = true;
-        });
-      }
-      else {
-        if (this.isGameFinished) {
-          this.DelayBySeconds(3, this.NextGame);
-        }
-        audioPlayButton.getComponent(cc.Button).interactable = true;
+        this.friend.extraClip = clip
       }
     });
   }

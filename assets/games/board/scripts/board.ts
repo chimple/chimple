@@ -1,9 +1,10 @@
-import AlphaDrag from "./alphaDrag";
-import Config,{Direction} from "../../../common/scripts/lib/config";
-import NumberDisplay from "./numberDisplay";
-import { Util } from "../../../common/scripts/util";
-import catchError from "../../../common/scripts/lib/error-handler";
 import Drag from "../../../common/scripts/drag";
+import Game from "../../../common/scripts/game";
+import Config, { Direction } from "../../../common/scripts/lib/config";
+import catchError from "../../../common/scripts/lib/error-handler";
+import { Util } from "../../../common/scripts/util";
+import AlphaDrag from "./alphaDrag";
+import NumberDisplay from "./numberDisplay";
 
 const { ccclass, property } = cc._decorator;
 
@@ -27,7 +28,7 @@ enum PuzzleType {
 }
 
 @ccclass
-export default class Board extends cc.Component {
+export default class Board extends Game {
     @property(cc.Node)
     dropLayout: cc.Node = null
 
@@ -58,9 +59,6 @@ export default class Board extends cc.Component {
     @property(cc.Node)
     truck: cc.Node = null
 
-    @property(cc.Node)
-    friendPos: cc.Node = null
-    
     @property(cc.AudioClip)
     truckInClip: cc.AudioClip = null
 
@@ -68,7 +66,6 @@ export default class Board extends cc.Component {
     truckOutClip: cc.AudioClip = null
 
 
-    friend: dragonBones.ArmatureDisplay = null
     letters: Array<string> = null
     positions: Array<cc.Node> = null
     drags: Array<cc.Node> = []
@@ -77,7 +74,7 @@ export default class Board extends cc.Component {
     fontSize: number = 0
     lineHeight: number = 0
     type: PuzzleType = null
-    xpos:number
+    xpos: number
     // xposition: number
     // truckX:number
 
@@ -86,24 +83,19 @@ export default class Board extends cc.Component {
         const config = Config.getInstance();
         cc.director.getCollisionManager().enabled = true
         Drag.letDrag = false
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
-            this.friendPos.addChild(friendNode)
-            this.friend.playAnimation('laugh', 1)
-        })
-         const truckX = this.truck.x
+        const truckX = this.truck.x
         // this.truck.x = cc.winSize.width
-        if(Config.i.direction == Direction.RTL){
+        if (Config.i.direction == Direction.RTL) {
             this.truck.scaleX = -1;
-            this.xpos = -this.truck.x ;
+            this.xpos = -this.truck.x;
             this.truck.x = -cc.winSize.width;
             this.pos0.x = -this.pos0.x;
             this.pos1.x = -this.pos1.x;
             this.pos2.x = -this.pos2.x;
         } else {
-           this.xpos= this.truck.x
-           this.truck.x = cc.winSize.width
-        } 
+            this.xpos = this.truck.x
+            this.truck.x = cc.winSize.width
+        }
         this.positions = [this.pos0, this.pos1, this.pos2]
         this.dropLayout.removeAllChildren(); //temporary while styling
         const data = config.data
@@ -121,7 +113,7 @@ export default class Board extends cc.Component {
             this.letters.forEach(element => {
                 const drop = cc.instantiate(this.alphaDrop)
                 drop.name = element
-                if(Config.i.direction == Direction.RTL){drop.scaleX =-1}
+                if (Config.i.direction == Direction.RTL) { drop.scaleX = -1 }
                 const dropLabel = drop.getComponent(cc.Label)
                 dropLabel.string = element
                 dropLabel.fontSize = this.fontSize
@@ -133,7 +125,7 @@ export default class Board extends cc.Component {
             this.letters.forEach(element => {
                 const drop = cc.instantiate(this.imagePuzzleDrop)
                 drop.name = element
-                if(Config.i.direction == Direction.RTL){drop.scaleX = -1}
+                if (Config.i.direction == Direction.RTL) { drop.scaleX = -1 }
                 const numberDisplay = cc.instantiate(this.numberDisplay)
                 const numberDisplayComp = numberDisplay.getComponent(NumberDisplay)
                 numberDisplayComp.num = parseInt(element)
@@ -146,7 +138,7 @@ export default class Board extends cc.Component {
             this.letters.forEach(element => {
                 const drop = cc.instantiate(this.imagePuzzleDrop)
                 drop.name = element
-                if(Config.i.direction == Direction.RTL){drop.scaleX = -1}
+                if (Config.i.direction == Direction.RTL) { drop.scaleX = -1 }
                 const numberDisplay = cc.instantiate(this.numberDisplay)
                 numberDisplay.color = new cc.Color().fromHEX(colors[Math.floor(Math.random() * colors.length)])
                 const comp = numberDisplay.getComponent(NumberDisplay)
@@ -163,7 +155,7 @@ export default class Board extends cc.Component {
             this.letters = Util.shuffle(this.letters)
         }
         new cc.Tween().target(this.truck)
-             .call(()=>{Util.playSfx(this.truckInClip)})
+            .call(() => { Util.playSfx(this.truckInClip) })
             .to(1.5, { x: (this.truck.x + this.xpos) / 2 }, { progress: null, easing: 'quadOut' })
             .delay(0.5)
             .to(1.5, { x: this.xpos }, { progress: null, easing: 'quadIn' })
@@ -184,13 +176,13 @@ export default class Board extends cc.Component {
     @catchError()
     onMatch(drag: AlphaDrag) {
         this.node.emit('correct')
-        if(this.friend != null) this.friend.playAnimation('happy', 1)
+        if (this.friend != null) this.friend.playAnimation('happy', 1)
         if (this.drags.length == 1) {
             const anim = this.truck.getComponent(cc.Animation)
             anim.play()
             new cc.Tween().target(this.truck)
                 .delay(1)
-                .call(()=>{Util.playSfx(this.truckOutClip)})
+                .call(() => { Util.playSfx(this.truckOutClip) })
                 .to(3.0, { x: -cc.winSize.width * 2 }, { progress: null, easing: 'quadOut' })
                 .call(() => {
                     this.node.emit('nextProblem')
@@ -229,7 +221,7 @@ export default class Board extends cc.Component {
         drag.on('alphaMatch', this.onMatch.bind(this))
         drag.on('alphaNoMatch', () => {
             this.node.emit('wrong')
-            if(this.friend != null) this.friend.playAnimation('sad', 1)
+            if (this.friend != null) this.friend.playAnimation('sad', 1)
         })
         const dragComp = drag.getComponent(AlphaDrag)
         dragComp.pos = pos
