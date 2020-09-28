@@ -1,9 +1,9 @@
 import UtilLogger from "../util-logger";
-import Config, { ALL_LANGS } from "./config";
-import { Queue } from "../../../queue";
-import { CURRENT_STUDENT_ID } from "./constants";
-import { Course } from "./convert";
-import { Util } from "../util";
+import Config, {ALL_LANGS} from "./config";
+import {Queue} from "../../../queue";
+import {CURRENT_STUDENT_ID} from "./constants";
+import {Course} from "./convert";
+import {Util} from "../util";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -571,8 +571,8 @@ export default class Profile {
 
     static async teacherPostLoginActivity(objectId: string) {
         const currentUser: User = User.createUserOrFindExistingUser({
-            id: objectId
-        }
+                id: objectId
+            }
         );
         User.setCurrentUser(currentUser);
         let courseProgress = {};
