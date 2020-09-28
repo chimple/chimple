@@ -4,11 +4,12 @@ import DragHay from "./dragHay";
 import Drag from "../../../common/scripts/drag";
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
+import Game from "../../../common/scripts/game";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class SpeakingPet extends cc.Component {
+export default class SpeakingPet extends Game {
     @property(cc.Node)
     hay1: cc.Node = null;
 

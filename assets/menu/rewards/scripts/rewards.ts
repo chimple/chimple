@@ -57,7 +57,6 @@ export default class Rewards extends cc.Component {
             if (eachElement.getComponent(cc.Button).clickEvents[0].customEventData === User.getCurrentUser().currentBg) {
                 // make edit button and selected show
                 eachElement.getChildByName("tick").active = true
-                eachElement.getChildByName("edit").active = true
             }
         }
     }
@@ -130,7 +129,7 @@ export default class Rewards extends cc.Component {
         User.getCurrentUser().currentCharacter = customEventData.toString().trim();
 
         // switch scene
-        Config.getInstance().pushScene("inventory", "menu");
+        Config.getInstance().pushScene("menu/inventory/scenes/inventory", "menu");
     }
 
     onBgClick(event, customEventData) {

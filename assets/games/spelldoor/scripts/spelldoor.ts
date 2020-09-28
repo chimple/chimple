@@ -4,11 +4,12 @@ import SpellingDrag from "./spellingDrag";
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
 import { AlphabetUtil, LetterType } from "../../../common/scripts/Utility";
+import Game from "../../../common/scripts/game";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class SpellDoor extends cc.Component {
+export default class SpellDoor extends Game {
     @property(cc.Node)
     dropLayout: cc.Node = null
 
@@ -27,12 +28,7 @@ export default class SpellDoor extends cc.Component {
     @property(cc.Animation)
     anim: cc.Animation = null
 
-    @property(cc.Node)
-    friendPos: cc.Node = null
-
-    friend: dragonBones.ArmatureDisplay = null
     choices: Array<cc.Node> = []
-    clip: cc.AudioClip = null
     empty = 0
 
     @catchError()
@@ -40,11 +36,6 @@ export default class SpellDoor extends cc.Component {
         const config = Config.getInstance();
         cc.director.getCollisionManager().enabled = true
         Drag.letDrag = false
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
-            this.friendPos.addChild(friendNode)
-            this.friend.playAnimation('sad', 1)
-        })
         const [level, worksheet, problem, word, missingPos, totalConsonants, totalVowels, image, sound] = config.data[0]
         // const positions = missingPos.split('')
         var firstDrag: cc.Node = null
@@ -92,8 +83,8 @@ export default class SpellDoor extends cc.Component {
                     this.sprite.spriteFrame = new cc.SpriteFrame(texture)
                     Util.loadGameSound(sound, (clip) => {
                         if (clip != null) {
-                            this.clip = clip
-                            Util.play(clip, false)
+                            this.friend.extraClip = clip
+                            this.friend.speakExtra()
                         }
                     })
                     const animState = this.anim.play()
@@ -143,10 +134,7 @@ export default class SpellDoor extends cc.Component {
         this.node.emit('correct')
         if (--this.empty <= 0) {
             Drag.letDrag = false
-            if (this.clip != null) {
-                this.scheduleOnce(() => Util.play(this.clip, false), 0.5)
-            }
-            this.endAnimate()
+            this.scheduleOnce(() => this.friend.speakExtra(this.endAnimate.bind(this)), 0.5)
         }
     }
 
@@ -156,7 +144,7 @@ export default class SpellDoor extends cc.Component {
                 new cc.Tween().target(this.friendPos)
                     .delay(0.5)
                     .call(() => {
-                        if(this.friend != null) this.friend.playAnimation('jumping', 1);
+                        if (this.friend != null) this.friend.playAnimation('jumping', 1);
                     })
                     .to(1, { x: 0 }, null)
                     .delay(1)

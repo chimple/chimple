@@ -19,7 +19,6 @@ export default class ChapterLessons extends cc.Component {
     loading: cc.Node = null
 
     onLoad() {
-        this.loading.active = false
         const config = Config.i
         this.label.string = config.chapter.name
         config.chapter.lessons.forEach((lesson, index) => {

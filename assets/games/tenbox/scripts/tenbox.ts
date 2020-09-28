@@ -5,11 +5,12 @@ import Drag from "../../../common/scripts/drag";
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
 import TenBoxChoiceDrag from "./tenboxChoiceDrag";
+import Game from "../../../common/scripts/game";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class Tenbox extends cc.Component {
+export default class Tenbox extends Game {
     @property(cc.Prefab)
     numberDrag: cc.Prefab = null
 

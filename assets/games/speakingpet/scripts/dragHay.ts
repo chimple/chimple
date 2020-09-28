@@ -1,6 +1,7 @@
 import Drag from "../../../common/scripts/drag";
 import DropCow from "./dropCow";
 import { Util } from "../../../common/scripts/util";
+import LessonController from "../../../common/scripts/lessonController";
 
 const { ccclass, property } = cc._decorator;
 
@@ -40,7 +41,8 @@ export default class DragHay extends Drag {
     onTouchStart(touch: cc.Touch) {
         super.onTouchStart(touch);
         if(this._soundClip != null) {
-            Util.play(this._soundClip, false);
+            LessonController.getFriend().speak(this._soundClip)
+            // Util.play(this._soundClip, false);
         }
     }
 
@@ -48,7 +50,8 @@ export default class DragHay extends Drag {
         super.onTouchEnd(touch);
         if(this.match) {
             if(this._soundClip != null) {
-                Util.play(this._soundClip, false);
+                // Util.play(this._soundClip, false);
+                LessonController.getFriend().speak(this._soundClip)
             }
         } else {
             this.node.emit('dragHayWrong')

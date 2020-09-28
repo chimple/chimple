@@ -281,6 +281,13 @@ export default class Config {
         }
     }
 
+    prevProblem() {
+        if (this.problem > 1) {
+            this.problem--;
+            this.data = [this._lessonData.rows[this.problem - 1]];
+        }
+    }
+
     loadPathJSON(fileName: string, callback: Function, isNumber: boolean = false) {
         let data: any[] = [];
         let jsonData: string = null;
@@ -349,6 +356,7 @@ export default class Config {
     }
 
     get friend(): string {
-        return WORLDS[0].armature;
+        // return WORLDS[0].armature;
+        return 'chimp'
     }
 }

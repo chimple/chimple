@@ -16,10 +16,11 @@ export const SCHOOL: string = "SCHOOL";
 export const REGISTER: string = "REGISTER";
 export const NONE: string = "NONE";
 
+export const NO_ASSIGNED_TEACHERS: string = 'no_assigned_teachers';
 export const ASSIGNED_TEACHERS: string = 'assigned_teachers';
 export const ADD_TEACHER: string = 'add_teacher';
-export const TEACHER_ID_KEY ='id';
-export const TEACHER_NAME_KEY ='name';
+export const TEACHER_ID_KEY = 'id';
+export const TEACHER_NAME_KEY = 'name';
 
 export const LANDING_SCENE = 'private/school/scenes/landing';
 export const HOME_SCENE = 'menu/home/scenes/home';
@@ -29,44 +30,44 @@ export const START_SCENE = 'menu/start/scenes/start';
 cc.deep_link = function (url) {
     cc.log("deep link called with url:" + url);
     http://chimple.github.io
-    if (url !== null && url.includes("http://chimple.github.io/")) {
-        let messageType: string = null;
-        let splits = url.split("://chimple.github.io/");
-        if (splits !== null && splits.length === 2) {
-            let elements = splits[1].split('/');
-            messageType = elements.splice(0, 1)[0];
-            if (messageType === ADD_TEACHER) {
-                let data = Object.assign({});
-                if (elements !== null && (elements.length % 2 === 0)) {
-                    let all_keys = elements;
-                    let all_values = [];
-                    for (let i = 0; i < elements.length; i++) {
-                        all_values.push(all_keys.splice(i + 1, 1)[0]);
-                    }
-                    let mappings = all_keys.map(function (e, i) {
-                        return [e, all_values[i]];
-                    });
-
-                    mappings.forEach(arr => {
-                        if (arr && arr.length === 2) {
-                            data[arr[0].toLowerCase()] = arr[1].toLowerCase();
+        if (url !== null && url.includes("http://chimple.github.io/")) {
+            let messageType: string = null;
+            let splits = url.split("://chimple.github.io/");
+            if (splits !== null && splits.length === 2) {
+                let elements = splits[1].split('/');
+                messageType = elements.splice(0, 1)[0];
+                if (messageType === ADD_TEACHER) {
+                    let data = Object.assign({});
+                    if (elements !== null && (elements.length % 2 === 0)) {
+                        let all_keys = elements;
+                        let all_values = [];
+                        for (let i = 0; i < elements.length; i++) {
+                            all_values.push(all_keys.splice(i + 1, 1)[0]);
                         }
-                    })
-                }
-                try {
-                    const messages = cc.sys.localStorage.getItem(messageType) || '[]';
-                    const jsonMessages: any[] = JSON.parse(messages);
-                    jsonMessages.push(data);
-                    cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
-                } catch (e) {
+                        let mappings = all_keys.map(function (e, i) {
+                            return [e, all_values[i]];
+                        });
 
+                        mappings.forEach(arr => {
+                            if (arr && arr.length === 2) {
+                                data[arr[0].toLowerCase()] = arr[1]
+                            }
+                        })
+                    }
+                    try {
+                        const messages = cc.sys.localStorage.getItem(messageType) || '[]';
+                        const jsonMessages: any[] = JSON.parse(messages);
+                        jsonMessages.push(data);
+                        UtilLogger.logChimpleEvent(ADD_TEACHER, data);
+                        cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
+                    } catch (e) {
+
+                    }
                 }
             }
+            cc.log('saved into local storage:' + cc.sys.localStorage.getItem(messageType));
         }
-        cc.log('saved into local storage:' + cc.sys.localStorage.getItem(messageType));
-    }
 };
-
 
 
 @ccclass

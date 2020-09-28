@@ -1,11 +1,12 @@
 import Config from "../../../common/scripts/lib/config";
 import catchError from "../../../common/scripts/lib/error-handler";
 import { Util } from "../../../common/scripts/util";
+import Game from "../../../common/scripts/game";
 
 
 const { ccclass, property } = cc._decorator;
 @ccclass
-export default class MultiplyBeads extends cc.Component {
+export default class MultiplyBeads extends Game {
 
     @property(cc.Prefab)
     dragPrefab: cc.Prefab = null;
@@ -251,10 +252,10 @@ export default class MultiplyBeads extends cc.Component {
         }
         //Result label
         this.resultt = cc.instantiate(this.resLabel);
-        if (this.noOfDrop > 7) {
-            this.resultt.scaleX = 1.5;
-            this.resultt.getChildByName("disp").scaleX = 0.7;
-        }
+        // if (this.noOfDrop > 7) {
+        //     this.resultt.scaleX = 1.5;
+        //     this.resultt.getChildByName("disp").scaleX = 0.7;
+        // }
         this.resultt.position = cc.v2(0, -600);
         this.resultt.parent = this.node;
         let actiona = cc.moveTo(3, cc.v2(0, -300));
@@ -263,11 +264,11 @@ export default class MultiplyBeads extends cc.Component {
 
     }
 
-@catchError()
+    @catchError()
     getRandomArbitrary(min, max) {
         return Math.random() * (max - min) + min;
     }
-@catchError()
+    @catchError()
     createDropArea() {
         cc.log("drop");
         let dropin = cc.instantiate(this['drop' + [this.multiplicand]]);
@@ -369,31 +370,32 @@ export default class MultiplyBeads extends cc.Component {
 
 
 
-                if (!cc.audioEngine.isMusicPlaying()) {
-                    Util.load(
-                        file,
-                        function (err, clip) {
-                            if (!err && clip !== null) {
-                                var audioID = cc.audioEngine.play(clip, false, 1);
-                                cc.audioEngine.setFinishCallback(
-                                    audioID,
-                                    function () {
-                                        this.match();
-                                    }.bind(this)
-                                );
-                            }
-                            else {
-                                new cc.Tween()
-                                    .target(this.node)
-                                    .to(1, {}, { progress: null, easing: "sineOutIn" })
-                                    .call(() => {
-                                        this.match();
-                                    })
-                                    .start();
-                            }
-                        }.bind(this)
-                    );
-                }
+                Util.load(
+                    file,
+                    (err, clip) => {
+                        // if (!err && clip !== null) {
+                            this.friend.speak(clip, () => {
+                                this.match();
+                            })
+                            // var audioID = cc.audioEngine.play(clip, false, 1);
+                            // cc.audioEngine.setFinishCallback(
+                            //     audioID,
+                            //     function () {
+                            //         this.match();
+                            //     }.bind(this)
+                            // );
+                        // }
+                        // else {
+                        //     new cc.Tween()
+                        //         .target(this.node)
+                        //         .to(1, {}, { progress: null, easing: "sineOutIn" })
+                        //         .call(() => {
+                        //             this.match();
+                        //         })
+                        //         .start();
+                        // }
+                    }
+                );
 
                 // this.match();
 
@@ -451,32 +453,36 @@ export default class MultiplyBeads extends cc.Component {
         if (!cc.audioEngine.isMusicPlaying()) {
             Util.load(
                 filename,
-                function (err, clip) {
-                    if (!err && clip !== null) {
+                (err, clip) => {
+                    // if (!err && clip !== null) {
                         if (this.count != 5) {
-                            var audioID = cc.audioEngine.play(clip, false, 1);
-                            cc.audioEngine.setFinishCallback(
-                                audioID,
-                                function () {
-                                    this.count++;
-                                    this.match();
-                                }.bind(this)
-                            );
-                        }
-                    }
-                    else {
-
-                        new cc.Tween()
-                            .target(this.node)
-                            .to(1, {}, { progress: null, easing: "sineOutIn" })
-                            .call(() => {
-                                this.count++
-                                this.match()
-
+                            this.friend.speak(clip, () => {
+                                this.count++;
+                                this.match();
                             })
-                            .start();
-                    }
-                }.bind(this)
+                            // var audioID = cc.audioEngine.play(clip, false, 1);
+                            // cc.audioEngine.setFinishCallback(
+                            //     audioID,
+                            //     function () {
+                            //         this.count++;
+                            //         this.match();
+                            //     }.bind(this)
+                            // );
+                        }
+                    // }
+                    // else {
+
+                    //     new cc.Tween()
+                    //         .target(this.node)
+                    //         .to(1, {}, { progress: null, easing: "sineOutIn" })
+                    //         .call(() => {
+                    //             this.count++
+                    //             this.match()
+
+                    //         })
+                    //         .start();
+                    // }
+                }
             );
         }
     }

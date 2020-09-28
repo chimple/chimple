@@ -4,6 +4,7 @@ import BridgeBuilder from "./BridgeBuilder";
 import Config from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
 import { catchError } from "../../../common/scripts/lib/error-handler";
+import LessonController from "../../../common/scripts/lessonController";
 
 const { ccclass, property } = cc._decorator;
 
@@ -97,8 +98,7 @@ export default class KeyboardButton extends cc.Component {
       this.isTouchEnded = false;
       this.isProcessing = false;
       try {
-        if (!!this._soundClip)
-          Util.play(this._soundClip, false);
+        if (!!this._soundClip) LessonController.getFriend().speak(this._soundClip)
       } catch (error) {
         console.log("Failed playing sound");
       }

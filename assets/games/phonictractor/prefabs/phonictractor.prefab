@@ -24,20 +24,20 @@
         "__id__": 95
       },
       {
-        "__id__": 106
+        "__id__": 101
       },
       {
-        "__id__": 114
+        "__id__": 109
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 118
+        "__id__": 113
       }
     ],
     "_prefab": {
-      "__id__": 119
+      "__id__": 114
     },
     "_opacity": 255,
     "_color": {
@@ -3503,19 +3503,16 @@
     "_children": [
       {
         "__id__": 96
-      },
-      {
-        "__id__": 99
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 104
+        "__id__": 99
       }
     ],
     "_prefab": {
-      "__id__": 105
+      "__id__": 100
     },
     "_opacity": 255,
     "_color": {
@@ -3674,202 +3671,6 @@
     "sync": false
   },
   {
-    "__type__": "cc.Node",
-    "_name": "speaker_button_workkicker",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 95
-    },
-    "_children": [],
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 100
-      },
-      {
-        "__id__": 101
-      }
-    ],
-    "_prefab": {
-      "__id__": 103
-    },
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 83,
-      "height": 84
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
-    },
-    "_trs": {
-      "__type__": "TypedArray",
-      "ctor": "Float64Array",
-      "array": [
-        -112.552,
-        -0.654,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0.8620700240135193,
-        1,
-        0
-      ]
-    },
-    "_eulerAngles": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
-    "_id": ""
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "speaker_button_workkicker<Sprite>",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 99
-    },
-    "_enabled": true,
-    "_materials": [
-      {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-      }
-    ],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "b03ce300-0ac0-41c6-b8b3-4a3cd4d02e0a"
-    },
-    "_type": 0,
-    "_sizeMode": 1,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_atlas": null,
-    "_id": ""
-  },
-  {
-    "__type__": "cc.Button",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 99
-    },
-    "_enabled": true,
-    "_normalMaterial": {
-      "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-    },
-    "_grayMaterial": null,
-    "duration": 0.1,
-    "zoomScale": 1.2,
-    "clickEvents": [
-      {
-        "__id__": 102
-      }
-    ],
-    "_N$interactable": true,
-    "_N$enableAutoGrayEffect": true,
-    "_N$transition": 3,
-    "transition": 3,
-    "_N$normalColor": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_N$pressedColor": {
-      "__type__": "cc.Color",
-      "r": 211,
-      "g": 211,
-      "b": 211,
-      "a": 255
-    },
-    "pressedColor": {
-      "__type__": "cc.Color",
-      "r": 211,
-      "g": 211,
-      "b": 211,
-      "a": 255
-    },
-    "_N$hoverColor": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "hoverColor": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_N$disabledColor": {
-      "__type__": "cc.Color",
-      "r": 124,
-      "g": 124,
-      "b": 124,
-      "a": 255
-    },
-    "_N$normalSprite": null,
-    "_N$pressedSprite": null,
-    "pressedSprite": null,
-    "_N$hoverSprite": null,
-    "hoverSprite": null,
-    "_N$disabledSprite": null,
-    "_N$target": {
-      "__id__": 99
-    },
-    "_id": ""
-  },
-  {
-    "__type__": "cc.ClickEvent",
-    "target": {
-      "__id__": 1
-    },
-    "component": "",
-    "_componentId": "5bfc5YJVeVKdpzUCaJg9HZ5",
-    "handler": "onTouchAudioCaller",
-    "customEventData": ""
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "0e6927b7-aa8e-48d0-b4be-22e727228ccc"
-    },
-    "fileId": "5fDE0iXoRGcLIHRv74ej/Y",
-    "sync": false
-  },
-  {
     "__type__": "cc.Sprite",
     "_name": "board<Sprite>",
     "_objFlags": 0,
@@ -3921,20 +3722,20 @@
     },
     "_children": [
       {
-        "__id__": 107
+        "__id__": 102
       },
       {
-        "__id__": 109
+        "__id__": 104
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 112
+        "__id__": 107
       }
     ],
     "_prefab": {
-      "__id__": 113
+      "__id__": 108
     },
     "_opacity": 255,
     "_color": {
@@ -3988,13 +3789,13 @@
     "_name": "dog_ske",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 106
+      "__id__": 101
     },
     "_children": [],
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 108
+      "__id__": 103
     },
     "_opacity": 255,
     "_color": {
@@ -4059,17 +3860,17 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 106
+      "__id__": 101
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 110
+        "__id__": 105
       }
     ],
     "_prefab": {
-      "__id__": 111
+      "__id__": 106
     },
     "_opacity": 255,
     "_color": {
@@ -4123,7 +3924,7 @@
     "_name": "label<chimple-label>",
     "_objFlags": 0,
     "node": {
-      "__id__": 109
+      "__id__": 104
     },
     "_enabled": true,
     "_materials": [
@@ -4168,7 +3969,7 @@
     "_name": "truck<Sprite>",
     "_objFlags": 0,
     "node": {
-      "__id__": 106
+      "__id__": 101
     },
     "_enabled": true,
     "_materials": [
@@ -4217,14 +4018,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 115
+        "__id__": 110
       },
       {
-        "__id__": 116
+        "__id__": 111
       }
     ],
     "_prefab": {
-      "__id__": 117
+      "__id__": 112
     },
     "_opacity": 255,
     "_color": {
@@ -4278,7 +4079,7 @@
     "_name": "New Layout<Sprite>",
     "_objFlags": 0,
     "node": {
-      "__id__": 114
+      "__id__": 109
     },
     "_enabled": true,
     "_materials": [
@@ -4308,7 +4109,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 114
+      "__id__": 109
     },
     "_enabled": true,
     "_layoutSize": {
@@ -4354,8 +4155,11 @@
       "__id__": 1
     },
     "_enabled": true,
+    "friendPos": {
+      "__id__": 102
+    },
     "truckNode": {
-      "__id__": 106
+      "__id__": 101
     },
     "trolleyPrefab": {
       "__uuid__": "9e96eb6e-7d39-48d9-8783-3732fbfe772e"
@@ -4371,9 +4175,6 @@
     },
     "truckOutAudio": {
       "__uuid__": "166c112c-21bf-4b40-9207-680351328d93"
-    },
-    "friendPos": {
-      "__id__": 107
     },
     "_id": ""
   },

@@ -4,6 +4,7 @@ import Config, { Direction } from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
 import ChoiceCard from "./choice-card";
 import catchError from "../../../common/scripts/lib/error-handler";
+import Game from "../../../common/scripts/game";
 
 export const START_SCROLL_CLICK = 'START_SCROLL_CLICK';
 export const SCROLL_BEGAN = 'SCROLL_BEGAN';
@@ -23,7 +24,7 @@ export interface OpenWindowConfig {
 }
 
 @ccclass
-export default class OpenWindow extends cc.Component {
+export default class OpenWindow extends Game {
 
     private _currentConfig: OpenWindowConfig = null;
 
@@ -53,20 +54,12 @@ export default class OpenWindow extends cc.Component {
     private _curIndex: number = 0;
     private _helpDragNode: cc.Node = null;
 
-    friend: dragonBones.ArmatureDisplay = null;
-    friendNode: cc.Node = null;
     _isRTL: boolean = false;
 
     @catchError()
     protected onLoad(): void {
         this._isRTL = Config.i.direction == Direction.RTL;
         this._currentConfig = this.processConfiguration(Config.getInstance().data[0]);
-
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friendNode = friendNode;
-            this.friendNode.scale = 0.75;
-            this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay);
-        });
 
         this.buildUI();
         this.node.on(START_SCROLL_CLICK, (event) => {
@@ -99,12 +92,8 @@ export default class OpenWindow extends cc.Component {
                 this._choiceCard2.parent.getComponent(ChoiceCard).touchEnabled = false;
                 this.node.emit('correct');
                 const door = data.parentNode;
-                const charNode = door.getChildByName('character_node');
-                charNode.addChild(this.friendNode);
                 const doorAnimation = door.getComponent(cc.Animation);
                 doorAnimation.on('finished', () => {
-                    if (this.friend != null)
-                        this.friend.playAnimation('laugh', 1);
                     this.scheduleOnce(
                         () => {
                             this.node.emit('nextProblem');
@@ -204,7 +193,8 @@ export default class OpenWindow extends cc.Component {
         } else {
             Util.loadGameSound(this._currentConfig.sound, (clip) => {
                 if (clip) {
-                    Util.play(clip, false);
+                    // Util.play(clip, false);
+                    this.friend.extraClip = clip
                 }
                 this.scheduleOnce(
                     () => {
@@ -235,7 +225,7 @@ export default class OpenWindow extends cc.Component {
 
     @catchError()
     speak(w: string, callBack: Function) {
-        Util.speakPhonicsOrLetter(w, callBack);
+        this.friend.speakPhonicsOrLetter(w, callBack);
     }
 
     @catchError()

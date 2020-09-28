@@ -1,20 +1,18 @@
+import Drag from "../../../common/scripts/drag";
+import Game from "../../../common/scripts/game";
 import Config, { Direction } from "../../../common/scripts/lib/config";
+import catchError from "../../../common/scripts/lib/error-handler";
 import { Util } from "../../../common/scripts/util";
 import SentencemakerDrag from "./sentencemakerDrag";
-import catchError from "../../../common/scripts/lib/error-handler";
-import Drag from "../../../common/scripts/drag";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class CreateSentence extends cc.Component {
+export default class CreateSentence extends Game {
   @property(cc.Node)
   truck: cc.Node = null
 
   @property(cc.Sprite)
   picture: cc.Sprite = null
-
-  @property(cc.Button)
-  soundBtn: cc.Button = null
 
   @property(cc.Node)
   answer: cc.Node = null
@@ -28,10 +26,11 @@ export default class CreateSentence extends cc.Component {
   @property(cc.Prefab)
   dragPrefab: cc.Prefab = null
 
-  @property(cc.Node)
-  friendPos: cc.Node = null
+  // @property(cc.Node)
+  // friendPos: cc.Node = null
 
-  friend: dragonBones.ArmatureDisplay = null
+  // friend: dragonBones.ArmatureDisplay = null
+  // friend: Friend
   soundClip: cc.AudioClip = null
   numAnswers: number = 0
   onFinishTruckMoveTo: number
@@ -42,18 +41,19 @@ export default class CreateSentence extends cc.Component {
     this.isRTL = Config.i.direction == Direction.RTL
     cc.director.getCollisionManager().enabled = true
     Drag.letDrag = false
-    Util.loadFriend((friendNode: cc.Node) => {
-      this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
-      this.friendPos.addChild(friendNode)
-      this.friend.playAnimation('face_eating', 1)
-    })
+    // Util.loadFriend((friendNode: cc.Node) => {
+    //   this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
+    //   this.friendPos.addChild(friendNode)
+    //   this.friend.playAnimation('face_eating', 1)
+    // })
+    // this.friend = LessonController.getFriend()
+    // this.friendPos.addChild(this.friend.node)
+
     const [level, worksheet, problem, solution, wrong, image, sound] = Config.getInstance().data[0]
 
     Util.loadGameSound(sound, (clip) => {
       if (clip != null) {
-        this.soundClip = clip
-      } else {
-        this.soundBtn.interactable = false
+        this.friend.extraClip = clip
       }
     })
     const picWidth = this.picture.node.width
@@ -97,7 +97,7 @@ export default class CreateSentence extends cc.Component {
       drag.on('sentencemakerMatch', this.onMatch.bind(this))
       drag.on('sentencemakerNoMatch', () => {
         this.node.emit('wrong')
-        if (this.friend != null) this.friend.playAnimation('face_wrong', 1)
+        // if (this.friend != null) this.friend.playAnimation('face_wrong', 1)
       })
       const dragComp = drag.getComponent(SentencemakerDrag)
       drag.getComponent(SentencemakerDrag).allowDrag = false;
@@ -126,47 +126,35 @@ export default class CreateSentence extends cc.Component {
         const anim = this.truck.getComponent(cc.Animation)
         anim.stop()
         Drag.letDrag = true
-        this.speak(() => {
-          const firstDrop = this.answer.children[0]
-          const firstDrag = this.choices.getChildByName(firstDrop.name)
-          if (firstDrag != null && firstDrag.childrenCount > 0) {
-            Util.showHelp(firstDrag.children[0], firstDrop)
-          }
-          this.choices.children.forEach(child => {
-            child.children[0].getComponent(SentencemakerDrag).allowDrag = true;
-          })
+        const firstDrop = this.answer.children[0]
+        const firstDrag = this.choices.getChildByName(firstDrop.name)
+        if (firstDrag != null && firstDrag.childrenCount > 0) {
+          Util.showHelp(firstDrag.children[0], firstDrop)
+        }
+        this.choices.children.forEach(child => {
+          child.children[0].getComponent(SentencemakerDrag).allowDrag = true;
         })
       })
       .start()
   }
 
-  onButtonClick() {
-    this.speak()
-  }
-
-  speak(callback?: Function) {
-    this.soundBtn.interactable = false
-    Util.speakClip(this.soundClip, () => {
-      this.soundBtn.interactable = true
-      if (callback != null) callback()
-    })
-  }
-
   onMatch() {
     this.node.emit('correct')
-    if (this.friend != null) this.friend.playAnimation('face_happy', 1)
+    // if (this.friend != null) this.friend.playAnimation('face_happy', 1)
     if (--this.numAnswers <= 0) {
       Drag.letDrag = false
-      this.speak(() => {
-        const anim = this.truck.getComponent(cc.Animation)
-        anim.play()
-        new cc.Tween().target(this.truck)
-          .to(3, { x: this.onFinishTruckMoveTo }, { progress: null, easing: 'quadOut' })
-          .call(() => {
-            this.node.emit('nextProblem')
-          })
-          .start()
-      })
+      this.scheduleOnce(() => {
+        this.friend.speakExtra(() => {
+          const anim = this.truck.getComponent(cc.Animation)
+          anim.play()
+          new cc.Tween().target(this.truck)
+            .to(3, { x: this.onFinishTruckMoveTo }, { progress: null, easing: 'quadOut' })
+            .call(() => {
+              this.node.emit('nextProblem')
+            })
+            .start()
+        })
+      }, 2)
     }
   }
 }

@@ -4,6 +4,7 @@ import { LETTER_TRACING_CARD_EVENT, LETTER_TRACING_CARD_SCALE, WriteCard } from 
 import { Util } from "../../../common/scripts/util";
 import { CONFIG_LOADED, TRACING_FINISHED, TRACING_CORRECT, TRACING_WRONG } from "../../../common/scripts/helper";
 import TracingContainer from "../../../common/Tracing/scripts/tracing-container";
+import LessonController from "../../../common/scripts/lessonController";
 
 @ccclass
 export class LetterTracingFrontCard extends cc.Component {
@@ -73,12 +74,13 @@ export class LetterTracingFrontCard extends cc.Component {
     }
 
     protected pronounce() {
-        try {
-            if (!!this._sound)
-                this._soundID = Util.play(this._sound, false);
-        } catch (e) {
+        LessonController.getFriend().speak(this._sound)
+        // try {
+        //     if (!!this._sound)
+        //         this._soundID = Util.play(this._sound, false);
+        // } catch (e) {
 
-        }
+        // }
     }
 
     protected tracingFinished() {
