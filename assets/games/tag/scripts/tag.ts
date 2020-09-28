@@ -2,12 +2,13 @@ import Config, { Direction } from "../../../common/scripts/lib/config";
 import Label from "./label";
 import { Util } from "../../../common/scripts/util";
 import { catchError } from "../../../common/scripts/lib/error-handler";
+import Game from "../../../common/scripts/game";
 const { ccclass, property } = cc._decorator;
 
 const FONT_SIZE = 45;
 
 @ccclass
-export default class Tag extends cc.Component {
+export default class Tag extends Game {
   @property(cc.Prefab)
   dropNodePrefab: cc.Prefab = null;
 
@@ -40,10 +41,6 @@ export default class Tag extends cc.Component {
   @property(cc.Node)
   truck: cc.Node = null;
 
-  @property(cc.Node)
-  friendPos: cc.Node = null
-
-  friend: dragonBones.ArmatureDisplay = null
   quePos: Map<string, cc.Vec2>;
   queAudio: Map<string, string>;
   totalPieces: number = 0;
@@ -54,6 +51,7 @@ export default class Tag extends cc.Component {
 
   @catchError()
   onLoad() {
+    // this.friend.isFace = true
     this.node.opacity = 0;
     this.totalPieces--;
     this.quePos = new Map();
@@ -77,7 +75,7 @@ export default class Tag extends cc.Component {
         .getChildByName("container").opacity = 255;
       var animClip;
 
-      for (let i = 3, id = 0; i < fieldArr.length - 1; i++, id++) {
+      for (let i = 3, id = 0; i < fieldArr.length - 1; i++ , id++) {
         if ("" == fieldArr[i + 1]) {
           break;
         } else {
@@ -206,13 +204,6 @@ export default class Tag extends cc.Component {
         });
       }, 5);
     });
-
-    Util.loadFriend((friendNode: cc.Node) => {
-      this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay);
-      this.friendPos.addChild(friendNode);
-      this.friend.playAnimation('face_happy', 2)
-      this.friendPos.scale = 0.5;
-    })
   }
 
   @catchError()
@@ -239,16 +230,8 @@ export default class Tag extends cc.Component {
 
   @catchError()
   onTouchAudio(musicName: string) {
-    cc.log("Audio " + musicName + this.complete);
-    if (!cc.audioEngine.isMusicPlaying()) {
-      cc.log("Child Audio " + musicName + this.complete);
-      Util.loadGameSound(musicName, function (clip) {
-        try {
-          cc.audioEngine.play(clip, false, 1);
-        } catch (error) {
-          cc.log("Audio Error : " + error);
-        }
-      });
-    }
+    Util.loadGameSound(musicName, (clip) => {
+      if (clip) this.friend.speak(clip)
+    });
   }
 }

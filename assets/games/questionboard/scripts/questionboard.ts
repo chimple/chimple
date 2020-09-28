@@ -7,6 +7,7 @@ import OptionScript from "./option-script";
 import { Util } from "../../../common/scripts/util";
 import { catchError } from "../../../common/scripts/lib/error-handler";
 import CountingLayout from "../../../common/scripts/countingLayout";
+import Game from "../../../common/scripts/game";
 
 export const CORRECT_ANSWER = 'CORRECT_ANSWER';
 export const WRONG_ANSWER = 'WRONG_ANSWER';
@@ -64,7 +65,7 @@ export interface QuestionBoardConfig {
 }
 
 @ccclass
-export default class QuestionBoard extends cc.Component {
+export default class QuestionBoard extends Game {
     private _currentConfig: QuestionBoardConfig = null;
 
     @property(cc.Prefab)
@@ -710,7 +711,7 @@ export default class QuestionBoard extends cc.Component {
         const equationText = cc.instantiate(this.equationTextPrefab);
         equationText.setPosition(new cc.Vec2(equationText.x, equationText.y + 30));
         const richText = equationText.getComponent(cc.RichText);
-        richText.string = isBold ? `<color=#4A3728><bold>${text}</bold></color>` : `<color=#4A3728>${text}</color>`;
+        richText.string = isBold ? `<color=#FFFFFFF><bold>${text}</bold></color>` : `<color=#FFFFFFF>${text}</color>`;
         richText.fontSize = 80;
         const layout = this._equations.getComponent(cc.Layout);
         layout.node.addChild(richText.node);

@@ -4184,7 +4184,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "dog",
+    "_name": "friendPos",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -4217,15 +4217,15 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -1.0049999952316284,
-        325.2130126953125,
+        427.304,
+        -422.125,
         0,
         0,
         0,
         0,
         1,
-        1,
-        1,
+        -0.6,
+        0.6,
         1
       ]
     },
@@ -4261,6 +4261,9 @@
       "__id__": 1
     },
     "_enabled": true,
+    "friendPos": {
+      "__id__": 114
+    },
     "wordsPrefab": {
       "__uuid__": "9c7b7887-d783-4ff4-bf01-c6dd0ae576f3"
     },

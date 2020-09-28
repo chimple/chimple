@@ -5,6 +5,7 @@ import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
 import { TRACING_FINISHED, TRACING_CORRECT, TRACING_WRONG, SOUND_LOADED_EVENT } from "../../../common/scripts/helper";
 import TracingContainer from "../../../common/Tracing/scripts/tracing-container";
+import Game from "../../../common/scripts/game";
 
 interface WriteLetterConfig {
     level: string;
@@ -16,7 +17,7 @@ interface WriteLetterConfig {
 export const LETTER_TRACING_SCALE = 0.85;
 
 @ccclass
-export class WriteLetter extends cc.Component {
+export class WriteLetter extends Game {
 
     @property(cc.Prefab)
     tracingContainerPrefab: cc.Prefab;
@@ -53,6 +54,7 @@ export class WriteLetter extends cc.Component {
             this.loadSounds(this._currentConfig.traceText);
             this.node.opacity = 255;
         }
+        Util.showHelp(null, null)
     }
 
     @catchError()
@@ -93,12 +95,13 @@ export class WriteLetter extends cc.Component {
 
     @catchError()
     protected pronounce() {
-        try {
-            if (!!this._sound)
-                this._soundID = Util.play(this._sound, false);
-        } catch (e) {
+        this.friend.speak(this._sound)
+        // try {
+        //     if (!!this._sound)
+        //         this._soundID = Util.play(this._sound, false);
+        // } catch (e) {
 
-        }
+        // }
     }
 
     @catchError()

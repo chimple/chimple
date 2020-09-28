@@ -5,7 +5,8 @@ import StudentPreviewInfo, {TEACHER_ADD_STUDENT_SELECTED} from "./studentPreview
 import ChimpleLabel from "./chimple-label";
 import {Queue} from "../../queue";
 import {UpdateHomeTeacher} from "../../private/services/parseApi";
-import {ASSIGNED_TEACHERS} from "../../chimple";
+import {ASSIGNED_TEACHERS, NO_ASSIGNED_TEACHERS} from "../../chimple";
+import UtilLogger from "./util-logger";
 
 export const TEACHER_ADD_DIALOG_CLOSED = 'TEACHER_ADD_DIALOG_CLOSED';
 @ccclass
@@ -63,7 +64,7 @@ export default class TeacherAddedDialog extends cc.Component {
                 name: this.selectedStudentName
             };
             Queue.getInstance().push(updateHomeTeacherInfo);
-
+            UtilLogger.logChimpleEvent(ASSIGNED_TEACHERS, updateHomeTeacherInfo);
             try {
                 const messages = cc.sys.localStorage.getItem(ASSIGNED_TEACHERS) || '[]';
                 const jsonMessages: any[] = JSON.parse(messages);
@@ -87,6 +88,13 @@ export default class TeacherAddedDialog extends cc.Component {
     }
 
     onNoClicked(event) {
+        let updateHomeTeacherInfo: UpdateHomeTeacher = {
+            studentId: this.selectedStudentId,
+            teacherId: this._teacherId,
+            kind: "UpdateHomeTeacher",
+            name: this.selectedStudentName
+        };
+        UtilLogger.logChimpleEvent(NO_ASSIGNED_TEACHERS, updateHomeTeacherInfo);
         this.closeDialog();
     }
 

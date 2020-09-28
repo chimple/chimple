@@ -3,6 +3,7 @@ import Config from "../../../common/scripts/lib/config";
 import Drag from "../../../common/scripts/drag";
 import catchError from "../../../common/scripts/lib/error-handler";
 import { Util } from "../../../common/scripts/util";
+import Game from "../../../common/scripts/game";
 
 const { ccclass, property } = cc._decorator
 
@@ -25,7 +26,7 @@ const patterns = [
 const threeCarBogeyWidth = 444
 
 @ccclass
-export default class ShapeTractor extends cc.Component {
+export default class ShapeTractor extends Game {
     @property(cc.Prefab)
     drag: cc.Prefab = null
 
@@ -46,9 +47,6 @@ export default class ShapeTractor extends cc.Component {
 
     @property(cc.AudioClip)
     trainClip: cc.AudioClip = null
-
-    @property(cc.Node)
-    friendPos: cc.Node = null
 
     @property(cc.SpriteFrame)
     circle: cc.SpriteFrame = null
@@ -86,7 +84,6 @@ export default class ShapeTractor extends cc.Component {
     @property(cc.SpriteFrame)
     triangle: cc.SpriteFrame = null
 
-    friend: dragonBones.ArmatureDisplay = null
     empty: number = 0
 
     firstDrag: cc.Node = null
@@ -96,15 +93,10 @@ export default class ShapeTractor extends cc.Component {
     onLoad() {
         cc.director.getCollisionManager().enabled = true
         Drag.letDrag = false
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
-            this.friendPos.addChild(friendNode)
-            this.friend.playAnimation('face_eating', 1)
-        })
+        this.friend.isFace = true
         this.node.on('patterntrainMatch', this.onMatch.bind(this))
         this.node.on('patterntrainNoMatch', () => {
             this.node.emit('wrong')
-            if(this.friend != null) this.friend.playAnimation('face_wrong', 1)
         })
 
         const [oldLevelStr, worksheet, oldProblemStr, levelStr, problemStr] = Config.getInstance().data[0]
@@ -202,7 +194,6 @@ export default class ShapeTractor extends cc.Component {
     @catchError()
     onMatch() {
         this.node.emit('correct')
-        if(this.friend != null) this.friend.playAnimation('face_happy', 1)
         if (--this.empty <= 0) {
             Drag.letDrag = false
             new cc.Tween().target(this.train)

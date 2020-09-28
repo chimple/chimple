@@ -2,6 +2,7 @@ import Config from '../../../common/scripts/lib/config';
 import WhatIsThisChoice from './whatisthisChoice';
 import catchError from '../../../common/scripts/lib/error-handler';
 import { Util } from '../../../common/scripts/util';
+import Game from '../../../common/scripts/game';
 const { ccclass, property } = cc._decorator;
 
 export enum PictureMeaningType {
@@ -26,7 +27,7 @@ export class PictureMeaningData {
 }
 
 @ccclass
-export default class PictureMeaning extends cc.Component {
+export default class PictureMeaning extends Game {
     @property(cc.Node)
     choiceLayout: cc.Node = null;
 
@@ -49,32 +50,26 @@ export default class PictureMeaning extends cc.Component {
     trafficLight: cc.Animation = null
 
     @property(cc.Node)
-    friendPos: cc.Node = null
+    fullLayout: cc.Node = null;
 
-    friend: dragonBones.ArmatureDisplay = null
+    type: PictureMeaningType
 
     @catchError()
     onLoad() {
         const [level, worksheet, problem, mode, answer, answerPic, answerSound, wrongAnswer1, wrongAnswer1Pic, wrongAnswer1Sound, wrongAnswer2, wrongAnswer2Pic, wrongAnswer2Sound] = Config.getInstance().data[0]
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
-            this.friendPos.addChild(friendNode)
-            this.friend.playAnimation('joy', 1)
-        })
-
-        const type = mode == 'S' ? PictureMeaningType.Sentence : PictureMeaningType.Picture
+        this.type = mode == 'S' ? PictureMeaningType.Sentence : PictureMeaningType.Picture
         var choiceNodes = []
-        const correctChoiceNode = this.setupNode(0, type, answer, answerPic, answerSound)
+        const correctChoiceNode = this.setupNode(0, this.type, answer, answerPic, answerSound)
         choiceNodes.push(correctChoiceNode)
-        choiceNodes.push(this.setupNode(1, type, wrongAnswer1, wrongAnswer1Pic, wrongAnswer1Sound))
-        choiceNodes.push(this.setupNode(2, type, wrongAnswer2, wrongAnswer2Pic, wrongAnswer2Sound))
+        choiceNodes.push(this.setupNode(1, this.type, wrongAnswer1, wrongAnswer1Pic, wrongAnswer1Sound))
+        choiceNodes.push(this.setupNode(2, this.type, wrongAnswer2, wrongAnswer2Pic, wrongAnswer2Sound))
         choiceNodes = Util.shuffleByMapSortMap(choiceNodes)
         choiceNodes.forEach(choiceNode => {
             this.choiceLayout.addChild(choiceNode)
         })
         const layoutComp = this.choiceLayout.getComponent(cc.Layout)
         if (layoutComp != null) {
-            layoutComp.type = type == PictureMeaningType.Sentence ? cc.Layout.Type.HORIZONTAL : cc.Layout.Type.VERTICAL
+            layoutComp.type = this.type == PictureMeaningType.Sentence ? cc.Layout.Type.HORIZONTAL : cc.Layout.Type.VERTICAL
         }
         Util.showHelp(correctChoiceNode, correctChoiceNode)
     }
@@ -101,25 +96,23 @@ export default class PictureMeaning extends cc.Component {
     private onNoMatch() {
         this.node.emit('wrong')
         this.trafficLight.play('red_signal')
-        if (this.friend != null)
-            this.friend.playAnimation('sad', 1)
     }
 
     private onMatch() {
         this.node.emit('correct')
         this.trafficLight.play('green_signal')
-        if (this.friend != null)
-            this.friend.playAnimation('happy', 1)
+        // const fullLayoutY = this.fullLayout.y
         this.choiceLayout.children.forEach(val => {
             const comp = val.getComponent(WhatIsThisChoice)
             if (comp != null) {
                 if (comp.data.index != 0) {
                     new cc.Tween().target(val)
                         .delay(0.5)
-                        .to(0.5, { y: -cc.winSize.height }, { progress: null, easing: 'quadOut' })
-                        .call(() => {
-                            val.removeFromParent()
-                        })
+                        .by(0.5, { x: this.type == PictureMeaningType.Picture ? -cc.winSize.width : 0, y: this.type == PictureMeaningType.Sentence ? -cc.winSize.height : 0 }, { progress: null, easing: 'quadOut' })
+                        // .delay(3)
+                        // .call(() => {
+                        //     val.removeFromParent()
+                        // })
                         .start()
                 }
             }
@@ -127,6 +120,10 @@ export default class PictureMeaning extends cc.Component {
         new cc.Tween().target(this.friendPos)
             .delay(4)
             .call(() => {
+                // this.fullLayout.y += 50
+                this.fullLayout.getComponent(cc.Layout).spacingY = 150
+                // this.answerNode.height += 100
+                // this.choiceLayout.getComponent(cc.Layout).paddingTop = 100
                 if (this.friend != null)
                     this.friend.playAnimation('skating', 1)
             })

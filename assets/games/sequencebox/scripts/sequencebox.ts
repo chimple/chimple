@@ -3,11 +3,12 @@ import Config from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
 import Drag from "../../../common/scripts/drag";
 import catchError from "../../../common/scripts/lib/error-handler";
+import Game from "../../../common/scripts/game";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class SequenceBox extends cc.Component {
+export default class SequenceBox extends Game {
     @property(cc.Prefab)
     singleCard: cc.Prefab = null
 
@@ -146,27 +147,19 @@ export default class SequenceBox extends cc.Component {
             const label = this.answerBox.getChildByName('label')
             const labelComp = label.getComponent(cc.Label)
             labelComp.string = this.answer
-            const particle = this.answerBox.getChildByName('particlesystem')
-            if (particle != null) {
-                const particleSystem = particle.getComponent(cc.ParticleSystem)
-                particleSystem.resetSystem()
-                this.scheduleOnce(() => {
-                    particleSystem.stopSystem()
-                    Util.loadFriend((friendNode: cc.Node) => {
-                        const characterNode = this.answerBox.getChildByName('character_node')
-                        if (characterNode != null) {
-                            characterNode.addChild(friendNode)
-                            const db = friendNode.getComponent(dragonBones.ArmatureDisplay)
-                            if (db != null) db.playAnimation('popup', 1)
-                            const anim = this.answerBox.getComponent(cc.Animation)
-                            anim.on('finished', () => {
-                                this.node.emit('nextProblem')
-                            })
-                            anim.play()
-                        }
-                    })
-                }, 3)
-            }
+            const anim = this.answerBox.getComponent(cc.Animation)
+            anim.on('finished', () => {
+                const particle = this.answerBox.getChildByName('particlesystem')
+                if (particle != null) {
+                    const particleSystem = particle.getComponent(cc.ParticleSystem)
+                    particleSystem.resetSystem()
+                    this.scheduleOnce(() => {
+                        particleSystem.stopSystem()
+                        this.node.emit('nextProblem')
+                    }, 3)
+                }
+            })
+            anim.play()
         }
     }
 }

@@ -1,18 +1,17 @@
 import Config from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
+import Game from "../../../common/scripts/game";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class FillBlank extends cc.Component {
+export default class FillBlank extends Game {
   @property(cc.Label)
   label: cc.Label = null;
 
-
   @property
   question: string = "";
-
 
   @property
   ans_button: Number = 0;
@@ -23,29 +22,16 @@ export default class FillBlank extends cc.Component {
   @property(cc.SpriteFrame)
   wrongSprite: cc.SpriteFrame = null;
 
-  @property(cc.Node)
-  friendPos: cc.Node = null
-
   soundFile: string = null
-  soundClip: cc.AudioClip = null
 
   disableCorrectButton: boolean = false;
-  friend: dragonBones.ArmatureDisplay = null
 
-  @property
-  timeout;
-
-  @catchError()
+  // @catchError()
   onLoad() {
-    Util.loadFriend((friendNode: cc.Node) => {
-      this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
-      this.friendPos.addChild(friendNode)
-      if (this.friend != null) this.friend.playAnimation('jumping', 1)
-      new cc.Tween().target(friendNode)
-        .set({ x: -cc.winSize.width })
-        .to(1, { x: 0 }, null)
-        .start()
-    })
+    new cc.Tween().target(this.friend.node)
+      .set({ x: -cc.winSize.width })
+      .to(1, { x: 0 }, null)
+      .start()
 
     var answerNode: cc.Node = null
     Config.getInstance().data.forEach(row => {
@@ -60,19 +46,13 @@ export default class FillBlank extends cc.Component {
       this.soundFile = row[4]
       Util.loadGameSound(this.soundFile, (clip) => {
         if (clip != null) {
-          this.soundClip = clip
-          this.timeout = setTimeout(() => this.playsound(false, () => {
-            Util.showHelp(answerNode, answerNode, () => {
-              answerNode = this.enableButtons(node, answerNode, arr, true);
-            })
-          }), 2000)
-        } else {
-          this.scheduleOnce(() => {
-            Util.showHelp(answerNode, answerNode, () => {
-              answerNode = this.enableButtons(node, answerNode, arr, true);
-            })
-          }, 2)
+          this.friend.extraClip = clip
         }
+        this.scheduleOnce(() => {
+          Util.showHelp(answerNode, answerNode, () => {
+            answerNode = this.enableButtons(node, answerNode, arr, true);
+          })
+        }, 2)
       })
 
       var node = this.node;
@@ -89,19 +69,6 @@ export default class FillBlank extends cc.Component {
 
       answerNode = this.enableButtons(node, answerNode, arr, false);
     });
-    const board = this.node.getChildByName("board_question_wordkicker")
-    if (board != null) {
-      const speaker = board.getChildByName("speaker")
-      if (speaker != null) {
-        if (this.soundFile != '') {
-          speaker.on("click", () => {
-            this.playsound(false, null)
-          })
-        } else {
-          speaker.active = false
-        }
-      }
-    }
   }
 
 
@@ -127,36 +94,6 @@ export default class FillBlank extends cc.Component {
     }
     return answerNode;
   }
-  @catchError()
-  playsound(emit: boolean, callback: Function) {
-    cc.log(this.node.name)
-    let audioPlayButton = this.node.getChildByName("board_question_wordkicker").getChildByName("speaker").getComponent(cc.Button)
-    audioPlayButton.interactable = false;
-    var audioID = -1
-    if (this.soundClip != null) {
-      audioID = cc.audioEngine.play(this.soundClip, false, 1)
-    }
-    if (audioID >= 0) {
-      if (emit) {
-        if (this.friend != null) this.friend.playAnimation('dance', 1)
-      }
-      // if (callback != null) {
-      cc.audioEngine.setFinishCallback(audioID, () => {
-        audioPlayButton.getComponent(cc.Button).interactable = true
-        if (callback != null)
-          callback()
-      });
-      // }
-    } else {
-      if (emit) {
-        if (this.friend != null) this.friend.playAnimation('dance', 1)
-      }
-      audioPlayButton.getComponent(cc.Button).interactable = true
-      if (callback != null) {
-        callback()
-      }
-    }
-  }
 
   @catchError()
   callback(event) {
@@ -165,9 +102,7 @@ export default class FillBlank extends cc.Component {
     if (!this.disableCorrectButton) {
       if (event.node.name === "button_" + this.ans_button) {
         cc.log("this is right answer");
-        this.playsound(true, () => {
-          this.node.emit('correct')
-        })
+        this.node.emit('correct')
         this.disableCorrectButton = true
         //make all wrong buttons disabled
         for (var i = 1; i < 5; i++) {
@@ -191,10 +126,7 @@ export default class FillBlank extends cc.Component {
         playRightAnimation.play()
       } else {
         this.node.emit('wrong');
-        this.friend.playAnimation('sad', 1)
         this.node.getChildByName("buttons").getChildByName(event.node.name).getChildByName("Background").getComponent(cc.Sprite).spriteFrame = this.wrongSprite;
-        // var makeButtonDisabled = this.node.getChildByName("buttons").getChildByName(event.node.name).getComponent(cc.Button)
-        // makeButtonDisabled.interactable = false
         var wrongAnimationNode = this.node.getChildByName("flower_wrong")
         wrongAnimationNode.x = 140
         var playRightAnimation = wrongAnimationNode.getComponent(cc.Animation)
@@ -202,6 +134,7 @@ export default class FillBlank extends cc.Component {
       }
     }
   }
+
   @catchError()
   shuffle(array) {
     var currentIndex = array.length,
@@ -222,19 +155,14 @@ export default class FillBlank extends cc.Component {
 
     return array;
   }
+
   @catchError()
   start() {
-
     var questionAction = cc.moveTo(1, 0, 278)
     this.node.getChildByName("board_question_wordkicker").runAction(questionAction);//runAction(questionAction)
 
     var buttonAction = cc.moveTo(1, 0, 0)
     this.node.getChildByName("buttons").runAction(buttonAction)
   }
-  // update(dt) {  }
 
-  @catchError()
-  onDestroy() {
-    clearTimeout(this.timeout);
-  }
 }

@@ -2,6 +2,7 @@ import Card from "./card";
 import Config from '../../../common/scripts/lib/config';
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
+import Game from "../../../common/scripts/game";
 
 const { ccclass, property } = cc._decorator;
 
@@ -9,7 +10,7 @@ const border: number = 80;
 const CONFIG_LEN: number = 13;
 
 @ccclass
-export default class LetterPair extends cc.Component {
+export default class LetterPair extends Game {
 
     @property(cc.Prefab)
     cardPrefab: cc.Prefab = null;

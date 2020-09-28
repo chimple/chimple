@@ -129,7 +129,7 @@ export default class Rewards extends cc.Component {
         User.getCurrentUser().currentCharacter = customEventData.toString().trim();
 
         // switch scene
-        Config.getInstance().pushScene("inventory", "menu");
+        Config.getInstance().pushScene("menu/inventory/scenes/inventory", "menu");
     }
 
     onBgClick(event, customEventData) {

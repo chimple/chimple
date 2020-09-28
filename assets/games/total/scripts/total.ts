@@ -6,6 +6,7 @@ import catchError from "../../../common/scripts/lib/error-handler";
 import CountingAnswer, { VALIDATE_RESULT } from "../../../common/scripts/counting-answer";
 import CountingItem from "./counting-item";
 import { HELP_BTN } from "../../../common/scripts/answer-grid";
+import Game from "../../../common/scripts/game";
 
 
 export interface TotalConfig {
@@ -18,7 +19,7 @@ export interface TotalConfig {
 }
 
 @ccclass
-export default class Total extends cc.Component {
+export default class Total extends Game {
 
     @property(cc.Prefab)
     layoutPrefab: cc.Prefab = null;
@@ -100,7 +101,7 @@ export default class Total extends cc.Component {
         this.node.on(HELP_BTN, (event) => {
             event.stopPropagation();
             const data = event.getUserData();
-            this.showHelp(this.helpIterator(data.helpNodes))
+            this.showHelp(this.helpIterator(data.helpNodes), true)
         })
     }
 
@@ -110,12 +111,12 @@ export default class Total extends cc.Component {
     }
 
     @catchError()
-    showHelp(helpIterator) {
+    showHelp(helpIterator, playAudio: boolean) {
         let nextItem = helpIterator.next();
         if (!nextItem.done) {
             Util.showHelp(nextItem.value, nextItem.value, () => {
-                this.showHelp(helpIterator);
-            });
+                this.showHelp(helpIterator, false);
+            }, playAudio);
         }
 
     }
@@ -123,7 +124,7 @@ export default class Total extends cc.Component {
     @catchError()
     correctAnimations() {
         try {
-            Util.speakEquation([String(this._totalCount)], (index) => {
+            this.friend.speakEquation([String(this._totalCount)], (index) => {
                 this.node.emit('correct');    
                 this.node.emit('nextProblem');
             });

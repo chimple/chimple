@@ -5,6 +5,8 @@ import {LetterTracingBackCard} from "./lettertracingbackcard";
 import {LetterTracingFrontCard} from "./lettertracingfrontcard";
 import catchError from "../../../common/scripts/lib/error-handler";
 import { CONFIG_LOADED } from "../../../common/scripts/helper";
+import Game from "../../../common/scripts/game";
+import { Util } from "../../../common/scripts/util";
 
 
 export const LETTER_TRACING_CARD_SCALE = 0.85;
@@ -25,7 +27,7 @@ interface WriteCardConfig {
 }
 
 @ccclass
-export class WriteCard extends cc.Component {
+export class WriteCard extends Game {
 
     @property(cc.Prefab)
     frontCardPrefab: cc.Prefab;
@@ -55,6 +57,7 @@ export class WriteCard extends cc.Component {
             this.hideFrontCardAndShowBackCard(data);
         });
         this.buildUI();
+        Util.showHelp(null, null);
     }
 
     @catchError()

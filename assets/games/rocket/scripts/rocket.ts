@@ -9,6 +9,7 @@ import Drag from "../../../common/scripts/drag";
 import StickerChoice from "./sticker-choice";
 import catchError from "../../../common/scripts/lib/error-handler";
 import { AlphabetUtil } from "../../../common/scripts/Utility";
+import Game from "../../../common/scripts/game";
 
 const MAX_CHOICE_IN_ROW = 13;
 export const STICK_CHOICE_CORRECT = 'stickChoiceCorrect';
@@ -28,7 +29,7 @@ export interface RocketConfig {
 }
 
 @ccclass
-export default class Rocket extends cc.Component {
+export default class Rocket extends Game {
     private _currentConfig: RocketConfig = null;
 
     @property(cc.Prefab)
@@ -61,8 +62,6 @@ export default class Rocket extends cc.Component {
     @property(cc.Prefab)
     imageNodePrefab: cc.Prefab = null;
 
-    _dog: cc.Node = null;
-    _friend: dragonBones.ArmatureDisplay = null
     _wordNoteBoard: cc.Node = null;
     _dropLayout: cc.Node = null;
     _loadedTexture = null;
@@ -85,7 +84,6 @@ export default class Rocket extends cc.Component {
         Drag.letDrag = true;
         // cc.director.getCollisionManager().enabledDebugDraw = true
         // cc.director.getCollisionManager().enabledDrawBoundingBox = true
-
         this._currentConfig = this.processConfiguration(Config.getInstance().data[0]);
         let bt = new Date();
         this.buildUI();
@@ -106,7 +104,14 @@ export default class Rocket extends cc.Component {
             const c = this.buildChoiceContainer(1);
             this._choiceContainers.push(c);
         }
-        this.speakWord(0.1);
+        // this.speakWord(0.1);
+        try {
+            Util.loadGameSound(this._currentConfig.sound, (clip) => {
+                // Util.play(clip, false);
+                this.friend.extraClip = clip
+            });
+        } catch (e) {
+        }
 
         this.node.on(STICK_CHOICE_CORRECT, this.stickCorrect.bind(this));
         this.node.on(STICK_CHOICE_WRONG, this.stickWrong.bind(this));
@@ -125,39 +130,29 @@ export default class Rocket extends cc.Component {
         );
     }
 
-    @catchError()
-    speakWord(timedelay = 0) {
-        this.scheduleOnce(
-            () => {
-                try {
-                    Util.loadGameSound(this._currentConfig.sound, (clip) => {
-                        Util.play(clip, false);
-                    });
-                } catch (e) {
+    // @catchError()
+    // speakWord(timedelay = 0) {
+    //     this.scheduleOnce(
+    //         () => {
+    //             try {
+    //                 Util.loadGameSound(this._currentConfig.sound, (clip) => {
+    //                     // Util.play(clip, false);
+    //                     this.friend.extraClip = clip
+    //                 });
+    //             } catch (e) {
 
-                }
-            }, timedelay
-        );
-    }
+    //             }
+    //         }, timedelay
+    //     );
+    // }
 
-    @catchError()
-    createDog(parent: cc.Node) {
-        this._dog = parent.getChildByName("character_node").getChildByName("dog");
-        this._dog.active = true;
-        Util.loadFriend((friendNode: cc.Node) => {
-            this._friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
-            this._dog.addChild(friendNode)
-            this._friend.playAnimation('face_touch', 1)
-        })
-    }
-
-    @catchError()
-    createSoundBtn() {
-        const soundBtn = cc.instantiate(this.soundBtnPrefab);
-        soundBtn.setPosition(new cc.Vec2(320, 30));
-        soundBtn.getComponent(WordSoundButton).containerComponent = this;
-        this._wordNoteBoard.addChild(soundBtn);
-    }
+    // @catchError()
+    // createSoundBtn() {
+    //     const soundBtn = cc.instantiate(this.soundBtnPrefab);
+    //     soundBtn.setPosition(new cc.Vec2(320, 30));
+    //     soundBtn.getComponent(WordSoundButton).containerComponent = this;
+    //     this._wordNoteBoard.addChild(soundBtn);
+    // }
 
     @catchError()
     loadTexture() {
@@ -185,16 +180,16 @@ export default class Rocket extends cc.Component {
         outLine.width = 2;
         label.string = this._currentConfig.word;
         this._wordNoteBoard.setPosition(new cc.Vec2(0, 263));
-        this.createSoundBtn();
+        // this.createSoundBtn();
         this.loadTexture();
         this.checkRTLAndScaleX(this._wordNoteBoard, 1);
         this.checkRTLAndScaleX(labelNode, 1);
         this.node.addChild(this._wordNoteBoard);
     }
 
-    onTouchEnd(touch: cc.Touch) {
-        this.speakWord();
-    }
+    // onTouchEnd(touch: cc.Touch) {
+    //     this.speakWord();
+    // }
 
     @catchError()
     buildDropContainer() {
@@ -212,7 +207,10 @@ export default class Rocket extends cc.Component {
     @catchError()
     addChildrenToDropLayout(node: cc.Node, prefab: cc.Prefab) {
         this._rocketHead = cc.instantiate(this.rocketheadPrefab);
-        this.createDog(this._rocketHead);
+        this.friendPos.removeFromParent()
+        this.friendPos.position = cc.Vec3.ZERO
+        this.friend.isFace = true
+        this._rocketHead.getChildByName("character_node").getChildByName("dog").addChild(this.friendPos)
         node.addChild(this._rocketHead);
 
         //@ts-ignore
@@ -320,8 +318,9 @@ export default class Rocket extends cc.Component {
         this.node.emit('correct');
 
         if (this._totalDrops === 0) {
-            this.speakWord(0);
-            this.playSuccessAnimation();
+            // this.speakWord(0);
+            this.friend.speakExtra(this.playSuccessAnimation.bind(this))
+            // this.playSuccessAnimation();
         }
     }
 

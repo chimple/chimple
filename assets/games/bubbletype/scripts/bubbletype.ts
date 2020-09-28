@@ -2,6 +2,9 @@ const { ccclass, property } = cc._decorator;
 import catchError from '../../../common/scripts/lib/error-handler';
 import Config, { Direction } from '../../../common/scripts/lib/config';
 import { Util } from '../../../common/scripts/util';
+import Friend from '../../../common/scripts/friend';
+import LessonController from '../../../common/scripts/lessonController';
+import Game from '../../../common/scripts/game';
 
 export const GAME_SOUND = 'games/starfall/sound/';
 
@@ -22,7 +25,7 @@ export interface CountingConfig {
 
 
 @ccclass
-export default class BubbleType extends cc.Component {
+export default class BubbleType extends Game {
     @property(cc.Label)
     label: cc.Label = null;
 
@@ -31,9 +34,6 @@ export default class BubbleType extends cc.Component {
 
     @property(cc.Prefab)
     buttonPrefab: cc.Prefab = null;
-
-    @property(cc.Node)
-    friendPos: cc.Node = null;
 
     fallingTime: number = 30;//18
 
@@ -66,7 +66,6 @@ export default class BubbleType extends cc.Component {
     bubbledestroyBoundry: number = 520
     protected _sound: any = null;
     protected _soundID: number;
-    friend: dragonBones.ArmatureDisplay = null;
 
 
     // LIFE-CYCLE CALLBACKS:
@@ -157,7 +156,9 @@ export default class BubbleType extends cc.Component {
             }
             this.node.getChildByName("mainLayout").getChildByName("layout" + layoutToAdd).addChild(tempButton);
             if (tempButton.name == this.wordsOnScreen[0]) {
-                Util.showHelp(tempButton, tempButton)
+                Util.showHelp(tempButton, tempButton, () => {
+                    this.friend.playAnimation('blowing', 1);
+                })
             }
         }
         ////////// in this block
@@ -167,19 +168,13 @@ export default class BubbleType extends cc.Component {
     }
     @catchError()
     createDog() {
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay);
-            this.friendPos.addChild(friendNode);
-            this.friendPos.setPosition(new cc.Vec2(-510, 75));
-            this.friendPos.scaleX = 0.4;
-            this.friendPos.scaleY = 0.4;
-            if (Config.i.direction == Direction.RTL) {
-                this.friendPos.setPosition(new cc.Vec2(510, 75));
-                this.friendPos.scaleX = -0.4;
-            }
-            if (this.friend != null)
-                this.friend.playAnimation('blowing', 1);
-        });
+        this.friendPos.setPosition(new cc.Vec2(-460, -50));
+        this.friendPos.scaleX = 0.4;
+        this.friendPos.scaleY = 0.4;
+        if (Config.i.direction == Direction.RTL) {
+            this.friendPos.setPosition(new cc.Vec2(460, -50));
+            this.friendPos.scaleX = -0.4;
+        }
     }
     @catchError()
     toggleKeyboard(event) {

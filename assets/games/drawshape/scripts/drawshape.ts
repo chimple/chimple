@@ -4,6 +4,7 @@ import property = cc._decorator.property;
 import catchError from "../../../common/scripts/lib/error-handler";
 import { TRACING_FINISHED, TRACING_CORRECT, TRACING_WRONG } from "../../../common/scripts/helper";
 import TracingContainer from "../../../common/Tracing/scripts/tracing-container";
+import Game from "../../../common/scripts/game";
 
 export const LETTER_TRACING_TEXTURE = "games/lettertracing/textures/";
 export const GAME_VOICE = "games/lettertracing/sounds";
@@ -17,7 +18,7 @@ interface DrawShapeConfig {
 
 
 @ccclass
-export class DrawShape extends cc.Component {
+export class DrawShape extends Game {
 
     @property(cc.Prefab)
     progressMonitorPrefab: cc.Prefab = null;

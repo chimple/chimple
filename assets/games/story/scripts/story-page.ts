@@ -192,7 +192,7 @@ export class StoryPage extends cc.Component {
         cc.audioEngine.stopAll();
         cc.log('direction', direction);
         direction > 0 ?
-            this.node.parent.emit('nextProblem') : this.node.parent.emit('nextProblem');
+            this.node.parent.emit('nextProblem') : this.node.parent.emit('prevProblem');
 
     }
 

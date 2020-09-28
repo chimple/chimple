@@ -2,6 +2,7 @@ import Ball from "./ball";
 import Config from "../../../common/scripts/lib/config";
 import { Util, TouchEvents } from "../../../common/scripts/util";
 import { catchError } from "../../../common/scripts/lib/error-handler";
+import Game from "../../../common/scripts/game";
 
 const { ccclass, property } = cc._decorator;
 
@@ -9,7 +10,7 @@ export const GROUND = 50;
 const GROUND_TUB = 200;
 
 @ccclass
-export default class GroupSum extends cc.Component {
+export default class GroupSum extends Game {
   public Callback: () => void;
 
   @property({

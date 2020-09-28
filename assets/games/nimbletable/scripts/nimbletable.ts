@@ -1,11 +1,12 @@
 import Config from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
+import Game from "../../../common/scripts/game";
 // import Assemble from "../../platform/scripts/assemble";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class NimbleTable extends cc.Component {
+export default class NimbleTable extends Game {
 
     @property(cc.Label)
     label: cc.Label = null;

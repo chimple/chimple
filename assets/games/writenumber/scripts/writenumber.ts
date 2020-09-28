@@ -7,6 +7,7 @@ import { Anim } from "./anim";
 import catchError from "../../../common/scripts/lib/error-handler";
 import { CONFIG_LOADED, SOUND_LOADED_EVENT, TRACING_FINISHED, TRACING_CORRECT, TRACING_WRONG } from "../../../common/scripts/helper";
 import { SingleLetterTracing } from "../../../common/Tracing/scripts/singlelettertracing";
+import Game from "../../../common/scripts/game";
 
 interface WriteNumberConfig {
     level: string;
@@ -28,7 +29,7 @@ const ADJ_2 = 0.4;
 export const NUMBER_TRACING_TEXTURE = "games/writenumber/textures/";
 
 @ccclass
-export class WriteNumber extends cc.Component {
+export class WriteNumber extends Game {
 
     @property(cc.Prefab)
     wordsPrefab: cc.Prefab = null;
@@ -56,7 +57,6 @@ export class WriteNumber extends cc.Component {
     private _words: cc.Node = null;
     private _anims: cc.Node = null;
     private _dog: cc.Node = null;
-    friend: dragonBones.ArmatureDisplay = null;
     private _currentLetterIndex: number = 0;
 
     private _touchAllowedOnAnimLayout: boolean = false;
@@ -72,41 +72,43 @@ export class WriteNumber extends cc.Component {
         this._shouldShowAnimSprite = true;
 
         if (this._shouldShowAnimSprite) {
-            this._dog = this.node.getChildByName('dog');
-            Util.loadFriend((friendNode: cc.Node) => {
-                this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay);
-                this._dog.addChild(friendNode);
-                this._dog.setPosition(new cc.Vec2(cc.winSize.width / 3, -1000));
-                this._dog.scaleX = -0.6;
-                this._dog.scaleY = 0.6;
-                this._dog.opacity = 0;
-
-                new cc.Tween().target(this._dog)
-                    .to(0.25, {position: new cc.Vec2(cc.winSize.width / 3, -cc.winSize.height / 2)}, {
+            // this._dog = this.node.getChildByName('dog');
+            // Util.loadFriend((friendNode: cc.Node) => {
+            //     this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay);
+            //     this._dog.addChild(friendNode);
+            //     this._dog.setPosition(new cc.Vec2(cc.winSize.width / 3, -1000));
+            //     this._dog.scaleX = -0.6;
+            //     this._dog.scaleY = 0.6;
+            //     this._dog.opacity = 0;
+            const friendY = this.friend.node.y
+            this.friend.node.y += cc.winSize.height
+                new cc.Tween().target(this.friend.node)
+                    .to(0.25, {y: friendY}, {
                         progress: null,
                         easing  : 'quadOut'
                     })
                     .call(() => {
-                        this._dog.opacity = 255;
-                        if (this.friend != null) this.friend.playAnimation('throw', 1);
+                        // this._dog.opacity = 255;
+                        this.friend.playAnimation('throw', 1);
                         this.scheduleOnce(
                             () => {
                                 this.buildAnimSprites();
                                 this.scheduleOnce(() => {
                                     this._words.opacity = 255;
-                                    new cc.Tween().target(this._dog)
-                                        .to(2, {position: new cc.Vec2(cc.winSize.width / 3, -cc.winSize.height * 2)}, {
-                                            progress: null,
-                                            easing  : 'quadOut'
-                                        })
-                                        .start();
+                                    Util.showHelp(null, null)
+                                    // new cc.Tween().target(this.friend.node)
+                                    //     .to(2, {position: new cc.Vec2(cc.winSize.width / 3, -cc.winSize.height * 2)}, {
+                                    //         progress: null,
+                                    //         easing  : 'quadOut'
+                                    //     })
+                                    //     .start();
                                 }, 2);
                             },
                             0.65
                         );
                     })
                     .start();
-            });
+            // });
         }
         this._currentConfig = this.processConfiguration(Config.getInstance().data[0]);
         if (this._currentConfig !== null) {
@@ -265,12 +267,13 @@ export class WriteNumber extends cc.Component {
 
         if (this._currentLetterIndex === this._characters.length) {
             this.scheduleOnce(() => {
-                try {
-                    if (!!this._sound)
-                        this._soundID = Util.play(this._sound, false);
-                } catch (e) {
+                this.friend.speak(this._sound)
+                // try {
+                //     if (!!this._sound)
+                //         this._soundID = Util.play(this._sound, false);
+                // } catch (e) {
 
-                }
+                // }
                 this.scheduleOnce(() => {
                     this._touchAllowedOnAnimLayout = true;
                 }, 0.1);
