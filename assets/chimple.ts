@@ -1,7 +1,6 @@
 import Config, {LANG_CONFIGS, Lang} from "./common/scripts/lib/config";
 import Profile, {Gender, User, LANGUAGE} from "./common/scripts/lib/profile";
 import {D_MODE, DeployMode, Mode, MODE} from "./common/scripts/lib/constants";
-import {Queue} from "./queue";
 import UtilLogger from "./common/scripts/util-logger";
 import {Util} from "./common/scripts/util";
 
