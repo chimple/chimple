@@ -1,7 +1,6 @@
 import Config, {LANG_CONFIGS, Lang} from "./common/scripts/lib/config";
 import Profile, {Gender, User, LANGUAGE} from "./common/scripts/lib/profile";
 import {D_MODE, DeployMode, Mode, MODE} from "./common/scripts/lib/constants";
-import {Queue} from "./queue";
 import UtilLogger from "./common/scripts/util-logger";
 import {Util} from "./common/scripts/util";
 
@@ -25,7 +24,6 @@ export const TEACHER_NAME_KEY = 'name';
 export const LANDING_SCENE = 'private/school/scenes/landing';
 export const HOME_SCENE = 'menu/home/scenes/home';
 export const START_SCENE = 'menu/start/scenes/start';
-
 //@ts-ignore
 cc.deep_link = function (url) {
     cc.log("deep link called with url:" + url);
@@ -55,9 +53,7 @@ cc.deep_link = function (url) {
                         })
                     }
                     try {
-                        const messages = cc.sys.localStorage.getItem(messageType) || '[]';
-                        const jsonMessages: any[] = JSON.parse(messages);
-                        jsonMessages.push(data);
+                        const jsonMessages: any[] = Util.removeDuplicateMessages(data, messageType);
                         UtilLogger.logChimpleEvent(ADD_TEACHER, data);
                         cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
                     } catch (e) {

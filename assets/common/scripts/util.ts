@@ -725,6 +725,7 @@ export class Util {
         if (key === "left_shoe") {
           _armature.getSlot("right_shoe").childArmature = factory.buildArmature(newHatName);
         }
+
       }
     })
   }
@@ -837,5 +838,20 @@ export class Util {
 
     Queue.getInstance().push(updateInfo);
 
+  }
+
+  public static removeDuplicateMessages(data: any, messageType: string): any[] {
+    // const processedMessageType = 'processed-' + messageType;
+    const messages = cc.sys.localStorage.getItem(messageType) || '[]';
+    // const processedMessages = cc.sys.localStorage.getItem(processedMessageType) || '[]';
+    let jsonMessages: any[] = JSON.parse(messages);
+    // const jsonProcessedMessages: any[] = JSON.parse(processedMessages);
+    // jsonMessages = jsonMessages.filter(a => !jsonProcessedMessages.map(b => b.id).includes(a.id));
+    if (!!data) {
+      jsonMessages.push(data);
+      // processedMessages.push(data);
+    }
+    jsonMessages = jsonMessages.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
+    return jsonMessages;
   }
 }
