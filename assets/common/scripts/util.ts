@@ -16,7 +16,6 @@ import HorizontalAlign = cc.Label.HorizontalAlign;
 import VerticalAlign = cc.Label.VerticalAlign;
 import LessonController from "./lessonController";
 import { Queue } from "../../queue";
-import { inventoryData, saveConstants } from '../../menu/inventory/scripts/inventory'
 
 export const SUBPACKAGES = 'subpackages'
 
@@ -697,46 +696,10 @@ export class Util {
             "prefabs/friend/" + User.getCurrentUser().currentCharacter,
             (err, prefab) => {
                 if (err != null) cc.log(err);
-                let friendNode = prefab != null ? cc.instantiate(prefab) : null;
-                cc.resources.load(
-                    "prefabs/acc/acc",
-                    (err, prefab) => {
-                        if (err != null) cc.log(err);
-                        const accNode = prefab != null ? cc.instantiate(prefab) : null;
-                        console.log(accNode, " logFrend ", friendNode);
-                        if (callback != null) callback(friendNode, accNode);
-                    }
-                );
+                const friendNode = prefab != null ? cc.instantiate(prefab) : null;
+                if (callback != null) callback(friendNode);
             }
         );
-    }
-
-    public static loadAccessoriesAndEquipAcc(accessoriesNode: cc.Node, friendNode: cc.Node): dragonBones.ArmatureDisplay {
-        let accArmature: dragonBones.ArmatureDisplay;
-        for (let i = 0; i < inventoryData.length; i++) {
-            accArmature = accessoriesNode.children[i].getComponent(dragonBones.ArmatureDisplay)
-            console.log(" iii ", i)
-            for (let j = 1; j < inventoryData[i].length; j++) {
-                accArmature.armatureName = inventoryData[i][j].split("-")[1];
-            }
-        }
-        Util.equipAcc(friendNode);
-        return accArmature;
-    }
-
-    public static equipAcc(friendNode: cc.Node) {
-        let factory = dragonBones.CCFactory.getInstance();
-        let _armature = friendNode.getComponent(dragonBones.ArmatureDisplay).armature();
-        saveConstants.forEach((key) => {
-            let characterAndSlot = User.getCurrentUser().currentCharacter.concat("-", key)
-            var newHatName = User.getCurrentUser().inventory[characterAndSlot]
-            if (newHatName != undefined) {
-                _armature.getSlot(key).childArmature = factory.buildArmature(newHatName);
-                if (key === "left_shoe") {
-                    _armature.getSlot("right_shoe").childArmature = factory.buildArmature(newHatName);
-                }
-            }
-        })
     }
 
     public static playSfx(

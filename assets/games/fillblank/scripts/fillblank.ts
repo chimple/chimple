@@ -1,8 +1,6 @@
 import Config from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
-import { inventoryData, saveConstants } from '../../../menu/inventory/scripts/inventory'
-import { User } from "../../../common/scripts/lib/profile";
 
 const { ccclass, property } = cc._decorator;
 
@@ -28,29 +26,20 @@ export default class FillBlank extends cc.Component {
   @property(cc.Node)
   friendPos: cc.Node = null
 
-  @property(cc.Node)
-  accNode: cc.Node = null
-
   soundFile: string = null
   soundClip: cc.AudioClip = null
 
   disableCorrectButton: boolean = false;
   friend: dragonBones.ArmatureDisplay = null
 
-  accArmature: dragonBones.ArmatureDisplay = null
-
   @property
   timeout;
 
   @catchError()
   onLoad() {
-    Util.loadFriend((friendNode: cc.Node, accNode: cc.Node) => {
+    Util.loadFriend((friendNode: cc.Node) => {
       this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay)
       this.friendPos.addChild(friendNode)
-      this.accNode.addChild(accNode)
-      this.accNode.x = -cc.winSize.width;
-      // load all hats here
-      Util.loadAccessoriesAndEquipAcc(accNode, friendNode)
       if (this.friend != null) this.friend.playAnimation('jumping', 1)
       new cc.Tween().target(friendNode)
         .set({ x: -cc.winSize.width })
@@ -114,6 +103,7 @@ export default class FillBlank extends cc.Component {
       }
     }
   }
+
 
   @catchError()
   private enableButtons(node: cc.Node, answerNode: cc.Node, arr: string[], enable: boolean) {
