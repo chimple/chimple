@@ -99,6 +99,7 @@ export default class Start extends cc.Component {
                 this.onCourseClick()
             }
             this.loading.active = false;
+            this.registerTeacherDialogCloseEvent();
         })
     }
 
@@ -132,7 +133,8 @@ export default class Start extends cc.Component {
     private showTeacherDialog() {
         try {
             const messageStr: string = cc.sys.localStorage.getItem(ADD_TEACHER) || '[]';
-            const messages: any[] = JSON.parse(messageStr);
+            let messages: any[] = JSON.parse(messageStr);
+            messages = messages.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
             if (messages && messages.length > 0) {
                 const curMessage = messages.splice(0, 1)[0];
                 const name: string = curMessage[TEACHER_NAME_KEY];
@@ -152,7 +154,6 @@ export default class Start extends cc.Component {
     }
 
     private setUpTeacherDialog() {
-        this.registerTeacherDialogCloseEvent();
         this.showTeacherDialog();
     }
 

@@ -25,7 +25,6 @@ export const TEACHER_NAME_KEY = 'name';
 export const LANDING_SCENE = 'private/school/scenes/landing';
 export const HOME_SCENE = 'menu/home/scenes/home';
 export const START_SCENE = 'menu/start/scenes/start';
-
 //@ts-ignore
 cc.deep_link = function (url) {
     cc.log("deep link called with url:" + url);
@@ -55,9 +54,7 @@ cc.deep_link = function (url) {
                         })
                     }
                     try {
-                        const messages = cc.sys.localStorage.getItem(messageType) || '[]';
-                        const jsonMessages: any[] = JSON.parse(messages);
-                        jsonMessages.push(data);
+                        const jsonMessages: any[] = Util.removeDuplicateMessages(data, messageType);
                         UtilLogger.logChimpleEvent(ADD_TEACHER, data);
                         cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
                     } catch (e) {
@@ -73,6 +70,7 @@ cc.deep_link = function (url) {
 @ccclass
 export default class Chimple extends cc.Component {
     async onLoad() {
+        //  Queue.init(); // init queue
         UtilLogger.initPluginFirebase();
         Util.loadi18NMapping(() => {
         })
