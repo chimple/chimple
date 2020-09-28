@@ -14,6 +14,7 @@ import property = cc._decorator.property;
 import Config, { Direction } from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
+import LessonController from "../../../common/scripts/lessonController";
 
 const { ccclass } = cc._decorator;
 @ccclass
@@ -70,18 +71,19 @@ export default class QuestionBlock extends CommonBlock {
 
     @catchError()
     speak() {
-        try {
-            if (!!this._sound) {
-                this._soundID = Util.play(this._sound, false);
-                if (this._soundID === -1) {
-                    Util.speakGameAudioOrPhonics(this.contentText, () => {})
-                }
-            } else {
-                Util.speakGameAudioOrPhonics(this.contentText, () => {})
-            }
-        } catch (e) {
+        LessonController.getFriend().speakGameAudioOrPhonics(this.contentText, () => {})
+        // try {
+        //     if (!!this._sound) {
+        //         this._soundID = Util.play(this._sound, false);
+        //         if (this._soundID === -1) {
+        //             Util.speakGameAudioOrPhonics(this.contentText, () => {})
+        //         }
+        //     } else {
+        //         Util.speakGameAudioOrPhonics(this.contentText, () => {})
+        //     }
+        // } catch (e) {
 
-        }
+        // }
     }
 
     onTouchEnd(touch: cc.Touch) {

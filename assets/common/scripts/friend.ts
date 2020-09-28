@@ -83,6 +83,17 @@ export default class Friend extends cc.Component {
         }
     }
 
+    public speakGameAudioOrPhonics(audio: string, callback: Function) {
+        const extraCallback = (index: number) => {
+            this.playIdleAnimation(1);
+            this.button.interactable = true
+            callback(index)
+        }
+        this.playSpeakAnimation(0)
+        this.button.interactable = false
+        Util.speakGameAudioOrPhonics(audio, extraCallback)        
+    }
+
     public speakEquation(nums: Array<string>, callback: (index: number) => void) {
         const extraCallback = (index: number) => {
             if (index + 1 >= nums.length) {

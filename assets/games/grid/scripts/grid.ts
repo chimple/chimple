@@ -409,13 +409,14 @@ export class Grid extends Game {
 
   @catchError()
   public playGameSound(nameOfSound) {
-    Util.loadGameSound(nameOfSound, function (clip) {
-      if (clip != null) {
-        const audioId = Util.play(clip, false);
-        if (audioId != -1) {
-          cc.audioEngine.setFinishCallback(audioId, () => {});
-        }
-      }
+    Util.loadGameSound(nameOfSound, (clip) => {
+        this.friend.speak(clip)
+        //   if (clip != null) {
+    //     const audioId = Util.play(clip, false);
+    //     if (audioId != -1) {
+    //       cc.audioEngine.setFinishCallback(audioId, () => {});
+    //     }
+    //   }
     });
   }
 }
