@@ -18,6 +18,10 @@ export default class TeacherAddedDialog extends cc.Component {
     text: cc.Node = null;
 
     @property(cc.Node)
+    yesButton: cc.Node = null;
+
+
+    @property(cc.Node)
     studentLayout: cc.Node = null;
 
     users: User[];
@@ -33,6 +37,7 @@ export default class TeacherAddedDialog extends cc.Component {
             const item = event.getUserData();
             this.selectedStudentId = item.selectedStudent;
             this.selectedStudentName = item.studentName;
+            this.yesButton.active = true;
         });
         // get all Users
         this.users = User.getUsers();
@@ -40,6 +45,7 @@ export default class TeacherAddedDialog extends cc.Component {
     }
 
     private render() {
+        this.yesButton.active = false;
         const chimpleLabel = this.text.getComponent(ChimpleLabel);
         chimpleLabel.string = 'Add Teacher ' + this._teacherName;
         this.users.forEach(
