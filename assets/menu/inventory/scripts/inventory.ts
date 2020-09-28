@@ -108,9 +108,11 @@ export default class Inventory extends cc.Component {
             var newHatName = User.getCurrentUser().inventory[characterAndSlot]
             let factory = dragonBones.CCFactory.getInstance();
             let _armature = this.node.getChildByName(`${this.characterName}_dragon`).getComponent(dragonBones.ArmatureDisplay).armature();
-            _armature.getSlot(key).childArmature = factory.buildArmature(newHatName);
-            if (key === "left_shoe") {
-                _armature.getSlot("right_shoe").childArmature = factory.buildArmature(newHatName);
+            if (newHatName != undefined) {
+                _armature.getSlot(key).childArmature = factory.buildArmature(newHatName);
+                if (key === "left_shoe") {
+                    _armature.getSlot("right_shoe").childArmature = factory.buildArmature(newHatName);
+                }
             }
         })
 
