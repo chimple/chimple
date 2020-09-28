@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.util.Log;
 
@@ -15,6 +16,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 
 import org.chimple.bahama.AppActivity;
+import org.chimple.bahama.R;
 
 public class ChimpleFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "AlarmReceiver";
@@ -51,9 +53,9 @@ public class ChimpleFirebaseMessagingService extends FirebaseMessagingService {
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setStyle(new NotificationCompat.BigTextStyle())
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-//                    .setSmallIcon(R.mipmap.small)
+                    .setSmallIcon(R.mipmap.small)
                     .setChannelId(channelId)
-//                    .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher))
+                    .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher))
                     .setContentIntent(PendingIntent.getActivity(this, 0, new Intent(this, AppActivity.class), 0))
                     .setAutoCancel(true);
 

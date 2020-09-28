@@ -10,6 +10,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
@@ -30,6 +31,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.apache.commons.io.FilenameUtils;
 import org.chimple.bahama.AppActivity;
+import org.chimple.bahama.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -750,9 +752,9 @@ public class ChimpleLogger {
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setStyle(new NotificationCompat.BigTextStyle())
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-//                    .setSmallIcon(R.mipmap.small)
+                    .setSmallIcon(R.mipmap.small)
                     .setChannelId(channelId)
-//                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
                     .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, AppActivity.class), 0))
                     .setAutoCancel(true);
 
