@@ -26,7 +26,7 @@ export default class Friend extends cc.Component {
     }
 
     public playSpeakAnimation(playTimes: number) {
-        this.playAnimation(this.isFace? 'face_eating':'talking_long', playTimes)
+        this.playAnimation(this.isFace? 'face_eating':'talking', playTimes)
     }
 
     public playIdleAnimation(playTimes: number) {
