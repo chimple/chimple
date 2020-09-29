@@ -119,8 +119,9 @@ export default class LessonController extends Game {
     private lessonStart() {
         this.lessonStartTime = new Date().getTime();
         this.lessonSessionId = User.createUUID();
-        Util.loadFriend((friendNode: cc.Node) => {
+        Util.loadFriend((friendNode: cc.Node, accNode: cc.Node) => {
             this.friend = friendNode.getComponent(Friend)
+            this.accNode = accNode;
             this.startGame(LessonController.gamePrefab);
             this.loading.active = false;
         })
@@ -155,6 +156,7 @@ export default class LessonController extends Game {
             }
             gameComponent.friend = this.friend
             gameComponent.friendPos.addChild(this.friend.node)
+            gameComponent.accNode.addChild(this.accNode)
         }
         this.gameParent.addChild(this.gameNode);
         this.friend.playIdleAnimation(1)
@@ -167,6 +169,7 @@ export default class LessonController extends Game {
             this.gameNode.y = 0;
         }
         this.setupEventHandlers();
+        Util.loadAccessoriesAndEquipAcc(this.accNode, this.friend.node)
     }
 
     private problemEnd(replaceScene: boolean, forward: boolean = true) {
