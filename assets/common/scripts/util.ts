@@ -689,21 +689,13 @@ export class Util {
       (err, prefab) => {
         if (err != null) cc.log(err);
         let friendNode = prefab != null ? cc.instantiate(prefab) : null;
-        cc.resources.load(
-          "prefabs/acc/acc",
-          (err, prefab) => {
-            if (err != null) cc.log(err);
-            const accNode = prefab != null ? cc.instantiate(prefab) : null;
-            console.log(accNode, " logFrend ", friendNode);
-            if (callback != null) callback(friendNode, accNode);
-          }
-        );
+        if (callback != null) callback(friendNode);
       }
     );
   }
 
   public static loadAccessoriesAndEquipAcc(accessoriesNode: cc.Node, friendNode: cc.Node): dragonBones.ArmatureDisplay {
-    accessoriesNode.x = cc.winSize.width
+    accessoriesNode.x = 5 * cc.winSize.width
     let accArmature: dragonBones.ArmatureDisplay;
     for (let i = 0; i < INVENTORY_DATA.length; i++) {
       accArmature = accessoriesNode.children[i].getComponent(dragonBones.ArmatureDisplay)
