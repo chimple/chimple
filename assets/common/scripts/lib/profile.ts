@@ -575,16 +575,5 @@ export default class Profile {
             }
         );
         User.setCurrentUser(currentUser);
-        let courseProgress = {};
-        // const subjects: ParseSubject[] = await ParseApi.getAllSubjects();
-        // subjects.forEach(
-        //     (p: ParseSubject) => {
-        //         courseProgress[p.courseCode] = {
-        //             'currentLesson'   : '1',
-        //             'completedLessons': []
-        //         };
-        //     }
-        // );
-        // currentUser.courseProgress = courseProgress;
     }
 }
