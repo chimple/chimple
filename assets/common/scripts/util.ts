@@ -382,6 +382,22 @@ export class Util {
     });
   }
 
+  public static shareText(text: string): void {
+    try {
+      if (
+        cc.sys.isNative &&
+        cc.sys.os == cc.sys.OS_ANDROID
+      ) {
+        return jsb.reflection.callStaticMethod(
+          "org/chimple/bahama/AppActivity",
+          "shareText",
+          "(Ljava/lang/String;)V",
+          text);
+      }
+    } catch (e) {
+    }
+  }
+
   public static getRandomPosition(array, removeTaken) {
     let randomIndex;
     let coordinates;
