@@ -1,6 +1,7 @@
-import { Util } from "../util";
-import Profile, { User } from "./profile";
-import { Chapter, Course, Lesson } from "./convert";
+import {Util} from "../util";
+import Profile, {User} from "./profile";
+import {Chapter, Course, Lesson} from "./convert";
+import UtilLogger from "../util-logger";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
@@ -37,8 +38,8 @@ export class LangConfig {
 }
 
 export const LANG_CONFIGS = new Map<Lang, LangConfig>([
-    [Lang.ENGLISH, { 'font': 'en-main' }],
-    [Lang.HINDI, { 'font': 'hi-main' }]
+    [Lang.ENGLISH, {'font': 'en-main'}],
+    [Lang.HINDI, {'font': 'hi-main'}]
 ])
 
 export class World {
@@ -156,6 +157,11 @@ export default class Config {
     static loadScene(scene: string, bundle: string = null, callback: Function = null) {
         Util.freeResources();
         if (bundle != null) {
+            UtilLogger.logChimpleEvent("screen_view", {
+                scene: scene,
+                bundle: bundle
+            })
+
             cc.assetManager.loadBundle(bundle, (err, loadedBundle) => {
                 loadedBundle.loadScene(scene, (err, loadedScene) => {
                     cc.director.runScene(loadedScene, null, () => {
@@ -168,6 +174,10 @@ export default class Config {
             });
         } else {
             cc.director.loadScene(scene, () => {
+                UtilLogger.logChimpleEvent("screen_view", {
+                    scene: scene
+                })
+
                 cc.sys.garbageCollect();
                 if (callback != null) {
                     callback();
@@ -182,7 +192,12 @@ export default class Config {
     }
 
     popScene() {
-        this._scenes.pop();
+        const popScene: SceneDef = this._scenes.pop();
+        UtilLogger.logChimpleEvent("scene_exit", {
+            scene: popScene.scene,
+            bundle: popScene.bundle
+        })
+
         var sceneDef = this._scenes[this._scenes.length - 1];
         var scene = sceneDef.scene;
         if (scene.startsWith('menu/map/scene/map')) {
