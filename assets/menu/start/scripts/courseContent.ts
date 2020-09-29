@@ -33,10 +33,11 @@ export default class CourseContent extends cc.Component {
             chapterMenuButtonComp.content = this.content
             chapterMenuButtonComp.loading = this.loading
             this.chaptersLayout.addChild(chapterMenuButton)
-        }
+        }        
         this.chaptersLayout.width = cc.winSize.width
-        this.chaptersLayout.parent.height = this.chaptersLayout.height
         this.chaptersLayout.parent.width = cc.winSize.width
         this.chaptersLayout.parent.parent.width = cc.winSize.width
+        this.chaptersLayout.getComponent(cc.Layout).updateLayout()
+        this.chaptersLayout.parent.height = this.chaptersLayout.height
     }
 }

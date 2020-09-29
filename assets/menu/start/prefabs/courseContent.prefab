@@ -354,7 +354,7 @@
       "width": 1024,
       "height": 640
     },
-    "_resize": 0,
+    "_resize": 1,
     "_N$layoutType": 3,
     "_N$cellSize": {
       "__type__": "cc.Size",
@@ -367,7 +367,7 @@
     "_N$paddingTop": 32,
     "_N$paddingBottom": 0,
     "_N$spacingX": 0,
-    "_N$spacingY": 0,
+    "_N$spacingY": 8,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
     "_N$affectedByScale": false,
