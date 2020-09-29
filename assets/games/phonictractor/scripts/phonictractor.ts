@@ -142,7 +142,7 @@ export default class PhonicTractor extends Game {
             })
             .to(
               0.5,
-              { position: cc.v2(e.position.x + i * 40, e.position.y) }, ////// first tween
+              { position: cc.v2(e.position.x + i * 20, e.position.y) }, ////// first tween
               { progress: null, easing: "easeOutInElastic" }
             )
             .start();
@@ -167,7 +167,7 @@ export default class PhonicTractor extends Game {
   instantiateTrolley(i: number) {
     this.trolley[i] = cc.instantiate(this.trolleyPrefab);
     this.trolley[i].parent = this.truckNode;
-    this.trolley[i].position = cc.v3(this.trolley[i].position.x + i * 190, -75, 0);
+    this.trolley[i].position = cc.v3(this.trolley[i].position.x + i * 260, -75, 0);
     this.trolley[i].getChildByName("drop_area").name = this.word[i]
     if (i == 0) {
       this.firstDrop = this.trolley[i];
@@ -246,7 +246,7 @@ export default class PhonicTractor extends Game {
               .target(e)
               .to(
                 0.5,
-                { position: cc.v2(e.position.x - j * 40, e.position.y) },
+                { position: cc.v2(e.position.x - j * 20, e.position.y) },
                 { progress: null, easing: "sineOut" }
               )
               .start();
