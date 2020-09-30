@@ -51,7 +51,7 @@ export default class LessonController extends Game {
     callback: () => boolean;
     nest: cc.Node = null;
     quizScore: number = 0;
-    total: number = 0;
+    totalQuizzes: number = 0;
     isQuizAnsweredCorrectly: boolean = false;
     lessonStartTime: number = 0;
     lessonSessionId: string = null;
@@ -77,31 +77,76 @@ export default class LessonController extends Game {
         this.backButton.on('click', () => this.node.getChildByName("quit").active = true);
     }
 
-    static preloadLesson(callback: Function) {
+    static preloadLesson(node: cc.Node, callback: Function) {
         const config = Config.i;
         config.problem = 0;
-        cc.assetManager.loadBundle(config.lesson.id, (err, bundle) => {
-            if (err) {
-                callback(err)
-            } else {
-                bundle.preloadDir('res', null, null, (err: Error, items) => {
-                    Util.bundles.set(config.lesson.id, bundle);
+        if (config.lesson.type == 'exam') {
+            const lessons: Array<Lesson> = []
+            var found = false
+            config.chapter.lessons.forEach((les) => {
+                if (!found) {
+                    if (les.type != 'exam') {
+                        lessons.push(les)
+                    } else if (les.type == 'exam') {
+                        if (les.id == config.lesson.id) {
+                            found = true
+                        } else {
+                            lessons.length = 0
+                        }
+                    }
+                }
+            })
+            let numLessons = lessons.length
+            lessons.forEach((les) => {
+                cc.assetManager.loadBundle(les.id, (err, bundle) => {
+                    if (err) {
+                        callback(err)
+                    } else {
+                        bundle.preloadDir('res', null, null, (err: Error, items) => {
+                            Util.bundles.set(les.id, bundle)
+                            numLessons--
+                        })
+                    }
+                })
+            })
+            const checkAllLoaded = () => {
+                if (numLessons <= 0) {
+                    cc.director.getScheduler().unschedule(checkAllLoaded, node);
                     config.loadLessonJson((data: Array<string>) => {
                         config.data = [data];
                         this.preloadGame((prefab: cc.Prefab) => {
                             this.gamePrefab = prefab;
                             callback();
                         });
+                    }, node, lessons);
+                }
+            };
+            cc.director.getScheduler().schedule(checkAllLoaded, node, 1);
+        } else {
+            cc.assetManager.loadBundle(config.lesson.id, (err, bundle) => {
+                if (err) {
+                    callback(err)
+                } else {
+                    bundle.preloadDir('res', null, null, (err: Error, items) => {
+                        Util.bundles.set(config.lesson.id, bundle);
+                        config.loadLessonJson((data: Array<string>) => {
+                            config.data = [data];
+                            this.preloadGame((prefab: cc.Prefab) => {
+                                this.gamePrefab = prefab;
+                                callback();
+                            });
+                        });
                     });
-                });
-            }
-        });
+                }
+            });
+        }
 
     }
 
     static preloadGame(callback: Function) {
         const config = Config.i;
         config.game = config.data[0][0];
+        config.currentGameLessonId = config.data[0][2]
         const gameConfig = GAME_CONFIGS[config.game];
         let fontName: string = config.course.id.split('-')[0] + '-' + DEFAULT_FONT;
         if (gameConfig.fontName != null) {
@@ -121,6 +166,9 @@ export default class LessonController extends Game {
         this.lessonSessionId = User.createUUID();
         Util.loadFriend((friendNode: cc.Node) => {
             this.friend = friendNode.getComponent(Friend)
+            this.node.addChild(this.friend.node)
+            Util.loadAccessoriesAndEquipAcc(this.friend.node.children[1], this.friend.node)
+            this.friend.node.removeFromParent()
             this.startGame(LessonController.gamePrefab);
             this.loading.active = false;
         })
@@ -155,9 +203,10 @@ export default class LessonController extends Game {
             }
             gameComponent.friend = this.friend
             gameComponent.friendPos.addChild(this.friend.node)
+            this.friend.playIdleAnimation(1)
         }
         this.gameParent.addChild(this.gameNode);
-        this.friend.playIdleAnimation(1)
+        // if(gameComponent) Util.loadAccessoriesAndEquipAcc(this.friend.node.children[1], this.friend.node)
         const gameConfig = GAME_CONFIGS[Config.i.game];
         if (gameConfig.center) {
             this.gameNode.x = -512;
@@ -167,7 +216,6 @@ export default class LessonController extends Game {
             this.gameNode.y = 0;
         }
         this.setupEventHandlers();
-        Util.loadAccessoriesAndEquipAcc(this.friend.node.children[1], this.friend.node)
     }
 
     private problemEnd(replaceScene: boolean, forward: boolean = true) {
@@ -178,7 +226,7 @@ export default class LessonController extends Game {
         this.isQuiz = config.game.toLowerCase().includes("quiz");
         this.isQuizCompleted = this.isQuiz ? true : false;
         this.isGameCompleted = this.isQuiz ? false : true;
-        const score: number = this.isQuiz ? this.quizScore : this.total;
+        if (this.isQuiz) this.totalQuizzes++;
         const isStory = config.game == 'story'
         if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
             let monitorInfo = {
@@ -236,10 +284,11 @@ export default class LessonController extends Game {
         Util.playSfx(this.startAudio);
         const config = Config.getInstance();
         const timeSpent = Math.ceil((new Date().getTime() - this.lessonStartTime) / 1000);
-        this.total = Math.max(0, 100 - this.wrongMoves * 10);
-
+        const score = Math.round(this.totalQuizzes > 0
+            ? this.quizScore / this.totalQuizzes * 70 + this.rightMoves / (this.rightMoves + this.wrongMoves) * 30
+            : this.rightMoves / (this.rightMoves + this.wrongMoves) * 100);
         const user = User.getCurrentUser();
-        user.updateLessonProgress(config.lesson.id, this.total);
+        user.updateLessonProgress(config.lesson.id, score);
         let finishedLessons = 0;
         let percentageComplete = 0;
         if (config.chapter && config.chapter.lessons &&
@@ -258,7 +307,7 @@ export default class LessonController extends Game {
                 lesson: config.lesson.id,
                 percentComplete: percentageComplete,
                 timespent: timeSpent,
-                assessment: this.total,
+                assessment: score,
                 kind: 'Progress',
                 schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
                 studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
@@ -276,7 +325,7 @@ export default class LessonController extends Game {
             lessonName: config.lesson.name,
             lessonId: config.lesson.id,
             courseName: config.course.id,
-            score: config.game.toLowerCase().includes("quiz") ? this.quizScore : this.total,
+            score: score,
             timeSpent: timeSpent,
             skills: config.lesson.skills ? config.lesson.skills.join(",") : "",
             game_completed: config.game.toLowerCase().includes("quiz") ? false : true,
@@ -287,7 +336,7 @@ export default class LessonController extends Game {
         this.node.addChild(block);
         const scorecard = cc.instantiate(this.scorecardPrefab)
         const scorecardComp = scorecard.getComponent(Scorecard)
-        scorecardComp.score = this.total
+        scorecardComp.score = score
         scorecardComp.text = config.lesson.name
         this.friend.node.removeFromParent()
         scorecardComp.friendPos.addChild(this.friend.node)

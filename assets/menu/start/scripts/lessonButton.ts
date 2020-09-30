@@ -55,7 +55,7 @@ export default class LessonButton extends cc.Component {
                 config.lesson = this.lesson;
                 this.loading.getComponent(Loading).allowCancel = true
                 this.loading.active = true
-                LessonController.preloadLesson((err: Error) => {
+                LessonController.preloadLesson(this.node, (err: Error) => {
                     if(err) {
                         this.loading.getComponent(Loading).addMessage(err.message, true, true)
                     } else {

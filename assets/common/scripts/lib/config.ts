@@ -1,6 +1,6 @@
-import {Util} from "../util";
-import Profile, {User} from "./profile";
-import {Chapter, Course, Lesson} from "./convert";
+import { Util } from "../util";
+import Profile, { User } from "./profile";
+import { Chapter, Course, Lesson } from "./convert";
 import UtilLogger from "../util-logger";
 
 export const DEFAULT_FONT = 'main';
@@ -38,8 +38,8 @@ export class LangConfig {
 }
 
 export const LANG_CONFIGS = new Map<Lang, LangConfig>([
-    [Lang.ENGLISH, {'font': 'en-main'}],
-    [Lang.HINDI, {'font': 'hi-main'}]
+    [Lang.ENGLISH, { 'font': 'en-main' }],
+    [Lang.HINDI, { 'font': 'hi-main' }]
 ])
 
 export class World {
@@ -94,7 +94,7 @@ export default class Config {
     currentFontName: string;
     curriculum: Map<string, Course> = new Map();
     curriculumLoaded: boolean = false;
-
+    currentGameLessonId: string;
     //currently used in story remove later
     gameLevelName: string;
     worksheet: number;
@@ -245,13 +245,44 @@ export default class Config {
 
     }
 
-    loadLessonJson(callback: Function) {
+    loadLessonJson(callback: Function, node: cc.Node = null, lessons: Array<Lesson> = null) {
         if (this.problem != 0) {
             callback(this._lessonData.rows[this.problem - 1]);
+        } else if (lessons != null) {
+            var allLessonData = []
+            let numLessons = lessons.length
+            lessons.forEach((les) => {
+                const jsonFile = this.course.id + '/' + les.id + '/res/' + les.id + '.json';
+                Util.load(jsonFile, (err, jsonAsset) => {
+                    const lessonData = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
+                    allLessonData = allLessonData.concat(lessonData.rows.filter((el) => {
+                        return el[0].toLowerCase().includes("quiz")
+                    })
+                    .map((el) => {
+                        el[2] = les.id
+                        return el
+                    }))
+                    numLessons--
+                })
+            })
+            const checkAllLoaded = () => {
+                if (numLessons <= 0) {
+                    cc.director.getScheduler().unschedule(checkAllLoaded, node);
+                    Util.shuffle(allLessonData)
+                    this._lessonData = { 'rows': allLessonData.slice(0, Math.min(10, allLessonData.length-1)) }
+                    this.totalProblems = this._lessonData.rows.length;
+                    this.problem = 1;
+                    if (callback != null) callback(this._lessonData.rows[this.problem - 1]);
+                }
+            }
+            cc.director.getScheduler().schedule(checkAllLoaded, node, 1);
         } else {
             const jsonFile = this.course.id + '/' + this.lesson.id + '/res/' + this.lesson.id + '.json';
             Util.load(jsonFile, (err, jsonAsset) => {
                 this._lessonData = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
+                this._lessonData.rows.forEach(el => {
+                    el[2] = this.lesson.id
+                });
                 this.totalProblems = this._lessonData.rows.length;
                 this.problem = 1;
                 if (callback != null) callback(this._lessonData.rows[this.problem - 1]);
