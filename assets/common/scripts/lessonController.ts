@@ -167,6 +167,7 @@ export default class LessonController extends Game {
             this.gameNode.y = 0;
         }
         this.setupEventHandlers();
+        Util.loadAccessoriesAndEquipAcc(this.friend.node.children[1], this.friend.node)
     }
 
     private problemEnd(replaceScene: boolean, forward: boolean = true) {
