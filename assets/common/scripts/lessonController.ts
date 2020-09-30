@@ -340,6 +340,7 @@ export default class LessonController extends Game {
         scorecardComp.text = config.lesson.name
         this.friend.node.removeFromParent()
         scorecardComp.friendPos.addChild(this.friend.node)
+        Friend.stopAudio()
         this.friend.playAnimation('joy', 1)
         this.node.addChild(scorecard)
     }

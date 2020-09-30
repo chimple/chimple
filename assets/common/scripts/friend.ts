@@ -13,51 +13,62 @@ export default class Friend extends cc.Component {
     @property(cc.Button)
     button: cc.Button = null
 
+    helpSpoken: Set<string> = new Set()
+    speakFullHelp: boolean = true
     isFace: boolean = false
     extraClip: cc.AudioClip = null
     private static helpAudioId: number = -1
 
     public playHappyAnimation(playTimes: number) {
-        this.playAnimation(this.isFace? 'face_happy':'happy', playTimes)
+        this.playAnimation(this.isFace ? 'face_happy' : 'happy', playTimes)
     }
 
     public playSadAnimation(playTimes: number) {
-        this.playAnimation(this.isFace? 'face_wrong':'sad', playTimes)
+        this.playAnimation(this.isFace ? 'face_wrong' : 'sad', playTimes)
     }
 
     public playSpeakAnimation(playTimes: number) {
-        this.playAnimation(this.isFace? 'face_eating':'talking', playTimes)
+        this.playAnimation(this.isFace ? 'face_eating' : 'talking', playTimes)
     }
 
     public playIdleAnimation(playTimes: number) {
-        this.playAnimation(this.isFace? 'face_touch':'idle', playTimes)
+        this.playAnimation(this.isFace ? 'face_touch' : 'idle', playTimes)
     }
 
     public playAnimation(animName: string, playTimes: number) {
         this.db.playAnimation(animName, playTimes)
     }
 
-    public speakHelp(callback: Function = null) {
-        const extraCallback = () => {
-            if (this.extraClip) {
-                this.speak(this.extraClip, callback)
-            } else {
-                if (callback) callback()
+    public speakHelp(callback: Function = null, auto: boolean = true) {
+        const config = Config.i
+        if ((auto || (this.speakFullHelp && this.extraClip)) && this.helpSpoken.has(config.game)) {
+            this.speakFullHelp = false
+            this.speakExtra(callback)
+        } else {
+            const extraCallback = () => {
+                this.speakExtra(callback)
+                // if (this.extraClip) {
+                //     this.speak(this.extraClip, callback)
+                // } else {
+                //     if (callback) callback()
+                // }
             }
+            cc.assetManager.loadBundle(Profile.getValue(LANGUAGE) + '-help', (err, bundle) => {
+                if (!err) {
+                    bundle.load(config.game, cc.AudioClip, (err, clip) => {
+                        if (!err) {
+                            this.helpSpoken.add(config.game)
+                            this.speakFullHelp = true
+                            this.speak(clip, extraCallback)
+                        } else {
+                            extraCallback()
+                        }
+                    })
+                } else {
+                    extraCallback()
+                }
+            })
         }
-        cc.assetManager.loadBundle(Profile.getValue(LANGUAGE) + '-help', (err, bundle) => {
-            if (!err) {
-                bundle.load(Config.i.game, cc.AudioClip, (err, clip) => {
-                    if (!err) {
-                        this.speak(clip, extraCallback)
-                    } else {
-                        extraCallback()
-                    }
-                })
-            } else {
-                extraCallback()
-            }
-        })
     }
 
     public speakExtra(callback: Function = null) {
@@ -73,6 +84,7 @@ export default class Friend extends cc.Component {
                 cc.audioEngine.setFinishCallback(Friend.helpAudioId, () => {
                     this.playIdleAnimation(1);
                     this.button.interactable = true
+                    Friend.helpAudioId = -1
                     if (callback) callback()
                 });
             } else {
@@ -91,7 +103,7 @@ export default class Friend extends cc.Component {
         }
         this.playSpeakAnimation(0)
         this.button.interactable = false
-        Util.speakGameAudioOrPhonics(audio, extraCallback)        
+        Util.speakGameAudioOrPhonics(audio, extraCallback)
     }
 
     public speakEquation(nums: Array<string>, callback: (index: number) => void) {
@@ -163,7 +175,7 @@ export default class Friend extends cc.Component {
     }
 
     onClick() {
-        this.speakHelp()
+        if(Friend.helpAudioId == -1) this.speakHelp(null, false)
     }
 
 
