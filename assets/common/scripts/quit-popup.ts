@@ -1,3 +1,4 @@
+import Friend from "./friend";
 import Config from "./lib/config";
 import { Util } from "./util";
 
@@ -5,24 +6,24 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class QuitPopup extends cc.Component {
-   
+
     @property(cc.Node)
     inputEventBlocker: cc.Node = null;
 
     @property(cc.Label)
     exitLabel: cc.Label = null;
 
-    @property(cc.Label )
+    @property(cc.Label)
     helpLabel: cc.Label = null;
 
-    onLoad(){
-       this.exitLabel.string = Util.i18NText('EXIT ?');
-       this.helpLabel.string = Util.i18NText('Help?');
+    onLoad() {
+        this.exitLabel.string = Util.i18NText('EXIT ?');
+        this.helpLabel.string = Util.i18NText('Help?');
     }
 
     onClickYesButton() {
         Config.i.popScene();
-        Util.stopHelpAudio();
+        Friend.stopAudio();
     }
 
     onClickNoButton() {

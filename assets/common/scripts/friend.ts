@@ -15,7 +15,7 @@ export default class Friend extends cc.Component {
 
     isFace: boolean = false
     extraClip: cc.AudioClip = null
-    helpAudioId: number = -1
+    private static helpAudioId: number = -1
 
     public playHappyAnimation(playTimes: number) {
         this.playAnimation(this.isFace? 'face_happy':'happy', playTimes)
@@ -66,11 +66,11 @@ export default class Friend extends cc.Component {
 
     public speak(clip: cc.AudioClip, callback: Function = null) {
         if (clip) {
-            this.helpAudioId = Util.play(clip, false);
-            if (this.helpAudioId != -1) {
+            Friend.helpAudioId = Util.play(clip, false);
+            if (Friend.helpAudioId != -1) {
                 this.playSpeakAnimation(0)
                 this.button.interactable = false
-                cc.audioEngine.setFinishCallback(this.helpAudioId, () => {
+                cc.audioEngine.setFinishCallback(Friend.helpAudioId, () => {
                     this.playIdleAnimation(1);
                     this.button.interactable = true
                     if (callback) callback()
@@ -118,13 +118,13 @@ export default class Friend extends cc.Component {
         Util.speakPhonicsOrLetter(audio, extraCallback)
     }
 
-    public stopAudio() {
+    public static stopAudio() {
         try {
-            cc.audioEngine.stopEffect(this.helpAudioId);
+            cc.audioEngine.stopEffect(Friend.helpAudioId);
         } catch (e) {
             cc.log(e);
         }
-        return this.helpAudioId;
+        return Friend.helpAudioId;
     }
 
     public stopAnimation(name: string) {
