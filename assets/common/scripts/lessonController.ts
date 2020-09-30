@@ -11,7 +11,6 @@ import { QUIZ_ANSWERED } from "./quiz-monitor";
 import { Util } from "./util";
 import UtilLogger from "./util-logger";
 import Scorecard from "../scorecard/scripts/scorecard";
-import BackButton from "./backButton";
 
 const { ccclass, property } = cc._decorator;
 
