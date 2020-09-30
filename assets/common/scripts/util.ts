@@ -639,6 +639,7 @@ export class Util {
     playAudio: boolean = true
   ) {
     const config = Config.getInstance();
+    const lessonNode = cc.Canvas.instance.node
     if (config.problem == 1 && from != null && to != null) {
       cc.resources.load("prefabs/help", function (err, prefab) {
         if (!err) {
@@ -654,7 +655,6 @@ export class Util {
       });
     }
     if (playAudio) {
-      const lessonNode = cc.Canvas.instance.node
       const lessonComp = lessonNode.getComponent(LessonController)
       lessonComp.friend.speakHelp(callBack)
     } else {
