@@ -24,7 +24,7 @@ export default class QuitPopup extends cc.Component {
 
     onClickYesButton() {
         Config.i.popScene();
-        new Friend().stopAudio;
+        Friend.stopAudio();
     }
 
     onClickNoButton() {
