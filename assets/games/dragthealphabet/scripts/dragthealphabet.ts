@@ -1,10 +1,11 @@
 import { Util } from "../../../common/scripts/util";
 import Config from "../../../common/scripts/lib/config";
+import Game from "../../../common/scripts/game";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class DragTheAlphabet extends cc.Component {
+export default class DragTheAlphabet extends Game {
 
     @property(cc.Prefab)
     iceCreamBg: cc.Prefab = null;
@@ -39,7 +40,7 @@ export default class DragTheAlphabet extends cc.Component {
     @property(cc.Node)
     friendNode: cc.Node = null
 
-    friend: dragonBones.ArmatureDisplay = null
+    // friend: dragonBones.ArmatureDisplay = null
     theme: string;
     solution: string;
     choices: string;
@@ -47,6 +48,7 @@ export default class DragTheAlphabet extends cc.Component {
     firstDrag: cc.Node = null;
 
     onLoad() {
+        this.friendPos.zIndex = 2
         cc.director.getCollisionManager().enabled = true;
         const [level, worksheet, problem, theme, solution, choices] = Config.i.data[0];
         this.theme = theme;
@@ -60,29 +62,24 @@ export default class DragTheAlphabet extends cc.Component {
 
         bg.getChildByName("drop").getChildByName("drop_collider").name = this.solution;
         this.createChoices();
-
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friend = friendNode.getComponent(dragonBones.ArmatureDisplay);
-            this.friendNode.addChild(friendNode)
-            this.friendNode.zIndex = 1;
-            let pos = -cc.winSize.width / 2 + 200;
-            this.friendNode.x = pos - 300;
-            new cc.Tween()
-                .target(this.friendNode)
-                .call(() => {
-                    this.friend.playAnimation("jumping2", 1)
-                })
-                .to(2, { x: pos }, { progress: null, easing: "sineOut" })
-                .call(() => {
-                    this.onTouchAudio(this.solution);
-                    this.friend.playAnimation("popup", 1);
-                })
-                .start();
-            this.friendNode.on('touchstart', () => {
+        let pos = -cc.winSize.width / 2 + 200;
+        this.friendPos.x = pos - 300;
+        new cc.Tween()
+            .target(this.friendPos)
+            .call(() => {
+                this.friend.playAnimation("jumping2", 1)
+            })
+            .to(2, { x: pos }, { progress: null, easing: "sineOut" })
+            .call(() => {
                 this.onTouchAudio(this.solution);
                 this.friend.playAnimation("popup", 1);
-            });
-        })
+            })
+            .start();
+        this.friendPos.on('touchstart', () => {
+            this.onTouchAudio(this.solution);
+            this.friend.playAnimation("popup", 1);
+        });
+
         Util.showHelp(this.firstDrag, bg.getChildByName("drop").getChildByName("drop_collider"));
 
     }
