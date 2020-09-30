@@ -35,11 +35,12 @@ export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI];
 
 export class LangConfig {
     font: string;
+    name: string;
 }
 
 export const LANG_CONFIGS = new Map<Lang, LangConfig>([
-    [Lang.ENGLISH, { 'font': 'en-main' }],
-    [Lang.HINDI, { 'font': 'hi-main' }]
+    [Lang.ENGLISH, { 'font': 'en-main', 'name': 'English' }],
+    [Lang.HINDI, { 'font': 'hi-main', 'name': 'Hindi' }]
 ])
 
 export class World {
