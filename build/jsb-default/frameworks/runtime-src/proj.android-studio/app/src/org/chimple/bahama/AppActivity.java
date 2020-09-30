@@ -101,6 +101,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
     private static final int CAMERA_CODE = 31;
     public static final int YOUTUBE_CODE = 32;
+    public static final int SEND_CODE = 33;
     private static String cameraResult = null;
     public static AppActivity app = null;
     private CountDownTimer repeatHandShakeTimer = null;
@@ -190,8 +191,18 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             }
         }
     }
-
-
+    
+    public static void shareText(final String text) {
+        app.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);  // instead of Intent.ACTION_SEND
+	            sendIntent.putExtra(Intent.EXTRA_TEXT, text);
+	            sendIntent.setType("text/plain");
+                app.startActivityForResult(sendIntent, SEND_CODE);
+            }
+        });
+    }
 
     public void initFirebaseMessageClient() {
         advertisingApiBackgroundExecutor.execute(new Runnable() {

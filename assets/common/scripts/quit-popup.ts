@@ -1,3 +1,5 @@
+import { PlayerAnimations } from "../../platform/scripts/player-animations";
+import Friend from "./friend";
 import Config from "./lib/config";
 import { Util } from "./util";
 
@@ -22,7 +24,7 @@ export default class QuitPopup extends cc.Component {
 
     onClickYesButton() {
         Config.i.popScene();
-        Util.stopHelpAudio();
+        new Friend().stopAudio;
     }
 
     onClickNoButton() {
