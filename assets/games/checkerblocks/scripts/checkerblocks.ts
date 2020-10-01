@@ -2,6 +2,7 @@ import Config from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
 import Drag from "../../../common/scripts/drag";
+import Game from "../../../common/scripts/game";
 
 const { ccclass, property } = cc._decorator;
 
@@ -20,7 +21,7 @@ const colors: Array<string> = [
 
 
 @ccclass
-export default class CheckerBlocks extends cc.Component {
+export default class CheckerBlocks extends Game {
     @property(cc.Prefab)
     dragPrefab: cc.Prefab = null
 

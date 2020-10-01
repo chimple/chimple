@@ -1,9 +1,9 @@
 import UtilLogger from "../util-logger";
-import Config, {ALL_LANGS} from "./config";
-import {Queue} from "../../../queue";
-import {CURRENT_STUDENT_ID} from "./constants";
-import {Course} from "./convert";
-import {Util} from "../util";
+import Config, { ALL_LANGS } from "./config";
+import { Queue } from "../../../queue";
+import { CURRENT_STUDENT_ID } from "./constants";
+import { Course } from "./convert";
+import { Util } from "../util";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -271,15 +271,17 @@ export class User {
             this._lessonProgressMap.set(lessonId, new LessonProgressClass(score));
         }
 
-        // open the next lesson
-        const lessons = Config.i.chapter.lessons
-        const lessonIndex = lessons.findIndex((les) => {
-            return les.id == lessonId
-        })
-        if (lessons.length > lessonIndex + 1) {
-            const nextLesson = lessons[lessonIndex + 1]
-            if (!this._lessonProgressMap.has(nextLesson.id)) {
-                this._lessonProgressMap.set(nextLesson.id, new LessonProgressClass(-1));
+        if (Config.i.lesson.type != 'exam' || score >= 70) {
+            // open the next lesson
+            const lessons = Config.i.chapter.lessons
+            const lessonIndex = lessons.findIndex((les) => {
+                return les.id == lessonId
+            })
+            if (lessons.length > lessonIndex + 1) {
+                const nextLesson = lessons[lessonIndex + 1]
+                if (!this._lessonProgressMap.has(nextLesson.id)) {
+                    this._lessonProgressMap.set(nextLesson.id, new LessonProgressClass(-1));
+                }
             }
         }
 
@@ -572,8 +574,8 @@ export default class Profile {
 
     static async teacherPostLoginActivity(objectId: string) {
         const currentUser: User = User.createUserOrFindExistingUser({
-                id: objectId
-            }
+            id: objectId
+        }
         );
         User.setCurrentUser(currentUser);
     }

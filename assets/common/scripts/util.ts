@@ -293,7 +293,7 @@ export class Util {
   public static loadGameSound(path: string, callBack: Function) {
     const filePath = path.startsWith(Config.dir)
       ? path
-      : Config.dir + `${Config.i.lesson.id}/res/${path}`;
+      : Config.dir + `${Config.i.currentGameLessonId}/res/${path}`;
     const fullFilePath =
       filePath + (path.endsWith(".mp3") || path.endsWith(".m4a") ? "" : ".mp3");
     Util.load(
@@ -321,7 +321,7 @@ export class Util {
       path.endsWith(".png") || path.endsWith(".jpg") ? path : path + ".png";
     const fullFilePath = path.startsWith(Config.dir)
       ? path
-      : Config.dir + `${Config.i.lesson.id}/res/${path}`;
+      : Config.dir + `${Config.i.currentGameLessonId}/res/${path}`;
     Util.load(
       fullFilePath,
       (err, texture) => {
@@ -704,7 +704,7 @@ export class Util {
       "prefabs/friend/" + User.getCurrentUser().currentCharacter,
       (err, prefab) => {
         if (err != null) cc.log(err);
-        let friendNode = prefab != null ? cc.instantiate(prefab) : null;
+        const friendNode = prefab != null ? cc.instantiate(prefab) : null;
         if (callback != null) callback(friendNode);
       }
     );
