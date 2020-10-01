@@ -36,11 +36,14 @@ export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI];
 export class LangConfig {
     font: string;
     name: string;
+    displayName: string;
+    symbol: string;
+    colorCode: string;
 }
 
 export const LANG_CONFIGS = new Map<Lang, LangConfig>([
-    [Lang.ENGLISH, { 'font': 'en-main', 'name': 'English' }],
-    [Lang.HINDI, { 'font': 'hi-main', 'name': 'Hindi' }]
+    [Lang.ENGLISH, { 'font': 'en-main', 'name': 'English', 'displayName': 'english', 'symbol': 'A', 'colorCode': '#FFBC00' }],
+    [Lang.HINDI, { 'font': 'hi-main', 'name': 'Hindi', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7' }]
 ])
 
 export class World {
@@ -270,7 +273,7 @@ export default class Config {
                 if (numLessons <= 0) {
                     cc.director.getScheduler().unschedule(checkAllLoaded, node);
                     Util.shuffle(allLessonData)
-                    this._lessonData = { 'rows': allLessonData.slice(0, Math.min(10, allLessonData.length-1)) }
+                    this._lessonData = { 'rows': allLessonData.slice(0, Math.min(10, allLessonData.length - 1)) }
                     this.totalProblems = this._lessonData.rows.length;
                     this.problem = 1;
                     if (callback != null) callback(this._lessonData.rows[this.problem - 1]);

@@ -1,7 +1,7 @@
 import Config from '../../../common/scripts/lib/config'
 import Profile, { User } from '../../../common/scripts/lib/profile';
 import { LANDING_SCENE } from "../../../chimple";
-import {CURRENT_STUDENT_ID, LOGGED_IN_USER} from "../../../common/scripts/lib/constants";
+import { CURRENT_STUDENT_ID, LOGGED_IN_USER } from "../../../common/scripts/lib/constants";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -26,10 +26,10 @@ export default class Rewards extends cc.Component {
     }
 
     checkCharacterLockStatus() {
-        let numberOfChildren = this.layoutHolder.children[0].children[0].children[0].childrenCount
+        let numberOfChildren = this.layoutHolder.children[0].children[0].children[0].children[0].childrenCount
         for (let i = 0; i < numberOfChildren; i++) {
-            let eachElement = this.layoutHolder.children[0].children[0].children[0].children[i];
-            let elementId = eachElement.getChildByName("id").getComponent(cc.Label).string;
+            let eachElement = this.layoutHolder.children[0].children[0].children[0].children[0].children[i];
+            let elementId = eachElement.name;
             if (User.getCurrentUser().unlockedRewards[`${this.saveConstants[0]}-${elementId}`] === 0 || User.getCurrentUser().unlockedRewards[`${this.saveConstants[0]}-${elementId}`] === undefined) {
                 // make lock texture active
                 eachElement.getChildByName("lock").active = true
@@ -44,11 +44,10 @@ export default class Rewards extends cc.Component {
     }
 
     checkBgLockStatus() {
-        let numberOfChildren = this.layoutHolder.children[1].children[0].children[0].childrenCount
-
+        let numberOfChildren = this.layoutHolder.children[1].children[0].children[0].children[0].childrenCount
         for (let i = 0; i < numberOfChildren; i++) {
-            let eachElement = this.layoutHolder.children[1].children[0].children[0].children[i];
-            let elementId = eachElement.getChildByName("id").getComponent(cc.Label).string;
+            let eachElement = this.layoutHolder.children[1].children[0].children[0].children[0].children[i];
+            let elementId = eachElement.name;
             if (User.getCurrentUser().unlockedRewards[`${this.saveConstants[1]}-${elementId}`] === 0 || User.getCurrentUser().unlockedRewards[`${this.saveConstants[1]}-${elementId}`] === undefined) {
                 // make lock texture active
                 eachElement.getComponent(cc.Button).interactable = false
