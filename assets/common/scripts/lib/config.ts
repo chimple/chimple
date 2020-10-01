@@ -35,15 +35,14 @@ export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI];
 
 export class LangConfig {
     font: string;
-    name: string;
     displayName: string;
     symbol: string;
     colorCode: string;
 }
 
 export const LANG_CONFIGS = new Map<Lang, LangConfig>([
-    [Lang.ENGLISH, { 'font': 'en-main', 'name': 'English', 'displayName': 'english', 'symbol': 'A', 'colorCode': '#FFBC00' }],
-    [Lang.HINDI, { 'font': 'hi-main', 'name': 'Hindi', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7' }]
+    [Lang.ENGLISH, { 'font': 'en-main', 'displayName': 'English', 'symbol': 'A', 'colorCode': '#FFBC00' }],
+    [Lang.HINDI, { 'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7' }]
 ])
 
 export class World {
