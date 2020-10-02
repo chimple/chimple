@@ -49,6 +49,8 @@ export default class TapRise extends cc.Component {
   getN: string;
   auther: number = 1;
   friendName: string;
+
+  @catchError()
   onLoad() {
     let fieldArr = Config.getInstance().data[0]
       .toString()
@@ -70,6 +72,8 @@ export default class TapRise extends cc.Component {
     Util.showHelp(this.firstDrag, this.firstDrop)
 
   } //end of onLoad() method
+
+  @catchError()
   generateObj(indexx: number) {
     Util.loadFriend((friendNode: cc.Node) => {
       this.friendName = friendNode.name
@@ -101,11 +105,13 @@ export default class TapRise extends cc.Component {
 
 
   }
+
+  @catchError()
   getRandomArbitrary(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
   }
 
-
+  @catchError()
   onTouchStart(touch: cc.Touch) {
     //@ts-ignore
     let touchObj = touch.currentTarget
@@ -181,6 +187,8 @@ export default class TapRise extends cc.Component {
       }
     }
   }
+  
+  @catchError()
   onTouchEnd(touch: cc.Touch) {
     //@ts-ignore
     let touchEndObj = touch.currentTarget
@@ -306,5 +314,4 @@ export default class TapRise extends cc.Component {
       }
     }
   }
-}
 }
