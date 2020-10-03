@@ -1,12 +1,10 @@
 import { ADD_TEACHER, TEACHER_ID_KEY, TEACHER_NAME_KEY } from "../../../chimple";
+import Header from "../../../common/scripts/header";
 import Config from "../../../common/scripts/lib/config";
-import { Course } from "../../../common/scripts/lib/convert";
 import { User } from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
 import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
-import { Util } from "../../../common/scripts/util";
 import CourseContent from "./courseContent";
-import HeaderButton from "./headerButton";
 import StartContent from "./startContent";
 
 const { ccclass, property } = cc._decorator;
@@ -26,10 +24,10 @@ export default class Start extends cc.Component {
     header: cc.Node = null
 
     @property(cc.Prefab)
-    headerButtonPrefab: cc.Prefab = null
+    profilePrefab: cc.Prefab = null
 
-    @property(cc.Node)
-    homeButton: cc.Node = null
+    @property(cc.Prefab)
+    headerPrefab: cc.Prefab = null
 
     @property(cc.Node)
     loading: cc.Node = null;
@@ -40,9 +38,6 @@ export default class Start extends cc.Component {
     @property(cc.Node)
     bgHolder: cc.Node = null;
 
-    selectedHeaderButton: HeaderButton
-    static homeSelected: boolean = true
-
     onLoad() {
         this.bgHolder.removeAllChildren();
         if (!!User.getCurrentUser().currentBg) {
@@ -50,50 +45,18 @@ export default class Start extends cc.Component {
         } else {
             this.setBackground("forest");
         }
-
         this.loading.getComponent(Loading).allowCancel = false
         const config = Config.i
-        let index = 0
-
-        User.getCurrentUser().courseProgressMap.forEach(() => {
-            const headerButton = cc.instantiate(this.headerButtonPrefab)
-            const headerButtonComp = headerButton.getComponent(HeaderButton)
-            headerButtonComp.label.string = ''
-            headerButtonComp.sprite.spriteFrame = null
-            headerButtonComp.selected.node.active = false
-            this.header.insertChild(headerButton, ++index)
-        })
-        this.selectedHeaderButton = this.homeButton.getComponent(HeaderButton)
-        this.selectedHeaderButton.button.node.on('click', () => {
-            this.onHomeClick()
-        })
-        this.selectedHeaderButton.label.string = Util.i18NText('Home')
-        this.header.width = cc.winSize.width
-        this.header.getComponent(cc.Layout).spacingX = Math.max(0, cc.winSize.width / (index + 2) - this.homeButton.width)
-        index = 0
-        config.loadCourseJsons(this.node, () => {
-            config.curriculum.forEach((course: Course, name: string) => {
-                const headerButton = this.header.children[++index]
-                const headerButtonComp = headerButton.getComponent(HeaderButton)
-                headerButtonComp.label.string = name
-                Util.load(name + '/course/res/icons/' + name + '.png', (err: Error, texture) => {
-                    if (!err) {
-                        headerButtonComp.sprite.spriteFrame = new cc.SpriteFrame(texture);
-                    } else {
-                        this.loading.getComponent(Loading).addMessage(err.message, false)
-                    }
-                })
-                headerButtonComp.button.node.on('click', () => {
-                    this.selectHeaderButton(headerButtonComp);
-                    config.course = course;
-                    this.content.removeAllChildren();
-                    this.onCourseClick();
-                })
-                if (!Start.homeSelected && config.course && config.course.id == course.id) {
-                    this.selectHeaderButton(headerButtonComp);
-                }
-            })
-            if (Start.homeSelected) {
+        config.loadCourseJsons(User.getCurrentUser(), this.node, () => {
+            const headerNode = cc.instantiate(this.headerPrefab)
+            const headerComp = headerNode.getComponent(Header)
+            headerComp.onCourseClick = this.onCourseClick.bind(this)
+            headerComp.onHomeClick = this.onHomeClick.bind(this)
+            headerComp.onRightClick = this.onProfileClick.bind(this)
+            headerComp.rightPos.addChild(cc.instantiate(this.profilePrefab))
+            headerComp.user = User.getCurrentUser()
+            this.header.addChild(headerNode)
+            if (Header.homeSelected) {
                 this.onHomeClick()
             } else {
                 this.onCourseClick()
@@ -158,7 +121,7 @@ export default class Start extends cc.Component {
     }
 
     private onCourseClick() {
-        Start.homeSelected = false
+        this.content.removeAllChildren();
         const courseContent = cc.instantiate(this.courseContentPrefab);
         const courseContentComp = courseContent.getComponent(CourseContent);
         courseContentComp.loading = this.loading;
@@ -166,13 +129,7 @@ export default class Start extends cc.Component {
         this.content.addChild(courseContent);
     }
 
-    onHomeClick() {
-        Start.homeSelected = true
-        const config = Config.i
-        config.course = null
-        config.chapter = null
-        config.lesson = null
-        this.selectHeaderButton(this.homeButton.getComponent(HeaderButton))
+    private onHomeClick() {
         this.content.removeAllChildren()
         const startContent = cc.instantiate(this.startContentPrefab)
         const startContentComp = startContent.getComponent(StartContent)
@@ -184,9 +141,4 @@ export default class Start extends cc.Component {
         Config.i.pushScene('menu/rewards/scenes/rewards', 'menu')
     }
 
-    selectHeaderButton(newButton: HeaderButton) {
-        if (this.selectedHeaderButton != null) this.selectedHeaderButton.selected.node.active = false
-        newButton.selected.node.active = true
-        this.selectedHeaderButton = newButton
-    }
 }

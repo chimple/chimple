@@ -372,11 +372,10 @@ export default class Config {
         }, true);
     }
 
-    loadCourseJsons(node: cc.Node, callBack: Function) {
+    loadCourseJsons(user: User, node: cc.Node, callBack: Function) {
         if (this.curriculumLoaded) {
             callBack()
         } else {
-            const user = User.getCurrentUser();
             let numCourses = user.courseProgressMap.size;
             user.courseProgressMap.forEach((courseProgress, name) => {
                 cc.assetManager.loadBundle(name, (err, bundle) => {

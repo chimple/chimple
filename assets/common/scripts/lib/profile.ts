@@ -45,17 +45,22 @@ export class CourseProgressClass implements CourseProgress {
 }
 
 export interface LessonProgress {
+    achievement: number;
     score: number;
     quizAttempts: number;
+    date: Date;
 }
 
 export class LessonProgressClass implements LessonProgress {
+    achievement: number;
     score: number;
     quizAttempts: number;
+    date: Date;
 
     constructor(score: number, quizAttempts: number = 0) {
         this.score = score;
         this.quizAttempts = quizAttempts;
+        this.date = new Date()
     }
 }
 
@@ -397,7 +402,9 @@ export class User {
         }
         const lessonProgressMap = new Map<string, LessonProgress>();
         for (const key in data.lessonProgressMap) {
-            lessonProgressMap.set(key, data.lessonProgressMap[key]);
+            const lp = data.lessonProgressMap[key]
+            lp.date = new Date(lp.date)
+            lessonProgressMap.set(key, lp);
         }
         let user = new User(
             data.id,
