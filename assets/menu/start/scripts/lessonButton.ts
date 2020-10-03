@@ -68,8 +68,9 @@ export default class LessonButton extends cc.Component {
                 this.loading.getComponent(Loading).allowCancel = true
                 this.loading.active = true
                 LessonController.preloadLesson(this.node, (err: Error) => {
+                    err = new Error()
                     if(err) {
-                        this.loading.getComponent(Loading).addMessage(err.message, true, true)
+                        this.loading.getComponent(Loading).addMessage(Util.i18NText('Error downloading content. Please connect to internet and try again'), true, true)
                     } else {
                         config.pushScene('common/scenes/lessonController')
                     }
