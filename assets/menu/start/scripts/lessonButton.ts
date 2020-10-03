@@ -26,13 +26,25 @@ export default class LessonButton extends cc.Component {
     courseSprite: cc.Sprite
 
     @property(cc.Sprite)
-    completedSprite: cc.Sprite
-
-    @property(cc.Sprite)
     downloadSprite: cc.Sprite
 
     @property(cc.Material)
     grayMaterial: cc.Material
+
+    @property(cc.Sprite)
+    star1: cc.Sprite
+
+    @property(cc.Sprite)
+    star2: cc.Sprite
+
+    @property(cc.Sprite)
+    star3: cc.Sprite
+
+    @property(cc.SpriteFrame)
+    grayStar: cc.SpriteFrame
+
+    @property(cc.SpriteFrame)
+    goldStar: cc.SpriteFrame
 
     course: Course
     chapter: Chapter
@@ -76,9 +88,12 @@ export default class LessonButton extends cc.Component {
                 this.sprite.setMaterial(0, this.grayMaterial)
             }
             const lessonProgress = User.getCurrentUser().lessonProgressMap.get(this.lesson.id)
-            if (!lessonProgress || lessonProgress.score < 0) {
-                this.completedSprite.node.active = false
+            if(lessonProgress && lessonProgress.score >= 0) {
+                this.star1.spriteFrame = lessonProgress.score > 25 ? this.goldStar : this.grayStar
+                this.star2.spriteFrame = lessonProgress.score > 50 ? this.goldStar : this.grayStar
+                this.star3.spriteFrame = lessonProgress.score > 75 ? this.goldStar : this.grayStar    
             }
+
         }
     }
 }

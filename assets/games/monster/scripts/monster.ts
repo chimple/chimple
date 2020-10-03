@@ -90,6 +90,7 @@ export default class Monster extends Game {
         this.node.on('touchmove', this.onTouchMove, this)
         this.node.on('monsterMatch', () => {
             if(++this.numStickers >= MIN_STICKERS_FOR_CAMERA) this.cameraButton.interactable = true
+            this.node.emit('correct')
         })
         this.cameraButton.interactable = false
         const [level, worksheet, problem, letter, heightAdjust, yAdjust] = Config.getInstance().data[0]
