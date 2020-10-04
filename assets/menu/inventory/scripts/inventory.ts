@@ -1,5 +1,5 @@
 import { User } from "../../../common/scripts/lib/profile";
-import { INVENTORY_DATA, INVENTORY_SAVE_CONSTANTS } from "../../../common/scripts/util";
+import { INVENTORY_DATA, INVENTORY_SAVE_CONSTANTS, Util } from "../../../common/scripts/util";
 import Item from "./item";
 
 const { ccclass, property } = cc._decorator;
@@ -21,21 +21,6 @@ export default class Inventory extends cc.Component {
 
     currentScrollValue: number = 1000
 
-    @property(dragonBones.ArmatureDisplay)
-    hatArmature: dragonBones.ArmatureDisplay = null;
-
-    @property(dragonBones.ArmatureDisplay)
-    handArmature: dragonBones.ArmatureDisplay = null;
-
-    @property(dragonBones.ArmatureDisplay)
-    glassArmature: dragonBones.ArmatureDisplay = null;
-
-    @property(dragonBones.ArmatureDisplay)
-    shoeArmature: dragonBones.ArmatureDisplay = null;
-
-    @property(dragonBones.ArmatureDisplay)
-    neckArmature: dragonBones.ArmatureDisplay = null;
-
     lastSelectedButton: number = 0;
     characterName: string = "bear"
 
@@ -43,60 +28,19 @@ export default class Inventory extends cc.Component {
     animationNames = ["hat", "hand", "glass", "leg", "neck"]
     onLoad() {
         this.buildIndividualItems(INVENTORY_DATA[0])
-
-        // load all hats here
-        for (let i = 1; i < INVENTORY_DATA[0].length; i++) {
-            this.hatArmature.armatureName = INVENTORY_DATA[0][i].split("-")[1];
-        }
-        // load all hand here
-        for (let i = 1; i < INVENTORY_DATA[1].length; i++) {
-            this.handArmature.armatureName = INVENTORY_DATA[1][i].split("-")[1];
-        }
-
-        // load all glasses here
-        for (let i = 1; i < INVENTORY_DATA[2].length; i++) {
-            this.glassArmature.armatureName = INVENTORY_DATA[2][i].split("-")[1];
-        }
-
-        // load all shoes here
-        for (let i = 1; i < INVENTORY_DATA[3].length; i++) {
-            this.shoeArmature.armatureName = INVENTORY_DATA[3][i].split("-")[1];
-        }
-
-        // load all neck here
-        for (let i = 1; i < INVENTORY_DATA[4].length; i++) {
-            this.neckArmature.armatureName = INVENTORY_DATA[4][i].split("-")[1];
-        }
-
         try {
             this.characterName = User.getCurrentUser().currentCharacter;
         } catch (err) {
             console.log("error reading character name");
         }
 
-        this.node.getChildByName(`${this.characterName}_dragon`).active = true;
-        try {
-            this.loadSavedCharacterAcc()
-        } catch (err) {
-            console.log("error loading inventory");
-        }
-        // for testing only
-        // Profile.createUser("AK", Language.ENGLISH, "", 12, Gender.BOY)
-    }
-
-    loadSavedCharacterAcc() {
-        INVENTORY_SAVE_CONSTANTS.forEach((key) => {
-            console.log(" slotname ", key);
-            let characterAndSlot = this.characterName.concat("-", key)
-            var newHatName = User.getCurrentUser().inventory[characterAndSlot]
-            let factory = dragonBones.CCFactory.getInstance();
-            let _armature = this.node.getChildByName(`${this.characterName}_dragon`).getComponent(dragonBones.ArmatureDisplay).armature();
-            if (newHatName != undefined) {
-                _armature.getSlot(key).childArmature = factory.buildArmature(newHatName);
-                if (key === "left_shoe") {
-                    _armature.getSlot("right_shoe").childArmature = factory.buildArmature(newHatName);
-                }
-            }
+        Util.loadFriend((friendNode: cc.Node) => {
+            friendNode.name = `${User.getCurrentUser().currentCharacter}_dragon`
+            friendNode.x = -270
+            friendNode.y = -212
+            console.log(this.node, " hello ");
+            this.node.addChild(friendNode)
+            Util.loadAccessoriesAndEquipAcc(friendNode.children[1], friendNode)
         })
     }
 
@@ -155,9 +99,9 @@ export default class Inventory extends cc.Component {
                     // update the armature
                     var newHatName = armature_name;
                     let factory = dragonBones.CCFactory.getInstance();
-                    let _armature = this.node.getChildByName(`${this.characterName}_dragon`).getComponent(dragonBones.ArmatureDisplay).armature();
+                    let _armature = this.node.getChildByName(`${this.characterName}_dragon`).children[0].getComponent(dragonBones.ArmatureDisplay).armature();
                     _armature.getSlot(slot_name).childArmature = factory.buildArmature(newHatName);
-                    this.node.getChildByName(`${this.characterName}_dragon`).getComponent(dragonBones.ArmatureDisplay).playAnimation(this.animationNames[this.lastSelectedButton], 1)
+                    this.node.getChildByName(`${this.characterName}_dragon`).children[0].getComponent(dragonBones.ArmatureDisplay).playAnimation(this.animationNames[this.lastSelectedButton], 1)
                     if (slot_name === "left_shoe") {
                         _armature.getSlot("right_shoe").childArmature = factory.buildArmature(newHatName);
                     }
