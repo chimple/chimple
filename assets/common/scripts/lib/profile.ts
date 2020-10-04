@@ -45,10 +45,10 @@ export class CourseProgressClass implements CourseProgress {
 }
 
 export interface LessonProgress {
-    achievement: number;
+    achievement?: number;
     score: number;
-    quizAttempts: number;
-    date: Date;
+    quizAttempts?: number;
+    date?: Date;
 }
 
 export class LessonProgressClass implements LessonProgress {
