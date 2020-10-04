@@ -208,7 +208,14 @@ export default class Card extends cc.Component {
                 this.node.parent.addChild(blockNode)
                 blockNode.opacity = 224
                 blockNode.zIndex = 1
-                this.node.parent.parent.emit('correct');
+                new cc.Tween().target(LessonController.getFriend().node)
+                    .to(0.25, {y: 0}, { progress: null, easing: 'sineOut' })
+                    .call(() => {
+                        this.node.parent.parent.emit('correct');
+                    })
+                    .delay(1)
+                    .to(0.25, {y: -600}, { progress: null, easing: 'sineOut' })
+                    .start()
                 this.unregisterTouch()
                 this.unSparkle();
                 new cc.Tween().target(this.node)
@@ -255,7 +262,14 @@ export default class Card extends cc.Component {
                     })
                     .start();
             } else {
-                this.node.parent.parent.emit('wrong');
+                new cc.Tween().target(LessonController.getFriend().node)
+                    .to(0.25, {y: 0}, { progress: null, easing: 'sineOut' })
+                    .call(() => {
+                        this.node.parent.parent.emit('wrong');
+                    })
+                    .delay(1)
+                    .to(0.25, {y: -600}, { progress: null, easing: 'sineOut' })
+                    .start()
                 new cc.Tween().target(this.node)
                     .to(0.25, {
                         scale: 1, position: this.node.position.clampf(
