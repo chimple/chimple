@@ -141,6 +141,20 @@ export default class AnswerBlock extends CommonBlock {
     this.node.setPosition(this.originalPosition.x, this.originalPosition.y);
     renderParams.parentNode.addChild(this.node);
   }
+  disableNodeTouch(){
+    this.node.off(TouchEvents.TOUCH_START, this.onTouchStart, this);
+    this.node.off(TouchEvents.TOUCH_END, this.onTouchEnd, this);
+    this.node.off(TouchEvents.TOUCH_MOVE, this.onTouchMove, this);
+    this.node.off(TouchEvents.TOUCH_CANCEL, this.onTouchEnd, this);
+
+  }
+  enableNodeTouch(){
+    this.node.on(TouchEvents.TOUCH_START, this.onTouchStart, this);
+    this.node.on(TouchEvents.TOUCH_END, this.onTouchEnd, this);
+    this.node.on(TouchEvents.TOUCH_MOVE, this.onTouchMove, this);
+    this.node.on(TouchEvents.TOUCH_CANCEL, this.onTouchEnd, this);
+  }
+  
 
   @catchError()
   onTouchStart(touch: cc.Touch) {
@@ -193,16 +207,32 @@ export default class AnswerBlock extends CommonBlock {
 
   @catchError()
   onTouchMove(touch: cc.Touch) {
+    console.log(touch)
     this.moved = true;
     const delta = new cc.Vec2(
       (1 / MATRIX_CONTAINER_SCALE) * touch.getDelta().x,
       (1 / MATRIX_CONTAINER_SCALE) * touch.getDelta().y
     );
+    if(Math.abs(this.node.x)<cc.winSize.width/2.3 && this.node.y<cc.winSize.height/2.3){
     this.node.setPosition(
       this.node.position.add(
         cc.v2(this._isRTL ? delta.neg().x : delta.x, delta.y)
       )
     );
+    }
+    else{
+      this.moveToPos(this.originalPosition)
+      .call(() => {
+        if (this.moved) {
+          this.moved = false;
+          this.disableNodeTouch();
+        }
+      })
+      .call(()=>{
+        this.enableNodeTouch();
+      })
+      .start();
+    }
 
     // this.node.setPosition(this.node.getParent().convertToNodeSpaceAR(touch.getLocation()));
     if (this.node.getBoundingBox().intersects(this.matchRect)) {
