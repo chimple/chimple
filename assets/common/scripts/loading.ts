@@ -36,12 +36,14 @@ export default class Loading extends cc.Component {
     }
 
     private showLoading() {
-        this.block.color = cc.Color.TRANSPARENT
+        this.block.opacity = 0
         this.animation.active = false
         this.messageLabel.string = ''
+        this.messageLabel.node.active = false
         this.cancelBtn.active = false
         this.scheduleOnce(() => {
             this.cancelBtn.active = this.allowCancel.valueOf()
+            this.messageLabel.node.active = true
             this.block.color = cc.Color.GRAY;
             this.block.opacity = 128
             if (this.animate) {
