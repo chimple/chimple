@@ -71,19 +71,19 @@ export default class QuestionBlock extends CommonBlock {
 
     @catchError()
     speak() {
-        LessonController.getFriend().speakGameAudioOrPhonics(this.contentText, () => {})
-        // try {
-        //     if (!!this._sound) {
-        //         this._soundID = Util.play(this._sound, false);
-        //         if (this._soundID === -1) {
-        //             Util.speakGameAudioOrPhonics(this.contentText, () => {})
-        //         }
-        //     } else {
-        //         Util.speakGameAudioOrPhonics(this.contentText, () => {})
-        //     }
-        // } catch (e) {
+        // LessonController.getFriend().speakGameAudioOrPhonics(this.contentText, () => {})
+        try {
+            if (!!this._sound) {
+                this._soundID = Util.play(this._sound, false);
+                if (this._soundID === -1) {
+                    LessonController.getFriend().speakGameAudioOrPhonics(this.contentText, () => {})
+                }
+            } else {
+                LessonController.getFriend().speakGameAudioOrPhonics(this.contentText, () => {})
+            }
+        } catch (e) {
 
-        // }
+        }
     }
 
     onTouchEnd(touch: cc.Touch) {
