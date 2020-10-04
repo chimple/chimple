@@ -1,6 +1,6 @@
 {
   "ver": "2.3.5",
-  "uuid": "6f73d617-21f7-48d7-9764-6aa8cdc7389f",
+  "uuid": "3b6edd86-af89-443a-b751-cc2521cd0d5b",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -11,19 +11,19 @@
   "height": 108,
   "platformSettings": {},
   "subMetas": {
-    "mountain_icon": {
+    "background-camp": {
       "ver": "1.0.4",
-      "uuid": "935b6f40-1e55-4b2f-bf18-95e59258a406",
-      "rawTextureUuid": "6f73d617-21f7-48d7-9764-6aa8cdc7389f",
+      "uuid": "14dd18e4-4556-4247-88d3-9647023e52d3",
+      "rawTextureUuid": "3b6edd86-af89-443a-b751-cc2521cd0d5b",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
       "offsetX": 0,
-      "offsetY": 0,
+      "offsetY": 0.5,
       "trimX": 0,
       "trimY": 0,
       "width": 121,
-      "height": 108,
+      "height": 107,
       "rawWidth": 121,
       "rawHeight": 108,
       "borderTop": 0,

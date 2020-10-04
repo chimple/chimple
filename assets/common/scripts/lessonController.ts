@@ -2,7 +2,7 @@ import { Queue } from "../../queue";
 import Friend from "./friend";
 import Game from "./game";
 import Config, { DEFAULT_FONT } from "./lib/config";
-import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID } from "./lib/constants";
+import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID, EXAM } from "./lib/constants";
 import { Lesson } from "./lib/convert";
 import { GAME_CONFIGS } from "./lib/gameConfigs";
 import { User } from "./lib/profile";
@@ -80,14 +80,14 @@ export default class LessonController extends Game {
     static preloadLesson(node: cc.Node, callback: Function) {
         const config = Config.i;
         config.problem = 0;
-        if (config.lesson.type == 'exam') {
+        if (config.lesson.type == EXAM) {
             const lessons: Array<Lesson> = []
             var found = false
             config.chapter.lessons.forEach((les) => {
                 if (!found) {
-                    if (les.type != 'exam') {
+                    if (les.type != EXAM) {
                         lessons.push(les)
-                    } else if (les.type == 'exam') {
+                    } else if (les.type == EXAM) {
                         if (les.id == config.lesson.id) {
                             found = true
                         } else {
@@ -179,6 +179,7 @@ export default class LessonController extends Game {
         this.problemSessionId = User.createUUID();
         if (replaceScene) {
             LessonController.preloadGame((prefab: cc.Prefab) => {
+                this.friend.extraClip = null
                 this.friend.node.removeFromParent()
                 this.friend.isFace = false
                 this.startGame(prefab);
@@ -288,7 +289,7 @@ export default class LessonController extends Game {
             ? this.quizScore / this.totalQuizzes * 70 + this.rightMoves / (this.rightMoves + this.wrongMoves) * 30
             : this.rightMoves / (this.rightMoves + this.wrongMoves) * 100);
         const user = User.getCurrentUser();
-        user.updateLessonProgress(config.lesson.id, score);
+        const reward = user.updateLessonProgress(config.lesson.id, score);
         let finishedLessons = 0;
         let percentageComplete = 0;
         if (config.chapter && config.chapter.lessons &&
@@ -338,8 +339,9 @@ export default class LessonController extends Game {
         const scorecardComp = scorecard.getComponent(Scorecard)
         scorecardComp.score = score
         scorecardComp.text = config.lesson.name
+        scorecardComp.reward = reward
         this.friend.node.removeFromParent()
-        scorecardComp.friendPos.addChild(this.friend.node)
+        // scorecardComp.friendPos.addChild(this.friend.node)
         Friend.stopAudio()
         this.friend.playAnimation('joy', 1)
         this.node.addChild(scorecard)

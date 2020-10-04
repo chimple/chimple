@@ -6,6 +6,7 @@ import Loading from "../../../common/scripts/loading";
 import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
 import CourseContent from "./courseContent";
 import StartContent from "./startContent";
+import { Util } from "../../../common/scripts/util";
 
 const { ccclass, property } = cc._decorator;
 
@@ -39,6 +40,9 @@ export default class Start extends cc.Component {
     bgHolder: cc.Node = null;
 
     onLoad() {
+        for (let index = 0; index < 2; index++) {
+            cc.log(Util.unlockNextReward())        
+        }
         this.bgHolder.removeAllChildren();
         if (!!User.getCurrentUser().currentBg) {
             this.setBackground(User.getCurrentUser().currentBg);

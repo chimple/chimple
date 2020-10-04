@@ -1,9 +1,9 @@
 import UtilLogger from "../util-logger";
 import Config, { ALL_LANGS } from "./config";
 import { Queue } from "../../../queue";
-import { CURRENT_STUDENT_ID } from "./constants";
+import { CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
 import { Course } from "./convert";
-import { Util } from "../util";
+import { Util, REWARD_TYPES } from "../util";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -267,16 +267,32 @@ export class User {
         this._storeUser();
     }
 
-    updateLessonProgress(lessonId: string, score: number) {
+    updateInventory(name: string, value: string) {
+        this._inventory[name] = value
+        this._storeUser()
+    }
+
+    updateLessonProgress(lessonId: string, score: number): [string, string] {
+        var reward: [string, string]
         if (this._lessonProgressMap.has(lessonId)) {
             if (score > this._lessonProgressMap.get(lessonId).score) {
                 this._lessonProgressMap.get(lessonId).score = score;
+                if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
+                    reward = [REWARD_TYPES[2], Config.i.lesson.image]
+                } else {
+                    reward = Util.unlockNextReward()
+                }
             }
         } else {
+            if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
+                reward = [REWARD_TYPES[2], Config.i.lesson.image]
+            } else {
+                reward = Util.unlockNextReward()
+            }
             this._lessonProgressMap.set(lessonId, new LessonProgressClass(score));
         }
 
-        if (Config.i.lesson.type != 'exam' || score >= 70) {
+        if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
             // open the next lesson
             const lessons = Config.i.chapter.lessons
             const lessonIndex = lessons.findIndex((les) => {
@@ -291,6 +307,7 @@ export class User {
         }
 
         this._storeUser();
+        return reward
     }
 
     private _storeUser() {

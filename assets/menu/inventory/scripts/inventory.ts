@@ -1,5 +1,5 @@
 import { User } from "../../../common/scripts/lib/profile";
-import { INVENTORY_DATA, INVENTORY_SAVE_CONSTANTS } from "../../../common/scripts/util";
+import { INVENTORY_DATA, INVENTORY_SAVE_CONSTANTS, REWARD_TYPES } from "../../../common/scripts/util";
 import Item from "./item";
 
 const { ccclass, property } = cc._decorator;
@@ -45,26 +45,26 @@ export default class Inventory extends cc.Component {
         this.buildIndividualItems(INVENTORY_DATA[0])
 
         // load all hats here
-        for (let i = 1; i < INVENTORY_DATA[0].length; i++) {
+        for (let i = 0; i < INVENTORY_DATA[0].length; i++) {
             this.hatArmature.armatureName = INVENTORY_DATA[0][i].split("-")[1];
         }
         // load all hand here
-        for (let i = 1; i < INVENTORY_DATA[1].length; i++) {
+        for (let i = 0; i < INVENTORY_DATA[1].length; i++) {
             this.handArmature.armatureName = INVENTORY_DATA[1][i].split("-")[1];
         }
 
         // load all glasses here
-        for (let i = 1; i < INVENTORY_DATA[2].length; i++) {
+        for (let i = 0; i < INVENTORY_DATA[2].length; i++) {
             this.glassArmature.armatureName = INVENTORY_DATA[2][i].split("-")[1];
         }
 
         // load all shoes here
-        for (let i = 1; i < INVENTORY_DATA[3].length; i++) {
+        for (let i = 0; i < INVENTORY_DATA[3].length; i++) {
             this.shoeArmature.armatureName = INVENTORY_DATA[3][i].split("-")[1];
         }
 
         // load all neck here
-        for (let i = 1; i < INVENTORY_DATA[4].length; i++) {
+        for (let i = 0; i < INVENTORY_DATA[4].length; i++) {
             this.neckArmature.armatureName = INVENTORY_DATA[4][i].split("-")[1];
         }
 
@@ -138,16 +138,17 @@ export default class Inventory extends cc.Component {
         this.layoutNode.removeAllChildren();
         // create new list
         items.forEach((element, index) => {
-            if (index != 0) {
                 const item = cc.instantiate(this.itemPrefab);
                 item.name = element;
                 item.getChildByName("New Button").getChildByName("Background").getComponent(cc.Sprite).spriteFrame = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).getComponent(cc.Sprite).spriteFrame;
                 item.getChildByName("New Button").height = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).height
                 item.getChildByName("New Button").width = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).width
-                if (User.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === "false" || User.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === undefined) {
-                    item.getChildByName("New Button").getChildByName("lock_icon").active = true
-                }
+                const rewardItemName: number = User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[3]}-${this.characterName}-${element}`]
                 let itemComp = item.getComponent(Item);
+                if (!rewardItemName) {
+                    item.getChildByName("New Button").getChildByName("lock_icon").active = true
+                    itemComp.isLocked = true;
+                }
 
                 itemComp.onClickCallback = (name) => {
                     let [slot_name, armature_name] = name.split("-");
@@ -164,15 +165,11 @@ export default class Inventory extends cc.Component {
 
                     // save to profile
                     let characterAndSlot = this.characterName.concat("-", slot_name)
-                    User.getCurrentUser().inventory[characterAndSlot] = armature_name;
-                }
-                if (User.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === "false" || User.getCurrentUser().unlockedInventory[`${items[0]}-${index}`] === undefined) {
-                    itemComp.isLocked = true;
+                    User.getCurrentUser().updateInventory(characterAndSlot, armature_name);
                 }
                 item.getChildByName("New Button").getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = element
                 item.getChildByName("New Button").name = element
                 this.layoutNode.addChild(item);
-            }
         });
     }
 

@@ -1,14 +1,21 @@
 import Config from '../../../common/scripts/lib/config'
 import Profile, { User } from '../../../common/scripts/lib/profile';
 import { LANDING_SCENE } from "../../../chimple";
-import { CURRENT_STUDENT_ID, LOGGED_IN_USER } from "../../../common/scripts/lib/constants";
+import { CURRENT_STUDENT_ID, LOGGED_IN_USER, EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
+import { REWARD_TYPES } from '../../../common/scripts/util';
+import { Course, Chapter, Lesson } from '../../../common/scripts/lib/convert';
+import Achievement from '../../../common/scorecard/scripts/achievement';
 const { ccclass, property } = cc._decorator;
+
 
 @ccclass
 export default class Rewards extends cc.Component {
 
     @property(cc.Node)
     layoutHolder: cc.Node = null;
+
+    @property(cc.Prefab)
+    achievementPrefab: cc.Prefab = null;
 
     normalSprite: cc.SpriteFrame = null;
     lastSelectedButton: number = -1;
@@ -17,7 +24,6 @@ export default class Rewards extends cc.Component {
     @property(cc.Node)
     sideLayoutNode: cc.Node = null;
 
-    saveConstants = ["character", "background", "achievement"]
 
     onLoad() {
         this.checkCharacterLockStatus();
@@ -30,7 +36,7 @@ export default class Rewards extends cc.Component {
         for (let i = 0; i < numberOfChildren; i++) {
             let eachElement = this.layoutHolder.children[0].children[0].children[0].children[0].children[i];
             let elementId = eachElement.name;
-            if (User.getCurrentUser().unlockedRewards[`${this.saveConstants[0]}-${elementId}`] === 0 || User.getCurrentUser().unlockedRewards[`${this.saveConstants[0]}-${elementId}`] === undefined) {
+            if (User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[0]}-${elementId}`] === 0 || User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[0]}-${elementId}`] === undefined) {
                 // make lock texture active
                 eachElement.getChildByName("lock").active = true
                 eachElement.getComponent(cc.Button).interactable = false
@@ -48,7 +54,7 @@ export default class Rewards extends cc.Component {
         for (let i = 0; i < numberOfChildren; i++) {
             let eachElement = this.layoutHolder.children[1].children[0].children[0].children[0].children[i];
             let elementId = eachElement.name;
-            if (User.getCurrentUser().unlockedRewards[`${this.saveConstants[1]}-${elementId}`] === 0 || User.getCurrentUser().unlockedRewards[`${this.saveConstants[1]}-${elementId}`] === undefined) {
+            if (User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[1]}-${elementId}`] === 0 || User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[1]}-${elementId}`] === undefined) {
                 // make lock texture active
                 eachElement.getComponent(cc.Button).interactable = false
                 eachElement.getChildByName("lock").active = true;
@@ -61,22 +67,40 @@ export default class Rewards extends cc.Component {
     }
 
     checkAchievementsLockStatus() {
-        let numberOfChildren = this.layoutHolder.children[2].children[0].children[0].childrenCount
+        // let numberOfChildren = this.layoutHolder.children[2].children[0].children[0].childrenCount
 
-        for (let i = 0; i < numberOfChildren; i++) {
-            let eachElement = this.layoutHolder.children[2].children[0].children[0].children[i];
-            let elementId = eachElement.getChildByName("id").getComponent(cc.Label).string;
-            if (User.getCurrentUser().unlockedRewards[`${this.saveConstants[2]}-${elementId}`] === 0 || User.getCurrentUser().unlockedRewards[`${this.saveConstants[2]}-${elementId}`] === undefined) {
-                // make lock texture active
-                eachElement.getChildByName("lock").active = true;
-                eachElement.getChildByName("achievementnode").children[0].active = true
-            } else {
-                // enable it
-                // 1 - bronze 2 - silver 3- gold
-                let acvmtNumber = User.getCurrentUser().unlockedRewards[`${this.saveConstants[2]}-${elementId}`];
-                eachElement.getChildByName("achievementnode").children[acvmtNumber].active = true
-            }
-        }
+        // for (let i = 0; i < numberOfChildren; i++) {
+        //     let eachElement = this.layoutHolder.children[2].children[0].children[0].children[i];
+        //     let elementId = eachElement.getChildByName("id").getComponent(cc.Label).string;
+        //     if (User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[2]}-${elementId}`] === 0 || User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[2]}-${elementId}`] === undefined) {
+        //         // make lock texture active
+        //         eachElement.getChildByName("lock").active = true;
+        //         eachElement.getChildByName("achievementnode").children[0].active = true
+        //     } else {
+        //         // enable it
+        //         // 1 - bronze 2 - silver 3- gold
+        //         let acvmtNumber = User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[2]}-${elementId}`];
+        //         eachElement.getChildByName("achievementnode").children[acvmtNumber].active = true
+        //     }
+        // }
+        const achievementsNode = this.layoutHolder.children[2].children[0].children[0]
+        const lessonProgressMap = User.getCurrentUser().lessonProgressMap
+        Config.i.curriculum.forEach((course: Course) => {
+            course.chapters.forEach((chapter: Chapter) => {
+                chapter.lessons.forEach((lesson: Lesson) => {
+                    if(lesson.type == EXAM 
+                        && lessonProgressMap.has(lesson.id) 
+                        && lessonProgressMap.get(lesson.id).score > MIN_PASS) {
+                            const achievement = cc.instantiate(this.achievementPrefab)
+                            const achievementComp = achievement.getComponent(Achievement)
+                            achievementComp.image = lesson.image
+                            achievementComp.courseId = course.id
+                            achievementComp.score = lessonProgressMap.get(lesson.id).score
+                            achievementsNode.addChild(achievement)
+                    }
+                })
+            })
+        })
     }
 
 
