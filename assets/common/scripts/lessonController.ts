@@ -15,7 +15,7 @@ import Scorecard from "../scorecard/scripts/scorecard";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class LessonController extends Game {
+export default class LessonController extends cc.Component {
 
     @property(cc.Prefab)
     progressMonitor: cc.Prefab = null;
@@ -63,8 +63,8 @@ export default class LessonController extends Game {
     isQuiz: boolean = false;
     gameTime: number = 0;
     quizTime: number = 0;
-    friend: Friend = null;
 
+    static friend: Friend = null;
     static gamePrefab: cc.Prefab;
 
     onLoad() {
@@ -73,6 +73,9 @@ export default class LessonController extends Game {
         this.progressMonitorNode = cc.instantiate(this.progressMonitor);
         this.progressMonitorNode.zIndex = 2;
         this.node.addChild(this.progressMonitorNode);
+        this.node.addChild(LessonController.friend.node)
+        Util.loadAccessoriesAndEquipAcc(LessonController.friend.node.children[1], LessonController.friend.node)
+        LessonController.friend.node.removeFromParent()
         this.lessonStart();
         this.backButton.on('click', () => this.node.getChildByName("quit").active = true);
     }
@@ -116,7 +119,10 @@ export default class LessonController extends Game {
                         config.data = [data];
                         this.preloadGame((prefab: cc.Prefab) => {
                             this.gamePrefab = prefab;
-                            callback();
+                            Util.loadFriend((friendNode: cc.Node) => {
+                                LessonController.friend = friendNode.getComponent(Friend)
+                                callback();
+                            })
                         });
                     }, node, lessons);
                 }
@@ -133,7 +139,10 @@ export default class LessonController extends Game {
                             config.data = [data];
                             this.preloadGame((prefab: cc.Prefab) => {
                                 this.gamePrefab = prefab;
-                                callback();
+                                Util.loadFriend((friendNode: cc.Node) => {
+                                    LessonController.friend = friendNode.getComponent(Friend)
+                                    callback();
+                                })
                             });
                         });
                     });
@@ -164,14 +173,8 @@ export default class LessonController extends Game {
     private lessonStart() {
         this.lessonStartTime = new Date().getTime();
         this.lessonSessionId = User.createUUID();
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friend = friendNode.getComponent(Friend)
-            this.node.addChild(this.friend.node)
-            Util.loadAccessoriesAndEquipAcc(this.friend.node.children[1], this.friend.node)
-            this.friend.node.removeFromParent()
-            this.startGame(LessonController.gamePrefab);
-            this.loading.active = false;
-        })
+        this.startGame(LessonController.gamePrefab);
+        this.loading.active = false;
     }
 
     private problemStart(replaceScene: boolean) {
@@ -179,9 +182,9 @@ export default class LessonController extends Game {
         this.problemSessionId = User.createUUID();
         if (replaceScene) {
             LessonController.preloadGame((prefab: cc.Prefab) => {
-                this.friend.extraClip = null
-                this.friend.node.removeFromParent()
-                this.friend.isFace = false
+                LessonController.friend.extraClip = null
+                LessonController.friend.node.removeFromParent()
+                LessonController.friend.isFace = false
                 this.startGame(prefab);
                 this.loading.active = false;
             });
@@ -202,9 +205,9 @@ export default class LessonController extends Game {
                 gameComponent.friendPos.position = cc.v3(-512, -384)
                 gameComponent.node.addChild(gameComponent.friendPos)
             }
-            gameComponent.friend = this.friend
-            gameComponent.friendPos.addChild(this.friend.node)
-            this.friend.playIdleAnimation(1)
+            gameComponent.friend = LessonController.friend
+            gameComponent.friendPos.addChild(LessonController.friend.node)
+            LessonController.friend.playIdleAnimation(1)
         }
         this.gameParent.addChild(this.gameNode);
         // if(gameComponent) Util.loadAccessoriesAndEquipAcc(this.friend.node.children[1], this.friend.node)
@@ -340,10 +343,10 @@ export default class LessonController extends Game {
         scorecardComp.score = score
         scorecardComp.text = config.lesson.name
         scorecardComp.reward = reward
-        this.friend.node.removeFromParent()
+        LessonController.friend.node.removeFromParent()
         // scorecardComp.friendPos.addChild(this.friend.node)
         Friend.stopAudio()
-        this.friend.playAnimation('joy', 1)
+        LessonController.friend.playAnimation('joy', 1)
         this.node.addChild(scorecard)
     }
 
@@ -357,12 +360,12 @@ export default class LessonController extends Game {
         this.gameNode.on('correct', () => {
             this.rightMoves++;
             Util.playSfx(this.correctAudio);
-            this.friend.playHappyAnimation(1)
+            LessonController.friend.playHappyAnimation(1)
         });
         this.gameNode.on('wrong', () => {
             this.wrongMoves++;
             Util.playSfx(this.wrongAudio);
-            this.friend.playSadAnimation(1)
+            LessonController.friend.playSadAnimation(1)
 
         });
         this.gameNode.on(QUIZ_ANSWERED, (isAnsweredCorrectly: boolean) => {
@@ -403,9 +406,10 @@ export default class LessonController extends Game {
     }
 
     public static getFriend(): Friend {
-        const lessonNode = cc.Canvas.instance.node
-        const lessonComp = lessonNode.getComponent(LessonController)
-        return lessonComp.friend
+        // const lessonNode = cc.Canvas.instance.node
+        // const lessonComp = lessonNode.getComponent(LessonController)
+        // return lessonComp.friend
+        return LessonController.friend
     }
 
 }
