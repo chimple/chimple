@@ -7,10 +7,14 @@ export default class CommonButton extends cc.Component {
     @property
     text: string = 'hello';
 
+    @property(cc.Label)
+    label: cc.Label = null
+
     onLoad () {
-        const bg = this.node.children[0]
-        const label = bg.children[0]
-        const labelComp = label.getComponent(cc.Label)
-        labelComp.string = Util.i18NText(this.text)
+        this.label.string = Util.i18NText(this.text)
+    }
+
+    start() {
+        this.node.width = this.label.node.width + 48
     }
 }
