@@ -26,7 +26,7 @@ export default class Rewards extends cc.Component {
 
 
     onLoad() {
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < 3; i++) {
             this.layoutHolder.children[i].width = cc.winSize.width - 290
             this.layoutHolder.children[i].children[0].width = cc.winSize.width - 290
             this.layoutHolder.children[i].children[0].children[0].children[0].width = cc.winSize.width - 290
@@ -88,7 +88,7 @@ export default class Rewards extends cc.Component {
         //         eachElement.getChildByName("achievementnode").children[acvmtNumber].active = true
         //     }
         // }
-        const achievementsNode = this.layoutHolder.children[2].children[0].children[0]
+        const achievementsNode = this.layoutHolder.children[2].children[0].children[0].children[0]
         const lessonProgressMap = User.getCurrentUser().lessonProgressMap
         Config.i.curriculum.forEach((course: Course) => {
             course.chapters.forEach((chapter: Chapter) => {
