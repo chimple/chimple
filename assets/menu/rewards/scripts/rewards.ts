@@ -111,9 +111,9 @@ export default class Rewards extends cc.Component {
         User.getCurrentUser().currentCharacter = customEventData.toString().trim();
 
         // unselect show and edit button show
-        let numberOfChildren = this.layoutHolder.children[0].children[0].children[0].childrenCount
+        let numberOfChildren = this.layoutHolder.children[0].children[0].children[0].children[0].childrenCount
         for (let i = 0; i < numberOfChildren; i++) {
-            let eachElement = this.layoutHolder.children[0].children[0].children[0].children[i];
+            let eachElement = this.layoutHolder.children[0].children[0].children[0].children[0].children[i];
             eachElement.getChildByName("tick").active = false;
             eachElement.getChildByName("edit").active = false;
         }
@@ -144,9 +144,9 @@ export default class Rewards extends cc.Component {
         User.getCurrentUser().currentBg = customEventData.toString().trim();
 
         /// remove already selected 
-        let numberOfChildren = this.layoutHolder.children[1].children[0].children[0].childrenCount
+        let numberOfChildren = this.layoutHolder.children[1].children[0].children[0].children[0].childrenCount
         for (let i = 0; i < numberOfChildren; i++) {
-            let eachElement = this.layoutHolder.children[1].children[0].children[0].children[i];
+            let eachElement = this.layoutHolder.children[1].children[0].children[0].children[0].children[i];
             eachElement.getChildByName("tick").active = false;
         }
         // add current selected
