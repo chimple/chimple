@@ -88,15 +88,15 @@ export default class Rewards extends cc.Component {
         Config.i.curriculum.forEach((course: Course) => {
             course.chapters.forEach((chapter: Chapter) => {
                 chapter.lessons.forEach((lesson: Lesson) => {
-                    if(lesson.type == EXAM 
-                        && lessonProgressMap.has(lesson.id) 
+                    if (lesson.type == EXAM
+                        && lessonProgressMap.has(lesson.id)
                         && lessonProgressMap.get(lesson.id).score > MIN_PASS) {
-                            const achievement = cc.instantiate(this.achievementPrefab)
-                            const achievementComp = achievement.getComponent(Achievement)
-                            achievementComp.image = lesson.image
-                            achievementComp.courseId = course.id
-                            achievementComp.score = lessonProgressMap.get(lesson.id).score
-                            achievementsNode.addChild(achievement)
+                        const achievement = cc.instantiate(this.achievementPrefab)
+                        const achievementComp = achievement.getComponent(Achievement)
+                        achievementComp.image = lesson.image
+                        achievementComp.courseId = course.id
+                        achievementComp.score = lessonProgressMap.get(lesson.id).score
+                        achievementsNode.addChild(achievement)
                     }
                 })
             })
@@ -135,9 +135,9 @@ export default class Rewards extends cc.Component {
         User.getCurrentUser().currentCharacter = customEventData.toString().trim();
 
         // unselect show and edit button show
-        let numberOfChildren = this.layoutHolder.children[0].children[0].children[0].childrenCount
+        let numberOfChildren = this.layoutHolder.children[0].children[0].children[0].children[0].childrenCount
         for (let i = 0; i < numberOfChildren; i++) {
-            let eachElement = this.layoutHolder.children[0].children[0].children[0].children[i];
+            let eachElement = this.layoutHolder.children[0].children[0].children[0].children[0].children[i];
             eachElement.getChildByName("tick").active = false;
             eachElement.getChildByName("edit").active = false;
         }
@@ -168,9 +168,9 @@ export default class Rewards extends cc.Component {
         User.getCurrentUser().currentBg = customEventData.toString().trim();
 
         /// remove already selected 
-        let numberOfChildren = this.layoutHolder.children[1].children[0].children[0].childrenCount
+        let numberOfChildren = this.layoutHolder.children[1].children[0].children[0].children[0].childrenCount
         for (let i = 0; i < numberOfChildren; i++) {
-            let eachElement = this.layoutHolder.children[1].children[0].children[0].children[i];
+            let eachElement = this.layoutHolder.children[1].children[0].children[0].children[0].children[i];
             eachElement.getChildByName("tick").active = false;
         }
         // add current selected
