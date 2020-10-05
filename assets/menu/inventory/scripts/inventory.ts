@@ -1,5 +1,5 @@
 import { User } from "../../../common/scripts/lib/profile";
-import { INVENTORY_DATA, INVENTORY_SAVE_CONSTANTS, REWARD_TYPES } from "../../../common/scripts/util";
+import { INVENTORY_DATA, INVENTORY_SAVE_CONSTANTS, REWARD_TYPES, Util } from "../../../common/scripts/util";
 import Item from "./item";
 
 const { ccclass, property } = cc._decorator;
@@ -21,21 +21,6 @@ export default class Inventory extends cc.Component {
 
     currentScrollValue: number = 1000
 
-    @property(dragonBones.ArmatureDisplay)
-    hatArmature: dragonBones.ArmatureDisplay = null;
-
-    @property(dragonBones.ArmatureDisplay)
-    handArmature: dragonBones.ArmatureDisplay = null;
-
-    @property(dragonBones.ArmatureDisplay)
-    glassArmature: dragonBones.ArmatureDisplay = null;
-
-    @property(dragonBones.ArmatureDisplay)
-    shoeArmature: dragonBones.ArmatureDisplay = null;
-
-    @property(dragonBones.ArmatureDisplay)
-    neckArmature: dragonBones.ArmatureDisplay = null;
-
     lastSelectedButton: number = 0;
     characterName: string = "bear"
 
@@ -43,61 +28,22 @@ export default class Inventory extends cc.Component {
     animationNames = ["hat", "hand", "glass", "leg", "neck"]
     onLoad() {
         this.buildIndividualItems(INVENTORY_DATA[0])
-
-        // load all hats here
-        for (let i = 0; i < INVENTORY_DATA[0].length; i++) {
-            this.hatArmature.armatureName = INVENTORY_DATA[0][i].split("-")[1];
-        }
-        // load all hand here
-        for (let i = 0; i < INVENTORY_DATA[1].length; i++) {
-            this.handArmature.armatureName = INVENTORY_DATA[1][i].split("-")[1];
-        }
-
-        // load all glasses here
-        for (let i = 0; i < INVENTORY_DATA[2].length; i++) {
-            this.glassArmature.armatureName = INVENTORY_DATA[2][i].split("-")[1];
-        }
-
-        // load all shoes here
-        for (let i = 0; i < INVENTORY_DATA[3].length; i++) {
-            this.shoeArmature.armatureName = INVENTORY_DATA[3][i].split("-")[1];
-        }
-
-        // load all neck here
-        for (let i = 0; i < INVENTORY_DATA[4].length; i++) {
-            this.neckArmature.armatureName = INVENTORY_DATA[4][i].split("-")[1];
-        }
-
         try {
             this.characterName = User.getCurrentUser().currentCharacter;
         } catch (err) {
             console.log("error reading character name");
         }
 
-        this.node.getChildByName(`${this.characterName}_dragon`).active = true;
-        try {
-            this.loadSavedCharacterAcc()
-        } catch (err) {
-            console.log("error loading inventory");
-        }
+        Util.loadFriend((friendNode: cc.Node) => {
+            friendNode.name = `${User.getCurrentUser().currentCharacter}_dragon`
+            friendNode.x = -270
+            friendNode.y = -212
+            console.log(this.node, " hello ");
+            this.node.addChild(friendNode)
+            Util.loadAccessoriesAndEquipAcc(friendNode.children[1], friendNode)
+        })
         // for testing only
         // Profile.createUser("AK", Language.ENGLISH, "", 12, Gender.BOY)
-    }
-
-    loadSavedCharacterAcc() {
-        INVENTORY_SAVE_CONSTANTS.forEach((key) => {
-            console.log(" slotname ", key);
-            let characterAndSlot = this.characterName.concat("-", key)
-            var newHatName = User.getCurrentUser().inventory[characterAndSlot]
-            let factory = dragonBones.CCFactory.getInstance();
-            let _armature = this.node.getChildByName(`${this.characterName}_dragon`).getComponent(dragonBones.ArmatureDisplay).armature();
-            if (newHatName != undefined) {
-                _armature.getSlot(key).childArmature = factory.buildArmature(newHatName);
-                if (key === "left_shoe") {
-                    _armature.getSlot("right_shoe").childArmature = factory.buildArmature(newHatName);
-                }
-            }
-        })
     }
 
     onInventoryButtonClick(event) {
@@ -138,38 +84,38 @@ export default class Inventory extends cc.Component {
         this.layoutNode.removeAllChildren();
         // create new list
         items.forEach((element, index) => {
-                const item = cc.instantiate(this.itemPrefab);
-                item.name = element;
-                item.getChildByName("New Button").getChildByName("Background").getComponent(cc.Sprite).spriteFrame = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).getComponent(cc.Sprite).spriteFrame;
-                item.getChildByName("New Button").height = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).height
-                item.getChildByName("New Button").width = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).width
-                const rewardItemName: number = User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[3]}-${this.characterName}-${element}`]
-                let itemComp = item.getComponent(Item);
-                if (!rewardItemName) {
-                    item.getChildByName("New Button").getChildByName("lock_icon").active = true
-                    itemComp.isLocked = true;
+            const item = cc.instantiate(this.itemPrefab);
+            item.name = element;
+            item.getChildByName("New Button").getChildByName("Background").getComponent(cc.Sprite).spriteFrame = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).getComponent(cc.Sprite).spriteFrame;
+            item.getChildByName("New Button").height = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).height
+            item.getChildByName("New Button").width = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).width
+            const rewardItemName: number = User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[3]}-${this.characterName}-${element}`]
+            let itemComp = item.getComponent(Item);
+            if (!rewardItemName) {
+                item.getChildByName("New Button").getChildByName("lock_icon").active = true
+                itemComp.isLocked = true;
+            }
+
+            itemComp.onClickCallback = (name) => {
+                let [slot_name, armature_name] = name.split("-");
+
+                // update the armature
+                var newHatName = armature_name;
+                let factory = dragonBones.CCFactory.getInstance();
+                let _armature = this.node.getChildByName(`${this.characterName}_dragon`).children[0].getComponent(dragonBones.ArmatureDisplay).armature();
+                _armature.getSlot(slot_name).childArmature = factory.buildArmature(newHatName);
+                this.node.getChildByName(`${this.characterName}_dragon`).children[0].getComponent(dragonBones.ArmatureDisplay).playAnimation(this.animationNames[this.lastSelectedButton], 1)
+                if (slot_name === "left_shoe") {
+                    _armature.getSlot("right_shoe").childArmature = factory.buildArmature(newHatName);
                 }
 
-                itemComp.onClickCallback = (name) => {
-                    let [slot_name, armature_name] = name.split("-");
-
-                    // update the armature
-                    var newHatName = armature_name;
-                    let factory = dragonBones.CCFactory.getInstance();
-                    let _armature = this.node.getChildByName(`${this.characterName}_dragon`).getComponent(dragonBones.ArmatureDisplay).armature();
-                    _armature.getSlot(slot_name).childArmature = factory.buildArmature(newHatName);
-                    this.node.getChildByName(`${this.characterName}_dragon`).getComponent(dragonBones.ArmatureDisplay).playAnimation(this.animationNames[this.lastSelectedButton], 1)
-                    if (slot_name === "left_shoe") {
-                        _armature.getSlot("right_shoe").childArmature = factory.buildArmature(newHatName);
-                    }
-
-                    // save to profile
-                    let characterAndSlot = this.characterName.concat("-", slot_name)
-                    User.getCurrentUser().updateInventory(characterAndSlot, armature_name);
-                }
-                item.getChildByName("New Button").getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = element
-                item.getChildByName("New Button").name = element
-                this.layoutNode.addChild(item);
+                // save to profile
+                let characterAndSlot = this.characterName.concat("-", slot_name)
+                User.getCurrentUser().updateInventory(characterAndSlot, armature_name);
+            }
+            item.getChildByName("New Button").getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = element
+            item.getChildByName("New Button").name = element
+            this.layoutNode.addChild(item);
         });
     }
 
