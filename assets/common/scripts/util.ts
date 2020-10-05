@@ -660,8 +660,8 @@ export class Util {
       });
     }
     if (playAudio) {
-      const lessonComp = lessonNode.getComponent(LessonController)
-      lessonComp.friend.speakHelp(callBack)
+      // const lessonComp = lessonNode.getComponent(LessonController)
+      LessonController.friend.speakHelp(callBack)
     } else {
       if (callBack != null) callBack();
     }
