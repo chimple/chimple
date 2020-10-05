@@ -26,7 +26,7 @@ export default class Rewards extends cc.Component {
 
 
     onLoad() {
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 2; i++) {
             this.layoutHolder.children[i].width = cc.winSize.width - 290
             this.layoutHolder.children[i].children[0].width = cc.winSize.width - 290
             this.layoutHolder.children[i].children[0].children[0].children[0].width = cc.winSize.width - 290
