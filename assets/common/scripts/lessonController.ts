@@ -338,6 +338,7 @@ export default class LessonController extends cc.Component {
 
         const block = cc.instantiate(this.blockPrefab);
         this.node.addChild(block);
+        Friend.stopAudio()
         const scorecard = cc.instantiate(this.scorecardPrefab)
         const scorecardComp = scorecard.getComponent(Scorecard)
         scorecardComp.score = score
@@ -345,8 +346,7 @@ export default class LessonController extends cc.Component {
         scorecardComp.reward = reward
         LessonController.friend.node.removeFromParent()
         // scorecardComp.friendPos.addChild(this.friend.node)
-        Friend.stopAudio()
-        LessonController.friend.playAnimation('joy', 1)
+        // LessonController.friend.playAnimation('joy', 1)
         this.node.addChild(scorecard)
     }
 
