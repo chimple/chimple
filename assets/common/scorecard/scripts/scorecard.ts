@@ -1,6 +1,9 @@
 import Config from "../../../common/scripts/lib/config";
+import { REWARD_TYPES, Util } from "../../scripts/util";
+import Achievement from "./achievement";
+import Friend from "../../scripts/friend";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class Scorecard extends cc.Component {
@@ -25,17 +28,53 @@ export default class Scorecard extends cc.Component {
     @property(cc.Node)
     friendPos: cc.Node = null;
 
+    @property(cc.Node)
+    rewardPos: cc.Node = null
+
     @property
     score: number = 0;
 
     @property
     text: string = 'Lesson';
 
-    onLoad () {
+    @property(cc.Prefab)
+    achievementPrefab: cc.Prefab
+
+    reward: [string, string]
+
+    onLoad() {
         this.label.string = this.text
-        if(this.score > 25) this.star1.spriteFrame = this.active
-        if(this.score > 50) this.star2.spriteFrame = this.active
-        if(this.score > 75) this.star3.spriteFrame = this.active
+        if (this.score > 25) this.star1.spriteFrame = this.active
+        if (this.score > 50) this.star2.spriteFrame = this.active
+        if (this.score > 75) this.star3.spriteFrame = this.active
+        Util.loadFriend((friendNode: cc.Node) => {
+            const friend = friendNode.getComponent(Friend)
+            this.friendPos.addChild(friendNode)
+            Util.loadAccessoriesAndEquipAcc(friendNode.children[1], friendNode)
+            friend.playHappyAnimation(1)
+        })
+        if (this.reward) {
+            if (this.reward[0] == REWARD_TYPES[0]) {
+                //animate character
+            } else if (this.reward[0] == REWARD_TYPES[1]) {
+                cc.resources.load(`backgrounds/textures/bg_icons/${this.reward[1]}`, cc.SpriteFrame, (err, spriteFrame) => {
+                    if (!err) {
+                        const sprite = this.rewardPos.addComponent(cc.Sprite)
+                        // @ts-ignore
+                        sprite.spriteFrame = spriteFrame
+                    }
+                })
+            } else if (this.reward[0] == REWARD_TYPES[2]) {
+                const achievement = cc.instantiate(this.achievementPrefab)
+                const achievementComp = achievement.getComponent(Achievement)
+                achievementComp.image = Config.i.lesson.image
+                achievementComp.courseId = Config.i.course.id
+                achievementComp.score = this.score
+                this.rewardPos.addChild(achievement)
+            } else if (this.reward[0] == REWARD_TYPES[3]) {
+                // animate character
+            }
+        }
     }
 
     onContinueClick() {

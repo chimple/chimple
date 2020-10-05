@@ -75,7 +75,11 @@ export default class LetterPair extends Game {
             prefix++;
             this.totalPieces++;
             if (prefix == 2) {
-                Util.showHelp(card1, card2)
+                Util.showHelp(card1, card2, () => {
+                    new cc.Tween().target(this.friend.node)
+                    .to(0.25, {y: -600}, { progress: null, easing: 'sineOut' })  
+                    .start()          
+                })
             }
         }
         Card.letDrag = true

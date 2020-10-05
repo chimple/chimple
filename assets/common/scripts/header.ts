@@ -80,8 +80,12 @@ export default class Header extends cc.Component {
     }
 
     selectHeaderButton(newButton: HeaderButton) {
-        if (this.selectedHeaderButton != null) this.selectedHeaderButton.selected.node.active = false
+        if (this.selectedHeaderButton != null) {
+            this.selectedHeaderButton.selected.node.active = false
+            this.selectedHeaderButton.button.enabled = true
+        }
         newButton.selected.node.active = true
+        newButton.button.enabled = false
         this.selectedHeaderButton = newButton
     }
 

@@ -2,7 +2,7 @@ import { Queue } from "../../queue";
 import Friend from "./friend";
 import Game from "./game";
 import Config, { DEFAULT_FONT } from "./lib/config";
-import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID } from "./lib/constants";
+import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID, EXAM } from "./lib/constants";
 import { Lesson } from "./lib/convert";
 import { GAME_CONFIGS } from "./lib/gameConfigs";
 import { User } from "./lib/profile";
@@ -15,7 +15,7 @@ import Scorecard from "../scorecard/scripts/scorecard";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class LessonController extends Game {
+export default class LessonController extends cc.Component {
 
     @property(cc.Prefab)
     progressMonitor: cc.Prefab = null;
@@ -63,8 +63,8 @@ export default class LessonController extends Game {
     isQuiz: boolean = false;
     gameTime: number = 0;
     quizTime: number = 0;
-    friend: Friend = null;
 
+    static friend: Friend = null;
     static gamePrefab: cc.Prefab;
 
     onLoad() {
@@ -73,6 +73,9 @@ export default class LessonController extends Game {
         this.progressMonitorNode = cc.instantiate(this.progressMonitor);
         this.progressMonitorNode.zIndex = 2;
         this.node.addChild(this.progressMonitorNode);
+        this.node.addChild(LessonController.friend.node)
+        Util.loadAccessoriesAndEquipAcc(LessonController.friend.node.children[1], LessonController.friend.node)
+        LessonController.friend.node.removeFromParent()
         this.lessonStart();
         this.backButton.on('click', () => this.node.getChildByName("quit").active = true);
     }
@@ -80,14 +83,14 @@ export default class LessonController extends Game {
     static preloadLesson(node: cc.Node, callback: Function) {
         const config = Config.i;
         config.problem = 0;
-        if (config.lesson.type == 'exam') {
+        if (config.lesson.type == EXAM) {
             const lessons: Array<Lesson> = []
             var found = false
             config.chapter.lessons.forEach((les) => {
                 if (!found) {
-                    if (les.type != 'exam') {
+                    if (les.type != EXAM) {
                         lessons.push(les)
-                    } else if (les.type == 'exam') {
+                    } else if (les.type == EXAM) {
                         if (les.id == config.lesson.id) {
                             found = true
                         } else {
@@ -116,7 +119,10 @@ export default class LessonController extends Game {
                         config.data = [data];
                         this.preloadGame((prefab: cc.Prefab) => {
                             this.gamePrefab = prefab;
-                            callback();
+                            Util.loadFriend((friendNode: cc.Node) => {
+                                LessonController.friend = friendNode.getComponent(Friend)
+                                callback();
+                            })
                         });
                     }, node, lessons);
                 }
@@ -133,7 +139,10 @@ export default class LessonController extends Game {
                             config.data = [data];
                             this.preloadGame((prefab: cc.Prefab) => {
                                 this.gamePrefab = prefab;
-                                callback();
+                                Util.loadFriend((friendNode: cc.Node) => {
+                                    LessonController.friend = friendNode.getComponent(Friend)
+                                    callback();
+                                })
                             });
                         });
                     });
@@ -164,14 +173,8 @@ export default class LessonController extends Game {
     private lessonStart() {
         this.lessonStartTime = new Date().getTime();
         this.lessonSessionId = User.createUUID();
-        Util.loadFriend((friendNode: cc.Node) => {
-            this.friend = friendNode.getComponent(Friend)
-            this.node.addChild(this.friend.node)
-            Util.loadAccessoriesAndEquipAcc(this.friend.node.children[1], this.friend.node)
-            this.friend.node.removeFromParent()
-            this.startGame(LessonController.gamePrefab);
-            this.loading.active = false;
-        })
+        this.startGame(LessonController.gamePrefab);
+        this.loading.active = false;
     }
 
     private problemStart(replaceScene: boolean) {
@@ -179,8 +182,9 @@ export default class LessonController extends Game {
         this.problemSessionId = User.createUUID();
         if (replaceScene) {
             LessonController.preloadGame((prefab: cc.Prefab) => {
-                this.friend.node.removeFromParent()
-                this.friend.isFace = false
+                LessonController.friend.extraClip = null
+                LessonController.friend.node.removeFromParent()
+                LessonController.friend.isFace = false
                 this.startGame(prefab);
                 this.loading.active = false;
             });
@@ -201,9 +205,9 @@ export default class LessonController extends Game {
                 gameComponent.friendPos.position = cc.v3(-512, -384)
                 gameComponent.node.addChild(gameComponent.friendPos)
             }
-            gameComponent.friend = this.friend
-            gameComponent.friendPos.addChild(this.friend.node)
-            this.friend.playIdleAnimation(1)
+            gameComponent.friend = LessonController.friend
+            gameComponent.friendPos.addChild(LessonController.friend.node)
+            LessonController.friend.playIdleAnimation(1)
         }
         this.gameParent.addChild(this.gameNode);
         // if(gameComponent) Util.loadAccessoriesAndEquipAcc(this.friend.node.children[1], this.friend.node)
@@ -288,7 +292,7 @@ export default class LessonController extends Game {
             ? this.quizScore / this.totalQuizzes * 70 + this.rightMoves / (this.rightMoves + this.wrongMoves) * 30
             : this.rightMoves / (this.rightMoves + this.wrongMoves) * 100);
         const user = User.getCurrentUser();
-        user.updateLessonProgress(config.lesson.id, score);
+        const reward = user.updateLessonProgress(config.lesson.id, score);
         let finishedLessons = 0;
         let percentageComplete = 0;
         if (config.chapter && config.chapter.lessons &&
@@ -338,10 +342,11 @@ export default class LessonController extends Game {
         const scorecardComp = scorecard.getComponent(Scorecard)
         scorecardComp.score = score
         scorecardComp.text = config.lesson.name
-        this.friend.node.removeFromParent()
-        scorecardComp.friendPos.addChild(this.friend.node)
+        scorecardComp.reward = reward
+        LessonController.friend.node.removeFromParent()
+        // scorecardComp.friendPos.addChild(this.friend.node)
         Friend.stopAudio()
-        this.friend.playAnimation('joy', 1)
+        LessonController.friend.playAnimation('joy', 1)
         this.node.addChild(scorecard)
     }
 
@@ -355,12 +360,12 @@ export default class LessonController extends Game {
         this.gameNode.on('correct', () => {
             this.rightMoves++;
             Util.playSfx(this.correctAudio);
-            this.friend.playHappyAnimation(1)
+            LessonController.friend.playHappyAnimation(1)
         });
         this.gameNode.on('wrong', () => {
             this.wrongMoves++;
             Util.playSfx(this.wrongAudio);
-            this.friend.playSadAnimation(1)
+            LessonController.friend.playSadAnimation(1)
 
         });
         this.gameNode.on(QUIZ_ANSWERED, (isAnsweredCorrectly: boolean) => {
@@ -401,9 +406,10 @@ export default class LessonController extends Game {
     }
 
     public static getFriend(): Friend {
-        const lessonNode = cc.Canvas.instance.node
-        const lessonComp = lessonNode.getComponent(LessonController)
-        return lessonComp.friend
+        // const lessonNode = cc.Canvas.instance.node
+        // const lessonComp = lessonNode.getComponent(LessonController)
+        // return lessonComp.friend
+        return LessonController.friend
     }
 
 }
