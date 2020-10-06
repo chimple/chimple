@@ -3707,8 +3707,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -711.7390137,
-        -382.2879944,
+        -466.188,
+        -382.288,
         0,
         0,
         0,
@@ -5184,6 +5184,9 @@
       "__id__": 1
     },
     "_enabled": true,
+    "friendPos": {
+      "__id__": 109
+    },
     "dragPrefab": {
       "__uuid__": "56e3056a-faf9-4457-897a-7a871e7039a1"
     },
@@ -5207,9 +5210,6 @@
     },
     "truck": {
       "__id__": 100
-    },
-    "friendPos": {
-      "__id__": 109
     },
     "truckInAudio": {
       "__uuid__": "2f142aa5-afbe-4267-a68c-cc254fd1e6b7"

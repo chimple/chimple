@@ -50,7 +50,7 @@ export default class PhonicTractor extends Game {
   onLoad() {
     cc.director.getCollisionManager().enabled = true
     this._isRTL = Config.i.direction == Direction.RTL;
-    this.friend.isFace = true
+    // this.friend.isFace = true
     this.totalPieces++;
     this.completed = [];
     this.wordAudio = new Map();

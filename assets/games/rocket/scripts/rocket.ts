@@ -209,7 +209,7 @@ export default class Rocket extends Game {
         this._rocketHead = cc.instantiate(this.rocketheadPrefab);
         this.friendPos.removeFromParent()
         this.friendPos.position = cc.Vec3.ZERO
-        this.friend.isFace = true
+        // this.friend.isFace = true
         this._rocketHead.getChildByName("character_node").getChildByName("dog").addChild(this.friendPos)
         node.addChild(this._rocketHead);
 
@@ -246,7 +246,7 @@ export default class Rocket extends Game {
             if (isDrop) {
                 sticker.color = cc.Color.GRAY;
                 labelNode.opacity = 0;
-                sticker.opacity = 50;
+                // sticker.opacity = 50;
                 this._totalDrops++;
             } else {
                 sticker.color = new cc.Color().fromHEX('#' + Math.floor(Math.random() * 16777215).toString(16));

@@ -82,21 +82,24 @@
       },
       {
         "__id__": 68
+      },
+      {
+        "__id__": 70
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 70
-      },
-      {
-        "__id__": 71
-      },
-      {
         "__id__": 72
       },
       {
         "__id__": 73
+      },
+      {
+        "__id__": 74
+      },
+      {
+        "__id__": 75
       }
     ],
     "_prefab": null,
@@ -186,7 +189,7 @@
       "array": [
         0,
         0,
-        478.9120482927946,
+        483.2421753117168,
         0,
         0,
         0,
@@ -3306,9 +3309,55 @@
     "_parent": {
       "__id__": 2
     },
-    "_id": "74qck4JwNHpp0z+0uCPFRS",
+    "_id": "04Dht+WnhGb4VpkZ2LrW1+",
     "_prefab": {
       "__id__": 69
+    },
+    "_name": "helpChimp",
+    "_active": true,
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        -450,
+        -366,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 68
+    },
+    "asset": {
+      "__uuid__": "58ba7c51-d6c1-46fb-b495-303cdf50456b"
+    },
+    "fileId": "4cSd1RJC9H0K8AMSfj1vg7",
+    "sync": true
+  },
+  {
+    "__type__": "cc.Node",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 2
+    },
+    "_id": "74qck4JwNHpp0z+0uCPFRS",
+    "_prefab": {
+      "__id__": 71
     },
     "_name": "loading",
     "_active": true,
@@ -3338,7 +3387,7 @@
   {
     "__type__": "cc.PrefabInfo",
     "root": {
-      "__id__": 68
+      "__id__": 70
     },
     "asset": {
       "__uuid__": "829faaa5-750a-412f-99fe-00c90c4bf9fb"
@@ -3417,7 +3466,7 @@
       "__uuid__": "ecc7ea66-f534-4090-8f8e-a818bedd7401"
     },
     "loading": {
-      "__id__": 68
+      "__id__": 70
     },
     "teacherDialogPrefab": {
       "__uuid__": "5a80075c-742a-40ce-ab81-f11382e84c18"

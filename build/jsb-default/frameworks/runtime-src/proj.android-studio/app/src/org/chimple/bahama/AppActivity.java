@@ -32,6 +32,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -39,6 +40,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.os.RemoteException;
 import android.util.Log;
 
@@ -76,6 +78,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.Executor;
@@ -197,9 +200,26 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             @Override
             public void run() {
                 Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);  // instead of Intent.ACTION_SEND
-	            sendIntent.putExtra(Intent.EXTRA_TEXT, text);
 	            sendIntent.setType("text/plain");
-                app.startActivityForResult(sendIntent, SEND_CODE);
+
+                List<Intent> targetedShareIntents = new ArrayList<Intent>();
+                List<ResolveInfo> resInfo = getContext().getPackageManager().queryIntentActivities(sendIntent, 0);
+                for (ResolveInfo resolveInfo : resInfo) {
+                    String packageName = resolveInfo.activityInfo.packageName;
+                    Intent targetedShareIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    targetedShareIntent.setType("text/plain");
+                    targetedShareIntent.putExtra(android.content.Intent.EXTRA_TEXT, text);
+                    targetedShareIntent.setPackage(packageName);
+                    if(packageName.equals("com.whatsapp")){
+                        targetedShareIntents.add(1,targetedShareIntent);
+                    }
+                    else{
+                        targetedShareIntents.add(targetedShareIntent);
+                    }
+                }
+                Intent shareIntent = Intent.createChooser(targetedShareIntents.remove(0), "Share Chimple Learning App");
+                shareIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
+                app.startActivityForResult(shareIntent,SEND_CODE);
             }
         });
     }
