@@ -8,7 +8,7 @@ const { ccclass, property } = cc._decorator;
 
 const tileWidth = 69
 const tileHeight = 69
-const startX = 200
+const startX = 280
 const topMargin = 128
 
 const colors: Array<string> = [
@@ -173,7 +173,7 @@ export default class CheckerBlocks extends Game {
                 const anim = this.truck.getComponent(cc.Animation)
                 anim.stop()
                 this.dragTiles.forEach((val, key) => {
-                    val.position = cc.v2(startX + Math.random() * (cc.winSize.width / 2 - startX - val.width), -cc.winSize.height)
+                    val.position = cc.v2(-cc.winSize.width / 2 + Math.random() * (startX - val.width), -cc.winSize.height)
                     val.zIndex = 100 - parseInt(val.name)
                     this.node.addChild(val)
                     new cc.Tween().target(val)
