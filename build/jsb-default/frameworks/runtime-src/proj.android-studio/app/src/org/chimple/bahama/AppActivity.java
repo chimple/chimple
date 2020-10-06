@@ -203,7 +203,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
 	            sendIntent.setType("text/plain");
 
                 List<Intent> targetedShareIntents = new ArrayList<Intent>();
-                List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(intent, 0);
+                List<ResolveInfo> resInfo = getContext().getPackageManager().queryIntentActivities(sendIntent, 0);
                 for (ResolveInfo resolveInfo : resInfo) {
                     String packageName = resolveInfo.activityInfo.packageName;
                     Intent targetedShareIntent = new Intent(android.content.Intent.ACTION_SEND);
