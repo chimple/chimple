@@ -22,6 +22,7 @@ export const TEACHER_ID_KEY = 'id';
 export const TEACHER_NAME_KEY = 'name';
 
 export const ASSIGN_HOMEWORK: string = 'assign_homework';
+export const ASSIGNMENT_ID_KEY_FOR_ASSIGN_HW = 'aid';
 export const STUDENT_ASSIGNMENT_ID_KEY = 'sid';
 export const TEACHER_ID_KEY_FOR_ASSIGN_HW = 'tid';
 export const CHAPTER_ID_KEY_FOR_ASSIGN_HW = 'cid';
