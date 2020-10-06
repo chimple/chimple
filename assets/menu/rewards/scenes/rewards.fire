@@ -82,7 +82,14 @@
       }
     ],
     "_active": true,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 629
+      },
+      {
+        "__id__": 630
+      }
+    ],
     "_prefab": null,
     "_opacity": 255,
     "_color": {
@@ -170,7 +177,7 @@
       "array": [
         0,
         0,
-        483.2421753117168,
+        281.45825622994255,
         0,
         0,
         0,
@@ -24730,5 +24737,49 @@
     "_isTrimmedMode": true,
     "_atlas": null,
     "_id": "41SqlM8rFG0aZFsGLpgwY8"
+  },
+  {
+    "__type__": "cc.Canvas",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "_designResolution": {
+      "__type__": "cc.Size",
+      "width": 1024,
+      "height": 768
+    },
+    "_fitWidth": false,
+    "_fitHeight": true,
+    "_id": "f2co+PVZ5FGqyOq6iTvyQJ"
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "alignMode": 1,
+    "_target": null,
+    "_alignFlags": 45,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 1024,
+    "_originalHeight": 768,
+    "_id": "180PsZOfJO45Hroc/7PRzx"
   }
 ]
