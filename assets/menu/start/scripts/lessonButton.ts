@@ -1,10 +1,10 @@
-import { Util } from "../../../common/scripts/util";
-import Config from "../../../common/scripts/lib/config";
-import { Lesson, Chapter, Course } from "../../../common/scripts/lib/convert";
-import { User } from "../../../common/scripts/lib/profile";
 import LessonController from "../../../common/scripts/lessonController";
-import Loading from "../../../common/scripts/loading";
 import LessonIcon from "../../../common/scripts/lessonIcon";
+import Config from "../../../common/scripts/lib/config";
+import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
+import { User } from "../../../common/scripts/lib/profile";
+import Loading from "../../../common/scripts/loading";
+import { Util } from "../../../common/scripts/util";
 
 const { ccclass, property } = cc._decorator;
 
@@ -66,10 +66,12 @@ export default class LessonButton extends cc.Component {
                 this.loading.getComponent(Loading).allowCancel = true
                 this.loading.active = true
                 LessonController.preloadLesson(this.node, (err: Error) => {
-                    if(err) {
+                    if (err) {
                         this.loading.getComponent(Loading).addMessage(Util.i18NText('Error downloading content. Please connect to internet and try again'), true, true)
                     } else {
-                        config.pushScene('common/scenes/lessonController')
+                        if (this.loading.activeInHierarchy) {
+                            config.pushScene('common/scenes/lessonController')
+                        }
                     }
                 })
             })
@@ -81,14 +83,14 @@ export default class LessonButton extends cc.Component {
                     }
                 })
             }
-            if(!this.open) {
+            if (!this.open) {
                 this.button.interactable = false
             }
             const lessonProgress = User.getCurrentUser().lessonProgressMap.get(this.lesson.id)
-            if(lessonProgress && lessonProgress.score >= 0) {
+            if (lessonProgress && lessonProgress.score >= 0) {
                 this.star1.spriteFrame = lessonProgress.score > 25 ? this.goldStar : this.grayStar
                 this.star2.spriteFrame = lessonProgress.score > 50 ? this.goldStar : this.grayStar
-                this.star3.spriteFrame = lessonProgress.score > 75 ? this.goldStar : this.grayStar    
+                this.star3.spriteFrame = lessonProgress.score > 75 ? this.goldStar : this.grayStar
             }
 
         }
