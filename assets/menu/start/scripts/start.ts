@@ -49,7 +49,10 @@ export default class Start extends cc.Component {
         } else {
             this.setBackground("forest");
         }
-        this.loading.getComponent(Loading).allowCancel = false
+        const loadingComp = this.loading.getComponent(Loading)
+        loadingComp.allowCancel = false
+        loadingComp.delay = 0
+        
         const config = Config.i
         config.loadCourseJsons(User.getCurrentUser(), this.node, () => {
             const headerNode = cc.instantiate(this.headerPrefab)
