@@ -64,9 +64,9 @@ export default class Help extends cc.Component {
             .to(0.25, {scale: 1}, null)
             .call(() => {
                 this.node.active = false;
-                // if (this.callBack != null) {
-                //     this.callBack();
-                // }
+                if (this.callBack != null) {
+                    this.callBack();
+                }
             })
             .start();
     }

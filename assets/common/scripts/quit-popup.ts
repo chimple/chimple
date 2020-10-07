@@ -2,6 +2,7 @@ import { PlayerAnimations } from "../../platform/scripts/player-animations";
 import Friend from "./friend";
 import Config from "./lib/config";
 import { Util } from "./util";
+import LessonController from "./lessonController";
 
 const { ccclass, property } = cc._decorator;
 
@@ -26,7 +27,7 @@ export default class QuitPopup extends cc.Component {
 
     onClickYesButton() {
         Config.i.popScene();
-        Friend.stopAudio();
+        LessonController.getFriend().stopAudio();
     }
 
     onClickNoButton() {

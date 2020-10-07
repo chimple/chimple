@@ -273,6 +273,7 @@ export default class LessonController extends cc.Component {
                 ? StarType.Correct : StarType.Wrong)
             : (isStory ? (forward ? StarType.NextPage : StarType.PrevPage) : StarType.Default);
         monitor.updateProgress(currentProblem, starType, () => {
+            LessonController.getFriend().stopAudio()
             monitor.stopStar = false;
             if ((forward && currentProblem < config.totalProblems) || (!forward && currentProblem > 1)) {
                 this.loading.active = true
@@ -341,7 +342,7 @@ export default class LessonController extends cc.Component {
 
         const block = cc.instantiate(this.blockPrefab);
         this.node.addChild(block);
-        Friend.stopAudio()
+        // LessonController.getFriend().stopAudio()
         const scorecard = cc.instantiate(this.scorecardPrefab)
         const scorecardComp = scorecard.getComponent(Scorecard)
         scorecardComp.score = score
@@ -362,13 +363,15 @@ export default class LessonController extends cc.Component {
         });
         this.gameNode.on('correct', () => {
             this.rightMoves++;
-            Util.playSfx(this.correctAudio);
-            LessonController.friend.playHappyAnimation(1)
+            LessonController.friend.speak(this.correctAudio, null, true, 'happy')
+            // Util.playSfx(this.correctAudio);
+            // LessonController.friend.playHappyAnimation(1)
         });
         this.gameNode.on('wrong', () => {
             this.wrongMoves++;
-            Util.playSfx(this.wrongAudio);
-            LessonController.friend.playSadAnimation(1)
+            LessonController.friend.speak(this.wrongAudio, null, true, 'sad')
+            // Util.playSfx(this.wrongAudio);
+            // LessonController.friend.playSadAnimation(1)
 
         });
         this.gameNode.on(QUIZ_ANSWERED, (isAnsweredCorrectly: boolean) => {

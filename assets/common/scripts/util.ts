@@ -644,6 +644,9 @@ export class Util {
   ) {
     const config = Config.getInstance();
     const lessonNode = cc.Canvas.instance.node
+    if (playAudio) {
+      LessonController.friend.speakHelp()
+    }
     if (config.problem == 1 && from != null && to != null) {
       cc.resources.load("prefabs/help", function (err, prefab) {
         if (!err) {
@@ -651,16 +654,16 @@ export class Util {
           // @ts-ignore
           const helpComp = help.getComponent(Help);
           if (helpComp != null) {
-            helpComp.initNodes(from, to, null);
+            helpComp.initNodes(from, to, callBack);
+          } else {
+            if (callBack != null) callBack();
           }
           // @ts-ignore
           lessonNode.addChild(help);
+        } else {
+          if (callBack != null) callBack();
         }
       });
-    }
-    if (playAudio) {
-      // const lessonComp = lessonNode.getComponent(LessonController)
-      LessonController.friend.speakHelp(callBack)
     } else {
       if (callBack != null) callBack();
     }
