@@ -23977,7 +23977,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "BackButton",
+    "_name": "backButton",
     "_objFlags": 0,
     "_parent": {
       "__id__": 5
@@ -24046,7 +24046,7 @@
     "_is3DNode": false,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "_id": "60Xeg8Bm5CXazlmfH/NLbb"
+    "_id": "d19KxtI9NJBb49JgGA1hNy"
   },
   {
     "__type__": "cc.Button",
@@ -24132,13 +24132,11 @@
     "_N$target": {
       "__id__": 608
     },
-    "_id": "3dyJDYY2ZJRaLCHg1j7xPd"
+    "_id": "d871ymbD9J+pkpMFt+rgX3"
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": {
-      "__id__": 608
-    },
+    "target": null,
     "component": "",
     "_componentId": "7082dngCaFG/b2DSeSfDxXQ",
     "handler": "onButtonClick",
@@ -24152,7 +24150,7 @@
       "__id__": 608
     },
     "_enabled": true,
-    "_id": "c0BOuq2kxCG4tNEZsPo2NT"
+    "_id": "01eYHu705Ld7YBNSjoCQa0"
   },
   {
     "__type__": "cc.Sprite",
@@ -24184,7 +24182,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": "27m4a9aShBYIRCiWJjk449"
+    "_id": "3cJTg7lBlEV5HyIhMrWSQ0"
   },
   {
     "__type__": "cc.Widget",
@@ -24213,14 +24211,16 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 0,
     "_originalHeight": 0,
-    "_id": "f8W4kqouhAL5pqUhZoH8v6"
+    "_id": "e2bywVa71BT6KOHQisFlbL"
   },
   {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 608
     },
-    "asset": null,
+    "asset": {
+      "__uuid__": "36d9715a-fe08-4198-995f-e4115e391131"
+    },
     "fileId": "ffTaK4aJFPfa0dchGVVC8H",
     "sync": false
   },

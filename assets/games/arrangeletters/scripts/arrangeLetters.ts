@@ -1,9 +1,11 @@
 import { Util } from "../../../common/scripts/util";
 import Config from "../../../common/scripts/lib/config";
+import Game from "../../../common/scripts/game";
+import LessonController from "../../../common/scripts/lessonController";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class ArrangeLetters extends cc.Component {
+export default class ArrangeLetters extends Game {
 
   @property(cc.Prefab)
   playground: cc.Prefab = null;
@@ -54,6 +56,9 @@ export default class ArrangeLetters extends cc.Component {
     this.makeDragObjects();
     ArrangeLetters.letterArray = this.word.split(",");
     this.startGameSound();
+    this.node.getChildByName('friendPos').zIndex = 1
+    this.node.getChildByName('friendPos').scale = 0.5
+    Util.playGameSound(this.wordAudioFileName,()=>{})
   }
 
   makeDragObjects() {
@@ -86,11 +91,13 @@ export default class ArrangeLetters extends cc.Component {
     });
   }
 
-  startGameSound(){
-   if(!this.isSoundPlaying){
-     this.isSoundPlaying = true
-   Util.speakGameAudioOrPhonics(this.wordAudioFileName,()=>{this.isSoundPlaying = false})
+  startGameSound() {
+    Util.loadGameSound(this.wordAudioFileName, (clip) => {
+      if (clip != null) {
+        this.friend.extraClip = clip
+      }
+    })
   }
-  }
+  
 
 }

@@ -368,6 +368,7 @@ export class User {
             "bear",
             new Map([
                 ['en', new CourseProgressClass()],
+                ['maths', new CourseProgressClass()],
                 ['test-lit', new CourseProgressClass()],
                 ['test-maths', new CourseProgressClass()]
             ]),
