@@ -377,18 +377,8 @@ export default class Config {
         } else {
             let numCourses = user.courseProgressMap.size;
             user.courseProgressMap.forEach((courseProgress, name) => {
-                cc.assetManager.loadBundle(name, (err, bundle) => {
-                    if (err) {
-                        return console.error(err);
-                    }
-                    Util.bundles.set(name, bundle);
-                    const jsonFile = name + '/course/res/course.json';
-                    Util.load(jsonFile, (err: Error, jsonAsset) => {
-                        if (!err) {
-                            this.curriculum.set(name, jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset);
-                        }
-                        numCourses--;
-                    });
+                this.loadSingleCourseJson(name, () => {
+                    numCourses--;
                 });
             });
 
@@ -401,6 +391,29 @@ export default class Config {
             };
             cc.director.getScheduler().schedule(checkAllLoaded, node, 1);
         }
+    }
+
+    loadSingleCourseJson(name: string, callBack: Function) {
+        cc.assetManager.loadBundle(name, (err, bundle) => {
+            if (err) {
+                return console.error(err);
+            }
+            Util.bundles.set(name, bundle);
+            const jsonFile = name + '/course/res/course.json';
+            Util.load(jsonFile, (err: Error, jsonAsset) => {
+                if (!err) {
+                    const course: Course = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
+                    course.chapters.forEach((chapter) => {
+                        chapter.course = course;
+                        chapter.lessons.forEach((lesson) => {
+                            lesson.chapter = chapter;
+                        });
+                    });
+                    this.curriculum.set(name, course);
+                }
+                callBack()
+            });
+        });
     }
 
     get friend(): string {

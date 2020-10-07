@@ -292,34 +292,37 @@ export default class LessonController extends cc.Component {
             ? this.quizScore / this.totalQuizzes * 70 + this.rightMoves / (this.rightMoves + this.wrongMoves) * 30
             : this.rightMoves / (this.rightMoves + this.wrongMoves) * 100);
         const user = User.getCurrentUser();
-        const reward = user.updateLessonProgress(config.lesson.id, score);
-        let finishedLessons = 0;
-        let percentageComplete = 0;
-        if (config.chapter && config.chapter.lessons &&
-            config.chapter.lessons.length > 0) {
-            config.chapter.lessons.forEach(
-                (lesson: Lesson) => {
-                    user.lessonProgressMap.has(lesson.id) ? finishedLessons++ : '';
-                }
-            );
-            percentageComplete = finishedLessons / config.chapter.lessons.length;
-        }
+        var reward: [string, string]
+        if (user) {
+            reward = user.updateLessonProgress(config.lesson.id, score);
+            let finishedLessons = 0;
+            let percentageComplete = 0;
+            if (config.chapter && config.chapter.lessons &&
+                config.chapter.lessons.length > 0) {
+                config.chapter.lessons.forEach(
+                    (lesson: Lesson) => {
+                        user.lessonProgressMap.has(lesson.id) ? finishedLessons++ : '';
+                    }
+                );
+                percentageComplete = finishedLessons / config.chapter.lessons.length;
+            }
 
-        if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
-            let updateInfo = {
-                chapter: config.chapter.id,
-                lesson: config.lesson.id,
-                percentComplete: percentageComplete,
-                timespent: timeSpent,
-                assessment: score,
-                kind: 'Progress',
-                schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
-                studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
-                sectionId: cc.sys.localStorage.getItem(CURRENT_SECTION_ID),
-                subjectId: cc.sys.localStorage.getItem(CURRENT_SUBJECT_ID)
-            };
+            if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
+                let updateInfo = {
+                    chapter: config.chapter.id,
+                    lesson: config.lesson.id,
+                    percentComplete: percentageComplete,
+                    timespent: timeSpent,
+                    assessment: score,
+                    kind: 'Progress',
+                    schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
+                    studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
+                    sectionId: cc.sys.localStorage.getItem(CURRENT_SECTION_ID),
+                    subjectId: cc.sys.localStorage.getItem(CURRENT_SUBJECT_ID)
+                };
 
-            Queue.getInstance().push(updateInfo);
+                Queue.getInstance().push(updateInfo);
+            }
         }
 
         UtilLogger.logChimpleEvent("lessonEnd", {
