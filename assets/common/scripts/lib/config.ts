@@ -160,7 +160,7 @@ export default class Config {
     static loadScene(scene: string, bundle: string = null, callback: Function = null) {
         Util.freeResources();
         if (bundle != null) {
-            UtilLogger.logChimpleEvent("screen_view", {
+            UtilLogger.logChimpleEvent("load_scene", {
                 scene: scene,
                 bundle: bundle
             })
@@ -177,7 +177,7 @@ export default class Config {
             });
         } else {
             cc.director.loadScene(scene, () => {
-                UtilLogger.logChimpleEvent("screen_view", {
+                UtilLogger.logChimpleEvent("load_scene", {
                     scene: scene
                 })
 
