@@ -1,13 +1,12 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import Vec2 = cc.Vec2;
-import Config from "../../../common/scripts/lib/config";
-import SoundButton from "./sound-button";
-import OptionScript from "./option-script";
-import { Util } from "../../../common/scripts/util";
-import { catchError } from "../../../common/scripts/lib/error-handler";
 import CountingLayout from "../../../common/scripts/countingLayout";
 import Game from "../../../common/scripts/game";
+import Config from "../../../common/scripts/lib/config";
+import { catchError } from "../../../common/scripts/lib/error-handler";
+import { Util } from "../../../common/scripts/util";
+import OptionScript from "./option-script";
 
 export const CORRECT_ANSWER = 'CORRECT_ANSWER';
 export const WRONG_ANSWER = 'WRONG_ANSWER';
@@ -142,9 +141,6 @@ export default class QuestionBoard extends Game {
     private _fruitNodes = [];
     private _registeredForReAsk: boolean = false;
 
-    private _soundBtn = null;
-    private _soundBtnComponent: SoundButton = null;
-
     private _fruits = ['acorn', 'apple', 'cherry'];
 
     private _helpMode: boolean = false;
@@ -172,6 +168,8 @@ export default class QuestionBoard extends Game {
         this._question.setPosition(new cc.Vec2(0, 110));
         this._options.setPosition(new cc.Vec2(0, -235));
         this.node.addChild(this._options);
+        this.friendPos.removeFromParent()
+        this._question.addChild(this.friendPos)
         this.subscribeToEvents();
         this._helpMode = true;
         this.createOptions();
@@ -217,10 +215,9 @@ export default class QuestionBoard extends Game {
 
     @catchError()
     private configureSound() {
-        this._soundBtn = this._question.getChildByName('soundButton');
-        this._soundBtnComponent = this._soundBtn.getComponent(SoundButton);
-        this._soundBtnComponent.soundClip = this._currentConfig.voiceSource;
-        this._soundBtnComponent.soundOnLoad();
+        Util.loadGameSound(this._currentConfig.voiceSource, (clip) => {
+            this.friend.extraClip = clip
+        })
     }
 
     @catchError()
@@ -247,7 +244,6 @@ export default class QuestionBoard extends Game {
             if (!this._correctAnswered) {
                 event.stopPropagation();
                 this._wasAnsweredCorrectly = true;
-                this._soundBtnComponent.stopSound();
                 this.node.emit('correct');
                 this._options.opacity = 0;
                 this._equations.opacity = 255;
@@ -260,7 +256,6 @@ export default class QuestionBoard extends Game {
         this.node.on(WRONG_ANSWER, (event) => {
             event.stopPropagation();
             if (!this._correctAnswered) {
-                this._soundBtnComponent.stopSound();
                 const data = event.getUserData();
                 const wrongNode = data.node;
                 this._wasAnsweredCorrectly = false;
