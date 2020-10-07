@@ -83,7 +83,7 @@ class SceneDef {
 export default class Config {
     private static instance: Config;
 
-    private _scenes: Array<SceneDef>;
+    private _scenes: Array<SceneDef> = [];
     private _textFontMap = new Map();
     private _lessonData;
 
@@ -115,7 +115,6 @@ export default class Config {
             Config.instance.worksheet = 1;
             Config.instance.problem = 1;
             Config.instance.totalProblems = 1;
-            Config.instance._scenes = [new SceneDef('menu/start/scenes/start', 'menu')];
             Config.instance.flow = Flow.Default;
             Config.instance._textFontMap = new Map();
             Config.instance.currentFontName = DEFAULT_FONT;
@@ -189,7 +188,8 @@ export default class Config {
         }
     }
 
-    pushScene(scene: string, bundle: string = null, callback: Function = null) {
+    pushScene(scene: string, bundle: string = null, callback: Function = null, first: boolean = false) {
+        if(first) this.popAllScenes()
         this._scenes.push(new SceneDef(scene, bundle));
         Config.loadScene(scene, bundle, callback);
     }

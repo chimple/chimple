@@ -90,7 +90,7 @@ export default class Chimple extends cc.Component {
                 this.navigateToBase();
                 break;
             case DeployMode.Close:
-                Config.loadScene(LANDING_SCENE, 'private', null);
+                Config.i.pushScene(LANDING_SCENE, 'private', null, true);
                 break;
             default:
                 this.navigateToBase();
@@ -101,7 +101,7 @@ export default class Chimple extends cc.Component {
     }
 
     public static navigateToHome() {
-        Config.loadScene('private/home/loginnew/scenes/homeLoginScene', 'private', null);
+        Config.i.pushScene('private/home/loginnew/scenes/homeLoginScene', 'private', null, true);
     }
 
     private navigateToBase() {
@@ -110,6 +110,6 @@ export default class Chimple extends cc.Component {
             User.createUser('test', '', 5, Gender.GIRL, 'test', 'armydog');
         }
         User.setCurrentUser(User.getUsers()[0]);
-        Config.loadScene('menu/start/scenes/start', 'menu', null);
+        Config.i.pushScene('menu/start/scenes/start', 'menu', null, true);
     }
 }
