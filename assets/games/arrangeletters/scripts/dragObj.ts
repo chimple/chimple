@@ -120,17 +120,10 @@ export default class DragObj extends Drag {
     cc.log(this.allSwapCorrect);
     cc.log(ArrangeLetters.correctPosition);
     if (this.done) {
-      this.effectsAfterMatch();
       this.node.parent.emit('correct')
       this.node.parent.emit('nextProblem')
     }
   }
 
-  effectsAfterMatch() {
-      this.node.parent
-      .getChildByName("imageNode")
-      .getChildByName("sound")
-      .getComponent(cc.Button).interactable = false;
-  }
   
 }

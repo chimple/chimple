@@ -201,7 +201,7 @@
       "array": [
         0,
         0,
-        287.52043405643366,
+        281.45825622994255,
         0,
         0,
         0,
@@ -12026,11 +12026,13 @@
     },
     "_enabled": true,
     "alignMode": 1,
-    "_target": null,
+    "_target": {
+      "__id__": 2
+    },
     "_alignFlags": 9,
-    "_left": -485,
+    "_left": 27,
     "_right": 0,
-    "_top": -380,
+    "_top": 4,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -12072,21 +12074,6 @@
     "scrollValue": 400,
     "individualLayoutNode": {
       "__id__": 30
-    },
-    "hatArmature": {
-      "__id__": 108
-    },
-    "handArmature": {
-      "__id__": 110
-    },
-    "glassArmature": {
-      "__id__": 112
-    },
-    "shoeArmature": {
-      "__id__": 114
-    },
-    "neckArmature": {
-      "__id__": 116
     },
     "_id": "40f5NwhtlDHpoficxpkn+b"
   },
