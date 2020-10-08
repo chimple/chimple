@@ -34,7 +34,7 @@ export const HOME_SCENE = 'menu/home/scenes/home';
 export const START_SCENE = 'menu/start/scenes/start';
 //@ts-ignore
 cc.deep_link = function (url) {
-    cc.log("deep link called with url:" + url);
+    cc.log("deep link called with aliens:" + url);
     http://chimple.github.io
         if (url !== null && url.includes("http://chimple.github.io/")) {
             let messageType: string = null;
