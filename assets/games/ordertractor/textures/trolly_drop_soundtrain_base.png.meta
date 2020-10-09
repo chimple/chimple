@@ -1,6 +1,6 @@
 {
   "ver": "2.3.5",
-  "uuid": "b3b37c70-21ed-4347-b943-af20e008c803",
+  "uuid": "b49bfafb-9f9b-4a08-b26c-ade11690ea51",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "trolly_drop_soundtrain_base": {
       "ver": "1.0.4",
-      "uuid": "533e7451-52c6-4bbf-bc4f-a2586f50e881",
-      "rawTextureUuid": "b3b37c70-21ed-4347-b943-af20e008c803",
+      "uuid": "864df91e-7869-47e4-aa06-e1b01bdc9eeb",
+      "rawTextureUuid": "b49bfafb-9f9b-4a08-b26c-ade11690ea51",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -28,8 +28,8 @@
       "rawHeight": 37,
       "borderTop": 0,
       "borderBottom": 0,
-      "borderLeft": 64,
-      "borderRight": 64,
+      "borderLeft": 0,
+      "borderRight": 0,
       "subMetas": {}
     }
   }
