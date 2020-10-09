@@ -1,4 +1,4 @@
-import { ADD_TEACHER, TEACHER_ID_KEY, TEACHER_NAME_KEY } from "../../../chimple";
+import {RECEIVED_TEACHER_REQUEST, TEACHER_ADDED, TEACHER_ID_KEY, TEACHER_NAME_KEY} from "../../../chimple";
 import Header from "../../../common/scripts/header";
 import Config from "../../../common/scripts/lib/config";
 import { User } from "../../../common/scripts/lib/profile";
@@ -102,15 +102,21 @@ export default class Start extends cc.Component {
 
     private showTeacherDialog() {
         try {
-            const messageStr: string = cc.sys.localStorage.getItem(ADD_TEACHER) || '[]';
+            const messageStr: string = cc.sys.localStorage.getItem(RECEIVED_TEACHER_REQUEST) || '[]';
             let messages: any[] = JSON.parse(messageStr);
             messages = messages.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
             if (messages && messages.length > 0) {
                 const curMessage = messages.splice(0, 1)[0];
                 const name: string = curMessage[TEACHER_NAME_KEY];
                 const id = curMessage[TEACHER_ID_KEY];
-                cc.sys.localStorage.setItem(ADD_TEACHER, JSON.stringify(messages));
-                if (!!id && !!name) {
+                cc.sys.localStorage.setItem(RECEIVED_TEACHER_REQUEST, JSON.stringify(messages));
+
+                const studentAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED+id) || '[]');
+                let users = User.getUsers() || [];
+                users = users.filter(u => !studentAdded.includes(u.id))
+                cc.log('remaining users', users);
+
+                if (!!id && !!name && users && users.length > 0) {
                     const teacherDialog: cc.Node = cc.instantiate(this.teacherDialogPrefab);
                     const script: TeacherAddedDialog = teacherDialog.getComponent(TeacherAddedDialog);
                     script.TeacherName = name;

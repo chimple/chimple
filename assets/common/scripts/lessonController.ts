@@ -253,6 +253,9 @@ export default class LessonController extends cc.Component {
         const eventName: string = this.isQuiz ? "quizEnd" : "gameEnd";
         UtilLogger.logChimpleEvent(eventName, {
             lessonSessionId: this.lessonSessionId,
+            gameName: config.game,
+            totalGames: config.chapter.lessons.length,
+            currentGameNumber: config.chapter.lessons.findIndex(l => l.id === config.lesson.id),
             problemSessionId: this.problemSessionId,
             chapterName: config.chapter.name,
             chapterId: config.chapter.id,
@@ -336,9 +339,8 @@ export default class LessonController extends cc.Component {
             score: score,
             timeSpent: timeSpent,
             skills: config.lesson.skills ? config.lesson.skills.join(",") : "",
-            game_completed: config.game.toLowerCase().includes("quiz") ? false : true,
-            quiz_completed: config.game.toLowerCase().includes("quiz") ? true : false
-        });
+            attempts: user.lessonProgressMap.get(config.lesson.id) ? user.lessonProgressMap.get(config.lesson.id).attempts : 1
+         });
 
         const block = cc.instantiate(this.blockPrefab);
         this.node.addChild(block);
@@ -389,9 +391,12 @@ export default class LessonController extends cc.Component {
     protected onDisable() {
         if (!this.isQuizCompleted && !this.isGameCompleted) {
             const timeSpent = Math.ceil((new Date().getTime() - this.problemStartTime) / 1000);
-            const eventName: string = this.isQuiz ? "quizSkipped" : "gameSkipped";
+            const eventName: string = this.isQuiz ? "quizIncomplete" : "gameIncomplete";
             const config = Config.i;
             UtilLogger.logChimpleEvent(eventName, {
+                gameName: config.game,
+                totalGames: config.chapter.lessons.length,
+                currentGameNumber: config.chapter.lessons.findIndex(l => l.id === config.lesson.id),
                 lessonSessionId: this.lessonSessionId,
                 problemSessionId: this.problemSessionId,
                 chapterName: config.chapter.name,
