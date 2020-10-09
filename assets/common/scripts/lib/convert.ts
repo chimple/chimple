@@ -16,6 +16,8 @@ export interface Chapter {
     lessons: Lesson[];
     name: string;
     image: string;
+    color: string;
+    course: Course;
 }
 
 export interface Lesson {
@@ -25,6 +27,8 @@ export interface Lesson {
     open: boolean;
     type: string;
     skills: Array<string>;
+    color: string;
+    chapter: Chapter;
 }
 
 // Converts JSON strings to/from your types

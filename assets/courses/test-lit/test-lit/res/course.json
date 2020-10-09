@@ -11,12 +11,14 @@
           "id": "test-lit-phonictractor",
           "image": "phonictractor.png",
           "name": "phonictractor",
+          "color": "#347FC1",
           "skills": []
         },
         {
           "id": "test-lit-pictureboard",
           "image": "pictureboard.png",
           "name": "pictureboard",
+          "color": "#F55B5D",
           "skills": []
         },
         {
@@ -24,6 +26,7 @@
           "image": "speakingpet.png",
           "name": "speakingpet",
           "open": true,
+          "color": "#42C0FF",
           "skills": []
         },
         {
@@ -31,6 +34,7 @@
           "image": "letterboard.png",
           "name": "letterboard",
           "open": true,
+          "color": "#6560AB",
           "skills": []
         },
         {
@@ -38,6 +42,7 @@
           "image": "alphabetrecorder.png",
           "name": "alphabetrecorder",
           "open": true,
+          "color": "#FF5500",
           "skills": []
         }
       ],
@@ -51,6 +56,7 @@
           "id": "test-lit-writeword",
           "image": "writeword.png",
           "name": "writeword",
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -58,6 +64,7 @@
           "image": "picturemeaning.png",
           "name": "picturemeaning",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -65,6 +72,7 @@
           "image": "jumpsentence.png",
           "name": "jumpsentence",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -72,6 +80,7 @@
           "image": "openwindow.png",
           "name": "openwindow",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -79,6 +88,7 @@
           "image": "createsentence.png",
           "name": "createsentence",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         }
       ],
@@ -92,6 +102,7 @@
           "id": "test-lit-bubbletype",
           "image": "bubbletype.png",
           "name": "bubbletype",
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -99,6 +110,7 @@
           "image": "writeletter.png",
           "name": "writeletter",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -106,6 +118,7 @@
           "image": "fillblank.png",
           "name": "fillblank",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -113,6 +126,7 @@
           "image": "spelldoor.png",
           "name": "spelldoor",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -120,6 +134,7 @@
           "image": "writecard.png",
           "name": "writecard",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         }
       ],
@@ -133,6 +148,7 @@
           "id": "test-lit-imagerecorder",
           "image": "imagerecorder.png",
           "name": "imagerecorder",
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -140,6 +156,7 @@
           "image": "drawshape.png",
           "name": "drawshape",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -147,6 +164,7 @@
           "image": "rocket.png",
           "name": "rocket",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -154,6 +172,7 @@
           "image": "tag.png",
           "name": "tag",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -161,6 +180,7 @@
           "image": "monster.png",
           "name": "monster",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         }
       ],
@@ -174,6 +194,7 @@
           "id": "test-lit-letterpair",
           "image": "letterpair.png",
           "name": "letterpair",
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -181,6 +202,7 @@
           "image": "grid.png",
           "name": "grid",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -188,6 +210,7 @@
           "image": "arrangeletters.png",
           "name": "arrangeletters",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -195,6 +218,7 @@
           "image": "dragthealphabet.png",
           "name": "dragthealphabet",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -202,6 +226,7 @@
           "image": "dragthealphabet.png",
           "name": "quizliteracy",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -209,13 +234,15 @@
           "image": "dragthealphabet.png",
           "name": "story",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         },
         {
-          "id": "test-lit-storyquiz",
+          "id": "test-lit-storyq",
           "image": "dragthealphabet.png",
           "name": "storyquiz",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         },
         {
@@ -223,6 +250,7 @@
           "image": "dragthealphabet.png",
           "name": "youtube",
           "open": true,
+          "color": "#347FC1",
           "skills": []
         }
       ],

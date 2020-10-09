@@ -1,9 +1,10 @@
-import { Util } from "../../../common/scripts/util";
-import Config from "../../../common/scripts/lib/config";
-import { Lesson, Chapter, Course } from "../../../common/scripts/lib/convert";
-import { User } from "../../../common/scripts/lib/profile";
 import LessonController from "../../../common/scripts/lessonController";
+import LessonIcon from "../../../common/scripts/lessonIcon";
+import Config from "../../../common/scripts/lib/config";
+import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
+import { User } from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
+import { Util } from "../../../common/scripts/util";
 
 const { ccclass, property } = cc._decorator;
 
@@ -16,8 +17,8 @@ export default class LessonButton extends cc.Component {
     @property(cc.Button)
     button: cc.Button
 
-    @property(cc.Sprite)
-    sprite: cc.Sprite
+    @property(cc.Prefab)
+    lessonIconPrefab: cc.Prefab
 
     @property(cc.Label)
     chapterLabel: cc.Label
@@ -27,9 +28,6 @@ export default class LessonButton extends cc.Component {
 
     @property(cc.Sprite)
     downloadSprite: cc.Sprite
-
-    @property(cc.Material)
-    grayMaterial: cc.Material
 
     @property(cc.Sprite)
     star1: cc.Sprite
@@ -55,12 +53,12 @@ export default class LessonButton extends cc.Component {
     onLoad() {
         const config = Config.i
         if (this.lesson != null && this.course != null && this.lesson != null) {
+            const lessonIcon = cc.instantiate(this.lessonIconPrefab)
+            const lessonIconComp = lessonIcon.getComponent(LessonIcon)
+            lessonIconComp.lesson = this.lesson
+            lessonIconComp.open = this.open
+            this.button.node.insertChild(lessonIcon, 0)
             this.label.string = this.lesson.name
-            Util.load(this.course.id + '/course/res/icons/' + this.lesson.image, (err, texture) => {
-                if (!err) {
-                    this.sprite.spriteFrame = new cc.SpriteFrame(texture);
-                }
-            })
             this.button.node.on('click', () => {
                 config.course = this.course
                 config.chapter = this.chapter
@@ -68,10 +66,12 @@ export default class LessonButton extends cc.Component {
                 this.loading.getComponent(Loading).allowCancel = true
                 this.loading.active = true
                 LessonController.preloadLesson(this.node, (err: Error) => {
-                    if(err) {
+                    if (err) {
                         this.loading.getComponent(Loading).addMessage(Util.i18NText('Error downloading content. Please connect to internet and try again'), true, true)
                     } else {
-                        config.pushScene('common/scenes/lessonController')
+                        if (this.loading.activeInHierarchy) {
+                            config.pushScene('common/scenes/lessonController')
+                        }
                     }
                 })
             })
@@ -83,15 +83,14 @@ export default class LessonButton extends cc.Component {
                     }
                 })
             }
-            if(!this.open) {
+            if (!this.open) {
                 this.button.interactable = false
-                this.sprite.setMaterial(0, this.grayMaterial)
             }
             const lessonProgress = User.getCurrentUser().lessonProgressMap.get(this.lesson.id)
-            if(lessonProgress && lessonProgress.score >= 0) {
+            if (lessonProgress && lessonProgress.score >= 0) {
                 this.star1.spriteFrame = lessonProgress.score > 25 ? this.goldStar : this.grayStar
                 this.star2.spriteFrame = lessonProgress.score > 50 ? this.goldStar : this.grayStar
-                this.star3.spriteFrame = lessonProgress.score > 75 ? this.goldStar : this.grayStar    
+                this.star3.spriteFrame = lessonProgress.score > 75 ? this.goldStar : this.grayStar
             }
 
         }

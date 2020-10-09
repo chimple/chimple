@@ -21,6 +21,14 @@ export const ADD_TEACHER: string = 'add_teacher';
 export const TEACHER_ID_KEY = 'id';
 export const TEACHER_NAME_KEY = 'name';
 
+export const ASSIGN_HOMEWORK: string = 'assign_homework';
+export const ASSIGNMENT_ID_KEY_FOR_ASSIGN_HW = 'aid';
+export const STUDENT_ASSIGNMENT_ID_KEY = 'sid';
+export const TEACHER_ID_KEY_FOR_ASSIGN_HW = 'tid';
+export const CHAPTER_ID_KEY_FOR_ASSIGN_HW = 'cid';
+export const LESSON_ID_KEY_FOR_ASSIGN_HW = 'lid';
+
+
 export const LANDING_SCENE = 'private/school/scenes/landing';
 export const HOME_SCENE = 'menu/home/scenes/home';
 export const START_SCENE = 'menu/start/scenes/start';
@@ -82,7 +90,7 @@ export default class Chimple extends cc.Component {
                 this.navigateToBase();
                 break;
             case DeployMode.Close:
-                Config.loadScene(LANDING_SCENE, 'private', null);
+                Config.i.pushScene(LANDING_SCENE, 'private', null, true);
                 break;
             default:
                 this.navigateToBase();
@@ -93,7 +101,7 @@ export default class Chimple extends cc.Component {
     }
 
     public static navigateToHome() {
-        Config.loadScene('private/home/loginnew/scenes/homeLoginScene', 'private', null);
+        Config.i.pushScene('private/home/loginnew/scenes/homeLoginScene', 'private', null, true);
     }
 
     private navigateToBase() {
@@ -102,6 +110,6 @@ export default class Chimple extends cc.Component {
             User.createUser('test', '', 5, Gender.GIRL, 'test', 'armydog');
         }
         User.setCurrentUser(User.getUsers()[0]);
-        Config.loadScene('menu/start/scenes/start', 'menu', null);
+        Config.i.pushScene('menu/start/scenes/start', 'menu', null, true);
     }
 }

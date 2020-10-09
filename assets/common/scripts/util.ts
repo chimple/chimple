@@ -1,4 +1,3 @@
-import { Queue } from "../../queue";
 import ChimpleLabel from "./chimple-label";
 import Help from "./help";
 import { DEFAULT_FONT_COLOR, LETTER_VOICE, NUMBER_VOICE, PHONIC_VOICE } from "./helper";
@@ -7,11 +6,11 @@ import Config from "./lib/config";
 import { ASSET_LOAD_METHOD, COURSES_URL } from "./lib/constants";
 import Profile, { LANGUAGE, SFX_OFF, User } from "./lib/profile";
 import UtilLogger from "./util-logger";
+import Friend from "./friend";
+import { AssignHomeWorkInfo } from "../../private/services/parseApi";
 import Overflow = cc.Label.Overflow;
 import HorizontalAlign = cc.Label.HorizontalAlign;
 import VerticalAlign = cc.Label.VerticalAlign;
-import Friend from "./friend";
-import { AssignHomeWorkInfo } from "../../private/services/parseApi";
 
 export const INVENTORY_DATA = [
   ["hat1-hat1", "hat1-hat2", "hat1-hat3", "hat1-hat4", "hat1-hat5", "hat1-hat6", "hat1-hat7", "hat1-hat8", "hat1-hat9", "hat1-hat10"],
@@ -645,6 +644,9 @@ export class Util {
   ) {
     const config = Config.getInstance();
     const lessonNode = cc.Canvas.instance.node
+    if (playAudio) {
+      LessonController.friend.speakHelp()
+    }
     if (config.problem == 1 && from != null && to != null) {
       cc.resources.load("prefabs/help", function (err, prefab) {
         if (!err) {
@@ -652,16 +654,16 @@ export class Util {
           // @ts-ignore
           const helpComp = help.getComponent(Help);
           if (helpComp != null) {
-            helpComp.initNodes(from, to, null);
+            helpComp.initNodes(from, to, callBack);
+          } else {
+            if (callBack != null) callBack();
           }
           // @ts-ignore
           lessonNode.addChild(help);
+        } else {
+          if (callBack != null) callBack();
         }
       });
-    }
-    if (playAudio) {
-      // const lessonComp = lessonNode.getComponent(LessonController)
-      LessonController.friend.speakHelp(callBack)
     } else {
       if (callBack != null) callBack();
     }
@@ -705,8 +707,10 @@ export class Util {
   }
 
   public static loadFriend(callback: Function) {
+    const user = User.getCurrentUser()
+    const char = user ? user.currentCharacter : 'chimp'
     cc.resources.load(
-      "prefabs/friend/" + User.getCurrentUser().currentCharacter,
+      "prefabs/friend/" + char,
       (err, prefab) => {
         if (err != null) cc.log(err);
         const friendNode = prefab != null ? cc.instantiate(prefab) : null;
@@ -716,16 +720,20 @@ export class Util {
   }
 
   public static loadAccessoriesAndEquipAcc(accessoriesNode: cc.Node, friendNode: cc.Node): dragonBones.ArmatureDisplay {
-    accessoriesNode.x = 5 * cc.winSize.width
-    let accArmature: dragonBones.ArmatureDisplay;
-    for (let i = 0; i < INVENTORY_DATA.length; i++) {
-      accArmature = accessoriesNode.children[i].getComponent(dragonBones.ArmatureDisplay)
-      for (let j = 0; j < INVENTORY_DATA[i].length; j++) {
-        accArmature.armatureName = INVENTORY_DATA[i][j].split("-")[1];
+    if (User.getCurrentUser()) {
+      accessoriesNode.x = 5 * cc.winSize.width
+      let accArmature: dragonBones.ArmatureDisplay;
+      for (let i = 0; i < INVENTORY_DATA.length; i++) {
+        accArmature = accessoriesNode.children[i].getComponent(dragonBones.ArmatureDisplay)
+        for (let j = 0; j < INVENTORY_DATA[i].length; j++) {
+          accArmature.armatureName = INVENTORY_DATA[i][j].split("-")[1];
+        }
       }
+      Util.equipAcc(friendNode);
+      return accArmature;
+    } else {
+      accessoriesNode.active = false
     }
-    Util.equipAcc(friendNode);
-    return accArmature;
   }
 
   public static equipAcc(friendNode: cc.Node) {
@@ -850,9 +858,7 @@ export class Util {
       subjectId: subjectId,
       sectionId: sectionId
     };
-
-    Queue.getInstance().push(updateInfo);
-
+    return updateInfo;
   }
 
   public static removeDuplicateMessages(data: any, messageType: string): any[] {
@@ -874,7 +880,7 @@ export class Util {
     const user = User.getCurrentUser()
     const unlockedRewards = user.unlockedRewards
     const nextCharIndex = REWARD_CHARACTERS.findIndex((char) => !(`${REWARD_TYPES[0]}-${char}` in unlockedRewards))
-    
+
     if (nextCharIndex == 0) {
       //first inventory of first character
       const split = INVENTORY_DATA[0][0].split('-')
@@ -893,9 +899,9 @@ export class Util {
       if (remainingInventory.length == 0) {
         if (currentCharIndex + 1 < REWARD_CHARACTERS.length) {
           //finished all inventory for current char. unlock next char
-          user.currentCharacter = REWARD_CHARACTERS[currentCharIndex+1]
-          user.unlockRewardsForItem(`${REWARD_TYPES[0]}-${REWARD_CHARACTERS[currentCharIndex+1]}`, 1)
-          return [REWARD_TYPES[0], `${REWARD_TYPES[0]}-${REWARD_CHARACTERS[currentCharIndex+1]}`]
+          user.currentCharacter = REWARD_CHARACTERS[currentCharIndex + 1]
+          user.unlockRewardsForItem(`${REWARD_TYPES[0]}-${REWARD_CHARACTERS[currentCharIndex + 1]}`, 1)
+          return [REWARD_TYPES[0], `${REWARD_TYPES[0]}-${REWARD_CHARACTERS[currentCharIndex + 1]}`]
         } else {
           //ran out of rewards
           return null
@@ -903,10 +909,10 @@ export class Util {
       } else {
         if (remainingInventory.length < allInventoryCount / 2
           && !(`${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[currentCharIndex]}` in unlockedRewards)) {
-            // we have unlocked half inventory for char. now unlock background
-            user.currentBg = REWARD_BACKGROUNDS[currentCharIndex]
-            user.unlockRewardsForItem(`${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[currentCharIndex]}`, 1)
-            return [REWARD_TYPES[1], `${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[currentCharIndex]}`]
+          // we have unlocked half inventory for char. now unlock background
+          user.currentBg = REWARD_BACKGROUNDS[currentCharIndex]
+          user.unlockRewardsForItem(`${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[currentCharIndex]}`, 1)
+          return [REWARD_TYPES[1], `${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[currentCharIndex]}`]
         } else {
           // give an inventory for current character
           const inventoryItem = remainingInventory[Math.floor(Math.random() * remainingInventory.length)]

@@ -1,0 +1,48 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-zh-rCN/values-zh-rCN.xml",
+            "map": [
+                {
+                    "source": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/platform/android/libcocos2dx/src/main/res/values-zh-rCN/strings.xml",
+                    "from": {
+                        "startLines": "3,6,4,5,7",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "94,268,151,209,323",
+                        "endColumns": "56,54,57,58,56",
+                        "endOffsets": "146,318,204,263,375"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "55,112,167,225,284",
+                        "endColumns": "56,54,57,58,56",
+                        "endOffsets": "107,162,220,279,336"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/res/merged/release/values-zh-rCN/values-zh-rCN.xml",
+            "map": [
+                {
+                    "source": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/platform/android/libcocos2dx/src/main/res/values-zh-rCN/strings.xml",
+                    "from": {
+                        "startLines": "3,6,4,5,7",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "94,268,151,209,323",
+                        "endColumns": "56,54,57,58,56",
+                        "endOffsets": "146,318,204,263,375"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "55,112,167,225,284",
+                        "endColumns": "56,54,57,58,56",
+                        "endOffsets": "107,162,220,279,336"
+                    }
+                }
+            ]
+        }
+    ]
+}

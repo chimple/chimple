@@ -1,9 +1,9 @@
 import UtilLogger from "../util-logger";
-import Config, { ALL_LANGS } from "./config";
-import { Queue } from "../../../queue";
-import { CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
-import { Course } from "./convert";
-import { Util, REWARD_TYPES } from "../util";
+import Config, {ALL_LANGS} from "./config";
+import {Queue} from "../../../queue";
+import {CURRENT_STUDENT_ID, EXAM, MIN_PASS} from "./constants";
+import {Course} from "./convert";
+import {Util, REWARD_TYPES} from "../util";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -27,7 +27,7 @@ export enum Gender {
 }
 
 export interface UserAttribute {
-    id: string,
+    id?: string,
     name?: string,
     age?: number,
     gender?: Gender,
@@ -368,6 +368,7 @@ export class User {
             "bear",
             new Map([
                 ['en', new CourseProgressClass()],
+                ['maths', new CourseProgressClass()],
                 ['test-lit', new CourseProgressClass()],
                 ['test-maths', new CourseProgressClass()]
             ]),
@@ -490,8 +491,11 @@ export class User {
     }
 
     static createUserOrFindExistingUser(userAttribute: UserAttribute): User {
-        const existingUser: User = this.getUser(userAttribute.id);
-        if (!!existingUser) return existingUser;
+        let existingUser: User = null;
+        if (!!userAttribute && !!userAttribute.id) {
+            existingUser = this.getUser(userAttribute.id);
+            if (!!existingUser) return existingUser;
+        }
 
         return User.createUser(
             userAttribute.name,
@@ -597,10 +601,7 @@ export default class Profile {
     }
 
     static async teacherPostLoginActivity(objectId: string) {
-        const currentUser: User = User.createUserOrFindExistingUser({
-            id: objectId
-        }
-        );
+        const currentUser: User = User.createUserOrFindExistingUser({id: objectId});
         User.setCurrentUser(currentUser);
     }
 }
