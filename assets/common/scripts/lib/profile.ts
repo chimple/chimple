@@ -1,9 +1,9 @@
 import UtilLogger from "../util-logger";
-import Config, {ALL_LANGS} from "./config";
-import {Queue} from "../../../queue";
-import {CURRENT_STUDENT_ID, EXAM, MIN_PASS} from "./constants";
-import {Course} from "./convert";
-import {Util, REWARD_TYPES} from "../util";
+import Config, { ALL_LANGS } from "./config";
+import { Queue } from "../../../queue";
+import { CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
+import { Course } from "./convert";
+import { Util, REWARD_TYPES } from "../util";
 import Header from "../header";
 
 const WORLD = "World";
@@ -38,11 +38,14 @@ export interface UserAttribute {
 }
 
 export interface CourseProgress {
-    currentLessonId: string;
+    currentChapterId: string;
 }
 
 export class CourseProgressClass implements CourseProgress {
-    currentLessonId = null;
+    currentChapterId: string
+    constructor(currentChapterId: string = null) {
+        this.currentChapterId = currentChapterId
+    }
 }
 
 export interface LessonProgress {
@@ -53,7 +56,7 @@ export interface LessonProgress {
 }
 
 export class LessonProgressClass implements LessonProgress {
-    achievement: number;
+    achievement: number = 0;
     score: number;
     attempts: number;
     date: Date;
@@ -82,6 +85,7 @@ export class User {
     private _unlockedInventory: object;
     private _unlockedRewards: object;
     private _isTeacher: boolean;
+    private _level: number;
 
     constructor(
         id: string,
@@ -97,7 +101,7 @@ export class User {
         courseProgressMap: Map<string, CourseProgress>,
         lessonProgressMap: Map<string, LessonProgress>,
         unlockedInventory: object,
-        unlockedRewards: object
+        unlockedRewards: object,
     ) {
         this._id = id;
         this._name = name;
@@ -277,8 +281,11 @@ export class User {
     updateLessonProgress(lessonId: string, score: number): [string, string] {
         var reward: [string, string]
         if (this._lessonProgressMap.has(lessonId)) {
-            if (score > this._lessonProgressMap.get(lessonId).score) {
-                this._lessonProgressMap.get(lessonId).score = score;
+            const lessonProgress = this._lessonProgressMap.get(lessonId)
+            lessonProgress.attempts++
+            lessonProgress.date = new Date()
+            if (score > lessonProgress.score) {
+                lessonProgress.score = score;
                 if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
                     reward = [REWARD_TYPES[2], Config.i.lesson.image]
                 } else {
@@ -291,7 +298,7 @@ export class User {
             } else {
                 reward = Util.unlockNextReward()
             }
-            this._lessonProgressMap.set(lessonId, new LessonProgressClass(score));
+            this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1));
         }
 
         if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
@@ -305,6 +312,15 @@ export class User {
                 if (!this._lessonProgressMap.has(nextLesson.id)) {
                     this._lessonProgressMap.set(nextLesson.id, new LessonProgressClass(-1));
                 }
+            } else if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == Config.i.chapter.id) {
+                var found = false
+                const nextChapter = Config.i.course.chapters
+                    .find((c) => {
+                        if(found) return true
+                        found = c.id == this.courseProgressMap.get(Config.i.course.id).currentChapterId
+                        return false
+                    })
+                if(nextChapter) this.courseProgressMap.get(Config.i.course.id).currentChapterId = nextChapter.id
             }
         }
 
@@ -369,10 +385,10 @@ export class User {
             "",
             "bear",
             new Map([
-                ['en', new CourseProgressClass()],
-                ['maths', new CourseProgressClass()],
-                ['test-lit', new CourseProgressClass()],
-                ['test-maths', new CourseProgressClass()]
+                ['en', new CourseProgressClass('en00')],
+                ['maths', new CourseProgressClass('maths00')],
+                ['test-lit', new CourseProgressClass('chapter_0')],
+                ['test-maths', new CourseProgressClass('chapter_0')]
             ]),
             new Map(),
             {},
@@ -605,7 +621,7 @@ export default class Profile {
     }
 
     static async teacherPostLoginActivity(objectId: string) {
-        const currentUser: User = User.createUserOrFindExistingUser({id: objectId});
+        const currentUser: User = User.createUserOrFindExistingUser({ id: objectId });
         User.setCurrentUser(currentUser);
     }
 }

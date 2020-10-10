@@ -95,7 +95,7 @@ export default class Rewards extends cc.Component {
                 chapter.lessons.forEach((lesson: Lesson) => {
                     if (lesson.type == EXAM
                         && lessonProgressMap.has(lesson.id)
-                        && lessonProgressMap.get(lesson.id).score > MIN_PASS) {
+                        && lessonProgressMap.get(lesson.id).score >= MIN_PASS) {
                         const achievement = cc.instantiate(this.achievementPrefab)
                         const achievementComp = achievement.getComponent(Achievement)
                         achievementComp.image = lesson.image
