@@ -876,11 +876,10 @@ public class ChimpleLogger {
             ex.printStackTrace();
         }
     }
-    public static void verifyPhoneNumber(final String phoneNumber) {
-        AppActivity.app.verifyPhoneNumber(phoneNumber);
+    public static void requestOtp(final String phoneNumber) {
+        AppActivity.app.requestOtp(phoneNumber);
     }
 
-    public static void verifyOTP(final String otp) {
+    public static void verifyOtp(final String otp) {
         AppActivity.app.verifyOtp(otp);
     }
-}

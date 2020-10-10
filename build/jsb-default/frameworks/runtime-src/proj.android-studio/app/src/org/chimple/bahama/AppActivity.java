@@ -778,7 +778,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         return this.mCallbacks;
     }
 
-    public void verifyPhoneNumber(final String phoneNumber) {
+    public void requestOtp(final String phoneNumber) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,                 // Phone number to verify
                 1,                          // Timeout duration
