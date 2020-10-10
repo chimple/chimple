@@ -151,5 +151,11 @@ export default class Friend extends cc.Component {
         if (this.helpAudioId == -1) this.speakHelp(false)
     }
 
+    get interactable() : boolean {
+        return this.button.interactable
+    }
 
+    set interactable(i: boolean) {
+        this.button.interactable = i
+    }
 }

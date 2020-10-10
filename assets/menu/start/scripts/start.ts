@@ -40,9 +40,6 @@ export default class Start extends cc.Component {
     bgHolder: cc.Node = null;
 
     onLoad() {
-        for (let index = 0; index < 2; index++) {
-            cc.log(Util.unlockNextReward())        
-        }
         this.bgHolder.removeAllChildren();
         if (!!User.getCurrentUser().currentBg) {
             this.setBackground(User.getCurrentUser().currentBg);
@@ -52,7 +49,7 @@ export default class Start extends cc.Component {
         const loadingComp = this.loading.getComponent(Loading)
         loadingComp.allowCancel = false
         loadingComp.delay = 0
-        
+
         const config = Config.i
         config.loadCourseJsons(User.getCurrentUser(), this.node, () => {
             const headerNode = cc.instantiate(this.headerPrefab)
