@@ -4,6 +4,7 @@ import {Queue} from "../../../queue";
 import {CURRENT_STUDENT_ID, EXAM, MIN_PASS} from "./constants";
 import {Course} from "./convert";
 import {Util, REWARD_TYPES} from "../util";
+import Header from "../header";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -473,6 +474,8 @@ export class User {
 
     static setCurrentUser(user: User) {
         this._currentUser = user;
+        Config.i.clear()
+        Header.homeSelected = true
     }
 
     static getCurrentUser() {
