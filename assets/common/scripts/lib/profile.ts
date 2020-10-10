@@ -47,19 +47,19 @@ export class CourseProgressClass implements CourseProgress {
 export interface LessonProgress {
     achievement?: number;
     score: number;
-    quizAttempts?: number;
+    attempts?: number;
     date?: Date;
 }
 
 export class LessonProgressClass implements LessonProgress {
     achievement: number;
     score: number;
-    quizAttempts: number;
+    attempts: number;
     date: Date;
 
-    constructor(score: number, quizAttempts: number = 0) {
+    constructor(score: number, attempts: number = 0) {
         this.score = score;
-        this.quizAttempts = quizAttempts;
+        this.attempts = attempts;
         this.date = new Date()
     }
 }
@@ -184,6 +184,7 @@ export class User {
     set avatarImage(avatarImage: string) {
         console.log(" avatar image : ", avatarImage);
         this._avatarImage = avatarImage;
+        UtilLogger.setUserPropertiesEvent("userAvatarImage", name);
         this._storeUser();
     }
 
