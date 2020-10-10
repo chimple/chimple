@@ -43,6 +43,7 @@ import android.os.Looper;
 import android.os.Parcelable;
 import android.os.RemoteException;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -58,7 +59,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -83,6 +90,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import static org.chimple.bahama.logger.ChimpleLogger.ADVERTISING_ID;
 import static org.chimple.bahama.logger.ChimpleLogger.APP_INSTALLED_TIME;
@@ -110,6 +118,10 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private CountDownTimer repeatHandShakeTimer = null;
     private static final int REPEAT_HANDSHAKE_TIMER = 1 * 30 * 1000; // 30 second
 
+    private FirebaseAuth mAuth = null;
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = null;
+    private String mVerificationId;
+    private PhoneAuthProvider.ForceResendingToken mResendToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,7 +189,10 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         }.start();
 
         //Deep Links
-        this.processDeepLink();        
+        this.processDeepLink();
+
+        // OTP integration
+        initFireBaseAuthLoginUsingOTP();
     }
 
     public void processDeepLink() {
@@ -222,6 +237,32 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                 app.startActivityForResult(shareIntent,SEND_CODE);
             }
         });
+    }
+
+    public void initFireBaseAuthLoginUsingOTP() {
+        mAuth = FirebaseAuth.getInstance();
+        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            @Override
+            public void onVerificationFailed(FirebaseException e) {
+                Toast.makeText(AppActivity.this, "verification failed", Toast.LENGTH_SHORT).show();
+                Log.d("FirebaseException", e.toString());
+            }
+
+            @Override
+            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                Toast.makeText(AppActivity.this, "verification completed", Toast.LENGTH_SHORT)
+                    .show();
+            }
+
+            @Override
+            public void onCodeSent(String verificationId,
+                                   PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                super.onCodeSent(verificationId, forceResendingToken);
+                Toast.makeText(AppActivity.this, "Code Sent", Toast.LENGTH_SHORT).show();
+                mVerificationId = verificationId; //Add this line to save //verification Id
+                mResendToken = forceResendingToken;
+            }
+        };
     }
 
     public void initFirebaseMessageClient() {
@@ -435,11 +476,9 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             }
         } else if (requestCode == YOUTUBE_CODE) {
             finishActivity(requestCode);
-            Log.d(TAG, "calling next in youtube...");
             app.runOnGLThread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d(TAG, "calling next in youtube 1111...");
                     Cocos2dxJavascriptJavaBridge.evalString("cc.nextYoutube()");
                 }
             });
@@ -735,5 +774,55 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         }
     }
 
+    public PhoneAuthProvider.OnVerificationStateChangedCallbacks refmCallbacks() {
+        return this.mCallbacks;
+    }
 
+    public void verifyPhoneNumber(final String phoneNumber) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phoneNumber,                 // Phone number to verify
+                1,                          // Timeout duration
+                TimeUnit.MINUTES,           // Unit of timeout
+                AppActivity.this,          // Activity (for callback binding)
+                mCallbacks);
+    }
+
+    public void resendToken(final String phoneNumber) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phoneNumber,        // Phone number to verify
+                1,               // Timeout duration
+                TimeUnit.MINUTES,   // Unit of timeout
+                this,       // Activity (for callback binding)
+                mCallbacks,         // OnVerificationStateChangedCallbacks
+                mResendToken);
+    }
+
+    public void verifyOtp(final String otp) {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(this.mVerificationId, otp);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(AppActivity.this, "Verification Success", Toast.LENGTH_SHORT).show();
+                            app.runOnGLThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Cocos2dxJavascriptJavaBridge.evalString("cc.phoneVerificationSucceeded()");
+                                }
+                            });
+                        } else {
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                Toast.makeText(AppActivity.this, "Verification Failed, Invalid credentials", Toast.LENGTH_SHORT).show();
+                                app.runOnGLThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Cocos2dxJavascriptJavaBridge.evalString("cc.phoneVerificationFailed()");
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+    }
 }
