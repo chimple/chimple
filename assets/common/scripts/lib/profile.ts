@@ -278,51 +278,65 @@ export class User {
         this._storeUser()
     }
 
-    updateLessonProgress(lessonId: string, score: number): [string, string] {
+    updateLessonProgress(lessonId: string, score: number, quizScores: number[]): [string, string] {
         var reward: [string, string]
-        if (this._lessonProgressMap.has(lessonId)) {
-            const lessonProgress = this._lessonProgressMap.get(lessonId)
-            lessonProgress.attempts++
-            lessonProgress.date = new Date()
-            if (score > lessonProgress.score) {
-                lessonProgress.score = score;
+        const config = Config.i
+        if (User.getCurrentUser().courseProgressMap.get(Config.i.course.id).currentChapterId == null) {
+            const formulaScore = quizScores.reduce((acc, cur, i, arr): number => {
+                const mul = Math.floor(arr.length / 2) - Math.floor(i / 2)
+                const neg = cur == 0 ? -0.5  : cur
+                return acc + neg * mul
+            }, 0)
+            const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
+            const total = Math.max(0, formulaScore / max)
+            const chapters = config.curriculum.get(config.course.id).chapters
+            User.getCurrentUser().courseProgressMap.get(Config.i.course.id).currentChapterId = chapters[Math.floor(chapters.length * total)].id
+        } else {
+            if (this._lessonProgressMap.has(lessonId)) {
+                const lessonProgress = this._lessonProgressMap.get(lessonId)
+                lessonProgress.attempts++
+                lessonProgress.date = new Date()
+                if (score > lessonProgress.score) {
+                    lessonProgress.score = score;
+                    if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
+                        reward = [REWARD_TYPES[2], Config.i.lesson.image]
+                    } else {
+                        reward = Util.unlockNextReward()
+                    }
+                }
+            } else {
                 if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
                     reward = [REWARD_TYPES[2], Config.i.lesson.image]
                 } else {
                     reward = Util.unlockNextReward()
                 }
+                this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1));
             }
-        } else {
-            if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
-                reward = [REWARD_TYPES[2], Config.i.lesson.image]
-            } else {
-                reward = Util.unlockNextReward()
+
+            if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
+                // open the next lesson
+                const lessons = Config.i.chapter.lessons
+                const lessonIndex = lessons.findIndex((les) => {
+                    return les.id == lessonId
+                })
+                if (lessons.length > lessonIndex + 1) {
+                    const nextLesson = lessons[lessonIndex + 1]
+                    if (!this._lessonProgressMap.has(nextLesson.id)) {
+                        this._lessonProgressMap.set(nextLesson.id, new LessonProgressClass(-1));
+                    }
+                } else if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == Config.i.chapter.id) {
+                    var found = false
+                    const nextChapter = Config.i.course.chapters
+                        .find((c) => {
+                            if (found) return true
+                            found = c.id == this.courseProgressMap.get(Config.i.course.id).currentChapterId
+                            return false
+                        })
+                    if (nextChapter) this.courseProgressMap.get(Config.i.course.id).currentChapterId = nextChapter.id
+                }
             }
-            this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1));
         }
 
-        if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
-            // open the next lesson
-            const lessons = Config.i.chapter.lessons
-            const lessonIndex = lessons.findIndex((les) => {
-                return les.id == lessonId
-            })
-            if (lessons.length > lessonIndex + 1) {
-                const nextLesson = lessons[lessonIndex + 1]
-                if (!this._lessonProgressMap.has(nextLesson.id)) {
-                    this._lessonProgressMap.set(nextLesson.id, new LessonProgressClass(-1));
-                }
-            } else if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == Config.i.chapter.id) {
-                var found = false
-                const nextChapter = Config.i.course.chapters
-                    .find((c) => {
-                        if(found) return true
-                        found = c.id == this.courseProgressMap.get(Config.i.course.id).currentChapterId
-                        return false
-                    })
-                if(nextChapter) this.courseProgressMap.get(Config.i.course.id).currentChapterId = nextChapter.id
-            }
-        }
 
         this._storeUser();
         return reward
@@ -385,8 +399,8 @@ export class User {
             "",
             "bear",
             new Map([
-                ['en', new CourseProgressClass('en00')],
-                ['maths', new CourseProgressClass('maths00')],
+                ['en', new CourseProgressClass()],
+                ['maths', new CourseProgressClass()],
                 ['test-lit', new CourseProgressClass('chapter_0')],
                 ['test-maths', new CourseProgressClass('chapter_0')]
             ]),

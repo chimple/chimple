@@ -21,25 +21,26 @@ export default class StartContent extends cc.Component {
         const user = User.getCurrentUser()
         const buttons: Array<cc.Node> = []
         Config.i.curriculum.forEach((course: Course, name: string) => {
-            const courseProgress = user.courseProgressMap.get(course.id)
-            const currentChapterId = courseProgress
-                ? (courseProgress.currentChapterId ? courseProgress.currentChapterId : course.chapters[0].id)
-                : course.chapters[0].id
-            course.chapters.forEach((chapter: Chapter, index: number) => {
-                if (chapter.id == currentChapterId) {
-                    // get reco lesson in current chapter
-                    buttons.push(this.createButton(this.recommendedLessonInChapter(chapter)))
-
-                    const last3Chapters: Chapter[] = Util.shuffleByMapSortMap(course.chapters.slice(Math.max(0, index - 3), index))
-                    if (last3Chapters.length > 0) {
-                        // get reco lesson in random past 3 chapters
-                        buttons.push(this.createButton(this.recommendedLessonInChapter(last3Chapters[0])))
-                    } else if (index + 1 < course.chapters.length) {
-                        // or if in first chapter, get reco lesson from next chapter
-                        buttons.push(this.createButton(this.recommendedLessonInChapter(course.chapters[index + 1])))
+            const currentChapterId = user.courseProgressMap.get(course.id).currentChapterId
+            if(currentChapterId) {
+                course.chapters.forEach((chapter: Chapter, index: number) => {
+                    if (chapter.id == currentChapterId) {
+                        // get reco lesson in current chapter
+                        buttons.push(this.createButton(this.recommendedLessonInChapter(chapter)))
+    
+                        const last3Chapters: Chapter[] = Util.shuffleByMapSortMap(course.chapters.slice(Math.max(0, index - 3), index))
+                        if (last3Chapters.length > 0) {
+                            // get reco lesson in random past 3 chapters
+                            buttons.push(this.createButton(this.recommendedLessonInChapter(last3Chapters[0])))
+                        } else if (index + 1 < course.chapters.length) {
+                            // or if in first chapter, get reco lesson from next chapter
+                            buttons.push(this.createButton(this.recommendedLessonInChapter(course.chapters[index + 1])))
+                        }
                     }
-                }
-            })
+                })    
+            } else {
+                buttons.push(this.createButton(course.chapters[0].lessons[0]))
+            }
         })
         Util.shuffle(buttons)
         buttons.forEach((node: cc.Node) => {
