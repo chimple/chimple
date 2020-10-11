@@ -2,7 +2,7 @@ import Config from '../../../common/scripts/lib/config'
 import Profile, { User } from '../../../common/scripts/lib/profile';
 import { LANDING_SCENE } from "../../../chimple";
 import { CURRENT_STUDENT_ID, LOGGED_IN_USER, EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
-import { REWARD_TYPES } from '../../../common/scripts/util';
+import { REWARD_TYPES, REWARD_CHARACTERS, REWARD_BACKGROUNDS } from '../../../common/scripts/util';
 import { Course, Chapter, Lesson } from '../../../common/scripts/lib/convert';
 import Achievement from '../../../common/scorecard/scripts/achievement';
 const { ccclass, property } = cc._decorator;
@@ -16,6 +16,12 @@ export default class Rewards extends cc.Component {
 
     @property(cc.Prefab)
     achievementPrefab: cc.Prefab = null;
+
+    @property(cc.Prefab)
+    characterPrefab: cc.Prefab = null;
+
+    @property(cc.Prefab)
+    bgsPrefab: cc.Prefab = null;
 
     normalSprite: cc.SpriteFrame = null;
     lastSelectedButton: number = -1;
@@ -31,44 +37,69 @@ export default class Rewards extends cc.Component {
             this.layoutHolder.children[i].children[0].width = cc.winSize.width - 290
             this.layoutHolder.children[i].children[0].children[0].children[0].width = cc.winSize.width - 290
         }
-        this.checkCharacterLockStatus();
-        this.checkBgLockStatus();
+        this.loadCharacters();
+        this.loadBgs();
         this.checkAchievementsLockStatus();
     }
 
-    checkCharacterLockStatus() {
-        let numberOfChildren = this.layoutHolder.children[0].children[0].children[0].children[0].childrenCount
-        for (let i = 0; i < numberOfChildren; i++) {
-            let eachElement = this.layoutHolder.children[0].children[0].children[0].children[0].children[i];
-            let elementId = eachElement.name;
-            if (User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[0]}-${elementId}`] === 0 || User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[0]}-${elementId}`] === undefined) {
-                // make lock texture active
-                eachElement.getChildByName("lock").active = true
-                eachElement.getComponent(cc.Button).interactable = false
-            }
-            if (eachElement.getComponent(cc.Button).clickEvents[0].customEventData === User.getCurrentUser().currentCharacter) {
-                // make edit button and selected show
-                eachElement.getChildByName("tick").active = true
-                eachElement.getChildByName("edit").active = true
-            }
-        }
+    loadCharacters() {
+        REWARD_CHARACTERS.forEach((character) => {
+            cc.resources.load(`char_icons/${character}_icon`, (err, sp) => {
+                if (!err) {
+                    let charPrefab = cc.instantiate(this.characterPrefab)
+                    // @ts-ignore
+                    charPrefab.getChildByName("characternode").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
+                    this.registerButton(charPrefab, "onCharacterClick", character);
+                    this.registerButton(charPrefab.getChildByName("edit"), "onEditButtonClicked", character);
+                    if (User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[0]}-${character}`] === 0 || User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[0]}-${character}`] === undefined) {
+                        // make lock texture active
+                        charPrefab.getChildByName("lock").active = true
+                        charPrefab.getComponent(cc.Button).interactable = false
+                    }
+                    if (character === User.getCurrentUser().currentCharacter) {
+                        // make edit button and selected show
+                        charPrefab.getChildByName("tick").active = true
+                        charPrefab.getChildByName("edit").active = true
+                    }
+                    const characterNode = this.layoutHolder.children[0].children[0].children[0].children[0]
+                    characterNode.addChild(charPrefab);
+                }
+            });
+        })
     }
 
-    checkBgLockStatus() {
-        let numberOfChildren = this.layoutHolder.children[1].children[0].children[0].children[0].childrenCount
-        for (let i = 0; i < numberOfChildren; i++) {
-            let eachElement = this.layoutHolder.children[1].children[0].children[0].children[0].children[i];
-            let elementId = eachElement.name;
-            if (User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[1]}-${elementId}`] === 0 || User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[1]}-${elementId}`] === undefined) {
-                // make lock texture active
-                eachElement.getComponent(cc.Button).interactable = false
-                eachElement.getChildByName("lock").active = true;
-            }
-            if (eachElement.getComponent(cc.Button).clickEvents[0].customEventData === User.getCurrentUser().currentBg) {
-                // make edit button and selected show
-                eachElement.getChildByName("tick").active = true
-            }
-        }
+    loadBgs() {
+        REWARD_BACKGROUNDS.forEach((bg) => {
+            cc.resources.load(`backgrounds/textures/bg_icons/background-${bg}`, (err, sp) => {
+                let bgPrefab = cc.instantiate(this.bgsPrefab)
+                bgPrefab.name = bg;
+                // @ts-ignore
+                bgPrefab.getChildByName("backgroundnode").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
+                this.registerButton(bgPrefab, "onBgClick", bg);
+                if (User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] === 0 || User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] === undefined) {
+                    // make lock texture active
+                    bgPrefab.getComponent(cc.Button).interactable = false
+                    bgPrefab.getChildByName("lock").active = true;
+                }
+                if (bg === User.getCurrentUser().currentBg) {
+                    // make edit button and selected show
+                    bgPrefab.getChildByName("tick").active = true
+                }
+                const bgNode = this.layoutHolder.children[1].children[0].children[0].children[0]
+                bgNode.addChild(bgPrefab);
+            });
+        })
+    }
+
+    registerButton(buttonNode: cc.Node, functionName: string, customData: string) {
+        let clickEditEventHandler = new cc.Component.EventHandler();
+        clickEditEventHandler.target = this.node;
+        clickEditEventHandler.component = "rewards";
+        clickEditEventHandler.handler = functionName;
+        clickEditEventHandler.customEventData = `${customData}`;
+
+        let button = buttonNode.getComponent(cc.Button);
+        button.clickEvents.push(clickEditEventHandler);
     }
 
     checkAchievementsLockStatus() {
