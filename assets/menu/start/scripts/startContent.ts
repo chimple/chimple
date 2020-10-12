@@ -1,6 +1,6 @@
 import Config from "../../../common/scripts/lib/config";
 import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
-import { User } from "../../../common/scripts/lib/profile";
+import { User, CourseProgress } from "../../../common/scripts/lib/profile";
 import LessonButton from "./lessonButton";
 import { Util } from "../../../common/scripts/util";
 import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
@@ -20,11 +20,11 @@ export default class StartContent extends cc.Component {
     onLoad() {
         const user = User.getCurrentUser()
         const buttons: Array<cc.Node> = []
-        Config.i.curriculum.forEach((course: Course, name: string) => {
-            const currentChapterId = user.courseProgressMap.get(course.id).currentChapterId
-            if(currentChapterId) {
+        user.courseProgressMap.forEach((courseProgress: CourseProgress, name: string) => {
+            const course = Config.i.curriculum.get(name)
+            if(courseProgress.currentChapterId) {
                 course.chapters.forEach((chapter: Chapter, index: number) => {
-                    if (chapter.id == currentChapterId) {
+                    if (chapter.id == courseProgress.currentChapterId) {
                         // get reco lesson in current chapter
                         buttons.push(this.createButton(this.recommendedLessonInChapter(chapter)))
     

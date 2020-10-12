@@ -1,10 +1,9 @@
+import { Queue } from "../../../queue";
+import Header from "../header";
+import { REWARD_TYPES, Util, REWARD_CHARACTERS, INVENTORY_DATA, REWARD_BACKGROUNDS } from "../util";
 import UtilLogger from "../util-logger";
 import Config, { ALL_LANGS } from "./config";
-import { Queue } from "../../../queue";
 import { CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
-import { Course } from "./convert";
-import { Util, REWARD_TYPES } from "../util";
-import Header from "../header";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -86,6 +85,8 @@ export class User {
     private _unlockedRewards: object;
     private _isTeacher: boolean;
     private _level: number;
+    debug: boolean = false
+    curriculumLoaded: boolean = false
 
     constructor(
         id: string,
@@ -102,6 +103,7 @@ export class User {
         lessonProgressMap: Map<string, LessonProgress>,
         unlockedInventory: object,
         unlockedRewards: object,
+        debug: boolean = false
     ) {
         this._id = id;
         this._name = name;
@@ -121,6 +123,7 @@ export class User {
         UtilLogger.setUserPropertiesEvent("userName", name);
         UtilLogger.setUserPropertiesEvent("userAge", age);
         this._genderEvent(gender);
+        this.debug = debug
     }
 
     _genderEvent(gender: Gender) {
@@ -278,13 +281,27 @@ export class User {
         this._storeUser()
     }
 
+    openAllRewards() {
+        REWARD_CHARACTERS.forEach((char) => {
+            this.unlockRewardsForItem(`${REWARD_TYPES[0]}-${char}`, 1)
+            INVENTORY_DATA.forEach((arr)=> {
+                arr.forEach((inv) => {
+                    this.unlockRewardsForItem(`${REWARD_TYPES[3]}-${char}-${inv}`, 1)
+                })
+            })
+        })
+        REWARD_BACKGROUNDS.forEach((bg) => {
+            this.unlockRewardsForItem(`${REWARD_TYPES[1]}-${bg}`, 1)
+        })        
+    }
+
     updateLessonProgress(lessonId: string, score: number, quizScores: number[]): [string, string] {
         var reward: [string, string]
         const config = Config.i
         if (User.getCurrentUser().courseProgressMap.get(Config.i.course.id).currentChapterId == null) {
             const formulaScore = quizScores.reduce((acc, cur, i, arr): number => {
                 const mul = Math.floor(arr.length / 2) - Math.floor(i / 2)
-                const neg = cur == 0 ? -0.5  : cur
+                const neg = cur == 0 ? -0.5 : cur
                 return acc + neg * mul
             }, 0)
             const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
@@ -387,6 +404,8 @@ export class User {
         isTeacher: boolean = false
     ): User {
         let uid = !!id ? id : User.createUUID();
+        const debug = (name == 'debug15' && avatarImage == 'teacherbird'
+            && age == 8 && gender == Gender.GIRL)
         let user = new User(
             uid,
             name,
@@ -397,17 +416,21 @@ export class User {
             isTeacher,
             {},
             "",
-            "bear",
-            new Map([
-                ['en', new CourseProgressClass()],
-                ['maths', new CourseProgressClass()],
-                ['test-lit', new CourseProgressClass('chapter_0')],
-                ['test-maths', new CourseProgressClass('chapter_0')]
-            ]),
+            "chimp",
+            debug
+                ? new Map([
+                    ['test-lit', new CourseProgressClass('chapter_0')],
+                    ['test-maths', new CourseProgressClass('chapter_0')]
+                ])
+                : new Map([
+                    ['en', new CourseProgressClass()],
+                    ['maths', new CourseProgressClass()],
+                ]),
             new Map(),
             {},
             {}
         );
+        if(debug) user.openAllRewards()
         User.storeUser(user);
         let userIds = User.getUserIds();
         if (userIds == null) {

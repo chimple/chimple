@@ -1,7 +1,7 @@
 import { Util } from "../util";
-import Profile, { User } from "./profile";
-import { Chapter, Course, Lesson } from "./convert";
 import UtilLogger from "../util-logger";
+import { Chapter, Course, Lesson } from "./convert";
+import Profile, { User } from "./profile";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
@@ -96,7 +96,6 @@ export default class Config {
     data: Array<Array<string>>;
     currentFontName: string;
     curriculum: Map<string, Course> = new Map();
-    curriculumLoaded: boolean = false;
     currentGameLessonId: string;
     //currently used in story remove later
     gameLevelName: string;
@@ -383,25 +382,24 @@ export default class Config {
     }
 
     loadCourseJsons(user: User, node: cc.Node, callBack: Function) {
-        if (this.curriculumLoaded) {
-            callBack()
-        } else {
-            let numCourses = user.courseProgressMap.size;
-            user.courseProgressMap.forEach((courseProgress, name) => {
+        let numCourses = 0
+        user.courseProgressMap.forEach((courseProgress, name) => {
+            if (!Config.i.curriculum.has(name)) {
+                numCourses++
                 this.loadSingleCourseJson(name, () => {
                     numCourses--;
                 });
-            });
+            }
+        });
 
-            const checkAllLoaded = () => {
-                if (numCourses <= 0) {
-                    this.curriculumLoaded = true;
-                    cc.director.getScheduler().unschedule(checkAllLoaded, node);
-                    callBack();
-                }
-            };
-            cc.director.getScheduler().schedule(checkAllLoaded, node, 1);
-        }
+        const checkAllLoaded = () => {
+            if (numCourses <= 0) {
+                user.curriculumLoaded = true;
+                cc.director.getScheduler().unschedule(checkAllLoaded, node);
+                callBack();
+            }
+        };
+        cc.director.getScheduler().schedule(checkAllLoaded, node, 1);
     }
 
     loadSingleCourseJson(name: string, callBack: Function) {
