@@ -1,23 +1,24 @@
 import ccclass = cc._decorator.ccclass;
 import Config, { Direction } from "./lib/config";
-import {Util} from "./util";
+import { Util } from "./util";
 
 @ccclass
 export default class ChimpleLabel extends cc.Label {
     protected onLoad(): void {
         super.onLoad();
         this.useSystemFont = true;
-        if (Config.getInstance() !== null) {
-            const fontName: string = Config.getInstance().currentFontName;
-            let fontLoaded: boolean = Config.getInstance().hasLoadedTextFont(fontName);
+        const config = Config.i
+        if (config !== null) {
+            const fontName: string = config.currentFontName;
+            let fontLoaded: boolean = config.hasLoadedTextFont(fontName);
             if (fontLoaded) {
-                this.font = Config.getInstance().getTextFont(fontName);
+                this.font = config.getTextFont(fontName);
             }
-            if(Config.i.direction == Direction.RTL && this.horizontalAlign == cc.Label.HorizontalAlign.LEFT) {
+            if (config.direction == Direction.RTL && this.horizontalAlign == cc.Label.HorizontalAlign.LEFT) {
                 this.horizontalAlign = cc.Label.HorizontalAlign.RIGHT
             }
 
-            if(Config.i && (Config.i.game === null || Config.i.game === undefined) ) {
+            if (config.game === null || config.game === undefined || config.course.type == 'maths') {
                 this.string = Util.i18NText(this.string)
             }
         }

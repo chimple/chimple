@@ -9,6 +9,7 @@ export interface Course {
     id: string;
     name: string;
     lang: string;
+    type: string;
 }
 
 export interface Chapter {

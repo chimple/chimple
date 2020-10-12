@@ -26,21 +26,33 @@ export default class HelpChimp extends cc.Component {
             .start()
         this.chimp.playAnimation('idle', 0);
         this.node.getComponent(cc.Button).interactable = false
-        cc.assetManager.loadBundle(Profile.getValue(LANGUAGE) + '-help', (err, bundle) => {
-            if (!err) {
-                bundle.load(this.helpKey, cc.AudioClip, (err, clip) => {
-                    if (!err) {
-                        this.clip = clip
-                        if (!spoken.has(this.helpKey)) {
-                            spoken.set(this.helpKey, 1)
-                            this.speak()
-                        } else {
-                            this.node.getComponent(cc.Button).interactable = true
+        const name = Profile.getValue(LANGUAGE) + '-help'
+        const bundle = Util.bundles.get(name)
+        if (bundle) {
+            this.loadAndPlay(bundle);
+        } else {
+            cc.assetManager.loadBundle(name, (err, bundle) => {
+                if (!err) {
+                    Util.bundles.set(name, bundle)
+                    bundle.load(this.helpKey, cc.AudioClip, (err, clip) => {
+                        if (!err) {
+                            this.loadAndPlay(clip);
                         }
-                    }
-                })
-            }
-        })
+                    })
+                }
+            })
+        }
+    }
+
+    private loadAndPlay(clip: any) {
+        this.clip = clip;
+        if (!spoken.has(this.helpKey)) {
+            spoken.set(this.helpKey, 1);
+            this.speak();
+        }
+        else {
+            this.node.getComponent(cc.Button).interactable = true;
+        }
     }
 
     speak() {

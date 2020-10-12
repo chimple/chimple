@@ -166,7 +166,7 @@ export class Util {
       let num: string =
         val in numberMappings ? numberMappings[val] : "d_" + val;
       num = !num.endsWith(".mp3") ? num + ".mp3" : num;
-      return Config.dir + "course/res/sound/numbervoice/" + num;
+      return Config.dir + Profile.getValue(LANGUAGE) + '-help/' + NUMBER_VOICE + num;
     });
     this.speakOneByOne(audios, 0, callbackOnEnd);
   }
@@ -233,7 +233,7 @@ export class Util {
   public static loadNumericSound(text: string, callBack: Function) {
     let fileName = `d_${text.toLowerCase()}`;
     fileName = fileName.endsWith(".mp3") ? fileName : fileName + ".mp3";
-    const location = Config.dir + NUMBER_VOICE;
+    const location = Config.dir + Profile.getValue(LANGUAGE) + '-help/' + NUMBER_VOICE;
     const fullFilePath = location + fileName;
 
     Util.load(
@@ -297,7 +297,9 @@ export class Util {
   public static loadGameSound(path: string, callBack: Function) {
     const filePath = path.startsWith(Config.dir)
       ? path
-      : Config.dir + `${Config.i.currentGameLessonId}/res/${path}`;
+      : (Config.i.course.type == 'maths' 
+        ? Config.dir + `${Profile.getValue(LANGUAGE)}-help/${Config.i.game}/${path}`
+        : Config.dir + `${Config.i.currentGameLessonId}/res/${path}`);
     const fullFilePath =
       filePath + (path.endsWith(".mp3") || path.endsWith(".m4a") ? "" : ".mp3");
     Util.load(
@@ -667,27 +669,6 @@ export class Util {
     } else {
       if (callBack != null) callBack();
     }
-  }
-
-  public static playHelpAudio(audio: string, callback: Function) {
-    cc.assetManager.loadBundle(Profile.getValue(LANGUAGE) + '-help', (err, bundle) => {
-      if (!err) {
-        bundle.load(audio, cc.AudioClip, (err, clip) => {
-          if (!err) {
-            this.helpAudioId = Util.play(clip, false);
-            if (this.helpAudioId != -1) {
-              cc.audioEngine.setFinishCallback(this.helpAudioId, callback);
-            } else {
-              callback();
-            }
-          } else {
-            callback()
-          }
-        })
-      } else {
-        callback()
-      }
-    })
   }
 
   public static computeTimeDiff(
