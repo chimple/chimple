@@ -876,6 +876,7 @@ public class ChimpleLogger {
             ex.printStackTrace();
         }
     }
+
     public static void requestOtp(final String phoneNumber) {
         AppActivity.app.requestOtp(phoneNumber);
     }
@@ -883,3 +884,4 @@ public class ChimpleLogger {
     public static void verifyOtp(final String otp) {
         AppActivity.app.verifyOtp(otp);
     }
+}
