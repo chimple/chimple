@@ -2,7 +2,6 @@ package org.chimple.bahama.logger;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
-import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -28,6 +27,7 @@ import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.firebase.analytics.FirebaseAnalytics;
+
 
 import org.apache.commons.io.FilenameUtils;
 import org.chimple.bahama.AppActivity;
@@ -876,5 +876,10 @@ public class ChimpleLogger {
             ex.printStackTrace();
         }
     }
+    public static void requestOtp(final String phoneNumber) {
+        AppActivity.app.requestOtp(phoneNumber);
+    }
 
-}
+    public static void verifyOtp(final String otp) {
+        AppActivity.app.verifyOtp(otp);
+    }

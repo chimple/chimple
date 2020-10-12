@@ -637,5 +637,6 @@ export default class Profile {
     static async teacherPostLoginActivity(objectId: string) {
         const currentUser: User = User.createUserOrFindExistingUser({ id: objectId });
         User.setCurrentUser(currentUser);
+        return currentUser;
     }
 }
