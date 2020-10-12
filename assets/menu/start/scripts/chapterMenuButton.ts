@@ -27,6 +27,7 @@ export default class ChapterMenuButton extends cc.Component {
     chapter: Chapter
     content: cc.Node
     loading: cc.Node
+    open: boolean = true
 
     onLoad() {
         if (this.chapter != null) {
@@ -34,6 +35,7 @@ export default class ChapterMenuButton extends cc.Component {
             const chapterIcon = cc.instantiate(this.chapterIconPrefab)
             const chapterIconComp = chapterIcon.getComponent(ChapterIcon)
             chapterIconComp.chapter = this.chapter
+            chapterIconComp.open = this.open
             this.button.node.insertChild(chapterIcon, 0)
 
             this.label.string = this.chapter.name
@@ -41,6 +43,7 @@ export default class ChapterMenuButton extends cc.Component {
                 config.chapter = this.chapter
                 config.pushScene('menu/start/scenes/chapterLessons', 'menu')
             })
+            this.button.interactable = this.open
             const completedLessons = this.chapter.lessons.filter((les) => {
                 const lessonProgress = User.getCurrentUser().lessonProgressMap.get(les.id)
                 if(lessonProgress && lessonProgress.score >= 0) return true

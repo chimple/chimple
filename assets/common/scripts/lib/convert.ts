@@ -17,7 +17,7 @@ export interface Chapter {
     lessons: Lesson[];
     name: string;
     image: string;
-    color: string;
+    color?: string;
     course: Course;
 }
 
@@ -25,10 +25,10 @@ export interface Lesson {
     id: string;
     image: string;
     name: string;
-    open: boolean;
-    type: string;
-    skills: Array<string>;
-    color: string;
+    open?: boolean;
+    type?: string;
+    skills?: Array<string>;
+    color?: string;
     chapter: Chapter;
 }
 

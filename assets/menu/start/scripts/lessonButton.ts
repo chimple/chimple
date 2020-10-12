@@ -45,15 +45,13 @@ export default class LessonButton extends cc.Component {
     @property(cc.SpriteFrame)
     goldStar: cc.SpriteFrame
 
-    course: Course
-    chapter: Chapter
     lesson: Lesson
     loading: cc.Node
     open: boolean = false
 
     onLoad() {
         const config = Config.i
-        if (this.lesson != null && this.course != null && this.lesson != null) {
+        if (this.lesson != null && this.lesson.chapter.course != null && this.lesson != null) {
             const lessonIcon = cc.instantiate(this.lessonIconPrefab)
             const lessonIconComp = lessonIcon.getComponent(LessonIcon)
             lessonIconComp.lesson = this.lesson
@@ -61,8 +59,8 @@ export default class LessonButton extends cc.Component {
             this.button.node.insertChild(lessonIcon, 0)
             this.label.string = this.lesson.type == EXAM ? Util.i18NText('Challenge') : this.lesson.name
             this.button.node.on('click', () => {
-                config.course = this.course
-                config.chapter = this.chapter
+                config.course = this.lesson.chapter.course
+                config.chapter = this.lesson.chapter
                 config.lesson = this.lesson;
                 this.loading.getComponent(Loading).allowCancel = true
                 this.loading.active = true
@@ -76,17 +74,15 @@ export default class LessonButton extends cc.Component {
                     }
                 })
             })
-            if (this.chapterLabel != null) this.chapterLabel.string = this.chapter.name
+            if (this.chapterLabel != null) this.chapterLabel.string = this.lesson.chapter.name
             if (this.courseSprite != null) {
-                Util.load(this.course.id + '/course/res/icons/' + this.course.id + '_bg.png', (err, texture) => {
+                Util.load(this.lesson.chapter.course.id + '/course/res/icons/' + this.lesson.chapter.course.id + '_bg.png', (err, texture) => {
                     if (!err) {
                         this.courseSprite.spriteFrame = new cc.SpriteFrame(texture);
                     }
                 })
             }
-            if (!this.open) {
-                this.button.interactable = false
-            }
+            this.button.interactable = this.open
             const lessonProgress = User.getCurrentUser().lessonProgressMap.get(this.lesson.id)
             if (lessonProgress && lessonProgress.score >= 0) {
                 this.star1.spriteFrame = lessonProgress.score > 25 ? this.goldStar : this.grayStar

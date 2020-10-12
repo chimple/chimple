@@ -4,6 +4,7 @@ import { User, CourseProgress } from "../../../common/scripts/lib/profile";
 import LessonButton from "./lessonButton";
 import { Util } from "../../../common/scripts/util";
 import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
+import { ParseApi } from "../../../private/services/parseApi";
 
 const { ccclass, property } = cc._decorator;
 
@@ -17,17 +18,17 @@ export default class StartContent extends cc.Component {
 
     loading: cc.Node
 
-    onLoad() {
+    async onLoad() {
         const user = User.getCurrentUser()
         const buttons: Array<cc.Node> = []
         user.courseProgressMap.forEach((courseProgress: CourseProgress, name: string) => {
             const course = Config.i.curriculum.get(name)
-            if(courseProgress.currentChapterId) {
+            if (courseProgress.currentChapterId) {
                 course.chapters.forEach((chapter: Chapter, index: number) => {
                     if (chapter.id == courseProgress.currentChapterId) {
                         // get reco lesson in current chapter
                         buttons.push(this.createButton(this.recommendedLessonInChapter(chapter)))
-    
+
                         const last3Chapters: Chapter[] = Util.shuffleByMapSortMap(course.chapters.slice(Math.max(0, index - 3), index))
                         if (last3Chapters.length > 0) {
                             // get reco lesson in random past 3 chapters
@@ -37,14 +38,21 @@ export default class StartContent extends cc.Component {
                             buttons.push(this.createButton(this.recommendedLessonInChapter(course.chapters[index + 1])))
                         }
                     }
-                })    
+                })
             } else {
-                buttons.push(this.createButton(course.chapters[0].lessons[0]))
+                buttons.push(StartContent.createPreQuizButton(course, this.startLessonButtonPrefab, this.loading))
             }
         })
         Util.shuffle(buttons)
         buttons.forEach((node: cc.Node) => {
             this.layout.addChild(node)
+        })
+        const assignments = await ParseApi.getInstance().listAssignments(user.id)
+        assignments.forEach((ass) => {
+            const lesson = Config.i.curriculum.get(ass.subjectId)
+                .chapters.find(c => c.id == ass.chapterId)
+                .lessons.find(l => l.id == ass.lessonId)
+            buttons.push(this.createButton(lesson))
         })
     }
 
@@ -133,13 +141,32 @@ export default class StartContent extends cc.Component {
         }
     }
 
-    private createButton(lesson: Lesson): cc.Node {
-        const lessonButton = cc.instantiate(this.startLessonButtonPrefab);
+    private createButton(lesson: Lesson) : cc.Node {
+        return StartContent.createLessonButton(lesson, this.startLessonButtonPrefab, this.loading)
+    }
+
+    public static createPreQuizButton(course: Course, lessonButtonPrefab: cc.Prefab, loading: cc.Node) : cc.Node {
+        const lesson = {
+            id: course.id + 'PreQuiz',
+            image: '',
+            name: Util.i18NText('Begin Quiz'),
+            open: true,
+            chapter: {
+                id: course.id + 'PreQuizChapter',
+                lessons: [],
+                name: course.name,
+                image: '',
+                course: course
+            }
+        }
+        return StartContent.createLessonButton(lesson, lessonButtonPrefab, loading)
+    }
+
+    public static createLessonButton(lesson: Lesson, lessonButtonPrefab: cc.Prefab, loading: cc.Node): cc.Node {
+        const lessonButton = cc.instantiate(lessonButtonPrefab);
         const lessonButtonComp = lessonButton.getComponent(LessonButton);
         lessonButtonComp.lesson = lesson;
-        lessonButtonComp.chapter = lesson.chapter;
-        lessonButtonComp.course = lesson.chapter.course;
-        lessonButtonComp.loading = this.loading;
+        lessonButtonComp.loading = loading;
         lessonButtonComp.open = true
         return lessonButton
     }

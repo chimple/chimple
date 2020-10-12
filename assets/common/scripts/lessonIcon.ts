@@ -4,17 +4,11 @@ import { Lesson } from "./lib/convert";
 const { ccclass, property } = cc._decorator;
 
 export const LESSON_BG_COLORS = [
-    "#FF5473",
-    "#FADC42",
-    "#C73778",
-    "#007F46",
-    "#6ECCFF",
-    "#149CC4",
-    "#AFCA2D",
-    "#F2C941",
-    "#F7DC2F",
-    "#E96429",
     "#72DDD3",
+    "#FC8E83",
+    "#B8D855",
+    "#D48FF9",
+    "#F98AC9"
 ]
 
 @ccclass
@@ -32,9 +26,13 @@ export default class LessonIcon extends cc.Component {
     open: boolean = false
 
     onLoad() {
+        const defaultSpriteFrame = this.sprite.spriteFrame
+        this.sprite.spriteFrame = null
         Util.load(this.lesson.chapter.course.id + '/course/res/icons/' + this.lesson.image, (err, texture) => {
             if (!err) {
                 this.sprite.spriteFrame = new cc.SpriteFrame(texture);
+            } else {
+                this.sprite.spriteFrame = defaultSpriteFrame
             }
         })
         if (this.open) {

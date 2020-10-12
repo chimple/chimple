@@ -25,8 +25,6 @@ export default class ChapterLessons extends cc.Component {
             const lessonButton = cc.instantiate(this.lessonButtonPrefab)
             const lessonButtonComp = lessonButton.getComponent(LessonButton)
             lessonButtonComp.lesson = lesson
-            lessonButtonComp.chapter = config.chapter
-            lessonButtonComp.course = config.course
             lessonButtonComp.loading = this.loading
             lessonButtonComp.open = (index == 0 
                 || lesson.open
