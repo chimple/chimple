@@ -2,6 +2,8 @@ import Config from "../../../common/scripts/lib/config";
 import catchError from "../../../common/scripts/lib/error-handler";
 import { Util } from "../../../common/scripts/util";
 import Game from "../../../common/scripts/game";
+import Profile, { LANGUAGE } from "../../../common/scripts/lib/profile";
+import { NUMBER_VOICE } from "../../../common/scripts/helper";
 
 
 const { ccclass, property } = cc._decorator;
@@ -184,19 +186,19 @@ export default class MultiplyBeads extends Game {
 
 
         //@ts-ignore
-        var filea = Config.dir + "course/res/sound/numbervoice/d_" + this.multiplicand.toString() + '.mp3';
+        var filea = Config.dir+ Profile.getValue(LANGUAGE) + '-help/' + NUMBER_VOICE + "d_" + this.multiplicand.toString() + '.mp3';
         var totalres = this.numtomultiply * this.noOfDrop;
         this.temp = this.noOfDrag;
         //@ts-ignore
-        var filea = Config.dir + "course/res/sound/numbervoice/d_" + this.multiplicand.toString() + '.mp3';
+        var filea = Config.dir + Profile.getValue(LANGUAGE) + '-help/' + NUMBER_VOICE + "d_" + this.multiplicand.toString() + '.mp3';
         //@ts-ignore
-        var fileb = Config.dir + "course/res/sound/numbervoice/times" + '.mp3';
+        var fileb = Config.dir + Profile.getValue(LANGUAGE) + '-help/' + NUMBER_VOICE + "times" + '.mp3';
         //@ts-ignore
-        var filec = Config.dir + "course/res/sound/numbervoice/d_" + this.multiplier.toString() + '.mp3';
+        var filec = Config.dir + Profile.getValue(LANGUAGE) + '-help/' + NUMBER_VOICE + "d_" + this.multiplier.toString() + '.mp3';
         //@ts-ignore
-        var fileeq = Config.dir + "course/res/sound/numbervoice/equals" + '.mp3';
+        var fileeq = Config.dir + Profile.getValue(LANGUAGE) + '-help/' + NUMBER_VOICE + "equals" + '.mp3';
         //@ts-ignore
-        var filefin = Config.dir + "course/res/sound/numbervoice/d_" + totalres.toString() + '.mp3';
+        var filefin = Config.dir + Profile.getValue(LANGUAGE) + '-help/' + NUMBER_VOICE + "d_" + totalres.toString() + '.mp3';
         this.soundarr = [filea, fileb, filec, fileeq, filefin];
         this.multarrp = [this.multiplicand, "X", this.multiplier, "=", this.prod];
 
@@ -352,7 +354,7 @@ export default class MultiplyBeads extends Game {
                 // cc.log("lolol" + value)
                 let value = (this.a * this.numtomultiply).toString()
                 this.finalval = value
-                let file = Config.dir + "course/res/sound/numbervoice/d_" + value + '.mp3';
+                let file = Config.dir + Profile.getValue(LANGUAGE) + '-help/' + NUMBER_VOICE + "d_" + value + '.mp3';
                 this.a = this.a + 1;
                 cc.log("audi" + file);
 

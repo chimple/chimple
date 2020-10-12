@@ -1,7 +1,7 @@
 import { Util } from "../util";
-import Profile, { User } from "./profile";
-import { Chapter, Course, Lesson } from "./convert";
 import UtilLogger from "../util-logger";
+import { Chapter, Course, Lesson } from "./convert";
+import Profile, { User } from "./profile";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
@@ -96,7 +96,6 @@ export default class Config {
     data: Array<Array<string>>;
     currentFontName: string;
     curriculum: Map<string, Course> = new Map();
-    curriculumLoaded: boolean = false;
     currentGameLessonId: string;
     //currently used in story remove later
     gameLevelName: string;
@@ -195,7 +194,7 @@ export default class Config {
     }
 
     pushScene(scene: string, bundle: string = null, callback: Function = null, first: boolean = false) {
-        if(first) this.popAllScenes()
+        if (first) this.popAllScenes()
         this._scenes.push(new SceneDef(scene, bundle));
         Config.loadScene(scene, bundle, callback);
     }
@@ -254,7 +253,7 @@ export default class Config {
 
     }
 
-    loadLessonJson(callback: Function, node: cc.Node = null, lessons: Array<Lesson> = null) {
+    loadLessonJson(callback: Function, node: cc.Node = null, lessons: Array<Lesson> = null, maxPerLesson: number = 0) {
         if (this.problem != 0) {
             callback(this._lessonData.rows[this.problem - 1]);
         } else if (lessons != null) {
@@ -264,21 +263,26 @@ export default class Config {
                 const jsonFile = this.course.id + '/' + les.id + '/res/' + les.id + '.json';
                 Util.load(jsonFile, (err, jsonAsset) => {
                     const lessonData = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
-                    allLessonData = allLessonData.concat(lessonData.rows.filter((el) => {
+                    const quizRows: [] = lessonData.rows.filter((el) => {
                         return el[0].toLowerCase().includes("quiz")
                     })
-                    .map((el) => {
-                        el[2] = les.id
-                        return el
-                    }))
+                        .map((el) => {
+                            el[2] = les.id
+                            return el
+                        })
+                    allLessonData = allLessonData.concat(maxPerLesson > 0 ? Util.shuffle(quizRows).slice(0, maxPerLesson) : quizRows)
                     numLessons--
                 })
             })
             const checkAllLoaded = () => {
                 if (numLessons <= 0) {
                     cc.director.getScheduler().unschedule(checkAllLoaded, node);
-                    Util.shuffle(allLessonData)
-                    this._lessonData = { 'rows': allLessonData.slice(0, Math.min(10, allLessonData.length - 1)) }
+                    if (maxPerLesson == 0) {
+                        Util.shuffle(allLessonData)
+                        this._lessonData = { 'rows': allLessonData.slice(0, Math.min(10, allLessonData.length - 1)) }
+                    } else {
+                        this._lessonData = { 'rows': allLessonData }
+                    }
                     this.totalProblems = this._lessonData.rows.length;
                     this.problem = 1;
                     if (callback != null) callback(this._lessonData.rows[this.problem - 1]);
@@ -378,25 +382,24 @@ export default class Config {
     }
 
     loadCourseJsons(user: User, node: cc.Node, callBack: Function) {
-        if (this.curriculumLoaded) {
-            callBack()
-        } else {
-            let numCourses = user.courseProgressMap.size;
-            user.courseProgressMap.forEach((courseProgress, name) => {
+        let numCourses = 0
+        user.courseProgressMap.forEach((courseProgress, name) => {
+            if (!Config.i.curriculum.has(name)) {
+                numCourses++
                 this.loadSingleCourseJson(name, () => {
                     numCourses--;
                 });
-            });
+            }
+        });
 
-            const checkAllLoaded = () => {
-                if (numCourses <= 0) {
-                    this.curriculumLoaded = true;
-                    cc.director.getScheduler().unschedule(checkAllLoaded, node);
-                    callBack();
-                }
-            };
-            cc.director.getScheduler().schedule(checkAllLoaded, node, 1);
-        }
+        const checkAllLoaded = () => {
+            if (numCourses <= 0) {
+                user.curriculumLoaded = true;
+                cc.director.getScheduler().unschedule(checkAllLoaded, node);
+                callBack();
+            }
+        };
+        cc.director.getScheduler().schedule(checkAllLoaded, node, 1);
     }
 
     loadSingleCourseJson(name: string, callBack: Function) {

@@ -40,6 +40,11 @@ const DEVICE_ID_METHOD_SIGNATURE = "()Ljava/lang/String;";
 const LAUNCH_YOUTUBE_METHOD = "launchYoutube";
 const LAUNCH_YOUTUBE_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
 
+const REQUEST_OTP_METHOD = "requestOtp";
+const REQUEST_OTP_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
+
+const VERIFY_OTP_METHOD = "verifyOtp";
+const VERIFY_OTP_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
 
 const USER_ID = "userId";
 const DEVICE_ID = "deviceId";
@@ -334,6 +339,40 @@ export default class UtilLogger {
                 );
             }
             return false;
+        } catch (e) {
+        }
+    }
+
+    public static requestOtp(requestOtpText: string) {
+        try {
+            if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
+                cc.log("Request Otp event", requestOtpText);
+
+                jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    REQUEST_OTP_METHOD,
+                    REQUEST_OTP_METHOD_SIGNATURE,
+                    requestOtpText
+                );
+
+            }
+        } catch (e) {
+        }
+    }
+
+    public static vefifyOtp(verifyOtpText: string) {
+        try {
+            if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
+                cc.log("Verify Otp event", verifyOtpText);
+
+                jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    VERIFY_OTP_METHOD,
+                    VERIFY_OTP_METHOD_SIGNATURE,
+                    verifyOtpText
+                );
+
+            }
         } catch (e) {
         }
     }

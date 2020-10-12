@@ -5,6 +5,7 @@ import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
 import { User } from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
 import { Util } from "../../../common/scripts/util";
+import { EXAM } from "../../../common/scripts/lib/constants";
 
 const { ccclass, property } = cc._decorator;
 
@@ -58,7 +59,7 @@ export default class LessonButton extends cc.Component {
             lessonIconComp.lesson = this.lesson
             lessonIconComp.open = this.open
             this.button.node.insertChild(lessonIcon, 0)
-            this.label.string = this.lesson.name
+            this.label.string = this.lesson.type == EXAM ? Util.i18NText('Challenge') : this.lesson.name
             this.button.node.on('click', () => {
                 config.course = this.course
                 config.chapter = this.chapter

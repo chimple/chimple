@@ -1,5 +1,6 @@
 import { Util } from "./util";
 import { Chapter } from "./lib/convert";
+import { LESSON_BG_COLORS } from "./lessonIcon";
 
 const { ccclass, property } = cc._decorator;
 
@@ -19,6 +20,9 @@ export default class ChapterIcon extends cc.Component {
                 this.sprite.spriteFrame = new cc.SpriteFrame(texture);
             }
         })
-        if (this.chapter.color) this.bg.color = new cc.Color().fromHEX(this.chapter.color)
+        this.bg.color = new cc.Color().fromHEX(
+            this.chapter.color
+                ? this.chapter.color
+                : LESSON_BG_COLORS[Math.floor(Math.random() * LESSON_BG_COLORS.length)])
     }
 }

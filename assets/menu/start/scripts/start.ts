@@ -1,4 +1,4 @@
-import {RECEIVED_TEACHER_REQUEST, TEACHER_ADDED, TEACHER_ID_KEY, TEACHER_NAME_KEY} from "../../../chimple";
+import { RECEIVED_TEACHER_REQUEST, TEACHER_ADDED, TEACHER_ID_KEY, TEACHER_NAME_KEY } from "../../../chimple";
 import Header from "../../../common/scripts/header";
 import Config from "../../../common/scripts/lib/config";
 import { User } from "../../../common/scripts/lib/profile";
@@ -51,23 +51,28 @@ export default class Start extends cc.Component {
         loadingComp.delay = 0
 
         const config = Config.i
-        config.loadCourseJsons(User.getCurrentUser(), this.node, () => {
-            const headerNode = cc.instantiate(this.headerPrefab)
-            const headerComp = headerNode.getComponent(Header)
-            headerComp.onCourseClick = this.onCourseClick.bind(this)
-            headerComp.onHomeClick = this.onHomeClick.bind(this)
-            headerComp.onRightClick = this.onProfileClick.bind(this)
-            headerComp.rightPos.addChild(cc.instantiate(this.profilePrefab))
-            headerComp.user = User.getCurrentUser()
-            this.header.addChild(headerNode)
-            if (Header.homeSelected) {
-                this.onHomeClick()
-            } else {
-                this.onCourseClick()
-            }
-            this.loading.active = false;
-            this.registerTeacherDialogCloseEvent();
-        })
+        User.getCurrentUser().curriculumLoaded
+            ? this.initPage()
+            : config.loadCourseJsons(User.getCurrentUser(), this.node, this.initPage.bind(this))
+    }
+
+    private initPage() {
+        const headerNode = cc.instantiate(this.headerPrefab);
+        const headerComp = headerNode.getComponent(Header);
+        headerComp.onCourseClick = this.onCourseClick.bind(this);
+        headerComp.onHomeClick = this.onHomeClick.bind(this);
+        headerComp.onRightClick = this.onProfileClick.bind(this);
+        headerComp.rightPos.addChild(cc.instantiate(this.profilePrefab));
+        headerComp.user = User.getCurrentUser();
+        this.header.addChild(headerNode);
+        if (Header.homeSelected) {
+            this.onHomeClick();
+        }
+        else {
+            this.onCourseClick();
+        }
+        this.loading.active = false;
+        this.registerTeacherDialogCloseEvent();
     }
 
     protected start() {
@@ -108,7 +113,7 @@ export default class Start extends cc.Component {
                 const id = curMessage[TEACHER_ID_KEY];
                 cc.sys.localStorage.setItem(RECEIVED_TEACHER_REQUEST, JSON.stringify(messages));
 
-                const studentAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED+id) || '[]');
+                const studentAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + id) || '[]');
                 let users = User.getUsers() || [];
                 users = users.filter(u => !studentAdded.includes(u.id))
                 cc.log('remaining users', users);

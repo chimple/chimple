@@ -1,5 +1,5 @@
 import Config from '../../../common/scripts/lib/config'
-import Profile, { User } from '../../../common/scripts/lib/profile';
+import Profile, { User, CourseProgress } from '../../../common/scripts/lib/profile';
 import { LANDING_SCENE } from "../../../chimple";
 import { CURRENT_STUDENT_ID, LOGGED_IN_USER, EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
 import { REWARD_TYPES } from '../../../common/scripts/util';
@@ -90,12 +90,13 @@ export default class Rewards extends cc.Component {
         // }
         const achievementsNode = this.layoutHolder.children[2].children[0].children[0].children[0]
         const lessonProgressMap = User.getCurrentUser().lessonProgressMap
-        Config.i.curriculum.forEach((course: Course) => {
+        User.getCurrentUser().courseProgressMap.forEach((courseProgress: CourseProgress, courseId: string) => {
+            const course = Config.i.curriculum.get(courseId)
             course.chapters.forEach((chapter: Chapter) => {
                 chapter.lessons.forEach((lesson: Lesson) => {
                     if (lesson.type == EXAM
                         && lessonProgressMap.has(lesson.id)
-                        && lessonProgressMap.get(lesson.id).score > MIN_PASS) {
+                        && lessonProgressMap.get(lesson.id).score >= MIN_PASS) {
                         const achievement = cc.instantiate(this.achievementPrefab)
                         const achievementComp = achievement.getComponent(Achievement)
                         achievementComp.image = lesson.image

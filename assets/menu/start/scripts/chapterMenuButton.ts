@@ -34,7 +34,7 @@ export default class ChapterMenuButton extends cc.Component {
             const chapterIcon = cc.instantiate(this.chapterIconPrefab)
             const chapterIconComp = chapterIcon.getComponent(ChapterIcon)
             chapterIconComp.chapter = this.chapter
-            this.node.insertChild(chapterIcon, 0)
+            this.button.node.insertChild(chapterIcon, 0)
 
             this.label.string = this.chapter.name
             this.button.node.on('click', () => {
