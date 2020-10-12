@@ -24,6 +24,9 @@ export default class ChapterMenuButton extends cc.Component {
     @property(cc.Prefab)
     chapterIconPrefab: cc.Prefab
 
+    @property(cc.Node)
+    currentChapterIcon: cc.Node
+
     chapter: Chapter
     content: cc.Node
     loading: cc.Node
@@ -54,6 +57,7 @@ export default class ChapterMenuButton extends cc.Component {
             // this.graphics.fill()
             this.graphics.arc(0, 0, RADIUS + WIDTH / 2, Math.PI * 1 / 2, -endAngle + Math.PI * 1 / 2)
             this.graphics.stroke()
+            this.currentChapterIcon.active = User.getCurrentUser().courseProgressMap.get(this.chapter.course.id).currentChapterId == this.chapter.id
         }
     }
 }
