@@ -808,7 +808,11 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                             app.runOnGLThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Cocos2dxJavascriptJavaBridge.evalString("cc.phoneVerificationSucceeded()");
+                                    String javaScriptVariable = "cc.phoneVerificationSucceeded($p1, $p2)";
+                                    javaScriptVariable = javaScriptVariable.replace("$p1", "'" + app.mVerificationId + "'");
+                                    javaScriptVariable = javaScriptVariable.replace("$p2", "'" + otp + "'");
+                                    Log.d(TAG, "calling dphoneVerificationSucceeded with: " + javaScriptVariable);
+                                    Cocos2dxJavascriptJavaBridge.evalString(javaScriptVariable);
                                 }
                             });
                         } else {
