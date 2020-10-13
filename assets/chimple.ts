@@ -74,7 +74,6 @@ cc.deep_link = function (url) {
         }
 };
 
-
 @ccclass
 export default class Chimple extends cc.Component {
     async onLoad() {
