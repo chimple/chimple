@@ -74,7 +74,7 @@ export default class TeacherAddedDialog extends cc.Component {
                 homeId: this.selectedStudentId,
                 teacherId: school.user.objectId,
                 kind: "UpdateHomeTeacher",
-                name: this.selectedStudentName,
+                studentName: this.selectedStudentName,
                 schoolId: school.objectId,
                 sectionId: this._teacherSectionId
             };
@@ -110,7 +110,7 @@ export default class TeacherAddedDialog extends cc.Component {
             homeId: this.selectedStudentId,
             teacherId: this._teacherId,
             kind: "UpdateHomeTeacher",
-            name: this.selectedStudentName
+            studentName: this.selectedStudentName
         };
         UtilLogger.logChimpleEvent(REJECT_TEACHER_REQUEST, updateHomeTeacherInfo);
         this.closeDialog();
