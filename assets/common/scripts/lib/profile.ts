@@ -104,7 +104,8 @@ export class User {
         lessonProgressMap: Map<string, LessonProgress>,
         unlockedInventory: object,
         unlockedRewards: object,
-        debug: boolean = false
+        debug: boolean = false,
+        serverId: string = ''
     ) {
         this._id = id;
         this._name = name;
@@ -125,6 +126,7 @@ export class User {
         UtilLogger.setUserPropertiesEvent("userAge", age);
         this._genderEvent(gender);
         this.debug = debug
+        this._serverId = serverId
     }
 
     _genderEvent(gender: Gender) {
@@ -155,6 +157,10 @@ export class User {
 
     get id(): string {
         return this._id;
+    }
+
+    get serverId(): string {
+        return this._serverId;
     }
 
     set name(name: string) {
@@ -371,6 +377,7 @@ export class User {
     }
 
     static storeUser(user: User) {
+        cc.log('serverid', user._serverId);
         cc.sys.localStorage.setItem(user.id, User.toJson(user));
 
         if (!user.debug) {
@@ -506,7 +513,8 @@ export class User {
             lessonProgressMap,
             data.unlockedInventory,
             data.unlockedRewards,
-            data.debug
+            data.debug,
+            data.serverId
         );
         return user;
     }
@@ -522,7 +530,6 @@ export class User {
         });
         return JSON.stringify({
             'id': user.id,
-            'serverId': user.serverId,
             'name': user.name,
             'age': user.age,
             'gender': user.gender,
@@ -536,7 +543,8 @@ export class User {
             'lessonProgressMap': lessonProgressObj,
             'unlockedInventory': user.unlockedInventory,
             'unlockedRewards': user.unlockedRewards,
-            'debug': user.debug
+            'debug': user.debug,
+            'serverId': user.serverId
         });
     }
 
