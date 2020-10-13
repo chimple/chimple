@@ -284,7 +284,7 @@ export class User {
     openAllRewards() {
         REWARD_CHARACTERS.forEach((char) => {
             this.unlockRewardsForItem(`${REWARD_TYPES[0]}-${char}`, 1)
-            INVENTORY_DATA.forEach((arr)=> {
+            INVENTORY_DATA.forEach((arr) => {
                 arr.forEach((inv) => {
                     this.unlockRewardsForItem(`${REWARD_TYPES[3]}-${char}-${inv}`, 1)
                 })
@@ -292,7 +292,7 @@ export class User {
         })
         REWARD_BACKGROUNDS.forEach((bg) => {
             this.unlockRewardsForItem(`${REWARD_TYPES[1]}-${bg}`, 1)
-        })        
+        })
     }
 
     updateLessonProgress(lessonId: string, score: number, quizScores: number[]): [string, string] {
@@ -366,21 +366,23 @@ export class User {
     static storeUser(user: User) {
         cc.sys.localStorage.setItem(user.id, User.toJson(user));
 
-        // log to ff userProfile
-        UtilLogger.logChimpleEvent("userProfile", {
-            userAge: user.age,
-            gender: user.gender,
-            userId: user.id
-        });
+        if (!user.debug) {
+            // log to ff userProfile
+            UtilLogger.logChimpleEvent("userProfile", {
+                userAge: user.age,
+                gender: user.gender,
+                userId: user.id
+            });
 
-        if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
-            let profileInfo = {
-                profile: User.toJson(user),
-                kind: 'Profile',
-                studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)
-            };
+            if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
+                let profileInfo = {
+                    profile: User.toJson(user),
+                    kind: 'Profile',
+                    studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)
+                };
 
-            Queue.getInstance().push(profileInfo);
+                Queue.getInstance().push(profileInfo);
+            }
         }
     }
 
@@ -419,6 +421,8 @@ export class User {
             "chimp",
             debug
                 ? new Map([
+                    ['en', new CourseProgressClass('en00')],
+                    ['maths', new CourseProgressClass('maths00')],
                     ['test-lit', new CourseProgressClass('chapter_0')],
                     ['test-maths', new CourseProgressClass('chapter_0')]
                 ])
@@ -428,9 +432,10 @@ export class User {
                 ]),
             new Map(),
             {},
-            {}
+            {},
+            debug
         );
-        if(debug) user.openAllRewards()
+        if (debug) user.openAllRewards()
         User.storeUser(user);
         let userIds = User.getUserIds();
         if (userIds == null) {
@@ -493,7 +498,8 @@ export class User {
             courseProgressMap,
             lessonProgressMap,
             data.unlockedInventory,
-            data.unlockedRewards
+            data.unlockedRewards,
+            data.debug
         );
         return user;
     }
@@ -521,7 +527,8 @@ export class User {
             'courseProgressMap': courseProgressObj,
             'lessonProgressMap': lessonProgressObj,
             'unlockedInventory': user.unlockedInventory,
-            'unlockedRewards': user.unlockedRewards
+            'unlockedRewards': user.unlockedRewards,
+            'debug': user.debug
         });
     }
 
