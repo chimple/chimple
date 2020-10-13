@@ -70,6 +70,7 @@ export class LessonProgressClass implements LessonProgress {
 
 export class User {
     private static _currentUser: User;
+    private _serverId: string;
     private _id: string;
     private _name: string;
     private _age: number;
@@ -138,6 +139,12 @@ export class User {
                 UtilLogger.setUserPropertiesEvent("userGender", "Unknown");
                 break;
         }
+    }
+
+    set serverId(id: string) {
+        this._serverId = id;
+        this._storeUser();
+        UtilLogger.setUserIdEvent(id);
     }
 
     set id(id: string) {
@@ -509,6 +516,7 @@ export class User {
         });
         return JSON.stringify({
             'id': user.id,
+            'serverId': user.serverId,
             'name': user.name,
             'age': user.age,
             'gender': user.gender,

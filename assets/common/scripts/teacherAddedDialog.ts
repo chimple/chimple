@@ -51,7 +51,7 @@ export default class TeacherAddedDialog extends cc.Component {
         this.yesButton.active = false;
         const chimpleLabel = this.text.getComponent(ChimpleLabel);
         chimpleLabel.string = 'Add Teacher ' + this._teacherName;
-        const studentAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED+this._teacherId) || '[]');
+        const studentAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + this._teacherId) || '[]');
         this.users = this.users.filter(u => !studentAdded.includes(u.id))
         this.users.forEach(
             (user) => {
@@ -67,11 +67,11 @@ export default class TeacherAddedDialog extends cc.Component {
     }
 
     async onYesClicked(event) {
-        if (!!this.selectedStudentId && this._teacherId) {
+        if (!!this._teacherId) {
             // give me teacher user id from school id
             const school: ParseSchool = await ParseApi.getInstance().schoolById(this._teacherId)
             let updateHomeTeacherInfo: UpdateHomeTeacher = {
-                studentId: this.selectedStudentId,
+                homeId: this.selectedStudentId,
                 teacherId: school.user.objectId,
                 kind: "UpdateHomeTeacher",
                 name: this.selectedStudentName,
@@ -79,9 +79,9 @@ export default class TeacherAddedDialog extends cc.Component {
                 sectionId: this._teacherSectionId
             };
             Queue.getInstance().push(updateHomeTeacherInfo);
-            const teachersAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED+this._teacherId) || '[]');
+            const teachersAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + this._teacherId) || '[]');
             teachersAdded.push(this.selectedStudentId);
-            cc.sys.localStorage.setItem(TEACHER_ADDED+this._teacherId, JSON.stringify(teachersAdded));
+            cc.sys.localStorage.setItem(TEACHER_ADDED + this._teacherId, JSON.stringify(teachersAdded));
             UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, updateHomeTeacherInfo);
             try {
                 const messages = cc.sys.localStorage.getItem(ACCEPT_TEACHER_REQUEST) || '[]';
@@ -107,11 +107,10 @@ export default class TeacherAddedDialog extends cc.Component {
 
     onNoClicked(event) {
         let updateHomeTeacherInfo: UpdateHomeTeacher = {
-            studentId: this.selectedStudentId,
+            homeId: this.selectedStudentId,
             teacherId: this._teacherId,
             kind: "UpdateHomeTeacher",
             name: this.selectedStudentName
-
         };
         UtilLogger.logChimpleEvent(REJECT_TEACHER_REQUEST, updateHomeTeacherInfo);
         this.closeDialog();
