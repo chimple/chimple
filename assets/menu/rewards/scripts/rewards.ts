@@ -219,7 +219,7 @@ export default class Rewards extends cc.Component {
         if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
             cc.sys.localStorage.removeItem(LOGGED_IN_USER);
             // @ts-ignore
-            currentSelectMode = SelectionMode.Section;
+            // currentSelectMode = SelectionMode.Section;
             Config.loadScene(LANDING_SCENE, 'private', null);
         } else {
             cc.director.loadScene("welcomePage")

@@ -39,7 +39,7 @@ export default class OrderTractor extends Game {
         })
         this.friend.isFace = true
         const [oldLevel, worksheet, oldProblem, level, reverseStr] = Config.getInstance().data[0];
-        const reverse = reverseStr == 'true'
+        const reverse = reverseStr.toLowerCase() == 'true'
         const ordered: Array<number> = this.generateNumbers(parseInt(level))
         if (reverse) {
             ordered.reverse()
