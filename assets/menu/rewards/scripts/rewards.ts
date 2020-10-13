@@ -29,7 +29,7 @@ export default class Rewards extends cc.Component {
 
     @property(cc.Node)
     sideLayoutNode: cc.Node = null;
-
+    characterColors: string[] = ['#F7D7BA', '#F9E5C5', '#FDD8B4', '#8CC757', '#A5E6F5', '#C0AACF', '#44FFFD', '#F3B866', '#3AC7D0', '#EDB957', '#B2DBCC']
 
     onLoad() {
         for (let i = 0; i < 3; i++) {
@@ -43,12 +43,14 @@ export default class Rewards extends cc.Component {
     }
 
     loadCharacters() {
-        REWARD_CHARACTERS.forEach((character) => {
+        REWARD_CHARACTERS.forEach((character, index) => {
             cc.resources.load(`char_icons/${character}_icon`, (err, sp) => {
                 if (!err) {
                     let charPrefab = cc.instantiate(this.characterPrefab)
                     // @ts-ignore
                     charPrefab.getChildByName("characternode").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
+                    let color = cc.Color.BLACK;
+                    charPrefab.getChildByName("character_icon_color").color = color.fromHEX(this.characterColors[index]);
                     this.registerButton(charPrefab, "onCharacterClick", character);
                     this.registerButton(charPrefab.getChildByName("edit"), "onEditButtonClicked", character);
                     if (User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[0]}-${character}`] === 0 || User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[0]}-${character}`] === undefined) {
