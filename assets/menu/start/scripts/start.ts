@@ -1,4 +1,10 @@
-import { RECEIVED_TEACHER_REQUEST, TEACHER_ADDED, TEACHER_ID_KEY, TEACHER_NAME_KEY } from "../../../chimple";
+import {
+    RECEIVED_TEACHER_REQUEST,
+    TEACHER_ADDED,
+    TEACHER_ID_KEY,
+    TEACHER_NAME_KEY,
+    TEACHER_SECTION_ID
+} from "../../../chimple";
 import Header from "../../../common/scripts/header";
 import Config from "../../../common/scripts/lib/config";
 import { User } from "../../../common/scripts/lib/profile";
@@ -111,6 +117,7 @@ export default class Start extends cc.Component {
                 const curMessage = messages.splice(0, 1)[0];
                 const name: string = curMessage[TEACHER_NAME_KEY];
                 const id = curMessage[TEACHER_ID_KEY];
+                const sectionId = curMessage[TEACHER_SECTION_ID];
                 cc.sys.localStorage.setItem(RECEIVED_TEACHER_REQUEST, JSON.stringify(messages));
 
                 const studentAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + id) || '[]');
@@ -123,6 +130,7 @@ export default class Start extends cc.Component {
                     const script: TeacherAddedDialog = teacherDialog.getComponent(TeacherAddedDialog);
                     script.TeacherName = name;
                     script.TeacherId = id;
+                    script.SelectedSectionId = sectionId;
                     this.node.addChild(teacherDialog);
                 }
             }
