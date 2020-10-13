@@ -1,12 +1,12 @@
 import Config from "../../../common/scripts/lib/config";
-import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
-import { User, CourseProgress } from "../../../common/scripts/lib/profile";
+import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
+import {User, CourseProgress} from "../../../common/scripts/lib/profile";
 import LessonButton from "./lessonButton";
-import { Util } from "../../../common/scripts/util";
-import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
-import { ParseApi } from "../../../private/services/parseApi";
+import {Util} from "../../../common/scripts/util";
+import {EXAM, MIN_PASS} from "../../../common/scripts/lib/constants";
+import {ParseApi} from "../../../private/services/parseApi";
 
-const { ccclass, property } = cc._decorator;
+const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class StartContent extends cc.Component {
@@ -44,15 +44,23 @@ export default class StartContent extends cc.Component {
             }
         })
         Util.shuffle(buttons)
+
+        const assignments = await ParseApi.getInstance().listAssignments(user.serverId)
+        assignments.forEach((ass) => {
+            const course: Course = Config.i.curriculum.get(ass.courseCode);
+            if (course) {
+                const chapter: Chapter = course.chapters.find(c => c.id == ass.chapterId)
+                let lesson = null;
+                if (chapter) {
+                    lesson = chapter.lessons.find(l => l.id == ass.lessonId)
+                    if (lesson)
+                        buttons.push(this.createButton(lesson))
+                }
+            }
+        })
+
         buttons.forEach((node: cc.Node) => {
             this.layout.addChild(node)
-        })
-        const assignments = await ParseApi.getInstance().listAssignments(user.id)
-        assignments.forEach((ass) => {
-            const lesson = Config.i.curriculum.get(ass.subjectId)
-                .chapters.find(c => c.id == ass.chapterId)
-                .lessons.find(l => l.id == ass.lessonId)
-            buttons.push(this.createButton(lesson))
         })
     }
 
@@ -80,13 +88,11 @@ export default class StartContent extends cc.Component {
                             if (l.type == EXAM) {
                                 foundPrevExam = true;
                                 return false;
-                            }
-                            else {
+                            } else {
                                 return true;
                             }
                         }
-                    }
-                    else {
+                    } else {
                         if (l.id == lastOpenLesson.id) {
                             foundThisExam = true;
                         }
@@ -104,8 +110,7 @@ export default class StartContent extends cc.Component {
             if (lessonsToRevise.length == 0) {
                 // if exam has no prior lessons, lets do exam again - error condition
                 return lastOpenLesson;
-            }
-            else if (lessonsToRevise.length == 1) {
+            } else if (lessonsToRevise.length == 1) {
                 // if only one lesson in exam
                 // return either exam or lesson based on how recently we completed it
                 const firstProgress = user.lessonProgressMap.get(lessonsToRevise[0].id);
@@ -114,12 +119,10 @@ export default class StartContent extends cc.Component {
                 const examDate = examProgress ? examProgress.date : new Date();
                 if (firstDate < examDate) {
                     return lessonsToRevise[0]
-                }
-                else {
+                } else {
                     return lastOpenLesson
                 }
-            }
-            else {
+            } else {
                 const firstProgress = user.lessonProgressMap.get(lessonsToRevise[0].id);
                 const secondProgress = user.lessonProgressMap.get(lessonsToRevise[1].id);
                 const firstAttempts = firstProgress ? firstProgress.attempts : 0;
@@ -129,23 +132,21 @@ export default class StartContent extends cc.Component {
                 if (firstAttempts < secondAttempts || firstAttempts <= examAttempts) {
                     // return lesson with least attempts
                     return lessonsToRevise[0]
-                }
-                else {
+                } else {
                     // return exam if we have completed one review of all lessons
                     return lastOpenLesson
                 }
             }
-        }
-        else {
+        } else {
             return lastOpenLesson
         }
     }
 
-    private createButton(lesson: Lesson) : cc.Node {
+    private createButton(lesson: Lesson): cc.Node {
         return StartContent.createLessonButton(lesson, this.startLessonButtonPrefab, this.loading)
     }
 
-    public static createPreQuizButton(course: Course, lessonButtonPrefab: cc.Prefab, loading: cc.Node) : cc.Node {
+    public static createPreQuizButton(course: Course, lessonButtonPrefab: cc.Prefab, loading: cc.Node): cc.Node {
         const lesson = {
             id: course.id + 'PreQuiz',
             image: '',
