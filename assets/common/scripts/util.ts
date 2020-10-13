@@ -24,7 +24,7 @@ export const INVENTORY_DATA = [
 export const INVENTORY_SAVE_CONSTANTS = ["hat1", "handacc", "glassacc", "left_shoe", "neck_acc"]
 
 export const REWARD_TYPES = ["character", "background", "achievement", "inventory"]
-export const REWARD_CHARACTERS = ['bear', 'camel', 'cat', 'dog', 'duck', 'hippo', 'horse', 'koala', 'rabbit', 'tiger']
+export const REWARD_CHARACTERS = ['chimp', 'bear', 'camel', 'cat', 'dog', 'duck', 'hippo', 'horse', 'koala', 'rabbit', 'tiger']
 export const REWARD_BACKGROUNDS = ['forest', 'underwater', 'beach', 'camp', 'city', 'desert', 'fair', 'garden', 'mountain', 'snow', 'village']
 
 export const SUBPACKAGES = 'subpackages'
