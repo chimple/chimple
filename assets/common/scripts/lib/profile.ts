@@ -192,7 +192,7 @@ export class User {
     set avatarImage(avatarImage: string) {
         console.log(" avatar image : ", avatarImage);
         this._avatarImage = avatarImage;
-        // UtilLogger.setUserPropertiesEvent("userAvatarImage", name);
+        UtilLogger.setUserPropertiesEvent("userAvatarImage", avatarImage);
         this._storeUser();
     }
 
