@@ -146,6 +146,7 @@ export default class Rewards extends cc.Component {
         for (let i = 0; i < 3; i++) {
             if (parseInt(customEventData) === i) {
                 this.layoutHolder.getChildByName(i.toString()).active = true
+                this.layoutHolder.getChildByName(i.toString()).getComponent(cc.ScrollView).scrollToTop();
                 let color = cc.Color.BLACK;
                 this.sideLayoutNode.children[i].getChildByName("Background").color = color.fromHEX("#17ADEC")
                 this.sideLayoutNode.children[i].getChildByName("Background").children[0].color = color.fromHEX("#17ADEC")
