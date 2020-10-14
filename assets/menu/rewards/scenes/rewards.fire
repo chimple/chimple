@@ -177,7 +177,7 @@
       "array": [
         0,
         0,
-        281.45825622994255,
+        537.2605098727712,
         0,
         0,
         0,
@@ -1610,7 +1610,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        241.5,
+        261.5,
         0,
         0,
         0,
@@ -1998,7 +1998,7 @@
       "ctor": "Float64Array",
       "array": [
         0.317,
-        106.5,
+        66.5,
         0,
         0,
         0,
@@ -2386,7 +2386,7 @@
       "ctor": "Float64Array",
       "array": [
         2.511,
-        -35.5,
+        -135.5,
         0,
         0,
         0,
@@ -2872,10 +2872,10 @@
     "_N$startAxis": 0,
     "_N$paddingLeft": 0,
     "_N$paddingRight": 0,
-    "_N$paddingTop": 50,
+    "_N$paddingTop": 30,
     "_N$paddingBottom": 0,
     "_N$spacingX": 0,
-    "_N$spacingY": 70,
+    "_N$spacingY": 130,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
     "_N$affectedByScale": false,
@@ -2990,7 +2990,7 @@
         "__id__": 64
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 71
@@ -3293,11 +3293,11 @@
       "height": 40
     },
     "_N$startAxis": 0,
-    "_N$paddingLeft": 65,
-    "_N$paddingRight": 0,
-    "_N$paddingTop": 50,
+    "_N$paddingLeft": 20,
+    "_N$paddingRight": 25,
+    "_N$paddingTop": 5,
     "_N$paddingBottom": 100,
-    "_N$spacingX": 70,
+    "_N$spacingX": 50,
     "_N$spacingY": 50,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
@@ -3706,12 +3706,12 @@
       "height": 40
     },
     "_N$startAxis": 0,
-    "_N$paddingLeft": 65,
-    "_N$paddingRight": 0,
-    "_N$paddingTop": 70,
-    "_N$paddingBottom": 70,
-    "_N$spacingX": 70,
-    "_N$spacingY": 50,
+    "_N$paddingLeft": 25,
+    "_N$paddingRight": 25,
+    "_N$paddingTop": 20,
+    "_N$paddingBottom": 100,
+    "_N$spacingX": 20,
+    "_N$spacingY": 90,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
     "_N$affectedByScale": false,
@@ -3816,7 +3816,7 @@
         "__id__": 84
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 91
@@ -4119,12 +4119,12 @@
       "height": 40
     },
     "_N$startAxis": 0,
-    "_N$paddingLeft": 65,
-    "_N$paddingRight": 0,
-    "_N$paddingTop": 70,
-    "_N$paddingBottom": 50,
-    "_N$spacingX": 150,
-    "_N$spacingY": 150,
+    "_N$paddingLeft": 25,
+    "_N$paddingRight": 25,
+    "_N$paddingTop": 20,
+    "_N$paddingBottom": 100,
+    "_N$spacingX": 20,
+    "_N$spacingY": 90,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
     "_N$affectedByScale": false,
