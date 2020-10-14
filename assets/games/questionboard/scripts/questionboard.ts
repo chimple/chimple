@@ -161,6 +161,7 @@ export default class QuestionBoard extends Game {
         this._answer = cc.instantiate(this.answerLayoutPrefab);
         this._equations = cc.instantiate(this.answerEquationLayoutPrefab);
         this.node.addChild(this._answer);
+        this.createQuestion(this._currentConfig.problemSentence);
         this.node.addChild(this._question);
         this.node.addChild(this._equations);
         this._answer.opacity = 0;
@@ -173,7 +174,6 @@ export default class QuestionBoard extends Game {
         this.subscribeToEvents();
         this._helpMode = true;
         this.createOptions();
-        this.createQuestion(this._currentConfig.problemSentence);
         this.configureSound();
         this.enableButtons();
     }

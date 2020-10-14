@@ -142,6 +142,7 @@ dependencies { implementation 'com.android.installreferrer:installreferrer:1.1' 
 dependencies { implementation 'com.google.firebase:firebase-firestore:21.4.3' }
 dependencies { implementation 'com.android.support:multidex:1.0.3' }
 dependencies { implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1' }
+dependencies {  implementation 'com.google.firebase:firebase-auth:19.2.0' }
 
 
 apply plugin: 'com.google.gms.google-services'

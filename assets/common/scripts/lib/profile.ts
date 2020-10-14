@@ -1,9 +1,9 @@
+import { Queue } from "../../../queue";
+import Header from "../header";
+import { REWARD_TYPES, Util, REWARD_CHARACTERS, INVENTORY_DATA, REWARD_BACKGROUNDS } from "../util";
 import UtilLogger from "../util-logger";
-import Config, {ALL_LANGS} from "./config";
-import {Queue} from "../../../queue";
-import {CURRENT_STUDENT_ID, EXAM, MIN_PASS} from "./constants";
-import {Course} from "./convert";
-import {Util, REWARD_TYPES} from "../util";
+import Config, { ALL_LANGS } from "./config";
+import { CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -37,29 +37,32 @@ export interface UserAttribute {
 }
 
 export interface CourseProgress {
-    currentLessonId: string;
+    currentChapterId: string;
 }
 
 export class CourseProgressClass implements CourseProgress {
-    currentLessonId = null;
+    currentChapterId: string
+    constructor(currentChapterId: string = null) {
+        this.currentChapterId = currentChapterId
+    }
 }
 
 export interface LessonProgress {
     achievement?: number;
     score: number;
-    quizAttempts?: number;
+    attempts?: number;
     date?: Date;
 }
 
 export class LessonProgressClass implements LessonProgress {
-    achievement: number;
+    achievement: number = 0;
     score: number;
-    quizAttempts: number;
+    attempts: number;
     date: Date;
 
-    constructor(score: number, quizAttempts: number = 0) {
+    constructor(score: number, attempts: number = 0) {
         this.score = score;
-        this.quizAttempts = quizAttempts;
+        this.attempts = attempts;
         this.date = new Date()
     }
 }
@@ -67,6 +70,7 @@ export class LessonProgressClass implements LessonProgress {
 
 export class User {
     private static _currentUser: User;
+    private _serverId: string;
     private _id: string;
     private _name: string;
     private _age: number;
@@ -81,6 +85,9 @@ export class User {
     private _unlockedInventory: object;
     private _unlockedRewards: object;
     private _isTeacher: boolean;
+    private _level: number;
+    debug: boolean = false
+    curriculumLoaded: boolean = false
 
     constructor(
         id: string,
@@ -96,7 +103,9 @@ export class User {
         courseProgressMap: Map<string, CourseProgress>,
         lessonProgressMap: Map<string, LessonProgress>,
         unlockedInventory: object,
-        unlockedRewards: object
+        unlockedRewards: object,
+        debug: boolean = false,
+        serverId: string = ''
     ) {
         this._id = id;
         this._name = name;
@@ -116,6 +125,8 @@ export class User {
         UtilLogger.setUserPropertiesEvent("userName", name);
         UtilLogger.setUserPropertiesEvent("userAge", age);
         this._genderEvent(gender);
+        this.debug = debug
+        this._serverId = serverId
     }
 
     _genderEvent(gender: Gender) {
@@ -132,6 +143,12 @@ export class User {
         }
     }
 
+    set serverId(id: string) {
+        this._serverId = id;
+        this._storeUser();
+        UtilLogger.setUserIdEvent(id);
+    }
+
     set id(id: string) {
         this._id = id;
         this._storeUser();
@@ -140,6 +157,10 @@ export class User {
 
     get id(): string {
         return this._id;
+    }
+
+    get serverId(): string {
+        return this._serverId;
     }
 
     set name(name: string) {
@@ -184,6 +205,7 @@ export class User {
     set avatarImage(avatarImage: string) {
         console.log(" avatar image : ", avatarImage);
         this._avatarImage = avatarImage;
+        UtilLogger.setUserPropertiesEvent("userAvatarImage", avatarImage);
         this._storeUser();
     }
 
@@ -272,39 +294,79 @@ export class User {
         this._storeUser()
     }
 
-    updateLessonProgress(lessonId: string, score: number): [string, string] {
+    openAllRewards() {
+        REWARD_CHARACTERS.forEach((char) => {
+            this.unlockRewardsForItem(`${REWARD_TYPES[0]}-${char}`, 1)
+            INVENTORY_DATA.forEach((arr) => {
+                arr.forEach((inv) => {
+                    this.unlockRewardsForItem(`${REWARD_TYPES[3]}-${char}-${inv}`, 1)
+                })
+            })
+        })
+        REWARD_BACKGROUNDS.forEach((bg) => {
+            this.unlockRewardsForItem(`${REWARD_TYPES[1]}-${bg}`, 1)
+        })
+    }
+
+    updateLessonProgress(lessonId: string, score: number, quizScores: number[]): [string, string] {
         var reward: [string, string]
-        if (this._lessonProgressMap.has(lessonId)) {
-            if (score > this._lessonProgressMap.get(lessonId).score) {
-                this._lessonProgressMap.get(lessonId).score = score;
+        const config = Config.i
+        if (User.getCurrentUser().courseProgressMap.get(Config.i.course.id).currentChapterId == null) {
+            const formulaScore = quizScores.reduce((acc, cur, i, arr): number => {
+                const mul = Math.floor(arr.length / 2) - Math.floor(i / 2)
+                const neg = cur == 0 ? -0.5 : cur
+                return acc + neg * mul
+            }, 0)
+            const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
+            const total = Math.max(0, formulaScore / max)
+            const chapters = config.curriculum.get(config.course.id).chapters
+            User.getCurrentUser().courseProgressMap.get(Config.i.course.id).currentChapterId = chapters[Math.floor(chapters.length * total)].id
+        } else {
+            if (this._lessonProgressMap.has(lessonId)) {
+                const lessonProgress = this._lessonProgressMap.get(lessonId)
+                lessonProgress.attempts++
+                lessonProgress.date = new Date()
+                if (score > lessonProgress.score) {
+                    lessonProgress.score = score;
+                    if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
+                        reward = [REWARD_TYPES[2], Config.i.lesson.image]
+                    } else {
+                        reward = Util.unlockNextReward()
+                    }
+                }
+            } else {
                 if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
                     reward = [REWARD_TYPES[2], Config.i.lesson.image]
                 } else {
                     reward = Util.unlockNextReward()
                 }
+                this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1));
             }
-        } else {
-            if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
-                reward = [REWARD_TYPES[2], Config.i.lesson.image]
-            } else {
-                reward = Util.unlockNextReward()
-            }
-            this._lessonProgressMap.set(lessonId, new LessonProgressClass(score));
-        }
 
-        if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
-            // open the next lesson
-            const lessons = Config.i.chapter.lessons
-            const lessonIndex = lessons.findIndex((les) => {
-                return les.id == lessonId
-            })
-            if (lessons.length > lessonIndex + 1) {
-                const nextLesson = lessons[lessonIndex + 1]
-                if (!this._lessonProgressMap.has(nextLesson.id)) {
-                    this._lessonProgressMap.set(nextLesson.id, new LessonProgressClass(-1));
+            if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
+                // open the next lesson
+                const lessons = Config.i.chapter.lessons
+                const lessonIndex = lessons.findIndex((les) => {
+                    return les.id == lessonId
+                })
+                if (lessons.length > lessonIndex + 1) {
+                    const nextLesson = lessons[lessonIndex + 1]
+                    if (!this._lessonProgressMap.has(nextLesson.id)) {
+                        this._lessonProgressMap.set(nextLesson.id, new LessonProgressClass(-1));
+                    }
+                } else if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == Config.i.chapter.id) {
+                    var found = false
+                    const nextChapter = Config.i.course.chapters
+                        .find((c) => {
+                            if (found) return true
+                            found = c.id == this.courseProgressMap.get(Config.i.course.id).currentChapterId
+                            return false
+                        })
+                    if (nextChapter) this.courseProgressMap.get(Config.i.course.id).currentChapterId = nextChapter.id
                 }
             }
         }
+
 
         this._storeUser();
         return reward
@@ -315,23 +377,26 @@ export class User {
     }
 
     static storeUser(user: User) {
+        cc.log('serverid', user._serverId);
         cc.sys.localStorage.setItem(user.id, User.toJson(user));
 
-        // log to ff userProfile
-        UtilLogger.logChimpleEvent("userProfile", {
-            userAge: user.age,
-            gender: user.gender,
-            userId: user.id
-        });
+        if (!user.debug) {
+            // log to ff userProfile
+            UtilLogger.logChimpleEvent("userProfile", {
+                userAge: user.age,
+                gender: user.gender,
+                userId: user.id
+            });
 
-        if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
-            let profileInfo = {
-                profile: User.toJson(user),
-                kind: 'Profile',
-                studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)
-            };
+            if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
+                let profileInfo = {
+                    profile: User.toJson(user),
+                    kind: 'Profile',
+                    studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)
+                };
 
-            Queue.getInstance().push(profileInfo);
+                Queue.getInstance().push(profileInfo);
+            }
         }
     }
 
@@ -355,6 +420,8 @@ export class User {
         isTeacher: boolean = false
     ): User {
         let uid = !!id ? id : User.createUUID();
+        const debug = (name == 'debug15' && avatarImage == 'teacherbird'
+            && age == 8 && gender == Gender.GIRL)
         let user = new User(
             uid,
             name,
@@ -365,17 +432,24 @@ export class User {
             isTeacher,
             {},
             "",
-            "bear",
-            new Map([
-                ['en', new CourseProgressClass()],
-                ['maths', new CourseProgressClass()],
-                ['test-lit', new CourseProgressClass()],
-                ['test-maths', new CourseProgressClass()]
-            ]),
+            "chimp",
+            debug
+                ? new Map([
+                    ['en', new CourseProgressClass('en00')],
+                    ['maths', new CourseProgressClass('maths00')],
+                    ['test-lit', new CourseProgressClass('chapter_0')],
+                    ['test-maths', new CourseProgressClass('chapter_0')]
+                ])
+                : new Map([
+                    ['en', new CourseProgressClass()],
+                    ['maths', new CourseProgressClass()],
+                ]),
             new Map(),
             {},
-            {}
+            {},
+            debug
         );
+        if (debug) user.openAllRewards()
         User.storeUser(user);
         let userIds = User.getUserIds();
         if (userIds == null) {
@@ -438,7 +512,9 @@ export class User {
             courseProgressMap,
             lessonProgressMap,
             data.unlockedInventory,
-            data.unlockedRewards
+            data.unlockedRewards,
+            data.debug,
+            data.serverId
         );
         return user;
     }
@@ -466,12 +542,16 @@ export class User {
             'courseProgressMap': courseProgressObj,
             'lessonProgressMap': lessonProgressObj,
             'unlockedInventory': user.unlockedInventory,
-            'unlockedRewards': user.unlockedRewards
+            'unlockedRewards': user.unlockedRewards,
+            'debug': user.debug,
+            'serverId': user.serverId
         });
     }
 
     static setCurrentUser(user: User) {
         this._currentUser = user;
+        Config.i.clear()
+        Header.homeSelected = true
     }
 
     static getCurrentUser() {
@@ -601,7 +681,8 @@ export default class Profile {
     }
 
     static async teacherPostLoginActivity(objectId: string) {
-        const currentUser: User = User.createUserOrFindExistingUser({id: objectId});
+        const currentUser: User = User.createUserOrFindExistingUser({ id: objectId });
         User.setCurrentUser(currentUser);
+        return currentUser;
     }
 }

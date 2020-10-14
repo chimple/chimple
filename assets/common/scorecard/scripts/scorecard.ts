@@ -49,6 +49,7 @@ export default class Scorecard extends cc.Component {
         if (this.score > 75) this.star3.spriteFrame = this.active
         Util.loadFriend((friendNode: cc.Node) => {
             const friend = friendNode.getComponent(Friend)
+            friend.interactable = false
             this.friendPos.addChild(friendNode)
             Util.loadAccessoriesAndEquipAcc(friendNode.children[1], friendNode)
             friend.playHappyAnimation(1)

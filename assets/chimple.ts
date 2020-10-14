@@ -15,12 +15,13 @@ export const SCHOOL: string = "SCHOOL";
 export const REGISTER: string = "REGISTER";
 export const NONE: string = "NONE";
 
-export const NO_ASSIGNED_TEACHERS: string = 'no_assigned_teachers';
-export const ASSIGNED_TEACHERS: string = 'assigned_teachers';
-export const ADD_TEACHER: string = 'add_teacher';
+export const REJECT_TEACHER_REQUEST: string = 'reject_teacher_request';
+export const ACCEPT_TEACHER_REQUEST: string = 'accept_teacher_request';
+export const TEACHER_ADDED: string = 'teacher_added';
+export const RECEIVED_TEACHER_REQUEST: string = 'received_teacher_request';
 export const TEACHER_ID_KEY = 'id';
 export const TEACHER_NAME_KEY = 'name';
-
+export const TEACHER_SECTION_ID = 'sectionid';
 export const ASSIGN_HOMEWORK: string = 'assign_homework';
 export const ASSIGNMENT_ID_KEY_FOR_ASSIGN_HW = 'aid';
 export const STUDENT_ASSIGNMENT_ID_KEY = 'sid';
@@ -42,7 +43,7 @@ cc.deep_link = function (url) {
             if (splits !== null && splits.length === 2) {
                 let elements = splits[1].split('/');
                 messageType = elements.splice(0, 1)[0];
-                if (messageType === ADD_TEACHER) {
+                if (messageType === RECEIVED_TEACHER_REQUEST) {
                     let data = Object.assign({});
                     if (elements !== null && (elements.length % 2 === 0)) {
                         let all_keys = elements;
@@ -62,7 +63,7 @@ cc.deep_link = function (url) {
                     }
                     try {
                         const jsonMessages: any[] = Util.removeDuplicateMessages(data, messageType);
-                        UtilLogger.logChimpleEvent(ADD_TEACHER, data);
+                        UtilLogger.logChimpleEvent(RECEIVED_TEACHER_REQUEST, data);
                         cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
                     } catch (e) {
 
@@ -72,7 +73,6 @@ cc.deep_link = function (url) {
             cc.log('saved into local storage:' + cc.sys.localStorage.getItem(messageType));
         }
 };
-
 
 @ccclass
 export default class Chimple extends cc.Component {

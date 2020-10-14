@@ -63,6 +63,7 @@ export default class LessonController extends cc.Component {
     isQuiz: boolean = false;
     gameTime: number = 0;
     quizTime: number = 0;
+    quizScores: number[] = []
 
     static friend: Friend = null;
     static gamePrefab: cc.Prefab;
@@ -83,7 +84,14 @@ export default class LessonController extends cc.Component {
     static preloadLesson(node: cc.Node, callback: Function) {
         const config = Config.i;
         config.problem = 0;
-        if (config.lesson.type == EXAM) {
+        if(User.getCurrentUser().courseProgressMap.get(config.course.id).currentChapterId == null) {
+            const lessons: Array<Lesson> = []
+            const sample = Math.floor(config.course.chapters.length / 5)
+            for (let index = 0; index < config.course.chapters.length; index+=sample) {
+                lessons.push(config.course.chapters[index].lessons[0])
+            }
+            LessonController.loadQuizzes(lessons, callback, node, 2);
+        } else if (config.lesson.type == EXAM) {
             const lessons: Array<Lesson> = []
             var found = false
             config.chapter.lessons.forEach((les) => {
@@ -99,35 +107,7 @@ export default class LessonController extends cc.Component {
                     }
                 }
             })
-            let numLessons = lessons.length
-            lessons.forEach((les) => {
-                cc.assetManager.loadBundle(les.id, (err, bundle) => {
-                    if (err) {
-                        callback(err)
-                    } else {
-                        bundle.preloadDir('res', null, null, (err: Error, items) => {
-                            Util.bundles.set(les.id, bundle)
-                            numLessons--
-                        })
-                    }
-                })
-            })
-            const checkAllLoaded = () => {
-                if (numLessons <= 0) {
-                    cc.director.getScheduler().unschedule(checkAllLoaded, node);
-                    config.loadLessonJson((data: Array<string>) => {
-                        config.data = [data];
-                        this.preloadGame((prefab: cc.Prefab) => {
-                            this.gamePrefab = prefab;
-                            Util.loadFriend((friendNode: cc.Node) => {
-                                LessonController.friend = friendNode.getComponent(Friend)
-                                callback();
-                            })
-                        });
-                    }, node, lessons);
-                }
-            };
-            cc.director.getScheduler().schedule(checkAllLoaded, node, 1);
+            LessonController.loadQuizzes(lessons, callback, node);
         } else {
             cc.assetManager.loadBundle(config.lesson.id, (err, bundle) => {
                 if (err) {
@@ -135,21 +115,49 @@ export default class LessonController extends cc.Component {
                 } else {
                     bundle.preloadDir('res', null, null, (err: Error, items) => {
                         Util.bundles.set(config.lesson.id, bundle);
-                        config.loadLessonJson((data: Array<string>) => {
-                            config.data = [data];
-                            this.preloadGame((prefab: cc.Prefab) => {
-                                this.gamePrefab = prefab;
-                                Util.loadFriend((friendNode: cc.Node) => {
-                                    LessonController.friend = friendNode.getComponent(Friend)
-                                    callback();
-                                })
-                            });
-                        });
+                        LessonController.loadDataAndFirstGame(callback)
+                    })
+                }
+            })
+        }
+    }
+
+    private static loadDataAndFirstGame(callback: Function, node: cc.Node = null, lessons: Lesson[] = null, maxPerLesson: number = 0) {
+        const config = Config.i
+        config.loadLessonJson((data: Array<string>) => {
+            config.data = [data];
+            this.preloadGame((prefab: cc.Prefab) => {
+                this.gamePrefab = prefab;
+                Util.loadFriend((friendNode: cc.Node) => {
+                    LessonController.friend = friendNode.getComponent(Friend)
+                    callback();
+                });
+            });
+        }, node, lessons, maxPerLesson);
+    }
+
+    private static loadQuizzes(lessons: Lesson[], callback: Function, node: cc.Node, maxPerLesson: number = 0) {
+        let numLessons = lessons.length;
+        lessons.forEach((les) => {
+            cc.assetManager.loadBundle(les.id, (err, bundle) => {
+                if (err) {
+                    callback(err);
+                }
+                else {
+                    bundle.preloadDir('res', null, null, (err: Error, items) => {
+                        Util.bundles.set(les.id, bundle);
+                        numLessons--;
                     });
                 }
             });
-        }
-
+        });
+        const checkAllLoaded = () => {
+            if (numLessons <= 0) {
+                cc.director.getScheduler().unschedule(checkAllLoaded, node)
+                LessonController.loadDataAndFirstGame(callback, node, lessons, maxPerLesson)
+            }
+        };
+        cc.director.getScheduler().schedule(checkAllLoaded, node, 1)
     }
 
     static preloadGame(callback: Function) {
@@ -230,7 +238,10 @@ export default class LessonController extends cc.Component {
         this.isQuiz = config.game.toLowerCase().includes("quiz");
         this.isQuizCompleted = this.isQuiz ? true : false;
         this.isGameCompleted = this.isQuiz ? false : true;
-        if (this.isQuiz) this.totalQuizzes++;
+        if (this.isQuiz) {
+            this.totalQuizzes++;
+            this.quizScores.push(this.isQuizAnsweredCorrectly ? 1 : 0)
+        }
         const isStory = config.game == 'story'
         if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
             let monitorInfo = {
@@ -253,6 +264,9 @@ export default class LessonController extends cc.Component {
         const eventName: string = this.isQuiz ? "quizEnd" : "gameEnd";
         UtilLogger.logChimpleEvent(eventName, {
             lessonSessionId: this.lessonSessionId,
+            gameName: config.game,
+            totalGames: config.chapter.lessons.length,
+            currentGameNumber: config.chapter.lessons.findIndex(l => l.id === config.lesson.id),
             problemSessionId: this.problemSessionId,
             chapterName: config.chapter.name,
             chapterId: config.chapter.id,
@@ -295,7 +309,7 @@ export default class LessonController extends cc.Component {
         const user = User.getCurrentUser();
         var reward: [string, string]
         if (user) {
-            reward = user.updateLessonProgress(config.lesson.id, score);
+            reward = user.updateLessonProgress(config.lesson.id, score, this.quizScores);
             let finishedLessons = 0;
             let percentageComplete = 0;
             if (config.chapter && config.chapter.lessons &&
@@ -336,8 +350,7 @@ export default class LessonController extends cc.Component {
             score: score,
             timeSpent: timeSpent,
             skills: config.lesson.skills ? config.lesson.skills.join(",") : "",
-            game_completed: config.game.toLowerCase().includes("quiz") ? false : true,
-            quiz_completed: config.game.toLowerCase().includes("quiz") ? true : false
+            attempts: user.lessonProgressMap.get(config.lesson.id) ? user.lessonProgressMap.get(config.lesson.id).attempts : 1
         });
 
         const block = cc.instantiate(this.blockPrefab);
@@ -389,9 +402,12 @@ export default class LessonController extends cc.Component {
     protected onDisable() {
         if (!this.isQuizCompleted && !this.isGameCompleted) {
             const timeSpent = Math.ceil((new Date().getTime() - this.problemStartTime) / 1000);
-            const eventName: string = this.isQuiz ? "quizSkipped" : "gameSkipped";
+            const eventName: string = this.isQuiz ? "quizIncomplete" : "gameIncomplete";
             const config = Config.i;
             UtilLogger.logChimpleEvent(eventName, {
+                gameName: config.game,
+                totalGames: config.chapter.lessons.length,
+                currentGameNumber: config.chapter.lessons.findIndex(l => l.id === config.lesson.id),
                 lessonSessionId: this.lessonSessionId,
                 problemSessionId: this.problemSessionId,
                 chapterName: config.chapter.name,

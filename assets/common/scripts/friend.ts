@@ -47,22 +47,35 @@ export default class Friend extends cc.Component {
             this.speakFullHelp = false
             this.speakExtra()
         } else {
-            cc.assetManager.loadBundle(Profile.getValue(LANGUAGE) + '-help', (err, bundle) => {
-                if (!err) {
-                    bundle.load(config.game, cc.AudioClip, (err, clip) => {
-                        if (!err) {
-                            this.helpSpoken.add(config.game)
-                            this.speakFullHelp = true
-                            this.helpAudioId = this.speak(clip, this.speakExtra.bind(this))
-                        } else {
-                            this.speakExtra()
-                        }
-                    })
-                } else {
-                    this.speakExtra()
-                }
-            })
+            const name = Profile.getValue(LANGUAGE) + '-help'
+            const bundle = Util.bundles.get(name)
+            if (bundle) {
+                this.loadAndPlay(bundle);
+            } else {
+                cc.assetManager.loadBundle(Profile.getValue(LANGUAGE) + '-help', (err, bundle) => {
+                    if (!err) {
+                        Util.bundles.set(name, bundle)
+                        this.loadAndPlay(bundle);
+                    } else {
+                        this.speakExtra()
+                    }
+                })
+            }
         }
+    }
+
+    private loadAndPlay(bundle: any) {
+        const config = Config.i
+        bundle.load(config.game, cc.AudioClip, (err, clip) => {
+            if (!err) {
+                this.helpSpoken.add(config.game);
+                this.speakFullHelp = true;
+                this.helpAudioId = this.speak(clip, this.speakExtra.bind(this));
+            }
+            else {
+                this.speakExtra();
+            }
+        });
     }
 
     public speakExtra(callback: Function = null) {
@@ -151,5 +164,11 @@ export default class Friend extends cc.Component {
         if (this.helpAudioId == -1) this.speakHelp(false)
     }
 
+    get interactable(): boolean {
+        return this.button.interactable
+    }
 
+    set interactable(i: boolean) {
+        this.button.interactable = i
+    }
 }

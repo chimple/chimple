@@ -2,6 +2,7 @@
   "id": "en",
   "name": "English",
   "lang": "en",
+  "type": "literacy",
   "chapters": [
     {
       "id": "en00",
@@ -10,17 +11,17 @@
         {
           "id": "en0000",
           "image": "en0000.png",
-          "name": "Alphabet - a"
+          "name": "a"
         },
         {
           "id": "en0001",
           "image": "en0001.png",
-          "name": "Alphabet - b"
+          "name": "b"
         },
         {
           "id": "en0002",
           "image": "en0002.png",
-          "name": "Alphabet - c"
+          "name": "c"
         },
         {
           "id": "ambulance",
@@ -32,17 +33,17 @@
         {
           "id": "en0003",
           "image": "en0003.png",
-          "name": "Alpahbet - d"
+          "name": "d"
         },
         {
           "id": "en0004",
           "image": "en0004.png",
-          "name": "Alphabet - e"
+          "name": "e"
         },
         {
           "id": "en0005",
           "image": "en0005.png",
-          "name": "Alphabet f"
+          "name": "f"
         },
         {
           "id": "en0006",
@@ -57,7 +58,7 @@
           "name": "Anchor"
         }
       ],
-      "name": "Learning Alphabet - I"
+      "name": "Alphabet a - f"
     },
     {
       "id": "en01",
@@ -66,22 +67,22 @@
         {
           "id": "en0100",
           "image": "en0100.png",
-          "name": "Alphabet - g"
+          "name": "g"
         },
         {
           "id": "en0101",
           "image": "en0101.png",
-          "name": "Alphabet - h"
+          "name": "h"
         },
         {
           "id": "en0102",
           "image": "en0102.png",
-          "name": "Alphabet - i"
+          "name": "i"
         },
         {
           "id": "en0103",
           "image": "en0103.png",
-          "name": "Alphabet - j"
+          "name": "j"
         },
         {
           "id": "auto",
@@ -93,12 +94,12 @@
         {
           "id": "en0104",
           "image": "en0104.png",
-          "name": "Alphabet - k"
+          "name": "k"
         },
         {
           "id": "en0105",
           "image": "en0105.png",
-          "name": "Alphabet - l"
+          "name": "l"
         },
         {
           "id": "en0106",
@@ -113,7 +114,7 @@
           "name": "Pram"
         }
       ],
-      "name": "Learning Alphabet - II"
+      "name": "Alphabet g - l"
     },
     {
       "id": "en02",
@@ -122,17 +123,17 @@
         {
           "id": "en0200",
           "image": "en0200.png",
-          "name": "Alphabet - m"
+          "name": "m"
         },
         {
           "id": "en0201",
           "image": "en0201.png",
-          "name": "Alphabet - n"
+          "name": "n"
         },
         {
           "id": "en0202",
           "image": "en0202.png",
-          "name": "Alphabet - o"
+          "name": "o"
         },
         {
           "id": "bag",
@@ -144,22 +145,22 @@
         {
           "id": "en0203",
           "image": "en0203.png",
-          "name": "Alphabet - p"
+          "name": "p"
         },
         {
           "id": "en0204",
           "image": "en0204.png",
-          "name": "Alphabet - q"
+          "name": "q"
         },
         {
           "id": "en0205",
           "image": "en0205.png",
-          "name": "Alphabet - r"
+          "name": "r"
         },
         {
           "id": "en0206",
           "image": "en0206.png",
-          "name": "Alphabet - s"
+          "name": "s"
         },
         {
           "id": "en0207",
@@ -174,7 +175,7 @@
           "name": "Ball"
         }
       ],
-      "name": "Learning Alphabet - III"
+      "name": "Alphabet m - s"
     },
     {
       "id": "en03",
@@ -183,22 +184,22 @@
         {
           "id": "en0300",
           "image": "en0300.png",
-          "name": "Alphabet - t"
+          "name": "t"
         },
         {
           "id": "en0301",
           "image": "en0301.png",
-          "name": "Alphabet - u"
+          "name": "u"
         },
         {
           "id": "en0302",
           "image": "en0302.png",
-          "name": "Alphabet - v"
+          "name": "v"
         },
         {
           "id": "en0303",
           "image": "en0303.png",
-          "name": "Alphabet - w"
+          "name": "w"
         },
         {
           "id": "balloon",
@@ -210,17 +211,17 @@
         {
           "id": "en0304",
           "image": "en0304.png",
-          "name": "Alphabet - x"
+          "name": "x"
         },
         {
           "id": "en0305",
           "image": "en0305.png",
-          "name": "Alphabet - y"
+          "name": "y"
         },
         {
           "id": "en0306",
           "image": "en0306.png",
-          "name": "Alphabet - z"
+          "name": "z"
         },
         {
           "id": "en0307",
@@ -235,7 +236,7 @@
           "name": "Bell"
         }
       ],
-      "name": "Learning Alphabet - IV"
+      "name": "Alphabet t - z"
     },
     {
       "id": "en04",
@@ -244,42 +245,42 @@
         {
           "id": "en0400",
           "image": "en0400.png",
-          "name": "Uppercase Alphabet A-F"
+          "name": "Alphabet A - F"
         },
         {
           "id": "en0401",
           "image": "en0401.png",
-          "name": "Revision A-F"
+          "name": "Revision A - F"
         },
         {
           "id": "en0402",
           "image": "en0402.png",
-          "name": "Uppercase Alphabet G-L"
+          "name": "Alphabet G - L"
         },
         {
           "id": "en0403",
           "image": "en0403.png",
-          "name": "Revision G-L"
+          "name": "Revision G - L"
         },
         {
           "id": "en0404",
           "image": "en0404.png",
-          "name": "Uppercase Alphabet M-S"
+          "name": "Alphabet M - S"
         },
         {
           "id": "en0405",
           "image": "en0405.png",
-          "name": "Revision M-S"
+          "name": "Revision M - S"
         },
         {
           "id": "en0406",
           "image": "en0406.png",
-          "name": "Uppercase Alphabet T-Z"
+          "name": "Alphabet T - Z"
         },
         {
           "id": "en0407",
           "image": "en0407.png",
-          "name": "Revision T-Z"
+          "name": "Revision T - Z"
         },
         {
           "id": "en0408",
@@ -287,29 +288,7 @@
           "name": "Revision Aa-Zz"
         }
       ],
-      "name": "Learning Uppercase Alphabet"
-    },
-    {
-      "id": "en05",
-      "image": "en05.png",
-      "lessons": [
-        {
-          "id": "en0500",
-          "image": "en0500.png",
-          "name": "Vowel Sounds"
-        },
-        {
-          "id": "en0501",
-          "image": "en0501.png",
-          "name": "Write Vowels"
-        },
-        {
-          "id": "en0502",
-          "image": "en0502.png",
-          "name": "Vowel words"
-        }
-      ],
-      "name": "Vowels"
+      "name": "Uppercase Alphabet"
     },
     {
       "id": "en06",
@@ -347,6 +326,28 @@
         }
       ],
       "name": "Alphabet Practice"
+    },
+    {
+      "id": "en05",
+      "image": "en05.png",
+      "lessons": [
+        {
+          "id": "en0500",
+          "image": "en0500.png",
+          "name": "Vowel Sounds"
+        },
+        {
+          "id": "en0501",
+          "image": "en0501.png",
+          "name": "Write Vowels"
+        },
+        {
+          "id": "en0502",
+          "image": "en0502.png",
+          "name": "Vowel words"
+        }
+      ],
+      "name": "Vowels"
     },
     {
       "id": "en07",
@@ -499,10 +500,10 @@
         {
           "id": "en0910",
           "image": "en0910.png",
-          "name": "Word Sounds -11 "
+          "name": "Word Sounds - 11 "
         }
       ],
-      "name": "Reading with Phonics - I"
+      "name": "Word Phonics"
     },
     {
       "id": "en10",
@@ -511,82 +512,75 @@
         {
           "id": "en1000",
           "image": "en1000.png",
-          "name": "Rhyming - ad"
+          "name": "ad"
         },
         {
           "id": "en1001",
           "image": "en1001.png",
-          "name": "Rhyming - at"
+          "name": "at"
         },
         {
           "id": "en1002",
           "image": "en1002.png",
-          "name": "Rhyming - an"
+          "name": "an"
         },
         {
           "id": "en1003",
           "image": "en1003.png",
-          "name": "Rhyming - am"
+          "name": "am"
         },
         {
           "id": "en1004",
           "image": "en1004.png",
-          "name": "Rhyming - ap"
+          "name": "ap"
         },
         {
           "id": "en1005",
           "image": "en1005.png",
-          "name": "Rhyming - ag, ay"
-        }
-      ],
-      "name": "Word Family - 'a' 1"
-    },
-    {
-      "id": "en11",
-      "image": "en11.png",
-      "lessons": [
+          "name": "ag, ay"
+        },
         {
           "id": "en1100",
           "image": "en1100.png",
-          "name": "Rhyming - ain"
+          "name": "ain"
         },
         {
           "id": "en1101",
           "image": "en1101.png",
-          "name": "Rhyming - art, air, are"
+          "name": "art, air, are"
         },
         {
           "id": "en1102",
           "image": "en1102.png",
-          "name": "Rhyming - ake"
+          "name": "ake"
         },
         {
           "id": "en1103",
           "image": "en1103.png",
-          "name": "Rhyming - ane, ave, "
+          "name": "ane, ave, "
         },
         {
           "id": "en1104",
           "image": "en1104.png",
-          "name": "Rhyming - ale, ate, ade"
+          "name": "ale, ate, ade"
         },
         {
           "id": "en1105",
           "image": "en1105.png",
-          "name": "Rhyming - ace, ase, ape"
+          "name": "ace, ase, ape"
         },
         {
           "id": "en1106",
           "image": "en1106.png",
-          "name": "Rhyming - amp, ank, ail"
+          "name": "amp, ank, ail"
         },
         {
           "id": "en1107",
           "image": "en1107.png",
-          "name": "Rhyming - ark, all"
+          "name": "ark, all"
         }
       ],
-      "name": "Word Family - a II"
+      "name": "Word Family - a"
     },
     {
       "id": "en12",
@@ -595,25 +589,25 @@
         {
           "id": "en1200",
           "image": "en1200.png",
-          "name": "Rhyming - en,ed"
+          "name": "en,ed"
         },
         {
           "id": "en1201",
           "image": "en1201.png",
-          "name": "Rhyming - et"
+          "name": "et"
         },
         {
           "id": "en1202",
           "image": "en1202.png",
-          "name": "Rhyming - eg, ea, ean"
+          "name": "eg, ea, ean"
         },
         {
           "id": "en1203",
           "image": "en1203.png",
-          "name": "Rhyming - eese, eat"
+          "name": "eese, eat"
         }
       ],
-      "name": "Word Family 'e'"
+      "name": "Word Family - e"
     },
     {
       "id": "en13",
@@ -622,45 +616,45 @@
         {
           "id": "en1300",
           "image": "en1300.png",
-          "name": "Rhyming - id, ide"
+          "name": "id, ide"
         },
         {
           "id": "en1301",
           "image": "en1301.png",
-          "name": "Rhyming - it, ite"
+          "name": "it, ite"
         },
         {
           "id": "en1302",
           "image": "en1302.png",
-          "name": "Rhyming - in, ing, ink, "
+          "name": "in, ing, ink, "
         },
         {
           "id": "en1303",
           "image": "en1303.png",
-          "name": "Rhyming - int, ine, irt"
+          "name": "int, ine, irt"
         },
         {
           "id": "en1304",
           "image": "en1304.png",
-          "name": "Rhyming - ig, ix"
+          "name": "ig, ix"
         },
         {
           "id": "en1305",
           "image": "en1305.png",
-          "name": "Rhyming - ip"
+          "name": "ip"
         },
         {
           "id": "en1306",
           "image": "en1306.png",
-          "name": "Rhyming - ie, ick, ill, ime"
+          "name": "ie, ick, ill, ime"
         },
         {
           "id": "en1307",
           "image": "en1307.png",
-          "name": "Rhyming - ire, ile, ive, ike"
+          "name": "ire, ile, ive, ike"
         }
       ],
-      "name": "Word Family 'i' "
+      "name": "Word Family - i"
     },
     {
       "id": "en14",
@@ -669,35 +663,35 @@
         {
           "id": "en1400",
           "image": "en1400.png",
-          "name": "Rhyming - og,  ox"
+          "name": "og,  ox"
         },
         {
           "id": "en1401",
           "image": "en1401.png",
-          "name": "Rhyming - ot"
+          "name": "ot"
         },
         {
           "id": "en1402",
           "image": "en1402.png",
-          "name": "Rhyming - op, "
+          "name": "op, "
         },
         {
           "id": "en1403",
           "image": "en1403.png",
-          "name": "Rhyming - om, oom, ome, one"
+          "name": "om, oom, ome, one"
         },
         {
           "id": "en1404",
           "image": "en1404.png",
-          "name": "Rhyming - ool, own, ouse"
+          "name": "ool, own, ouse"
         },
         {
           "id": "en1405",
           "image": "en1405.png",
-          "name": "Rhyming - oil, orn"
+          "name": "oil, orn"
         }
       ],
-      "name": "Word Family 'o'"
+      "name": "Word Family - o"
     },
     {
       "id": "en15",
@@ -706,35 +700,35 @@
         {
           "id": "en1500",
           "image": "en1500.png",
-          "name": "Rhyming - un"
+          "name": "un"
         },
         {
           "id": "en1501",
           "image": "en1501.png",
-          "name": "Rhyming - us, ust, use, uck"
+          "name": "us, ust, use, uck"
         },
         {
           "id": "en1502",
           "image": "en1502.png",
-          "name": "Rhyming - ug, "
+          "name": "ug, "
         },
         {
           "id": "en1503",
           "image": "en1503.png",
-          "name": "Rhyming - ut, ute"
+          "name": "ut, ute"
         },
         {
           "id": "en1504",
           "image": "en1504.png",
-          "name": "Rhyming - ub, ube, ud"
+          "name": "ub, ube, ud"
         },
         {
           "id": "en1505",
           "image": "en1505.png",
-          "name": "Rhyming - um, ume, ule"
+          "name": "um, ume, ule"
         }
       ],
-      "name": "Word Family 'u'"
+      "name": "Word Family - u"
     },
     {
       "id": "en16",
@@ -799,14 +793,7 @@
           "id": "en1611",
           "image": "en1611.png",
           "name": "Blend - cr"
-        }
-      ],
-      "name": "Sound Blend - 1"
-    },
-    {
-      "id": "en17",
-      "image": "en17.png",
-      "lessons": [
+        },
         {
           "id": "en1700",
           "image": "en1700.png",
@@ -821,7 +808,14 @@
           "id": "en1702",
           "image": "en1702.png",
           "name": "Blend - pl"
-        },
+        }
+      ],
+      "name": "Sound Blends"
+    },
+    {
+      "id": "en17",
+      "image": "en17.png",
+      "lessons": [
         {
           "id": "en1703",
           "image": "en1703.png",
@@ -856,14 +850,7 @@
           "id": "en1709",
           "image": "en1709.png",
           "name": "Blend - dr"
-        }
-      ],
-      "name": "Sound Blends - 2"
-    },
-    {
-      "id": "en18",
-      "image": "en18.png",
-      "lessons": [
+        },
         {
           "id": "en1800",
           "image": "en1800.png",
@@ -905,7 +892,7 @@
           "name": "Blend - ai"
         }
       ],
-      "name": "Sound Blends - 3"
+      "name": "More Sound Blends"
     },
     {
       "id": "en19",
@@ -1100,7 +1087,44 @@
           "name": "Bigger words"
         }
       ],
-      "name": "Strengthen Spellings "
+      "name": "Spellings "
+    },
+    {
+      "id": "en32",
+      "image": "en32.png",
+      "lessons": [
+        {
+          "id": "en3200",
+          "image": "en3200.png",
+          "name": "Simple sentence - 2 words "
+        },
+        {
+          "id": "en3201",
+          "image": "en3201.png",
+          "name": "Simple Sentence - 3 words"
+        },
+        {
+          "id": "en3202",
+          "image": "en3202.png",
+          "name": "Simple sentence - 4 words"
+        },
+        {
+          "id": "en3203",
+          "image": "en3203.png",
+          "name": "About people "
+        },
+        {
+          "id": "en3204",
+          "image": "en3204.png",
+          "name": "Day to day life"
+        },
+        {
+          "id": "en3205",
+          "image": "en3205.png",
+          "name": "About things"
+        }
+      ],
+      "name": "Simple Sentences"
     },
     {
       "id": "en24",
@@ -1147,7 +1171,7 @@
           "name": "Countable nouns "
         }
       ],
-      "name": "Noun "
+      "name": "Nouns"
     },
     {
       "id": "en25",
@@ -1241,34 +1265,7 @@
           "name": "Sentences with verb in present tense"
         }
       ],
-      "name": "Verb - Action Words"
-    },
-    {
-      "id": "en27",
-      "image": "en27.png",
-      "lessons": [
-        {
-          "id": "en2700",
-          "image": "en2700.png",
-          "name": "Demonstrative words      this, that, these, those "
-        },
-        {
-          "id": "en2701",
-          "image": "en2701.png",
-          "name": "Sentences ending in Adverbs"
-        },
-        {
-          "id": "en2702",
-          "image": "en2702.png",
-          "name": "Conjunctions"
-        },
-        {
-          "id": "en2703",
-          "image": "en2703.png",
-          "name": "Opposites"
-        }
-      ],
-      "name": "Grammar - 1"
+      "name": "Action Words"
     },
     {
       "id": "en28",
@@ -1301,6 +1298,26 @@
       "id": "en29",
       "image": "en29.png",
       "lessons": [
+        {
+          "id": "en2700",
+          "image": "en2700.png",
+          "name": "Demonstrative words"
+        },
+        {
+          "id": "en2701",
+          "image": "en2701.png",
+          "name": "Sentences ending in Adverbs"
+        },
+        {
+          "id": "en2702",
+          "image": "en2702.png",
+          "name": "Conjunctions"
+        },
+        {
+          "id": "en2703",
+          "image": "en2703.png",
+          "name": "Opposites"
+        },
         {
           "id": "en2900",
           "image": "en2900.png",
@@ -1384,43 +1401,6 @@
       "name": "Adjectives"
     },
     {
-      "id": "en32",
-      "image": "en32.png",
-      "lessons": [
-        {
-          "id": "en3200",
-          "image": "en3200.png",
-          "name": "Simple sentence - 2 words "
-        },
-        {
-          "id": "en3201",
-          "image": "en3201.png",
-          "name": "Simple Sentence - 3 words"
-        },
-        {
-          "id": "en3202",
-          "image": "en3202.png",
-          "name": "Simple sentence - 4 words"
-        },
-        {
-          "id": "en3203",
-          "image": "en3203.png",
-          "name": "About people "
-        },
-        {
-          "id": "en3204",
-          "image": "en3204.png",
-          "name": "Day to day life"
-        },
-        {
-          "id": "en3205",
-          "image": "en3205.png",
-          "name": "About things"
-        }
-      ],
-      "name": "Create Sentences -1"
-    },
-    {
       "id": "en33",
       "image": "en33.png",
       "lessons": [
@@ -1460,7 +1440,7 @@
           "name": "Complex sentences"
         }
       ],
-      "name": "Create Sentences - 2"
+      "name": "Create Sentences"
     }
   ]
 }

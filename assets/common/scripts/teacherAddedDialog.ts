@@ -4,9 +4,11 @@ import {User} from "./lib/profile";
 import StudentPreviewInfo, {TEACHER_ADD_STUDENT_SELECTED} from "./studentPreviewInfo";
 import ChimpleLabel from "./chimple-label";
 import {Queue} from "../../queue";
-import {UpdateHomeTeacher} from "../../private/services/parseApi";
-import {ASSIGNED_TEACHERS, NO_ASSIGNED_TEACHERS} from "../../chimple";
+import {ParseApi, UpdateHomeTeacher} from "../../private/services/parseApi";
+import {ACCEPT_TEACHER_REQUEST, REJECT_TEACHER_REQUEST, TEACHER_ADDED} from "../../chimple";
 import UtilLogger from "./util-logger";
+import {ParseSchoolStudent} from "../../private/domain/parseStudent";
+import {ParseSchool} from "../../private/domain/parseSchool";
 
 export const TEACHER_ADD_DIALOG_CLOSED = 'TEACHER_ADD_DIALOG_CLOSED';
 @ccclass
@@ -28,6 +30,7 @@ export default class TeacherAddedDialog extends cc.Component {
     selectedStudentId: string;
     selectedStudentName: string;
 
+    _teacherSectionId: string;
     _teacherId: string;
     _teacherName: string;
 
@@ -48,6 +51,8 @@ export default class TeacherAddedDialog extends cc.Component {
         this.yesButton.active = false;
         const chimpleLabel = this.text.getComponent(ChimpleLabel);
         chimpleLabel.string = 'Add Teacher ' + this._teacherName;
+        const studentAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + this._teacherId) || '[]');
+        this.users = this.users.filter(u => !studentAdded.includes(u.id))
         this.users.forEach(
             (user) => {
                 const studentPreviewInfoNode: cc.Node = cc.instantiate(this.studentPreviewInfoPrefab);
@@ -61,21 +66,28 @@ export default class TeacherAddedDialog extends cc.Component {
         )
     }
 
-    onYesClicked(event) {
-        if (!!this.selectedStudentId && this._teacherId) {
+    async onYesClicked(event) {
+        if (!!this._teacherId) {
+            // give me teacher user id from school id
+            const school: ParseSchool = await ParseApi.getInstance().schoolById(this._teacherId)
             let updateHomeTeacherInfo: UpdateHomeTeacher = {
-                studentId: this.selectedStudentId,
-                teacherId: this._teacherId,
+                homeId: this.selectedStudentId,
+                teacherId: school.user.objectId,
                 kind: "UpdateHomeTeacher",
-                name: this.selectedStudentName
+                studentName: this.selectedStudentName,
+                schoolId: school.objectId,
+                sectionId: this._teacherSectionId
             };
             Queue.getInstance().push(updateHomeTeacherInfo);
-            UtilLogger.logChimpleEvent(ASSIGNED_TEACHERS, updateHomeTeacherInfo);
+            const teachersAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + this._teacherId) || '[]');
+            teachersAdded.push(this.selectedStudentId);
+            cc.sys.localStorage.setItem(TEACHER_ADDED + this._teacherId, JSON.stringify(teachersAdded));
+            UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, updateHomeTeacherInfo);
             try {
-                const messages = cc.sys.localStorage.getItem(ASSIGNED_TEACHERS) || '[]';
+                const messages = cc.sys.localStorage.getItem(ACCEPT_TEACHER_REQUEST) || '[]';
                 const jsonMessages: any[] = JSON.parse(messages);
                 jsonMessages.push(this._teacherId);
-                cc.sys.localStorage.setItem(ASSIGNED_TEACHERS, JSON.stringify(jsonMessages));
+                cc.sys.localStorage.setItem(ACCEPT_TEACHER_REQUEST, JSON.stringify(jsonMessages));
             } catch (e) {
 
             }
@@ -95,12 +107,12 @@ export default class TeacherAddedDialog extends cc.Component {
 
     onNoClicked(event) {
         let updateHomeTeacherInfo: UpdateHomeTeacher = {
-            studentId: this.selectedStudentId,
+            homeId: this.selectedStudentId,
             teacherId: this._teacherId,
             kind: "UpdateHomeTeacher",
-            name: this.selectedStudentName
+            studentName: this.selectedStudentName
         };
-        UtilLogger.logChimpleEvent(NO_ASSIGNED_TEACHERS, updateHomeTeacherInfo);
+        UtilLogger.logChimpleEvent(REJECT_TEACHER_REQUEST, updateHomeTeacherInfo);
         this.closeDialog();
     }
 
@@ -110,6 +122,10 @@ export default class TeacherAddedDialog extends cc.Component {
 
     set TeacherName(_name: string) {
         this._teacherName = _name;
+    }
+
+    set SelectedSectionId(_id: string) {
+        this._teacherSectionId = _id;
     }
 
 }

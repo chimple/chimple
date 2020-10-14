@@ -24,9 +24,13 @@ export default class ChapterMenuButton extends cc.Component {
     @property(cc.Prefab)
     chapterIconPrefab: cc.Prefab
 
+    @property(cc.Node)
+    currentChapterIcon: cc.Node
+
     chapter: Chapter
     content: cc.Node
     loading: cc.Node
+    open: boolean = true
 
     onLoad() {
         if (this.chapter != null) {
@@ -34,13 +38,15 @@ export default class ChapterMenuButton extends cc.Component {
             const chapterIcon = cc.instantiate(this.chapterIconPrefab)
             const chapterIconComp = chapterIcon.getComponent(ChapterIcon)
             chapterIconComp.chapter = this.chapter
-            this.node.insertChild(chapterIcon, 0)
+            chapterIconComp.open = this.open
+            this.button.node.insertChild(chapterIcon, 0)
 
             this.label.string = this.chapter.name
             this.button.node.on('click', () => {
                 config.chapter = this.chapter
                 config.pushScene('menu/start/scenes/chapterLessons', 'menu')
             })
+            this.button.interactable = this.open
             const completedLessons = this.chapter.lessons.filter((les) => {
                 const lessonProgress = User.getCurrentUser().lessonProgressMap.get(les.id)
                 if(lessonProgress && lessonProgress.score >= 0) return true
@@ -51,6 +57,7 @@ export default class ChapterMenuButton extends cc.Component {
             // this.graphics.fill()
             this.graphics.arc(0, 0, RADIUS + WIDTH / 2, Math.PI * 1 / 2, -endAngle + Math.PI * 1 / 2)
             this.graphics.stroke()
+            this.currentChapterIcon.active = User.getCurrentUser().courseProgressMap.get(this.chapter.course.id).currentChapterId == this.chapter.id
         }
     }
 }

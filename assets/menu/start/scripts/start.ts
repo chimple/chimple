@@ -1,4 +1,10 @@
-import { ADD_TEACHER, TEACHER_ID_KEY, TEACHER_NAME_KEY } from "../../../chimple";
+import {
+    RECEIVED_TEACHER_REQUEST,
+    TEACHER_ADDED,
+    TEACHER_ID_KEY,
+    TEACHER_NAME_KEY,
+    TEACHER_SECTION_ID
+} from "../../../chimple";
 import Header from "../../../common/scripts/header";
 import Config from "../../../common/scripts/lib/config";
 import { User } from "../../../common/scripts/lib/profile";
@@ -40,9 +46,6 @@ export default class Start extends cc.Component {
     bgHolder: cc.Node = null;
 
     onLoad() {
-        for (let index = 0; index < 2; index++) {
-            cc.log(Util.unlockNextReward())        
-        }
         this.bgHolder.removeAllChildren();
         if (!!User.getCurrentUser().currentBg) {
             this.setBackground(User.getCurrentUser().currentBg);
@@ -52,25 +55,30 @@ export default class Start extends cc.Component {
         const loadingComp = this.loading.getComponent(Loading)
         loadingComp.allowCancel = false
         loadingComp.delay = 0
-        
+
         const config = Config.i
-        config.loadCourseJsons(User.getCurrentUser(), this.node, () => {
-            const headerNode = cc.instantiate(this.headerPrefab)
-            const headerComp = headerNode.getComponent(Header)
-            headerComp.onCourseClick = this.onCourseClick.bind(this)
-            headerComp.onHomeClick = this.onHomeClick.bind(this)
-            headerComp.onRightClick = this.onProfileClick.bind(this)
-            headerComp.rightPos.addChild(cc.instantiate(this.profilePrefab))
-            headerComp.user = User.getCurrentUser()
-            this.header.addChild(headerNode)
-            if (Header.homeSelected) {
-                this.onHomeClick()
-            } else {
-                this.onCourseClick()
-            }
-            this.loading.active = false;
-            this.registerTeacherDialogCloseEvent();
-        })
+        User.getCurrentUser().curriculumLoaded
+            ? this.initPage()
+            : config.loadCourseJsons(User.getCurrentUser(), this.node, this.initPage.bind(this))
+    }
+
+    private initPage() {
+        const headerNode = cc.instantiate(this.headerPrefab);
+        const headerComp = headerNode.getComponent(Header);
+        headerComp.onCourseClick = this.onCourseClick.bind(this);
+        headerComp.onHomeClick = this.onHomeClick.bind(this);
+        headerComp.onRightClick = this.onProfileClick.bind(this);
+        headerComp.rightPos.addChild(cc.instantiate(this.profilePrefab));
+        headerComp.user = User.getCurrentUser();
+        this.header.addChild(headerNode);
+        if (Header.homeSelected) {
+            this.onHomeClick();
+        }
+        else {
+            this.onCourseClick();
+        }
+        this.loading.active = false;
+        this.registerTeacherDialogCloseEvent();
     }
 
     protected start() {
@@ -102,19 +110,27 @@ export default class Start extends cc.Component {
 
     private showTeacherDialog() {
         try {
-            const messageStr: string = cc.sys.localStorage.getItem(ADD_TEACHER) || '[]';
+            const messageStr: string = cc.sys.localStorage.getItem(RECEIVED_TEACHER_REQUEST) || '[]';
             let messages: any[] = JSON.parse(messageStr);
             messages = messages.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
             if (messages && messages.length > 0) {
                 const curMessage = messages.splice(0, 1)[0];
                 const name: string = curMessage[TEACHER_NAME_KEY];
                 const id = curMessage[TEACHER_ID_KEY];
-                cc.sys.localStorage.setItem(ADD_TEACHER, JSON.stringify(messages));
-                if (!!id && !!name) {
+                const sectionId = curMessage[TEACHER_SECTION_ID];
+                cc.sys.localStorage.setItem(RECEIVED_TEACHER_REQUEST, JSON.stringify(messages));
+
+                const studentAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + id) || '[]');
+                let users = User.getUsers() || [];
+                users = users.filter(u => !studentAdded.includes(u.id))
+                cc.log('remaining users', users);
+
+                if (!!id && !!name && users && users.length > 0) {
                     const teacherDialog: cc.Node = cc.instantiate(this.teacherDialogPrefab);
                     const script: TeacherAddedDialog = teacherDialog.getComponent(TeacherAddedDialog);
                     script.TeacherName = name;
                     script.TeacherId = id;
+                    script.SelectedSectionId = sectionId;
                     this.node.addChild(teacherDialog);
                 }
             }

@@ -18,17 +18,27 @@ export default class ChapterLessons extends cc.Component {
     @property(cc.Node)
     loading: cc.Node = null
 
+    @property(cc.Node)
+    bgHolder: cc.Node = null;
+
+
     onLoad() {
+
+        this.bgHolder.removeAllChildren();
+        if (!!User.getCurrentUser().currentBg) {
+            this.setBackground(User.getCurrentUser().currentBg);
+        } else {
+            this.setBackground("forest");
+        }
+
         const config = Config.i
         this.label.string = config.chapter.name
         config.chapter.lessons.forEach((lesson, index) => {
             const lessonButton = cc.instantiate(this.lessonButtonPrefab)
             const lessonButtonComp = lessonButton.getComponent(LessonButton)
             lessonButtonComp.lesson = lesson
-            lessonButtonComp.chapter = config.chapter
-            lessonButtonComp.course = config.course
             lessonButtonComp.loading = this.loading
-            lessonButtonComp.open = (index == 0 
+            lessonButtonComp.open = (index == 0
                 || lesson.open
                 || User.getCurrentUser().lessonProgressMap.has(lesson.id))
             this.layout.addChild(lessonButton)
@@ -37,6 +47,19 @@ export default class ChapterLessons extends cc.Component {
         this.layout.parent.height = this.layout.height
         this.layout.parent.width = cc.winSize.width
         this.layout.parent.parent.width = cc.winSize.width
+    }
+
+    private setBackground(bgprefabName: string) {
+        cc.resources.load(`backgrounds/prefabs/${bgprefabName}`, (err, sp) => {
+            let bgPrefabInstance = cc.instantiate(sp);
+            // @ts-ignore
+            bgPrefabInstance.y = 0
+            // @ts-ignore
+            bgPrefabInstance.x = 0
+            // @ts-ignore
+            this.bgHolder.addChild(bgPrefabInstance);
+            // userButtonRef.getChildByName("Background").getChildByName("avatar").getChildByName("icon").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
+        });
     }
 
     onBackClick() {
