@@ -295,6 +295,8 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                             @Override
                             public void onComplete(@NonNull Task<InstanceIdResult> task) {
                                 if (!task.isSuccessful()) {
+                                    Log.i(TAG, "Firebase Message Token: failed");
+
                                     return;
                                 }
 
@@ -302,6 +304,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                                 ChimpleLogger.storeInSharedPreference(AppActivity.this, FIREBASE_MESSAGE_TOKEN, token);
                                 Log.i(TAG, "Firebase Message Token:" + token);
                                 AppActivity.this.syncFcm();
+                                ChimpleLogger.logEventToFireBase("fcm_token_generated", "token", token);
                             }
                         });
             }
