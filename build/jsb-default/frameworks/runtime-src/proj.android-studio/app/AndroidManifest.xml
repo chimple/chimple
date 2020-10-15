@@ -18,6 +18,12 @@
             android:name="android.app.lib_name"
             android:value="cocos2djs" />
 
+        <!-- [END fcm_default_icon] -->
+        <!-- [START fcm_default_channel] -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+
         <activity
             android:name="org.chimple.bahama.AppActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
@@ -152,6 +158,13 @@
             android:enabled="true"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name="org.chimple.bahama.logger.ChimpleFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 </manifest>

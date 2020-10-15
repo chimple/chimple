@@ -4,11 +4,10 @@ import {User} from "./lib/profile";
 import StudentPreviewInfo, {TEACHER_ADD_STUDENT_SELECTED} from "./studentPreviewInfo";
 import ChimpleLabel from "./chimple-label";
 import {Queue} from "../../queue";
-import {ParseApi, UpdateHomeTeacher} from "../../private/services/parseApi";
 import {ACCEPT_TEACHER_REQUEST, REJECT_TEACHER_REQUEST, TEACHER_ADDED} from "../../chimple";
 import UtilLogger from "./util-logger";
-import {ParseSchoolStudent} from "../../private/domain/parseStudent";
-import {ParseSchool} from "../../private/domain/parseSchool";
+import { ParseSchool } from "./domain/parseSchool";
+import { ParseApi, UpdateHomeTeacher } from "./services/parseApi";
 
 export const TEACHER_ADD_DIALOG_CLOSED = 'TEACHER_ADD_DIALOG_CLOSED';
 @ccclass

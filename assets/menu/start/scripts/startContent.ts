@@ -1,20 +1,20 @@
 import Config from "../../../common/scripts/lib/config";
-import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
-import {User, CourseProgress} from "../../../common/scripts/lib/profile";
+import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
+import { User, CourseProgress } from "../../../common/scripts/lib/profile";
 import LessonButton from "./lessonButton";
-import {Util} from "../../../common/scripts/util";
-import {EXAM, MIN_PASS} from "../../../common/scripts/lib/constants";
-import {ParseApi} from "../../../private/services/parseApi";
+import { Util } from "../../../common/scripts/util";
+import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
+import { ParseApi } from "../../../common/scripts/services/parseApi";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class StartContent extends cc.Component {
     @property(cc.Prefab)
     startLessonButtonPrefab: cc.Prefab = null
 
-    @property(cc.Node)
-    layout: cc.Node = null;
+    @property(cc.PageView)
+    pageView: cc.PageView = null;
 
     loading: cc.Node
 
@@ -44,6 +44,9 @@ export default class StartContent extends cc.Component {
             }
         })
         Util.shuffle(buttons)
+        buttons.forEach((node: cc.Node) => {
+            this.node.children[0].getComponent(cc.PageView).addPage(node)
+        })
 
         const assignments = await ParseApi.getInstance().listAssignments(user.serverId)
         assignments.forEach((ass) => {
@@ -54,14 +57,11 @@ export default class StartContent extends cc.Component {
                 if (chapter) {
                     lesson = chapter.lessons.find(l => l.id == ass.lessonId)
                     if (lesson)
-                        buttons.push(this.createButton(lesson))
+                    this.node.children[0].getComponent(cc.PageView).insertPage(this.createButton(lesson), 0)
                 }
             }
         })
 
-        buttons.forEach((node: cc.Node) => {
-            this.layout.addChild(node)
-        })
     }
 
     private recommendedLessonInChapter(chapter: Chapter): Lesson {

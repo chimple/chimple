@@ -136,7 +136,8 @@ export default class Config {
     }
 
     get direction(): Direction {
-        return this.course == null ? Direction.RTL : RTL_COURSES.indexOf(this.course.id) != -1 ? Direction.RTL : Direction.LTR;
+        // return this.course == null ? Direction.RTL : RTL_COURSES.indexOf(this.course.id) != -1 ? Direction.RTL : Direction.LTR;
+        return Direction.LTR
     }
 
     addTextFont(fontName: string, newVal: cc.Font) {
@@ -384,7 +385,7 @@ export default class Config {
     loadCourseJsons(user: User, node: cc.Node, callBack: Function) {
         let numCourses = 0
         user.courseProgressMap.forEach((courseProgress, name) => {
-            if (!Config.i.curriculum.has(name)) {
+            if (!Config.i.curriculum.has(name) || user.debug) {
                 numCourses++
                 this.loadSingleCourseJson(name, () => {
                     numCourses--;
@@ -416,7 +417,7 @@ export default class Config {
                         chapter.course = course;
                         chapter.lessons.forEach((lesson) => {
                             lesson.chapter = chapter;
-                            if (User.getCurrentUser().debug) {
+                            if (User.getCurrentUser() && User.getCurrentUser().debug) {
                                 lesson.open = true
                             }
                         });
