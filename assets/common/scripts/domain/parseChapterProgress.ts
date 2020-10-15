@@ -9,7 +9,7 @@ export class ParseChapterProgress {
     avgAssessment?: number;
     student?: Pointer;
     totalTimeSpent?: number;
-    percentageComplete?: number;
+    percentComplete?: number;
     createdAt?: string;
     updatedAt?: string;
 }
