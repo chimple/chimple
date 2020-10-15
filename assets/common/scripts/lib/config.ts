@@ -136,7 +136,8 @@ export default class Config {
     }
 
     get direction(): Direction {
-        return this.course == null ? Direction.RTL : RTL_COURSES.indexOf(this.course.id) != -1 ? Direction.RTL : Direction.LTR;
+        // return this.course == null ? Direction.RTL : RTL_COURSES.indexOf(this.course.id) != -1 ? Direction.RTL : Direction.LTR;
+        return Direction.LTR
     }
 
     addTextFont(fontName: string, newVal: cc.Font) {
