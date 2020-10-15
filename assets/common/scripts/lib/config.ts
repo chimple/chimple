@@ -416,9 +416,9 @@ export default class Config {
                         chapter.course = course;
                         chapter.lessons.forEach((lesson) => {
                             lesson.chapter = chapter;
-                            if (User.getCurrentUser().debug) {
-                                lesson.open = true
-                            }
+                            // if (User.getCurrentUser().debug) {
+                            //     lesson.open = true
+                            // }
                         });
                     });
                     this.curriculum.set(name, course);

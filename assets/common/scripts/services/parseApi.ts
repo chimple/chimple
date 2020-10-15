@@ -828,10 +828,10 @@ export class ParseApi {
 
     public async getAssignments(schoolId: string, sectionId: string): Promise<ParseAssignment> {
         const storyKey = ASSIGNMENTS + schoolId + sectionId;
-        const cachedAssignment = ParseNetwork.getInstance().getParseObjectFromCache(storyKey);
-        if (!!cachedAssignment) {
-            return ParseApi.instance.fromJson(cachedAssignment, ParseAssignment, true);
-        }
+        // const cachedAssignment = ParseNetwork.getInstance().getParseObjectFromCache(storyKey);
+        // if (!!cachedAssignment) {
+        //     return ParseApi.instance.fromJson(cachedAssignment, ParseAssignment, true);
+        // }
 
         const assignment: ParseAssignment = new ParseAssignment();
         assignment.schoolId = schoolId;
