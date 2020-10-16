@@ -19,6 +19,7 @@ export const LANGUAGE = "language";
 export const EMAIL = "email";
 export const CONTACT = "contact";
 export const PASSWORD = "password";
+export const IS_OTP_VERIFIED = "isOtpVerified";
 
 export enum Gender {
     BOY,
@@ -598,6 +599,7 @@ export default class Profile {
             this.setValue(LANGUAGE, ALL_LANGS[0]);
             this.setItem(SFX_OFF, 0);
             this.setItem(MUSIC_OFF, 0);
+            this.setItem(IS_OTP_VERIFIED,0);
             this.setValue(IS_INITIALIZED, "true");
         }
     }
