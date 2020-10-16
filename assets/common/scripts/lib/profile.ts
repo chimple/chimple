@@ -320,7 +320,7 @@ export class User {
             const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
             const total = Math.max(0, formulaScore / max)
             const chapters = config.curriculum.get(config.course.id).chapters
-            User.getCurrentUser().courseProgressMap.get(Config.i.course.id).currentChapterId = chapters[Math.floor(chapters.length * total)].id
+            User.getCurrentUser().courseProgressMap.get(Config.i.course.id).currentChapterId = chapters[Math.floor((chapters.length - 1) * total)].id
         } else {
             if (this._lessonProgressMap.has(lessonId)) {
                 const lessonProgress = this._lessonProgressMap.get(lessonId)
@@ -470,7 +470,7 @@ export class User {
                 let user = User.fromJson(
                     cc.sys.localStorage.getItem(id)
                 );
-                response.push(user);
+                if(!user.isTeacher && user.age > 0) response.push(user);
             });
         }
         return response;
