@@ -42,7 +42,7 @@ export default class ChapterMenuButton extends cc.Component {
             this.button.node.insertChild(chapterIcon, 0)
 
             this.label.string = this.chapter.name
-            this.button.node.on('click', () => {
+            this.button.node.on('touchend', () => {
                 config.chapter = this.chapter
                 config.pushScene('menu/start/scenes/chapterLessons', 'menu')
             })

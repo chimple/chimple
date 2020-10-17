@@ -58,7 +58,7 @@ export default class LessonButton extends cc.Component {
             lessonIconComp.open = this.open
             this.button.node.insertChild(lessonIcon, 0)
             this.label.string = this.lesson.type == EXAM ? Util.i18NText('Challenge') : this.lesson.name
-            this.button.node.on('click', () => {
+            this.button.node.on('touchend', () => {
                 config.course = this.lesson.chapter.course
                 config.chapter = this.lesson.chapter
                 config.lesson = this.lesson;

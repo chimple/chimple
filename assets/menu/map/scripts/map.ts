@@ -104,7 +104,7 @@ export default class Map extends cc.Component {
         //     }
         // }
         // const button = this.block.getChildByName('Button')
-        // if(button) button.on('click', (button) => {
+        // if(button) button.on('touchend', (button) => {
         //     this.downloadGames()
         // })
 

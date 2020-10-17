@@ -147,7 +147,7 @@ export default class BubbleType extends Game {
             let tempButton = cc.instantiate(this.buttonPrefab);
             tempButton.getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = alphabetArray[i]//this.alphabets.substr(i, 1)
             tempButton.name = alphabetArray[i]//this.alphabets.substr(i, 1)
-            tempButton.on('click', this.callback, this)
+            tempButton.on('touchend', this.callback, this)
             if (formattedData.indexOf(tempButton.name) === -1) {
                 tempButton.getComponent(cc.Button).interactable = false
             }
@@ -164,7 +164,7 @@ export default class BubbleType extends Game {
         ////////// in this block
 
         //// keyboard letters toggle button
-        // this.node.getChildByName("togglePrefab").on('click', this.toggleKeyboard, this);
+        // this.node.getChildByName("togglePrefab").on('touchend', this.toggleKeyboard, this);
     }
     @catchError()
     createDog() {
@@ -212,7 +212,7 @@ export default class BubbleType extends Game {
                 tempButton.position = cc.v2(x, y)
                 tempButton.getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = alphabetArray[0]//this.alphabets.substr(i, 1)
                 tempButton.name = alphabetArray[0]//this.alphabets.substr(i, 1)
-                tempButton.on('click', this.callback, this)
+                tempButton.on('touchend', this.callback, this)
                 if (formattedData.indexOf(tempButton.name) === -1) {
                     tempButton.getComponent(cc.Button).interactable = false
                 }
@@ -253,7 +253,7 @@ export default class BubbleType extends Game {
                 tempButton.position = cc.v2(x, y)
                 tempButton.getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = alphabetArray[i]//this.alphabets.substr(i, 1)
                 tempButton.name = alphabetArray[i]//this.alphabets.substr(i, 1)
-                tempButton.on('click', this.callback, this)
+                tempButton.on('touchend', this.callback, this)
                 if (formattedData.indexOf(tempButton.name) === -1) {
                     tempButton.getComponent(cc.Button).interactable = false
                 }

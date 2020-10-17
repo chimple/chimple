@@ -44,7 +44,7 @@ export default class Header extends cc.Component {
             Util.load(courseId + '/course/res/icons/' + courseId + '.png', (err: Error, texture) => {
                     headerButtonComp.sprite.spriteFrame = err ? null : new cc.SpriteFrame(texture);
             })
-            headerButtonComp.button.node.on('click', () => {
+            headerButtonComp.button.node.on('touchend', () => {
                 Header.homeSelected = false
                 this.selectHeaderButton(headerButtonComp);
                 config.course = course;
@@ -57,7 +57,7 @@ export default class Header extends cc.Component {
         if(this.showHome) {
             const homeButton = cc.instantiate(this.headerButtonPrefab)
             const homeButtonComp = homeButton.getComponent(HeaderButton)
-            homeButtonComp.button.node.on('click', () => {
+            homeButtonComp.button.node.on('touchend', () => {
                 Header.homeSelected = true
                 const config = Config.i
                 config.course = null
@@ -71,7 +71,7 @@ export default class Header extends cc.Component {
             homeButtonComp.selected.node.active = false
             if(Header.homeSelected) this.selectHeaderButton(homeButtonComp)
         }
-        if(this.onRightClick) this.rightPos.on('click', this.onRightClick)
+        if(this.onRightClick) this.rightPos.on('touchend', this.onRightClick)
         this.node.width = cc.winSize.width
         const spacing = Math.max(0, (this.courseLayout.width - (this.courseLayout.childrenCount * this.courseLayout.children[0].width))/(this.courseLayout.childrenCount + 1))
         this.courseLayout.getComponent(cc.Layout).spacingX = spacing
