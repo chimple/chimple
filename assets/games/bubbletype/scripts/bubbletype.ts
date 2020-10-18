@@ -147,7 +147,7 @@ export default class BubbleType extends Game {
             let tempButton = cc.instantiate(this.buttonPrefab);
             tempButton.getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = alphabetArray[i]//this.alphabets.substr(i, 1)
             tempButton.name = alphabetArray[i]//this.alphabets.substr(i, 1)
-            tempButton.on('click', this.callback, this)
+            tempButton.on('touchend', this.callback, this)
             if (formattedData.indexOf(tempButton.name) === -1) {
                 tempButton.getComponent(cc.Button).interactable = false
             }
@@ -164,7 +164,7 @@ export default class BubbleType extends Game {
         ////////// in this block
 
         //// keyboard letters toggle button
-        // this.node.getChildByName("togglePrefab").on('click', this.toggleKeyboard, this);
+        // this.node.getChildByName("togglePrefab").on('touchend', this.toggleKeyboard, this);
     }
     @catchError()
     createDog() {
@@ -212,7 +212,7 @@ export default class BubbleType extends Game {
                 tempButton.position = cc.v2(x, y)
                 tempButton.getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = alphabetArray[0]//this.alphabets.substr(i, 1)
                 tempButton.name = alphabetArray[0]//this.alphabets.substr(i, 1)
-                tempButton.on('click', this.callback, this)
+                tempButton.on('touchend', this.callback, this)
                 if (formattedData.indexOf(tempButton.name) === -1) {
                     tempButton.getComponent(cc.Button).interactable = false
                 }
@@ -253,7 +253,7 @@ export default class BubbleType extends Game {
                 tempButton.position = cc.v2(x, y)
                 tempButton.getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = alphabetArray[i]//this.alphabets.substr(i, 1)
                 tempButton.name = alphabetArray[i]//this.alphabets.substr(i, 1)
-                tempButton.on('click', this.callback, this)
+                tempButton.on('touchend', this.callback, this)
                 if (formattedData.indexOf(tempButton.name) === -1) {
                     tempButton.getComponent(cc.Button).interactable = false
                 }
@@ -266,77 +266,79 @@ export default class BubbleType extends Game {
     }
     @catchError()
     callback(event) {
-        this.inputBoxString = this.inputBoxString.concat(event.node.name)
-        for (let i = 0; i < 3; i++) {
-            if (this.wordsOnScreen[i] === this.inputBoxString) {
-                this.score += 1
+        if (event.target.getComponent(cc.Button).interactable) {
+            this.inputBoxString = this.inputBoxString.concat(event.target.name)
+            for (let i = 0; i < 3; i++) {
+                if (this.wordsOnScreen[i] === this.inputBoxString) {
+                    this.score += 1
 
-                // concat and win 
-                if (this.node != null) {
-                    this.node.getChildByName("score").getComponent(cc.Label).string = this.score + "/" + this.maxScore
-                    this.node.getChildByName("richText").getComponent(cc.RichText).string = this.inputBoxString
-                    setTimeout(() => {
-                        this.inputBoxString = ""
-                        if (this.node != null)
-                            this.node.getChildByName("richText").getComponent(cc.RichText).string = this.inputBoxString
-                    }, 500)
-                }
-                // pop that bubble or respawn
-                var randomNum = (250 * Math.random()) + 100
-                // play bubble pop animation on this x nd y axis 
-                let popBubbleName = (i + 1).toString()
-
-                Util.speakLettersOrWords(this.inputBoxString, () => {
-                    if (this.score >= this.maxScore && !this.isScenePoped) {
-                        // Config.getInstance().nextProblem();
-
-                        this.node.emit('nextProblem');
-                        this.isScenePoped = true;
+                    // concat and win 
+                    if (this.node != null) {
+                        this.node.getChildByName("score").getComponent(cc.Label).string = this.score + "/" + this.maxScore
+                        this.node.getChildByName("richText").getComponent(cc.RichText).string = this.inputBoxString
+                        setTimeout(() => {
+                            this.inputBoxString = ""
+                            if (this.node != null)
+                                this.node.getChildByName("richText").getComponent(cc.RichText).string = this.inputBoxString
+                        }, 500)
                     }
-                    this.node.emit('correct');
-                });
+                    // pop that bubble or respawn
+                    var randomNum = (250 * Math.random()) + 100
+                    // play bubble pop animation on this x nd y axis 
+                    let popBubbleName = (i + 1).toString()
 
-                if (this.node != null) {
-                    // disapear normal bubble and play anim
-                    this.node.getChildByName("bubble_pop_node").position = this.node.getChildByName("bubblesFolder").getChildByName(popBubbleName).position
-                    this.node.getChildByName("bubble_pop_node").getComponent(cc.Animation).play()
-                    this.node.getChildByName("bubblesFolder").getChildByName(popBubbleName).position = new cc.Vec2(-700 + (Math.random() * 100), randomNum);
-                    if (Config.i.direction == Direction.RTL)
-                        this.node.getChildByName("bubblesFolder").getChildByName(popBubbleName).position = new cc.Vec2(700 + (Math.random() * 100), randomNum);
-                    this.node.getChildByName("bubblesFolder").getChildByName(popBubbleName).stopAllActions()
-                    let fallingAction = cc.moveTo(this.fallingTime, this.bubbledestroyBoundry, randomNum)
-                    let currentWordIndex = Math.floor(Math.random() * (this.words.length - 0)) + 0
-                    this.wordsOnScreen[parseInt(popBubbleName) - 1] = this.words[currentWordIndex]
-                    this.node.getChildByName("bubblesFolder").getChildByName(popBubbleName).getChildByName("Label").getComponent(cc.Label).string = this.words[currentWordIndex]
-                    this.node.getChildByName("bubblesFolder").getChildByName(popBubbleName).runAction(cc.sequence([fallingAction, cc.callFunc(this.bubbleAnimationCallback, this, popBubbleName)]))
+                    Util.speakLettersOrWords(this.inputBoxString, () => {
+                        if (this.score >= this.maxScore && !this.isScenePoped) {
+                            // Config.getInstance().nextProblem();
+
+                            this.node.emit('nextProblem');
+                            this.isScenePoped = true;
+                        }
+                        this.node.emit('correct');
+                    });
+
+                    if (this.node != null) {
+                        // disapear normal bubble and play anim
+                        this.node.getChildByName("bubble_pop_node").position = this.node.getChildByName("bubblesFolder").getChildByName(popBubbleName).position
+                        this.node.getChildByName("bubble_pop_node").getComponent(cc.Animation).play()
+                        this.node.getChildByName("bubblesFolder").getChildByName(popBubbleName).position = new cc.Vec2(-700 + (Math.random() * 100), randomNum);
+                        if (Config.i.direction == Direction.RTL)
+                            this.node.getChildByName("bubblesFolder").getChildByName(popBubbleName).position = new cc.Vec2(700 + (Math.random() * 100), randomNum);
+                        this.node.getChildByName("bubblesFolder").getChildByName(popBubbleName).stopAllActions()
+                        let fallingAction = cc.moveTo(this.fallingTime, this.bubbledestroyBoundry, randomNum)
+                        let currentWordIndex = Math.floor(Math.random() * (this.words.length - 0)) + 0
+                        this.wordsOnScreen[parseInt(popBubbleName) - 1] = this.words[currentWordIndex]
+                        this.node.getChildByName("bubblesFolder").getChildByName(popBubbleName).getChildByName("Label").getComponent(cc.Label).string = this.words[currentWordIndex]
+                        this.node.getChildByName("bubblesFolder").getChildByName(popBubbleName).runAction(cc.sequence([fallingAction, cc.callFunc(this.bubbleAnimationCallback, this, popBubbleName)]))
+                    }
+                    return;
                 }
-                return;
             }
-        }
-        for (let i = 0; i < 3; i++) {
-            if (this.wordsOnScreen[i].startsWith(this.inputBoxString)) {
-                // concat and win 
-                if (this.node != null)
-                    this.node.getChildByName("richText").getComponent(cc.RichText).string = this.inputBoxString
-                // right alphabet letters sound
-                // Util.play(this.correctAudio, false);
-                // this.node.emit('correct');
-                // cc.log(" on my way ::");
-                return;
+            for (let i = 0; i < 3; i++) {
+                if (this.wordsOnScreen[i].startsWith(this.inputBoxString)) {
+                    // concat and win 
+                    if (this.node != null)
+                        this.node.getChildByName("richText").getComponent(cc.RichText).string = this.inputBoxString
+                    // right alphabet letters sound
+                    // Util.play(this.correctAudio, false);
+                    // this.node.emit('correct');
+                    // cc.log(" on my way ::");
+                    return;
+                }
             }
-        }
 
-        // wrong alphabet type sound
-        // Util.play(this.wrongAudio, false);
-        this.node.emit('wrong')
-        // clear input field
-        if (this.node != null) {
-            setTimeout(() => {
-                this.inputBoxString = ""
-                if (this.node != null)
-                    this.node.getChildByName("richText").getComponent(cc.RichText).string = this.inputBoxString
-            }, 100)
-            this.node.getChildByName("richText").getComponent(cc.RichText).string = this.inputBoxString
+            // wrong alphabet type sound
+            // Util.play(this.wrongAudio, false);
+            this.node.emit('wrong')
+            // clear input field
+            if (this.node != null) {
+                setTimeout(() => {
+                    this.inputBoxString = ""
+                    if (this.node != null)
+                        this.node.getChildByName("richText").getComponent(cc.RichText).string = this.inputBoxString
+                }, 100)
+                this.node.getChildByName("richText").getComponent(cc.RichText).string = this.inputBoxString
+            }
         }
     }
     @catchError()

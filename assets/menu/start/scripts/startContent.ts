@@ -13,8 +13,8 @@ export default class StartContent extends cc.Component {
     @property(cc.Prefab)
     startLessonButtonPrefab: cc.Prefab = null
 
-    @property(cc.Node)
-    layout: cc.Node = null;
+    @property(cc.PageView)
+    pageView: cc.PageView = null;
 
     loading: cc.Node
 
@@ -45,7 +45,7 @@ export default class StartContent extends cc.Component {
         })
         Util.shuffle(buttons)
         buttons.forEach((node: cc.Node) => {
-            this.layout.addChild(node)
+            this.node.children[0].getComponent(cc.PageView).addPage(node)
         })
 
         const assignments = await ParseApi.getInstance().listAssignments(user.serverId)
@@ -57,11 +57,10 @@ export default class StartContent extends cc.Component {
                 if (chapter) {
                     lesson = chapter.lessons.find(l => l.id == ass.lessonId)
                     if (lesson)
-                        this.layout.insertChild(this.createButton(lesson), 0)
+                    this.node.children[0].getComponent(cc.PageView).insertPage(this.createButton(lesson), 0)
                 }
             }
         })
-        this.layout.getComponent(cc.Layout).updateLayout()
 
     }
 

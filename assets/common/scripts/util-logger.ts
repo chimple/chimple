@@ -360,7 +360,7 @@ export default class UtilLogger {
         }
     }
 
-    public static vefifyOtp(verifyOtpText: string) {
+    public static verifyOtp(verifyOtpText: string) {
         try {
             if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
                 cc.log("Verify Otp event", verifyOtpText);

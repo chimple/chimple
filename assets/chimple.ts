@@ -77,6 +77,7 @@ cc.deep_link = function (url) {
 @ccclass
 export default class Chimple extends cc.Component {
     async onLoad() {
+        cc.macro.ENABLE_MULTI_TOUCH = false
         UtilLogger.initPluginFirebase();
         Util.loadi18NMapping(() => {
         })
