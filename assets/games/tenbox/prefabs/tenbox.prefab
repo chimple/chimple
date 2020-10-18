@@ -228,7 +228,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_anchorPoint": {
@@ -307,7 +307,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_resize": 0,
@@ -3458,12 +3458,8 @@
     "friendPos": {
       "__id__": 87
     },
-    "numberDrag": {
-      "__uuid__": "7e13cd98-96cf-4e78-a1d5-029e48752cc1"
-    },
-    "numberDrop": {
-      "__uuid__": "840914fa-b954-429c-855c-f8646accbdb3"
-    },
+    "numberDrag": null,
+    "numberDrop": null,
     "tenboxDrop": {
       "__uuid__": "5c0f2e5c-5a3a-454a-a90d-fa9a624c0fb5"
     },

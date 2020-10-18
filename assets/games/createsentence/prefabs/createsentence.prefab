@@ -189,7 +189,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_anchorPoint": {
@@ -268,7 +268,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_resize": 0,
@@ -1569,7 +1569,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 231
     },
     "_anchorPoint": {
@@ -1648,7 +1648,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 231
     },
     "_resize": 0,
@@ -1711,7 +1711,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 206
     },
     "_anchorPoint": {
@@ -1790,7 +1790,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 206
     },
     "_resize": 0,
@@ -3388,6 +3388,9 @@
       "__id__": 1
     },
     "_enabled": true,
+    "friendPos": {
+      "__id__": 71
+    },
     "truck": {
       "__id__": 70
     },
@@ -3405,9 +3408,6 @@
     },
     "dragPrefab": {
       "__uuid__": "b5fe9ab6-3242-4021-ab9a-10705bf5980d"
-    },
-    "friendPos": {
-      "__id__": 71
     },
     "_id": ""
   },

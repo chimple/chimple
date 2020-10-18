@@ -241,7 +241,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_anchorPoint": {
@@ -2460,7 +2460,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_resize": 0,
@@ -2523,7 +2523,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 316
     },
     "_anchorPoint": {
@@ -2602,7 +2602,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 316
     },
     "_resize": 0,
@@ -2868,6 +2868,7 @@
       "__id__": 1
     },
     "_enabled": true,
+    "friendPos": null,
     "wordNoteBoardPrefab": {
       "__uuid__": "81dfa941-fcbf-41d4-b71a-00ca535ed416"
     },

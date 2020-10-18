@@ -219,7 +219,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_anchorPoint": {
@@ -298,7 +298,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_resize": 0,
@@ -5316,9 +5316,7 @@
     "labelPrefab": {
       "__uuid__": "74c25c26-863e-4552-b934-014682bb3063"
     },
-    "layoutPrefab": {
-      "__uuid__": "2e4b2590-5e66-493f-9615-f2a7b25a9143"
-    },
+    "layoutPrefab": null,
     "text": "hello",
     "_id": ""
   },

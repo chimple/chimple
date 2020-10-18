@@ -235,7 +235,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_anchorPoint": {
@@ -1812,7 +1812,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_resize": 0,
@@ -2325,7 +2325,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 454
     },
     "_anchorPoint": {
@@ -3398,7 +3398,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 454
     },
     "_resize": 0,
@@ -4099,6 +4099,9 @@
       "__id__": 1
     },
     "_enabled": true,
+    "friendPos": {
+      "__id__": 94
+    },
     "firstLayout": {
       "__id__": 97
     },
@@ -4125,9 +4128,6 @@
     },
     "multChoice": {
       "__uuid__": "93acd014-9bd8-4118-9e40-f9825405aebf"
-    },
-    "friendPos": {
-      "__id__": 94
     },
     "addTexture1": {
       "__uuid__": "a8f60c10-28ba-48be-816c-7607b45ee51f"

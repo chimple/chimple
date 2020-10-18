@@ -235,7 +235,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_anchorPoint": {
@@ -1384,7 +1384,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_resize": 0,
@@ -1529,7 +1529,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 30
     },
     "_anchorPoint": {
@@ -1608,7 +1608,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 30
     },
     "_resize": 0,
@@ -5451,15 +5451,15 @@
       "__id__": 1
     },
     "_enabled": true,
+    "friendPos": {
+      "__id__": 126
+    },
     "label": null,
     "bubblePrefab": {
       "__uuid__": "dbd585c4-1301-41c1-8e54-2bb82b8cc9b1"
     },
     "buttonPrefab": {
       "__uuid__": "c62a8011-4add-4748-a444-748b267ba54d"
-    },
-    "friendPos": {
-      "__id__": 126
     },
     "inputBoxString": "",
     "correctAudio": {
