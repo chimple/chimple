@@ -385,12 +385,10 @@ export default class Config {
     loadCourseJsons(user: User, node: cc.Node, callBack: Function) {
         let numCourses = 0
         user.courseProgressMap.forEach((courseProgress, name) => {
-            if (!Config.i.curriculum.has(name) || user.debug) {
-                numCourses++
-                this.loadSingleCourseJson(name, () => {
-                    numCourses--;
-                });
-            }
+            numCourses++
+            this.loadSingleCourseJson(name, () => {
+                numCourses--;
+            });
         });
 
         const checkAllLoaded = () => {
@@ -419,6 +417,8 @@ export default class Config {
                             lesson.chapter = chapter;
                             if (User.getCurrentUser() && User.getCurrentUser().debug) {
                                 lesson.open = true
+                            } else {
+                                lesson.open = false
                             }
                         });
                     });
