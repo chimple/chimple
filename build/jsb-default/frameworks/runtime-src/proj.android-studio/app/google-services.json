@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "164143434825-namirco60b3fsrelqbc02ldo53velhu5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.chimple.bahama",
+            "certificate_hash": "adda392a507e9ed37437ce639ddb9f5e81e86e71"
+          }
+        },
+        {
           "client_id": "164143434825-lvntnim3bqipt55tkev3opqkhov0sen7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -22,6 +30,35 @@
             "certificate_hash": "cacf2f6652bbdd0ddd92913a54587a47cd466f8c"
           }
         },
+        {
+          "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcFIxMjbsvHJ0kNtAMXtYKzZXolt0D4fY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164143434825:android:71010703dd1f75c5964398",
+        "android_client_info": {
+          "package_name": "org.cocos2d.demo"
+        }
+      },
+      "oauth_client": [
         {
           "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
           "client_type": 3

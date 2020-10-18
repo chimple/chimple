@@ -7,10 +7,10 @@ import { ASSET_LOAD_METHOD, COURSES_URL } from "./lib/constants";
 import Profile, { LANGUAGE, SFX_OFF, User } from "./lib/profile";
 import UtilLogger from "./util-logger";
 import Friend from "./friend";
-import { AssignHomeWorkInfo } from "../../private/services/parseApi";
 import Overflow = cc.Label.Overflow;
 import HorizontalAlign = cc.Label.HorizontalAlign;
 import VerticalAlign = cc.Label.VerticalAlign;
+import { AssignHomeWorkInfo } from "./services/parseApi";
 
 export const INVENTORY_DATA = [
   ["hat1-hat1", "hat1-hat2", "hat1-hat3", "hat1-hat4", "hat1-hat5", "hat1-hat6", "hat1-hat7", "hat1-hat8", "hat1-hat9", "hat1-hat10"],

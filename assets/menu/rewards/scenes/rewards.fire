@@ -177,7 +177,7 @@
       "array": [
         0,
         0,
-        281.45825622994255,
+        537.0551148741856,
         0,
         0,
         0,
@@ -370,7 +370,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_anchorPoint": {
@@ -626,7 +626,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 280,
+      "width": 700,
       "height": 700
     },
     "_anchorPoint": {
@@ -638,7 +638,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -373.597,
+        -577.5360000000001,
         -38.818,
         0,
         0,
@@ -705,7 +705,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 280,
+      "width": 700,
       "height": 700
     },
     "_resize": 0,
@@ -740,7 +740,7 @@
       "__id__": 2
     },
     "_alignFlags": 8,
-    "_left": -1.59699999999998,
+    "_left": -415.536,
     "_right": 0,
     "_top": 0,
     "_bottom": 0,
@@ -945,7 +945,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 80
     },
     "_anchorPoint": {
@@ -1024,7 +1024,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 80
     },
     "_resize": 0,
@@ -1088,7 +1088,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_resize": 0,
@@ -1610,7 +1610,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        241.5,
+        261.5,
         0,
         0,
         0,
@@ -1998,7 +1998,7 @@
       "ctor": "Float64Array",
       "array": [
         0.317,
-        106.5,
+        66.5,
         0,
         0,
         0,
@@ -2386,7 +2386,7 @@
       "ctor": "Float64Array",
       "array": [
         2.511,
-        -35.5,
+        -135.5,
         0,
         0,
         0,
@@ -2872,10 +2872,10 @@
     "_N$startAxis": 0,
     "_N$paddingLeft": 0,
     "_N$paddingRight": 0,
-    "_N$paddingTop": 50,
+    "_N$paddingTop": 30,
     "_N$paddingBottom": 0,
     "_N$spacingX": 0,
-    "_N$spacingY": 70,
+    "_N$spacingY": 130,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
     "_N$affectedByScale": false,
@@ -3293,11 +3293,11 @@
       "height": 40
     },
     "_N$startAxis": 0,
-    "_N$paddingLeft": 65,
-    "_N$paddingRight": 0,
-    "_N$paddingTop": 50,
+    "_N$paddingLeft": 20,
+    "_N$paddingRight": 25,
+    "_N$paddingTop": 5,
     "_N$paddingBottom": 100,
-    "_N$spacingX": 70,
+    "_N$spacingX": 50,
     "_N$spacingY": 50,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
@@ -3377,7 +3377,7 @@
     "vertical": true,
     "inertia": true,
     "brake": 0.75,
-    "elastic": true,
+    "elastic": false,
     "bounceDuration": 0.23,
     "scrollEvents": [],
     "cancelInnerEvents": true,
@@ -3706,12 +3706,12 @@
       "height": 40
     },
     "_N$startAxis": 0,
-    "_N$paddingLeft": 65,
-    "_N$paddingRight": 0,
-    "_N$paddingTop": 70,
-    "_N$paddingBottom": 70,
-    "_N$spacingX": 70,
-    "_N$spacingY": 50,
+    "_N$paddingLeft": 25,
+    "_N$paddingRight": 25,
+    "_N$paddingTop": 20,
+    "_N$paddingBottom": 100,
+    "_N$spacingX": 20,
+    "_N$spacingY": 90,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
     "_N$affectedByScale": false,
@@ -3790,7 +3790,7 @@
     "vertical": true,
     "inertia": false,
     "brake": 0.75,
-    "elastic": true,
+    "elastic": false,
     "bounceDuration": 0.23,
     "scrollEvents": [],
     "cancelInnerEvents": true,
@@ -4119,12 +4119,12 @@
       "height": 40
     },
     "_N$startAxis": 0,
-    "_N$paddingLeft": 65,
-    "_N$paddingRight": 0,
-    "_N$paddingTop": 70,
-    "_N$paddingBottom": 50,
-    "_N$spacingX": 150,
-    "_N$spacingY": 150,
+    "_N$paddingLeft": 25,
+    "_N$paddingRight": 25,
+    "_N$paddingTop": 20,
+    "_N$paddingBottom": 100,
+    "_N$spacingX": 20,
+    "_N$spacingY": 90,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
     "_N$affectedByScale": false,
@@ -4203,7 +4203,7 @@
     "vertical": true,
     "inertia": true,
     "brake": 0.75,
-    "elastic": true,
+    "elastic": false,
     "bounceDuration": 0.23,
     "scrollEvents": [],
     "cancelInnerEvents": true,
