@@ -86,18 +86,20 @@ export default class Chimple extends cc.Component {
         if (langConfig) Config.i.loadFontDynamically(langConfig.font)
         const deployMode: number = D_MODE;
         const selectedMode: number = Number(cc.sys.localStorage.getItem(CHIMPLE_MODE)) || MODE;
-        switch (deployMode) {
-            case DeployMode.Open:
-                this.navigateToBase();
-                break;
-            case DeployMode.Close:
-                Config.i.pushScene(LANDING_SCENE, 'private', null, true);
-                break;
-            default:
-                this.navigateToBase();
-                break;
-        }
+        // switch (deployMode) {
+        //     case DeployMode.Open:
+        //         this.navigateToBase();
+        //         break;
+        //     case DeployMode.Close:
+        //         Config.i.pushScene(LANDING_SCENE, 'private', null, true);
+        //         break;
+        //     default:
+        //         this.navigateToBase();
+        //         break;
+        // }
         // this.navigateToBase();
+
+        this.selectModes();
 
     }
 
@@ -110,8 +112,10 @@ export default class Chimple extends cc.Component {
                 break;
             case Mode.School:
                 // send to selectSections.ts
-                Config.i.pushScene('private/schools/scenes/selectSections', 'private', null, true);
+                Config.i.pushScene('private/school/scenes/selectSections', 'private', null, true);
                 break;
+            default:
+                Config.i.pushScene('private/home/loginnew/scenes/welcomeScene', 'private', null, true);
         }
     }
 
