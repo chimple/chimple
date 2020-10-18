@@ -42,14 +42,16 @@ export default class ChapterMenuButton extends cc.Component {
             this.button.node.insertChild(chapterIcon, 0)
 
             this.label.string = this.chapter.name
-            this.button.node.on('touchend', () => {
-                config.chapter = this.chapter
-                config.pushScene('menu/start/scenes/chapterLessons', 'menu')
+            this.button.node.on('touchend', (event: cc.Event) => {
+                if (event.target.getComponent(cc.Button).interactable) {
+                    config.chapter = this.chapter
+                    config.pushScene('menu/start/scenes/chapterLessons', 'menu')
+                }
             })
             this.button.interactable = this.open
             const completedLessons = this.chapter.lessons.filter((les) => {
                 const lessonProgress = User.getCurrentUser().lessonProgressMap.get(les.id)
-                if(lessonProgress && lessonProgress.score >= 0) return true
+                if (lessonProgress && lessonProgress.score >= 0) return true
             }).length
             const totalLessons = this.chapter.lessons.length
             const endAngle = completedLessons / totalLessons * Math.PI * 2

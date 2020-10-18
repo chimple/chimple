@@ -58,21 +58,23 @@ export default class LessonButton extends cc.Component {
             lessonIconComp.open = this.open
             this.button.node.insertChild(lessonIcon, 0)
             this.label.string = this.lesson.type == EXAM ? Util.i18NText('Challenge') : this.lesson.name
-            this.button.node.on('touchend', () => {
-                config.course = this.lesson.chapter.course
-                config.chapter = this.lesson.chapter
-                config.lesson = this.lesson;
-                this.loading.getComponent(Loading).allowCancel = true
-                this.loading.active = true
-                LessonController.preloadLesson(this.node, (err: Error) => {
-                    if (err) {
-                        this.loading.getComponent(Loading).addMessage(Util.i18NText('Error downloading content. Please connect to internet and try again'), true, true)
-                    } else {
-                        if (this.loading.activeInHierarchy) {
-                            config.pushScene('common/scenes/lessonController')
+            this.button.node.on('touchend', (event: cc.Event) => {
+                if (event.target.getComponent(cc.Button).interactable) {
+                    config.course = this.lesson.chapter.course
+                    config.chapter = this.lesson.chapter
+                    config.lesson = this.lesson;
+                    this.loading.getComponent(Loading).allowCancel = true
+                    this.loading.active = true
+                    LessonController.preloadLesson(this.node, (err: Error) => {
+                        if (err) {
+                            this.loading.getComponent(Loading).addMessage(Util.i18NText('Error downloading content. Please connect to internet and try again'), true, true)
+                        } else {
+                            if (this.loading.activeInHierarchy) {
+                                config.pushScene('common/scenes/lessonController')
+                            }
                         }
-                    }
-                })
+                    })
+                }
             })
             if (this.chapterLabel != null) this.chapterLabel.string = this.lesson.chapter.name
             if (this.courseSprite != null) {
