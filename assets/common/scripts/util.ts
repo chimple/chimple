@@ -297,7 +297,7 @@ export class Util {
   public static loadGameSound(path: string, callBack: Function) {
     const filePath = path.startsWith(Config.dir)
       ? path
-      : (Config.i.course.type == 'maths' 
+      : (Config.i.course.type == 'maths'
         ? Config.dir + `${Profile.getValue(LANGUAGE)}-help/${Config.i.game}/${path}`
         : Config.dir + `${Config.i.currentGameLessonId}/res/${path}`);
     const fullFilePath =
@@ -702,7 +702,7 @@ export class Util {
 
   public static loadAccessoriesAndEquipAcc(accessoriesNode: cc.Node, friendNode: cc.Node): dragonBones.ArmatureDisplay {
     if (User.getCurrentUser()) {
-      accessoriesNode.x = 5 * cc.winSize.width
+      accessoriesNode.x = 10 * cc.winSize.width
       let accArmature: dragonBones.ArmatureDisplay;
       for (let i = 0; i < INVENTORY_DATA.length; i++) {
         accArmature = accessoriesNode.children[i].getComponent(dragonBones.ArmatureDisplay)
