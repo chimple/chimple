@@ -438,12 +438,14 @@ export class User {
                 ? new Map([
                     ['en', new CourseProgressClass('en00')],
                     ['maths', new CourseProgressClass('maths00')],
+                    ['puzzle', new CourseProgressClass('puzzle00')],
                     ['test-lit', new CourseProgressClass('chapter_0')],
                     ['test-maths', new CourseProgressClass('chapter_0')]
                 ])
                 : new Map([
                     ['en', new CourseProgressClass()],
                     ['maths', new CourseProgressClass()],
+                    ['puzzle', new CourseProgressClass()]
                 ]),
             new Map(),
             {},
