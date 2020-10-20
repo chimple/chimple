@@ -1,4 +1,5 @@
 import { ASSET_LOAD_METHOD } from "./lib/constants";
+import { User } from "./lib/profile";
 
 const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
 
@@ -126,6 +127,7 @@ export default class UtilLogger {
     }
 
     public static logChimpleEvent(name: string, event: any) {
+        event.userId = User.getCurrentUser() ? User.getCurrentUser().id : "";
         event[`${USER_ID}`] = event.userId ? event.userId : (this.currentProfile() || "");
         event[`${DEVICE_ID}`] = this.currentDeviceId() || "";
         event[`${TIMESTAMP}`] = new Date().getTime();
