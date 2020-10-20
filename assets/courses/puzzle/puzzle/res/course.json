@@ -1,0 +1,127 @@
+{
+  "id": "puzzle",
+  "name": "Puzzle",
+  "lang": "en",
+  "type": "literacy",
+  "chapters": [
+    {
+      "id": "puzzle00",
+      "image": "puzzle00.png",
+      "lessons": [
+        {
+          "id": "puzzle0000",
+          "image": "puzzle0000.png",
+          "name": 1.0
+        },
+        {
+          "id": "puzzle0001",
+          "image": "puzzle0001.png",
+          "name": 2.0
+        },
+        {
+          "id": "puzzle0002",
+          "image": "puzzle0002.png",
+          "name": 3.0
+        },
+        {
+          "id": "puzzle0003",
+          "image": "puzzle0003.png",
+          "name": 4.0
+        },
+        {
+          "id": "puzzle0004",
+          "image": "puzzle0004.png",
+          "name": 5.0
+        },
+        {
+          "id": "puzzle0005",
+          "image": "puzzle0005.png",
+          "name": 6.0
+        },
+        {
+          "id": "puzzle0006",
+          "image": "puzzle0006.png",
+          "name": 7.0
+        },
+        {
+          "id": "puzzle0007",
+          "image": "puzzle0007.png",
+          "name": 8.0
+        },
+        {
+          "id": "puzzle0008",
+          "image": "puzzle0008.png",
+          "name": 9.0
+        },
+        {
+          "id": "puzzle0009",
+          "image": "puzzle0009.png",
+          "name": 10.0
+        },
+        {
+          "id": "puzzle0010",
+          "image": "puzzle0010.png",
+          "name": 11.0
+        },
+        {
+          "id": "puzzle0011",
+          "image": "puzzle0011.png",
+          "name": 12.0
+        },
+        {
+          "id": "puzzle0012",
+          "image": "puzzle0012.png",
+          "name": 13.0
+        },
+        {
+          "id": "puzzle0013",
+          "image": "puzzle0013.png",
+          "name": 14.0
+        },
+        {
+          "id": "puzzle0014",
+          "image": "puzzle0014.png",
+          "name": 15.0
+        },
+        {
+          "id": "puzzle0015",
+          "image": "puzzle0015.png",
+          "name": 16.0
+        }
+      ],
+      "name": "Matchbox"
+    },
+    {
+      "id": "puzzle01",
+      "image": "puzzle01.png",
+      "lessons": [
+        {
+          "id": "puzzle0100",
+          "image": "puzzle0100.png",
+          "name": 1.0
+        },
+        {
+          "id": "puzzle0101",
+          "image": "puzzle0101.png",
+          "name": 2.0
+        },
+        {
+          "id": "puzzle0102",
+          "image": "puzzle0102.png",
+          "name": 3.0
+        },
+        {
+          "id": "puzzle0103",
+          "image": "puzzle0103.png",
+          "name": 4.0
+        },
+        {
+          "id": "puzzle0104",
+          "image": "puzzle0104.png",
+          "name": 5.0
+        }
+      ],
+      "name": "ShapeTractor"
+    }
+  ]
+}
