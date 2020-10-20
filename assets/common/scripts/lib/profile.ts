@@ -310,6 +310,11 @@ export class User {
         })
     }
 
+    unlockBydefaultRewards() {
+        this.unlockRewardsForItem(`${REWARD_TYPES[0]}-${REWARD_CHARACTERS[0]}`, 1)
+        this.unlockRewardsForItem(`${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[0]}`, 1)
+    }
+
     updateLessonProgress(lessonId: string, score: number, quizScores: number[]): [string, string] {
         var reward: [string, string]
         const config = Config.i
@@ -433,7 +438,7 @@ export class User {
             avatarImage,
             isTeacher,
             {},
-            "",
+            "forest",
             "chimp",
             debug
                 ? new Map([
@@ -452,6 +457,8 @@ export class User {
             debug
         );
         if (debug) user.openAllRewards()
+        // open bydefault unlocked rewards
+        user.unlockBydefaultRewards()
         User.storeUser(user);
         let userIds = User.getUserIds();
         if (userIds == null) {
