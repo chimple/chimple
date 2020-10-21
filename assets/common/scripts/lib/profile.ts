@@ -8,7 +8,7 @@ import { CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
 const WORLD = "World";
 const LEVEL = "Level";
 const IS_INITIALIZED = "isInitialized";
-export const DEVICE_COUNTRY_CODE = "deviceCountryCode"
+export const DEVICE_COUNTRY_CODE = "deviceCountryCode";
 export const SFX_OFF = "sfxOff";
 export const GENDER = "gender";
 export const MUSIC_OFF = "musicOff";
