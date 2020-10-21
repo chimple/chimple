@@ -1,0 +1,63 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "scorecard",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 2,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "scorecard_bg": {
+        "props": {
+          "scale": [],
+          "angle": []
+        }
+      },
+      "highlight_scorecard": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "frame": 0.23333333333333334,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1.2,
+                "y": 1.2
+              },
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.4166666666666667,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              }
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 2,
+              "value": -241
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}
