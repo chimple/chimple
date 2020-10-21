@@ -220,13 +220,6 @@ public class ChimpleLogger {
         return ChimpleLogger.connected;
     }
 
-    public static String getCountryCode(){
-        String locale = context.getResources().getConfiguration().locale.getCountry();
-        return locale;
-     }
-     
-
-
     public static String currentStudentId() {
         String curStudentId = null;
         String srcDirectory = File.separator + "aruba" + File.separator + "current_profile";
@@ -891,7 +884,8 @@ public class ChimpleLogger {
         AppActivity.app.verifyOtp(otp);
     }
 
-    public static void verifyOtp(final String otp) {
-        AppActivity.app.verifyOtp(otp);
-    }
+    public static String getCountryCode(){
+        String locale = context.getResources().getConfiguration().locale.getCountry();
+        return locale;
+     }
 }

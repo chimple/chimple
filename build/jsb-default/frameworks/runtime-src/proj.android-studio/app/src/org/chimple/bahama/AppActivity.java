@@ -209,7 +209,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             }
         }
     }
-
+    
     public static void shareText(final String text) {
         app.runOnUiThread(new Runnable() {
             @Override
