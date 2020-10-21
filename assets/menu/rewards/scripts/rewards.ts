@@ -23,6 +23,9 @@ export default class Rewards extends cc.Component {
     @property(cc.Prefab)
     bgsPrefab: cc.Prefab = null;
 
+    @property(cc.Material)
+    grayMaterial: cc.Material
+
     normalSprite: cc.SpriteFrame = null;
     lastSelectedButton: number = -1;
     leftSideNormalSprite: cc.SpriteFrame = null;
@@ -54,8 +57,10 @@ export default class Rewards extends cc.Component {
                     this.registerButton(charPrefab, "onCharacterClick", character);
                     this.registerButton(charPrefab.getChildByName("edit"), "onEditButtonClicked", character);
                     if (User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[0]}-${character}`] === 0 || User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[0]}-${character}`] === undefined) {
-                        // make lock texture active
-                        charPrefab.getChildByName("lock").active = true
+                        // make greyscale
+                        charPrefab.getChildByName("character_icon_color").getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
+                        charPrefab.getChildByName("character_icon_bg").getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
+                        charPrefab.getChildByName("characternode").getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
                         charPrefab.getComponent(cc.Button).interactable = false
                     }
                     if (character === User.getCurrentUser().currentCharacter) {
@@ -81,7 +86,9 @@ export default class Rewards extends cc.Component {
                 if (User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] === 0 || User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] === undefined) {
                     // make lock texture active
                     bgPrefab.getComponent(cc.Button).interactable = false
-                    bgPrefab.getChildByName("lock").active = true;
+                    // make greyscale
+                    bgPrefab.getChildByName("backgroundnode").getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
+                    // bgPrefab.getChildByName("lock").active = true;
                 }
                 if (bg === User.getCurrentUser().currentBg) {
                     // make edit button and selected show

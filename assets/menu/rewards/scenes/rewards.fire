@@ -177,7 +177,7 @@
       "array": [
         0,
         0,
-        537.0551148741856,
+        380.1851522613686,
         0,
         0,
         0,
@@ -3374,7 +3374,7 @@
     },
     "_enabled": true,
     "horizontal": false,
-    "vertical": true,
+    "vertical": false,
     "inertia": true,
     "brake": 0.75,
     "elastic": false,
@@ -3708,10 +3708,10 @@
     "_N$startAxis": 0,
     "_N$paddingLeft": 25,
     "_N$paddingRight": 25,
-    "_N$paddingTop": 20,
+    "_N$paddingTop": 5,
     "_N$paddingBottom": 100,
     "_N$spacingX": 20,
-    "_N$spacingY": 90,
+    "_N$spacingY": 50,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
     "_N$affectedByScale": false,
@@ -3787,7 +3787,7 @@
     },
     "_enabled": true,
     "horizontal": false,
-    "vertical": true,
+    "vertical": false,
     "inertia": false,
     "brake": 0.75,
     "elastic": false,
@@ -4200,7 +4200,7 @@
     },
     "_enabled": true,
     "horizontal": false,
-    "vertical": true,
+    "vertical": false,
     "inertia": true,
     "brake": 0.75,
     "elastic": false,
@@ -4903,6 +4903,9 @@
     },
     "bgsPrefab": {
       "__uuid__": "c139450c-691b-4d63-baf5-bc39f980a34a"
+    },
+    "grayMaterial": {
+      "__uuid__": "3a7bb79f-32fd-422e-ada2-96f518fed422"
     },
     "sideLayoutNode": {
       "__id__": 32

@@ -16,6 +16,7 @@ export const USER_ID = "UserId";
 export const MAX_USERS = 3;
 export const MAX_AGE = 12;
 export const LANGUAGE = "language";
+export const CURRENTMODE = 'currentMode';
 export const EMAIL = "email";
 export const CONTACT = "contact";
 export const PASSWORD = "password";
@@ -309,6 +310,11 @@ export class User {
         })
     }
 
+    unlockBydefaultRewards() {
+        this.unlockRewardsForItem(`${REWARD_TYPES[0]}-${REWARD_CHARACTERS[0]}`, 1)
+        this.unlockRewardsForItem(`${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[0]}`, 1)
+    }
+
     updateLessonProgress(lessonId: string, score: number, quizScores: number[]): [string, string] {
         var reward: [string, string]
         const config = Config.i
@@ -432,7 +438,7 @@ export class User {
             avatarImage,
             isTeacher,
             {},
-            "",
+            "forest",
             "chimp",
             debug
                 ? new Map([
@@ -453,6 +459,8 @@ export class User {
             debug
         );
         if (debug) user.openAllRewards()
+        // open bydefault unlocked rewards
+        user.unlockBydefaultRewards()
         User.storeUser(user);
         let userIds = User.getUserIds();
         if (userIds == null) {
@@ -473,7 +481,7 @@ export class User {
                 let user = User.fromJson(
                     cc.sys.localStorage.getItem(id)
                 );
-                if(!user.isTeacher && user.age > 0) response.push(user);
+                if (!user.isTeacher && user.age > 0) response.push(user);
             });
         }
         return response;
@@ -601,7 +609,7 @@ export default class Profile {
             this.setValue(LANGUAGE, ALL_LANGS[0]);
             this.setItem(SFX_OFF, 0);
             this.setItem(MUSIC_OFF, 0);
-            this.setItem(IS_OTP_VERIFIED,0);
+            this.setItem(IS_OTP_VERIFIED, 0);
             this.setValue(IS_INITIALIZED, "true");
         }
     }
