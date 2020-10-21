@@ -177,7 +177,7 @@
       "array": [
         0,
         0,
-        380.1851522613686,
+        536.9357503463519,
         0,
         0,
         0,
@@ -1597,7 +1597,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 71,
+      "width": 74,
       "height": 67
     },
     "_anchorPoint": {
@@ -1666,8 +1666,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 71,
-      "height": 67
+      "width": 74,
+      "height": 73
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1846,8 +1846,8 @@
     "_alignFlags": 45,
     "_left": 0,
     "_right": 0,
-    "_top": 0,
-    "_bottom": 0,
+    "_top": -3,
+    "_bottom": -3,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -3374,7 +3374,7 @@
     },
     "_enabled": true,
     "horizontal": false,
-    "vertical": false,
+    "vertical": true,
     "inertia": true,
     "brake": 0.75,
     "elastic": false,
@@ -3708,10 +3708,10 @@
     "_N$startAxis": 0,
     "_N$paddingLeft": 25,
     "_N$paddingRight": 25,
-    "_N$paddingTop": 5,
+    "_N$paddingTop": 20,
     "_N$paddingBottom": 100,
     "_N$spacingX": 20,
-    "_N$spacingY": 50,
+    "_N$spacingY": 90,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
     "_N$affectedByScale": false,
@@ -3787,7 +3787,7 @@
     },
     "_enabled": true,
     "horizontal": false,
-    "vertical": false,
+    "vertical": true,
     "inertia": false,
     "brake": 0.75,
     "elastic": false,
@@ -4200,7 +4200,7 @@
     },
     "_enabled": true,
     "horizontal": false,
-    "vertical": false,
+    "vertical": true,
     "inertia": true,
     "brake": 0.75,
     "elastic": false,
@@ -4903,9 +4903,6 @@
     },
     "bgsPrefab": {
       "__uuid__": "c139450c-691b-4d63-baf5-bc39f980a34a"
-    },
-    "grayMaterial": {
-      "__uuid__": "3a7bb79f-32fd-422e-ada2-96f518fed422"
     },
     "sideLayoutNode": {
       "__id__": 32
