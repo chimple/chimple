@@ -127,7 +127,6 @@ export default class UtilLogger {
     }
 
     public static logChimpleEvent(name: string, event: any) {
-        event.userId = User.getCurrentUser() ? User.getCurrentUser().id : "";
         event[`${USER_ID}`] = event.userId ? event.userId : (this.currentProfile() || "");
         event[`${DEVICE_ID}`] = this.currentDeviceId() || "";
         event[`${TIMESTAMP}`] = new Date().getTime();
@@ -158,22 +157,7 @@ export default class UtilLogger {
     }
 
     public static currentProfile() {
-        try {
-            if (
-                ASSET_LOAD_METHOD != "file" &&
-                this._currentUserId === null &&
-                cc.sys.isNative &&
-                cc.sys.os == cc.sys.OS_ANDROID
-            ) {
-                this._currentUserId = jsb.reflection.callStaticMethod(
-                    LOGGER_CLASS,
-                    CURRENT_PROFILE_METHOD,
-                    CURRENT_PROFILE_METHOD_SIGNATURE
-                );
-                cc.log("current profile:", this._currentUserId);
-            }
-        } catch (e) {
-        }
+        this._currentUserId = User.getCurrentUser() ? User.getCurrentUser().id : "";
         return this._currentUserId;
     }
 
