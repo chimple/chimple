@@ -612,7 +612,7 @@ export default class Profile {
             this.setItem(MUSIC_OFF, 0);
             this.setItem(IS_OTP_VERIFIED, 0);
             this.setValue(IS_INITIALIZED, "true");
-            Profile.setValue(DEVICE_COUNTRY_CODE, UtilLogger.getCountryCode());
+            this.setValue(DEVICE_COUNTRY_CODE, UtilLogger.getCountryCode());
         }
     }
 
