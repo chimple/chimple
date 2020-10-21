@@ -4,7 +4,7 @@ import { Util } from "./util";
 
 @ccclass
 export default class ChimpleLabel extends cc.Label {
-    protected onLoad(): void {
+protected onLoad(): void {
         super.onLoad();
         this.useSystemFont = true;
         const config = Config.i
