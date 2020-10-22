@@ -1,10 +1,9 @@
-import { COUNTRY_CODES } from "../../../private/home/secondscreen/script/countryCodesView";
 import { Queue } from "../../../queue";
 import Header from "../header";
 import { REWARD_TYPES, Util, REWARD_CHARACTERS, INVENTORY_DATA, REWARD_BACKGROUNDS } from "../util";
 import UtilLogger from "../util-logger";
 import Config, { ALL_LANGS } from "./config";
-import { CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
+import { CURRENT_STUDENT_ID, EXAM, MIN_PASS, COUNTRY_CODES } from "./constants";
 
 const WORLD = "World";
 const LEVEL = "Level";
