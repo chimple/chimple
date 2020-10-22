@@ -1,3 +1,4 @@
+import { COUNTRY_CODES } from "../../../private/home/secondscreen/script/countryCodesView";
 import { Queue } from "../../../queue";
 import Header from "../header";
 import { REWARD_TYPES, Util, REWARD_CHARACTERS, INVENTORY_DATA, REWARD_BACKGROUNDS } from "../util";
@@ -7,7 +8,8 @@ import { CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
 
 const WORLD = "World";
 const LEVEL = "Level";
-const IS_INITIALIZED = "isInitialized"
+const IS_INITIALIZED = "isInitialized";
+export const DIALING_CODE = "dialingCode";
 export const SFX_OFF = "sfxOff";
 export const GENDER = "gender";
 export const MUSIC_OFF = "musicOff";
@@ -613,6 +615,17 @@ export default class Profile {
             this.setItem(MUSIC_OFF, 0);
             this.setItem(IS_OTP_VERIFIED, 0);
             this.setValue(IS_INITIALIZED, "true");
+            let countryCode = UtilLogger.getCountryCode();
+            if (!countryCode) {
+                this.setValue(DIALING_CODE, "+91");
+            }
+            else {
+                COUNTRY_CODES.forEach((e) => {
+                    if (e["country_code"] === countryCode) {
+                        this.setValue(DIALING_CODE, e["dialing_code"]);
+                    }
+                });
+            }
         }
     }
 
