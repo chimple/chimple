@@ -14,4 +14,7 @@ export default class HeaderButton extends cc.Component {
     @property(cc.Sprite)
     selected: cc.Sprite
 
+    @property(cc.SpriteFrame)
+    homeSprite: cc.SpriteFrame
+
 }
