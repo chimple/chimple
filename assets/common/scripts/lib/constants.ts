@@ -93,3 +93,46 @@ export const LOGGED_IN_USER = 'loggedInUser';
 
 export const EXAM = 'exam'
 export const MIN_PASS = 70
+
+export const COUNTRY_CODES: object[] = [
+    {
+        "dialing_code": "+93",
+        "name": "Afghanistan",
+        "country_code": "afg"
+    },
+    {
+        "dialing_code": "+595",
+        "name": "Guyana",
+        "country_code": "gy"
+    },
+    {
+        "dialing_code": "+509",
+        "name": "Haiti",
+        "country_code": "ht"
+    },
+    {
+        "dialing_code": "+504",
+        "name": "Honduras",
+        "country_code": "hn"
+    },
+    {
+        "dialing_code": "+36",
+        "name": "Hungary",
+        "country_code": "hu"
+    },
+    {
+        "dialing_code": "+354",
+        "name": "Iceland",
+        "country_code": "is"
+    },
+    {
+        "dialing_code": "+91",
+        "name": "India",
+        "country_code": "in"
+    },
+    {
+        "dialing_code": "+62",
+        "name": "Indonesia",
+        "country_code": "id"
+    }
+];

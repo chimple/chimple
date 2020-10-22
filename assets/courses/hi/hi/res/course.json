@@ -1,0 +1,487 @@
+{
+  "id": "hi",
+  "name": "हिंदी",
+  "lang": "hi",
+  "type": "literacy",
+  "chapters": [
+    {
+      "id": "hi00",
+      "image": "hi00.png",
+      "lessons": [
+        {
+          "id": "hi0000",
+          "image": "hi0000.png",
+          "name": "अ"
+        },
+        {
+          "id": "hi0001",
+          "image": "hi0001.png",
+          "name": "आ"
+        },
+        {
+          "id": "hi0002",
+          "image": "hi0002.png",
+          "name": "इ "
+        },
+        {
+          "id": "hi0003",
+          "image": "hi0003.png",
+          "name": "ई "
+        },
+        {
+          "id": "hi0004",
+          "image": "hi0004.png",
+          "name": "उ "
+        },
+        {
+          "id": "hi0005",
+          "image": "hi0005.png",
+          "name": "ऊ "
+        },
+        {
+          "id": "hi0006",
+          "image": "hi0006.png",
+          "name": "ऋ"
+        },
+        {
+          "id": "hi0007",
+          "image": "hi0007.png",
+          "name": "ए "
+        },
+        {
+          "id": "hi0008",
+          "image": "hi0008.png",
+          "name": "ऐ "
+        },
+        {
+          "id": "hi0009",
+          "image": "hi0009.png",
+          "name": "ओ "
+        },
+        {
+          "id": "hi0010",
+          "image": "hi0010.png",
+          "name": "औ "
+        },
+        {
+          "id": "hi0011",
+          "image": "hi0011.png",
+          "name": "अं "
+        },
+        {
+          "id": "hi0012",
+          "image": "hi0012.png",
+          "name": "अः "
+        },
+        {
+          "id": "hi0013",
+          "image": "hi0013.png",
+          "name": "अँ"
+        }
+      ],
+      "name": "स्वर"
+    },
+    {
+      "id": "hi01",
+      "image": "hi01.png",
+      "lessons": [
+        {
+          "id": "hi0100",
+          "image": "hi0100.png",
+          "name": "क"
+        },
+        {
+          "id": "hi0101",
+          "image": "hi0101.png",
+          "name": "ख"
+        },
+        {
+          "id": "hi0102",
+          "image": "hi0102.png",
+          "name": "ग"
+        },
+        {
+          "id": "hi0103",
+          "image": "hi0103.png",
+          "name": "घ"
+        },
+        {
+          "id": "hi0104",
+          "image": "hi0104.png",
+          "name": "ङ"
+        },
+        {
+          "id": "hi0105",
+          "image": "hi0105.png",
+          "name": "च"
+        },
+        {
+          "id": "hi0106",
+          "image": "hi0106.png",
+          "name": "छ"
+        },
+        {
+          "id": "hi0107",
+          "image": "hi0107.png",
+          "name": "ज"
+        },
+        {
+          "id": "hi0108",
+          "image": "hi0108.png",
+          "name": "झ"
+        },
+        {
+          "id": "hi0109",
+          "image": "hi0109.png",
+          "name": "ञ"
+        },
+        {
+          "id": "hi0110",
+          "image": "hi0110.png",
+          "name": "ट"
+        },
+        {
+          "id": "hi0111",
+          "image": "hi0111.png",
+          "name": "ठ"
+        },
+        {
+          "id": "hi0112",
+          "image": "hi0112.png",
+          "name": "ड"
+        },
+        {
+          "id": "hi0113",
+          "image": "hi0113.png",
+          "name": "ढ"
+        },
+        {
+          "id": "hi0114",
+          "image": "hi0114.png",
+          "name": "ण"
+        },
+        {
+          "id": "hi0115",
+          "image": "hi0115.png",
+          "name": "त"
+        },
+        {
+          "id": "hi0116",
+          "image": "hi0116.png",
+          "name": "थ"
+        },
+        {
+          "id": "hi0117",
+          "image": "hi0117.png",
+          "name": "द"
+        },
+        {
+          "id": "hi0118",
+          "image": "hi0118.png",
+          "name": "ध"
+        },
+        {
+          "id": "hi0119",
+          "image": "hi0119.png",
+          "name": "न"
+        },
+        {
+          "id": "hi0120",
+          "image": "hi0120.png",
+          "name": "प"
+        },
+        {
+          "id": "hi0121",
+          "image": "hi0121.png",
+          "name": "फ"
+        },
+        {
+          "id": "hi0122",
+          "image": "hi0122.png",
+          "name": "ब"
+        },
+        {
+          "id": "hi0123",
+          "image": "hi0123.png",
+          "name": "भ"
+        },
+        {
+          "id": "hi0124",
+          "image": "hi0124.png",
+          "name": "म"
+        },
+        {
+          "id": "hi0125",
+          "image": "hi0125.png",
+          "name": "य"
+        },
+        {
+          "id": "hi0126",
+          "image": "hi0126.png",
+          "name": "र"
+        },
+        {
+          "id": "hi0127",
+          "image": "hi0127.png",
+          "name": "ल"
+        },
+        {
+          "id": "hi0128",
+          "image": "hi0128.png",
+          "name": "व"
+        },
+        {
+          "id": "hi0129",
+          "image": "hi0129.png",
+          "name": "श"
+        },
+        {
+          "id": "hi0130",
+          "image": "hi0130.png",
+          "name": "ष"
+        },
+        {
+          "id": "hi0131",
+          "image": "hi0131.png",
+          "name": "स"
+        },
+        {
+          "id": "hi0132",
+          "image": "hi0132.png",
+          "name": "ह"
+        },
+        {
+          "id": "hi0133",
+          "image": "hi0133.png",
+          "name": "क्ष"
+        },
+        {
+          "id": "hi0134",
+          "image": "hi0134.png",
+          "name": "त्र"
+        },
+        {
+          "id": "hi0135",
+          "image": "hi0135.png",
+          "name": "ज्ञ"
+        },
+        {
+          "id": "hi0136",
+          "image": "hi0136.png",
+          "name": "श्र"
+        }
+      ],
+      "name": "Vyannjan"
+    },
+    {
+      "id": "hi02",
+      "image": "hi02.png",
+      "lessons": [
+        {
+          "id": "hi0200",
+          "image": "hi0200.png",
+          "name": "अ - अँ"
+        },
+        {
+          "id": "hi0201",
+          "image": "hi0201.png",
+          "name": "क - न"
+        },
+        {
+          "id": "hi0202",
+          "image": "hi0202.png",
+          "name": "प - ज्ञ"
+        },
+        {
+          "id": "hi0203",
+          "image": "hi0203.png",
+          "name": "अक्षर मेल अ -ण"
+        },
+        {
+          "id": "hi0204",
+          "image": "hi0204.png",
+          "name": "अक्षर मेल त -ज्ञ"
+        },
+        {
+          "id": "hi0205",
+          "image": "hi0205.png",
+          "name": "अक्षर मेल "
+        }
+      ],
+      "name": "वर्णमाला"
+    },
+    {
+      "id": "hi03",
+      "image": "hi03.png",
+      "lessons": [
+        {
+          "id": "hi0300",
+          "image": "hi0300.png",
+          "name": "आ - ा"
+        },
+        {
+          "id": "hi0301",
+          "image": "hi0301.png",
+          "name": "इ - ि"
+        },
+        {
+          "id": "hi0302",
+          "image": "hi0302.png",
+          "name": "ई - ी"
+        },
+        {
+          "id": "hi0303",
+          "image": "hi0303.png",
+          "name": "उ - ु"
+        },
+        {
+          "id": "hi0304",
+          "image": "hi0304.png",
+          "name": "ऊ - ू"
+        },
+        {
+          "id": "hi0305",
+          "image": "hi0305.png",
+          "name": "ऋ - ृ"
+        },
+        {
+          "id": "hi0306",
+          "image": "hi0306.png",
+          "name": "ए - े"
+        },
+        {
+          "id": "hi0307",
+          "image": "hi0307.png",
+          "name": "ऐ - ै"
+        },
+        {
+          "id": "hi0308",
+          "image": "hi0308.png",
+          "name": "ओ - ो"
+        },
+        {
+          "id": "hi0309",
+          "image": "hi0309.png",
+          "name": "औ - ौ"
+        },
+        {
+          "id": "hi0310",
+          "image": "hi0310.png",
+          "name": "ं,ः,ँ"
+        }
+      ],
+      "name": "व्यंजन + मात्रा = अक्षर"
+    },
+    {
+      "id": "hi04",
+      "image": "hi04.png",
+      "lessons": [
+        {
+          "id": "hi0400",
+          "image": "hi0400.png",
+          "name": "छोटे टाइपिस्ट"
+        },
+        {
+          "id": "hi0401",
+          "image": "hi0401.png",
+          "name": "अ - ऋ"
+        },
+        {
+          "id": "hi0402",
+          "image": "hi0402.png",
+          "name": "ए - अँ"
+        },
+        {
+          "id": "hi0403",
+          "image": "hi0403.png",
+          "name": "क"
+        },
+        {
+          "id": "hi0404",
+          "image": "hi0404.png",
+          "name": "का"
+        },
+        {
+          "id": "hi0405",
+          "image": "hi0405.png",
+          "name": "कि"
+        },
+        {
+          "id": "hi0406",
+          "image": "hi0406.png",
+          "name": "की"
+        },
+        {
+          "id": "hi0407",
+          "image": "hi0407.png",
+          "name": "कु"
+        },
+        {
+          "id": "hi0408",
+          "image": "hi0408.png",
+          "name": "कू"
+        },
+        {
+          "id": "hi0409",
+          "image": "hi0409.png",
+          "name": "कृ"
+        },
+        {
+          "id": "hi0410",
+          "image": "hi0410.png",
+          "name": "के"
+        },
+        {
+          "id": "hi0411",
+          "image": "hi0411.png",
+          "name": "कैं"
+        },
+        {
+          "id": "hi0412",
+          "image": "hi0412.png",
+          "name": "2 अक्षर का शब्द पाठ 1"
+        },
+        {
+          "id": "hi0413",
+          "image": "hi0413.png",
+          "name": "2 अक्षर का शब्द पाठ 2"
+        }
+      ],
+      "name": "बारहखङी"
+    },
+    {
+      "id": "hi05",
+      "image": "hi05.png",
+      "lessons": [
+        {
+          "id": "hi0500",
+          "image": "hi0500.png",
+          "name": "पाठ 1"
+        },
+        {
+          "id": "hi0501",
+          "image": "hi0501.png",
+          "name": "पाठ 2"
+        }
+      ],
+      "name": "आधे अक्षर का शब्द I"
+    },
+    {
+      "id": "hi06",
+      "image": "hi06.png",
+      "lessons": [
+        {
+          "id": "hi0600",
+          "image": "hi0600.png",
+          "name": "पाठ 1"
+        },
+        {
+          "id": "hi0601",
+          "image": "hi0601.png",
+          "name": "3 अक्षर का शब्द"
+        }
+      ],
+      "name": "2 अक्षर का शब्द"
+    }
+  ]
+}

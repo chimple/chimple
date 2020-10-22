@@ -1,4 +1,5 @@
 import { ASSET_LOAD_METHOD } from "./lib/constants";
+import { User } from "./lib/profile";
 
 const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
 
@@ -33,6 +34,9 @@ const GET_STORAGE_DIRECTORY_METHOD_SIGNATURE = "()Ljava/lang/String;";
 
 const CURRENT_PROFILE_METHOD = "currentStudentId";
 const CURRENT_PROFILE_METHOD_SIGNATURE = "()Ljava/lang/String;";
+
+const GET_COUNTRY_CODE_METHOD = "getCountryCode";
+const GET_COUNTRY_CODE_METHOD_SIGNATURE = "()Ljava/lang/String;";
 
 const DEVICE_ID_METHOD = "getDeviceId";
 const DEVICE_ID_METHOD_SIGNATURE = "()Ljava/lang/String;";
@@ -156,22 +160,7 @@ export default class UtilLogger {
     }
 
     public static currentProfile() {
-        try {
-            if (
-                ASSET_LOAD_METHOD != "file" &&
-                this._currentUserId === null &&
-                cc.sys.isNative &&
-                cc.sys.os == cc.sys.OS_ANDROID
-            ) {
-                this._currentUserId = jsb.reflection.callStaticMethod(
-                    LOGGER_CLASS,
-                    CURRENT_PROFILE_METHOD,
-                    CURRENT_PROFILE_METHOD_SIGNATURE
-                );
-                cc.log("current profile:", this._currentUserId);
-            }
-        } catch (e) {
-        }
+        this._currentUserId = User.getCurrentUser() ? User.getCurrentUser().id : "";
         return this._currentUserId;
     }
 
@@ -339,6 +328,21 @@ export default class UtilLogger {
                 );
             }
             return false;
+        } catch (e) {
+        }
+    }
+
+    public static getCountryCode(): string {
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID) {
+                return jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    GET_COUNTRY_CODE_METHOD,
+                    GET_COUNTRY_CODE_METHOD_SIGNATURE
+                );
+            }
         } catch (e) {
         }
     }
