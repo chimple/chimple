@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.telephony.TelephonyManager;
 
 import androidx.core.app.NotificationCompat;
 
@@ -219,7 +220,6 @@ public class ChimpleLogger {
         }
         return ChimpleLogger.connected;
     }
-
 
     public static String currentStudentId() {
         String curStudentId = null;
@@ -884,4 +884,9 @@ public class ChimpleLogger {
     public static void verifyOtp(final String otp) {
         AppActivity.app.verifyOtp(otp);
     }
+
+    public static String getCountryCode() {
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return tm.getNetworkCountryIso();
+     }
 }
