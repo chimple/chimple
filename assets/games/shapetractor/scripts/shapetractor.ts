@@ -93,7 +93,6 @@ export default class ShapeTractor extends Game {
     onLoad() {
         cc.director.getCollisionManager().enabled = true
         Drag.letDrag = false
-        this.friend.isFace = true
         this.node.on('patterntrainMatch', this.onMatch.bind(this))
         this.node.on('patterntrainNoMatch', () => {
             this.node.emit('wrong')

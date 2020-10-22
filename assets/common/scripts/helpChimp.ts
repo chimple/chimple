@@ -34,25 +34,25 @@ export default class HelpChimp extends cc.Component {
             cc.assetManager.loadBundle(name, (err, bundle) => {
                 if (!err) {
                     Util.bundles.set(name, bundle)
-                    bundle.load(this.helpKey, cc.AudioClip, (err, clip) => {
-                        if (!err) {
-                            this.loadAndPlay(clip);
-                        }
-                    })
+                    this.loadAndPlay(bundle);
                 }
             })
         }
     }
 
-    private loadAndPlay(clip: any) {
-        this.clip = clip;
-        if (!spoken.has(this.helpKey)) {
-            spoken.set(this.helpKey, 1);
-            this.speak();
-        }
-        else {
-            this.node.getComponent(cc.Button).interactable = true;
-        }
+    private loadAndPlay(bundle) {
+        bundle.load(this.helpKey, cc.AudioClip, (err, clip) => {
+            if (!err) {
+                this.clip = clip;
+                if (!spoken.has(this.helpKey)) {
+                    spoken.set(this.helpKey, 1);
+                    this.speak();
+                }
+                else {
+                    this.node.getComponent(cc.Button).interactable = true;
+                }
+            }
+        })
     }
 
     speak() {

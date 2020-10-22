@@ -299,7 +299,7 @@ export class Util {
   public static loadGameSound(path: string, callBack: Function) {
     const filePath = path.startsWith(Config.dir)
       ? path
-      : (Config.i.course.type == 'maths'
+      : (Config.i.course.type != 'literacy'
         ? Config.dir + `${Profile.getValue(LANGUAGE)}-help/${Config.i.game}/${path}`
         : Config.dir + `${Config.i.currentGameLessonId}/res/${path}`);
     const fullFilePath =

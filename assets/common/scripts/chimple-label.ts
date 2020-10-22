@@ -18,7 +18,7 @@ export default class ChimpleLabel extends cc.Label {
                 this.horizontalAlign = cc.Label.HorizontalAlign.RIGHT
             }
 
-            if (config.game === null || config.game === undefined || (config.course && config.course.type == 'maths')) {
+            if (config.game === null || config.game === undefined || (config.course && config.course.type != 'literacy')) {
                 this.string = Util.i18NText(this.string)
             }
         }
