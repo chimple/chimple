@@ -2,6 +2,7 @@ import { User, CourseProgress } from "../../../common/scripts/lib/profile";
 import Config from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
 import HeaderButton from "../../../common/scripts/headerButton";
+import Header from "../../../common/scripts/header";
 
 const { ccclass, property } = cc._decorator;
 
@@ -20,7 +21,6 @@ export default class Drawer extends cc.Component {
     onHomeClick: Function
     onRightClick: Function
     private selectedHeaderButton: HeaderButton
-    static homeSelected: boolean = true
 
     onLoad() {
         const config = Config.i
@@ -29,7 +29,7 @@ export default class Drawer extends cc.Component {
         const homeButtonComp = homeButton.getComponent(HeaderButton)
         homeButtonComp.button.node.on('touchend', (event: cc.Event) => {
             if (event.target.getComponent(cc.Button).enabled) {
-                Drawer.homeSelected = true
+                Header.homeSelected = true
                 const config = Config.i
                 config.course = null
                 config.chapter = null
@@ -42,7 +42,7 @@ export default class Drawer extends cc.Component {
         homeButtonComp.label.string = Util.i18NText('Home')
         this.courseLayout.addChild(homeButton)
         homeButtonComp.selected.node.active = false
-        if (Drawer.homeSelected) this.selectHeaderButton(homeButtonComp)
+        if (Header.homeSelected) this.selectHeaderButton(homeButtonComp)
         User.getCurrentUser().courseProgressMap.forEach((val: CourseProgress, courseId: string) => {
             const drawerButton = cc.instantiate(this.drawerButtonPrefab)
             const drawerButtonComp = drawerButton.getComponent(HeaderButton)
@@ -55,14 +55,14 @@ export default class Drawer extends cc.Component {
             })
             drawerButtonComp.button.node.on('touchend', (event: cc.Event) => {
                 if (event.target.getComponent(cc.Button).enabled) {
-                    Drawer.homeSelected = false
+                    Header.homeSelected = false
                     this.selectHeaderButton(drawerButtonComp);
                     config.course = course;
                     if (this.onCourseClick) this.onCourseClick();
                     this.closeDrawer()
                 }
             })
-            if (!Drawer.homeSelected && config.course && config.course.id == course.id) {
+            if (!Header.homeSelected && config.course && config.course.id == course.id) {
                 this.selectHeaderButton(drawerButtonComp);
             }
         })

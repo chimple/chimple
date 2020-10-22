@@ -52,7 +52,7 @@ export const COURSE_SERVER = {
 };
 
 export const COURSES_URL = ENV == 'web' ? '' : COURSE_SERVER[ENV][LANG];
-
+export const BUNDLE_URL = 'https://bahama-ta-stage.web.app/remote/'
 // Moved from gameController
 export const LOG_GAME = 'game';
 export const LOG_WORLD = 'world';

@@ -1,10 +1,9 @@
 import { Queue } from "../../../queue";
 import Header from "../header";
-import { REWARD_TYPES, Util, REWARD_CHARACTERS, INVENTORY_DATA, REWARD_BACKGROUNDS } from "../util";
+import { INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util } from "../util";
 import UtilLogger from "../util-logger";
 import Config, { ALL_LANGS } from "./config";
-import { CURRENT_STUDENT_ID, EXAM, MIN_PASS, COUNTRY_CODES } from "./constants";
-import Drawer from "../../../menu/start/scripts/drawer";
+import { COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -567,7 +566,6 @@ export class User {
         this._currentUser = user;
         Config.i.clear()
         Header.homeSelected = true
-        Drawer.homeSelected = true
     }
 
     static getCurrentUser() {

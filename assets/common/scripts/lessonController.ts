@@ -2,7 +2,7 @@ import { Queue } from "../../queue";
 import Friend from "./friend";
 import Game from "./game";
 import Config, { DEFAULT_FONT } from "./lib/config";
-import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID, EXAM } from "./lib/constants";
+import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID, EXAM, BUNDLE_URL } from "./lib/constants";
 import { Lesson } from "./lib/convert";
 import { GAME_CONFIGS } from "./lib/gameConfigs";
 import { User } from "./lib/profile";
@@ -111,15 +111,25 @@ export default class LessonController extends cc.Component {
         } else {
             cc.assetManager.loadBundle(config.lesson.id, (err, bundle) => {
                 if (err) {
-                    callback(err)
-                } else {
-                    bundle.preloadDir('res', null, null, (err: Error, items) => {
-                        Util.bundles.set(config.lesson.id, bundle);
-                        LessonController.loadDataAndFirstGame(callback)
+                    cc.assetManager.loadBundle(BUNDLE_URL + config.lesson.id, (err1, bundle1) => {
+                        if(err1) {
+                            callback(err)
+                        } else {
+                            LessonController.preloadAndFirst(bundle1, callback);
+                        }
                     })
+                } else {
+                    LessonController.preloadAndFirst(bundle, callback);
                 }
             })
         }
+    }
+
+    private static preloadAndFirst(bundle: any, callback: Function) {
+        bundle.preloadDir('res', null, null, (err: Error, items) => {
+            Util.bundles.set(Config.i.lesson.id, bundle);
+            LessonController.loadDataAndFirstGame(callback);
+        });
     }
 
     private static loadDataAndFirstGame(callback: Function, node: cc.Node = null, lessons: Lesson[] = null, maxPerLesson: number = 0) {
@@ -141,7 +151,16 @@ export default class LessonController extends cc.Component {
         lessons.forEach((les) => {
             cc.assetManager.loadBundle(les.id, (err, bundle) => {
                 if (err) {
-                    callback(err);
+                    cc.assetManager.loadBundle(BUNDLE_URL + les.id, (err1, bundle1) => {
+                        if(err1) {
+                            callback(err);
+                        } else {
+                            bundle1.preloadDir('res', null, null, (err: Error, items) => {
+                                Util.bundles.set(les.id, bundle1);
+                                numLessons--;
+                            });        
+                        }
+                    })
                 }
                 else {
                     bundle.preloadDir('res', null, null, (err: Error, items) => {

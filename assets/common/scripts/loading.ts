@@ -42,7 +42,7 @@ export default class Loading extends cc.Component {
         this.messageLabel.node.active = false
         this.cancelBtn.active = false
         this.scheduleOnce(() => {
-            this.cancelBtn.active = this.allowCancel.valueOf()
+            this.cancelBtn.active = false && this.allowCancel.valueOf() //not using allowCancel
             this.messageLabel.node.active = true
             this.block.color = cc.Color.GRAY;
             this.block.opacity = 128

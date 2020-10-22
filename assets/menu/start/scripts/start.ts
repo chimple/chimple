@@ -92,7 +92,7 @@ export default class Start extends cc.Component {
         const drawerComp = this.drawer.getComponent(Drawer);
         drawerComp.onCourseClick = this.onCourseClick.bind(this);
         drawerComp.onHomeClick = this.onHomeClick.bind(this);
-        if (Drawer.homeSelected) {
+        if (Header.homeSelected) {
             this.onHomeClick();
         }
         else {
@@ -184,7 +184,7 @@ export default class Start extends cc.Component {
     }
 
     private setHomeIcon() {
-        if(Drawer.homeSelected) {
+        if(Header.homeSelected) {
             this.homeButton.label.string = 'Home'
             this.homeButton.sprite.spriteFrame = this.homeButton.homeSprite
         } else {
