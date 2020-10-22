@@ -44,10 +44,11 @@ export default class StartContent extends cc.Component {
             }
         })
         Util.shuffle(buttons)
+        const STARTY = 256
         buttons.forEach((node: cc.Node, index: number, array: cc.Node[]) => {
             // this.node.children[0].getComponent(cc.PageView).addPage(node)
             node.x = - cc.winSize.width / 2 + cc.winSize.width / array.length * index
-            // node.y = cc.winSize.height / array.length * index
+            node.y = - cc.winSize.height / 2 + STARTY + (cc.winSize.height - STARTY) / array.length * index
             this.node.addChild(node)
         })
 

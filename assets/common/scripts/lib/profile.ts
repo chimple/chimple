@@ -4,6 +4,7 @@ import { REWARD_TYPES, Util, REWARD_CHARACTERS, INVENTORY_DATA, REWARD_BACKGROUN
 import UtilLogger from "../util-logger";
 import Config, { ALL_LANGS } from "./config";
 import { CURRENT_STUDENT_ID, EXAM, MIN_PASS, COUNTRY_CODES } from "./constants";
+import Drawer from "../../../menu/start/scripts/drawer";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -566,6 +567,7 @@ export class User {
         this._currentUser = user;
         Config.i.clear()
         Header.homeSelected = true
+        Drawer.homeSelected = true
     }
 
     static getCurrentUser() {
