@@ -44,8 +44,12 @@ export default class StartContent extends cc.Component {
             }
         })
         Util.shuffle(buttons)
-        buttons.forEach((node: cc.Node) => {
-            this.node.children[0].getComponent(cc.PageView).addPage(node)
+        const STARTY = 256
+        buttons.forEach((node: cc.Node, index: number, array: cc.Node[]) => {
+            // this.node.children[0].getComponent(cc.PageView).addPage(node)
+            node.x = - cc.winSize.width / 2 + cc.winSize.width / array.length * index
+            node.y = - cc.winSize.height / 2 + STARTY + (cc.winSize.height - STARTY) / array.length * index
+            this.node.addChild(node)
         })
 
         const assignments = await ParseApi.getInstance().listAssignments(user.serverId)
@@ -57,7 +61,7 @@ export default class StartContent extends cc.Component {
                 if (chapter) {
                     lesson = chapter.lessons.find(l => l.id == ass.lessonId)
                     if (lesson)
-                    this.node.children[0].getComponent(cc.PageView).insertPage(this.createButton(lesson), 0)
+                        this.node.children[0].getComponent(cc.PageView).insertPage(this.createButton(lesson), 0)
                 }
             }
         })

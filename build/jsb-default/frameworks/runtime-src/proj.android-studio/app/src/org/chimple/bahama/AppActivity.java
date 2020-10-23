@@ -244,21 +244,21 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationFailed(FirebaseException e) {
-                Toast.makeText(AppActivity.this, "verification failed", Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(AppActivity.this, "verification failed", Toast.LENGTH_SHORT).show();
                 Log.d("FirebaseException", e.toString());
             }
 
             @Override
             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                Toast.makeText(AppActivity.this, "verification completed", Toast.LENGTH_SHORT)
-                    .show();
+                // Toast.makeText(AppActivity.this, "verification completed", Toast.LENGTH_SHORT)
+                //     .show();
             }
 
             @Override
             public void onCodeSent(String verificationId,
                                    PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                 super.onCodeSent(verificationId, forceResendingToken);
-                Toast.makeText(AppActivity.this, "Code Sent", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(AppActivity.this, "Code Sent", Toast.LENGTH_SHORT).show();
                 mVerificationId = verificationId; //Add this line to save //verification Id
                 mResendToken = forceResendingToken;
             }
@@ -807,7 +807,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(AppActivity.this, "Verification Success", Toast.LENGTH_SHORT).show();
+                      //      Toast.makeText(AppActivity.this, "Verification Success", Toast.LENGTH_SHORT).show();
                             app.runOnGLThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -820,7 +820,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                             });
                         } else {
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                Toast.makeText(AppActivity.this, "Verification Failed, Invalid credentials", Toast.LENGTH_SHORT).show();
+                        //      Toast.makeText(AppActivity.this, "Verification Failed, Invalid credentials", Toast.LENGTH_SHORT).show();
                                 app.runOnGLThread(new Runnable() {
                                     @Override
                                     public void run() {

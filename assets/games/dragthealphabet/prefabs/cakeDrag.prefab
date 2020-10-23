@@ -220,8 +220,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 77.86,
-      "height": 176.4
+      "width": 0,
+      "height": 226.8
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -275,8 +275,8 @@
     "_useOriginalSize": true,
     "_string": "",
     "_N$string": "",
-    "_fontSize": 140,
-    "_lineHeight": 140,
+    "_fontSize": 180,
+    "_lineHeight": 180,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -310,7 +310,9 @@
       "__id__": 1
     },
     "_enabled": true,
-    "label": null,
+    "label": {
+      "__id__": 6
+    },
     "resizeWithLabel": false,
     "fixOnMatch": true,
     "allowDrag": true,

@@ -27,12 +27,13 @@ export default class Inventory extends cc.Component {
     normalSprite: cc.SpriteFrame = null;
     animationNames = ["hat", "hand", "glass", "leg", "neck"]
     onLoad() {
-        this.buildIndividualItems(INVENTORY_DATA[0])
         try {
             this.characterName = User.getCurrentUser().currentCharacter;
         } catch (err) {
             console.log("error reading character name");
         }
+
+        this.buildIndividualItems(INVENTORY_DATA[0])
 
         Util.loadFriend((friendNode: cc.Node) => {
             friendNode.name = `${User.getCurrentUser().currentCharacter}_dragon`

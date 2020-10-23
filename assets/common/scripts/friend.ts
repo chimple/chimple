@@ -66,7 +66,7 @@ export default class Friend extends cc.Component {
 
     private loadAndPlay(bundle: any) {
         const config = Config.i
-        bundle.load(config.game, cc.AudioClip, (err, clip) => {
+        bundle.load(`games/${config.game}`, cc.AudioClip, (err, clip) => {
             if (!err) {
                 this.helpSpoken.add(config.game);
                 this.speakFullHelp = true;

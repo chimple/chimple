@@ -13,6 +13,9 @@ import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/s
 import CourseContent from "./courseContent";
 import StartContent from "./startContent";
 import { Util } from "../../../common/scripts/util";
+import HeaderButton from "../../../common/scripts/headerButton";
+import { DrawShape } from "../../../games/drawshape/scripts/drawshape";
+import Drawer from "./drawer";
 
 const { ccclass, property } = cc._decorator;
 
@@ -45,6 +48,12 @@ export default class Start extends cc.Component {
     @property(cc.Node)
     bgHolder: cc.Node = null;
 
+    @property(cc.Node)
+    drawer: cc.Node = null
+
+    @property(HeaderButton)
+    homeButton: HeaderButton = null
+
     onLoad() {
         this.bgHolder.removeAllChildren();
         if (!!User.getCurrentUser().currentBg) {
@@ -56,6 +65,9 @@ export default class Start extends cc.Component {
         loadingComp.allowCancel = false
         loadingComp.delay = 0
 
+        this.homeButton.node.on('touchend', () => {
+            this.drawer.active = true
+        })
         const config = Config.i
         User.getCurrentUser().curriculumLoaded
             ? this.initPage()
@@ -63,14 +75,23 @@ export default class Start extends cc.Component {
     }
 
     private initPage() {
-        const headerNode = cc.instantiate(this.headerPrefab);
-        const headerComp = headerNode.getComponent(Header);
-        headerComp.onCourseClick = this.onCourseClick.bind(this);
-        headerComp.onHomeClick = this.onHomeClick.bind(this);
-        headerComp.onRightClick = this.onProfileClick.bind(this);
-        headerComp.rightPos.addChild(cc.instantiate(this.profilePrefab));
-        headerComp.user = User.getCurrentUser();
-        this.header.addChild(headerNode);
+        // const headerNode = cc.instantiate(this.headerPrefab);
+        // const headerComp = headerNode.getComponent(Header);
+        // headerComp.onCourseClick = this.onCourseClick.bind(this);
+        // headerComp.onHomeClick = this.onHomeClick.bind(this);
+        // headerComp.onRightClick = this.onProfileClick.bind(this);
+        // headerComp.rightPos.addChild(cc.instantiate(this.profilePrefab));
+        // headerComp.user = User.getCurrentUser();
+        // this.header.addChild(headerNode);
+        // if (Header.homeSelected) {
+        //     this.onHomeClick();
+        // }
+        // else {
+        //     this.onCourseClick();
+        // }
+        const drawerComp = this.drawer.getComponent(Drawer);
+        drawerComp.onCourseClick = this.onCourseClick.bind(this);
+        drawerComp.onHomeClick = this.onHomeClick.bind(this);
         if (Header.homeSelected) {
             this.onHomeClick();
         }
@@ -150,6 +171,7 @@ export default class Start extends cc.Component {
         courseContentComp.loading = this.loading;
         courseContentComp.content = this.content;
         this.content.addChild(courseContent);
+        this.setHomeIcon()
     }
 
     private onHomeClick() {
@@ -158,6 +180,20 @@ export default class Start extends cc.Component {
         const startContentComp = startContent.getComponent(StartContent)
         startContentComp.loading = this.loading
         this.content.addChild(startContent)
+        this.setHomeIcon()
+    }
+
+    private setHomeIcon() {
+        if(Header.homeSelected) {
+            this.homeButton.label.string = 'Home'
+            this.homeButton.sprite.spriteFrame = this.homeButton.homeSprite
+        } else {
+            const course = Config.i.course
+            this.homeButton.label.string = course.name
+            Util.load(course.id + '/course/res/icons/' + course.id + '.png', (err: Error, texture) => {
+                this.homeButton.sprite.spriteFrame = err ? null : new cc.SpriteFrame(texture);
+            })    
+        }
     }
 
     onProfileClick() {
