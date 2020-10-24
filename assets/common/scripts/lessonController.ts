@@ -254,7 +254,7 @@ export default class LessonController extends cc.Component {
         const timeSpent = Math.ceil((new Date().getTime() - this.problemStartTime) / 1000);
         const monitor = this.progressMonitorNode.getComponent(ProgressMonitor);
         const currentProblem = config.problem;
-        this.isQuiz = config.game.toLowerCase().includes("quiz");
+        this.isQuiz = config.game.toLowerCase().includes("quizmaths") || config.game.toLowerCase().includes("quizliteracy");
         this.isQuizCompleted = this.isQuiz ? true : false;
         this.isGameCompleted = this.isQuiz ? false : true;
         if (this.isQuiz) {
