@@ -37,6 +37,7 @@ export interface RenderParams {
     totalBlocks?: number;
     position?: Vec2;
     xPositions?: number[];
+    yPositionAdj? : number;
     combinedQAndA?: string;
 }
 
@@ -44,7 +45,7 @@ export const V_GAP: number = 18;
 export const H_GAP: number = 20;
 export const H_MARGIN: number = 50;
 export const V_MARGIN: number = 30;
-export const MATRIX_CONTAINER_SCALE: number = 0.85;
+export const MATRIX_CONTAINER_SCALE: number = 1.0;
 export const SCALE: number = 1.0;
 export const HALF: number = 0.5;
 export const FONT_SIZE = '65';
@@ -101,7 +102,6 @@ export class Grid extends Game {
 
   @catchError()
   protected onLoad(): void {
-    cc.log("asdasdasdasdasdasdasdadsasdasdasd")
     Grid._horizontalPositions = [];
     Grid._verticalPositions = [];
     this.currentConfig = this.processConfiguration(
@@ -227,7 +227,6 @@ export class Grid extends Game {
       Grid._maxNodeHeight +
       verticalWordsCount * Grid._maxNodeHeight;
     this.ground.setContentSize(new cc.Size(groundWidth, groundHeight));
-
     this.matrixContainer.addChild(this.ground);
   }
 
