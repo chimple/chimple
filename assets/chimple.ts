@@ -1,10 +1,14 @@
-import Config, { LANG_CONFIGS, Lang } from "./common/scripts/lib/config";
-import Profile, { Gender, User, LANGUAGE } from "./common/scripts/lib/profile";
-import { D_MODE, DeployMode, Mode, MODE } from "./common/scripts/lib/constants";
+import Config, {LANG_CONFIGS, Lang} from "./common/scripts/lib/config";
+import Profile, {Gender, User, LANGUAGE} from "./common/scripts/lib/profile";
+import {Mode, MODE} from "./common/scripts/lib/constants";
 import UtilLogger from "./common/scripts/util-logger";
-import { Util } from "./common/scripts/util";
+import {Util} from "./common/scripts/util";
+import {APIMode, ServiceConfig} from "./common/scripts/services/ServiceConfig";
+import {Queue} from "./queue";
+import {UpdateHomeTeacher} from "./common/scripts/services/parseApi";
+import Home from "./menu/home/scripts/home";
 
-const { ccclass, property } = cc._decorator;
+const {ccclass, property} = cc._decorator;
 
 export const CHIMPLE_MODE = 'CHIMPLE_MODE';
 export const DEPLOY_MODE = 'DEPLOY_MODE';
@@ -36,7 +40,6 @@ export const START_SCENE = 'menu/start/scenes/start';
 //@ts-ignore
 cc.deep_link = function (url) {
     cc.log("deep link called with url:" + url);
-    http://chimple.github.io
     if (url !== null && url.includes("http://chimple.github.io/")) {
         let messageType: string = null;
         let splits = url.split("://chimple.github.io/");
@@ -77,6 +80,7 @@ cc.deep_link = function (url) {
 @ccclass
 export default class Chimple extends cc.Component {
     async onLoad() {
+        ServiceConfig.getInstance(APIMode.FIREBASE);
         cc.macro.ENABLE_MULTI_TOUCH = false
         UtilLogger.initPluginFirebase();
         Util.loadi18NMapping(() => {
@@ -84,21 +88,6 @@ export default class Chimple extends cc.Component {
         const lang = Profile.getValue(LANGUAGE) || Lang.ENGLISH
         const langConfig = LANG_CONFIGS.get(lang)
         if (langConfig) Config.i.loadFontDynamically(langConfig.font)
-        const deployMode: number = D_MODE;
-        const selectedMode: number = Number(cc.sys.localStorage.getItem(CHIMPLE_MODE)) || MODE;
-        // switch (deployMode) {
-        //     case DeployMode.Open:
-        //         this.navigateToBase();
-        //         break;
-        //     case DeployMode.Close:
-        //         Config.i.pushScene(LANDING_SCENE, 'private', null, true);
-        //         break;
-        //     default:
-        //         this.navigateToBase();
-        //         break;
-        // }
-        // this.navigateToBase();
-
         this.selectModes();
 
     }

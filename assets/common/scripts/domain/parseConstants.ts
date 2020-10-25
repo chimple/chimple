@@ -78,3 +78,7 @@ export const UPDATE_PROFILE_FAILED = 'update_profile_failed';
 export const ASSIGN_HOMEWORK_FAILED = 'assign_homework_failed';
 export const UPDATE_MONITOR_FAILED = 'update_monitor_failed';
 export const UPDATE_PROGRESS_FAILED = 'update_progress_failed';
+
+
+export const FIREBASE_SCHOOL_URL = 'http://localhost:5001/chimple-stage/us-central1/chimple/getSchool?teacherId=';
+export const FIREBASE_UPDATE_HOME_TEACHER_URL = 'http://localhost:5001/chimple-stage/us-central1/chimple/createStudent';
