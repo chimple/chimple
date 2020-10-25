@@ -6,8 +6,10 @@ import ChimpleLabel from "./chimple-label";
 import {Queue} from "../../queue";
 import {ACCEPT_TEACHER_REQUEST, REJECT_TEACHER_REQUEST, TEACHER_ADDED} from "../../chimple";
 import UtilLogger from "./util-logger";
-import { ParseSchool } from "./domain/parseSchool";
-import { ParseApi, UpdateHomeTeacher } from "./services/parseApi";
+import {ParseSchool} from "./domain/parseSchool";
+import {ParseApi, UpdateHomeTeacher} from "./services/parseApi";
+import {ServiceConfig} from "./services/ServiceConfig";
+import {AcceptTeacherRequest} from "./services/ServiceApi";
 
 export const TEACHER_ADD_DIALOG_CLOSED = 'TEACHER_ADD_DIALOG_CLOSED';
 @ccclass
@@ -67,21 +69,17 @@ export default class TeacherAddedDialog extends cc.Component {
 
     async onYesClicked(event) {
         if (!!this._teacherId) {
-            // give me teacher user id from school id
-            const school: ParseSchool = await ParseApi.getInstance().schoolById(this._teacherId)
-            let updateHomeTeacherInfo: UpdateHomeTeacher = {
-                homeId: this.selectedStudentId,
-                teacherId: school.user.objectId,
-                kind: "UpdateHomeTeacher",
-                studentName: this.selectedStudentName,
-                schoolId: school.objectId,
-                sectionId: this._teacherSectionId
-            };
-            Queue.getInstance().push(updateHomeTeacherInfo);
+            const request: AcceptTeacherRequest = {
+                teacherId: this._teacherSectionId,
+                sectionId: this._teacherSectionId,
+                studentId: this.selectedStudentId,
+                studentName: this.selectedStudentName
+            }
+            await ServiceConfig.getI().handle.teacherRequestAccepted(request);
             const teachersAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + this._teacherId) || '[]');
             teachersAdded.push(this.selectedStudentId);
             cc.sys.localStorage.setItem(TEACHER_ADDED + this._teacherId, JSON.stringify(teachersAdded));
-            UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, updateHomeTeacherInfo);
+            UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, request);
             try {
                 const messages = cc.sys.localStorage.getItem(ACCEPT_TEACHER_REQUEST) || '[]';
                 const jsonMessages: any[] = JSON.parse(messages);

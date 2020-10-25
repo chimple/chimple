@@ -1,12 +1,27 @@
-import { ParseApi } from "./parseApi";
-import { ParseUser } from "../domain/parseUser";
-import { APPLICATION_ID, PARSE_REST_API_KEY, DEFAULT_TIMEOUT, POST, GET, PUT, MINUTE_TIMEOUT, UPDATE_PROGRESS, UPDATE_PROGRESS_FAILED, UPDATE_MONITOR, UPDATE_MONITOR_FAILED, UPDATE_PROFILE, UPDATE_PROFILE_FAILED, UPDATE_HOME_TEACHER, UPDATE_HOME_TEACHER_FAILED, ASSIGN_HOMEWORK_FAILED } from "../domain/parseConstants";
-import { Pointer, FilePointer } from "../domain/parseSchool";
-import { Queue } from "../../../queue";
+import {ParseApi} from "./parseApi";
+import {
+    ASSIGN_HOMEWORK_FAILED,
+    DEFAULT_TIMEOUT,
+    GET,
+    POST,
+    PUT,
+    UPDATE_HOME_TEACHER,
+    UPDATE_HOME_TEACHER_FAILED,
+    UPDATE_MONITOR,
+    UPDATE_MONITOR_FAILED,
+    UPDATE_PROFILE,
+    UPDATE_PROFILE_FAILED,
+    UPDATE_PROGRESS,
+    UPDATE_PROGRESS_FAILED
+} from "../domain/parseConstants";
+import {FilePointer, Pointer} from "../domain/parseSchool";
+import {Queue} from "../../../queue";
 import UtilLogger from "../util-logger";
-import { User } from "../lib/profile";
-import { CURRENT_STUDENT_ID, QUEUE_OFFLOAD_FREQUENCY } from "../lib/constants";
-import { ASSIGN_HOMEWORK } from "../../../chimple";
+import {User} from "../lib/profile";
+import {CURRENT_STUDENT_ID, QUEUE_OFFLOAD_FREQUENCY} from "../lib/constants";
+import {ASSIGN_HOMEWORK} from "../../../chimple";
+import {APIMode, ServiceConfig} from "./ServiceConfig";
+import {FirebaseApi} from "./FirebaseApi";
 
 export const PARSE_CACHE = 'PARSE_CACHE';
 
@@ -22,6 +37,7 @@ export interface RequestOptions {
     headers?: { [key: string]: string };
     timeout?: number; // 0 (or negative) to wait forever
     responseType?: XMLHttpRequestResponseType;
+    authHeader?: AuthHeader;
 }
 
 export interface AuthHeader {
@@ -143,29 +159,8 @@ export class ParseNetwork {
         }
     }
 
-    private getAuthHeader(): AuthHeader {
-        const loggedInUser: ParseUser = ParseApi.getInstance().getLoggedInUser();
-        const authHeader: AuthHeader = {
-            'X-Parse-Application-Id': APPLICATION_ID,
-            'X-Parse-REST-API-Key': PARSE_REST_API_KEY,
-            'Accept': 'application/json'
-        };
-        if (!!loggedInUser && !!loggedInUser.sessionToken) {
-            authHeader['x-parse-session-token'] = loggedInUser.sessionToken;
-        }
-
-        return authHeader;
-    }
-
     public async createMonitor(requestParams: RequestParams,
                                options: RequestOptions = null) {
-
-        options = options || {
-            ignoreCache: false,
-            headers: ParseNetwork.getInstance().getAuthHeader(),
-            timeout: DEFAULT_TIMEOUT
-        };
-
         let jsonResult = null;
         try {
             let result: RequestResult = await ParseNetwork.getInstance().request(POST, requestParams, options);
@@ -200,15 +195,9 @@ export class ParseNetwork {
     }
 
     public async get(requestParams: RequestParams,
-                     cachedKey: string = null,
-                     options: RequestOptions = null
+                     cachedKey: string,
+                     options: RequestOptions
     ) {
-        options = options || {
-            ignoreCache: false,
-            headers: ParseNetwork.getInstance().getAuthHeader(),
-            timeout: DEFAULT_TIMEOUT
-        };
-
         let jsonResult = null;
         let isCacheValid: boolean = false;
         try {
@@ -226,13 +215,9 @@ export class ParseNetwork {
     }
 
     public async update(requestParams: RequestParams,
-                        options: RequestOptions = null
+                        options: RequestOptions
     ): Promise<void> {
-        options = options || {
-            ignoreCache: false,
-            headers: ParseNetwork.getInstance().getAuthHeader(),
-            timeout: DEFAULT_TIMEOUT
-        };
+
 
         try {
             let result: RequestResult = await ParseNetwork.getInstance().request(PUT, requestParams, options);
@@ -243,13 +228,8 @@ export class ParseNetwork {
     }
 
     public async post(requestParams: RequestParams,
-                      options: RequestOptions = null
+                      options: RequestOptions
     ): Promise<RequestResult> {
-        options = options || {
-            ignoreCache: false,
-            headers: ParseNetwork.getInstance().getAuthHeader(),
-            timeout: MINUTE_TIMEOUT
-        };
         let result: RequestResult = null;
         cc.log("calling post request with options", JSON.stringify(options));
         try {
@@ -431,24 +411,16 @@ export class ParseNetwork {
                         break;
                     case 'UpdateHomeTeacher':
                         cc.log("calling update home teacher API");
-                        ParseApi.getInstance().updateHomeTeacher(payload)
+                        ServiceConfig.getI().handle.updateHomeTeacher(payload)
                             .then(res => {
                                 cc.log(res);
-                                const associatedUser: User = User.getUsers().find(u => u.id === payload.homeId);
-                                if(associatedUser) {
-                                    associatedUser.serverId = res.data.result.student.objectId;
-                                    if(User.getCurrentUser().id === payload.homeId) {
-                                        ParseNetwork.getInstance().storeIntoCache(CURRENT_STUDENT_ID, res.data.result.student.objectId);
-                                        User.getCurrentUser().serverId = res.data.result.student.objectId
-                                    }
-                                }
+                                this.onHomeTeacherSuccess(payload.homeId, payload.homeId)
                                 UtilLogger.logChimpleEvent(UPDATE_HOME_TEACHER, payload);
                             })
                             .catch(err => {
                                 Queue.getInstance().push(payload);
                                 UtilLogger.logChimpleEvent(UPDATE_HOME_TEACHER_FAILED, payload);
                             });
-
                         break;
                     case 'AssignHomeWork':
                         cc.log("calling assign Homework API");
@@ -469,6 +441,17 @@ export class ParseNetwork {
         }
         this.isHandlerBusy = false;
         cc.log("finished queue processing -> resetting isHandlerBusy", this.isHandlerBusy);
+    }
+
+    onHomeTeacherSuccess(homeId: string, studentId: string) {
+        const associatedUser: User = User.getUsers().find(u => u.id === homeId);
+        if (associatedUser) {
+            associatedUser.serverId = studentId;
+            if (User.getCurrentUser().id === homeId) {
+                ParseNetwork.getInstance().storeIntoCache(CURRENT_STUDENT_ID, studentId);
+                User.getCurrentUser().serverId = studentId;
+            }
+        }
     }
 
     startOnlyIfWeb() {
