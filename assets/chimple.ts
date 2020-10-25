@@ -4,10 +4,6 @@ import {Mode, MODE} from "./common/scripts/lib/constants";
 import UtilLogger from "./common/scripts/util-logger";
 import {Util} from "./common/scripts/util";
 import {APIMode, ServiceConfig} from "./common/scripts/services/ServiceConfig";
-import {Queue} from "./queue";
-import {UpdateHomeTeacher} from "./common/scripts/services/parseApi";
-import Home from "./menu/home/scripts/home";
-
 const {ccclass, property} = cc._decorator;
 
 export const CHIMPLE_MODE = 'CHIMPLE_MODE';

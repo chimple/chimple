@@ -70,7 +70,7 @@ export default class TeacherAddedDialog extends cc.Component {
     async onYesClicked(event) {
         if (!!this._teacherId) {
             const request: AcceptTeacherRequest = {
-                teacherId: this._teacherSectionId,
+                teacherId: this._teacherId,
                 sectionId: this._teacherSectionId,
                 studentId: this.selectedStudentId,
                 studentName: this.selectedStudentName
