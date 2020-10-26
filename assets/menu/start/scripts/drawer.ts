@@ -55,11 +55,12 @@ export default class Drawer extends cc.Component {
             })
             drawerButtonComp.button.node.on('touchend', (event: cc.Event) => {
                 if (event.target.getComponent(cc.Button).enabled) {
-                    Header.homeSelected = false
-                    this.selectHeaderButton(drawerButtonComp);
                     config.course = course;
-                    if (this.onCourseClick) this.onCourseClick();
-                    this.closeDrawer()
+                    config.pushScene('menu/start/scenes/courseChapters', 'menu')
+                    // Header.homeSelected = false
+                    // this.selectHeaderButton(drawerButtonComp);
+                    // if (this.onCourseClick) this.onCourseClick();
+                    // this.closeDrawer()
                 }
             })
             if (!Header.homeSelected && config.course && config.course.id == course.id) {
