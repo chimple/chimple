@@ -1,18 +1,27 @@
-import { Queue } from "../../queue";
+import {Queue} from "../../queue";
 import Friend from "./friend";
 import Game from "./game";
-import Config, { DEFAULT_FONT } from "./lib/config";
-import { CURRENT_CLASS_ID, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_STUDENT_ID, CURRENT_SUBJECT_ID, EXAM, BUNDLE_URL } from "./lib/constants";
-import { Lesson } from "./lib/convert";
-import { GAME_CONFIGS } from "./lib/gameConfigs";
-import { User } from "./lib/profile";
-import ProgressMonitor, { StarType } from "./progressMonitor";
-import { QUIZ_ANSWERED } from "./quiz-monitor";
-import { Util } from "./util";
+import Config, {DEFAULT_FONT} from "./lib/config";
+import {
+    BUNDLE_URL,
+    CURRENT_CLASS_ID,
+    CURRENT_SCHOOL_ID,
+    CURRENT_SECTION_ID,
+    CURRENT_STUDENT_ID,
+    CURRENT_SUBJECT_ID,
+    EXAM
+} from "./lib/constants";
+import {Lesson} from "./lib/convert";
+import {GAME_CONFIGS} from "./lib/gameConfigs";
+import {User} from "./lib/profile";
+import ProgressMonitor, {StarType} from "./progressMonitor";
+import {QUIZ_ANSWERED} from "./quiz-monitor";
+import {Util} from "./util";
 import UtilLogger from "./util-logger";
 import Scorecard from "../scorecard/scripts/scorecard";
+import {APIMode, ServiceConfig} from "./services/ServiceConfig";
 
-const { ccclass, property } = cc._decorator;
+const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class LessonController extends cc.Component {
@@ -84,10 +93,10 @@ export default class LessonController extends cc.Component {
     static preloadLesson(node: cc.Node, callback: Function) {
         const config = Config.i;
         config.problem = 0;
-        if(User.getCurrentUser().courseProgressMap.get(config.course.id).currentChapterId == null) {
+        if (User.getCurrentUser().courseProgressMap.get(config.course.id).currentChapterId == null) {
             const lessons: Array<Lesson> = []
             const sample = Math.floor(config.course.chapters.length / 5)
-            for (let index = 0; index < config.course.chapters.length; index+=sample) {
+            for (let index = 0; index < config.course.chapters.length; index += sample) {
                 lessons.push(config.course.chapters[index].lessons[0])
             }
             LessonController.loadQuizzes(lessons, callback, node, 2);
@@ -112,7 +121,7 @@ export default class LessonController extends cc.Component {
             cc.assetManager.loadBundle(config.lesson.id, (err, bundle) => {
                 if (err) {
                     cc.assetManager.loadBundle(BUNDLE_URL + config.lesson.id, (err1, bundle1) => {
-                        if(err1) {
+                        if (err1) {
                             callback(err)
                         } else {
                             LessonController.preloadAndFirst(bundle1, callback);
@@ -152,17 +161,16 @@ export default class LessonController extends cc.Component {
             cc.assetManager.loadBundle(les.id, (err, bundle) => {
                 if (err) {
                     cc.assetManager.loadBundle(BUNDLE_URL + les.id, (err1, bundle1) => {
-                        if(err1) {
+                        if (err1) {
                             callback(err);
                         } else {
                             bundle1.preloadDir('res', null, null, (err: Error, items) => {
                                 Util.bundles.set(les.id, bundle1);
                                 numLessons--;
-                            });        
+                            });
                         }
                     })
-                }
-                else {
+                } else {
                     bundle.preloadDir('res', null, null, (err: Error, items) => {
                         Util.bundles.set(les.id, bundle);
                         numLessons--;
@@ -341,21 +349,40 @@ export default class LessonController extends cc.Component {
                 percentageComplete = finishedLessons / config.chapter.lessons.length;
             }
 
-            if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
-                let updateInfo = {
-                    chapter: config.chapter.id,
-                    lesson: config.lesson.id,
-                    percentComplete: percentageComplete,
-                    timespent: timeSpent,
-                    assessment: score,
-                    kind: 'Progress',
-                    schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
-                    studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
-                    sectionId: cc.sys.localStorage.getItem(CURRENT_SECTION_ID),
-                    subjectId: cc.sys.localStorage.getItem(CURRENT_SUBJECT_ID)
-                };
+            switch (ServiceConfig.getI().mode) {
+                case APIMode.FIREBASE:
+                    let updateInfo = {
+                        chapter: config.chapter.id,
+                        lesson: config.lesson.id,
+                        courseName: config.course.id,
+                        percentComplete: percentageComplete,
+                        timespent: timeSpent,
+                        assessment: score,
+                        kind: 'Progress',
+                        studentId: User.getCurrentUser().id
+                    };
 
-                Queue.getInstance().push(updateInfo);
+                    Queue.getInstance().push(updateInfo);
+                    break;
+                case APIMode.PARSE:
+                    if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
+                        let updateInfo = {
+                            chapter: config.chapter.id,
+                            lesson: config.lesson.id,
+                            courseName: config.course.id,
+                            percentComplete: percentageComplete,
+                            timespent: timeSpent,
+                            assessment: score,
+                            kind: 'Progress',
+                            schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
+                            studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
+                            sectionId: cc.sys.localStorage.getItem(CURRENT_SECTION_ID),
+                            subjectId: cc.sys.localStorage.getItem(CURRENT_SUBJECT_ID)
+                        };
+
+                        Queue.getInstance().push(updateInfo);
+                    }
+                    break;
             }
         }
 
