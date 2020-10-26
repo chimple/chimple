@@ -25,24 +25,24 @@ export default class Drawer extends cc.Component {
     onLoad() {
         const config = Config.i
         this.courseLayout.x = - cc.winSize.width / 2 - 256
-        const homeButton = cc.instantiate(this.drawerButtonPrefab)
-        const homeButtonComp = homeButton.getComponent(HeaderButton)
-        homeButtonComp.button.node.on('touchend', (event: cc.Event) => {
-            if (event.target.getComponent(cc.Button).enabled) {
-                Header.homeSelected = true
-                const config = Config.i
-                config.course = null
-                config.chapter = null
-                config.lesson = null
-                this.selectHeaderButton(homeButtonComp)
-                if (this.onHomeClick) this.onHomeClick()
-                this.closeDrawer()
-            }
-        })
-        homeButtonComp.label.string = Util.i18NText('Home')
-        this.courseLayout.addChild(homeButton)
-        homeButtonComp.selected.node.active = false
-        if (Header.homeSelected) this.selectHeaderButton(homeButtonComp)
+        // const homeButton = cc.instantiate(this.drawerButtonPrefab)
+        // const homeButtonComp = homeButton.getComponent(HeaderButton)
+        // homeButtonComp.button.node.on('touchend', (event: cc.Event) => {
+        //     if (event.target.getComponent(cc.Button).enabled) {
+        //         Header.homeSelected = true
+        //         const config = Config.i
+        //         config.course = null
+        //         config.chapter = null
+        //         config.lesson = null
+        //         this.selectHeaderButton(homeButtonComp)
+        //         if (this.onHomeClick) this.onHomeClick()
+        //         this.closeDrawer()
+        //     }
+        // })
+        // homeButtonComp.label.string = Util.i18NText('Home')
+        // this.courseLayout.addChild(homeButton)
+        // homeButtonComp.selected.node.active = false
+        // if (Header.homeSelected) this.selectHeaderButton(homeButtonComp)
         User.getCurrentUser().courseProgressMap.forEach((val: CourseProgress, courseId: string) => {
             const drawerButton = cc.instantiate(this.drawerButtonPrefab)
             const drawerButtonComp = drawerButton.getComponent(HeaderButton)

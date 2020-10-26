@@ -350,7 +350,8 @@ export class User {
     updateLessonProgress(lessonId: string, score: number, quizScores: number[]): [string, string] {
         var reward: [string, string]
         const config = Config.i
-        if (User.getCurrentUser().courseProgressMap.get(Config.i.course.id).currentChapterId == null) {
+        const user = User.getCurrentUser()
+        if (user.courseProgressMap.get(Config.i.course.id).currentChapterId == null) {
             const formulaScore = quizScores.reduce((acc, cur, i, arr): number => {
                 const mul = Math.floor(arr.length / 2) - Math.floor(i / 2)
                 const neg = cur == 0 ? -0.5 : cur
@@ -359,7 +360,7 @@ export class User {
             const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
             const total = Math.max(0, formulaScore / max)
             const chapters = config.curriculum.get(config.course.id).chapters
-            User.getCurrentUser().courseProgressMap.get(Config.i.course.id).currentChapterId = chapters[Math.floor((chapters.length - 1) * total)].id
+            user.courseProgressMap.get(Config.i.course.id).currentChapterId = chapters[Math.floor((chapters.length - 1) * total)].id
         } else {
             if (this._lessonProgressMap.has(lessonId)) {
                 const lessonProgress = this._lessonProgressMap.get(lessonId)
@@ -405,8 +406,13 @@ export class User {
                 }
             }
         }
-
-
+        if (user.lessonPlan
+            && user.lessonPlanIndex < user.lessonPlan.length
+            && user.lessonPlan[user.lessonPlanIndex] == config.lesson.id
+        ) {
+            user.lessonPlanIndex++
+            config.lessonPlanIncr = true
+        }
         this._storeUser();
         return reward
     }
@@ -485,7 +491,7 @@ export class User {
                     ['en', new CourseProgressClass()],
                     ['maths', new CourseProgressClass()],
                     ['hi', new CourseProgressClass()],
-                    ['puzzle', new CourseProgressClass()]
+                    ['puzzle', new CourseProgressClass('puzzle00')]
                 ]),
             new Map(),
             {},

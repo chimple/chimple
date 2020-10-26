@@ -5,6 +5,7 @@ import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
 import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
 import { CourseProgress, User } from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
+import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
 import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
 import { Util } from "../../../common/scripts/util";
 import LessonButton from "./lessonButton";
@@ -38,8 +39,10 @@ export default class Start extends cc.Component {
     @property(cc.Node)
     content: cc.Node = null
 
+    @property(cc.SpriteFrame)
+    currentLesson: cc.SpriteFrame = null
 
-    onLoad() {
+    async onLoad() {
         this.bgHolder.removeAllChildren();
         if (!!User.getCurrentUser().currentBg) {
             this.setBackground(User.getCurrentUser().currentBg);
@@ -57,13 +60,35 @@ export default class Start extends cc.Component {
         User.getCurrentUser().curriculumLoaded
             ? this.initPage()
             : config.loadCourseJsons(User.getCurrentUser(), this.node, this.initPage.bind(this))
+        const assignments = await ServiceConfig.getI().handle.listAssignments(User.getCurrentUser().id);
+
     }
 
     private initPage() {
         // const drawerComp = this.drawer.getComponent(Drawer);
         // drawerComp.onCourseClick = this.onCourseClick.bind(this);
-        const lessons = this.createLessonPlan()
-        this.displayLessonPlan(lessons)
+        const user = User.getCurrentUser()
+        const lessonPlan = user.lessonPlan
+        const now = new Date()
+        if (lessonPlan && lessonPlan.length > 0
+            && user.lessonPlanIndex < lessonPlan.length
+            && user.lessonPlanDate
+            && user.lessonPlanDate.getDate() == now.getDate()
+            && user.lessonPlanDate.getMonth() == now.getMonth()
+            && user.lessonPlanDate.getFullYear() == now.getFullYear()
+        ) {
+            this.displayLessonPlan(lessonPlan.map((val) =>
+                val.endsWith('_PreQuiz')
+                    ? Start.preQuizLesson(Config.i.curriculum.get(val.split('_')[0]))
+                    : Config.i.allLessons.get(val)
+            ))
+        } else {
+            const lessons = this.createLessonPlan()
+            user.lessonPlan = lessons.map((l) => l.id)
+            user.lessonPlanDate = now
+            user.lessonPlanIndex = 0
+            this.displayLessonPlan(lessons)
+        }
         this.loading.active = false;
         this.registerTeacherDialogCloseEvent();
     }
@@ -165,7 +190,7 @@ export default class Start extends cc.Component {
         Config.i.pushScene('menu/rewards/scenes/rewards', 'menu')
     }
 
-    createLessonPlan() : Lesson[] {
+    createLessonPlan(): Lesson[] {
         const user = User.getCurrentUser()
         const lessons: Array<Lesson> = []
         user.courseProgressMap.forEach((courseProgress: CourseProgress, name: string) => {
@@ -194,12 +219,61 @@ export default class Start extends cc.Component {
     }
 
     displayLessonPlan(lessons: Lesson[]) {
-        const STARTY = 256
+        const user = User.getCurrentUser()
+        const STARTX = 196
+        var dir = 1
+        const lesPerRow = Math.max(2, Math.floor(lessons.length / 3 + 0.5))
+        var currentX = -cc.winSize.width / 2 + STARTX
+        const ctx = this.content.addComponent(cc.Graphics)
+        ctx.lineWidth = 24
+        ctx.strokeColor = cc.Color.WHITE
         lessons.forEach((lesson: Lesson, index: number, array: Lesson[]) => {
-            const node = Start.createLessonButton(lesson, this.lessonButtonPrefab, this.loading)
-            node.x = - cc.winSize.width / 2 + cc.winSize.width / array.length * index
-            node.y = - cc.winSize.height / 2 + STARTY + (cc.winSize.height - STARTY) / array.length * index
+            const node = Start.createLessonButton(lesson, this.lessonButtonPrefab, this.loading, index <= user.lessonPlanIndex)
+            node.x = currentX
+            node.y = cc.winSize.height / 3.5 * (Math.floor(index / lesPerRow) - 1)
+            dir *= (index + 1) % lesPerRow == 0 ? -1 : 1
+            currentX += ((index + 1) % lesPerRow == 0 ? 0 : dir) * (cc.winSize.width - STARTX) / lesPerRow
+            node.scale = 0.5
             this.content.addChild(node)
+            if (index == 0) {
+                ctx.moveTo(node.x, node.y)
+            } else {
+                ctx.lineTo(node.x, node.y)
+                ctx.stroke()
+            }
+            if (index == user.lessonPlanIndex) {
+                const spriteNode = new cc.Node()
+                spriteNode.anchorY = 0
+                spriteNode.y = node.height / 2
+                const sprite = spriteNode.addComponent(cc.Sprite)
+                sprite.spriteFrame = this.currentLesson
+                const button = sprite.addComponent(cc.Button)
+                button.transition = cc.Button.Transition.SCALE
+                spriteNode.on('touchend', node.getComponent(LessonButton).onClick.bind(node.getComponent(LessonButton)))
+                new cc.Tween().target(spriteNode)
+                    .to(0.5, { scale: 1.1 })
+                    .to(0.5, { scale: 1 })
+                    .delay(1)
+                    .union()
+                    .repeatForever()
+                    .start()
+                node.addChild(spriteNode)
+                if (Config.i.lessonPlanIncr && index > 0) {
+                    Config.i.lessonPlanIncr = false
+                    const prevNode = this.content.children[user.lessonPlanIndex - 1]
+                    const prevPos = prevNode.convertToWorldSpaceAR(cc.v3(0, prevNode.height / 2))
+                    const diffPos = node.convertToNodeSpaceAR(prevPos)
+                    const newPos = cc.v3(0, node.height / 2)
+                    spriteNode.position = diffPos
+                    spriteNode.runAction(cc.bezierTo(
+                        0.5, [
+                            cc.v2(diffPos.add(newPos).mul(0.33).add(cc.v3(0, 200))),
+                            cc.v2(diffPos.add(newPos).mul(0.33).add(cc.v3(0, 100))),
+                            cc.v2(newPos)
+                        ]
+                    ))
+                }
+            }
         })
     }
 
@@ -218,7 +292,7 @@ export default class Start extends cc.Component {
     //         }
     //     })
     // }
-    
+
     private recommendedLessonInChapter(chapter: Chapter): Lesson {
         const user = User.getCurrentUser()
 
@@ -297,31 +371,31 @@ export default class Start extends cc.Component {
         }
     }
 
-    public static createPreQuizButton(course: Course, lessonButtonPrefab: cc.Prefab, loading: cc.Node): cc.Node {
+    public static createPreQuizButton(course: Course, lessonButtonPrefab: cc.Prefab, loading: cc.Node, open: boolean): cc.Node {
         const lesson = {
-            id: course.id + 'PreQuiz',
+            id: course.id + '_PreQuiz',
             image: '',
-            name: Util.i18NText('Begin Quiz'),
-            open: true,
+            name: course.name,
+            open: open,
             chapter: {
-                id: course.id + 'PreQuizChapter',
+                id: course.id + '_PreQuizChapter',
                 lessons: [],
                 name: course.name,
                 image: '',
                 course: course
             }
         }
-        return StartContent.createLessonButton(lesson, lessonButtonPrefab, loading)
+        return Start.createLessonButton(lesson, lessonButtonPrefab, loading, open)
     }
 
-    public static preQuizLesson(course: Course) : Lesson {
+    public static preQuizLesson(course: Course): Lesson {
         return {
-            id: course.id + 'PreQuiz',
+            id: course.id + '_PreQuiz',
             image: '',
-            name: Util.i18NText('Begin Quiz'),
+            name: course.name,
             open: true,
             chapter: {
-                id: course.id + 'PreQuizChapter',
+                id: course.id + '_PreQuizChapter',
                 lessons: [],
                 name: course.name,
                 image: '',
@@ -330,12 +404,12 @@ export default class Start extends cc.Component {
         }
     }
 
-    public static createLessonButton(lesson: Lesson, lessonButtonPrefab: cc.Prefab, loading: cc.Node): cc.Node {
+    public static createLessonButton(lesson: Lesson, lessonButtonPrefab: cc.Prefab, loading: cc.Node, open: boolean): cc.Node {
         const lessonButton = cc.instantiate(lessonButtonPrefab);
         const lessonButtonComp = lessonButton.getComponent(LessonButton);
         lessonButtonComp.lesson = lesson;
         lessonButtonComp.loading = loading;
-        lessonButtonComp.open = true
+        lessonButtonComp.open = open
         return lessonButton
-    }    
+    }
 }

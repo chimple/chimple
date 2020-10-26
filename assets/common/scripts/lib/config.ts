@@ -96,10 +96,12 @@ export default class Config {
     data: Array<Array<string>>;
     currentFontName: string;
     curriculum: Map<string, Course> = new Map();
+    allLessons: Map<string, Lesson> = new Map();
     currentGameLessonId: string;
     //currently used in story remove later
     gameLevelName: string;
     worksheet: number;
+    lessonPlanIncr: boolean = false
 
     //remove later
     flow: Flow;
@@ -420,6 +422,7 @@ export default class Config {
                             } else {
                                 lesson.open = false
                             }
+                            this.allLessons.set(lesson.id, lesson)
                         });
                     });
                     this.curriculum.set(name, course);

@@ -54,7 +54,10 @@ export default class Loading extends cc.Component {
 
     addMessage(message: string, stopAnimation: boolean = true, replace: boolean = false) {
         this.messageLabel.string = replace ? message : this.messageLabel.string + '\n' + message
-        if (stopAnimation) this.animation.active = false
+        if (stopAnimation) {
+            this.animation.active = false
+            this.cancelBtn.active = true
+        }
     }
 
     onCancel() {

@@ -1447,7 +1447,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 1024,
-      "height": 640
+      "height": 512
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1459,14 +1459,14 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -64,
+        0,
         0,
         0,
         0,
         0,
         1,
-        0.5,
-        0.5,
+        1,
+        1,
         1
       ]
     },
@@ -1696,6 +1696,9 @@
     },
     "content": {
       "__id__": 36
+    },
+    "currentLesson": {
+      "__uuid__": "afe9f656-d1e6-4ea1-8bcb-9a825719c19a"
     },
     "_id": "2eFtr6mNpDkZvxkcBBwGVh"
   },
