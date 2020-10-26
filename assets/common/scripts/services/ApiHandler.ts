@@ -35,4 +35,7 @@ export class ApiHandler {
         return await this.s.updateHomeTeacher(info);
     }
 
+    public async listAssignments(studentId: string, limit: number = 10) {
+        return await this.s.listAssignments(studentId, limit);
+    }
 }

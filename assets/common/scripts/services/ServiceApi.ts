@@ -7,6 +7,7 @@ export interface ServiceApi {
     getAuthHeader(): any;
     updateProgress(info: UpdateProgressInfo): Promise<any>;
     updateHomeTeacher(info: UpdateHomeTeacher): Promise<any>;
+    listAssignments(studentId: string, limit: number): Promise<any>;
 }
 
 export interface AcceptTeacherRequest {

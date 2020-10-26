@@ -5,6 +5,7 @@ import LessonButton from "./lessonButton";
 import { Util } from "../../../common/scripts/util";
 import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
 import { ParseApi } from "../../../common/scripts/services/parseApi";
+import {ServiceConfig} from "../../../common/scripts/services/ServiceConfig";
 
 const { ccclass, property } = cc._decorator;
 
@@ -51,8 +52,7 @@ export default class StartContent extends cc.Component {
             node.y = - cc.winSize.height / 2 + STARTY + (cc.winSize.height - STARTY) / array.length * index
             this.node.addChild(node)
         })
-
-        const assignments = await ParseApi.getInstance().listAssignments(user.serverId)
+        const assignments = await ServiceConfig.getI().handle.listAssignments('0bb66d84-2767-4a03-ac7d-a6101a7830d5');
         assignments.forEach((ass) => {
             const course: Course = Config.i.curriculum.get(ass.courseCode);
             if (course) {
