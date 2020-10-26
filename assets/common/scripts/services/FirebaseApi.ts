@@ -61,12 +61,12 @@ export class FirebaseApi implements ServiceApi {
         }
     }
 
-    async schoolById(teacherId: string): Promise<any> {
+    async schoolById(id: string): Promise<any> {
         let schoolId = null;
         const requestParams: RequestParams = {
-            url: FIREBASE_SCHOOL_URL + teacherId
+            url: FIREBASE_SCHOOL_URL + id
         };
-        let jsonResult = await ParseNetwork.getInstance().get(requestParams, teacherId, this.getAuthHeader()) || [];
+        let jsonResult = await ParseNetwork.getInstance().get(requestParams, id, this.getAuthHeader()) || [];
         console.log('school id', jsonResult)
         if (jsonResult && Array.isArray(jsonResult) && jsonResult.length > 0) {
             schoolId = jsonResult[0];
