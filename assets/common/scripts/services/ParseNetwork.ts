@@ -375,7 +375,7 @@ export class ParseNetwork {
                     case 'Progress':
                         // only happen in CLOSE, School or Home (with teacher)
                         cc.log("calling update progress API");
-                        ParseApi.getInstance().updateProgress(payload)
+                        ServiceConfig.getI().handle.updateProgress(payload)
                             .then(res => {
                                 UtilLogger.logChimpleEvent(UPDATE_PROGRESS, payload);
                             })
