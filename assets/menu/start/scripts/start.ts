@@ -1,25 +1,14 @@
-import {
-    RECEIVED_TEACHER_REQUEST,
-    TEACHER_ADDED,
-    TEACHER_ID_KEY,
-    TEACHER_NAME_KEY,
-    TEACHER_SECTION_ID
-} from "../../../chimple";
-import Header from "../../../common/scripts/header";
+import { RECEIVED_TEACHER_REQUEST, TEACHER_ADDED, TEACHER_ID_KEY, TEACHER_NAME_KEY, TEACHER_SECTION_ID } from "../../../chimple";
+import HeaderButton from "../../../common/scripts/headerButton";
 import Config from "../../../common/scripts/lib/config";
-import { User, CourseProgress } from "../../../common/scripts/lib/profile";
+import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
+import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
+import { CourseProgress, User } from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
 import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
-import CourseContent from "./courseContent";
-import StartContent from "./startContent";
 import { Util } from "../../../common/scripts/util";
-import HeaderButton from "../../../common/scripts/headerButton";
-import { DrawShape } from "../../../games/drawshape/scripts/drawshape";
-import Drawer from "./drawer";
-import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
-import { ParseApi } from "../../../common/scripts/services/parseApi";
-import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
 import LessonButton from "./lessonButton";
+import StartContent from "./startContent";
 
 const { ccclass, property } = cc._decorator;
 
@@ -45,6 +34,10 @@ export default class Start extends cc.Component {
 
     @property(cc.Prefab)
     lessonButtonPrefab: cc.Prefab = null
+
+    @property(cc.Node)
+    content: cc.Node = null
+
 
     onLoad() {
         this.bgHolder.removeAllChildren();
@@ -206,7 +199,7 @@ export default class Start extends cc.Component {
             const node = Start.createLessonButton(lesson, this.lessonButtonPrefab, this.loading)
             node.x = - cc.winSize.width / 2 + cc.winSize.width / array.length * index
             node.y = - cc.winSize.height / 2 + STARTY + (cc.winSize.height - STARTY) / array.length * index
-            this.node.addChild(node)
+            this.content.addChild(node)
         })
     }
 

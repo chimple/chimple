@@ -16,8 +16,12 @@ export default class CourseChapters extends cc.Component {
     @property(cc.Prefab)
     chapterMenuButtonPrefab: cc.Prefab = null
 
+    @property(cc.Label)
+    title: cc.Label = null
+
     onLoad() {
         const config = Config.i
+        this.title.string = config.course.name
         const isPreQuiz = !User.getCurrentUser().courseProgressMap.get(config.course.id).currentChapterId
         if (isPreQuiz) {
             this.chaptersLayout.addChild(StartContent.createPreQuizButton(config.course, this.lessonButtonPrefab, this.loading))

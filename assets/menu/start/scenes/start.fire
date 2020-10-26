@@ -1465,8 +1465,8 @@
         0,
         0,
         1,
-        1,
-        1,
+        0.5,
+        0.5,
         1
       ]
     },
@@ -1693,6 +1693,9 @@
     },
     "lessonButtonPrefab": {
       "__uuid__": "724d8f45-d519-44aa-81a6-8155f5570da6"
+    },
+    "content": {
+      "__id__": 36
     },
     "_id": "2eFtr6mNpDkZvxkcBBwGVh"
   },
