@@ -3,9 +3,6 @@ import {User} from "./lib/profile";
 
 const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
 
-const firebase = require('firebase/app');
-require('firebase/analytics');
-
 const LOGGER_METHOD = "logEvent";
 const LOGGER_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
 
@@ -62,7 +59,7 @@ export default class UtilLogger {
     private static _currentUserId = null;
     private static _currentDeviceId = null;
     private static _isfireBaseInitialized: boolean = false;
-
+    private static firebase: any;
 
     public static logEvent(eventInfo: object) {
         try {
@@ -135,13 +132,22 @@ export default class UtilLogger {
 
         if (cc.sys.isBrowser) {
             if (!UtilLogger._isfireBaseInitialized) {
-                UtilLogger._isfireBaseInitialized = true;
-                firebase.initializeApp(firebaseConfigWeb);
-                firebase.analytics();
+                (async () => {
+                    UtilLogger._isfireBaseInitialized = true;
+                    await UtilLogger.importFirebaseForWeb();
+                    UtilLogger.firebase.initializeApp(firebaseConfigWeb);
+                    UtilLogger.firebase.analytics();
+                    UtilLogger.firebase.analytics().logEvent(key, data);
+                })();
+            } else {
+                UtilLogger.firebase.analytics().logEvent(key, data);
             }
-
-            firebase.analytics().logEvent(key, data);
         }
+    }
+
+    static async importFirebaseForWeb() {
+        UtilLogger.firebase = await import("firebase/app");
+        await import("firebase/analytics");
     }
 
     public static logChimpleEvent(name: string, event: any) {
