@@ -1,5 +1,5 @@
-import { ASSET_LOAD_METHOD } from "./lib/constants";
-import { User } from "./lib/profile";
+import {ASSET_LOAD_METHOD, firebaseConfigWeb} from "./lib/constants";
+import {User} from "./lib/profile";
 
 const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
 
@@ -58,6 +58,8 @@ export default class UtilLogger {
     private static _storageDirectory = null;
     private static _currentUserId = null;
     private static _currentDeviceId = null;
+    private static _isfireBaseInitialized: boolean = false;
+    private static firebase: any;
 
     public static logEvent(eventInfo: object) {
         try {
@@ -127,6 +129,25 @@ export default class UtilLogger {
             // @ts-ignore
             sdkbox.firebase.Analytics.logEvent(key, data);
         }
+
+        if (cc.sys.isBrowser) {
+            if (!UtilLogger._isfireBaseInitialized) {
+                (async () => {
+                    UtilLogger._isfireBaseInitialized = true;
+                    await UtilLogger.importFirebaseForWeb();
+                    UtilLogger.firebase.initializeApp(firebaseConfigWeb);
+                    UtilLogger.firebase.analytics();
+                    UtilLogger.firebase.analytics().logEvent(key, data);
+                })();
+            } else {
+                UtilLogger.firebase.analytics().logEvent(key, data);
+            }
+        }
+    }
+
+    static async importFirebaseForWeb() {
+        UtilLogger.firebase = await import("firebase/app");
+        await import("firebase/analytics");
     }
 
     public static logChimpleEvent(name: string, event: any) {
@@ -234,6 +255,7 @@ export default class UtilLogger {
         } catch (e) {
         }
     }
+
     public static downloadFile(url: string, downloadDirectory: string) {
         try {
             if (

@@ -29,4 +29,5 @@ export interface UpdateProgressInfo {
     lesson?: string;
     timespent?: number;
     assessment?: number;
+    courseName?: string;
 }

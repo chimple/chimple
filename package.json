@@ -1,0 +1,22 @@
+{
+  "name": "chimple",
+  "version": "1.0.0",
+  "description": "For setting up: mkdir -p sdcard/bahama cd sdcard/bahama git clone https://github.com/chimple/hi.git git clone https://github.com/chimple/hi-maths.git git clone https://github.com/chimple/en.git git clone https://github.com/chimple/en-maths.git",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chimple/chimple.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chimple/chimple/issues"
+  },
+  "homepage": "https://github.com/chimple/chimple#readme",
+  "dependencies": {
+    "firebase": "^7.24.0"
+  }
+}
