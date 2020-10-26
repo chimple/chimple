@@ -26,26 +26,26 @@ export const SIMULATOR_ROOT_DIR = '/Users/shyamalupadhyaya/Dev/chimple-git/sdcar
 
 export const COURSE_SERVER = {
     'local': {
-        'hi'      : 'http://localhost:8901/courses/',
-        'en'      : 'http://localhost:8901/courses/',
+        'hi': 'http://localhost:8901/courses/',
+        'en': 'http://localhost:8901/courses/',
         'en-maths': 'http://localhost:8901/courses/',
         'hi-maths': 'http://localhost:8901/courses/'
     },
-    'dev'  : {
-        'hi'      : 'https://bahama-hi-stage.web.app/bundles/courses/',
-        'en'      : 'https://bahama-hi-stage.web.app/bundles/courses/',
+    'dev': {
+        'hi': 'https://bahama-hi-stage.web.app/bundles/courses/',
+        'en': 'https://bahama-hi-stage.web.app/bundles/courses/',
         'en-maths': 'https://bahama-hi-stage.web.app/bundles/courses/',
         'hi-maths': 'https://bahama-hi-stage.web.app/bundles/courses/'
     },
     'stage': {
-        'hi'      : 'https://bahama-hi-stage.web.app/new/courses/',
-        'en'      : 'https://bahama-hi-stage.web.app/new/courses/',
+        'hi': 'https://bahama-hi-stage.web.app/new/courses/',
+        'en': 'https://bahama-hi-stage.web.app/new/courses/',
         'en-maths': 'https://bahama-hi-stage.web.app/new/courses/',
         'hi-maths': 'https://bahama-hi-stage.web.app/new/courses/'
     },
-    'prod' : {
-        'hi'      : 'https://bahama-hi-prod.web.app/courses/',
-        'en'      : 'https://bahama-hi-prod.web.app/courses/',
+    'prod': {
+        'hi': 'https://bahama-hi-prod.web.app/courses/',
+        'en': 'https://bahama-hi-prod.web.app/courses/',
         'en-maths': 'https://bahama-hi-prod.web.app/courses/',
         'hi-maths': 'https://bahama-hi-prod.web.app/courses/'
     }
@@ -136,3 +136,15 @@ export const COUNTRY_CODES: object[] = [
         "country_code": "id"
     }
 ];
+
+
+export const firebaseConfigWeb = {
+    apiKey: "AIzaSyBY9Q_FPif0h82-GsUNKOQfOsFk02iptC4",
+    authDomain: "chimple-stage.firebaseapp.com",
+    databaseURL: "https://chimple-stage.firebaseio.com",
+    projectId: "chimple-stage",
+    storageBucket: "chimple-stage.appspot.com",
+    messagingSenderId: "164143434825",
+    appId: "1:164143434825:web:eee37bcdbc0fb20f964398",
+    measurementId: "G-FNDYT82RFC"
+};

@@ -1,7 +1,10 @@
-import { ASSET_LOAD_METHOD } from "./lib/constants";
-import { User } from "./lib/profile";
+import {ASSET_LOAD_METHOD, firebaseConfigWeb} from "./lib/constants";
+import {User} from "./lib/profile";
 
 const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
+
+const firebase = require('firebase/app');
+require('firebase/analytics');
 
 const LOGGER_METHOD = "logEvent";
 const LOGGER_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
@@ -58,6 +61,8 @@ export default class UtilLogger {
     private static _storageDirectory = null;
     private static _currentUserId = null;
     private static _currentDeviceId = null;
+    private static _isfireBaseInitialized: boolean = false;
+
 
     public static logEvent(eventInfo: object) {
         try {
@@ -126,6 +131,16 @@ export default class UtilLogger {
         if ("undefined" != typeof sdkbox) {
             // @ts-ignore
             sdkbox.firebase.Analytics.logEvent(key, data);
+        }
+
+        if (cc.sys.isBrowser) {
+            if (!UtilLogger._isfireBaseInitialized) {
+                UtilLogger._isfireBaseInitialized = true;
+                firebase.initializeApp(firebaseConfigWeb);
+                firebase.analytics();
+            }
+
+            firebase.analytics().logEvent(key, data);
         }
     }
 
@@ -234,6 +249,7 @@ export default class UtilLogger {
         } catch (e) {
         }
     }
+
     public static downloadFile(url: string, downloadDirectory: string) {
         try {
             if (
