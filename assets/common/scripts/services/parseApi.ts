@@ -1,20 +1,73 @@
-import { ParseUser } from "../domain/parseUser";
-import { RequestParams, ParseNetwork } from "./ParseNetwork";
-import { LOGIN_URL, USER_URL, LOGIN_TYPE, CONNECTION_URL, CURRENT_CONNECTION, SCHOOL_URL, CURRENT_TEACHER_SCHOOL, CHAPTER_ASSIGNMENT, CHAPTER_ASSIGNMENT_URL, SUBJECT_URL, SUBJECTS, SECTION_URL, SECTIONS, TUITION_URL, STUDENTS_FOR_TEACHER, PROGRESS_URL, CLASSES, SCHOOL_STUDENT_URL, STUDENTS, CLASS_URL, SUBJECT, TEACHER, CURRENT_SUBJECT_NAME, SCHOOL_CODE, SCHOOL_PASSWORD, MONITOR_URL, SIGN_UP_URL, SIGN_UP_TEST_URL, LIST_ASSIGNMENTS, UPDATE_PROGRESS_URL, ASSIGN_HOMEWORK_URL, UPDATE_MONITOR_URL, CREATE_SECTION_URL, UPDATE_HOME_TEACHER_URL, STUDENT_URL, ASSIGNMENTS_FOR_CHAPTER, ASSIGNMENTS_API_URL, CHAPTER_PROGRESS, CHAPTER_PROGRESS_URL, TEACHERS_FOR_STUDENT, ASSIGNMENTS, ASSIGNMENTS_URL, LEARNING_SUMMARY_URL } from "../domain/parseConstants";
-import { LOGGED_IN_USER, CURRENT_SCHOOL_ID, CURRENT_SECTION_ID, CURRENT_CLASS_ID, CURRENT_SUBJECT_ID } from "../lib/constants";
-import { ParseConnection } from "../domain/parseConnection";
-import { ParseSchool, ParseSubjectByTeacher, Pointer } from "../domain/parseSchool";
-import { ParseChapterAssignment } from "../domain/parseChapterAssignment";
-import { ParseSubject } from "../domain/parseSubject";
-import { ParseSection } from "../domain/parseSection";
-import { ParseStudent } from "../domain/parseStudent";
-import { ParseClass } from "../domain/parseClass";
-import { ParseMonitor } from "../domain/parseMonitor";
-import Profile, { Gender, User, LessonProgress } from "../lib/profile";
-import { ParseAssignmentForChapter } from "../domain/parseAssignmentForChapter";
-import { ParseTeachersForStudent } from "../domain/parseTeachersForStudent";
-import { ParseChapterProgress } from "../domain/parseChapterProgress";
-import { ParseAssignment, Result } from "../domain/parseAssignment";
+import {ParseUser} from "../domain/parseUser";
+import {RequestParams, ParseNetwork, AuthHeader} from "./ParseNetwork";
+import {
+    LOGIN_URL,
+    USER_URL,
+    LOGIN_TYPE,
+    CONNECTION_URL,
+    CURRENT_CONNECTION,
+    SCHOOL_URL,
+    CURRENT_TEACHER_SCHOOL,
+    CHAPTER_ASSIGNMENT,
+    CHAPTER_ASSIGNMENT_URL,
+    SUBJECT_URL,
+    SUBJECTS,
+    SECTION_URL,
+    SECTIONS,
+    TUITION_URL,
+    STUDENTS_FOR_TEACHER,
+    PROGRESS_URL,
+    CLASSES,
+    SCHOOL_STUDENT_URL,
+    STUDENTS,
+    CLASS_URL,
+    SUBJECT,
+    TEACHER,
+    CURRENT_SUBJECT_NAME,
+    SCHOOL_CODE,
+    SCHOOL_PASSWORD,
+    MONITOR_URL,
+    SIGN_UP_URL,
+    SIGN_UP_TEST_URL,
+    LIST_ASSIGNMENTS,
+    UPDATE_PROGRESS_URL,
+    ASSIGN_HOMEWORK_URL,
+    UPDATE_MONITOR_URL,
+    CREATE_SECTION_URL,
+    UPDATE_HOME_TEACHER_URL,
+    STUDENT_URL,
+    ASSIGNMENTS_FOR_CHAPTER,
+    ASSIGNMENTS_API_URL,
+    CHAPTER_PROGRESS,
+    CHAPTER_PROGRESS_URL,
+    TEACHERS_FOR_STUDENT,
+    ASSIGNMENTS,
+    ASSIGNMENTS_URL,
+    LEARNING_SUMMARY_URL,
+    APPLICATION_ID, PARSE_REST_API_KEY, DEFAULT_TIMEOUT
+} from "../domain/parseConstants";
+import {
+    LOGGED_IN_USER,
+    CURRENT_SCHOOL_ID,
+    CURRENT_SECTION_ID,
+    CURRENT_CLASS_ID,
+    CURRENT_SUBJECT_ID
+} from "../lib/constants";
+import {ParseConnection} from "../domain/parseConnection";
+import {ParseSchool, ParseSubjectByTeacher, Pointer} from "../domain/parseSchool";
+import {ParseChapterAssignment} from "../domain/parseChapterAssignment";
+import {ParseSubject} from "../domain/parseSubject";
+import {ParseSection} from "../domain/parseSection";
+import {ParseStudent} from "../domain/parseStudent";
+import {ParseClass} from "../domain/parseClass";
+import {ParseMonitor} from "../domain/parseMonitor";
+import Profile, {Gender, User, LessonProgress} from "../lib/profile";
+import {ParseAssignmentForChapter} from "../domain/parseAssignmentForChapter";
+import {ParseTeachersForStudent} from "../domain/parseTeachersForStudent";
+import {ParseChapterProgress} from "../domain/parseChapterProgress";
+import {ParseAssignment, Result} from "../domain/parseAssignment";
+import {AcceptTeacherRequest, ServiceApi, UpdateProgressInfo} from "./ServiceApi";
+import {Queue} from "../../../queue";
 
 export const enum SelectionMode {
     Home,
@@ -83,18 +136,6 @@ export interface UpdateHomeTeacher {
     studentGender?: string;
 }
 
-export interface UpdateProgressInfo {
-    schoolId?: string;
-    classId?: string;
-    subjectId?: string;
-    studentId?: string;
-    sectionId?: string;
-    chapter?: string;
-    lesson?: string;
-    timespent?: number;
-    assessment?: number;
-}
-
 
 export interface AssignHomeWorkInfo {
     kind: string;
@@ -119,10 +160,42 @@ export interface SignUpInfo {
     code?: string;
 }
 
-export class ParseApi {
+export class ParseApi implements ServiceApi {
     private static instance: ParseApi;
 
     private constructor() {
+    }
+
+    async teacherRequestAccepted(request:AcceptTeacherRequest): Promise<any> {
+        const school: ParseSchool = await ParseApi.getInstance().schoolById(request.teacherId)
+        let updateHomeTeacherInfo: UpdateHomeTeacher = {
+            homeId: request.studentId,
+            teacherId: school.user.objectId,
+            kind: "UpdateHomeTeacher",
+            studentName: request.studentName,
+            schoolId: school.objectId,
+            sectionId: request.sectionId
+        };
+        Queue.getInstance().push(updateHomeTeacherInfo);
+        return true;
+    }
+
+    getAuthHeader(): any {
+        const LoggedInUserType: ParseUser = ParseApi.getInstance().getLoggedInUser();
+        const authHeader: AuthHeader = {
+            'X-Parse-Application-Id': APPLICATION_ID,
+            'X-Parse-REST-API-Key': PARSE_REST_API_KEY,
+            'Accept': 'application/json'
+        };
+        if (!!LoggedInUserType && !!LoggedInUserType.sessionToken) {
+            authHeader['x-parse-session-token'] = LoggedInUserType.sessionToken;
+        }
+
+        return {
+            ignoreCache: false,
+            headers: authHeader,
+            timeout: DEFAULT_TIMEOUT
+        }
     }
 
     public static getInstance(): ParseApi {
@@ -134,12 +207,11 @@ export class ParseApi {
     }
 
     public async login(username: string, password: string): Promise<ParseUser> {
-        let jsonResult = null;
         const requestParams: RequestParams = {
             url: LOGIN_URL,
             queryParams: {username, password}
         };
-        jsonResult = await ParseNetwork.getInstance().get(requestParams, LOGGED_IN_USER);
+        await ParseNetwork.getInstance().get(requestParams, LOGGED_IN_USER, this.getAuthHeader());
         return ParseApi.instance.getLoggedInUser();
     }
 
@@ -157,7 +229,7 @@ export class ParseApi {
             url: USER_URL,
             body: user
         };
-        return await ParseNetwork.getInstance().post(requestParams);
+        return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
     }
 
     public async isUserExists(username: string): Promise<boolean> {
@@ -167,7 +239,7 @@ export class ParseApi {
             queryParams: {'username': username},
             isWhereQuery: true
         };
-        let jsonResult = await ParseNetwork.getInstance().get(requestParams, username);
+        let jsonResult = await ParseNetwork.getInstance().get(requestParams, username, this.getAuthHeader());
         userExists = jsonResult && Array.isArray(jsonResult) && jsonResult.length > 0 ? true : false;
         return userExists;
     }
@@ -194,7 +266,7 @@ export class ParseApi {
             isWhereQuery: true,
             includeParam: 'school,school.user'
         };
-        jsonResult = await ParseNetwork.getInstance().get(requestParams, CURRENT_CONNECTION);
+        jsonResult = await ParseNetwork.getInstance().get(requestParams, CURRENT_CONNECTION, this.getAuthHeader());
         const cons: ParseConnection[] = ParseApi.instance.selectedConnections();
         return cons;
     }
@@ -211,7 +283,7 @@ export class ParseApi {
             queryParams: condition,
             isWhereQuery: true
         };
-        jsonResult = await ParseNetwork.getInstance().get(requestParams, CURRENT_TEACHER_SCHOOL);
+        jsonResult = await ParseNetwork.getInstance().get(requestParams, CURRENT_TEACHER_SCHOOL, this.getAuthHeader());
         return ParseApi.instance.selectedSchool(CURRENT_TEACHER_SCHOOL);
     }
 
@@ -220,7 +292,7 @@ export class ParseApi {
         const requestParams: RequestParams = {
             url: SCHOOL_URL + "/" + objectId
         };
-        jsonResult = await ParseNetwork.getInstance().get(requestParams, objectId);
+        jsonResult = await ParseNetwork.getInstance().get(requestParams, objectId, this.getAuthHeader());
         return ParseApi.instance.selectedSchool(objectId);
     }
 
@@ -238,7 +310,7 @@ export class ParseApi {
             queryParams: condition,
             isWhereQuery: true
         };
-        jsonResult = await ParseNetwork.getInstance().get(requestParams, storeKey);
+        jsonResult = await ParseNetwork.getInstance().get(requestParams, storeKey, this.getAuthHeader());
         let chapterAssignments: ParseChapterAssignment[] = ParseApi.instance.fromJson(ParseNetwork.getInstance().getParseObjectFromCache(storeKey), ParseChapterAssignment, false);
         return chapterAssignments;
     }
@@ -260,7 +332,7 @@ export class ParseApi {
         const requestParams: RequestParams = {
             url: SUBJECT_URL
         };
-        await ParseNetwork.getInstance().get(requestParams, SUBJECTS);
+        await ParseNetwork.getInstance().get(requestParams, SUBJECTS, this.getAuthHeader());
         return ParseApi.instance.allSubjects();
     }
 
@@ -275,7 +347,7 @@ export class ParseApi {
             queryParams: schoolCondition,
             isWhereQuery: true
         };
-        jsonResult = await ParseNetwork.getInstance().get(requestParams, SECTIONS + schoolId);
+        jsonResult = await ParseNetwork.getInstance().get(requestParams, SECTIONS + schoolId, this.getAuthHeader());
         const sections: ParseSection[] = ParseApi.instance.fromJson(ParseNetwork.getInstance().getParseObjectFromCache(SECTIONS + schoolId), ParseSection, false);
         return sections;
     }
@@ -295,7 +367,7 @@ export class ParseApi {
             includeParam: 'student',
             keysParam: 'student'
         };
-        jsonResult = await ParseNetwork.getInstance().get(requestParams, STUDENTS_FOR_TEACHER + teacher.objectId) || [];
+        jsonResult = await ParseNetwork.getInstance().get(requestParams, STUDENTS_FOR_TEACHER + teacher.objectId, this.getAuthHeader()) || [];
         let result: StudentInfo[] = jsonResult.map(r => {
             return {
                 name: r.student.name,
@@ -339,7 +411,7 @@ export class ParseApi {
                 includeParam: 'student',
                 keysParam: 'student,lesson,assessment,timeSpent'
             };
-            jsonResult = await ParseNetwork.getInstance().get(requestParams) || [];
+            jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader()) || [];
             result = jsonResult.map(r => {
                 return {
                     objectId: r.student.objectId,
@@ -379,7 +451,7 @@ export class ParseApi {
             includeParam: 'student',
             keysParam: 'student,lesson,assessment,timeSpent'
         };
-        jsonResult = await ParseNetwork.getInstance().get(requestParams) || [];
+        jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader()) || [];
 
         result = jsonResult.map(r => {
             return {
@@ -420,7 +492,7 @@ export class ParseApi {
             isWhereQuery: true,
             includeParam: 'student'
         };
-        jsonResult = await ParseNetwork.getInstance().get(requestParams, STUDENTS + schoolId + sectionId) || [];
+        jsonResult = await ParseNetwork.getInstance().get(requestParams, STUDENTS + schoolId + sectionId, this.getAuthHeader()) || [];
         jsonResult = jsonResult.map(ps => ps.student);
         const students: ParseStudent[] = ParseApi.instance.fromJson(jsonResult, ParseStudent, false);
         return students;
@@ -444,7 +516,7 @@ export class ParseApi {
             isWhereQuery: true,
             includeParam: 'subject,teacher'
         };
-        jsonResult = await ParseNetwork.getInstance().get(requestParams, CLASSES + schoolId);
+        jsonResult = await ParseNetwork.getInstance().get(requestParams, CLASSES + schoolId, this.getAuthHeader());
         const classes: ParseClass[] = ParseApi.instance.selectedClasses(schoolId);
         cc.log('classes', classes);
 
@@ -499,11 +571,11 @@ export class ParseApi {
 
     public convertDataURIToBinary(dataURI): Uint8Array {
         let BASE64_MARKER = ';base64,';
-        var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
-        var base64 = dataURI.substring(base64Index);
-        var raw = window.atob(base64);
-        var rawLength = raw.length;
-        var array = new Uint8Array(new ArrayBuffer(rawLength));
+        const base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+        const base64 = dataURI.substring(base64Index);
+        const raw = window.atob(base64);
+        const rawLength = raw.length;
+        const array = new Uint8Array(new ArrayBuffer(rawLength));
 
         for (let i = 0; i < rawLength; i++) {
             array[i] = raw.charCodeAt(i);
@@ -563,7 +635,7 @@ export class ParseApi {
             url: MONITOR_URL,
             body: monitor
         };
-        await ParseNetwork.getInstance().post(requestParams);
+        await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
     }
 
     // public async updateMonitor(info: UpdateMonitorInfo): Promise<any> {
@@ -588,7 +660,7 @@ export class ParseApi {
                 url: SIGN_UP_URL,
                 body: info
             };
-            return await ParseNetwork.getInstance().post(requestParams);
+            return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
         }
     }
 
@@ -599,7 +671,7 @@ export class ParseApi {
                 url: SIGN_UP_TEST_URL,
                 body: info
             };
-            return await ParseNetwork.getInstance().post(requestParams);
+            return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
         }
     }
 
@@ -612,7 +684,7 @@ export class ParseApi {
                 limit
             }
         };
-        const result = await ParseNetwork.getInstance().post(requestParams);
+        const result = await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
         if (result && result.data && result.data.result) {
             this.buildAssignments(assignments, result.data.result.myAssignments);
             this.buildAssignments(assignments, result.data.result.allAssignments);
@@ -655,7 +727,7 @@ export class ParseApi {
                 url: UPDATE_PROGRESS_URL,
                 body: info
             };
-            return await ParseNetwork.getInstance().post(requestParams);
+            return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
         }
     }
 
@@ -665,7 +737,7 @@ export class ParseApi {
                 url: ASSIGN_HOMEWORK_URL,
                 body: info
             };
-            return await ParseNetwork.getInstance().post(requestParams);
+            return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
         }
     }
 
@@ -675,7 +747,7 @@ export class ParseApi {
                 url: UPDATE_MONITOR_URL,
                 body: info
             };
-            return await ParseNetwork.getInstance().post(requestParams);
+            return await ParseNetwork.getInstance().post(requestParams,this.getAuthHeader());
         }
     }
 
@@ -687,7 +759,7 @@ export class ParseApi {
                 sectionName: sectionName
             }
         };
-        return await ParseNetwork.getInstance().post(requestParams);
+        return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
     }
 
     public removeFromCache(key: string) {
@@ -701,7 +773,7 @@ export class ParseApi {
                 url: UPDATE_HOME_TEACHER_URL,
                 body: info
             };
-            return await ParseNetwork.getInstance().post(requestParams);
+            return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
         }
     }
 
@@ -714,7 +786,7 @@ export class ParseApi {
                     profile: info.profile
                 }
             };
-            return await ParseNetwork.getInstance().update(requestParams);
+            return await ParseNetwork.getInstance().update(requestParams, this.getAuthHeader());
         }
     }
 
@@ -733,7 +805,7 @@ export class ParseApi {
             },
             isWhereQuery: true
         };
-        jsonResult = await ParseNetwork.getInstance().get(requestParams);
+        jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader());
         const monitors: ParseMonitor[] = ParseApi.instance.fromJson(jsonResult, ParseMonitor, false);
         monitor = monitors && monitors.length > 0 ? monitors[0] : null;
         return monitor;
@@ -759,7 +831,7 @@ export class ParseApi {
             },
             isWhereQuery: true
         };
-        jsonResult = await ParseNetwork.getInstance().get(requestParams, storyKey);
+        jsonResult = await ParseNetwork.getInstance().get(requestParams, storyKey, this.getAuthHeader());
         const responses: ParseAssignmentForChapter[] = ParseApi.instance.fromJson(jsonResult, ParseAssignmentForChapter, false);
         return responses;
     }
@@ -784,7 +856,7 @@ export class ParseApi {
             },
             isWhereQuery: true
         };
-        jsonResult = await ParseNetwork.getInstance().get(requestParams);
+        jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader());
         const responses: ParseAssignmentForChapter[] = ParseApi.instance.fromJson(jsonResult, ParseAssignmentForChapter, false);
         return responses;
     }
@@ -805,7 +877,7 @@ export class ParseApi {
             },
             isWhereQuery: true
         };
-        jsonResult = await ParseNetwork.getInstance().get(requestParams, storyKey);
+        jsonResult = await ParseNetwork.getInstance().get(requestParams, storyKey, this.getAuthHeader());
         const responses: ParseChapterProgress[] = ParseApi.instance.fromJson(jsonResult, ParseChapterProgress, false);
         return responses;
     }
@@ -821,7 +893,7 @@ export class ParseApi {
             isWhereQuery: true,
             includeParam: 'school.user'
         };
-        jsonResult = await ParseNetwork.getInstance().get(requestParams, storyKey);
+        jsonResult = await ParseNetwork.getInstance().get(requestParams, storyKey, this.getAuthHeader());
         const responses: ParseTeachersForStudent[] = ParseApi.instance.fromJson(jsonResult, ParseTeachersForStudent, false);
         return responses;
     }
@@ -848,7 +920,7 @@ export class ParseApi {
                     'sectionId': sectionId
                 }
             };
-            jsonResult = await ParseNetwork.getInstance().post(requestParams);
+            jsonResult = await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
             if (!!jsonResult && !!jsonResult.data && !!jsonResult.data.result) {
                 const progressResults = jsonResult.data.result.progressResults || [];
                 let students = jsonResult.data.result.students || [];
@@ -909,7 +981,7 @@ export class ParseApi {
             queryParams: queryCondition,
             isWhereQuery: true
         };
-        jsonResult = await ParseNetwork.getInstance().get(requestParams) || [];
+        jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader()) || [];
         jsonResult.forEach(r => {
             result.push({
                 studentId: r.student.objectId,

@@ -7,7 +7,7 @@ export default class ChimpleLabel extends cc.Label {
     protected onLoad(): void {
         super.onLoad();
         this.useSystemFont = true;
-        const config = Config.i
+        const config = Config.i;
         if (config !== null) {
             const fontName: string = config.currentFontName;
             let fontLoaded: boolean = config.hasLoadedTextFont(fontName);
