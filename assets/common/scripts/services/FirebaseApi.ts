@@ -108,10 +108,14 @@ export class FirebaseApi implements ServiceApi {
                         b.chapterId = a.chapter;
                         b.lessonId = a.lesson;
                         b.courseCode = a.subject.courseCode;
-                        const year = a.createAt.substring(0, 4);
-                        const month = a.createAt.substring(4, 6);
-                        const day = a.createAt.substring(6, 8);
-                        b.createAt = new Date(year, month - 1, day);
+                        if(!!a.createAt) {
+                            const year = a.createAt.substring(0, 4);
+                            const month = a.createAt.substring(4, 6);
+                            const day = a.createAt.substring(6, 8);
+                            b.createAt = new Date(year, month - 1, day);
+                        } else {
+                            b.createAt = new Date();
+                        }
                         if (lessonMap.has(a.lesson)) {
                             const lProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(a.lesson);
                             shouldInclude = lProgress.date.getTime() < b.createAt.getTime();
