@@ -108,10 +108,11 @@ export class FirebaseApi implements ServiceApi {
                         b.chapterId = a.chapter;
                         b.lessonId = a.lesson;
                         b.courseCode = a.subject.courseCode;
-                        if(!!a.createAt) {
-                            const year = a.createAt.substring(0, 4);
-                            const month = a.createAt.substring(4, 6);
-                            const day = a.createAt.substring(6, 8);
+                        const dateString = a.createAt.toString();
+                        if(!!dateString) {
+                            const year = dateString.substring(0, 4);
+                            const month = dateString.substring(4, 6);
+                            const day = dateString.substring(6, 8);
                             b.createAt = new Date(year, month - 1, day);
                         } else {
                             b.createAt = new Date();
