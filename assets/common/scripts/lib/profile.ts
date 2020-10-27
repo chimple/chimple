@@ -89,6 +89,9 @@ export class User {
     private _unlockedRewards: object;
     private _isTeacher: boolean;
     private _level: number;
+    private _lessonPlan: string[]
+    private _lessonPlanDate: Date
+    private _lessonPlanIndex: number
     debug: boolean = false
     curriculumLoaded: boolean = false
 
@@ -282,6 +285,33 @@ export class User {
         this._storeUser();
     }
 
+    set lessonPlan(lessonPlan: string[]) {
+        this._lessonPlan = lessonPlan;
+        this._storeUser();
+    }
+
+    get lessonPlan(): string[] {
+        return this._lessonPlan;
+    }
+
+    set lessonPlanDate(lessonPlanDate: Date) {
+        this._lessonPlanDate = lessonPlanDate;
+        this._storeUser();
+    }
+
+    get lessonPlanDate(): Date {
+        return this._lessonPlanDate;
+    }
+
+    set lessonPlanIndex(lessonPlanIndex: number) {
+        this._lessonPlanIndex = lessonPlanIndex;
+        this._storeUser();
+    }
+
+    get lessonPlanIndex(): number {
+        return this._lessonPlanIndex;
+    }
+
     unlockInventoryForItem(item: string) {
         this._unlockedInventory[item] = true;
         this._storeUser();
@@ -299,16 +329,17 @@ export class User {
 
     openAllRewards() {
         REWARD_CHARACTERS.forEach((char) => {
-            this.unlockRewardsForItem(`${REWARD_TYPES[0]}-${char}`, 1)
+            this._unlockedRewards[`${REWARD_TYPES[0]}-${char}`] = 1
             INVENTORY_DATA.forEach((arr) => {
                 arr.forEach((inv) => {
-                    this.unlockRewardsForItem(`${REWARD_TYPES[3]}-${char}-${inv}`, 1)
+                    this._unlockedRewards[`${REWARD_TYPES[3]}-${char}-${inv}`] = 1
                 })
             })
         })
         REWARD_BACKGROUNDS.forEach((bg) => {
-            this.unlockRewardsForItem(`${REWARD_TYPES[1]}-${bg}`, 1)
+            this._unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] = 1
         })
+        this._storeUser()
     }
 
     unlockBydefaultRewards() {
@@ -319,7 +350,8 @@ export class User {
     updateLessonProgress(lessonId: string, score: number, quizScores: number[]): [string, string] {
         var reward: [string, string]
         const config = Config.i
-        if (User.getCurrentUser().courseProgressMap.get(Config.i.course.id).currentChapterId == null) {
+        const user = User.getCurrentUser()
+        if (user.courseProgressMap.get(Config.i.course.id).currentChapterId == null) {
             const formulaScore = quizScores.reduce((acc, cur, i, arr): number => {
                 const mul = Math.floor(arr.length / 2) - Math.floor(i / 2)
                 const neg = cur == 0 ? -0.5 : cur
@@ -328,7 +360,7 @@ export class User {
             const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
             const total = Math.max(0, formulaScore / max)
             const chapters = config.curriculum.get(config.course.id).chapters
-            User.getCurrentUser().courseProgressMap.get(Config.i.course.id).currentChapterId = chapters[Math.floor((chapters.length - 1) * total)].id
+            user.courseProgressMap.get(Config.i.course.id).currentChapterId = chapters[Math.floor((chapters.length - 1) * total)].id
         } else {
             if (this._lessonProgressMap.has(lessonId)) {
                 const lessonProgress = this._lessonProgressMap.get(lessonId)
@@ -374,8 +406,13 @@ export class User {
                 }
             }
         }
-
-
+        if (user.lessonPlan
+            && user.lessonPlanIndex < user.lessonPlan.length
+            && user.lessonPlan[user.lessonPlanIndex] == config.lesson.id
+        ) {
+            user.lessonPlanIndex++
+            config.lessonPlanIncr = true
+        }
         this._storeUser();
         return reward
     }
@@ -454,7 +491,7 @@ export class User {
                     ['en', new CourseProgressClass()],
                     ['maths', new CourseProgressClass()],
                     ['hi', new CourseProgressClass()],
-                    ['puzzle', new CourseProgressClass()]
+                    ['puzzle', new CourseProgressClass('puzzle00')]
                 ]),
             new Map(),
             {},
@@ -530,6 +567,9 @@ export class User {
             data.debug,
             data.serverId
         );
+        user._lessonPlan = data.lessonPlan
+        user._lessonPlanDate = new Date(data.lessonPlanDate)
+        user._lessonPlanIndex = data.lessonPlanIndex
         return user;
     }
 
@@ -558,7 +598,10 @@ export class User {
             'unlockedInventory': user.unlockedInventory,
             'unlockedRewards': user.unlockedRewards,
             'debug': user.debug,
-            'serverId': user.serverId
+            'serverId': user.serverId,
+            'lessonPlan': user.lessonPlan,
+            'lessonPlanIndex': user.lessonPlanIndex,
+            'lessonPlanDate': user.lessonPlanDate
         });
     }
 

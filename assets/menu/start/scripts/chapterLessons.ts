@@ -44,9 +44,10 @@ export default class ChapterLessons extends cc.Component {
             this.layout.addChild(lessonButton)
         })
         this.layout.width = cc.winSize.width
-        this.layout.parent.height = this.layout.height
         this.layout.parent.width = cc.winSize.width
         this.layout.parent.parent.width = cc.winSize.width
+        this.layout.getComponent(cc.Layout).updateLayout()
+        this.layout.parent.height = this.layout.height
     }
 
     private setBackground(bgprefabName: string) {

@@ -58,7 +58,7 @@
     "_groupIndex": 0,
     "groupIndex": 0,
     "autoReleaseAssets": true,
-    "_id": "237ea6cc-6545-4698-8981-2b6369a4096b"
+    "_id": "60e42d1d-dc02-4fe2-92d5-8d48defe27e9"
   },
   {
     "__type__": "cc.Node",
@@ -570,7 +570,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        336.653,
+        336.953,
         0,
         0,
         0,
@@ -1735,7 +1735,7 @@
     "_id": "2dhuvlRbZHT5t/BXG2Z0gl"
   },
   {
-    "__type__": "0509cXbc2xOGKT4rGZRbk/1",
+    "__type__": "cdf75lC/IFHCpbwumT2/QOh",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1745,10 +1745,13 @@
     "lessonButtonPrefab": {
       "__uuid__": "724d8f45-d519-44aa-81a6-8155f5570da6"
     },
-    "layout": {
+    "chaptersLayout": {
       "__id__": 16
     },
-    "label": {
+    "chapterMenuButtonPrefab": {
+      "__uuid__": "ef94d787-05dd-4b65-95db-284df3e23e75"
+    },
+    "title": {
       "__id__": 12
     },
     "loading": {
@@ -1757,6 +1760,6 @@
     "bgHolder": {
       "__id__": 5
     },
-    "_id": "97mx7dELVFDq2PRkiGFREs"
+    "_id": "8fI7pK7YVOvK6ZRFJ9T96j"
   }
 ]

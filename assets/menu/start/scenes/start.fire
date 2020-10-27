@@ -198,7 +198,7 @@
       "array": [
         0,
         0,
-        316.09927238132013,
+        536.9357503463519,
         0,
         0,
         0,
@@ -1447,7 +1447,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 1024,
-      "height": 640
+      "height": 512
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1459,7 +1459,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -64,
+        0,
         0,
         0,
         0,
@@ -1673,23 +1673,8 @@
       "__id__": 2
     },
     "_enabled": true,
-    "content": {
-      "__id__": 36
-    },
-    "startContentPrefab": {
-      "__uuid__": "ac4e9349-74d0-4064-8cb1-505374276a63"
-    },
-    "courseContentPrefab": {
-      "__uuid__": "6fea99b0-2fb6-4501-8469-401218db564c"
-    },
-    "header": {
-      "__id__": 20
-    },
     "profilePrefab": {
       "__uuid__": "672ca06c-4af6-4038-8fa3-c98404e28e6b"
-    },
-    "headerPrefab": {
-      "__uuid__": "ecc7ea66-f534-4090-8f8e-a818bedd7401"
     },
     "loading": {
       "__id__": 39
@@ -1705,6 +1690,15 @@
     },
     "homeButton": {
       "__id__": 16
+    },
+    "lessonButtonPrefab": {
+      "__uuid__": "724d8f45-d519-44aa-81a6-8155f5570da6"
+    },
+    "content": {
+      "__id__": 36
+    },
+    "currentLesson": {
+      "__uuid__": "afe9f656-d1e6-4ea1-8bcb-9a825719c19a"
     },
     "_id": "2eFtr6mNpDkZvxkcBBwGVh"
   },

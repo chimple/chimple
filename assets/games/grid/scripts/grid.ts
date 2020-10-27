@@ -205,7 +205,7 @@ export class Grid extends Game {
     const fontColor = "#654321";
     const labelNode: cc.Node = questionBlockComponent.createLabelNode(
       questionBlockComponent.textFont,
-      lh + lv + lv + lv,
+      String(verticalWordsCount * Number(lh) + horizontalWordsCount * Number(lv)),
       FONT_SIZE,
       fontColor
     );
@@ -215,18 +215,20 @@ export class Grid extends Game {
     } else {
       labelNode.scale = SCALE;
     }
-    Grid._maxNodeWidth = labelNode.getBoundingBox().width + 1.3 * H_MARGIN;
-    Grid._maxNodeHeight = labelNode.getBoundingBox().height + V_MARGIN;
+    Grid._maxNodeWidth = labelNode.getBoundingBox().width + 2.25 * H_MARGIN;
+    Grid._maxNodeHeight = labelNode.getBoundingBox().height + 1.5 * V_MARGIN;
     this._ground = cc.instantiate(this.groundPrefab);
     let groundWidth: number =
-      5 * V_MARGIN +
+      10 * V_MARGIN +
       Grid._maxNodeWidth +
       horizontalWordsCount * Grid._maxNodeWidth;
     let groundHeight: number =
-      8 * V_MARGIN +
+      15 * V_MARGIN +
       Grid._maxNodeHeight +
       verticalWordsCount * Grid._maxNodeHeight;
     this.ground.setContentSize(new cc.Size(groundWidth, groundHeight));
+    this.ground.width = groundWidth;
+    this.ground.height = groundHeight;
     this.matrixContainer.addChild(this.ground);
   }
 
