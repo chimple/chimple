@@ -618,10 +618,10 @@ export default class Profile {
             if (!countryCode) {
                 this.setValue(DIALING_CODE, "+91");
             }
-            else {
+            else {              
                 COUNTRY_CODES.forEach((e) => {
-                    if (e["country_code"] === countryCode) {
-                        this.setValue(DIALING_CODE, e["dialing_code"]);
+                    if (e["code"].toLowerCase() === countryCode) {
+                        this.setValue(DIALING_CODE, e["dial_code"]);
                     }
                 });
             }
