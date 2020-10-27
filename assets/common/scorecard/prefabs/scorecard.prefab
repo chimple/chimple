@@ -403,7 +403,9 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": null,
+    "_spriteFrame": {
+      "__uuid__": "3808f9ee-3c86-4863-90bd-ab6b2e7f568f"
+    },
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -508,7 +510,9 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": null,
+    "_spriteFrame": {
+      "__uuid__": "3808f9ee-3c86-4863-90bd-ab6b2e7f568f"
+    },
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -613,7 +617,9 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": null,
+    "_spriteFrame": {
+      "__uuid__": "3808f9ee-3c86-4863-90bd-ab6b2e7f568f"
+    },
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -1125,7 +1131,9 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": null,
+    "_spriteFrame": {
+      "__uuid__": "b68c2817-2bd1-46f2-82f2-e64930259e94"
+    },
     "_type": 1,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -1387,9 +1395,6 @@
     "active": {
       "__uuid__": "caf400ab-a781-4cb5-9cdd-ccd652dce17f"
     },
-    "inactive": {
-      "__uuid__": "3808f9ee-3c86-4863-90bd-ab6b2e7f568f"
-    },
     "friendPos": {
       "__id__": 17
     },
@@ -1398,7 +1403,9 @@
     },
     "score": 0,
     "text": "Lesson",
-    "achievementPrefab": {},
+    "achievementPrefab": {
+      "__uuid__": "48423a6f-47c3-42cc-bc56-3f3d5abaf1d0"
+    },
     "_id": ""
   },
   {
