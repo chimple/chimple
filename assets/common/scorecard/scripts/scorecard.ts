@@ -22,9 +22,6 @@ export default class Scorecard extends cc.Component {
     @property(cc.SpriteFrame)
     active: cc.SpriteFrame = null;
 
-    @property(cc.SpriteFrame)
-    inactive: cc.SpriteFrame = null;
-
     @property(cc.Node)
     friendPos: cc.Node = null;
 
