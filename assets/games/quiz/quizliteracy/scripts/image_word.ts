@@ -22,14 +22,13 @@ export class ImageWord extends cc.Component {
     @catchError()
     renderTopPanel() {
         const topPanel = this.node.getChildByName('topPanel');
-        this.renderSoundButton(topPanel);
         const hLayout = topPanel.getChildByName('hLayout');
-        if(this.quizConfig.displayTexts.startsWith('__')) {
+        this.renderSoundButton(topPanel);
+        if(this.quizConfig.displayTexts && this.quizConfig.displayTexts.startsWith('__')) {
             this.renderLabel(hLayout, 'rLabel');
-        } else if(this.quizConfig.displayTexts.endsWith('__')) {
+        } else if(this.quizConfig.displayTexts && this.quizConfig.displayTexts.endsWith('__')) {
             this.renderLabel(hLayout, 'lLabel');
         }
-
         this.renderImage(hLayout);
     }
 
