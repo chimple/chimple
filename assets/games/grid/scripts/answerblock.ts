@@ -14,7 +14,6 @@ import {Util} from "../../../common/scripts/util";
 import Config, {Direction} from "../../../common/scripts/lib/config";
 import Vec2 = cc.Vec2;
 import catchError from "../../../common/scripts/lib/error-handler";
-import board from "../../board/scripts/board";
 
 const {ccclass, property} = cc._decorator;
 
