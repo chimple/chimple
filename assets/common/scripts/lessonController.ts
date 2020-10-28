@@ -241,6 +241,7 @@ export default class LessonController extends cc.Component {
                 gameComponent.node.addChild(gameComponent.friendPos)
             }
             gameComponent.friend = LessonController.friend
+            gameComponent.friend.node.position = cc.Vec3.ZERO
             gameComponent.friendPos.addChild(LessonController.friend.node)
             LessonController.friend.playIdleAnimation(1)
         }

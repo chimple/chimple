@@ -14,7 +14,6 @@ import {Util} from "../../../common/scripts/util";
 import Config, {Direction} from "../../../common/scripts/lib/config";
 import Vec2 = cc.Vec2;
 import catchError from "../../../common/scripts/lib/error-handler";
-import board from "../../board/scripts/board";
 
 const {ccclass, property} = cc._decorator;
 
@@ -34,6 +33,8 @@ export default class AnswerBlock extends CommonBlock {
     protected _explode: cc.Node = null;
     protected _startPos: cc.Vec2 = null;
     _isRTL: boolean = false;
+    private shouldStopMovementX: boolean = false;
+    private shouldStopMovementY: boolean = false;
 
     @property({
         type: cc.AudioClip,
@@ -147,6 +148,9 @@ export default class AnswerBlock extends CommonBlock {
 
     @catchError()
     onTouchStart(touch: cc.Touch) {
+        this.shouldStopMovementX = false;
+        this.shouldStopMovementY = false;
+
         const nPos: Vec2 = this.node
             .getParent()
             .convertToNodeSpaceAR(touch.getLocation());
@@ -204,38 +208,12 @@ export default class AnswerBlock extends CommonBlock {
             (1 / MATRIX_CONTAINER_SCALE) * touch.getDelta().x,
             (1 / MATRIX_CONTAINER_SCALE) * touch.getDelta().y
         );
-        cc.log('cc.winSize.width', cc.winSize.width, 'x', this.node.position.x);
-        cc.log('cc.winSize.height', cc.winSize.height, 'y', this.node.position.y);
-        let shouldStopMovementX: boolean = false;
-        let shouldStopMovementY: boolean = false;
 
-        if (this.node.position.x > cc.winSize.width / 2) {
-            this.node.position.x = cc.winSize.width / 2 - 50;
-            shouldStopMovementX = true;
-        } else if (this.node.position.x < -cc.winSize.width / 2) {
-            this.node.position.x = -cc.winSize.width / 2 + 50;
-            shouldStopMovementX = true
-        }
-
-        if (this.node.position.y > cc.winSize.height / 2) {
-            this.node.position.y = cc.winSize.height / 2 - 50;
-            shouldStopMovementY = true;
-        } else if (this.node.position.y < -cc.winSize.height / 2) {
-            this.node.position.y = -cc.winSize.height / 2 + 50;
-            shouldStopMovementY = true;
-        }
-
-        if (shouldStopMovementX || shouldStopMovementY) {
-            this.matchNotFound(false);
-        } else {
-
-            this.node.setPosition(
-                this.node.position.add(
-                    cc.v2(this._isRTL ? delta.neg().x : delta.x, delta.y)
-                )
-            );
-        }
-
+        this.node.setPosition(
+            this.node.position.add(
+                cc.v2(this._isRTL ? delta.neg().x : delta.x, delta.y)
+            )
+        );
 
 
         // this.node.setPosition(this.node.getParent().convertToNodeSpaceAR(touch.getLocation()));
@@ -277,6 +255,24 @@ export default class AnswerBlock extends CommonBlock {
                 {progress: null, easing: "sineOut"}
             )
             .start();
+    }
+
+    private shouldConsiderAsInvalidMove() {
+        if (this.node.position.x > cc.winSize.width / 2 - 50) {
+            this.node.position.x = cc.winSize.width / 2 - 50;
+            this.shouldStopMovementX = true;
+        } else if (this.node.position.x < -cc.winSize.width / 2 + 50) {
+            this.node.position.x = -cc.winSize.width / 2 + 50;
+            this.shouldStopMovementX = true
+        }
+
+        if (this.node.position.y > cc.winSize.height / 2 - 50) {
+            this.node.position.y = cc.winSize.height / 2 - 50;
+            this.shouldStopMovementY = true;
+        } else if (this.node.position.y < -cc.winSize.height / 2) {
+            this.node.position.y = -cc.winSize.height / 2 + 50;
+            this.shouldStopMovementY = true;
+        }
     }
 
     @catchError()
@@ -375,6 +371,13 @@ export default class AnswerBlock extends CommonBlock {
         if (this._explode != null) {
             this.node.removeChild(this._explode);
             this._explode = null;
+        }
+    }
+
+    protected update(dt: number) {
+        this.shouldConsiderAsInvalidMove();
+        if (this.shouldStopMovementX || this.shouldStopMovementY) {
+            this.matchNotFound(false);
         }
     }
 }

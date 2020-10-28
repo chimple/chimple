@@ -92,6 +92,7 @@ export class User {
     private _lessonPlan: string[]
     private _lessonPlanDate: Date
     private _lessonPlanIndex: number
+    private _assignments: string[]
     debug: boolean = false
     curriculumLoaded: boolean = false
 
@@ -133,6 +134,7 @@ export class User {
         this._genderEvent(gender);
         this.debug = debug
         this._serverId = serverId
+        this._assignments = []
     }
 
     _genderEvent(gender: Gender) {
@@ -312,6 +314,15 @@ export class User {
         return this._lessonPlanIndex;
     }
 
+    set assignments(assignments: string[]) {
+        this._assignments = assignments;
+        this._storeUser();
+    }
+
+    get assignments(): string[] {
+        return this._assignments;
+    }
+
     unlockInventoryForItem(item: string) {
         this._unlockedInventory[item] = true;
         this._storeUser();
@@ -412,6 +423,12 @@ export class User {
         ) {
             user.lessonPlanIndex++
             config.lessonPlanIncr = true
+        }
+        if (user.assignments) {
+            const index = user.assignments.indexOf(config.lesson.id)
+            if(index > -1) {
+                user.assignments.splice(index, 1)
+            }
         }
         this._storeUser();
         return reward
@@ -570,6 +587,7 @@ export class User {
         user._lessonPlan = data.lessonPlan
         user._lessonPlanDate = new Date(data.lessonPlanDate)
         user._lessonPlanIndex = data.lessonPlanIndex
+        if(data.assignments) user._assignments = data.assignments
         return user;
     }
 
@@ -601,7 +619,8 @@ export class User {
             'serverId': user.serverId,
             'lessonPlan': user.lessonPlan,
             'lessonPlanIndex': user.lessonPlanIndex,
-            'lessonPlanDate': user.lessonPlanDate
+            'lessonPlanDate': user.lessonPlanDate,
+            'assignments': user.assignments
         });
     }
 
@@ -661,10 +680,10 @@ export default class Profile {
             if (!countryCode) {
                 this.setValue(DIALING_CODE, "+91");
             }
-            else {
+            else {              
                 COUNTRY_CODES.forEach((e) => {
-                    if (e["country_code"] === countryCode) {
-                        this.setValue(DIALING_CODE, e["dialing_code"]);
+                    if (e["code"].toLowerCase() === countryCode) {
+                        this.setValue(DIALING_CODE, e["dial_code"]);
                     }
                 });
             }
