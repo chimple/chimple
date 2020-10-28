@@ -30,8 +30,8 @@ export default class Start extends cc.Component {
     @property(cc.Node)
     drawer: cc.Node = null
 
-    @property(HeaderButton)
-    homeButton: HeaderButton = null
+    @property(cc.Node)
+    homeButton: cc.Node = null
 
     @property(cc.Prefab)
     lessonButtonPrefab: cc.Prefab = null
@@ -43,9 +43,10 @@ export default class Start extends cc.Component {
     currentLesson: cc.SpriteFrame = null
 
     async onLoad() {
+        const user = User.getCurrentUser()
         this.bgHolder.removeAllChildren();
-        if (!!User.getCurrentUser().currentBg) {
-            this.setBackground(User.getCurrentUser().currentBg);
+        if (!!user.currentBg) {
+            this.setBackground(user.currentBg);
         } else {
             this.setBackground("forest");
         }
@@ -53,14 +54,22 @@ export default class Start extends cc.Component {
         loadingComp.allowCancel = false
         loadingComp.delay = 0
 
-        this.homeButton.node.on('touchend', () => {
+        this.homeButton.on('touchend', () => {
             this.drawer.active = true
         })
         const config = Config.i
-        User.getCurrentUser().curriculumLoaded
+        user.curriculumLoaded
             ? this.initPage()
-            : config.loadCourseJsons(User.getCurrentUser(), this.node, this.initPage.bind(this))
-        const assignments = await ServiceConfig.getI().handle.listAssignments(User.getCurrentUser().id);
+            : config.loadCourseJsons(user, this.node, this.initPage.bind(this))
+        const assignments: [] = await ServiceConfig.getI().handle.listAssignments(user.id);
+        console.log(assignments)
+        user.lessonPlan = user.lessonPlan
+            .concat(assignments
+                .map((val) => val.lessonId)
+                .filter((lId, index, self) => user.lessonPlan.indexOf(lId) == -1
+                    && !user.lessonProgressMap.has(lId)
+                    && self.indexOf(lId) === index
+                ))
 
     }
 
@@ -222,7 +231,7 @@ export default class Start extends cc.Component {
         const user = User.getCurrentUser()
         const STARTX = 196
         var dir = 1
-        const lesPerRow = Math.max(2, Math.floor(lessons.length / 3 + 0.5))
+        const lesPerRow = Math.max(2, Math.floor(lessons.length / 3) + 1)
         var currentX = -cc.winSize.width / 2 + STARTX
         const ctx = this.content.addComponent(cc.Graphics)
         ctx.lineWidth = 24
