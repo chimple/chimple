@@ -100,7 +100,10 @@ export default class Card extends cc.Component {
             })
             if (this.audio.length == 0) {
                 Util.loadNumericSound(this.cardText, (clip) => {
-                    this.wordAudio = clip
+                    if(clip) {
+                        this.wordAudio = clip
+                        this.pairCard.wordAudio = clip
+                    }
                 })
             }
         } else {
