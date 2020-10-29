@@ -671,7 +671,6 @@ export default class Profile {
 
     static initialize() {
         if (Profile.getValue(IS_INITIALIZED) != "true") {
-            this.setValue(LANGUAGE, ALL_LANGS[0]);
             this.setItem(SFX_OFF, 0);
             this.setItem(MUSIC_OFF, 0);
             this.setItem(IS_OTP_VERIFIED, 0);
