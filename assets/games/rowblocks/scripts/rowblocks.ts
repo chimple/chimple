@@ -86,7 +86,7 @@ export default class RowBlocks extends Game {
 
         for (let i = 0; i < howManyRows; i++) {
             for (let j = 0; j < 10; j++) {
-                const num = i * 10 + j + 1;
+                const num = this.currentConfig.columns[i * 10 + j];
                 const bg = new cc.Node();
                 const bgComp = bg.addComponent(cc.Sprite);
                 bg.x = j * tileWidth;
@@ -225,13 +225,14 @@ export default class RowBlocks extends Game {
     }
 
     generateAllSingleSquares() { //13
+        var index:number=0;
         const howManyRows: number = Math.floor(this.currentConfig.columns.length / 10);
         for (let i = 0; i < howManyRows; i++) {
             for (let j = 0; j < 10; j++) {
                 const num = i * 10 + j;
                 const eleNum = this.currentConfig.columns[num];
                 if (this.currentConfig.suggests.indexOf(eleNum) !== -1)
-                    this.boardContents[i][j] = -this.boardContents[i][j];
+                    this.boardContents[i][j] = -this.currentConfig.suggests[index++];
             }
         }
     }
