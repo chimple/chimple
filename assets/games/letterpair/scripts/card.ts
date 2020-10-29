@@ -125,7 +125,7 @@ export default class Card extends cc.Component {
             this.node.addChild(labelNode);
             if (this.audio.length == 0) {
                 if(isNaN(parseInt(this.cardText))) {
-                    Util.loadsLetter(this.cardText, (clip) => {
+                    Util.loadsLetter(this.cardText.toLowerCase(), (clip) => {
                         this.wordAudio = clip
                     })    
                 } else {
