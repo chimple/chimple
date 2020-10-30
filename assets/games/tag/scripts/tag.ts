@@ -64,7 +64,7 @@ export default class Tag extends Game {
     Util.loadTexture(bgName, texture => {
       this.node.opacity = 255;
       let temp = new cc.SpriteFrame(texture);
-      temp.setRect(new cc.Rect(60, 60, 1580, 1300));
+      temp.setRect(new cc.Rect(30, 30, 790, 650));
       this.node
         .getChildByName("truck")
         .getChildByName("container")

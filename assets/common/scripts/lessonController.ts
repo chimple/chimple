@@ -74,6 +74,7 @@ export default class LessonController extends cc.Component {
     quizTime: number = 0;
     quizScores: number[] = []
 
+    static bundles: cc.AssetManager.Bundle[] = []
     static friend: Friend = null;
     static gamePrefab: cc.Prefab;
 
@@ -91,6 +92,11 @@ export default class LessonController extends cc.Component {
     }
 
     static preloadLesson(node: cc.Node, callback: Function) {
+        LessonController.bundles.forEach((bundle) => {
+            cc.log('Releasing bundle: ' + bundle.name)
+            bundle.releaseAll()
+        })
+        LessonController.bundles.length = 0
         const config = Config.i;
         config.problem = 0;
         if (User.getCurrentUser().courseProgressMap.get(config.course.id).currentChapterId == null) {
@@ -137,6 +143,7 @@ export default class LessonController extends cc.Component {
     private static preloadAndFirst(bundle: any, callback: Function) {
         bundle.preloadDir('res', null, null, (err: Error, items) => {
             Util.bundles.set(Config.i.lesson.id, bundle);
+            LessonController.bundles.push(bundle)
             LessonController.loadDataAndFirstGame(callback);
         });
     }
@@ -166,6 +173,7 @@ export default class LessonController extends cc.Component {
                         } else {
                             bundle1.preloadDir('res', null, null, (err: Error, items) => {
                                 Util.bundles.set(les.id, bundle1);
+                                LessonController.bundles.push(bundle1)
                                 numLessons--;
                             });
                         }
@@ -173,6 +181,7 @@ export default class LessonController extends cc.Component {
                 } else {
                     bundle.preloadDir('res', null, null, (err: Error, items) => {
                         Util.bundles.set(les.id, bundle);
+                        LessonController.bundles.push(bundle)
                         numLessons--;
                     });
                 }
@@ -231,9 +240,8 @@ export default class LessonController extends cc.Component {
     }
 
     private startGame(prefab: cc.Prefab) {
-        if (this.gameNode != null) this.gameNode.removeFromParent();
-        this.gameNode = cc.instantiate(prefab);
-        const gameComponent = this.gameNode.getComponent(Game)
+        const newGameNode = cc.instantiate(prefab);
+        const gameComponent = newGameNode.getComponent(Game)
         if (gameComponent) {
             if (!gameComponent.friendPos) {
                 gameComponent.friendPos = new cc.Node()
@@ -245,6 +253,8 @@ export default class LessonController extends cc.Component {
             gameComponent.friendPos.addChild(LessonController.friend.node)
             LessonController.friend.playIdleAnimation(1)
         }
+        if (this.gameNode != null) this.gameNode.removeFromParent();
+        this.gameNode = newGameNode
         this.gameParent.addChild(this.gameNode);
         // if(gameComponent) Util.loadAccessoriesAndEquipAcc(this.friend.node.children[1], this.friend.node)
         const gameConfig = GAME_CONFIGS[Config.i.game];
