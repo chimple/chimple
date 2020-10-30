@@ -177,7 +177,7 @@
       "array": [
         0,
         0,
-        536.9357503463519,
+        364.5966949932487,
         0,
         0,
         0,
@@ -1135,8 +1135,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 197.4,
-      "height": 50.4
+      "width": 197.29,
+      "height": 63
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1173,7 +1173,7 @@
     "_id": "86lsq5L+tGSaww9kOhfEda"
   },
   {
-    "__type__": "cc.Label",
+    "__type__": "0ddb3t+49REZ5s0SVkIuotE",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1187,16 +1187,14 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
+    "_useOriginalSize": true,
     "_string": "Rewards",
     "_N$string": "Rewards",
     "_fontSize": 50,
-    "_lineHeight": 40,
+    "_lineHeight": 50,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "0646cf51-fd6c-4dce-927f-6ffa48d833ea"
-    },
-    "_isSystemFontUsed": false,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -1206,7 +1204,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
     "_N$cacheMode": 0,
-    "_id": "31oRX8FYVCVpc9R/qNMhTs"
+    "_id": "0c7GT3tM9M5bv6cl+jx6DB"
   },
   {
     "__type__": "cc.Node",
@@ -1728,8 +1726,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 186,
-      "height": 40
+      "width": 192.91,
+      "height": 50.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1766,7 +1764,7 @@
     "_id": "bb0y4X6ilGVLjBkFdhra7w"
   },
   {
-    "__type__": "cc.Label",
+    "__type__": "0ddb3t+49REZ5s0SVkIuotE",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1780,16 +1778,14 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
+    "_useOriginalSize": true,
     "_string": "CHARACTERS",
     "_N$string": "CHARACTERS",
     "_fontSize": 28,
     "_lineHeight": 40,
-    "_enableWrapText": false,
-    "_N$file": {
-      "__uuid__": "0646cf51-fd6c-4dce-927f-6ffa48d833ea"
-    },
-    "_isSystemFontUsed": false,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -1797,9 +1793,9 @@
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 1,
+    "_N$overflow": 0,
     "_N$cacheMode": 0,
-    "_id": "1aKMajbDRLZZ+fk3OqLOUd"
+    "_id": "e7RXW5lMpEHr5EGGeSOrKs"
   },
   {
     "__type__": "cc.Sprite",
@@ -2116,8 +2112,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 186,
-      "height": 40
+      "width": 200.69,
+      "height": 50.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2154,7 +2150,7 @@
     "_id": "085HMmsN1PyJwByjUBe7vN"
   },
   {
-    "__type__": "cc.Label",
+    "__type__": "0ddb3t+49REZ5s0SVkIuotE",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -2168,16 +2164,14 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
+    "_useOriginalSize": true,
     "_string": "BACKGROUND",
     "_N$string": "BACKGROUND",
     "_fontSize": 28,
     "_lineHeight": 40,
-    "_enableWrapText": false,
-    "_N$file": {
-      "__uuid__": "0646cf51-fd6c-4dce-927f-6ffa48d833ea"
-    },
-    "_isSystemFontUsed": false,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -2187,7 +2181,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 1,
     "_N$cacheMode": 0,
-    "_id": "bcGTf9hrpKK7Fq0G+5kabk"
+    "_id": "75SENRdhdOCLXD/C881bS+"
   },
   {
     "__type__": "cc.Sprite",
@@ -2493,7 +2487,7 @@
         "__id__": 52
       },
       {
-        "__id__": 53
+        "__id__": 54
       }
     ],
     "_prefab": null,
@@ -2507,8 +2501,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 207,
-      "height": 40
+      "width": 220.92,
+      "height": 50.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2545,42 +2539,6 @@
     "_id": "6fFPvPq3hOXJvVsDC611pw"
   },
   {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 51
-    },
-    "_enabled": true,
-    "_materials": [
-      {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-      }
-    ],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
-    "_string": "ACHIEVEMENTS",
-    "_N$string": "ACHIEVEMENTS",
-    "_fontSize": 28,
-    "_lineHeight": 40,
-    "_enableWrapText": false,
-    "_N$file": {
-      "__uuid__": "0646cf51-fd6c-4dce-927f-6ffa48d833ea"
-    },
-    "_isSystemFontUsed": false,
-    "_spacingX": 0,
-    "_batchAsBitmap": false,
-    "_styleFlags": 0,
-    "_underlineHeight": 0,
-    "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
-    "_N$overflow": 1,
-    "_N$cacheMode": 0,
-    "_id": "d8I38rb0BGj7GqkTMgyJgN"
-  },
-  {
     "__type__": "cc.Button",
     "_name": "",
     "_objFlags": 0,
@@ -2594,7 +2552,7 @@
     "zoomScale": 1.2,
     "clickEvents": [
       {
-        "__id__": 54
+        "__id__": 53
       }
     ],
     "_N$interactable": true,
@@ -2663,6 +2621,40 @@
     "_componentId": "4d3cakHbFBPdb0cWsMvTLq1",
     "handler": "onContentClick",
     "customEventData": "2"
+  },
+  {
+    "__type__": "0ddb3t+49REZ5s0SVkIuotE",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 51
+    },
+    "_enabled": true,
+    "_materials": [
+      {
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+      }
+    ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_useOriginalSize": true,
+    "_string": "ACHIEVEMENTS",
+    "_N$string": "ACHIEVEMENTS",
+    "_fontSize": 28,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
+    "_N$horizontalAlign": 1,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "Arial",
+    "_N$overflow": 0,
+    "_N$cacheMode": 0,
+    "_id": "9eyIv0agFCipYJnPJsoE1g"
   },
   {
     "__type__": "cc.Sprite",

@@ -45,7 +45,7 @@ export default class Start extends cc.Component {
     async onLoad() {
         const user = User.getCurrentUser()
         this.bgHolder.removeAllChildren();
-        if (!!user.currentBg) {
+        if (!!user && !!user.currentBg) {
             this.setBackground(user.currentBg);
         } else {
             this.setBackground("forest");

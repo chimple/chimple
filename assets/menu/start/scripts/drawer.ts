@@ -49,7 +49,7 @@ export default class Drawer extends cc.Component {
             drawerButtonComp.selected.node.active = false
             this.courseLayout.addChild(drawerButton)
             const course = config.curriculum.get(courseId)
-            drawerButtonComp.label.string = course.name
+            drawerButtonComp.label.string = Util.i18NText(course.name)
             Util.load(courseId + '/course/res/icons/' + courseId + '.png', (err: Error, texture) => {
                 drawerButtonComp.sprite.spriteFrame = err ? null : new cc.SpriteFrame(texture);
             })
