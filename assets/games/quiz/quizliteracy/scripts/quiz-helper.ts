@@ -95,7 +95,7 @@ export class QuizHelper {
                                     width: number,
                                     height: number,
                                     choices: string[],
-                                    fontSize: number = 0) {
+                                    fontSize: number = 65) {
         choices = choices.filter((el) => el != null && el.length > 0);
         choices.forEach(
             (c, i) => {
@@ -106,7 +106,7 @@ export class QuizHelper {
                 const label = textBtn.getChildByName('label');
                 if (label) {
                     const labelComponent = label.getComponent(cc.Label);
-                    labelComponent.overflow = Overflow.RESIZE_HEIGHT;
+                    labelComponent.overflow = Overflow.SHRINK;
                     label.width = width;
                     label.height = height;
                     if (fontSize > 0) {
