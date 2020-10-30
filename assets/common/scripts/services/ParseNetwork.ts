@@ -381,7 +381,7 @@ export class ParseNetwork {
                             })
                             .catch(err => {
                                 Queue.getInstance().push(payload)
-                                UtilLogger.logChimpleEvent(UPDATE_PROGRESS_FAILED, payload);
+                                // UtilLogger.logChimpleEvent(UPDATE_PROGRESS_FAILED, payload);
                             });
                         break;
                     case 'Monitor':

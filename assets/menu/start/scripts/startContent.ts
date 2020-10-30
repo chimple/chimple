@@ -4,7 +4,6 @@ import { User, CourseProgress } from "../../../common/scripts/lib/profile";
 import LessonButton from "./lessonButton";
 import { Util } from "../../../common/scripts/util";
 import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
-import { ParseApi } from "../../../common/scripts/services/parseApi";
 import {ServiceConfig} from "../../../common/scripts/services/ServiceConfig";
 
 const { ccclass, property } = cc._decorator;
