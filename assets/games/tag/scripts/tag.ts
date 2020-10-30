@@ -64,9 +64,8 @@ export default class Tag extends Game {
     Util.loadTexture(bgName, texture => {
       this.node.opacity = 255;
       let temp = new cc.SpriteFrame(texture);
-      temp.setRect(new cc.Rect(30, 30, 790, 650));
-      this.node
-        .getChildByName("truck")
+      temp.setRect(new cc.Rect(temp.getRect().x, 30, temp.getRect().width, 650));
+         this.node.getChildByName("truck")
         .getChildByName("container")
         .getComponent(cc.Sprite).spriteFrame = temp;
 
@@ -103,7 +102,7 @@ export default class Tag extends Game {
           // .getChildByName("background")
           // .convertToNodeSpaceAR(cc.Vec2.ZERO);
           dropBox.position = cc.v3(
-            +itemPos[0] / 2.27 - 340,
+            +itemPos[0] / 1.96 - 405,
             -+itemPos[1] / 1.92 - 490
           );
           if (id == 0) {
