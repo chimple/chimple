@@ -93,6 +93,20 @@ ifeq ($(TARGET_ARCH),arm64)
    LOCAL_EXPORT_CPPFLAGS := -DV8_COMPRESS_POINTERS
    LOCAL_EXPORT_CFLAGS := -DV8_COMPRESS_POINTERS
 endif
+ifeq ($(TARGET_ARCH),x86_64)
+   LOCAL_EXPORT_CPPFLAGS := \
+   -DV8_COMPRESS_POINTERS \
+   -DV8_TARGET_ARCH_X64 \
+   -DV8_HAVE_TARGET_OS \
+   -DV8_TARGET_OS_ANDROID
+
+   LOCAL_EXPORT_CFLAGS := \
+   -DV8_COMPRESS_POINTERS \
+   -DV8_TARGET_ARCH_X64 \
+   -DV8_HAVE_TARGET_OS \
+   -DV8_TARGET_OS_ANDROID
+endif
+
 include $(PREBUILT_STATIC_LIBRARY)
 
 #======================================
@@ -104,11 +118,22 @@ LOCAL_SRC_FILES := $(TARGET_ARCH_ABI)/libuv.a
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/$(TARGET_ARCH_ABI)/include/uv
 include $(PREBUILT_STATIC_LIBRARY)
 
+#======================================
+include $(CLEAR_VARS)
 LOCAL_MODULE := cocos_freetype_static
 LOCAL_MODULE_FILENAME := libfreetype
 LOCAL_SRC_FILES := $(TARGET_ARCH_ABI)/libfreetype.a
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/$(TARGET_ARCH_ABI)/include/freetype
 include $(PREBUILT_STATIC_LIBRARY)
 
+#======================================
+ifneq ($(TARGET_ARCH),x86_64)
+   include $(CLEAR_VARS)
+
+   LOCAL_MODULE := cocos2djni
+   LOCAL_MODULE_FILENAME := libcocos2djni
+   LOCAL_SRC_FILES := $(TARGET_ARCH_ABI)/libcocos2djni.a
+   include $(PREBUILT_STATIC_LIBRARY)
+endif
 #======================================
 #$(call import-module,android/cpufeatures)
