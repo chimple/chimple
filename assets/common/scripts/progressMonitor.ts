@@ -2,7 +2,7 @@ import Config from "./lib/config";
 
 const { ccclass, property } = cc._decorator;
 
-const currentStarScale: number = 2;
+const currentStarScale: number = 4;
 
 export enum StarType {
     Default,
@@ -166,8 +166,8 @@ export default class ProgressMonitor extends cc.Component {
             } else {
                 sprite.spriteFrame = this.incomplete;
             }
-            node.width = spriteNode.width * currentStarScale;
-            node.height = spriteNode.height * currentStarScale;
+            node.width = spriteNode.width * 2;
+            node.height = spriteNode.height * 2;
             this.node.addChild(node);
         }
     }
