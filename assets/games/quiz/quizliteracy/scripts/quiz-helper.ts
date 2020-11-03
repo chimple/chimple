@@ -190,6 +190,7 @@ export class QuizHelper {
         if (results && results.length === 3) {
             let start = Number(results[1]);
             let end = Number(results[2]);
+            end=(end-start<4)?start+3:end;
             let rNumbers = QuizHelper.range(start, end, howMany);
             rNumbers = sort === SORT_RANDOM ? rNumbers :
                 sort === SORT_ASC ? rNumbers.sort() : rNumbers.sort((a, b) => b - a);
