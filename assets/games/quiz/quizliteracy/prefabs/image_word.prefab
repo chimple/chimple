@@ -174,12 +174,12 @@
     "_prefab": {
       "__id__": 6
     },
-    "_opacity": 41,
+    "_opacity": 250,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -268,7 +268,6 @@
     },
     "_resize": 0,
     "_N$layoutType": 0,
-    "_N$padding": 0,
     "_N$cellSize": {
       "__type__": "cc.Size",
       "width": 40,
@@ -513,6 +512,8 @@
       "__id__": 7
     },
     "_enabled": true,
+    "_normalMaterial": null,
+    "_grayMaterial": null,
     "duration": 0.1,
     "zoomScale": 1.2,
     "clickEvents": [
@@ -708,9 +709,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 66,
-      "g": 82,
-      "b": 163,
+      "r": 60,
+      "g": 55,
+      "b": 199,
       "a": 255
     },
     "_contentSize": {
@@ -765,7 +766,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
-    "_useOriginalSize": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_string": "",
     "_N$string": "",
     "_fontSize": 48,
@@ -775,6 +777,8 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -918,9 +922,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 66,
-      "g": 82,
-      "b": 163,
+      "r": 60,
+      "g": 55,
+      "b": 199,
       "a": 255
     },
     "_contentSize": {
@@ -975,7 +979,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
-    "_useOriginalSize": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_string": "",
     "_N$string": "",
     "_fontSize": 48,
@@ -985,6 +990,8 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -1018,7 +1025,6 @@
     },
     "_resize": 1,
     "_N$layoutType": 1,
-    "_N$padding": 0,
     "_N$cellSize": {
       "__type__": "cc.Size",
       "width": 40,
@@ -1170,7 +1176,6 @@
     },
     "_resize": 2,
     "_N$layoutType": 1,
-    "_N$padding": 0,
     "_N$cellSize": {
       "__type__": "cc.Size",
       "width": 40,
@@ -1252,7 +1257,7 @@
     "asset": {
       "__uuid__": "7f199f08-a521-48b6-a445-3226d5e8a282"
     },
-    "fileId": "e8jZ/E1eNL+Z5P3AfQbLvY",
+    "fileId": "",
     "sync": false
   }
 ]
