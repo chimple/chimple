@@ -26,6 +26,7 @@ export class DigitNumbers extends cc.Component {
         this.quizConfig.choices = this.quizConfig.choices.indexOf("~") !== -1 ? this.quizConfig.choices : '1~'+this.quizConfig.choices;
         this.choices = QuizHelper.randomInRange(this.quizConfig.choices, 4, this.quizConfig.order);
         this.answer = Util.randomElements([...this.choices], 1);
+        this.quizConfig.answer = String(this.answer);
         this.renderTopPanel();
         this.renderBottomPanel();
     }
