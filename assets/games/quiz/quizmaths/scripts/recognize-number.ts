@@ -24,28 +24,8 @@ export class RecognizeNumber extends cc.Component {
         this.choices = QuizHelper.randomInRange(this.quizConfig.choices, 4, this.quizConfig.order);
         this.answer = Util.randomElements([...this.choices], 1);
         this.quizConfig.answer = String(this.answer);
-        // if(this.choices.length<3)
-        // {
-        //     this.choices=this.increaseChoiceSize(this.choices)
-        //     this.quizConfig.answer = String(this.answer);
-        // }
-        // else{
-        //     this.quizConfig.answer = String(this.answer);
-        // }
         this.renderTopPanel();
         this.renderBottomPanel();
-    }
-
-    @catchError()
-    increaseChoiceSize(choices:string[]){
-        var choice:number = Number(choices[choices.length-1]);
-        choice++;
-       for (let index = choices.length; index < 4; index++) {
-           choice=choice+1;
-          choices.push(String(choice));        
-           
-       }
-       return choices;
     }
 
     @catchError()

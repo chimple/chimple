@@ -354,8 +354,12 @@ export class Util {
     }
 
     public static randomElements(array, n) {
+        console.log('These are the random elements generating method')
+        console.log(array)
         const shuffled = array.sort(() => 0.5 - Math.random());
+        console.log(shuffled)
         let selected = shuffled.slice(0, n);
+        console.log(selected)
         return selected;
     }
 
