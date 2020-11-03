@@ -149,7 +149,7 @@ export default class Config {
 
     hasLoadedTextFont(fontName: string) {
         const f: TTFFont = this._textFontMap.get(fontName);
-        const isValid = this._textFontMap.has(fontName) && f.isValid;
+        const isValid = this._textFontMap.has(fontName) && f && f.isValid;
         return isValid;
     }
 
