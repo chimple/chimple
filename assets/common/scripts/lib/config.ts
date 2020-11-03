@@ -1,7 +1,8 @@
-import { Util } from "../util";
+import {Util} from "../util";
 import UtilLogger from "../util-logger";
-import { Chapter, Course, Lesson } from "./convert";
-import Profile, { User } from "./profile";
+import {Chapter, Course, Lesson} from "./convert";
+import Profile, {User} from "./profile";
+import TTFFont = cc.TTFFont;
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
@@ -41,8 +42,8 @@ export class LangConfig {
 }
 
 export const LANG_CONFIGS = new Map<Lang, LangConfig>([
-    [Lang.ENGLISH, { 'font': 'en-main', 'displayName': 'English', 'symbol': 'A', 'colorCode': '#FFBC00' }],
-    [Lang.HINDI, { 'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7' }]
+    [Lang.ENGLISH, {'font': 'en-main', 'displayName': 'English', 'symbol': 'A', 'colorCode': '#FFBC00'}],
+    [Lang.HINDI, {'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7'}]
 ])
 
 export class World {
@@ -147,7 +148,9 @@ export default class Config {
     }
 
     hasLoadedTextFont(fontName: string) {
-        return this._textFontMap.has(fontName);
+        const f: TTFFont = this._textFontMap.get(fontName);
+        const isValid = this._textFontMap.has(fontName) && f.isValid;
+        return isValid;
     }
 
     getTextFont(fontName: string) {
@@ -244,7 +247,7 @@ export default class Config {
     }
 
     loadFontDynamically(fontName: string, callBack: Function = null, data: any = null) {
-        if (this._textFontMap.has(fontName)) {
+        if (this.hasLoadedTextFont(fontName)) {
             this.currentFontName = fontName;
             if (!!callBack) callBack(data);
         } else {
@@ -291,9 +294,9 @@ export default class Config {
                     cc.director.getScheduler().unschedule(checkAllLoaded, node);
                     if (maxPerLesson == 0) {
                         Util.shuffle(allLessonData)
-                        this._lessonData = { 'rows': allLessonData.slice(0, Math.min(10, allLessonData.length - 1)) }
+                        this._lessonData = {'rows': allLessonData.slice(0, Math.min(10, allLessonData.length - 1))}
                     } else {
-                        this._lessonData = { 'rows': allLessonData }
+                        this._lessonData = {'rows': allLessonData}
                     }
                     this.totalProblems = this._lessonData.rows.length;
                     this.problem = 1;
