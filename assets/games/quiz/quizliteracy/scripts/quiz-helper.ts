@@ -187,9 +187,18 @@ export class QuizHelper {
     public static randomInRange(input: string, howMany: number, sort: string = SORT_RANDOM): string[] {
         let random = [];
         let results = input.match(/(\d+)~(\d+)/);
+        console.log("This is the quiz helper class")
+        console.log(results)
+        console.log(results.length)
+        console.log(results && results.length)
+        console.log(results && results.length === 3)
         if (results && results.length === 3) {
             let start = Number(results[1]);
-            let end = Number(results[2]);
+            //let end = Number(results[2]);
+            let end=(start-Number(results[2])<4)?start+3:Number(results[2]);
+           console.log("These are the result data")
+           console.log(start)
+           console.log(end)
             let rNumbers = QuizHelper.range(start, end, howMany);
             rNumbers = sort === SORT_RANDOM ? rNumbers :
                 sort === SORT_ASC ? rNumbers.sort() : rNumbers.sort((a, b) => b - a);
