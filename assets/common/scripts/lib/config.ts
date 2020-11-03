@@ -172,6 +172,11 @@ export default class Config {
                 bundle: bundle
             })
 
+            UtilLogger.logChimpleEvent("screen_view", {
+                scene: scene,
+                bundle: bundle
+            })
+
             cc.assetManager.loadBundle(bundle, (err, loadedBundle) => {
                 loadedBundle.loadScene(scene, (err, loadedScene) => {
                     cc.director.runScene(loadedScene, null, () => {
@@ -188,7 +193,11 @@ export default class Config {
                     scene: scene
                 })
 
-                cc.sys.garbageCollect();
+                UtilLogger.logChimpleEvent("screen_view", {
+                    scene: scene
+                })
+
+                cc.sys.garbagecollect();
                 if (callback != null) {
                     callback();
                 }
