@@ -177,9 +177,6 @@ export default class Rewards extends cc.Component {
         nodeName = ("indi_button_prefab" + event.currentTarget.name)
         this.lastSelectedButton = parseInt(event.currentTarget.name)
 
-        // save to profile
-        User.getCurrentUser().currentCharacter = customEventData.toString().trim();
-
         // unselect show and edit button show
         let numberOfChildren = this.layoutHolder.children[0].children[0].children[0].children[0].childrenCount
         for (let i = 0; i < numberOfChildren; i++) {
@@ -191,6 +188,14 @@ export default class Rewards extends cc.Component {
         // make this selected one
         event.currentTarget.getChildByName("tick").active = true
         event.currentTarget.getChildByName("edit").active = true
+
+        if (User.getCurrentUser().currentCharacter === customEventData.toString().trim()) {
+            // switch scene
+            Config.getInstance().pushScene("menu/inventory/scenes/inventory", "menu");
+        }
+
+        // save to profile
+        User.getCurrentUser().currentCharacter = customEventData.toString().trim();
     }
 
     onEditButtonClicked(event, customEventData) {
