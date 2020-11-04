@@ -22,6 +22,7 @@ export const EMAIL = "email";
 export const CONTACT = "contact";
 export const PASSWORD = "password";
 export const IS_OTP_VERIFIED = "isOtpVerified";
+export const IN_LOGIN_FLOW = "in_login_flow";
 
 export enum Gender {
     BOY,
@@ -353,6 +354,25 @@ export class User {
         this._storeUser()
     }
 
+    openAllRewardsForCharacter(character: string) {
+        INVENTORY_DATA.forEach((arr) => {
+            arr.forEach((inv) => {
+                this._unlockedRewards[`${REWARD_TYPES[3]}-${character}-${inv}`] = 1
+            })
+        })
+    }
+
+    openOnlyTheSelectedRewards(character: string) {
+        INVENTORY_DATA.forEach((arr, i) => {
+            let unlockItem = this._inventory[`${character}-${arr[0].split("-")[0]}`];
+            arr.forEach((inv) => {
+                this._unlockedRewards[`${REWARD_TYPES[3]}-${character}-${inv}`] = 0
+            })
+
+            this._unlockedRewards[`${REWARD_TYPES[3]}-${character}-${arr[i].split('-')[0].concat(`-${unlockItem}`)}`] = 1
+        })
+    }
+
     unlockBydefaultRewards() {
         this.unlockRewardsForItem(`${REWARD_TYPES[0]}-${REWARD_CHARACTERS[0]}`, 1)
         this.unlockRewardsForItem(`${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[0]}`, 1)
@@ -426,7 +446,7 @@ export class User {
         }
         if (user.assignments) {
             const index = user.assignments.indexOf(config.lesson.id)
-            if(index > -1) {
+            if (index > -1) {
                 user.assignments.splice(index, 1)
             }
         }
@@ -587,7 +607,7 @@ export class User {
         user._lessonPlan = data.lessonPlan
         user._lessonPlanDate = new Date(data.lessonPlanDate)
         user._lessonPlanIndex = data.lessonPlanIndex
-        if(data.assignments) user._assignments = data.assignments
+        if (data.assignments) user._assignments = data.assignments
         return user;
     }
 
@@ -679,7 +699,7 @@ export default class Profile {
             if (!countryCode) {
                 this.setValue(DIALING_CODE, "+91");
             }
-            else {              
+            else {
                 COUNTRY_CODES.forEach((e) => {
                     if (e["code"].toLowerCase() === countryCode) {
                         this.setValue(DIALING_CODE, e["dial_code"]);
