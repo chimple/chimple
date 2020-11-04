@@ -22,6 +22,7 @@ export const EMAIL = "email";
 export const CONTACT = "contact";
 export const PASSWORD = "password";
 export const IS_OTP_VERIFIED = "isOtpVerified";
+export const IN_LOGIN_FLOW = "in_login_flow";
 
 export enum Gender {
     BOY,
@@ -355,6 +356,25 @@ export class User {
             this._unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] = 1
         })
         this._storeUser()
+    }
+
+    openAllRewardsForCharacter(character: string) {
+        INVENTORY_DATA.forEach((arr) => {
+            arr.forEach((inv) => {
+                this._unlockedRewards[`${REWARD_TYPES[3]}-${character}-${inv}`] = 1
+            })
+        })
+    }
+
+    openOnlyTheSelectedRewards(character: string) {
+        INVENTORY_DATA.forEach((arr, i) => {
+            let unlockItem = this._inventory[`${character}-${arr[0].split("-")[0]}`];
+            arr.forEach((inv) => {
+                this._unlockedRewards[`${REWARD_TYPES[3]}-${character}-${inv}`] = 0
+            })
+
+            this._unlockedRewards[`${REWARD_TYPES[3]}-${character}-${arr[i].split('-')[0].concat(`-${unlockItem}`)}`] = 1
+        })
     }
 
     unlockBydefaultRewards() {
