@@ -1,9 +1,9 @@
-import { Queue } from "../../../queue";
+import {Queue} from "../../../queue";
 import Header from "../header";
-import { INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util } from "../util";
+import {INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util} from "../util";
 import UtilLogger from "../util-logger";
-import Config, { ALL_LANGS } from "./config";
-import { COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
+import Config, {ALL_LANGS} from "./config";
+import {COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS} from "./constants";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -46,6 +46,7 @@ export interface CourseProgress {
 
 export class CourseProgressClass implements CourseProgress {
     currentChapterId: string
+
     constructor(currentChapterId: string = null) {
         this.currentChapterId = currentChapterId
     }
@@ -84,6 +85,7 @@ export class User {
     private _inventory: object;
     private _currentBg: string;
     private _currentCharacter: string;
+    private _chapterFinishedMap: Map<string, boolean>;
     private _courseProgressMap: Map<string, CourseProgress>;
     private _lessonProgressMap: Map<string, LessonProgress>;
     private _unlockedInventory: object;
@@ -110,6 +112,7 @@ export class User {
         currentCharacter: string,
         courseProgressMap: Map<string, CourseProgress>,
         lessonProgressMap: Map<string, LessonProgress>,
+        chapterFinishedMap: Map<string, boolean>,
         unlockedInventory: object,
         unlockedRewards: object,
         debug: boolean = false,
@@ -129,6 +132,7 @@ export class User {
         this._currentCharacter = currentCharacter;
         this._courseProgressMap = courseProgressMap;
         this._lessonProgressMap = lessonProgressMap;
+        this._chapterFinishedMap = chapterFinishedMap;
         UtilLogger.setUserIdEvent(id);
         UtilLogger.setUserPropertiesEvent("userName", name);
         UtilLogger.setUserPropertiesEvent("userAge", age);
@@ -450,6 +454,27 @@ export class User {
                 user.assignments.splice(index, 1)
             }
         }
+
+        // check if all lessons for current chapter are finished
+        const courseProgress = user.courseProgressMap.get(Config.i.course.id);
+        if(!!courseProgress) {
+            this._chapterFinishedMap = !this._chapterFinishedMap ? new Map() : this._chapterFinishedMap;
+            const currentChapter = config.curriculum.get(config.course.id).chapters.find(c => c.id === courseProgress.currentChapterId);
+            if (!!currentChapter && !this._chapterFinishedMap.has(currentChapter.id)) {
+                const allLessonIds = currentChapter.lessons.map(l => l.id);
+                const userFinishedLessonIds = Array.from(this._lessonProgressMap.keys());
+                const isAllLessonsFinished = allLessonIds.filter(arr1Item => !userFinishedLessonIds.includes(arr1Item)).length === 0;
+                if (isAllLessonsFinished) {
+                    this._chapterFinishedMap.set(currentChapter.id, true);
+
+                    UtilLogger.logChimpleEvent("chapterEnd", {
+                        chapterName: config.chapter.name,
+                        chapterId: config.chapter.id,
+                        courseName: config.course.id
+                    });
+                }
+            }
+        }
         this._storeUser();
         return reward
     }
@@ -531,8 +556,10 @@ export class User {
                     ['puzzle', new CourseProgressClass('puzzle00')]
                 ]),
             new Map(),
+            new Map(),
             {},
             {},
+
             debug
         );
         if (debug) user.openAllRewards()
@@ -698,8 +725,7 @@ export default class Profile {
             let countryCode = UtilLogger.getCountryCode();
             if (!countryCode) {
                 this.setValue(DIALING_CODE, "+91");
-            }
-            else {
+            } else {
                 COUNTRY_CODES.forEach((e) => {
                     if (e["code"].toLowerCase() === countryCode) {
                         this.setValue(DIALING_CODE, e["dial_code"]);
@@ -788,7 +814,7 @@ export default class Profile {
     }
 
     static async teacherPostLoginActivity(objectId: string) {
-        const currentUser: User = User.createUserOrFindExistingUser({ id: objectId });
+        const currentUser: User = User.createUserOrFindExistingUser({id: objectId});
         User.setCurrentUser(currentUser);
         return currentUser;
     }

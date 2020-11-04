@@ -8,7 +8,7 @@ export default class ChimpleLabel extends cc.Label {
 
     protected onLoad(): void {
         super.onLoad();
-        this.useSystemFont = true;
+        this.useSystemFont = false;
         this._key = this.string;
         const config = Config.i;
         if (config !== null) {

@@ -1,0 +1,349 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "giftbox_open",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.8833333333333333,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "box": {
+        "props": {
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 1,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 0.26666666666666666,
+              "value": 1.2,
+              "curve": "linear"
+            },
+            {
+              "frame": 0.55,
+              "value": 1,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.8166666666666667,
+              "value": 1.2,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.1333333333333333,
+              "value": 0.9058824,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.45,
+              "value": 1.2,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.8833333333333333,
+              "value": 1
+            }
+          ],
+          "scaleY": [
+            {
+              "frame": 0,
+              "value": 1,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 0.26666666666666666,
+              "value": 0.8,
+              "curve": "linear"
+            },
+            {
+              "frame": 0.55,
+              "value": 1,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.8166666666666667,
+              "value": 0.8,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.1333333333333333,
+              "value": 1.0941176,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.45,
+              "value": 0.8,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.8833333333333333,
+              "value": 1
+            }
+          ],
+          "y": [
+            {
+              "frame": 0.8166666666666667,
+              "value": -29.336,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.1333333333333333,
+              "value": -15.842,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.45,
+              "value": -29.336
+            }
+          ]
+        }
+      },
+      "top_node/top": {
+        "comps": {}
+      },
+      "top_node": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0,
+                45
+              ],
+              "curve": "cubicIn",
+              "motionPath": []
+            },
+            {
+              "frame": 0.26666666666666666,
+              "value": [
+                0,
+                32.8
+              ],
+              "curve": "linear",
+              "motionPath": []
+            },
+            {
+              "frame": 0.55,
+              "value": [
+                0,
+                45
+              ],
+              "curve": "cubicOut",
+              "motionPath": []
+            },
+            {
+              "frame": 0.8166666666666667,
+              "value": [
+                0,
+                32.9
+              ],
+              "motionPath": []
+            },
+            {
+              "frame": 1,
+              "value": [
+                -0.4,
+                60.1
+              ],
+              "curve": "cubicOut",
+              "motionPath": [
+                [
+                  -14.3,
+                  79.5,
+                  -9.8,
+                  77,
+                  -25.4,
+                  85.9
+                ]
+              ]
+            },
+            {
+              "frame": 1.45,
+              "value": [
+                -38.5,
+                81.8
+              ],
+              "motionPath": []
+            }
+          ],
+          "scaleX": [
+            {
+              "frame": 0,
+              "value": 1,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 0.26666666666666666,
+              "value": 1.2,
+              "curve": "linear"
+            },
+            {
+              "frame": 0.55,
+              "value": 1,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.8166666666666667,
+              "value": 1.2,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.1333333333333333,
+              "value": 0.9058824
+            },
+            {
+              "frame": 1.45,
+              "value": 1
+            }
+          ],
+          "angle": [
+            {
+              "frame": 1,
+              "value": 0,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.45,
+              "value": 55
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 1.1333333333333333,
+              "value": 255,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.45,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "top_node/ribbon_up": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0,
+              "curve": "linear"
+            },
+            {
+              "frame": 0.26666666666666666,
+              "value": 10,
+              "curve": "linear"
+            },
+            {
+              "frame": 0.55,
+              "value": -18,
+              "curve": "linear"
+            },
+            {
+              "frame": 0.8166666666666667,
+              "value": 14,
+              "curve": "linear"
+            },
+            {
+              "frame": 1.05,
+              "value": -18
+            }
+          ]
+        }
+      },
+      "top_node/ribbon_down": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0,
+              "curve": "linear"
+            },
+            {
+              "frame": 0.26666666666666666,
+              "value": 7,
+              "curve": "linear"
+            },
+            {
+              "frame": 0.55,
+              "value": -15,
+              "curve": "linear"
+            },
+            {
+              "frame": 0.8166666666666667,
+              "value": 7,
+              "curve": "linear"
+            },
+            {
+              "frame": 1.05,
+              "value": -15
+            }
+          ]
+        }
+      },
+      "top_node/ribbon_up_l": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0,
+              "curve": "linear"
+            },
+            {
+              "frame": 0.26666666666666666,
+              "value": -10,
+              "curve": "linear"
+            },
+            {
+              "frame": 0.55,
+              "value": 18,
+              "curve": "linear"
+            },
+            {
+              "frame": 0.8166666666666667,
+              "value": -14,
+              "curve": "linear"
+            },
+            {
+              "frame": 1.05,
+              "value": 18
+            }
+          ]
+        }
+      },
+      "top_node/ribbon_down_l": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0,
+              "curve": "linear"
+            },
+            {
+              "frame": 0.26666666666666666,
+              "value": -7,
+              "curve": "linear"
+            },
+            {
+              "frame": 0.55,
+              "value": 15,
+              "curve": "linear"
+            },
+            {
+              "frame": 0.8166666666666667,
+              "value": -7,
+              "curve": "linear"
+            },
+            {
+              "frame": 1.05,
+              "value": 15
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

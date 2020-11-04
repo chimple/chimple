@@ -140,7 +140,7 @@ export default class UtilLogger {
                     UtilLogger.firebase.analytics().logEvent(key, data);
                 })();
             } else {
-                UtilLogger.firebase.analytics().logEvent(key, data);
+                UtilLogger.firebase ? UtilLogger.firebase.analytics().logEvent(key, data): '';
             }
         }
     }

@@ -861,7 +861,7 @@ export class Util {
     public static unlockNextReward(): [string, string] {
         const user = User.getCurrentUser()
         const unlockedRewards = user.unlockedRewards
-        const nextCharIndex = REWARD_CHARACTERS.findIndex((char) => !(`${REWARD_TYPES[0]}-${char}` in unlockedRewards))
+        const nextCharIndex = REWARD_CHARACTERS.findIndex((char) => !(unlockedRewards[`${REWARD_TYPES[0]}-${char}`]))
 
         if (nextCharIndex == 0) {
             //first inventory of first character
