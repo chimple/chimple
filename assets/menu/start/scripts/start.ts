@@ -261,18 +261,18 @@ export default class Start extends cc.Component {
             if (index == user.lessonPlanIndex) {
                 if (Config.i.lessonPlanIncr && index > 0) {
                     Config.i.lessonPlanIncr = false
-                    const prevNode = this.content.children[user.lessonPlanIndex - 1]
-                    const prevPos = prevNode.convertToWorldSpaceAR(cc.v3(0, prevNode.height / 2))
-                    const diffPos = node.convertToNodeSpaceAR(prevPos)
-                    const newPos = cc.v3(0, node.height / 2)
-                    spriteNode.position = diffPos
-                    spriteNode.runAction(cc.bezierTo(
-                        0.5, [
-                            cc.v2(diffPos.add(newPos).mul(0.33).add(cc.v3(0, 200))),
-                            cc.v2(diffPos.add(newPos).mul(0.33).add(cc.v3(0, 100))),
-                            cc.v2(newPos)
-                        ]
-                    ))
+                    // const prevNode = this.content.children[user.lessonPlanIndex - 1]
+                    // const prevPos = prevNode.convertToWorldSpaceAR(cc.v3(0, prevNode.height / 2))
+                    // const diffPos = node.convertToNodeSpaceAR(prevPos)
+                    // const newPos = cc.v3(0, node.height / 2)
+                    // spriteNode.position = diffPos
+                    // spriteNode.runAction(cc.bezierTo(
+                    //     0.5, [
+                    //         cc.v2(diffPos.add(newPos).mul(0.33).add(cc.v3(0, 200))),
+                    //         cc.v2(diffPos.add(newPos).mul(0.33).add(cc.v3(0, 100))),
+                    //         cc.v2(newPos)
+                    //     ]
+                    // ))
                 }
             }
         }
