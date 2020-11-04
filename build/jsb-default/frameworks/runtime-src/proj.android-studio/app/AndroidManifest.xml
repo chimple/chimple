@@ -41,7 +41,7 @@
                 <data
                     android:scheme="http"
                     android:host="chimple.github.io"
-                    android:pathPrefix="/add_teacher/" />
+                    android:pathPrefix="/received_teacher_request/" />
             </intent-filter>
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
