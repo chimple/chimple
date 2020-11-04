@@ -1,7 +1,7 @@
 import {Util} from "../util";
 import UtilLogger from "../util-logger";
 import {Chapter, Course, Lesson} from "./convert";
-import Profile, {User} from "./profile";
+import Profile, {LANGUAGE, User} from "./profile";
 import TTFFont = cc.TTFFont;
 
 export const DEFAULT_FONT = 'main';
@@ -149,7 +149,7 @@ export default class Config {
 
     hasLoadedTextFont(fontName: string) {
         const f: TTFFont = this._textFontMap.get(fontName);
-        const isValid = this._textFontMap.has(fontName) && f.isValid;
+        const isValid = this._textFontMap.has(fontName) && f && f.isValid;
         return isValid;
     }
 
@@ -169,6 +169,13 @@ export default class Config {
 
     static loadScene(scene: string, bundle: string = null, callback: Function = null) {
         Util.freeResources();
+
+        const lang = Profile.getValue(LANGUAGE) || Lang.ENGLISH
+        const langConfig = LANG_CONFIGS.get(lang)
+        if (!Config.i.hasLoadedTextFont(langConfig.font)) {
+            Config.i.loadFontDynamically(langConfig.font)
+        }
+
         if (bundle != null) {
             UtilLogger.logChimpleEvent("load_scene", {
                 scene: scene,

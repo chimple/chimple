@@ -1,6 +1,7 @@
-import { User } from "../../../common/scripts/lib/profile";
+import Profile, { User, IN_LOGIN_FLOW } from "../../../common/scripts/lib/profile";
 import { INVENTORY_DATA, INVENTORY_SAVE_CONSTANTS, REWARD_TYPES, Util } from "../../../common/scripts/util";
 import Item from "./item";
+import Config from "../../../common/scripts/lib/config";
 
 const { ccclass, property } = cc._decorator;
 
@@ -12,6 +13,12 @@ export default class Inventory extends cc.Component {
 
     @property(cc.Node)
     layoutNode: cc.Node = null;
+
+    @property(cc.Node)
+    doneButtonNode: cc.Node = null;
+
+    @property(cc.Node)
+    crossButtonNode: cc.Node = null;
 
     @property()
     scrollValue: number = 100;
@@ -43,8 +50,21 @@ export default class Inventory extends cc.Component {
             this.node.addChild(friendNode)
             Util.loadAccessoriesAndEquipAcc(friendNode.children[1], friendNode)
         })
+
+        if (Profile.getItem(IN_LOGIN_FLOW) === 0) {
+            this.doneButtonNode.active = false;
+        }
+        else {
+            this.crossButtonNode.active = false;
+        }
         // for testing only
         // Profile.createUser("AK", Language.ENGLISH, "", 12, Gender.BOY)
+    }
+
+    onDoneButtonClick(event) {
+        Config.loadScene("menu/start/scenes/start", "menu", null)
+        User.getCurrentUser().openOnlyTheSelectedRewards("chimp")
+        Profile.setItem(IN_LOGIN_FLOW, 0)
     }
 
     onInventoryButtonClick(event) {
