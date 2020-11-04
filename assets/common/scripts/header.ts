@@ -40,7 +40,7 @@ export default class Header extends cc.Component {
             headerButtonComp.selected.node.active = false
             this.courseLayout.addChild(headerButton)
             const course = config.curriculum.get(courseId)
-            headerButtonComp.label.string = course.name
+            headerButtonComp.label.string = Util.i18NText(course.name);
             Util.load(courseId + '/course/res/icons/' + courseId + '.png', (err: Error, texture) => {
                 headerButtonComp.sprite.spriteFrame = err ? null : new cc.SpriteFrame(texture);
             })
