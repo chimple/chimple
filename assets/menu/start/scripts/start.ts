@@ -42,6 +42,11 @@ export default class Start extends cc.Component {
     @property(cc.SpriteFrame)
     currentLesson: cc.SpriteFrame = null
 
+    @property(cc.Prefab)
+    giftBoxPrefab: cc.Prefab = null
+
+    friend: cc.Node
+
     async onLoad() {
         const user = User.getCurrentUser()
         this.bgHolder.removeAllChildren();
@@ -61,15 +66,23 @@ export default class Start extends cc.Component {
         user.curriculumLoaded
             ? this.initPage()
             : config.loadCourseJsons(user, this.node, this.initPage.bind(this))
+
+        Util.loadFriend((node: cc.Node) => {
+            this.friend = node
+            this.node.addChild(this.friend)
+            node.y = -cc.winSize.height / 2
+            node.x = -cc.winSize.width / 3
+            Util.loadAccessoriesAndEquipAcc(node.children[1], node)
+        })
         const assignments: [] = await ServiceConfig.getI().handle.listAssignments(user.id);
         console.log(assignments)
-        user.lessonPlan = user.lessonPlan
-            .concat(assignments
-                .map((val) => val.lessonId)
-                .filter((lId, index, self) => user.lessonPlan.indexOf(lId) == -1
-                    && !user.lessonProgressMap.has(lId)
-                    && self.indexOf(lId) === index
-                ))
+        // user.lessonPlan = user.lessonPlan
+        //     .concat(assignments
+        //         .map((val) => val.lessonId)
+        //         .filter((lId, index, self) => user.lessonPlan.indexOf(lId) == -1
+        //             && !user.lessonProgressMap.has(lId)
+        //             && self.indexOf(lId) === index
+        //         ))
 
     }
 
@@ -77,25 +90,30 @@ export default class Start extends cc.Component {
         // const drawerComp = this.drawer.getComponent(Drawer);
         // drawerComp.onCourseClick = this.onCourseClick.bind(this);
         const user = User.getCurrentUser()
-        const lessonPlan = user.lessonPlan
         const now = new Date()
-        if (lessonPlan && lessonPlan.length > 0
-            && user.lessonPlanIndex < lessonPlan.length
+        if (user.lessonPlan && user.lessonPlan.length > 0
+            && user.lessonPlanIndex < user.lessonPlan.length
             && user.lessonPlanDate
             && user.lessonPlanDate.getDate() == now.getDate()
             && user.lessonPlanDate.getMonth() == now.getMonth()
             && user.lessonPlanDate.getFullYear() == now.getFullYear()
         ) {
-            this.displayLessonPlan(lessonPlan.map((val) =>
+            this.displayLessonPlan(user.lessonPlan.map((val) =>
                 val.endsWith('_PreQuiz')
                     ? Start.preQuizLesson(Config.i.curriculum.get(val.split('_')[0]))
                     : Config.i.allLessons.get(val)
             ))
         } else {
-            const lessons = this.createLessonPlan()
+            const courses = Array.from(user.courseProgressMap.keys())
+                .sort((a, b) =>
+                    user.courseProgressMap.get(a).date.getTime() - user.courseProgressMap.get(b).date.getTime()
+                )
+            const courseId = courses[0]
+            const lessons = this.createLessonPlan(courseId)
+            user.lessonPlanCourseId = courseId
             user.lessonPlan = lessons.map((l) => l.id)
-            user.lessonPlanDate = now
             user.lessonPlanIndex = 0
+            user.lessonPlanDate = now
             this.displayLessonPlan(lessons)
         }
         this.loading.active = false;
@@ -199,74 +217,48 @@ export default class Start extends cc.Component {
         Config.i.pushScene('menu/rewards/scenes/rewards', 'menu')
     }
 
-    createLessonPlan(): Lesson[] {
+    createLessonPlan(courseId: string): Lesson[] {
         const user = User.getCurrentUser()
         const lessons: Array<Lesson> = []
-        user.courseProgressMap.forEach((courseProgress: CourseProgress, name: string) => {
-            const course = Config.i.curriculum.get(name)
-            if (courseProgress.currentChapterId) {
-                course.chapters.forEach((chapter: Chapter, index: number) => {
-                    if (chapter.id == courseProgress.currentChapterId) {
-                        // get reco lesson in current chapter
-                        lessons.push(this.recommendedLessonInChapter(chapter))
+        const courseProgress = user.courseProgressMap.get(courseId)
+        const course = Config.i.curriculum.get(courseId)
+        if (courseProgress.currentChapterId) {
+            course.chapters.forEach((chapter: Chapter, index: number) => {
+                if (chapter.id == courseProgress.currentChapterId) {
+                    // get reco lesson in current chapter
+                    lessons.push(this.recommendedLessonInChapter(chapter))
 
-                        const last3Chapters: Chapter[] = Util.shuffleByMapSortMap(course.chapters.slice(Math.max(0, index - 3), index))
-                        if (last3Chapters.length > 0) {
-                            // get reco lesson in random past 3 chapters
-                            lessons.push(this.recommendedLessonInChapter(last3Chapters[0]))
-                        } else if (index + 1 < course.chapters.length) {
-                            // or if in first chapter, get reco lesson from next chapter
-                            lessons.push(this.recommendedLessonInChapter(course.chapters[index + 1]))
-                        }
+                    const last3Chapters: Chapter[] = Util.shuffleByMapSortMap(course.chapters.slice(Math.max(0, index - 3), index))
+                    if (last3Chapters.length > 0) {
+                        // get reco lesson in random past 3 chapters
+                        lessons.push(this.recommendedLessonInChapter(last3Chapters[0]))
+                    } else if (index + 1 < course.chapters.length) {
+                        // or if in first chapter, get reco lesson from next chapter
+                        lessons.push(this.recommendedLessonInChapter(course.chapters[index + 1]))
                     }
-                })
-            } else {
-                lessons.push(Start.preQuizLesson(course))
-            }
-        })
+                }
+            })
+        } else {
+            lessons.push(Start.preQuizLesson(course))
+        }
         return lessons
     }
 
     displayLessonPlan(lessons: Lesson[]) {
         const user = User.getCurrentUser()
-        const STARTX = 196
-        var dir = 1
-        const lesPerRow = Math.max(2, Math.floor(lessons.length / 3) + 1)
-        var currentX = -cc.winSize.width / 2 + STARTX
         const ctx = this.content.addComponent(cc.Graphics)
-        ctx.lineWidth = 24
+        ctx.lineWidth = 16
         ctx.strokeColor = cc.Color.WHITE
-        lessons.forEach((lesson: Lesson, index: number, array: Lesson[]) => {
-            const node = Start.createLessonButton(lesson, this.lessonButtonPrefab, this.loading, index <= user.lessonPlanIndex)
-            node.x = currentX
-            node.y = cc.winSize.height / 3.5 * (Math.floor(index / lesPerRow) - 1)
-            dir *= (index + 1) % lesPerRow == 0 ? -1 : 1
-            currentX += ((index + 1) % lesPerRow == 0 ? 0 : dir) * (cc.winSize.width - STARTX) / lesPerRow
-            node.scale = 0.5
+        ctx.moveTo(0, -cc.winSize.height / 2)
+        ctx.lineTo(0, cc.winSize.height / 2)
+        ctx.stroke()
+        for (let index = 0; index < 3; index++) {
+            const node = index < 2
+                ? Start.createLessonButton(lessons[index], this.lessonButtonPrefab, this.loading, index <= user.lessonPlanIndex)
+                : cc.instantiate(this.giftBoxPrefab)
+            node.y = (index - user.lessonPlanIndex) * 100
             this.content.addChild(node)
-            if (index == 0) {
-                ctx.moveTo(node.x, node.y)
-            } else {
-                ctx.lineTo(node.x, node.y)
-                ctx.stroke()
-            }
             if (index == user.lessonPlanIndex) {
-                const spriteNode = new cc.Node()
-                spriteNode.anchorY = 0
-                spriteNode.y = node.height / 2
-                const sprite = spriteNode.addComponent(cc.Sprite)
-                sprite.spriteFrame = this.currentLesson
-                const button = sprite.addComponent(cc.Button)
-                button.transition = cc.Button.Transition.SCALE
-                spriteNode.on('touchend', node.getComponent(LessonButton).onClick.bind(node.getComponent(LessonButton)))
-                new cc.Tween().target(spriteNode)
-                    .to(0.5, { scale: 1.1 })
-                    .to(0.5, { scale: 1 })
-                    .delay(1)
-                    .union()
-                    .repeatForever()
-                    .start()
-                node.addChild(spriteNode)
                 if (Config.i.lessonPlanIncr && index > 0) {
                     Config.i.lessonPlanIncr = false
                     const prevNode = this.content.children[user.lessonPlanIndex - 1]
@@ -283,7 +275,7 @@ export default class Start extends cc.Component {
                     ))
                 }
             }
-        })
+        }
     }
 
     // async addAssignmentsToLessonPlan() {

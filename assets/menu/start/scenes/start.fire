@@ -91,24 +91,21 @@
       },
       {
         "__id__": 29
-      },
-      {
-        "__id__": 31
       }
     ],
     "_active": true,
     "_components": [
       {
+        "__id__": 31
+      },
+      {
+        "__id__": 32
+      },
+      {
         "__id__": 33
       },
       {
         "__id__": 34
-      },
-      {
-        "__id__": 35
-      },
-      {
-        "__id__": 36
       }
     ],
     "_prefab": null,
@@ -741,8 +738,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 152,
-      "height": 153
+      "width": 133,
+      "height": 133
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -982,14 +979,13 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "User Name",
     "_N$string": "User Name",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -1150,55 +1146,9 @@
     "_parent": {
       "__id__": 2
     },
-    "_id": "04Dht+WnhGb4VpkZ2LrW1+",
-    "_prefab": {
-      "__id__": 28
-    },
-    "_name": "helpChimp",
-    "_active": true,
-    "_trs": {
-      "__type__": "TypedArray",
-      "ctor": "Float64Array",
-      "array": [
-        -450,
-        -366,
-        0,
-        0,
-        0,
-        0,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    "_eulerAngles": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    }
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 27
-    },
-    "asset": {
-      "__uuid__": "58ba7c51-d6c1-46fb-b495-303cdf50456b"
-    },
-    "fileId": "4cSd1RJC9H0K8AMSfj1vg7",
-    "sync": true
-  },
-  {
-    "__type__": "cc.Node",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 2
-    },
     "_id": "74qck4JwNHpp0z+0uCPFRS",
     "_prefab": {
-      "__id__": 30
+      "__id__": 28
     },
     "_name": "loading",
     "_active": true,
@@ -1228,7 +1178,7 @@
   {
     "__type__": "cc.PrefabInfo",
     "root": {
-      "__id__": 29
+      "__id__": 27
     },
     "asset": {
       "__uuid__": "829faaa5-750a-412f-99fe-00c90c4bf9fb"
@@ -1244,7 +1194,7 @@
     },
     "_id": "3cKdZ8GJ5NXa0PvwQuRNUy",
     "_prefab": {
-      "__id__": 32
+      "__id__": 30
     },
     "_name": "drawer",
     "_active": false,
@@ -1274,7 +1224,7 @@
   {
     "__type__": "cc.PrefabInfo",
     "root": {
-      "__id__": 31
+      "__id__": 29
     },
     "asset": {
       "__uuid__": "bd45a099-065e-4058-86d7-a0b1d1015c8f"
@@ -1338,7 +1288,7 @@
       "__uuid__": "672ca06c-4af6-4038-8fa3-c98404e28e6b"
     },
     "loading": {
-      "__id__": 29
+      "__id__": 27
     },
     "teacherDialogPrefab": {
       "__uuid__": "5a80075c-742a-40ce-ab81-f11382e84c18"
@@ -1347,7 +1297,7 @@
       "__id__": 5
     },
     "drawer": {
-      "__id__": 31
+      "__id__": 29
     },
     "homeButton": {
       "__id__": 9
@@ -1360,6 +1310,9 @@
     },
     "currentLesson": {
       "__uuid__": "afe9f656-d1e6-4ea1-8bcb-9a825719c19a"
+    },
+    "giftBoxPrefab": {
+      "__uuid__": "3eecfb21-27fd-4b47-88cd-18375df05209"
     },
     "_id": "2eFtr6mNpDkZvxkcBBwGVh"
   },
