@@ -1,9 +1,9 @@
-import { Queue } from "../../../queue";
+import {Queue} from "../../../queue";
 import Header from "../header";
-import { INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util } from "../util";
+import {INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util} from "../util";
 import UtilLogger from "../util-logger";
-import Config, { ALL_LANGS } from "./config";
-import { COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
+import Config, {ALL_LANGS} from "./config";
+import {COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS} from "./constants";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -45,22 +45,34 @@ export interface CourseProgress {
     date?: Date;
     assignments?: string[]
     lessonPlan?: string[]
-    lessonPlanIndex?: number
+    lessonPlanIndex?: number;
 }
 
 export class CourseProgressClass implements CourseProgress {
-    currentChapterId: string
+    private _currentChapterId: string
     date: Date
     assignments: string[]
     lessonPlan: string[]
     lessonPlanIndex: number
 
     constructor(currentChapterId: string = null) {
-        this.currentChapterId = currentChapterId
+        this._currentChapterId = currentChapterId
         this.date = new Date()
         this.assignments = []
         this.lessonPlan = []
         this.lessonPlanIndex = 0
+    }
+
+    set currentChapterId(c: string) {
+        this._currentChapterId = c;
+        UtilLogger.logChimpleEvent("student_level", {
+            level: c,
+            subject: Config.i.course.name
+        })
+    }
+
+    get currentChapterId() {
+        return this._currentChapterId;
     }
 }
 
@@ -845,7 +857,7 @@ export default class Profile {
     }
 
     static async teacherPostLoginActivity(objectId: string) {
-        const currentUser: User = User.createUserOrFindExistingUser({ id: objectId });
+        const currentUser: User = User.createUserOrFindExistingUser({id: objectId});
         User.setCurrentUser(currentUser);
         return currentUser;
     }

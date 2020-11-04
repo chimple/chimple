@@ -207,7 +207,7 @@ export default class Config {
                     scene: scene
                 })
 
-                cc.sys.garbagecollect();
+                cc.sys.garbageCollect();
                 if (callback != null) {
                     callback();
                 }
