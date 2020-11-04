@@ -138,7 +138,11 @@ export default class SpellDoor extends Game {
         this.node.emit('correct')
         if (--this.empty <= 0) {
             Drag.letDrag = false
+<<<<<<< Updated upstream
            this.extraChoices.forEach((e)=>{
+=======
+           this.choices.forEach((e)=>{
+>>>>>>> Stashed changes
             e.off(cc.Node.EventType.TOUCH_START);
            })
             this.scheduleOnce(() => this.friend.speakExtra(this.endAnimate.bind(this)), 0.5)
