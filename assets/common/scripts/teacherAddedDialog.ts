@@ -79,9 +79,10 @@ export default class TeacherAddedDialog extends cc.Component {
             const teachersAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + this._teacherId) || '[]');
             teachersAdded.push(this.selectedStudentId);
 
-            const teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(this.selectedStudentId) || '[]');
+            const key = `teacher_for_student_${this.selectedStudentId}`;
+            const teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
             teachersForStudent.push(this._teacherName);
-            cc.sys.localStorage.setItem(this.selectedStudentId, JSON.stringify(teachersForStudent));
+            cc.sys.localStorage.setItem(key, JSON.stringify(teachersForStudent));
 
             cc.sys.localStorage.setItem(TEACHER_ADDED + this._teacherId, JSON.stringify(teachersAdded));
             UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, request);
