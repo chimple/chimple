@@ -1,9 +1,9 @@
-import {Queue} from "../../../queue";
+import { Queue } from "../../../queue";
 import Header from "../header";
-import {INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util} from "../util";
+import { INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util } from "../util";
 import UtilLogger from "../util-logger";
-import Config, {ALL_LANGS} from "./config";
-import {COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS} from "./constants";
+import Config, { ALL_LANGS } from "./config";
+import { COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -44,36 +44,34 @@ export interface CourseProgress {
     currentChapterId: string;
     date?: Date;
     assignments?: string[]
-    lessonPlan?: string[]
-    lessonPlanIndex?: number;
 }
 
 export class CourseProgressClass implements CourseProgress {
-    private _currentChapterId: string
+    currentChapterId: string
     date: Date
     assignments: string[]
     lessonPlan: string[]
     lessonPlanIndex: number
 
     constructor(currentChapterId: string = null) {
-        this._currentChapterId = currentChapterId
+        this.currentChapterId = currentChapterId
         this.date = new Date()
         this.assignments = []
         this.lessonPlan = []
         this.lessonPlanIndex = 0
     }
 
-    set currentChapterId(c: string) {
-        this._currentChapterId = c;
-        UtilLogger.logChimpleEvent("student_level", {
-            level: c,
-            subject: Config.i.course.name
-        })
-    }
+    // set currentChapterId(c: string) {
+    //     this._currentChapterId = c;
+    //     UtilLogger.logChimpleEvent("student_level", {
+    //         level: c,
+    //         subject: Config.i.course.name
+    //     })
+    // }
 
-    get currentChapterId() {
-        return this._currentChapterId;
-    }
+    // get currentChapterId() {
+    //     return this._currentChapterId;
+    // }
 }
 
 export interface LessonProgress {
@@ -117,6 +115,8 @@ export class User {
     private _isTeacher: boolean;
     private _level: number;
     private _lessonPlanDate: Date
+    private _lessonPlan: string[]
+    private _lessonPlanIndex: number
     private _assignments: string[]
     private _lessonPlanCourseId: string
     debug: boolean = false
@@ -139,6 +139,7 @@ export class User {
         unlockedInventory: object,
         unlockedRewards: object,
         debug: boolean = false,
+        lessonPlan: string[],
         serverId: string = ''
     ) {
         this._id = id;
@@ -162,6 +163,7 @@ export class User {
         this._genderEvent(gender);
         this.debug = debug
         this._serverId = serverId
+        this._lessonPlan = lessonPlan
         this._assignments = []
         this._lessonPlanCourseId = courseProgressMap.keys().next().value
     }
@@ -317,12 +319,12 @@ export class User {
     }
 
     set lessonPlan(lessonPlan: string[]) {
-        this.courseProgressMap.get(this.lessonPlanCourseId).lessonPlan = lessonPlan
+        this._lessonPlan = lessonPlan
         this._storeUser();
     }
 
     get lessonPlan(): string[] {
-        return this.courseProgressMap.get(this.lessonPlanCourseId).lessonPlan
+        return this._lessonPlan
     }
 
     set lessonPlanDate(lessonPlanDate: Date) {
@@ -332,15 +334,6 @@ export class User {
 
     get lessonPlanDate(): Date {
         return this._lessonPlanDate;
-    }
-
-    set lessonPlanIndex(lessonPlanIndex: number) {
-        this.courseProgressMap.get(this.lessonPlanCourseId).lessonPlanIndex = lessonPlanIndex;
-        this._storeUser();
-    }
-
-    get lessonPlanIndex(): number {
-        return this.courseProgressMap.get(this.lessonPlanCourseId).lessonPlanIndex;
     }
 
     set assignments(assignments: string[]) {
@@ -475,10 +468,10 @@ export class User {
             }
         }
         if (user.lessonPlan
-            && user.lessonPlanIndex < user.lessonPlan.length
-            && user.lessonPlan[user.lessonPlanIndex] == config.lesson.id
+            && user.lessonPlan[Math.floor(user.lessonPlan.length / 2)] == config.lesson.id
         ) {
-            user.lessonPlanIndex++
+            user.lessonPlan.splice(0, 1)
+            user.lessonPlan.push(user.lessonPlan[user.lessonPlan.length - 3])
             config.lessonPlanIncr = true
         }
         if (user.assignments) {
@@ -593,7 +586,9 @@ export class User {
             new Map(),
             {},
             {},
-            debug
+            debug,
+            // ['','','','','','','','','1','2','r','1','2','r','1','2','r']
+            ['', '', '', '', '', '', '', '', '1', '2', '1', '2', '1', '2', '1', '2', '1']
         );
         if (debug) user.openAllRewards()
         // open bydefault unlocked rewards
@@ -669,6 +664,7 @@ export class User {
             data.unlockedInventory,
             data.unlockedRewards,
             data.debug,
+            data.lessonPlan,
             data.serverId
         );
         user._lessonPlanDate = new Date(data.lessonPlanDate)
@@ -709,6 +705,7 @@ export class User {
             'serverId': user.serverId,
             'lessonPlanCourseId': user.lessonPlanCourseId,
             'lessonPlanDate': user.lessonPlanDate,
+            'lessonPlan': user.lessonPlan,
             'assignments': user.assignments,
             'chapterFinishedMap': chapterFinishedMapObj
         });
@@ -857,7 +854,7 @@ export default class Profile {
     }
 
     static async teacherPostLoginActivity(objectId: string) {
-        const currentUser: User = User.createUserOrFindExistingUser({id: objectId});
+        const currentUser: User = User.createUserOrFindExistingUser({ id: objectId });
         User.setCurrentUser(currentUser);
         return currentUser;
     }
