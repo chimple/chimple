@@ -29,7 +29,6 @@ export default class SpellDoor extends Game {
     anim: cc.Animation = null
 
     choices: Array<cc.Node> = []
-    extraChoices: Array<cc.Node> = []
     empty = 0
 
     @catchError()
@@ -73,14 +72,10 @@ export default class SpellDoor extends Game {
             }
         })
         while (numConsonants-- > 0) {
-            const drag=this.createDrag(AlphabetUtil.getRandomConsonant().toLowerCase());
-            this.extraChoices.push(drag)
-            this.choices.push(drag)
+            this.choices.push(this.createDrag(AlphabetUtil.getRandomConsonant().toLowerCase()))
         }
         while (numVowels-- > 0) {
-            const drag=this.createDrag(AlphabetUtil.getRandomVowel().toLowerCase());
-            this.choices.push(drag)
-            this.extraChoices.push(drag)
+            this.choices.push(this.createDrag(AlphabetUtil.getRandomVowel().toLowerCase()))
         }
         Util.loadTexture(image, (texture) => {
             this.anim.once('finished', () => {
@@ -138,12 +133,8 @@ export default class SpellDoor extends Game {
         this.node.emit('correct')
         if (--this.empty <= 0) {
             Drag.letDrag = false
-<<<<<<< Updated upstream
-           this.extraChoices.forEach((e)=>{
-=======
-           this.choices.forEach((e)=>{
->>>>>>> Stashed changes
-            e.off(cc.Node.EventType.TOUCH_START);
+           this.choices.forEach((extraChoice)=>{
+            extraChoice.off(cc.Node.EventType.TOUCH_START);
            })
             this.scheduleOnce(() => this.friend.speakExtra(this.endAnimate.bind(this)), 0.5)
         }
