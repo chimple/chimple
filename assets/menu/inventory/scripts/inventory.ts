@@ -62,7 +62,7 @@ export default class Inventory extends cc.Component {
     }
 
     onDoneButtonClick(event) {
-        Config.loadScene("menu/start/scenes/start", "menu", null)
+        Config.i.pushScene('menu/start/scenes/start', 'menu', null);
         User.getCurrentUser().openOnlyTheSelectedRewards("chimp")
         Profile.setItem(IN_LOGIN_FLOW, 0)
     }

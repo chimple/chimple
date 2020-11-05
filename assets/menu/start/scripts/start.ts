@@ -70,7 +70,7 @@ export default class Start extends cc.Component {
         Util.loadFriend((node: cc.Node) => {
             this.friend = node
             this.node.addChild(this.friend)
-            node.y = -cc.winSize.height / 2
+            node.y = -cc.winSize.height / 2 + 16
             node.x = cc.winSize.width / 3.25
             Util.loadAccessoriesAndEquipAcc(node.children[1], node)
         })
@@ -247,13 +247,13 @@ export default class Start extends cc.Component {
         const ctx = this.content.addComponent(cc.Graphics)
         ctx.lineWidth = 16
         ctx.strokeColor = cc.Color.WHITE
-        const x1 = -512
-        const y1 = -354
+        const x1 = -cc.winSize.width/2
+        const y1 = -284
         const x2 = 0
-        const y2 = -354
+        const y2 = -284
         const x3 = 0
         const y3 = 284
-        const x4 = 512
+        const x4 = cc.winSize.width/2
         const y4 = 284
 
         ctx.moveTo(x1, y1)
