@@ -35,7 +35,7 @@ export default class CountingLayout extends cc.Component {
 
     feed(friend: cc.Node) {
         const friendPos = friend.convertToWorldSpaceAR(cc.Vec2.ZERO)
-        friendPos.y += 200
+        friendPos.y += 128
         while (this.node.childrenCount > 0) {
             const fruit = this.node.children[this.node.childrenCount - 1]
             const pos = fruit.convertToWorldSpaceAR(cc.Vec2.ZERO)
