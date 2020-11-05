@@ -129,14 +129,17 @@ export default class SpellDoor extends Game {
         })
         return drag;
     }
-
     onMatch() {
         this.node.emit('correct')
         if (--this.empty <= 0) {
             Drag.letDrag = false
+           this.choices.forEach((extraChoice)=>{
+            extraChoice.off(cc.Node.EventType.TOUCH_START);
+           })
             this.scheduleOnce(() => this.friend.speakExtra(this.endAnimate.bind(this)), 0.5)
         }
     }
+
 
     private endAnimate() {
         this.scheduleOnce(() => {
