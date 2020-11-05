@@ -36,7 +36,7 @@ export default class Friend extends cc.Component {
     }
 
     public playAnimation(animName: string, playTimes: number) {
-        this.db.playAnimation(animName, playTimes)
+        this.db ? this.db.playAnimation(animName, playTimes) : ''
     }
 
     public speakHelp(auto: boolean = true) {
