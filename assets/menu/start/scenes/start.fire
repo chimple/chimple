@@ -195,7 +195,7 @@
       "array": [
         0,
         0,
-        478.9120482927946,
+        536.9357503463519,
         0,
         0,
         0,
@@ -467,8 +467,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 47,
-      "height": 38
+      "width": 107,
+      "height": 97
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -479,8 +479,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -464.5,
-        341,
+        -446.122,
+        322.622,
         0,
         0,
         0,
@@ -547,9 +547,9 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 9,
-    "_left": 24,
+    "_left": 12.377999999999986,
     "_right": 0,
-    "_top": 24,
+    "_top": 12.877999999999986,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -928,7 +928,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 202.27,
-      "height": 50.4
+      "height": 63
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -982,7 +982,7 @@
     "_string": "User Name",
     "_N$string": "User Name",
     "_fontSize": 40,
-    "_lineHeight": 40,
+    "_lineHeight": 50,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": false,

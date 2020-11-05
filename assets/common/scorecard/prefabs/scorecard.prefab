@@ -795,7 +795,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "Lesson name",
     "_N$string": "Lesson name",
     "_fontSize": 40,
@@ -862,8 +861,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 256,
-      "height": 48
+      "width": 311,
+      "height": 69
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -875,7 +874,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -199.621,
+        -193.077,
         0,
         0,
         0,
@@ -927,7 +926,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 121.7,
-      "height": 25.2
+      "height": 50.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -978,14 +977,13 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "Common",
     "_N$string": "Common",
     "_fontSize": 30,
-    "_lineHeight": 20,
+    "_lineHeight": 40,
     "_enableWrapText": false,
     "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -1435,7 +1433,7 @@
     "asset": {
       "__uuid__": "04e93ec8-a7ba-4822-9c43-aebc450449d7"
     },
-    "fileId": "afT0Rn079EWa5bnulFCYU8",
+    "fileId": "",
     "sync": false
   }
 ]
