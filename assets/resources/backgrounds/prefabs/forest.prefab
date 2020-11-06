@@ -40,10 +40,13 @@
     "_components": [
       {
         "__id__": 102
+      },
+      {
+        "__id__": 103
       }
     ],
     "_prefab": {
-      "__id__": 103
+      "__id__": 104
     },
     "_opacity": 255,
     "_color": {
@@ -55,7 +58,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_anchorPoint": {
@@ -122,7 +125,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_anchorPoint": {
@@ -201,7 +204,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 1800,
       "height": 768
     },
     "_resize": 0,
@@ -3749,6 +3752,25 @@
     },
     "_enabled": true,
     "lockIconNode": null,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.AudioSource",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_clip": {
+      "__uuid__": "5c8c0dba-1af3-4aa7-8508-9a022a8afa3a"
+    },
+    "_volume": 1,
+    "_mute": false,
+    "_loop": true,
+    "_firstlyEnabled": true,
+    "playOnLoad": false,
+    "preload": false,
     "_id": ""
   },
   {
