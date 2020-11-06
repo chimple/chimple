@@ -1,8 +1,4 @@
 {
-  "id": "maths",
-  "name": "Maths",
-  "lang": "en",
-  "type": "maths",
   "chapters": [
     {
       "id": "maths00",
@@ -2490,5 +2486,9 @@
       ],
       "name": "Word Problems -Advanced"
     }
-  ]
+  ],
+  "id": "maths",
+  "lang": "en",
+  "name": "Maths",
+  "type": "maths"
 }
