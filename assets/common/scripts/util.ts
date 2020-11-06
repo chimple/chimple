@@ -22,6 +22,7 @@ export const INVENTORY_DATA = [
 ];
 
 export const INVENTORY_SAVE_CONSTANTS = ["hat1", "handacc", "glassacc", "left_shoe", "neck_acc"]
+export const INVENTORY_ANIMATIONS = ["hat", "hand", "glass", "leg", "neck"]
 
 export const REWARD_TYPES = ["character", "background", "achievement", "inventory"]
 export const REWARD_CHARACTERS = ['chimp', 'bear', 'camel', 'cat', 'dog', 'duck', 'hippo', 'horse', 'koala', 'rabbit', 'tiger']

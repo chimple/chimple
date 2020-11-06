@@ -21,12 +21,6 @@ export default class LessonButton extends cc.Component {
     @property(cc.Prefab)
     lessonIconPrefab: cc.Prefab
 
-    @property(cc.Label)
-    chapterLabel: cc.Label
-
-    @property(cc.Sprite)
-    courseSprite: cc.Sprite
-
     @property(cc.Sprite)
     downloadSprite: cc.Sprite
 
@@ -63,14 +57,6 @@ export default class LessonButton extends cc.Component {
                     this.onClick();
                 }
             })
-            if (this.chapterLabel != null) this.chapterLabel.string = this.lesson.chapter.name
-            if (this.courseSprite != null) {
-                Util.load(this.lesson.chapter.course.id + '/course/res/icons/' + this.lesson.chapter.course.id + '_bg.png', (err, texture) => {
-                    if (!err) {
-                        this.courseSprite.spriteFrame = new cc.SpriteFrame(texture);
-                    }
-                })
-            }
             this.button.interactable = this.open
             const lessonProgress = User.getCurrentUser().lessonProgressMap.get(this.lesson.id)
             if (this.open && lessonProgress && lessonProgress.score >= 0) {

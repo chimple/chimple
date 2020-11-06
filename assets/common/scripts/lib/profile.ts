@@ -411,8 +411,7 @@ export class User {
     updateLessonProgress(lessonId: string, score: number, quizScores: number[]): [string, string] {
         var reward: [string, string]
         const config = Config.i
-        const user = User.getCurrentUser()
-        if (user.courseProgressMap.get(Config.i.course.id).currentChapterId == null) {
+        if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == null) {
             const formulaScore = quizScores.reduce((acc, cur, i, arr): number => {
                 const mul = Math.floor(arr.length / 2) - Math.floor(i / 2)
                 const neg = cur == 0 ? -0.5 : cur
@@ -421,7 +420,7 @@ export class User {
             const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
             const total = Math.max(0, formulaScore / max)
             const chapters = config.curriculum.get(config.course.id).chapters
-            user.courseProgressMap.get(Config.i.course.id).currentChapterId = chapters[Math.floor((chapters.length - 1) * total)].id
+            this.courseProgressMap.get(Config.i.course.id).currentChapterId = chapters[Math.floor((chapters.length - 1) * total)].id
         } else {
             if (this._lessonProgressMap.has(lessonId)) {
                 const lessonProgress = this._lessonProgressMap.get(lessonId)
@@ -431,15 +430,11 @@ export class User {
                     lessonProgress.score = score;
                     if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
                         reward = [REWARD_TYPES[2], Config.i.lesson.image]
-                    } else {
-                        reward = Util.unlockNextReward()
                     }
                 }
             } else {
                 if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
                     reward = [REWARD_TYPES[2], Config.i.lesson.image]
-                } else {
-                    reward = Util.unlockNextReward()
                 }
                 this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1));
             }
@@ -467,22 +462,20 @@ export class User {
                 }
             }
         }
-        if (user.lessonPlan
-            && user.lessonPlan[Math.floor(user.lessonPlan.length / 2)] == config.lesson.id
+        if (this.lessonPlan
+            && this.lessonPlan[Math.floor(this.lessonPlan.length / 2)] == config.lesson.id
         ) {
-            user.lessonPlan.splice(0, 1)
-            user.lessonPlan.push(user.lessonPlan[user.lessonPlan.length - 3])
-            config.lessonPlanIncr = true
+            this.pushNewLessonPlaceholder();
         }
-        if (user.assignments) {
-            const index = user.assignments.indexOf(config.lesson.id)
+        if (this.assignments) {
+            const index = this.assignments.indexOf(config.lesson.id)
             if (index > -1) {
-                user.assignments.splice(index, 1)
+                this.assignments.splice(index, 1)
             }
         }
 
         // check if all lessons for current chapter are finished
-        const courseProgress = user.courseProgressMap.get(Config.i.course.id);
+        const courseProgress = this.courseProgressMap.get(Config.i.course.id);
         if (!!courseProgress) {
             courseProgress.date = new Date()
             this._chapterFinishedMap = !this._chapterFinishedMap ? new Map() : this._chapterFinishedMap;
@@ -504,6 +497,13 @@ export class User {
         }
         this._storeUser();
         return reward
+    }
+
+    pushNewLessonPlaceholder() {
+        this.lessonPlan.splice(0, 1);
+        this.lessonPlan.push(this.lessonPlan[this.lessonPlan.length - 3]);
+        Config.i.lessonPlanIncr = true;
+        this._storeUser()
     }
 
     private _storeUser() {
@@ -587,8 +587,8 @@ export class User {
             {},
             {},
             debug,
-            // ['','','','','','','','','1','2','r','1','2','r','1','2','r']
-            ['', '', '', '', '', '', '', '', '1', '2', '1', '2', '1', '2', '1', '2', '1']
+            ['','','','','','','','','1','2','r','1','2','r','1','2','r']
+            // ['', '', '', '', '', '', '', '', '1', '2', '1', '2', '1', '2', '1', '2', '1']
         );
         if (debug) user.openAllRewards()
         // open bydefault unlocked rewards

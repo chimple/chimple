@@ -1,5 +1,5 @@
 import Profile, { User, IN_LOGIN_FLOW } from "../../../common/scripts/lib/profile";
-import { INVENTORY_DATA, INVENTORY_SAVE_CONSTANTS, REWARD_TYPES, Util } from "../../../common/scripts/util";
+import { INVENTORY_DATA, INVENTORY_SAVE_CONSTANTS, REWARD_TYPES, Util, INVENTORY_ANIMATIONS } from "../../../common/scripts/util";
 import Item from "./item";
 import Config from "../../../common/scripts/lib/config";
 
@@ -32,7 +32,6 @@ export default class Inventory extends cc.Component {
     characterName: string = "bear"
 
     normalSprite: cc.SpriteFrame = null;
-    animationNames = ["hat", "hand", "glass", "leg", "neck"]
     onLoad() {
         try {
             this.characterName = User.getCurrentUser().currentCharacter;
@@ -121,14 +120,7 @@ export default class Inventory extends cc.Component {
                 let [slot_name, armature_name] = name.split("-");
 
                 // update the armature
-                var newHatName = armature_name;
-                let factory = dragonBones.CCFactory.getInstance();
-                let _armature = this.node.getChildByName(`${this.characterName}_dragon`).children[0].getComponent(dragonBones.ArmatureDisplay).armature();
-                _armature.getSlot(slot_name).childArmature = factory.buildArmature(newHatName);
-                this.node.getChildByName(`${this.characterName}_dragon`).children[0].getComponent(dragonBones.ArmatureDisplay).playAnimation(this.animationNames[this.lastSelectedButton], 1)
-                if (slot_name === "left_shoe") {
-                    _armature.getSlot("right_shoe").childArmature = factory.buildArmature(newHatName);
-                }
+                Inventory.updateCharacter(this.node.getChildByName(`${this.characterName}_dragon`).children[0].getComponent(dragonBones.ArmatureDisplay), INVENTORY_ANIMATIONS[this.lastSelectedButton], armature_name, slot_name);
 
                 // save to profile
                 let characterAndSlot = this.characterName.concat("-", slot_name)
@@ -138,6 +130,17 @@ export default class Inventory extends cc.Component {
             item.getChildByName("New Button").name = element
             this.layoutNode.addChild(item);
         });
+    }
+
+    static updateCharacter(db: dragonBones.ArmatureDisplay, animationName: string, armature_name: any, slot_name: any) {
+        var newHatName = armature_name;
+        let factory = dragonBones.CCFactory.getInstance();
+        let _armature = db.armature();
+        _armature.getSlot(slot_name).childArmature = factory.buildArmature(newHatName);
+        db.playAnimation(animationName, 1);
+        if (slot_name === "left_shoe") {
+            _armature.getSlot("right_shoe").childArmature = factory.buildArmature(newHatName);
+        }
     }
 
     start() {

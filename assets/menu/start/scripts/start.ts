@@ -7,9 +7,11 @@ import { CourseProgress, User } from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
 import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
 import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
-import { Util } from "../../../common/scripts/util";
+import { Util, REWARD_TYPES, INVENTORY_SAVE_CONSTANTS, INVENTORY_ANIMATIONS } from "../../../common/scripts/util";
 import LessonButton from "./lessonButton";
 import StartContent from "./startContent";
+import Inventory from "../../inventory/scripts/inventory";
+import Friend from "../../../common/scripts/friend";
 
 const { ccclass, property } = cc._decorator;
 
@@ -45,6 +47,9 @@ export default class Start extends cc.Component {
     @property(cc.Prefab)
     giftBoxPrefab: cc.Prefab = null
 
+    @property(cc.Graphics)
+    ctx: cc.Graphics = null
+
     friend: cc.Node
 
     async onLoad() {
@@ -69,6 +74,7 @@ export default class Start extends cc.Component {
 
         Util.loadFriend((node: cc.Node) => {
             this.friend = node
+            node.scale = 0.8
             this.node.addChild(this.friend)
             node.y = -cc.winSize.height / 2 + 16
             node.x = cc.winSize.width / 3.25
@@ -179,37 +185,6 @@ export default class Start extends cc.Component {
         this.showTeacherDialog();
     }
 
-    // private onCourseClick() {
-    //     this.content.removeAllChildren();
-    //     const courseContent = cc.instantiate(this.courseContentPrefab);
-    //     const courseContentComp = courseContent.getComponent(CourseContent);
-    //     courseContentComp.loading = this.loading;
-    //     courseContentComp.content = this.content;
-    //     this.content.addChild(courseContent);
-    // }
-
-    // private onHomeClick() {
-    //     this.content.removeAllChildren()
-    //     const startContent = cc.instantiate(this.startContentPrefab)
-    //     const startContentComp = startContent.getComponent(StartContent)
-    //     startContentComp.loading = this.loading
-    //     this.content.addChild(startContent)
-    //     this.setHomeIcon()
-    // }
-
-    // private setHomeIcon() {
-    //     if(Header.homeSelected) {
-    //         this.homeButton.label.string = 'Home'
-    //         this.homeButton.sprite.spriteFrame = this.homeButton.homeSprite
-    //     } else {
-    //         const course = Config.i.course
-    //         this.homeButton.label.string = course.name
-    //         Util.load(course.id + '/course/res/icons/' + course.id + '.png', (err: Error, texture) => {
-    //             this.homeButton.sprite.spriteFrame = err ? null : new cc.SpriteFrame(texture);
-    //         })    
-    //     }
-    // }
-
     onProfileClick() {
         Config.i.pushScene('menu/rewards/scenes/rewards', 'menu')
     }
@@ -244,24 +219,25 @@ export default class Start extends cc.Component {
 
     displayLessonPlan() {
         const user = User.getCurrentUser()
-        const ctx = this.content.addComponent(cc.Graphics)
-        ctx.lineWidth = 16
-        ctx.strokeColor = cc.Color.WHITE
-        const x1 = -cc.winSize.width/2
-        const y1 = -284
-        const x2 = 0
-        const y2 = -284
-        const x3 = 0
-        const y3 = 284
-        const x4 = cc.winSize.width/2
-        const y4 = 284
+        const x1 = -cc.winSize.width / 2
+        const y1 = -254
+        const x2 = cc.winSize.width / 4
+        const y2 = -254
+        const x3 = -cc.winSize.width / 4
+        const y3 = 254
+        const x4 = cc.winSize.width / 2
+        const y4 = 254
 
-        ctx.moveTo(x1, y1)
-        ctx.bezierCurveTo(x2, y2, x3, y3, x4, y4)
-        ctx.stroke()
+        this.content.removeAllChildren()
+        this.ctx.moveTo(x1, y1)
+        this.ctx.bezierCurveTo(x2, y2, x3, y3, x4, y4)
+        this.ctx.stroke()
+        const midIndex = Math.floor(user.lessonPlan.length / 2)
+        var posIndex = 0
         user.lessonPlan.forEach((lessonId, index, lessons) => {
-            if (lessonId != '') {
-                const node: cc.Node = lessonId == 'r'
+            const node: cc.Node = lessonId == ''
+                ? new cc.Node()
+                : lessonId == 'r'
                     ? cc.instantiate(this.giftBoxPrefab)
                     : lessonId.length == 1
                         ? cc.instantiate(this.giftBoxPrefab)
@@ -271,30 +247,67 @@ export default class Start extends cc.Component {
                                 : Config.i.allLessons.get(lessonId),
                             this.lessonButtonPrefab,
                             this.loading,
-                            index == Math.floor(user.lessonPlan.length / 2))
+                            index == midIndex)
 
-                const t = index / lessons.length
-                node.x = Math.pow(1 - t, 3) * x1 + 3 * Math.pow(1 - t, 2) * t * x2 + 3 * (1 - t) * Math.pow(t, 2) * x3 + Math.pow(t, 3) * x4
-                node.y = Math.pow(1 - t, 3) * y1 + 3 * Math.pow(1 - t, 2) * t * y2 + 3 * (1 - t) * Math.pow(t, 2) * y3 + Math.pow(t, 3) * y4
-                if (index != Math.floor(user.lessonPlan.length / 2)) node.scale = 0.2
-                this.content.addChild(node)
+            if (index == midIndex) {
+                posIndex += 2
             }
-            if (Config.i.lessonPlanIncr) {
-                Config.i.lessonPlanIncr = false
-                // const prevNode = this.content.children[user.lessonPlanIndex - 1]
-                // const prevPos = prevNode.convertToWorldSpaceAR(cc.v3(0, prevNode.height / 2))
-                // const diffPos = node.convertToNodeSpaceAR(prevPos)
-                // const newPos = cc.v3(0, node.height / 2)
-                // spriteNode.position = diffPos
-                // spriteNode.runAction(cc.bezierTo(
-                //     0.5, [
-                //         cc.v2(diffPos.add(newPos).mul(0.33).add(cc.v3(0, 200))),
-                //         cc.v2(diffPos.add(newPos).mul(0.33).add(cc.v3(0, 100))),
-                //         cc.v2(newPos)
-                //     ]
-                // ))
+            const t = -0.2 + posIndex / (lessons.length + 4 - 1) * 1.4
+            if (index == midIndex) {
+                posIndex += 2
+            } else {
+                node.scale = 0.4
+            }
+            posIndex++
+            node.x = Math.pow(1 - t, 3) * x1 + 3 * Math.pow(1 - t, 2) * t * x2 + 3 * (1 - t) * Math.pow(t, 2) * x3 + Math.pow(t, 3) * x4
+            node.y = Math.pow(1 - t, 3) * y1 + 3 * Math.pow(1 - t, 2) * t * y2 + 3 * (1 - t) * Math.pow(t, 2) * y3 + Math.pow(t, 3) * y4
+            this.content.addChild(node)
+            if (index == midIndex && lessonId == 'r') {
+                const [rewardType, rewardItem] = Util.unlockNextReward()
+                this.scheduleOnce(() => {
+                    const anim = node.getComponent(cc.Animation)
+                    anim.play()
+                }, 2)
+                this.scheduleOnce(() => {
+                    user.pushNewLessonPlaceholder()
+                    this.displayLessonPlan()
+                }, 6)
+                if (rewardType == REWARD_TYPES[3]) {
+                    this.scheduleOnce(() => {
+                        const splitItems = rewardItem.split('-')
+                        const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2])
+                        Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2])
+                    }, 4)
+                }
             }
         })
+        if (Config.i.lessonPlanIncr) {
+            this.content.children.forEach((node: cc.Node, index: number, children: cc.Node[]) => {
+                if (index + 1 < children.length && index > 0) {
+                    const pos = node.position.clone()
+                    node.position = children[index + 1].position.clone()
+                    if (index == Math.floor(user.lessonPlan.length / 2)) {
+                        node.scale = 0.4
+                        new cc.Tween().target(node)
+                            .to(0.5, { position: pos, scale: 1 }, null)
+                            .start()
+                    } else if (index == Math.floor(user.lessonPlan.length / 2) - 1) {
+                        node.scale = 1
+                        new cc.Tween().target(node)
+                            .to(0.5, { position: pos, scale: 0.4 }, null)
+                            .start()
+                    } else {
+                        new cc.Tween().target(node)
+                            .to(0.5, { position: pos }, null)
+                            .start()
+                    }
+                }
+            })
+        }
+        if (user.lessonPlan[midIndex] == 'r') {
+        }
+        Config.i.lessonPlanIncr = false
+
     }
 
     // async addAssignmentsToLessonPlan() {

@@ -6,6 +6,15 @@ import Header from "../../../common/scripts/header";
 
 const { ccclass, property } = cc._decorator;
 
+const DRAWER_ICON_COLORS = {
+    'en': '#FFBC00',
+    'maths': '#42C0FF',
+    'hi': '#009158',
+    'puzzle': '#FF5500',
+    'test-lit': '#FFBC00',
+    'test-maths': '#42C0FF'
+}
+
 @ccclass
 export default class Drawer extends cc.Component {
     @property(cc.Node)
@@ -24,32 +33,15 @@ export default class Drawer extends cc.Component {
 
     onLoad() {
         const config = Config.i
-        this.courseLayout.x = - cc.winSize.width / 2 - 256
-        // const homeButton = cc.instantiate(this.drawerButtonPrefab)
-        // const homeButtonComp = homeButton.getComponent(HeaderButton)
-        // homeButtonComp.button.node.on('touchend', (event: cc.Event) => {
-        //     if (event.target.getComponent(cc.Button).enabled) {
-        //         Header.homeSelected = true
-        //         const config = Config.i
-        //         config.course = null
-        //         config.chapter = null
-        //         config.lesson = null
-        //         this.selectHeaderButton(homeButtonComp)
-        //         if (this.onHomeClick) this.onHomeClick()
-        //         this.closeDrawer()
-        //     }
-        // })
-        // homeButtonComp.label.string = Util.i18NText('Home')
-        // this.courseLayout.addChild(homeButton)
-        // homeButtonComp.selected.node.active = false
-        // if (Header.homeSelected) this.selectHeaderButton(homeButtonComp)
+        this.courseLayout.x = - cc.winSize.width / 2
         User.getCurrentUser().courseProgressMap.forEach((val: CourseProgress, courseId: string) => {
             const drawerButton = cc.instantiate(this.drawerButtonPrefab)
             const drawerButtonComp = drawerButton.getComponent(HeaderButton)
-            drawerButtonComp.selected.node.active = false
             this.courseLayout.addChild(drawerButton)
             const course = config.curriculum.get(courseId)
             drawerButtonComp.label.string = Util.i18NText(course.name)
+            const color = DRAWER_ICON_COLORS[courseId]
+            if(color) drawerButtonComp.selected.node.color = new cc.Color().fromHEX(color)
             Util.load(courseId + '/course/res/icons/' + courseId + '.png', (err: Error, texture) => {
                 drawerButtonComp.sprite.spriteFrame = err ? null : new cc.SpriteFrame(texture);
             })
@@ -57,10 +49,6 @@ export default class Drawer extends cc.Component {
                 if (event.target.getComponent(cc.Button).enabled) {
                     config.course = course;
                     config.pushScene('menu/start/scenes/courseChapters', 'menu')
-                    // Header.homeSelected = false
-                    // this.selectHeaderButton(drawerButtonComp);
-                    // if (this.onCourseClick) this.onCourseClick();
-                    // this.closeDrawer()
                 }
             })
             if (!Header.homeSelected && config.course && config.course.id == course.id) {
@@ -91,13 +79,13 @@ export default class Drawer extends cc.Component {
             this.closeDrawer()
         })
         new cc.Tween().target(this.courseLayout)
-            .to(0.5, {x: - cc.winSize.width / 2}, { progress: null, easing: 'cubicInOut' })
+            .to(0.5, {x: - cc.winSize.width / 2 + 320}, { progress: null, easing: 'cubicInOut' })
             .start()
     }
 
     closeDrawer() {
         new cc.Tween().target(this.courseLayout)
-        .to(0.5, {x: - cc.winSize.width / 2 - 256}, { progress: null, easing: 'cubicInOut' })
+        .to(0.5, {x: - cc.winSize.width / 2}, { progress: null, easing: 'cubicInOut' })
         .call(() => {
             this.node.active = false
         })
