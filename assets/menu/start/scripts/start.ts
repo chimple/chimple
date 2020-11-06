@@ -140,6 +140,15 @@ export default class Start extends cc.Component {
             // @ts-ignore
             this.bgHolder.addChild(bgPrefabInstance);
             // userButtonRef.getChildByName("Background").getChildByName("avatar").getChildByName("icon").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
+            // @ts-ignore
+            let audioClip = bgPrefabInstance.getComponent(cc.AudioSource).clip;
+            try {
+                if (audioClip) {
+                    cc.audioEngine.playMusic(audioClip, true);
+                }
+            } catch (e) {
+                cc.log(e);
+            }
         });
     }
 
@@ -431,5 +440,9 @@ export default class Start extends cc.Component {
         lessonButtonComp.loading = loading;
         lessonButtonComp.open = open
         return lessonButton
+    }
+
+    onDestroy() {
+        cc.audioEngine.stopMusic();
     }
 }
