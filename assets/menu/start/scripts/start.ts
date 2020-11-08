@@ -58,7 +58,7 @@ export default class Start extends cc.Component {
         if (!!user && !!user.currentBg) {
             this.setBackground(user.currentBg);
         } else {
-            this.setBackground("forest");
+            this.setBackground("camp");
         }
         const loadingComp = this.loading.getComponent(Loading)
         loadingComp.allowCancel = false
