@@ -1,19 +1,26 @@
-import { RECEIVED_TEACHER_REQUEST, TEACHER_ADDED, TEACHER_ID_KEY, TEACHER_NAME_KEY, TEACHER_SECTION_ID } from "../../../chimple";
+import {
+    RECEIVED_TEACHER_REQUEST,
+    TEACHER_ADD_STUDENT_ID,
+    TEACHER_ADDED,
+    TEACHER_ID_KEY,
+    TEACHER_NAME_KEY,
+    TEACHER_SECTION_ID
+} from "../../../chimple";
 import HeaderButton from "../../../common/scripts/headerButton";
 import Config from "../../../common/scripts/lib/config";
-import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
-import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
-import { CourseProgress, User } from "../../../common/scripts/lib/profile";
+import {EXAM, MIN_PASS} from "../../../common/scripts/lib/constants";
+import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
+import {CourseProgress, User} from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
-import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
-import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
-import { Util, REWARD_TYPES, INVENTORY_SAVE_CONSTANTS, INVENTORY_ANIMATIONS } from "../../../common/scripts/util";
+import {ServiceConfig} from "../../../common/scripts/services/ServiceConfig";
+import TeacherAddedDialog, {TEACHER_ADD_DIALOG_CLOSED} from "../../../common/scripts/teacherAddedDialog";
+import {Util, REWARD_TYPES, INVENTORY_SAVE_CONSTANTS, INVENTORY_ANIMATIONS} from "../../../common/scripts/util";
 import LessonButton from "./lessonButton";
 import StartContent from "./startContent";
 import Inventory from "../../inventory/scripts/inventory";
 import Friend from "../../../common/scripts/friend";
 
-const { ccclass, property } = cc._decorator;
+const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class Start extends cc.Component {
@@ -148,7 +155,7 @@ export default class Start extends cc.Component {
             // userButtonRef.getChildByName("Background").getChildByName("avatar").getChildByName("icon").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
             // @ts-ignore
             const audioSource = bgPrefabInstance.getComponent(cc.AudioSource);
-            if(audioSource) {
+            if (audioSource) {
                 let audioClip = audioSource.clip;
                 try {
                     if (audioClip) {
@@ -172,6 +179,7 @@ export default class Start extends cc.Component {
                 const name: string = curMessage[TEACHER_NAME_KEY];
                 const id = curMessage[TEACHER_ID_KEY];
                 const sectionId = curMessage[TEACHER_SECTION_ID];
+                const addStudentId = curMessage[TEACHER_ADD_STUDENT_ID];
                 cc.sys.localStorage.setItem(RECEIVED_TEACHER_REQUEST, JSON.stringify(messages));
 
                 const studentAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + id) || '[]');
@@ -179,12 +187,14 @@ export default class Start extends cc.Component {
                 users = users.filter(u => !studentAdded.includes(u.id))
                 cc.log('remaining users', users);
 
-                if (!!id && !!name && users && users.length > 0) {
+                if (!!id && !!name && !!sectionId && !!addStudentId
+                    && users && users.length > 0) {
                     const teacherDialog: cc.Node = cc.instantiate(this.teacherDialogPrefab);
                     const script: TeacherAddedDialog = teacherDialog.getComponent(TeacherAddedDialog);
                     script.TeacherName = name;
                     script.TeacherId = id;
                     script.SelectedSectionId = sectionId;
+                    script.SelectedAddStudentId = addStudentId;
                     this.node.addChild(teacherDialog);
                 }
             }
@@ -301,16 +311,16 @@ export default class Start extends cc.Component {
                     if (index == Math.floor(user.lessonPlan.length / 2)) {
                         node.scale = 0.4
                         new cc.Tween().target(node)
-                            .to(0.5, { position: pos, scale: 1 }, null)
+                            .to(0.5, {position: pos, scale: 1}, null)
                             .start()
                     } else if (index == Math.floor(user.lessonPlan.length / 2) - 1) {
                         node.scale = 1
                         new cc.Tween().target(node)
-                            .to(0.5, { position: pos, scale: 0.4 }, null)
+                            .to(0.5, {position: pos, scale: 0.4}, null)
                             .start()
                     } else {
                         new cc.Tween().target(node)
-                            .to(0.5, { position: pos }, null)
+                            .to(0.5, {position: pos}, null)
                             .start()
                     }
                 }

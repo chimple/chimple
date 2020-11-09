@@ -31,6 +31,7 @@ export default class TeacherAddedDialog extends cc.Component {
     selectedStudentId: string;
     selectedStudentName: string;
 
+    _firebaseStudentId: string;
     _teacherSectionId: string;
     _teacherId: string;
     _teacherName: string;
@@ -73,7 +74,8 @@ export default class TeacherAddedDialog extends cc.Component {
                 teacherId: this._teacherId,
                 sectionId: this._teacherSectionId,
                 studentId: this.selectedStudentId,
-                studentName: this.selectedStudentName
+                studentName: this.selectedStudentName,
+                firebaseStudentId: this._firebaseStudentId
             }
             await ServiceConfig.getI().handle.teacherRequestAccepted(request);
             const teachersAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + this._teacherId) || '[]');
@@ -112,6 +114,7 @@ export default class TeacherAddedDialog extends cc.Component {
         let updateHomeTeacherInfo: UpdateHomeTeacher = {
             homeId: this.selectedStudentId,
             teacherId: this._teacherId,
+            firebaseStudentId: this._firebaseStudentId,
             kind: "UpdateHomeTeacher",
             studentName: this.selectedStudentName
         };
@@ -129,6 +132,10 @@ export default class TeacherAddedDialog extends cc.Component {
 
     set SelectedSectionId(_id: string) {
         this._teacherSectionId = _id;
+    }
+
+    set SelectedAddStudentId(_id: string) {
+        this._firebaseStudentId = _id;
     }
 
 }
