@@ -108,7 +108,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 200,
-      "height": 25.2
+      "height": 37.8
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -159,20 +159,19 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "Lesson name",
     "_N$string": "Lesson name",
     "_fontSize": 20,
-    "_lineHeight": 20,
+    "_lineHeight": 30,
     "_enableWrapText": true,
     "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 2,
+    "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 3,
     "_N$cacheMode": 0,
@@ -812,7 +811,7 @@
     "asset": {
       "__uuid__": "724d8f45-d519-44aa-81a6-8155f5570da6"
     },
-    "fileId": "47f/yW76NOYIiRL9Rcrn+F",
+    "fileId": "",
     "sync": false
   }
 ]
