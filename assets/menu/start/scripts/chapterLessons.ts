@@ -28,7 +28,7 @@ export default class ChapterLessons extends cc.Component {
         if (!!User.getCurrentUser().currentBg) {
             this.setBackground(User.getCurrentUser().currentBg);
         } else {
-            this.setBackground("forest");
+            this.setBackground("camp");
         }
 
         const config = Config.i
