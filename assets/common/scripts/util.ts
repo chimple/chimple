@@ -859,7 +859,7 @@ export class Util {
         return jsonMessages;
     }
 
-    public static unlockNextReward(): [string, string] {
+    public static unlockNextReward(): string {
         const user = User.getCurrentUser()
         const unlockedRewards = user.unlockedRewards
         const nextCharIndex = REWARD_CHARACTERS.findIndex((char) => !(unlockedRewards[`${REWARD_TYPES[0]}-${char}`]))
@@ -871,7 +871,7 @@ export class Util {
             user.currentCharacter = REWARD_CHARACTERS[0]
             user.updateInventory(`${REWARD_CHARACTERS[0]}-${split[0]}`, split[1]);
             user.unlockRewardsForItem(`${REWARD_TYPES[3]}-${REWARD_CHARACTERS[0]}-${INVENTORY_DATA[0][0]}`, 1)
-            return [REWARD_TYPES[3], `${REWARD_TYPES[3]}-${REWARD_CHARACTERS[0]}-${INVENTORY_DATA[0][0]}`]
+            return `${REWARD_TYPES[3]}-${REWARD_CHARACTERS[0]}-${INVENTORY_DATA[0][0]}`
         } else {
             const currentCharIndex = nextCharIndex == -1 ? REWARD_CHARACTERS.length - 1 : nextCharIndex - 1
             const currentChar = REWARD_CHARACTERS[currentCharIndex]
@@ -884,7 +884,7 @@ export class Util {
                     //finished all inventory for current char. unlock next char
                     user.currentCharacter = REWARD_CHARACTERS[currentCharIndex + 1]
                     user.unlockRewardsForItem(`${REWARD_TYPES[0]}-${REWARD_CHARACTERS[currentCharIndex + 1]}`, 1)
-                    return [REWARD_TYPES[0], `${REWARD_TYPES[0]}-${REWARD_CHARACTERS[currentCharIndex + 1]}`]
+                    return `${REWARD_TYPES[0]}-${REWARD_CHARACTERS[currentCharIndex + 1]}`
                 } else {
                     //ran out of rewards
                     return null
@@ -895,14 +895,14 @@ export class Util {
                     // we have unlocked half inventory for char. now unlock background
                     user.currentBg = REWARD_BACKGROUNDS[currentCharIndex]
                     user.unlockRewardsForItem(`${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[currentCharIndex]}`, 1)
-                    return [REWARD_TYPES[1], `${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[currentCharIndex]}`]
+                    return `${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[currentCharIndex]}`
                 } else {
                     // give an inventory for current character
                     const inventoryItem = remainingInventory[Math.floor(Math.random() * remainingInventory.length)]
                     const split = inventoryItem.split('-')
                     user.updateInventory(`${REWARD_CHARACTERS[currentCharIndex]}-${split[0]}`, split[1]);
                     user.unlockRewardsForItem(`${REWARD_TYPES[3]}-${REWARD_CHARACTERS[currentCharIndex]}-${inventoryItem}`, 1)
-                    return [REWARD_TYPES[3], `${REWARD_TYPES[3]}-${REWARD_CHARACTERS[currentCharIndex]}-${inventoryItem}`]
+                    return `${REWARD_TYPES[3]}-${REWARD_CHARACTERS[currentCharIndex]}-${inventoryItem}`
                 }
             }
         }

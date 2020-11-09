@@ -272,7 +272,6 @@ export default class Start extends cc.Component {
             node.y = Math.pow(1 - t, 3) * y1 + 3 * Math.pow(1 - t, 2) * t * y2 + 3 * (1 - t) * Math.pow(t, 2) * y3 + Math.pow(t, 3) * y4
             this.content.addChild(node)
             if (index == midIndex && lessonId == 'r') {
-                const [rewardType, rewardItem] = Util.unlockNextReward()
                 this.scheduleOnce(() => {
                     const anim = node.getComponent(cc.Animation)
                     anim.play()
@@ -281,12 +280,16 @@ export default class Start extends cc.Component {
                     user.pushNewLessonPlaceholder()
                     this.displayLessonPlan()
                 }, 6)
-                if (rewardType == REWARD_TYPES[3]) {
-                    this.scheduleOnce(() => {
-                        const splitItems = rewardItem.split('-')
-                        const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2])
-                        Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2])
-                    }, 4)
+                const rewardItem = Util.unlockNextReward()
+                if(rewardItem) {
+                    const splitItems = rewardItem.split('-')
+
+                    if (splitItems[0] == REWARD_TYPES[3]) {
+                        this.scheduleOnce(() => {
+                            const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2])
+                            Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2])
+                        }, 4)
+                    }    
                 }
             }
         })
