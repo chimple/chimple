@@ -147,13 +147,16 @@ export default class Start extends cc.Component {
             this.bgHolder.addChild(bgPrefabInstance);
             // userButtonRef.getChildByName("Background").getChildByName("avatar").getChildByName("icon").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
             // @ts-ignore
-            let audioClip = bgPrefabInstance.getComponent(cc.AudioSource).clip;
-            try {
-                if (audioClip) {
-                    cc.audioEngine.playMusic(audioClip, true);
+            const audioSource = bgPrefabInstance.getComponent(cc.AudioSource);
+            if(audioSource) {
+                let audioClip = audioSource.clip;
+                try {
+                    if (audioClip) {
+                        cc.audioEngine.playMusic(audioClip, true);
+                    }
+                } catch (e) {
+                    cc.log(e);
                 }
-            } catch (e) {
-                cc.log(e);
             }
         });
     }
