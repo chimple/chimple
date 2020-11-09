@@ -16,7 +16,7 @@ export default class ChimpleLabel extends cc.Label {
 
         switch (lang) {
             case Lang.ENGLISH:
-                this.lineHeight += 10
+                this.lineHeight += 0
                 break;
             case Lang.HINDI:
                 this.lineHeight += 10
