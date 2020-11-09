@@ -204,7 +204,7 @@
       "array": [
         0,
         0,
-        385.38130468407525,
+        665.1075101064489,
         0,
         0,
         0,
@@ -699,8 +699,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 197.4,
-      "height": 50.4
+      "width": 157.83,
+      "height": 63
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -737,7 +737,7 @@
     "_id": "b6sfgzyFJO7YN7v+r2Mxu5"
   },
   {
-    "__type__": "cc.Label",
+    "__type__": "0ddb3t+49REZ5s0SVkIuotE",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -753,23 +753,21 @@
     "_dstBlendFactor": 771,
     "_string": "Rewards",
     "_N$string": "Rewards",
-    "_fontSize": 50,
-    "_lineHeight": 40,
+    "_fontSize": 40,
+    "_lineHeight": 50,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "0646cf51-fd6c-4dce-927f-6ffa48d833ea"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
     "_underlineHeight": 0,
-    "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
+    "_N$horizontalAlign": 0,
+    "_N$verticalAlign": 0,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
     "_N$cacheMode": 0,
-    "_id": "d5KAfUiuRGIq3VM4sVourK"
+    "_id": "61JMiqkTBG4ppDorlPkk4v"
   },
   {
     "__type__": "cc.Node",
@@ -12256,8 +12254,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 70,
-      "height": 69
+      "width": 97,
+      "height": 98
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -12440,9 +12438,9 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 9,
-    "_left": 8,
+    "_left": -5.5,
     "_right": 0,
-    "_top": 8.5,
+    "_top": -6,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
