@@ -3744,17 +3744,6 @@
     "sync": false
   },
   {
-    "__type__": "e9c76rOfsRMNruLTUm9odcG",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "lockIconNode": null,
-    "_id": ""
-  },
-  {
     "__type__": "cc.AudioSource",
     "_name": "",
     "_objFlags": 0,
@@ -3771,6 +3760,17 @@
     "_firstlyEnabled": true,
     "playOnLoad": false,
     "preload": false,
+    "_id": ""
+  },
+  {
+    "__type__": "e9c76rOfsRMNruLTUm9odcG",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "lockIconNode": null,
     "_id": ""
   },
   {

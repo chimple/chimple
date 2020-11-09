@@ -3,7 +3,7 @@ import { User } from "../../../common/scripts/lib/profile";
 import ChapterMenuButton from "./chapterMenuButton";
 import StartContent from "./startContent";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class CourseChapters extends cc.Component {
@@ -49,7 +49,7 @@ export default class CourseChapters extends cc.Component {
 
     private setBackground() {
         this.bgHolder.removeAllChildren();
-        const bgprefabName = !!User.getCurrentUser().currentBg ? User.getCurrentUser().currentBg : 'forest'
+        const bgprefabName = !!User.getCurrentUser().currentBg ? User.getCurrentUser().currentBg : 'camp'
 
         cc.resources.load(`backgrounds/prefabs/${bgprefabName}`, (err, sp) => {
             let bgPrefabInstance = cc.instantiate(sp);

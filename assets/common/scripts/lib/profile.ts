@@ -565,7 +565,7 @@ export class User {
             avatarImage,
             isTeacher,
             {},
-            "forest",
+            "camp",
             "chimp",
             debug
                 ? new Map([
