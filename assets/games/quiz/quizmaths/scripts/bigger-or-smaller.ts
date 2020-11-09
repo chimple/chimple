@@ -51,7 +51,7 @@ export class BiggerOrSmaller extends cc.Component {
 
     @catchError()
     renderSoundButton(parent: cc.Node) {
-        this.quizConfig.soundFile = String(this.answer);
+        // this.quizConfig.soundFile = String(this.answer);
         QuizHelper.renderSoundButton(this.quizConfig, parent, this.assetDir);
     }
 
