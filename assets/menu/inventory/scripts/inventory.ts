@@ -54,7 +54,8 @@ export default class Inventory extends cc.Component {
             this.doneButtonNode.active = false;
         }
         else {
-            this.crossButtonNode.active = false;
+            if (this.crossButtonNode != null)
+                this.crossButtonNode.active = false;
         }
         // for testing only
         // Profile.createUser("AK", Language.ENGLISH, "", 12, Gender.BOY)

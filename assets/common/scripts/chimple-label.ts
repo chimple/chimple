@@ -1,6 +1,7 @@
 import ccclass = cc._decorator.ccclass;
-import Config, {Direction} from "./lib/config";
+import Config, {Direction, Lang, LANG_CONFIGS} from "./lib/config";
 import {Util} from "./util";
+import Profile, {LANGUAGE} from "./lib/profile";
 
 @ccclass
 export default class ChimpleLabel extends cc.Label {
@@ -11,7 +12,18 @@ export default class ChimpleLabel extends cc.Label {
         this.useSystemFont = false;
         this._key = this.string;
         const config = Config.i;
-        this.lineHeight += 10
+        const lang = Profile.getValue(LANGUAGE) || Lang.ENGLISH
+
+        switch (lang) {
+            case Lang.ENGLISH:
+                this.lineHeight += 0
+                break;
+            case Lang.HINDI:
+                this.lineHeight += 10
+                break;
+        }
+
+
         if (config !== null) {
             const fontName: string = config.currentFontName;
             let fontLoaded: boolean = config.hasLoadedTextFont(fontName);

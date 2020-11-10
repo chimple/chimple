@@ -14,6 +14,8 @@ import WordProblem from "./word-problem";
 import property = cc._decorator.property;
 import { QUIZ_WRONG } from "../../quizliteracy/scripts/quiz-literacy";
 import { QUIZ_ANSWERED } from "../../../../common/scripts/quiz-monitor";
+import Profile, {LANGUAGE} from "../../../../common/scripts/lib/profile";
+import {HELP_DIR, NUMBER_VOICE, QUIZ_MATHS_DIR} from "../../../../common/scripts/helper";
 
 export const DIGIT_NUMBERS = "digit_numbers";
 export const TWO_DIGIT_NUMBERS = "2digit_numbers";
@@ -90,7 +92,7 @@ export default class QuizMaths extends cc.Component {
 
         const config = Config.getInstance();
         this._mathsConfig = this.processConfiguration(config.data[0]);
-        this._assetDir = Config.dir + `${config.lesson.id}/res`;
+        this._assetDir = HELP_DIR + Profile.getValue(LANGUAGE) + '-help/' + QUIZ_MATHS_DIR;
 
         this.node.on(QUIZ_CORRECT, event => {
             this.next(event, true);

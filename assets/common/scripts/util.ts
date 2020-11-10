@@ -1,16 +1,16 @@
 import ChimpleLabel from "./chimple-label";
 import Help from "./help";
-import {DEFAULT_FONT_COLOR, LETTER_VOICE, NUMBER_VOICE, PHONIC_VOICE} from "./helper";
+import { DEFAULT_FONT_COLOR, LETTER_VOICE, NUMBER_VOICE, PHONIC_VOICE } from "./helper";
 import LessonController from "./lessonController";
 import Config from "./lib/config";
-import {ASSET_LOAD_METHOD, COURSES_URL} from "./lib/constants";
-import Profile, {LANGUAGE, SFX_OFF, User} from "./lib/profile";
+import { ASSET_LOAD_METHOD, COURSES_URL } from "./lib/constants";
+import Profile, { LANGUAGE, SFX_OFF, User } from "./lib/profile";
 import UtilLogger from "./util-logger";
 import Friend from "./friend";
 import Overflow = cc.Label.Overflow;
 import HorizontalAlign = cc.Label.HorizontalAlign;
 import VerticalAlign = cc.Label.VerticalAlign;
-import {AssignHomeWorkInfo} from "./services/parseApi";
+import { AssignHomeWorkInfo } from "./services/parseApi";
 
 export const INVENTORY_DATA = [
     ["hat1-hat1", "hat1-hat2", "hat1-hat3", "hat1-hat4", "hat1-hat5", "hat1-hat6", "hat1-hat7", "hat1-hat8", "hat1-hat9", "hat1-hat10"],
@@ -26,7 +26,7 @@ export const INVENTORY_ANIMATIONS = ["hat", "hand", "glass", "leg", "neck"]
 
 export const REWARD_TYPES = ["character", "background", "achievement", "inventory"]
 export const REWARD_CHARACTERS = ['chimp', 'bear', 'camel', 'cat', 'dog', 'duck', 'hippo', 'horse', 'koala', 'rabbit', 'tiger']
-export const REWARD_BACKGROUNDS = ['forest', 'underwater', 'beach', 'camp', 'city', 'desert', 'fair', 'garden', 'mountain', 'snow', 'village']
+export const REWARD_BACKGROUNDS = ['camp', 'underwater', 'beach', 'forest', 'city', 'desert', 'fair', 'garden', 'mountain', 'snow', 'village']
 export const NUMBER_NAME = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
 
 
@@ -74,7 +74,7 @@ export class Util {
 
     public static shuffleByMapSortMap<T>(unshuffled): T[] {
         return unshuffled
-            .map((a) => ({sort: Math.random(), value: a}))
+            .map((a) => ({ sort: Math.random(), value: a }))
             .sort((a, b) => a.sort - b.sort)
             .map((a) => a.value);
     }
@@ -687,7 +687,7 @@ export class Util {
         cc.log(`${append} -> computeTimeDiff in milliseconds ${diff}`);
     }
 
-    public static* shuffleGenerator(array) {
+    public static * shuffleGenerator(array) {
         let i = array.length;
         while (i--) {
             yield array.splice(Math.floor(Math.random() * (i + 1)), 1)[0];
@@ -834,8 +834,8 @@ export class Util {
     }
 
     public static assignHomework(chapterId: string, lessonId: string,
-                                 schoolId: string, sectionId: string,
-                                 subjectId: string, studentId: string = null) {
+        schoolId: string, sectionId: string,
+        subjectId: string, studentId: string = null) {
 
         let updateInfo: AssignHomeWorkInfo = {
             chapterId: chapterId,
@@ -859,7 +859,7 @@ export class Util {
         return jsonMessages;
     }
 
-    public static unlockNextReward(): [string, string] {
+    public static unlockNextReward(): string {
         const user = User.getCurrentUser()
         const unlockedRewards = user.unlockedRewards
         const nextCharIndex = REWARD_CHARACTERS.findIndex((char) => !(unlockedRewards[`${REWARD_TYPES[0]}-${char}`]))
@@ -871,7 +871,7 @@ export class Util {
             user.currentCharacter = REWARD_CHARACTERS[0]
             user.updateInventory(`${REWARD_CHARACTERS[0]}-${split[0]}`, split[1]);
             user.unlockRewardsForItem(`${REWARD_TYPES[3]}-${REWARD_CHARACTERS[0]}-${INVENTORY_DATA[0][0]}`, 1)
-            return [REWARD_TYPES[3], `${REWARD_TYPES[3]}-${REWARD_CHARACTERS[0]}-${INVENTORY_DATA[0][0]}`]
+            return `${REWARD_TYPES[3]}-${REWARD_CHARACTERS[0]}-${INVENTORY_DATA[0][0]}`
         } else {
             const currentCharIndex = nextCharIndex == -1 ? REWARD_CHARACTERS.length - 1 : nextCharIndex - 1
             const currentChar = REWARD_CHARACTERS[currentCharIndex]
@@ -884,7 +884,7 @@ export class Util {
                     //finished all inventory for current char. unlock next char
                     user.currentCharacter = REWARD_CHARACTERS[currentCharIndex + 1]
                     user.unlockRewardsForItem(`${REWARD_TYPES[0]}-${REWARD_CHARACTERS[currentCharIndex + 1]}`, 1)
-                    return [REWARD_TYPES[0], `${REWARD_TYPES[0]}-${REWARD_CHARACTERS[currentCharIndex + 1]}`]
+                    return `${REWARD_TYPES[0]}-${REWARD_CHARACTERS[currentCharIndex + 1]}`
                 } else {
                     //ran out of rewards
                     return null
@@ -895,14 +895,14 @@ export class Util {
                     // we have unlocked half inventory for char. now unlock background
                     user.currentBg = REWARD_BACKGROUNDS[currentCharIndex]
                     user.unlockRewardsForItem(`${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[currentCharIndex]}`, 1)
-                    return [REWARD_TYPES[1], `${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[currentCharIndex]}`]
+                    return `${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[currentCharIndex]}`
                 } else {
                     // give an inventory for current character
                     const inventoryItem = remainingInventory[Math.floor(Math.random() * remainingInventory.length)]
                     const split = inventoryItem.split('-')
                     user.updateInventory(`${REWARD_CHARACTERS[currentCharIndex]}-${split[0]}`, split[1]);
                     user.unlockRewardsForItem(`${REWARD_TYPES[3]}-${REWARD_CHARACTERS[currentCharIndex]}-${inventoryItem}`, 1)
-                    return [REWARD_TYPES[3], `${REWARD_TYPES[3]}-${REWARD_CHARACTERS[currentCharIndex]}-${inventoryItem}`]
+                    return `${REWARD_TYPES[3]}-${REWARD_CHARACTERS[currentCharIndex]}-${inventoryItem}`
                 }
             }
         }

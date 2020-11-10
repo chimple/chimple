@@ -129,6 +129,7 @@ export interface UpdateHomeTeacher {
     homeId: string;
     teacherId: string;
     kind: string;
+    firebaseStudentId?: string;
     studentName?: string;
     schoolId?: string;
     sectionId?: string;
@@ -166,7 +167,7 @@ export class ParseApi implements ServiceApi {
     private constructor() {
     }
 
-    async teacherRequestAccepted(request:AcceptTeacherRequest): Promise<any> {
+    async teacherRequestAccepted(request: AcceptTeacherRequest): Promise<any> {
         const school: ParseSchool = await ParseApi.getInstance().schoolById(request.teacherId)
         let updateHomeTeacherInfo: UpdateHomeTeacher = {
             homeId: request.studentId,
@@ -747,7 +748,7 @@ export class ParseApi implements ServiceApi {
                 url: UPDATE_MONITOR_URL,
                 body: info
             };
-            return await ParseNetwork.getInstance().post(requestParams,this.getAuthHeader());
+            return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
         }
     }
 

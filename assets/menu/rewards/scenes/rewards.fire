@@ -180,7 +180,7 @@
       "array": [
         0,
         0,
-        288.3864594602181,
+        336.88388207214666,
         0,
         0,
         0,
@@ -1136,7 +1136,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 197.29,
-      "height": 75.6
+      "height": 100.8
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1190,7 +1190,7 @@
     "_string": "Rewards",
     "_N$string": "Rewards",
     "_fontSize": 50,
-    "_lineHeight": 60,
+    "_lineHeight": 80,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": false,
@@ -1726,7 +1726,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 192.91,
-      "height": 63
+      "height": 88.2
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1780,7 +1780,7 @@
     "_string": "CHARACTERS",
     "_N$string": "CHARACTERS",
     "_fontSize": 28,
-    "_lineHeight": 50,
+    "_lineHeight": 70,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": false,
@@ -2165,7 +2165,7 @@
     "_string": "BACKGROUND",
     "_N$string": "BACKGROUND",
     "_fontSize": 28,
-    "_lineHeight": 50,
+    "_lineHeight": 70,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": false,
@@ -2499,7 +2499,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 220.92,
-      "height": 63
+      "height": 88.2
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2637,7 +2637,7 @@
     "_string": "ACHIEVEMENTS",
     "_N$string": "ACHIEVEMENTS",
     "_fontSize": 28,
-    "_lineHeight": 50,
+    "_lineHeight": 70,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": false,
@@ -4237,8 +4237,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 70,
-      "height": 70
+      "width": 67,
+      "height": 67
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -4306,8 +4306,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 70,
-      "height": 70
+      "width": 67,
+      "height": 67
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -4607,8 +4607,8 @@
     },
     "_alignFlags": 33,
     "_left": 0,
-    "_right": 12.442000000000007,
-    "_top": 4,
+    "_right": 13.942000000000007,
+    "_top": 5.5,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -5181,8 +5181,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 70,
-      "height": 69
+      "width": 97,
+      "height": 98
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -5365,9 +5365,9 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 9,
-    "_left": 8,
+    "_left": -5.5,
     "_right": 0,
-    "_top": 8.5,
+    "_top": -6,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,

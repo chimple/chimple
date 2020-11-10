@@ -38,6 +38,7 @@ export class FirebaseApi implements ServiceApi {
                 homeId: request.studentId,
                 teacherId: request.teacherId,
                 kind: "UpdateHomeTeacher",
+                firebaseStudentId: request.firebaseStudentId,
                 studentName: request.studentName,
                 schoolId: schoolId,
                 sectionId: request.sectionId
@@ -109,7 +110,7 @@ export class FirebaseApi implements ServiceApi {
                         b.lessonId = a.lesson;
                         b.courseCode = a.subject.courseCode;
                         const dateString = a.createAt.toString();
-                        if(!!dateString) {
+                        if (!!dateString) {
                             const year = dateString.substring(0, 4);
                             const month = dateString.substring(4, 6);
                             const day = dateString.substring(6, 8);

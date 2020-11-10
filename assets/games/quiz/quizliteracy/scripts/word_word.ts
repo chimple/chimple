@@ -6,7 +6,7 @@ import { QuizLiteracyConfig } from "./quiz-literacy";
 
 const WIDTH = 250;
 const HEIGHT = 250;
-const LABEL_WIDTH = 600;
+const LABEL_WIDTH = 750;
 
 
 @ccclass

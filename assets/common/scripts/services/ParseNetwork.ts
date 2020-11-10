@@ -380,7 +380,7 @@ export class ParseNetwork {
                                 UtilLogger.logChimpleEvent(UPDATE_PROGRESS, payload);
                             })
                             .catch(err => {
-                                Queue.getInstance().push(payload)
+                                // Queue.getInstance().push(payload)
                                 // UtilLogger.logChimpleEvent(UPDATE_PROGRESS_FAILED, payload);
                             });
                         break;
@@ -392,8 +392,8 @@ export class ParseNetwork {
                                 UtilLogger.logChimpleEvent(UPDATE_MONITOR, payload);
                             })
                             .catch(err => {
-                                Queue.getInstance().push(payload)
-                                UtilLogger.logChimpleEvent(UPDATE_MONITOR_FAILED, payload);
+                                // Queue.getInstance().push(payload)
+                                // UtilLogger.logChimpleEvent(UPDATE_MONITOR_FAILED, payload);
                             });
                         break;
                     case 'Profile':
@@ -405,8 +405,8 @@ export class ParseNetwork {
                             })
                             .catch(err => {
                                 cc.log('failed to update profile ', payload.studentId, ' with error ', err);
-                                UtilLogger.logChimpleEvent(UPDATE_PROFILE_FAILED, payload);
-                                Queue.getInstance().push(payload)
+                                // UtilLogger.logChimpleEvent(UPDATE_PROFILE_FAILED, payload);
+                                // Queue.getInstance().push(payload)
                             });
                         break;
                     case 'UpdateHomeTeacher':
@@ -418,8 +418,8 @@ export class ParseNetwork {
                                 UtilLogger.logChimpleEvent(UPDATE_HOME_TEACHER, payload);
                             })
                             .catch(err => {
-                                Queue.getInstance().push(payload);
-                                UtilLogger.logChimpleEvent(UPDATE_HOME_TEACHER_FAILED, payload);
+                                // Queue.getInstance().push(payload);
+                                // UtilLogger.logChimpleEvent(UPDATE_HOME_TEACHER_FAILED, payload);
                             });
                         break;
                     case 'AssignHomeWork':
@@ -430,8 +430,8 @@ export class ParseNetwork {
                                 UtilLogger.logChimpleEvent(ASSIGN_HOMEWORK, payload);
                             })
                             .catch(err => {
-                                Queue.getInstance().push(payload)
-                                UtilLogger.logChimpleEvent(ASSIGN_HOMEWORK_FAILED, payload);
+                                // Queue.getInstance().push(payload)
+                                // UtilLogger.logChimpleEvent(ASSIGN_HOMEWORK_FAILED, payload);
                             });
                     default:
                         cc.log("found payload with no handler.. ignoring", payload);
