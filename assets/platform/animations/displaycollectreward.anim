@@ -3,7 +3,7 @@
   "_name": "displaycollectreward",
   "_objFlags": 0,
   "_native": "",
-  "_duration": 0.75,
+  "_duration": 1.2,
   "sample": 60,
   "speed": 1,
   "wrapMode": 1,
@@ -50,7 +50,23 @@
         "props": {
           "scale": [
             {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0.6,
+                "y": 0.6
+              }
+            },
+            {
               "frame": 0.16666666666666666,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1.2,
+                "y": 1.2
+              }
+            },
+            {
+              "frame": 0.5,
               "value": {
                 "__type__": "cc.Vec2",
                 "x": 1,
@@ -62,40 +78,22 @@
                 0.006537102473498125,
                 0.9959363957597173
               ]
-            },
-            {
-              "frame": 0.75,
-              "value": {
-                "__type__": "cc.Vec2",
-                "x": 1.5,
-                "y": 1.5
-              }
             }
           ],
           "angle": [
             {
-              "frame": 0.16666666666666666,
+              "frame": 0,
               "value": 0,
               "curve": [
                 0.3971731448763252,
                 -0.009187279151943173,
-                -0.006713780918728023,
+                0.3868047375997905,
                 0.9959363957597173
               ]
             },
             {
-              "frame": 0.5833333333333334,
-              "value": -52
-            }
-          ],
-          "opacity": [
-            {
-              "frame": 0.16666666666666666,
-              "value": 117
-            },
-            {
-              "frame": 0.75,
-              "value": 0
+              "frame": 1,
+              "value": -65
             }
           ]
         }
@@ -152,6 +150,1018 @@
             {
               "frame": 0.5833333333333334,
               "value": 52
+            }
+          ]
+        }
+      },
+      "particlestar": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0.598,
+                0.971,
+                0
+              ],
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.9333333333333333,
+              "value": [
+                137.068,
+                123.826,
+                0
+              ]
+            }
+          ],
+          "opacity": [],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.9333333333333333,
+              "value": -144
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.3333333333333333,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              },
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.9333333333333333,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            }
+          ]
+        }
+      },
+      "particlestar2": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0.598,
+                0.971,
+                0
+              ],
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.15,
+              "value": [
+                -103.085,
+                201.755,
+                0
+              ]
+            }
+          ],
+          "opacity": [],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.15,
+              "value": -144
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.3333333333333333,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              },
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.15,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            }
+          ]
+        }
+      },
+      "particlestar3": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0.598,
+                0.971,
+                0
+              ],
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.9333333333333333,
+              "value": [
+                -168.381,
+                10.852,
+                0
+              ]
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.9333333333333333,
+              "value": -144
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.3333333333333333,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              },
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.9333333333333333,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            }
+          ]
+        }
+      },
+      "particlestar4": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0.598,
+                0.971,
+                0
+              ],
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.15,
+              "value": [
+                -94.398,
+                -235.239,
+                0
+              ]
+            }
+          ],
+          "opacity": [],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.15,
+              "value": -144
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.3333333333333333,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              },
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.15,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            }
+          ]
+        }
+      },
+      "particlestar5": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0.598,
+                0.971,
+                0
+              ],
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.8,
+              "value": [
+                121.18,
+                -121.953,
+                0
+              ]
+            }
+          ],
+          "opacity": [],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.8,
+              "value": -144
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.3333333333333333,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              },
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.8,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            }
+          ]
+        }
+      },
+      "particlecircle": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0.598,
+                0.971,
+                0
+              ],
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": [
+                100.939,
+                169.964,
+                0
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.3,
+              "value": 255,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": 0
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.3,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              },
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            }
+          ]
+        }
+      },
+      "particlecircle2": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0.598,
+                0.971,
+                0
+              ],
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": [
+                -223.982,
+                -143.642,
+                0
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.3,
+              "value": 255,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": 0
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.3,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              },
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            }
+          ]
+        }
+      },
+      "particlecircle3": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0.598,
+                0.971,
+                0
+              ],
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": [
+                3.307,
+                -240.411,
+                0
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.3,
+              "value": 255,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": 0
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.3,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              },
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            }
+          ]
+        }
+      },
+      "particleplus": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "frame": 0.25,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              }
+            },
+            {
+              "frame": 0.5,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            }
+          ]
+        }
+      },
+      "particleribbon": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                1,
+                1
+              ],
+              "curve": "cubicOut",
+              "motionPath": [
+                [
+                  66,
+                  32,
+                  34,
+                  49,
+                  98,
+                  14
+                ]
+              ]
+            },
+            {
+              "frame": 1.2,
+              "value": [
+                106,
+                -109
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.3,
+              "value": 255,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.2,
+              "value": 0
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1.2,
+              "value": -127
+            }
+          ]
+        }
+      },
+      "particleribbon12": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                1,
+                1
+              ],
+              "curve": "cubicOut",
+              "motionPath": [
+                [
+                  -71,
+                  43,
+                  -34,
+                  69,
+                  -130,
+                  11
+                ]
+              ]
+            },
+            {
+              "frame": 1.2,
+              "value": [
+                -146,
+                -180
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.3,
+              "value": 255,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.2,
+              "value": 0
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": -45
+            },
+            {
+              "frame": 1.2,
+              "value": -87
+            }
+          ]
+        }
+      },
+      "particleribbon2": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                1,
+                1
+              ],
+              "curve": "cubicOut",
+              "motionPath": [
+                [
+                  81,
+                  -17,
+                  59,
+                  29,
+                  108,
+                  -75
+                ]
+              ]
+            },
+            {
+              "frame": 1.2,
+              "value": [
+                101,
+                -208
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.3,
+              "value": 255,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.2,
+              "value": 0
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1.2,
+              "value": 132
+            }
+          ]
+        }
+      },
+      "particleribbon22": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                1,
+                1
+              ],
+              "curve": "cubicOut",
+              "motionPath": [
+                [
+                  -66,
+                  -12,
+                  -50,
+                  40,
+                  -81,
+                  -61
+                ]
+              ]
+            },
+            {
+              "frame": 1.2,
+              "value": [
+                -60,
+                -201
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.3,
+              "value": 255,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.2,
+              "value": 0
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1.2,
+              "value": -109
+            }
+          ]
+        }
+      },
+      "particlecircle4": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0.598,
+                0.971,
+                0
+              ],
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": [
+                135.578,
+                37.122,
+                0
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.3,
+              "value": 255,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": 0
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.3,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              },
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            }
+          ]
+        }
+      },
+      "particlecircle5": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0.598,
+                0.971,
+                0
+              ],
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": [
+                182.818,
+                -29.013,
+                0
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.3,
+              "value": 255,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": 0
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.3,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              },
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            }
+          ]
+        }
+      },
+      "particlecircle6": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0.598,
+                0.971,
+                0
+              ],
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": [
+                -147.86,
+                -60.9,
+                0
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.3,
+              "value": 255,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": 0
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.3,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              },
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            }
+          ]
+        }
+      },
+      "particlecircle7": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0.598,
+                0.971,
+                0
+              ],
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": [
+                -47.476,
+                94.991,
+                0
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.3,
+              "value": 255,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": 0
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.3,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              },
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.7333333333333333,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            }
+          ]
+        }
+      },
+      "particleribbon13": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                1,
+                1
+              ],
+              "curve": "cubicOut",
+              "motionPath": [
+                [
+                  -50,
+                  92,
+                  -4,
+                  87,
+                  -102,
+                  100
+                ]
+              ]
+            },
+            {
+              "frame": 1.2,
+              "value": [
+                -181,
+                -50
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.3,
+              "value": 255,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.2,
+              "value": 0
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 26
+            },
+            {
+              "frame": 1.2,
+              "value": 74
+            }
+          ]
+        }
+      },
+      "particleribbon23": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                1,
+                1
+              ],
+              "curve": "cubicOut",
+              "motionPath": [
+                [
+                  47,
+                  92,
+                  13,
+                  75,
+                  78,
+                  113
+                ]
+              ]
+            },
+            {
+              "frame": 1.2,
+              "value": [
+                141,
+                -16
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.3,
+              "value": 255,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.2,
+              "value": 0
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 1.2,
+              "value": -96
+            }
+          ]
+        }
+      },
+      "particleplus2": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "frame": 0.25,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              }
+            },
+            {
+              "frame": 0.5,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0,
+                "y": 0
+              }
             }
           ]
         }
