@@ -159,7 +159,7 @@ export default class Start extends cc.Component {
                 let audioClip = audioSource.clip;
                 try {
                     if (audioClip) {
-                        cc.audioEngine.playMusic(audioClip, true);
+                        Util.playSfx(audioClip, true);
                     }
                 } catch (e) {
                     cc.log(e);
