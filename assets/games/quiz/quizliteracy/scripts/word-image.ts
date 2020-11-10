@@ -3,7 +3,7 @@ import { QuizHelper } from "./quiz-helper";
 import property = cc._decorator.property;
 import catchError from "../../../../common/scripts/lib/error-handler";
 import { QuizLiteracyConfig } from "./quiz-literacy";
-const LABEL_WIDTH = 600;
+const LABEL_WIDTH = 750;
 
 @ccclass
 export class WordImage extends cc.Component {

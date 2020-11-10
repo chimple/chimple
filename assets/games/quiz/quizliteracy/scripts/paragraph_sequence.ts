@@ -52,6 +52,6 @@ export class ParagraphSequence extends cc.Component {
 
     @catchError()
     renderLabel(parent: cc.Node) {
-        QuizHelper.renderTextLabel(this.quizConfig, parent, LABEL_WIDTH, COLOR);
+        QuizHelper.renderTextLabel(this.quizConfig, parent, LABEL_WIDTH, COLOR, 'label', 45);
     }
 }

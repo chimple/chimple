@@ -29,7 +29,7 @@ export class SoundonlyWord extends cc.Component {
         const bottomPanel = this.node.getChildByName('bottomPanel');
         const cs = this.quizConfig.choices.split('^');
         QuizHelper.renderTextChoices(
-            this.quizConfig, this.textButton, bottomPanel, 250, 250, cs, cs[0] && cs[0].length > 1 ? 65 : 85
+            this.quizConfig, this.textButton, bottomPanel, 250, 250, cs, cs[0] && cs[0].length > 1 ? 75 : 125
         );
     }
 
