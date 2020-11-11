@@ -2871,10 +2871,12 @@
       "__id__": 1
     },
     "_enabled": true,
-    "_clip": null,
+    "_clip": {
+      "__uuid__": "8d20eb82-916d-4ace-b05f-8be8ec1cbfd6"
+    },
     "_volume": 1,
     "_mute": false,
-    "_loop": false,
+    "_loop": true,
     "_firstlyEnabled": true,
     "playOnLoad": false,
     "preload": false,
