@@ -173,9 +173,16 @@ export default class Config {
         const lang = Profile.getValue(LANGUAGE) || Lang.ENGLISH
         const langConfig = LANG_CONFIGS.get(lang)
         if (!Config.i.hasLoadedTextFont(langConfig.font)) {
-            Config.i.loadFontDynamically(langConfig.font)
+            Config.i.loadFontDynamically(langConfig.font, () => {
+                cc.log("Loading font ....", langConfig.font)
+                Config.continueLoadScene(scene, bundle, callback);
+            })
+        } else {
+            Config.continueLoadScene(scene, bundle, callback);
         }
+    }
 
+    static continueLoadScene(scene: string, bundle: string = null, callback: Function = null) {
         if (bundle != null) {
             UtilLogger.logChimpleEvent("load_scene", {
                 scene: scene,
