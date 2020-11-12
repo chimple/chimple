@@ -1,7 +1,7 @@
 import {Queue} from "../../queue";
 import Friend from "./friend";
 import Game from "./game";
-import Config, {DEFAULT_FONT} from "./lib/config";
+import Config, {DEFAULT_FONT, Lang, LANG_CONFIGS} from "./lib/config";
 import {
     BUNDLE_URL,
     CURRENT_CLASS_ID,
@@ -13,7 +13,7 @@ import {
 } from "./lib/constants";
 import {Lesson} from "./lib/convert";
 import {GAME_CONFIGS} from "./lib/gameConfigs";
-import {User} from "./lib/profile";
+import Profile, {LANGUAGE, User} from "./lib/profile";
 import ProgressMonitor, {StarType} from "./progressMonitor";
 import {QUIZ_ANSWERED} from "./quiz-monitor";
 import {Util} from "./util";
@@ -203,15 +203,31 @@ export default class LessonController extends cc.Component {
         const gameConfig = GAME_CONFIGS[config.game];
         let fontName: string = config.course.id.split('-')[0] + '-' + DEFAULT_FONT;
         if (gameConfig.fontName != null) {
-            fontName = gameConfig.fontName;
+            let splits = gameConfig.fontName.split('-');
+            if (splits && splits.length === 2) {
+                const prefixFont = config.course.lang;
+                const suffixFont = splits[1];
+                fontName = prefixFont + '-' + suffixFont;
+            }
         }
-        config.loadFontDynamically(fontName);
 
-        cc.assetManager.loadBundle(gameConfig.bundle, (err, bundle) => {
-            bundle.load(gameConfig.prefab, cc.Prefab, (err, prefab) => {
-                callback(prefab);
+        if (!Config.i.hasLoadedTextFont(fontName)) {
+            Config.i.loadFontDynamically(fontName, () => {
+                cc.log("Loading font for game ...", fontName);
+                cc.assetManager.loadBundle(gameConfig.bundle, (err, bundle) => {
+                    bundle.load(gameConfig.prefab, cc.Prefab, (err, prefab) => {
+                        callback(prefab);
+                    });
+                });
+            })
+        } else {
+            cc.assetManager.loadBundle(gameConfig.bundle, (err, bundle) => {
+                bundle.load(gameConfig.prefab, cc.Prefab, (err, prefab) => {
+                    callback(prefab);
+                });
             });
-        });
+
+        }
     }
 
     private lessonStart() {
@@ -270,6 +286,11 @@ export default class LessonController extends cc.Component {
 
     private problemEnd(replaceScene: boolean, forward: boolean = true) {
         const config = Config.i;
+        const gameConfig = GAME_CONFIGS[config.game];
+        if(!!gameConfig.fontName) {
+            config.releaseFont(config.currentFontName);
+        }
+
         const timeSpent = Math.ceil((new Date().getTime() - this.problemStartTime) / 1000);
         const monitor = this.progressMonitorNode.getComponent(ProgressMonitor);
         const currentProblem = config.problem;

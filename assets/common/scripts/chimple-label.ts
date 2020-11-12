@@ -14,15 +14,15 @@ export default class ChimpleLabel extends cc.Label {
         const config = Config.i;
         const lang = Profile.getValue(LANGUAGE) || Lang.ENGLISH
 
-        switch (lang) {
-            case Lang.ENGLISH:
-                this.lineHeight += 0
-                break;
-            case Lang.HINDI:
-                this.lineHeight += 10
-                break;
-        }
-
+        // switch (lang) {
+        //     case Lang.ENGLISH:
+        //         this.lineHeight += 0
+        //         break;
+        //     case Lang.HINDI:
+        //         this.lineHeight += 10
+        //         break;
+        // }
+        //
 
         if (config !== null) {
             const fontName: string = config.currentFontName;
