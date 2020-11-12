@@ -324,60 +324,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                 getInstallReferrerFromClient(referrerClient);
             }
         });
-
-        getInstallReferrerUsingReceiver(context);
-    }
-
-    void getInstallReferrerUsingReceiver(final Context context) {
-        advertisingApiBackgroundExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                AdvertisingIdClient.Info adInfo = null;
-                String advertisingId = "";
-
-                try {
-                    adInfo = AdvertisingIdClient.getAdvertisingIdInfo(AppActivity.this.getApplicationContext());
-                    if (adInfo != null) {
-                        advertisingId = adInfo.getId();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.i(TAG, e.getLocalizedMessage());
-                } catch (GooglePlayServicesNotAvailableException e) {
-                    e.printStackTrace();
-                    Log.i(TAG, e.getLocalizedMessage());
-                } catch (GooglePlayServicesRepairableException e) {
-                    e.printStackTrace();
-                    Log.i(TAG, e.getLocalizedMessage());
-                }
-
-                Map utmParams = new HashMap<String, String>();
-                utmParams.put("utm_source", getUtmValues(context, "utm_source"));
-                utmParams.put("utm_medium", getUtmValues(context, "utm_medium"));
-                utmParams.put("utm_campaign", getUtmValues(context, "utm_campaign"));
-
-                String referrerUrl = toUrlEncode(utmParams);
-
-                Log.i(TAG, "referrerUrl:" + referrerUrl);
-                Log.i(TAG, "advertisingId:" + advertisingId);
-                Bundle bundle = new Bundle();
-                bundle.putString("referrer_url", referrerUrl);
-                bundle.putString("advertising_id", advertisingId);
-                Log.i(TAG, "bundle" + bundle.toString());
-                firebaseAnalytics.logEvent("referral_info", bundle);
-            }
-        });
-    }
-
-    public String getUtmValues(Context context, String key) {
-        String val = null;
-        try {
-            SharedPreferences preferences = context.getSharedPreferences("utm_campaign", Context.MODE_PRIVATE);
-            val = preferences.getString(key, "null");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return val;
     }
 
     public String toUrlEncode(Map<String, String> params) {

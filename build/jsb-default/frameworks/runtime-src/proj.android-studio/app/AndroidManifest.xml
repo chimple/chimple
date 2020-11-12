@@ -4,7 +4,7 @@
     android:installLocation="auto">
 
     <uses-feature android:glEsVersion="0x00020000" />
-
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -77,87 +77,87 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.gms.measurement.UPLOAD" />
-            </intent-filter>
-        </receiver>
-        <service
-            android:name="com.google.android.gms.measurement.AppMeasurementService"
-            android:enabled="true"
-            android:exported="false" />
-        <receiver
-            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.INSTALL_PACKAGES">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
-        <service
-            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
-            android:enabled="true"
-            android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-        <receiver
-            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.gms.measurement.UPLOAD" />
-            </intent-filter>
-        </receiver>
-        <service
-            android:name="com.google.android.gms.measurement.AppMeasurementService"
-            android:enabled="true"
-            android:exported="false" />
-        <receiver
-            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.INSTALL_PACKAGES">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
-        <service
-            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
-            android:enabled="true"
-            android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <receiver
-            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.gms.measurement.UPLOAD" />
-            </intent-filter>
-        </receiver>
-        <service
-            android:name="com.google.android.gms.measurement.AppMeasurementService"
-            android:enabled="true"
-            android:exported="false" />
-        <receiver
-            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.INSTALL_PACKAGES">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
-        <service
-            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
-            android:enabled="true"
-            android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
+<!--        <receiver-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.android.gms.measurement.UPLOAD" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <service-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementService"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false" />-->
+<!--        <receiver-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true"-->
+<!--            android:permission="android.permission.INSTALL_PACKAGES">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.android.vending.INSTALL_REFERRER" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <service-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementJobService"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false"-->
+<!--            android:permission="android.permission.BIND_JOB_SERVICE" />-->
+<!--        <meta-data-->
+<!--            android:name="com.google.android.gms.version"-->
+<!--            android:value="@integer/google_play_services_version" />-->
+<!--        <receiver-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.android.gms.measurement.UPLOAD" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <service-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementService"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false" />-->
+<!--        <receiver-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true"-->
+<!--            android:permission="android.permission.INSTALL_PACKAGES">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.android.vending.INSTALL_REFERRER" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <service-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementJobService"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false"-->
+<!--            android:permission="android.permission.BIND_JOB_SERVICE" />-->
+<!--        <receiver-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.android.gms.measurement.UPLOAD" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <service-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementService"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false" />-->
+<!--        <receiver-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true"-->
+<!--            android:permission="android.permission.INSTALL_PACKAGES">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.android.vending.INSTALL_REFERRER" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <service-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementJobService"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false"-->
+<!--            android:permission="android.permission.BIND_JOB_SERVICE" />-->
         <service
             android:name="org.chimple.bahama.logger.ChimpleFirebaseMessagingService"
             android:exported="false">
@@ -166,5 +166,4 @@
             </intent-filter>
         </service>
     </application>
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
 </manifest>
