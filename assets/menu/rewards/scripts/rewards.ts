@@ -77,8 +77,8 @@ export default class Rewards extends cc.Component {
 
     loadBgs() {
         REWARD_BACKGROUNDS.forEach((bg) => {
+            let bgPrefab = cc.instantiate(this.bgsPrefab)
             cc.resources.load(`backgrounds/textures/bg_icons/background-${bg}`, (err, sp) => {
-                let bgPrefab = cc.instantiate(this.bgsPrefab)
                 bgPrefab.name = bg;
                 // @ts-ignore
                 bgPrefab.getChildByName("backgroundnode").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
@@ -94,9 +94,10 @@ export default class Rewards extends cc.Component {
                     // make edit button and selected show
                     bgPrefab.getChildByName("tick").active = true
                 }
-                const bgNode = this.layoutHolder.children[1].children[0].children[0].children[0]
-                bgNode.addChild(bgPrefab);
+
             });
+            const bgNode = this.layoutHolder.children[1].children[0].children[0].children[0]
+            bgNode.addChild(bgPrefab);
         })
     }
 
