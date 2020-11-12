@@ -7,8 +7,23 @@ import Game from "../../../common/scripts/game";
 const { ccclass, property } = cc._decorator;
 
 const border: number = 80;
-const CONFIG_LEN: number = 13;
+const CONFIG_LEN: number = 3;
 
+const COLORS = [
+    '#E556F4',
+    '#F1C82A',
+    '#F25949',
+    '#65179C',
+    '#45BA0F',
+    '#00CFFF',
+    '#2C3E50',
+    '#D9042B',
+    '#1FB170',
+    '#2980B9',
+    '#FF6425'
+    ]
+    
+    
 @ccclass
 export default class LetterPair extends Game {
 
@@ -40,17 +55,14 @@ export default class LetterPair extends Game {
         const card1Type = data[3]
         const card2Type = data[4]
         for (let index = 0; index < numCards / 2; index++) {
+            const color = new cc.Color().fromHEX(COLORS[index])
             const card1 = cc.instantiate(this.cardPrefab);
             card1.name = prefix + '1';
             const cardComp1 = card1.getComponent(Card);
             cardComp1.cardType = card1Type;
+            cardComp1.color = color
             cardComp1.cardContent = data[index * CONFIG_LEN + 5];
-            cardComp1.cardText = data[index * CONFIG_LEN + 6];
-            cardComp1.cardFontSize = data[index * CONFIG_LEN + 7];
-            cardComp1.cardFontColor = data[index * CONFIG_LEN + 8];
-            cardComp1.cardBgType = data[index * CONFIG_LEN + 9];
-            cardComp1.cardBgColor = data[index * CONFIG_LEN + 10];
-            cardComp1.audio = data[index * CONFIG_LEN + 17];
+            cardComp1.audio = data[index * CONFIG_LEN + 7];
             card1.position = new cc.Vec2(
                 (boxWidth * (allValues[prefix] % (numCards / 2)) + Math.random() * (boxWidth - border)) - cc.winSize.width / 2 + border,
                 (boxHeight * (Math.floor(allValues[prefix] / numCards * 2)) + Math.random() * (boxHeight - border)) - cc.winSize.height / 2 + border);
@@ -59,13 +71,9 @@ export default class LetterPair extends Game {
             prefix++;
             const cardComp2 = card2.getComponent(Card);
             cardComp2.cardType = card2Type;
-            cardComp2.cardContent = data[index * CONFIG_LEN + 11];
-            cardComp2.cardText = data[index * CONFIG_LEN + 12];
-            cardComp2.cardFontSize = data[index * CONFIG_LEN + 13];
-            cardComp2.cardFontColor = data[index * CONFIG_LEN + 14];
-            cardComp2.cardBgType = data[index * CONFIG_LEN + 15];
-            cardComp2.cardBgColor = data[index * CONFIG_LEN + 16];
-            cardComp2.audio = data[index * CONFIG_LEN + 17];
+            cardComp2.color = color
+            cardComp2.cardContent = data[index * CONFIG_LEN + 6];
+            cardComp2.audio = data[index * CONFIG_LEN + 7];
             card2.position = new cc.Vec2(
                 (boxWidth * (allValues[prefix] % (numCards / 2)) + Math.random() * (boxWidth - border)) - cc.winSize.width / 2 + border,
                 (boxHeight * (Math.floor(allValues[prefix] / numCards * 2)) + Math.random() * (boxHeight - border)) - cc.winSize.height / 2 + border);
