@@ -117,6 +117,18 @@ export default class Card extends cc.Component {
                 spriteNode.scale = 0.9;
                 this.node.addChild(spriteNode);
             });
+        } else if (this.cardType == 'dice') {
+            cc.resources.load('items/'+this.cardContent, cc.SpriteFrame, (err, spriteFrame) => {
+                if (!err) {
+                    const spriteNode = new cc.Node('frontSprite');
+                    const sprite = spriteNode.addComponent(cc.Sprite);
+                    // @ts-ignore
+                    sprite.spriteFrame = spriteFrame
+                    spriteNode.scale = 0.9;
+                    this.node.addChild(spriteNode);
+
+                }
+            });
         } else if (this.cardType == 'number' || this.cardType == 'stick') {
             const image = this.cardType == 'number' ? FRUITS[Math.floor(Math.random() * FRUITS.length)] : 'items/shake/stick'
             cc.resources.load(image, cc.SpriteFrame, (err, spriteFrame) => {
