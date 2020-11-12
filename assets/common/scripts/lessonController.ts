@@ -205,7 +205,7 @@ export default class LessonController extends cc.Component {
         if (gameConfig.fontName != null) {
             let splits = gameConfig.fontName.split('-');
             if (splits && splits.length === 2) {
-                const prefixFont = Profile.getValue(LANGUAGE) || Lang.ENGLISH
+                const prefixFont = config.course.lang;
                 const suffixFont = splits[1];
                 fontName = prefixFont + '-' + suffixFont;
             }
@@ -286,6 +286,11 @@ export default class LessonController extends cc.Component {
 
     private problemEnd(replaceScene: boolean, forward: boolean = true) {
         const config = Config.i;
+        const gameConfig = GAME_CONFIGS[config.game];
+        if(!!gameConfig.fontName) {
+            config.releaseFont(config.currentFontName);
+        }
+
         const timeSpent = Math.ceil((new Date().getTime() - this.problemStartTime) / 1000);
         const monitor = this.progressMonitorNode.getComponent(ProgressMonitor);
         const currentProblem = config.problem;

@@ -260,6 +260,14 @@ export default class Config {
         return this._scenes.length > 1;
     }
 
+    releaseFont(fontName: string) {
+        cc.log("releasing current font", fontName);
+        cc.resources.release(fontName);
+        if(this._textFontMap.has(fontName)) {
+            this._textFontMap.delete(fontName);
+        }
+    }
+
     loadFontDynamically(fontName: string, callBack: Function = null, data: any = null) {
         if (this.hasLoadedTextFont(fontName)) {
             this.currentFontName = fontName;
