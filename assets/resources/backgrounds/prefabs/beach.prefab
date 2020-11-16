@@ -560,10 +560,12 @@
       "__id__": 1
     },
     "_enabled": true,
-    "_clip": null,
+    "_clip": {
+      "__uuid__": "fffc0989-c634-4906-bcfc-3a186636350a"
+    },
     "_volume": 1,
     "_mute": false,
-    "_loop": false,
+    "_loop": true,
     "_firstlyEnabled": true,
     "playOnLoad": false,
     "preload": false,
