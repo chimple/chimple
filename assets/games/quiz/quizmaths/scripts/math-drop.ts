@@ -1,5 +1,5 @@
 import Drop from "../../../../common/scripts/drop";
-import catchError from "../../../../common/scripts/lib/error-handler";
+import MathDrag, {MATH_NO_MATCH} from "./math-drag";
 
 const {ccclass, property} = cc._decorator;
 
@@ -21,10 +21,24 @@ export default class MathDrop extends Drop {
 
     onCollisionExit(other: cc.Collider, self: cc.Collider) {
         super.onCollisionExit(other, self);
+        this.allowDrop = true;
         if (this.allowDrop) {
             this.node.width = this.origWidth;
         }
+
+        if (other != null) {
+            const mathDragComponent = other.getComponent(MathDrag);
+            if (mathDragComponent !== null && mathDragComponent.matchIndex !== null && mathDragComponent.matchIndex.length > 0) {
+                const customEvent: cc.Event.EventCustom = new cc.Event.EventCustom(MATH_NO_MATCH, true);
+                customEvent.setUserData({
+                    drop: mathDragComponent.node.name + '_' + mathDragComponent.matchIndex
+                });
+                this.node.dispatchEvent(customEvent);
+                mathDragComponent.matchIndex = '';
+            }
+        }
     }
+
 
     onMatchOver() {
         this.match = false;
