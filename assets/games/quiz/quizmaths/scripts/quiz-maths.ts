@@ -83,6 +83,8 @@ export default class QuizMaths extends cc.Component {
     private _mathsConfig: QuizMathsConfig = null;
     private _assetDir: string;
 
+    private _nextDone: boolean = false
+
     @catchError()
     protected onLoad(): void {
         let collisionManager = cc.director.getCollisionManager();
@@ -95,11 +97,18 @@ export default class QuizMaths extends cc.Component {
         this._assetDir = HELP_DIR + Profile.getValue(LANGUAGE) + '-help/' + QUIZ_MATHS_DIR;
 
         this.node.on(QUIZ_CORRECT, event => {
-            this.next(event, true);
+            if(!this._nextDone) {
+                this._nextDone  = true;
+                this.next(event, true);
+            }
         });
 
         this.node.on(QUIZ_WRONG, event => {
-            this.next(event, false);
+            if(!this._nextDone) {
+                this._nextDone  = true;
+                this.next(event, false);
+            }
+
         });
 
         switch (this._mathsConfig.type) {

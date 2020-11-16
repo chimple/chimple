@@ -1221,10 +1221,12 @@
       "__id__": 1
     },
     "_enabled": true,
-    "_clip": null,
+    "_clip": {
+      "__uuid__": "097ff626-9e75-48fd-8393-3b5478beea02"
+    },
     "_volume": 1,
     "_mute": false,
-    "_loop": false,
+    "_loop": true,
     "_firstlyEnabled": true,
     "playOnLoad": false,
     "preload": false,

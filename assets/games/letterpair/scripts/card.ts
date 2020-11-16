@@ -3,8 +3,45 @@ import LetterPair from "./letterpair";
 import ChimpleLabel from "../../../common/scripts/chimple-label";
 import CountingLayout from "../../../common/scripts/countingLayout";
 import LessonController from "../../../common/scripts/lessonController";
+import Config from "../../../common/scripts/lib/config";
 
 const { ccclass, property } = cc._decorator;
+
+const FRUITS = [
+    'items/fruit/peach',
+    'items/fruit/xigua',
+    'items/fruit/avacado',
+    'items/fruit/pineapple',
+    'items/fruit/mango',
+    'items/fruit/dragonfruit',
+    'items/fruit/nuts',
+    'items/fruit/watermelon',
+    'items/fruit/cherry',
+    'items/fruit/orange',
+    'items/fruit/grapes',
+    'items/fruit/apple',
+    'items/fruit/lemon',
+    'items/fruit/banana',
+    'items/fruit/acorn',
+    'items/fruit/strawberry',
+    'items/fruit/guava',
+    'items/fruit/kiwi',
+    'items/vegetable/potato',
+    'items/vegetable/corn',
+    'items/vegetable/capsicum',
+    'items/vegetable/carrot',
+    'items/vegetable/onion',
+    'items/vegetable/tomato',
+    'items/vegetable/chilly',
+    'items/vegetable/garlic',
+    'items/vegetable/peas',
+    'items/vegetable/brinjal',
+    'items/vegetable/spinach',
+    'items/vegetable/cabbage',
+    'items/vegetable/pumpkin',
+    'items/vegetable/radish',
+    'items/vegetable/broccoli'
+]
 
 @ccclass
 export default class Card extends cc.Component {
@@ -48,12 +85,8 @@ export default class Card extends cc.Component {
     particleNode: cc.Node = null;
     cardType: string = null;
     cardContent: string = null;
-    cardText: string = null;
-    cardFontSize: string = null;
-    cardFontColor: string = null;
-    cardBgType: string = null;
-    cardBgColor: string = null;
     audio: string = null;
+    color: cc.Color = null
     isInteracting: boolean = false;
 
     static letDrag: boolean = true
@@ -69,7 +102,7 @@ export default class Card extends cc.Component {
 
         var bgBack: cc.Node = null
         var bgFront: cc.Node = null
-        const giftBox = this.cardBgType == 'rectangle' ? cc.instantiate(this.rectangle) : cc.instantiate(this.square)
+        const giftBox = Config.i.course.type == 'maths' ? cc.instantiate(this.rectangle) : cc.instantiate(this.square)
         bgBack = giftBox.getChildByName('giftbox')
         bgFront = giftBox.getChildByName('giftboxwhite')
         this.node.addChild(giftBox)
@@ -84,23 +117,39 @@ export default class Card extends cc.Component {
                 spriteNode.scale = 0.9;
                 this.node.addChild(spriteNode);
             });
-        } else if (this.cardType == 'number' || this.cardType == 'stick') {
-            Util.loadTexture(this.cardContent, (texture) => {
-                const clNode = cc.instantiate(this.countingLayout);
-                const cl = clNode.getComponent(CountingLayout);
-                cl.fullCount = parseInt(this.cardText);
-                cl.scale = 0.4
-                cl.fullTexture = new cc.SpriteFrame(texture)
-                if (this.cardType == 'stick') {
-                    const layout = cl.getComponent(cc.Layout)
-                    layout.paddingLeft = 50
-                    layout.paddingRight = 50
+        } else if (this.cardType == 'dice') {
+            cc.resources.load('items/'+this.cardContent, cc.SpriteFrame, (err, spriteFrame) => {
+                if (!err) {
+                    const spriteNode = new cc.Node('frontSprite');
+                    const sprite = spriteNode.addComponent(cc.Sprite);
+                    // @ts-ignore
+                    sprite.spriteFrame = spriteFrame
+                    spriteNode.scale = 0.9;
+                    this.node.addChild(spriteNode);
+
                 }
-                this.node.addChild(clNode)
+            });
+        } else if (this.cardType == 'number' || this.cardType == 'stick') {
+            const image = this.cardType == 'number' ? FRUITS[Math.floor(Math.random() * FRUITS.length)] : 'items/shake/stick'
+            cc.resources.load(image, cc.SpriteFrame, (err, spriteFrame) => {
+                if (!err) {
+                    const clNode = cc.instantiate(this.countingLayout);
+                    const cl = clNode.getComponent(CountingLayout);
+                    cl.fullCount = parseInt(this.cardContent);
+                    cl.scale = 0.4
+                    // @ts-ignore
+                    cl.fullTexture = spriteFrame
+                    // if (this.cardType == 'stick') {
+                    //     const layout = cl.getComponent(cc.Layout)
+                    //     layout.paddingLeft = 50
+                    //     layout.paddingRight = 50
+                    // }
+                    this.node.addChild(clNode)
+                }
             })
             if (this.audio.length == 0) {
-                Util.loadNumericSound(this.cardText, (clip) => {
-                    if(clip) {
+                Util.loadNumericSound(this.cardContent, (clip) => {
+                    if (clip) {
                         this.wordAudio = clip
                         this.pairCard.wordAudio = clip
                     }
@@ -108,41 +157,35 @@ export default class Card extends cc.Component {
             }
         } else {
             const labelNode = new cc.Node('label');
+            labelNode.height = this.node.height * 0.5
+            labelNode.width = this.node.width * 0.8
             const label = labelNode.addComponent(ChimpleLabel);
-            label.string = this.cardText;
+            label.string = this.cardContent;
             label.font = this.textFont;
-            const fontColor = cc.Color.BLACK;
-            if (this.cardFontColor != '') {
-                fontColor.fromHEX(this.cardFontColor);
-            }
-            labelNode.color = fontColor;
-            if (this.cardFontSize != '') {
-                const fontSize = parseInt(this.cardFontSize);
-                label.fontSize = fontSize;
-                label.lineHeight = fontSize;
-                labelNode.position = new cc.Vec2(0, fontSize * 0.1); // to align text with middle since in bigger font size it aligns down
-            }
+            label.horizontalAlign = cc.Label.HorizontalAlign.CENTER
+            label.overflow = cc.Label.Overflow.SHRINK
+            label.enableWrapText = false
+            labelNode.color = this.color;
+            label.fontSize = 128;
+            label.lineHeight = 128;
+            labelNode.position = new cc.Vec3(0, 128 * 0.1); // to align text with middle since in bigger font size it aligns down
             this.node.addChild(labelNode);
             if (this.audio.length == 0) {
-                if(isNaN(parseInt(this.cardText))) {
-                    Util.loadsLetter(this.cardText.toLowerCase(), (clip) => {
+                if (isNaN(parseInt(this.cardContent))) {
+                    Util.loadsLetter(this.cardContent.toLowerCase(), (clip) => {
                         this.wordAudio = clip
-                    })    
+                    })
                 } else {
-                    Util.loadNumericSound(this.cardText, (clip) => {
+                    Util.loadNumericSound(this.cardContent, (clip) => {
                         this.wordAudio = clip
-                    })    
+                    })
                 }
             }
         }
-        if (this.cardBgColor != '') {
-            const bgColor = new cc.Color();
-            bgColor.fromHEX(this.cardBgColor);
-            if (this.cardBgType == 'rectangle' && this.cardType == 'image') {
-                bgFront.color = bgColor
-            } else {
-                bgBack.color = bgColor
-            }
+        if (Config.i.course.type == 'maths' && this.cardType == 'image') {
+            bgFront.color = this.color
+        } else {
+            bgBack.color = this.color
         }
         if (this.audio.length > 0) {
             Util.loadGameSound(this.audio, (clip) => {
@@ -212,12 +255,12 @@ export default class Card extends cc.Component {
                 blockNode.opacity = 224
                 blockNode.zIndex = 1
                 new cc.Tween().target(LessonController.getFriend().node)
-                    .to(0.25, {y: 0}, { progress: null, easing: 'sineOut' })
+                    .to(0.25, { y: 0 }, { progress: null, easing: 'sineOut' })
                     .call(() => {
                         this.node.parent.parent.emit('correct');
                     })
                     .delay(1)
-                    .to(0.25, {y: -600}, { progress: null, easing: 'sineOut' })
+                    .to(0.25, { y: -600 }, { progress: null, easing: 'sineOut' })
                     .start()
                 this.unregisterTouch()
                 this.unSparkle();
@@ -266,12 +309,12 @@ export default class Card extends cc.Component {
                     .start();
             } else {
                 new cc.Tween().target(LessonController.getFriend().node)
-                    .to(0.25, {y: 0}, { progress: null, easing: 'sineOut' })
+                    .to(0.25, { y: 0 }, { progress: null, easing: 'sineOut' })
                     .call(() => {
                         this.node.parent.parent.emit('wrong');
                     })
                     .delay(1)
-                    .to(0.25, {y: -600}, { progress: null, easing: 'sineOut' })
+                    .to(0.25, { y: -600 }, { progress: null, easing: 'sineOut' })
                     .start()
                 new cc.Tween().target(this.node)
                     .to(0.25, {
