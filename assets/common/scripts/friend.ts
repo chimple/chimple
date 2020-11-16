@@ -1,7 +1,6 @@
 import Profile, { LANGUAGE, SFX_OFF } from "./lib/profile";
-
 import { Util } from "./util";
-import Config from "./lib/config";
+
 
 const { ccclass, property } = cc._decorator;
 
@@ -18,6 +17,7 @@ export default class Friend extends cc.Component {
     isFace: boolean = false
     extraClip: cc.AudioClip = null
     private helpAudioId: number = -1
+    helpFile: string = null
 
     public playHappyAnimation(playTimes: number) {
         this.playAnimation(this.isFace ? 'face_happy' : 'happy', playTimes)
@@ -40,10 +40,9 @@ export default class Friend extends cc.Component {
     }
 
     public speakHelp(auto: boolean = true) {
-        const config = Config.i
         if ((auto
             || (this.speakFullHelp && this.extraClip))
-            && this.helpSpoken.has(config.game)) {
+            && this.helpSpoken.has(this.helpFile)) {
             this.speakFullHelp = false
             this.speakExtra()
         } else {
@@ -65,10 +64,9 @@ export default class Friend extends cc.Component {
     }
 
     private loadAndPlay(bundle: any) {
-        const config = Config.i
-        bundle.load(`games/${config.game}`, cc.AudioClip, (err, clip) => {
+        bundle.load(this.helpFile, cc.AudioClip, (err, clip) => {
             if (!err) {
-                this.helpSpoken.add(config.game);
+                this.helpSpoken.add(this.helpFile);
                 this.speakFullHelp = true;
                 this.helpAudioId = this.speak(clip, this.speakExtra.bind(this));
             }

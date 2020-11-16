@@ -1,26 +1,17 @@
-import {
-    RECEIVED_TEACHER_REQUEST,
-    TEACHER_ADD_STUDENT_ID,
-    TEACHER_ADDED,
-    TEACHER_ID_KEY,
-    TEACHER_NAME_KEY,
-    TEACHER_SECTION_ID
-} from "../../../chimple";
-import HeaderButton from "../../../common/scripts/headerButton";
-import Config from "../../../common/scripts/lib/config";
-import {EXAM, MIN_PASS} from "../../../common/scripts/lib/constants";
-import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
-import {CourseProgress, User} from "../../../common/scripts/lib/profile";
-import Loading from "../../../common/scripts/loading";
-import {ServiceConfig} from "../../../common/scripts/services/ServiceConfig";
-import TeacherAddedDialog, {TEACHER_ADD_DIALOG_CLOSED} from "../../../common/scripts/teacherAddedDialog";
-import {Util, REWARD_TYPES, INVENTORY_SAVE_CONSTANTS, INVENTORY_ANIMATIONS} from "../../../common/scripts/util";
-import LessonButton from "./lessonButton";
-import StartContent from "./startContent";
-import Inventory from "../../inventory/scripts/inventory";
+import { RECEIVED_TEACHER_REQUEST, TEACHER_ADDED, TEACHER_ADD_STUDENT_ID, TEACHER_ID_KEY, TEACHER_NAME_KEY, TEACHER_SECTION_ID } from "../../../chimple";
 import Friend from "../../../common/scripts/friend";
+import Config from "../../../common/scripts/lib/config";
+import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
+import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
+import { User } from "../../../common/scripts/lib/profile";
+import Loading from "../../../common/scripts/loading";
+import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
+import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
+import { INVENTORY_ANIMATIONS, INVENTORY_SAVE_CONSTANTS, REWARD_TYPES, Util } from "../../../common/scripts/util";
+import Inventory from "../../inventory/scripts/inventory";
+import LessonButton from "./lessonButton";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class Start extends cc.Component {
@@ -86,6 +77,11 @@ export default class Start extends cc.Component {
             node.y = -cc.winSize.height / 2 + 16
             node.x = cc.winSize.width / 3.25
             Util.loadAccessoriesAndEquipAcc(node.children[1], node)
+            const friendComp = this.friend.getComponent(Friend)
+            friendComp.helpFile = 'start'
+            friendComp.speakHelp(true)
+
+            friendComp.extraClip
         })
         const assignments: [] = await ServiceConfig.getI().handle.listAssignments(user.id);
         console.log(assignments)
@@ -294,7 +290,7 @@ export default class Start extends cc.Component {
                     this.displayLessonPlan()
                 }, 6)
                 const rewardItem = Util.unlockNextReward()
-                if(rewardItem) {
+                if (rewardItem) {
                     const splitItems = rewardItem.split('-')
 
                     if (splitItems[0] == REWARD_TYPES[3]) {
@@ -302,7 +298,7 @@ export default class Start extends cc.Component {
                             const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2])
                             Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2])
                         }, 4)
-                    }    
+                    }
                 }
             }
         })
@@ -314,16 +310,16 @@ export default class Start extends cc.Component {
                     if (index == Math.floor(user.lessonPlan.length / 2)) {
                         node.scale = 0.4
                         new cc.Tween().target(node)
-                            .to(0.5, {position: pos, scale: 1}, null)
+                            .to(0.5, { position: pos, scale: 1 }, null)
                             .start()
                     } else if (index == Math.floor(user.lessonPlan.length / 2) - 1) {
                         node.scale = 1
                         new cc.Tween().target(node)
-                            .to(0.5, {position: pos, scale: 0.4}, null)
+                            .to(0.5, { position: pos, scale: 0.4 }, null)
                             .start()
                     } else {
                         new cc.Tween().target(node)
-                            .to(0.5, {position: pos}, null)
+                            .to(0.5, { position: pos }, null)
                             .start()
                     }
                 }
@@ -469,6 +465,11 @@ export default class Start extends cc.Component {
         lessonButtonComp.loading = loading;
         lessonButtonComp.open = open
         return lessonButton
+    }
+
+    onDisable() {
+        const friendComp = this.friend.getComponent(Friend)
+        friendComp.stopAudio()
     }
 
     onDestroy() {
