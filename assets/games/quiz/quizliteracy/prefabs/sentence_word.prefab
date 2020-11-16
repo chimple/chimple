@@ -643,7 +643,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 0,
-      "height": 50.4
+      "height": 200
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -696,11 +696,11 @@
     "_dstBlendFactor": 771,
     "_string": "",
     "_N$string": "",
-    "_fontSize": 48,
-    "_lineHeight": 40,
+    "_fontSize": 125,
+    "_lineHeight": 125,
     "_enableWrapText": true,
     "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
