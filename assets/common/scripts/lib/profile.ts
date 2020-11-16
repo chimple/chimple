@@ -1,9 +1,9 @@
-import { Queue } from "../../../queue";
+import {Queue} from "../../../queue";
 import Header from "../header";
-import { INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util } from "../util";
+import {INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util} from "../util";
 import UtilLogger from "../util-logger";
-import Config, { ALL_LANGS } from "./config";
-import { COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
+import Config, {ALL_LANGS} from "./config";
+import {COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS} from "./constants";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -43,7 +43,9 @@ export interface UserAttribute {
 export interface CourseProgress {
     currentChapterId: string;
     date?: Date;
-    assignments?: string[]
+    assignments?: string[];
+
+    updateChapterId(c: string);
 }
 
 export class CourseProgressClass implements CourseProgress {
@@ -61,17 +63,15 @@ export class CourseProgressClass implements CourseProgress {
         this.lessonPlanIndex = 0
     }
 
-    // set currentChapterId(c: string) {
-    //     this._currentChapterId = c;
-    //     UtilLogger.logChimpleEvent("student_level", {
-    //         level: c,
-    //         subject: Config.i.course.name
-    //     })
-    // }
-
-    // get currentChapterId() {
-    //     return this._currentChapterId;
-    // }
+    updateChapterId(c: string) {
+        this.currentChapterId = c;
+        if (Config.i.course) {
+            UtilLogger.logChimpleEvent("student_level", {
+                level: c,
+                subject: Config.i.course.name
+            })
+        }
+    }
 }
 
 export interface LessonProgress {
@@ -420,7 +420,7 @@ export class User {
             const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
             const total = Math.max(0, formulaScore / max)
             const chapters = config.curriculum.get(config.course.id).chapters
-            this.courseProgressMap.get(Config.i.course.id).currentChapterId = chapters[Math.floor((chapters.length - 1) * total)].id
+            this.courseProgressMap.get(Config.i.course.id).updateChapterId(chapters[Math.floor((chapters.length - 1) * total)].id);
         } else {
             if (this._lessonProgressMap.has(lessonId)) {
                 const lessonProgress = this._lessonProgressMap.get(lessonId)
@@ -458,7 +458,7 @@ export class User {
                             found = c.id == this.courseProgressMap.get(Config.i.course.id).currentChapterId
                             return false
                         })
-                    if (nextChapter) this.courseProgressMap.get(Config.i.course.id).currentChapterId = nextChapter.id
+                    if (nextChapter) this.courseProgressMap.get(Config.i.course.id).updateChapterId(nextChapter.id)
                 }
             }
         }
@@ -587,7 +587,7 @@ export class User {
             {},
             {},
             debug,
-            ['','','','','','','','','1','2','r','1','2','r','1','2','r']
+            ['', '', '', '', '', '', '', '', '1', '2', 'r', '1', '2', 'r', '1', '2', 'r']
             // ['', '', '', '', '', '', '', '', '1', '2', '1', '2', '1', '2', '1', '2', '1']
         );
         if (debug) user.openAllRewards()
@@ -854,7 +854,7 @@ export default class Profile {
     }
 
     static async teacherPostLoginActivity(objectId: string) {
-        const currentUser: User = User.createUserOrFindExistingUser({ id: objectId });
+        const currentUser: User = User.createUserOrFindExistingUser({id: objectId});
         User.setCurrentUser(currentUser);
         return currentUser;
     }
