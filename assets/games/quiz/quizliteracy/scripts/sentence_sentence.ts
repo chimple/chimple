@@ -6,7 +6,7 @@ import { QuizLiteracyConfig } from "./quiz-literacy";
 
 const WIDTH = 800;
 const HEIGHT = 85;
-const LABEL_WIDTH = 600;
+const LABEL_WIDTH = 880;
 
 @ccclass
 export class SentenceSentence extends cc.Component {
