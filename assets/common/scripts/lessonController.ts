@@ -267,6 +267,7 @@ export default class LessonController extends cc.Component {
             gameComponent.friend = LessonController.friend
             gameComponent.friend.node.position = cc.Vec3.ZERO
             gameComponent.friendPos.addChild(LessonController.friend.node)
+            LessonController.friend.helpFile = `games/${Config.i.game}`
             LessonController.friend.playIdleAnimation(1)
         }
         if (this.gameNode != null) this.gameNode.removeFromParent();

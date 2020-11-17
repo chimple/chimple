@@ -16,11 +16,11 @@ export const SORT_ASCENDING = 'ascending';
 export const SORT_DESCEDNGING = 'descending';
 
 export class QuizHelper {
-    public static renderTextLabel(quizConfig: QuizLiteracyConfig | QuizMathsConfig, parent: cc.Node, width: number = LABEL_WIDTH, hex: string = '#000000', childName: string = 'label', fontSize: number = 65) {
-        QuizHelper.renderTextLabelWithContent(quizConfig, parent, quizConfig.displayTexts, width, hex, childName, fontSize);
+    public static renderTextLabel(quizConfig: QuizLiteracyConfig | QuizMathsConfig, parent: cc.Node, width: number = LABEL_WIDTH, hex: string = '#000000', childName: string = 'label', fontSize: number = 65, overflow = Overflow.SHRINK) {
+        QuizHelper.renderTextLabelWithContent(quizConfig, parent, quizConfig.displayTexts, width, hex, childName, fontSize, overflow);
     }
 
-    public static renderTextLabelWithContent(quizConfig: QuizLiteracyConfig | QuizMathsConfig, parent: cc.Node, content: string, width: number = LABEL_WIDTH, hex: string = '#000000', childName, fontSize: number = 75) {
+    public static renderTextLabelWithContent(quizConfig: QuizLiteracyConfig | QuizMathsConfig, parent: cc.Node, content: string, width: number = LABEL_WIDTH, hex: string = '#000000', childName, fontSize: number = 75, overflow: Overflow.SHRINK) {
         fontSize = content.length === 1 ? 125 : fontSize;
         const label = parent.getChildByName(childName);
         if (label) {
@@ -28,7 +28,7 @@ export class QuizHelper {
             label.width = width;
             const labelComponent = label.getComponent(cc.Label);
             labelComponent.fontSize = fontSize;
-            labelComponent.overflow = Overflow.RESIZE_HEIGHT;
+            labelComponent.overflow = overflow;
             labelComponent.string = content;
         }
     }
