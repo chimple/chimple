@@ -57,6 +57,10 @@ export default class MathDrag extends Drag {
     onReturnBackOnNoMatch() {
         super.onReturnBackOnNoMatch();
         handleClick = true;
+        this.mathNoMatchEvent();
+    }
+
+    mathNoMatchEvent() {
         const customEvent: cc.Event.EventCustom = new cc.Event.EventCustom(MATH_NO_MATCH, true);
         customEvent.setUserData({
             drop: this.node.name + '_' + this.matchIndex

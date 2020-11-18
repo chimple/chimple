@@ -1,11 +1,12 @@
 import ccclass = cc._decorator.ccclass;
 import catchError from "../../../../common/scripts/lib/error-handler";
-import { QuizHelper } from "./quiz-helper";
+import {QuizHelper} from "./quiz-helper";
 import property = cc._decorator.property;
-import { QuizLiteracyConfig } from "./quiz-literacy";
+import {QuizLiteracyConfig} from "./quiz-literacy";
 
 const WIDTH = 300;
 const HEIGHT = 250;
+const LABEL_WIDTH = 880;
 
 @ccclass
 export class SentenceWord extends cc.Component {
@@ -45,6 +46,6 @@ export class SentenceWord extends cc.Component {
 
     @catchError()
     renderLabel(parent: cc.Node) {
-        QuizHelper.renderTextLabel(this.quizConfig, parent);
+        QuizHelper.renderTextLabel(this.quizConfig, parent, LABEL_WIDTH);
     }
 }

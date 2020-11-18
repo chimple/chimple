@@ -39,6 +39,7 @@ export const WRONG_EVENT = 'wrong';
 export const SOUND_LOADED_EVENT = 'soundLoaded';
 
 export const HELP_DIR = 'help/';
+export const QUESTION_BOARD = 'questionboard';
 export const QUIZ_MATHS_DIR = 'quizmaths';
 export const NUMBER_VOICE = 'numbervoice/';
 export const PHONIC_VOICE = 'course/res/sound/phonicvoice/';

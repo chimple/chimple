@@ -36,7 +36,7 @@ export default class KeyboardButton extends cc.Component {
     this.node.on("touchmove", this.onTouchMove, this);
     this.node.on("touchend", this.onTouchEnd, this);
     this.node.on("touchcancel", this.onTouchEnd, this);
-    this.bridgeComp = this.node.parent.parent.parent.getComponent(BridgeBuilder);
+    this.bridgeComp = Config.i.course.lang == "en" ? this.node.parent.parent.parent.getComponent(BridgeBuilder) : this.node.parent.getComponent(BridgeBuilder);
     let text = this.node.getChildByName("Label").getComponent(cc.Label).string;
     if (
       Config.i.course.lang == "en" &&

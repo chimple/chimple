@@ -15,7 +15,7 @@ import property = cc._decorator.property;
 import { QUIZ_WRONG } from "../../quizliteracy/scripts/quiz-literacy";
 import { QUIZ_ANSWERED } from "../../../../common/scripts/quiz-monitor";
 import Profile, {LANGUAGE} from "../../../../common/scripts/lib/profile";
-import {HELP_DIR, NUMBER_VOICE, QUIZ_MATHS_DIR} from "../../../../common/scripts/helper";
+import {HELP_DIR, NUMBER_VOICE, QUESTION_BOARD, QUIZ_MATHS_DIR} from "../../../../common/scripts/helper";
 
 export const DIGIT_NUMBERS = "digit_numbers";
 export const TWO_DIGIT_NUMBERS = "2digit_numbers";
@@ -83,6 +83,8 @@ export default class QuizMaths extends cc.Component {
     private _mathsConfig: QuizMathsConfig = null;
     private _assetDir: string;
 
+    private _nextDone: boolean = false
+
     @catchError()
     protected onLoad(): void {
         let collisionManager = cc.director.getCollisionManager();
@@ -95,11 +97,18 @@ export default class QuizMaths extends cc.Component {
         this._assetDir = HELP_DIR + Profile.getValue(LANGUAGE) + '-help/' + QUIZ_MATHS_DIR;
 
         this.node.on(QUIZ_CORRECT, event => {
-            this.next(event, true);
+            if(!this._nextDone) {
+                this._nextDone  = true;
+                this.next(event, true);
+            }
         });
 
         this.node.on(QUIZ_WRONG, event => {
-            this.next(event, false);
+            if(!this._nextDone) {
+                this._nextDone  = true;
+                this.next(event, false);
+            }
+
         });
 
         switch (this._mathsConfig.type) {
@@ -197,7 +206,7 @@ export default class QuizMaths extends cc.Component {
                 const wordProblem = cc.instantiate(this.wordProblem);
                 const wordProblemComponent = wordProblem.getComponent(WordProblem);
                 wordProblemComponent.quizConfig = this._mathsConfig;
-                wordProblemComponent.assetDir = this._assetDir;
+                wordProblemComponent.assetDir = HELP_DIR + Profile.getValue(LANGUAGE) + '-help/' + QUESTION_BOARD;
                 this.node.addChild(wordProblem);
                 break;
         }

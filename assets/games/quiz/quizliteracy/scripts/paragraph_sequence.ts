@@ -1,8 +1,9 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
-import { QuizHelper } from "./quiz-helper";
+import Overflow = cc.Label.Overflow;
+import {QuizHelper} from "./quiz-helper";
 import catchError from "../../../../common/scripts/lib/error-handler";
-import { QuizLiteracyConfig } from "./quiz-literacy";
+import {QuizLiteracyConfig} from "./quiz-literacy";
 
 const LABEL_WIDTH = 400;
 const WIDTH = 400;
@@ -52,6 +53,6 @@ export class ParagraphSequence extends cc.Component {
 
     @catchError()
     renderLabel(parent: cc.Node) {
-        QuizHelper.renderTextLabel(this.quizConfig, parent, LABEL_WIDTH, COLOR, 'label', 45);
+        QuizHelper.renderTextLabel(this.quizConfig, parent, LABEL_WIDTH, COLOR, 'label', 45, Overflow.RESIZE_HEIGHT);
     }
 }

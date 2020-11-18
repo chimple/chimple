@@ -65,7 +65,7 @@ export default class WordProblem extends cc.Component {
     renderTopPanel() {
         const topPanel = this.node.getChildByName('topPanel');
         this.renderSoundButton(topPanel);
-        QuizHelper.renderTextLabel(this.quizConfig, topPanel, LABEL_WIDTH);
+        QuizHelper.renderTextLabel(this.quizConfig, topPanel, LABEL_WIDTH, '#000000', 'label', 50);
     }
 
     @catchError()
