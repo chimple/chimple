@@ -126,7 +126,7 @@ export class QuizHelper {
     }
 
     public static renderImageChoices(quizConfig: QuizLiteracyConfig | QuizMathsConfig, imageButtonPrefab: cc.Prefab, panel: cc.Node,
-                                     assetDir: string) {
+                                     assetDir: string, isAbsolutePath: boolean = false) {
         const choices = quizConfig.choices.split('^');
         choices.forEach(
             c => {
@@ -134,7 +134,8 @@ export class QuizHelper {
                 const quizButtonComponent = imageBtn.getComponent(QuizLiteracyButton);
                 quizButtonComponent.quizDir = `${assetDir}/`;
                 quizButtonComponent.data = new QuizBtnData(QuizBtnType.Picture,
-                    null, c, quizConfig.answer && c && c.trim() === quizConfig.answer.trim());
+                    null, c, quizConfig.answer && c && c.trim() === quizConfig.answer.trim(),
+                    isAbsolutePath);
                 const sprite = imageBtn.getChildByName('sprite');
                 if (sprite) {
                     panel.addChild(imageBtn);
@@ -152,6 +153,31 @@ export class QuizHelper {
                 c.height = height;
             }
         );
+    }
+
+    public static loadAndResizeResourceImage(quizConfig: QuizLiteracyConfig | QuizMathsConfig, imageNode: cc.Node,
+                                             assetDir: string, imageFileName: string) {
+        if (imageFileName) {
+            const picWidth = imageNode.width;
+            const picHeight = imageNode.height;
+
+            const imageToLoad = `${assetDir}/${imageFileName}`;
+            cc.resources.load(imageToLoad, cc.SpriteFrame, (err, spriteFrame) => {
+                if (!err) {
+                    // @ts-ignore
+                    const sprite: cc.Sprite = imageNode.getComponent(cc.Sprite);
+                    // @ts-ignore
+                    sprite.spriteFrame = spriteFrame;
+                    const size = sprite.spriteFrame.getOriginalSize();
+                    const xScale = picWidth / size.width;
+                    const yScale = picHeight / size.height;
+                    const scale = Math.min(xScale, yScale);
+                    imageNode.width = scale * size.width;
+                    imageNode.height = scale * size.height;
+                }
+            });
+        }
+
     }
 
     public static loadAndResizeImage(quizConfig: QuizLiteracyConfig | QuizMathsConfig, imageNode: cc.Node,

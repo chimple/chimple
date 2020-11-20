@@ -47,12 +47,14 @@ export class QuizBtnData {
     type: QuizBtnType;
     text: string;
     pic: string;
+    absolutePath: boolean;
 
-    constructor(type: QuizBtnType, text: string, pic: string, correct: boolean = false) {
+    constructor(type: QuizBtnType, text: string, pic: string, correct: boolean = false, absolutePath: boolean = false) {
         this.type = type;
         this.text = text;
         this.pic = pic;
         this.correct = correct;
+        this.absolutePath = absolutePath;
     }
 }
 

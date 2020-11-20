@@ -198,7 +198,7 @@ export default class QuizMaths extends cc.Component {
                 const shapes = cc.instantiate(this.shapes);
                 const shapesComponent = shapes.getComponent(Shapes);
                 shapesComponent.quizConfig = this._mathsConfig;
-                shapesComponent.assetDir = this._assetDir;
+                shapesComponent.assetDir = "items/shape";
                 this.node.addChild(shapes);
                 break;
 
