@@ -1,6 +1,6 @@
-import { Util } from "../../../../common/scripts/util";
+import {Util} from "../../../../common/scripts/util";
 import catchError from "../../../../common/scripts/lib/error-handler";
-import { QuizBtnData, QuizBtnType, QUIZ_CORRECT, QUIZ_WRONG } from "./quiz-literacy";
+import {QuizBtnData, QuizBtnType, QUIZ_CORRECT, QUIZ_WRONG} from "./quiz-literacy";
 import isAbsolutePath = jsb.fileUtils.isAbsolutePath;
 
 const {ccclass, property} = cc._decorator;
@@ -28,17 +28,33 @@ export default class QuizLiteracyButton extends cc.Component {
             const picWidth = this.node.width;
             const picHeight = this.node.height;
 
-            if(this.data.absolutePath) {
+            if (this.data.absolutePath) {
+                let isRectangle: boolean = this.data.pic === 'rectangle';
                 cc.resources.load(this.quizDir + this.data.pic, cc.SpriteFrame, (err, spriteFrame) => {
                     if (!err) {
                         // @ts-ignore
                         this.image.spriteFrame = spriteFrame;
+                        cc.log('isRectangle', isRectangle);
                         const size = this.image.spriteFrame.getOriginalSize();
                         const xScale = picWidth / size.width;
                         const yScale = picHeight / size.height;
+                        const answerButton = this.node.getChildByName("answer_button");
+                        const sprite = this.node.getChildByName("sprite");
                         const scale = Math.min(xScale, yScale);
-                        this.node.width = scale * size.width;
-                        this.node.height = scale * size.height;
+                        if (answerButton) {
+                            if (sprite) {
+                                if (isRectangle) {
+                                    sprite.width = xScale * answerButton.width;
+                                    sprite.height = yScale * answerButton.height;
+                                } else {
+                                    sprite.width = sprite.height = scale * answerButton.width;
+                                }
+
+                            }
+                        } else {
+                            this.node.width = scale * size.width;
+                            this.node.height = scale * size.height;
+                        }
                     }
                 });
 
