@@ -36,7 +36,6 @@ export default class Inventory extends cc.Component {
 
     normalSprite: cc.SpriteFrame = null;
     onLoad() {
-        console.log(' skfrg ');
         try {
             this.characterName = User.getCurrentUser().currentCharacter;
         } catch (err) {
