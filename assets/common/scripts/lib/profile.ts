@@ -420,7 +420,8 @@ export class User {
             const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
             const total = Math.max(0, formulaScore / max)
             const chapters = config.curriculum.get(config.course.id).chapters
-            this.courseProgressMap.get(Config.i.course.id).updateChapterId(chapters[Math.floor((chapters.length - 1) * total)].id);
+            const cpm = this.courseProgressMap.get(config.course.id)
+            cpm.updateChapterId(chapters[Math.floor((chapters.length - 1) * total)].id);
         } else {
             if (this._lessonProgressMap.has(lessonId)) {
                 const lessonProgress = this._lessonProgressMap.get(lessonId)
@@ -458,7 +459,10 @@ export class User {
                             found = c.id == this.courseProgressMap.get(Config.i.course.id).currentChapterId
                             return false
                         })
-                    if (nextChapter) this.courseProgressMap.get(Config.i.course.id).updateChapterId(nextChapter.id)
+                    if (nextChapter) {
+                        const cpm = this.courseProgressMap.get(config.course.id)
+                        cpm.updateChapterId(nextChapter.id)
+                    }
                 }
             }
         }
@@ -633,9 +637,13 @@ export class User {
         if (!data) return null;
         const courseProgressMap = new Map<string, CourseProgress>();
         for (const key in data.courseProgressMap) {
-            const lp = data.courseProgressMap[key]
-            lp.date = new Date(lp.date)
-            courseProgressMap.set(key, lp);
+            const cpData = data.courseProgressMap[key]
+            const cp = new CourseProgressClass(cpData.currentChapterId)
+            cp.date = new Date(cpData.date)
+            cp.assignments = cpData.assignments
+            cp.lessonPlan = cpData.lessonPlan
+            cp.lessonPlanIndex = cpData.lessonPlanIndex
+            courseProgressMap.set(key, cp);
         }
         const lessonProgressMap = new Map<string, LessonProgress>();
         for (const key in data.lessonProgressMap) {
