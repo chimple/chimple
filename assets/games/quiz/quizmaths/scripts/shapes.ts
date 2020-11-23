@@ -37,7 +37,7 @@ export default class Shapes extends cc.Component {
     @catchError()
     renderImage() {
         const imageNode = this.node.getChildByName('image');
-        QuizHelper.loadAndResizeImage(this.quizConfig, imageNode, this.assetDir,
+        QuizHelper.loadAndResizeResourceImage(this.quizConfig, imageNode, this.assetDir,
             this.quizConfig.answer);
 
     }
@@ -65,7 +65,7 @@ export default class Shapes extends cc.Component {
         const bottomPanel = this.node.getChildByName('bottomPanel');
         switch (this.quizConfig.order) {
             case WHICH:
-                QuizHelper.renderImageChoices(this.quizConfig, this.imageButton, bottomPanel, this.assetDir);
+                QuizHelper.renderImageChoices(this.quizConfig, this.imageButton, bottomPanel, this.assetDir, true);
                 break;
             case WHAT:
                 QuizHelper.renderTextChoices(this.quizConfig, this.textButton, bottomPanel, WIDTH, HEIGHT, this.quizConfig.choices.split('^'), FONT_SIZE);
