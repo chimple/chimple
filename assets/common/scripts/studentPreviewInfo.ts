@@ -52,6 +52,10 @@ export default class StudentPreviewInfo extends cc.Component {
             }
         )
 
+        this.generateEvent();
+    }
+
+    generateEvent() {
         const selectNode: cc.Node = this.picNode.getChildByName("select");
         selectNode.active = true;
 
@@ -61,6 +65,7 @@ export default class StudentPreviewInfo extends cc.Component {
             studentName: this._user.name || ''
         });
         this.node.dispatchEvent(customEvent);
+
     }
 
     setParent(_parent: cc.Node) {
