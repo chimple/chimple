@@ -18,6 +18,9 @@ export default class Inventory extends cc.Component {
     doneButtonNode: cc.Node = null;
 
     @property(cc.Node)
+    bgNode: cc.Node = null;
+
+    @property(cc.Node)
     crossButtonNode: cc.Node = null;
 
     @property()
@@ -56,6 +59,7 @@ export default class Inventory extends cc.Component {
         else {
             if (this.crossButtonNode != null)
                 this.crossButtonNode.active = false;
+            this.bgNode.active = true
         }
         // for testing only
         // Profile.createUser("AK", Language.ENGLISH, "", 12, Gender.BOY)
@@ -130,6 +134,7 @@ export default class Inventory extends cc.Component {
             item.getChildByName("New Button").getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = element
             item.getChildByName("New Button").name = element
             this.layoutNode.addChild(item);
+
         });
     }
 
