@@ -126,11 +126,13 @@
             "Description",
             "shapes",
             "circle",
-            "circle,square,triangle,rectangle",
+            "circle",
+            "square",
+            "triangle",
+            "rectangle",
             "which",
             "which_is_a_circle",
-            "Which is a circle?",
-            ""
+            "Which is a circle?"
         ],
         [
             "quizmaths",
@@ -138,7 +140,10 @@
             "Description",
             "shapes",
             "pentagon",
-            "hexagon,pentagon,parallelogram,trapezoid",
+            "hexagon",
+            "pentagon",
+            "parallelogram",
+            "trapezoid",
             "what",
             "What_is_this_shape",
             "What is this shape?"

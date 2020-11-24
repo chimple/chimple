@@ -10,6 +10,7 @@ import {ParseSchool} from "./domain/parseSchool";
 import {ParseApi, UpdateHomeTeacher} from "./services/parseApi";
 import {ServiceConfig} from "./services/ServiceConfig";
 import {AcceptTeacherRequest} from "./services/ServiceApi";
+import {Util} from "./util";
 
 export const TEACHER_ADD_DIALOG_CLOSED = 'TEACHER_ADD_DIALOG_CLOSED';
 @ccclass
@@ -42,6 +43,7 @@ export default class TeacherAddedDialog extends cc.Component {
             const item = event.getUserData();
             this.selectedStudentId = item.selectedStudent;
             this.selectedStudentName = item.studentName;
+            this.yesButton.color = new cc.Color().fromHEX('#C0E52F');
             this.yesButton.active = true;
         });
         // get all Users
@@ -50,11 +52,11 @@ export default class TeacherAddedDialog extends cc.Component {
     }
 
     private render() {
-        this.yesButton.active = false;
         const chimpleLabel = this.text.getComponent(ChimpleLabel);
-        chimpleLabel.string = 'Add Teacher ' + this._teacherName;
+        chimpleLabel.string = Util.i18NText("Add Teacher") + " " + this._teacherName;
         const studentAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + this._teacherId) || '[]');
-        this.users = this.users.filter(u => !studentAdded.includes(u.id))
+        this.users = this.users.filter(u => !studentAdded.includes(u.id));
+        const len = this.users.length;
         this.users.forEach(
             (user) => {
                 const studentPreviewInfoNode: cc.Node = cc.instantiate(this.studentPreviewInfoPrefab);
@@ -64,12 +66,19 @@ export default class TeacherAddedDialog extends cc.Component {
                 script.setParent(this.studentLayout);
                 script.renderStudent();
                 this.studentLayout.addChild(studentPreviewInfoNode);
+                if (len === 1) {
+                    script.generateEvent();
+                }
             }
         )
+        if (this.users.length > 1) {
+            this.yesButton.color = new cc.Color().fromHEX('#6A6D5D');
+            this.yesButton.active = true;
+        }
     }
 
     async onYesClicked(event) {
-        if (!!this._teacherId) {
+        if (!!this._teacherId && !!this.selectedStudentId) {
             const request: AcceptTeacherRequest = {
                 teacherId: this._teacherId,
                 sectionId: this._teacherSectionId,

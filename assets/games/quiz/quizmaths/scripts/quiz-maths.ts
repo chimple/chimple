@@ -1,19 +1,19 @@
 import ccclass = cc._decorator.ccclass;
 import Config from "../../../../common/scripts/lib/config";
 import catchError from "../../../../common/scripts/lib/error-handler";
-import { BiggerOrSmaller } from "./bigger-or-smaller";
-import { CompareNumberMagnitudes } from "./compare_number_magnitudes";
-import { DigitNumbers } from "./digit-numbers";
-import { MissingNumber } from "./missing_number";
-import { NumberIdentification } from "./number-identification";
+import {BiggerOrSmaller} from "./bigger-or-smaller";
+import {CompareNumberMagnitudes} from "./compare_number_magnitudes";
+import {DigitNumbers} from "./digit-numbers";
+import {MissingNumber} from "./missing_number";
+import {NumberIdentification} from "./number-identification";
 import OperationWithObjects from "./operation-with-objects";
-import { OperationsDrag } from "./operations-drag";
-import { RecognizeNumber } from "./recognize-number";
+import {OperationsDrag} from "./operations-drag";
+import {RecognizeNumber} from "./recognize-number";
 import Shapes from "./shapes";
 import WordProblem from "./word-problem";
 import property = cc._decorator.property;
-import { QUIZ_WRONG } from "../../quizliteracy/scripts/quiz-literacy";
-import { QUIZ_ANSWERED } from "../../../../common/scripts/quiz-monitor";
+import {QUIZ_WRONG} from "../../quizliteracy/scripts/quiz-literacy";
+import {QUIZ_ANSWERED} from "../../../../common/scripts/quiz-monitor";
 import Profile, {LANGUAGE} from "../../../../common/scripts/lib/profile";
 import {HELP_DIR, NUMBER_VOICE, QUESTION_BOARD, QUIZ_MATHS_DIR} from "../../../../common/scripts/helper";
 
@@ -97,15 +97,15 @@ export default class QuizMaths extends cc.Component {
         this._assetDir = HELP_DIR + Profile.getValue(LANGUAGE) + '-help/' + QUIZ_MATHS_DIR;
 
         this.node.on(QUIZ_CORRECT, event => {
-            if(!this._nextDone) {
-                this._nextDone  = true;
+            if (!this._nextDone) {
+                this._nextDone = true;
                 this.next(event, true);
             }
         });
 
         this.node.on(QUIZ_WRONG, event => {
-            if(!this._nextDone) {
-                this._nextDone  = true;
+            if (!this._nextDone) {
+                this._nextDone = true;
                 this.next(event, false);
             }
 
@@ -238,6 +238,18 @@ export default class QuizMaths extends cc.Component {
             displayTexts,
             displayImage
         ] = configurations;
+
+        if (type === 'shapes') {
+            let choice1 = configurations[5];
+            let choice2 = configurations[6];
+            let choice3 = configurations[7];
+            let choice4 = configurations[8];
+            choices = choice1 + "," + choice2 + "," + choice3 + "," + choice4;
+            order = configurations[9];
+            soundFile = configurations[10];
+            displayTexts = configurations[11];
+        }
+
         return {
             level,
             workSheet,

@@ -426,6 +426,7 @@ export default class LessonController extends cc.Component {
             lessonName: config.lesson.name,
             lessonId: config.lesson.id,
             courseName: config.course.id,
+            lessonType: config.lesson.type,
             score: score,
             timeSpent: timeSpent,
             skills: config.lesson.skills ? config.lesson.skills.join(",") : "",
