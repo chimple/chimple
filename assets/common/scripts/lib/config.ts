@@ -15,13 +15,6 @@ export enum Flow {
     Open
 }
 
-export enum StartAction {
-    Start,
-    MoveLessonPlan,
-    LessonComplete,
-    Default
-}
-
 export const BG_NAME = 'bgRoot';
 export const BRIDGE_NAME = 'bridge';
 export const QUIZ_LITERACY = 'quizliteracy';
@@ -109,7 +102,7 @@ export default class Config {
     //currently used in story remove later
     gameLevelName: string;
     worksheet: number;
-    startAction: StartAction = StartAction.Default
+    lessonPlanIncr: boolean = false
 
     //remove later
     flow: Flow;

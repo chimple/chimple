@@ -1,6 +1,6 @@
 import { RECEIVED_TEACHER_REQUEST, TEACHER_ADDED, TEACHER_ADD_STUDENT_ID, TEACHER_ID_KEY, TEACHER_NAME_KEY, TEACHER_SECTION_ID } from "../../../chimple";
 import Friend from "../../../common/scripts/friend";
-import Config, { StartAction } from "../../../common/scripts/lib/config";
+import Config from "../../../common/scripts/lib/config";
 import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
 import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
 import { User } from "../../../common/scripts/lib/profile";
@@ -10,22 +10,6 @@ import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/s
 import { INVENTORY_ANIMATIONS, INVENTORY_SAVE_CONSTANTS, REWARD_TYPES, Util } from "../../../common/scripts/util";
 import Inventory from "../../inventory/scripts/inventory";
 import LessonButton from "./lessonButton";
-
-const COMPLETE_AUDIOS = [
-    'congratulations',
-    'excellent',
-    'try_again',
-    'very_good',
-    'you_are_getting_better',
-    'i_enjoyed_eating'
-]
-
-const DEFAULT_AUDIOS = [
-    'i_am_hungry',
-    'let_us_start_our_learning_journey',
-    'may_i_help_you',
-    'my_name_is_chimple'
-]
 
 const { ccclass, property } = cc._decorator;
 
@@ -82,7 +66,6 @@ export default class Start extends cc.Component {
             this.drawer.active = true
         })
         const config = Config.i
-        const startAction = config.startAction
         user.curriculumLoaded
             ? this.initPage()
             : config.loadCourseJsons(user, this.node, this.initPage.bind(this))
@@ -95,22 +78,10 @@ export default class Start extends cc.Component {
             node.x = cc.winSize.width / 3.25
             Util.loadAccessoriesAndEquipAcc(node.children[1], node)
             const friendComp = this.friend.getComponent(Friend)
-            switch (startAction) {
-                case StartAction.Start:
-                    friendComp.helpFile = 'start'
-                    break;
-                case StartAction.MoveLessonPlan:
-                    friendComp.helpFile = COMPLETE_AUDIOS[Math.floor(Math.random() * COMPLETE_AUDIOS.length)]
-
-                    break;
-                case StartAction.LessonComplete:
-                    friendComp.helpFile = COMPLETE_AUDIOS[Math.floor(Math.random() * COMPLETE_AUDIOS.length)]
-                    break;
-                case StartAction.Default:
-                    friendComp.helpFile = DEFAULT_AUDIOS[Math.floor(Math.random() * DEFAULT_AUDIOS.length)]
-                    break;
-            }
+            friendComp.helpFile = 'start'
             friendComp.speakHelp(true)
+
+            friendComp.extraClip
         })
         const assignments: [] = await ServiceConfig.getI().handle.listAssignments(user.id);
         console.log(assignments)
@@ -331,7 +302,7 @@ export default class Start extends cc.Component {
                 }
             }
         })
-        if (Config.i.startAction == StartAction.MoveLessonPlan) {
+        if (Config.i.lessonPlanIncr) {
             this.content.children.forEach((node: cc.Node, index: number, children: cc.Node[]) => {
                 if (index + 1 < children.length && index > 0) {
                     const pos = node.position.clone()
@@ -356,7 +327,7 @@ export default class Start extends cc.Component {
         }
         if (user.lessonPlan[midIndex] == 'r') {
         }
-        Config.i.startAction = StartAction.Default
+        Config.i.lessonPlanIncr = false
 
     }
 

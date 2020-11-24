@@ -2,7 +2,7 @@ import {Queue} from "../../../queue";
 import Header from "../header";
 import {INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util} from "../util";
 import UtilLogger from "../util-logger";
-import Config, {ALL_LANGS, StartAction} from "./config";
+import Config, {ALL_LANGS} from "./config";
 import {COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS} from "./constants";
 
 const WORLD = "World";
@@ -506,7 +506,7 @@ export class User {
     pushNewLessonPlaceholder() {
         this.lessonPlan.splice(0, 1);
         this.lessonPlan.push(this.lessonPlan[this.lessonPlan.length - 3]);
-        Config.i.startAction = StartAction.MoveLessonPlan;
+        Config.i.lessonPlanIncr = true;
         this._storeUser()
     }
 
