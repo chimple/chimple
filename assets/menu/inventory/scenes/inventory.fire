@@ -14293,7 +14293,7 @@
       "__id__": 379
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 381
@@ -14409,7 +14409,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "f0048c10-f03e-4c97-b9d3-3506e1d58952"
+      "__uuid__": "cdd20406-254f-4d3e-a88e-43fb68d2a453"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -14592,6 +14592,9 @@
     },
     "crossButtonNode": {
       "__id__": 390
+    },
+    "scrollViewNode": {
+      "__id__": 67
     },
     "scrollValue": 400,
     "individualLayoutNode": {

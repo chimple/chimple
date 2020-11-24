@@ -23,6 +23,9 @@ export default class Inventory extends cc.Component {
     @property(cc.Node)
     crossButtonNode: cc.Node = null;
 
+    @property(cc.ScrollView)
+    scrollViewNode: cc.ScrollView = null;
+
     @property()
     scrollValue: number = 100;
 
@@ -136,6 +139,7 @@ export default class Inventory extends cc.Component {
             this.layoutNode.addChild(item);
 
         });
+        this.scrollViewNode.scrollToTop()
     }
 
     static updateCharacter(db: dragonBones.ArmatureDisplay, animationName: string, armature_name: any, slot_name: any) {
