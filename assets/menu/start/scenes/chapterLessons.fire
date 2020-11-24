@@ -198,7 +198,7 @@
       "array": [
         0,
         0,
-        536.9357503463519,
+        220.83647796503186,
         0,
         0,
         0,
@@ -609,14 +609,13 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "Label",
     "_N$string": "Label",
     "_fontSize": 64,
     "_lineHeight": 64,
     "_enableWrapText": true,
     "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -998,8 +997,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 70,
-      "height": 69
+      "width": 67,
+      "height": 68
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1182,9 +1181,9 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 9,
-    "_left": 8,
+    "_left": 9.5,
     "_right": 0,
-    "_top": 8,
+    "_top": 8.5,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -1756,6 +1755,9 @@
     },
     "bgHolder": {
       "__id__": 5
+    },
+    "header": {
+      "__id__": 7
     },
     "_id": "97mx7dELVFDq2PRkiGFREs"
   }
