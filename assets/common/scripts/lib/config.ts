@@ -262,10 +262,11 @@ export default class Config {
     }
 
     releaseFont(fontName: string) {
-        cc.log("releasing current font", fontName);
-        cc.resources.release(fontName);
         if(this._textFontMap.has(fontName)) {
+            cc.log("releasing current font", fontName);
+            cc.resources.release(fontName);
             this._textFontMap.delete(fontName);
+            Config.i.currentFontName = null;
         }
     }
 

@@ -13,19 +13,10 @@ export default class ChimpleLabel extends cc.Label {
         this._key = this.string;
         const config = Config.i;
         const lang = Profile.getValue(LANGUAGE) || Lang.ENGLISH
-
-        // switch (lang) {
-        //     case Lang.ENGLISH:
-        //         this.lineHeight += 0
-        //         break;
-        //     case Lang.HINDI:
-        //         this.lineHeight += 10
-        //         break;
-        // }
-        //
-
         if (config !== null) {
+            config.currentFontName = config.currentFontName === null ? lang + '-main' : config.currentFontName;
             const fontName: string = config.currentFontName;
+            cc.log('applied font:', fontName);
             let fontLoaded: boolean = config.hasLoadedTextFont(fontName);
             if (fontLoaded) {
                 this.font = config.getTextFont(fontName);
