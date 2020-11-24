@@ -1,9 +1,19 @@
 import Config from "../../../common/scripts/lib/config";
 import { User } from "../../../common/scripts/lib/profile";
 import ChapterMenuButton from "./chapterMenuButton";
+import Drawer from "./drawer";
 import StartContent from "./startContent";
 
 const { ccclass, property } = cc._decorator;
+
+const HEADER_COLORS = {
+    'en': '#FFBC00',
+    'maths': '#42C0FF',
+    'hi': '#009158',
+    'puzzle': '#FF5500',
+    'test-lit': '#FFBC00',
+    'test-maths': '#42C0FF'
+}
 
 @ccclass
 export default class CourseChapters extends cc.Component {
@@ -25,7 +35,11 @@ export default class CourseChapters extends cc.Component {
     @property(cc.Node)
     bgHolder: cc.Node = null;
 
+    @property(cc.Node)
+    header: cc.Node = null;
+
     onLoad() {
+        var header2;
         this.setBackground()
         const config = Config.i
         this.title.string = config.course.name
@@ -45,6 +59,8 @@ export default class CourseChapters extends cc.Component {
         this.chaptersLayout.parent.parent.width = cc.winSize.width
         this.chaptersLayout.getComponent(cc.Layout).updateLayout()
         this.chaptersLayout.parent.height = this.chaptersLayout.height
+        const color = HEADER_COLORS[config.course.id]
+        if(color) this.header.color = new cc.Color().fromHEX(color)
     }
 
     private setBackground() {

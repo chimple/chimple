@@ -4,6 +4,15 @@ import { User } from "../../../common/scripts/lib/profile";
 
 const { ccclass, property } = cc._decorator;
 
+const HEADER_COLORS = {
+    'en': '#FFBC00',
+    'maths': '#42C0FF',
+    'hi': '#009158',
+    'puzzle': '#FF5500',
+    'test-lit': '#FFBC00',
+    'test-maths': '#42C0FF'
+}
+
 @ccclass
 export default class ChapterLessons extends cc.Component {
     @property(cc.Prefab)
@@ -20,6 +29,10 @@ export default class ChapterLessons extends cc.Component {
 
     @property(cc.Node)
     bgHolder: cc.Node = null;
+
+    @property(cc.Node)
+    header: cc.Node = null;
+
 
 
     onLoad() {
@@ -48,6 +61,9 @@ export default class ChapterLessons extends cc.Component {
         this.layout.parent.parent.width = cc.winSize.width
         this.layout.getComponent(cc.Layout).updateLayout()
         this.layout.parent.height = this.layout.height
+        const color = HEADER_COLORS[config.course.id]
+        if(color) this.header.color = new cc.Color().fromHEX(color)
+        
     }
 
     private setBackground(bgprefabName: string) {
