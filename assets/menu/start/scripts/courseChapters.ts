@@ -1,7 +1,6 @@
 import Config from "../../../common/scripts/lib/config";
 import { User } from "../../../common/scripts/lib/profile";
 import ChapterMenuButton from "./chapterMenuButton";
-import Drawer from "./drawer";
 import StartContent from "./startContent";
 
 const { ccclass, property } = cc._decorator;
@@ -39,7 +38,6 @@ export default class CourseChapters extends cc.Component {
     header: cc.Node = null;
 
     onLoad() {
-        var header2;
         this.setBackground()
         const config = Config.i
         this.title.string = config.course.name
