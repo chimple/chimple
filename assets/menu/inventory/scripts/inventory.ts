@@ -2,6 +2,7 @@ import Profile, { User, IN_LOGIN_FLOW } from "../../../common/scripts/lib/profil
 import { INVENTORY_DATA, INVENTORY_SAVE_CONSTANTS, REWARD_TYPES, Util, INVENTORY_ANIMATIONS } from "../../../common/scripts/util";
 import Item from "./item";
 import Config from "../../../common/scripts/lib/config";
+import Start from "../../start/scripts/start";
 
 const { ccclass, property } = cc._decorator;
 
@@ -69,7 +70,8 @@ export default class Inventory extends cc.Component {
     }
 
     onDoneButtonClick(event) {
-        Config.i.pushScene('menu/start/scenes/start', 'menu', null);
+        Util.preloadStartScene(this.node, cc.director.getScene().getChildByName('Canvas').getChildByName('loading'))
+        // Config.i.pushScene('menu/start/scenes/start', 'menu', null);
         User.getCurrentUser().openOnlyTheSelectedRewards("chimp")
         Profile.setItem(IN_LOGIN_FLOW, 0)
     }
