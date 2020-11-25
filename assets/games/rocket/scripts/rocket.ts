@@ -319,6 +319,11 @@ export default class Rocket extends Game {
 
         if (this._totalDrops === 0) {
             // this.speakWord(0);
+            this._choiceContainers.forEach((choices)=>
+            {
+                choices.pauseSystemEvents(true);
+            }
+            )
             this.friend.speakExtra(this.playSuccessAnimation.bind(this))
             // this.playSuccessAnimation();
         }
