@@ -88,7 +88,14 @@ export default class LessonController extends cc.Component {
         Util.loadAccessoriesAndEquipAcc(LessonController.friend.node.children[1], LessonController.friend.node)
         LessonController.friend.node.removeFromParent()
         this.lessonStart();
-        this.backButton.on('touchend', () => this.node.getChildByName("quit").active = true);
+        this.backButton.on('touchend', () => {
+            this.node.getChildByName("quit").active = true;
+            const config = Config.i;
+            const gameConfig = GAME_CONFIGS[config.game];
+            if (!!gameConfig.fontName) {
+                config.releaseFont(config.currentFontName);
+            }
+        });
     }
 
     static preloadLesson(node: cc.Node, callback: Function) {
@@ -288,7 +295,7 @@ export default class LessonController extends cc.Component {
     private problemEnd(replaceScene: boolean, forward: boolean = true) {
         const config = Config.i;
         const gameConfig = GAME_CONFIGS[config.game];
-        if(!!gameConfig.fontName) {
+        if (!!gameConfig.fontName) {
             config.releaseFont(config.currentFontName);
         }
 
@@ -445,6 +452,11 @@ export default class LessonController extends cc.Component {
         // scorecardComp.friendPos.addChild(this.friend.node)
         // LessonController.friend.playAnimation('joy', 1)
         this.node.addChild(scorecard)
+
+        const gameConfig = GAME_CONFIGS[config.game];
+        if (!!gameConfig.fontName) {
+            config.releaseFont(config.currentFontName);
+        }
     }
 
     private setupEventHandlers() {

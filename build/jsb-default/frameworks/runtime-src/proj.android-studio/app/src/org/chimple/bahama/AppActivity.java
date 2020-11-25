@@ -631,6 +631,11 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             String strDate = formatter.format(currentDate);
             fmcMap.put("current_date", strDate);
 
+            Bundle bundle = new Bundle();
+            bundle.putString("fmc_token", fmcToken);
+            bundle.putString("advertising_id", advertisingId);
+            firebaseAnalytics.logEvent("fmc", bundle);
+
             String installedTime = ChimpleLogger.getStringFromSharedPreference(this, ChimpleLogger.APP_INSTALLED_TIME);
             fmcMap.put(APP_INSTALLED_TIME.toLowerCase(), Long.parseLong(installedTime));
 

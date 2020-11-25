@@ -15,6 +15,13 @@ export enum Flow {
     Open
 }
 
+export enum StartAction {
+    Start,
+    MoveLessonPlan,
+    LessonComplete,
+    Default
+}
+
 export const BG_NAME = 'bgRoot';
 export const BRIDGE_NAME = 'bridge';
 export const QUIZ_LITERACY = 'quizliteracy';
@@ -102,7 +109,7 @@ export default class Config {
     //currently used in story remove later
     gameLevelName: string;
     worksheet: number;
-    lessonPlanIncr: boolean = false
+    startAction: StartAction = StartAction.Default
 
     //remove later
     flow: Flow;
@@ -262,10 +269,11 @@ export default class Config {
     }
 
     releaseFont(fontName: string) {
-        cc.log("releasing current font", fontName);
-        cc.resources.release(fontName);
         if(this._textFontMap.has(fontName)) {
+            cc.log("releasing current font", fontName);
+            cc.resources.release(fontName);
             this._textFontMap.delete(fontName);
+            Config.i.currentFontName = null;
         }
     }
 

@@ -2,7 +2,7 @@ import ChimpleLabel from "./chimple-label";
 import Help from "./help";
 import { DEFAULT_FONT_COLOR, LETTER_VOICE, NUMBER_VOICE, PHONIC_VOICE } from "./helper";
 import LessonController from "./lessonController";
-import Config from "./lib/config";
+import Config, { StartAction } from "./lib/config";
 import { ASSET_LOAD_METHOD, COURSES_URL } from "./lib/constants";
 import Profile, { LANGUAGE, SFX_OFF, User } from "./lib/profile";
 import UtilLogger from "./util-logger";
@@ -11,6 +11,7 @@ import Overflow = cc.Label.Overflow;
 import HorizontalAlign = cc.Label.HorizontalAlign;
 import VerticalAlign = cc.Label.VerticalAlign;
 import { AssignHomeWorkInfo } from "./services/parseApi";
+import Loading from "./loading";
 
 export const INVENTORY_DATA = [
     ["hat1-hat1", "hat1-hat2", "hat1-hat3", "hat1-hat4", "hat1-hat5", "hat1-hat6", "hat1-hat7", "hat1-hat8", "hat1-hat9", "hat1-hat10"],
@@ -906,5 +907,21 @@ export class Util {
                 }
             }
         }
+    }
+
+    static preloadStartScene(node: cc.Node, loading: cc.Node) {
+        const loadingComp = loading.getComponent(Loading)
+        loadingComp.delay = 0
+        loadingComp.allowCancel = false
+
+        loading.active = true
+        Config.i.loadCourseJsons(User.getCurrentUser(), node, () => {
+            cc.assetManager.loadBundle('menu', (err, loadedBundle) => {
+                Config.i.startAction = StartAction.Start
+                loadedBundle.preloadScene('menu/start/scenes/start', (err) => {
+                    Config.i.pushScene('menu/start/scenes/start', 'menu', null);
+                })
+            })
+        })
     }
 }
