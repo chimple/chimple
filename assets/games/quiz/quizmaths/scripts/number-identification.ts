@@ -42,8 +42,8 @@ export class NumberIdentification extends cc.Component {
     @catchError()
     protected onLoad(): void {
         this.choices = QuizHelper.randomInRange(this.quizConfig.choices, 1, this.quizConfig.order);
-        this.answer = Util.randomElements([...this.choices], 1);
-        this.quizConfig.answer = String(this.answer);
+        this.answer = String(QuizHelper.generateAnswer(this.quizConfig.choices, this.choices));
+        this.quizConfig.answer = this.answer;
         this.individualNumbers = this.quizConfig.answer.split('');
 
         this.node.on(MATH_MATCH, (event) => {

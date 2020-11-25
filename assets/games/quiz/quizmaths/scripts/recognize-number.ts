@@ -22,7 +22,7 @@ export class RecognizeNumber extends cc.Component {
     protected onLoad(): void {
         this.quizConfig.choices = this.quizConfig.choices.indexOf("~") !== -1 ? this.quizConfig.choices : '1~'+this.quizConfig.choices;
         this.choices = QuizHelper.randomInRange(this.quizConfig.choices, 4, this.quizConfig.order);
-        this.answer = Util.randomElements([...this.choices], 1);
+        this.answer = QuizHelper.generateAnswer(this.quizConfig.choices, this.choices);
         this.quizConfig.answer = String(this.answer);
         this.renderTopPanel();
         this.renderBottomPanel();
