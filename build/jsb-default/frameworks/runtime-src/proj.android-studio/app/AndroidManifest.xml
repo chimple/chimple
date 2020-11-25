@@ -32,6 +32,11 @@
             android:screenOrientation="sensorLandscape"
             android:taskAffinity=""
             android:theme="@style/AppTheme">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -71,10 +76,7 @@
             android:screenOrientation="sensorLandscape"
             android:taskAffinity=""
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
 <!--        <receiver-->
