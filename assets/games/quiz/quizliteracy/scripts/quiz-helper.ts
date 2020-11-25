@@ -212,6 +212,21 @@ export class QuizHelper {
         return howMany === -1 ? numbers : numbers.slice(0, howMany);
     }
 
+    public static generateAnswer(input: string, choices: string[]) {
+        let answer: number = 0;
+        let results = input.match(/(\d+)~(\d+)/);
+        if (results && results.length === 3) {
+            let start = Number(results[1]);
+            let end = Number(results[2]);
+            if(start === end) {
+                answer = start
+            } else {
+                answer = Util.randomElements([...choices], 1)
+            }
+        }
+       return answer;
+    }
+
     public static randomInRange(input: string, howMany: number, sort: string = SORT_RANDOM): string[] {
         let random = [];
         let results = input.match(/(\d+)~(\d+)/);
