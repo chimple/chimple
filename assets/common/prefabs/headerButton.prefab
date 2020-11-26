@@ -103,18 +103,18 @@
     "_prefab": {
       "__id__": 4
     },
-    "_opacity": 255,
+    "_opacity": 246.58499999999998,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 3,
+      "g": 10,
+      "b": 0,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 89,
-      "height": 89
+      "width": 80,
+      "height": 76
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -125,14 +125,14 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        2.909,
-        7.539,
+        0,
+        10,
         0,
         0,
         0,
         0,
         1,
-        1,
+        0.96,
         1,
         1
       ]
@@ -169,7 +169,7 @@
       "__uuid__": "7496763e-bac8-4605-9c61-630012f396e4"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -220,7 +220,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 65,
+      "width": 71,
       "height": 65
     },
     "_anchorPoint": {
@@ -379,14 +379,13 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "Home",
     "_N$string": "Home",
     "_fontSize": 20,
     "_lineHeight": 20,
     "_enableWrapText": true,
     "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -510,7 +509,7 @@
     "asset": {
       "__uuid__": "1b1f46fb-f373-44c3-a6f7-f3a1deb1d1d7"
     },
-    "fileId": "47f/yW76NOYIiRL9Rcrn+F",
+    "fileId": "",
     "sync": false
   }
 ]
