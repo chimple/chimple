@@ -95,6 +95,7 @@ export default class LessonController extends cc.Component {
             if (!!gameConfig.fontName) {
                 config.releaseFont(config.currentFontName);
             }
+            config.game = null;
         });
     }
 
@@ -457,6 +458,7 @@ export default class LessonController extends cc.Component {
         if (!!gameConfig.fontName) {
             config.releaseFont(config.currentFontName);
         }
+        config.game = null;
     }
 
     private setupEventHandlers() {
