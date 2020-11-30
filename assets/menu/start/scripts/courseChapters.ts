@@ -2,6 +2,7 @@ import Config from "../../../common/scripts/lib/config";
 import { User } from "../../../common/scripts/lib/profile";
 import ChapterMenuButton from "./chapterMenuButton";
 import StartContent from "./startContent";
+import {Util} from "../../../common/scripts/util";
 
 const { ccclass, property } = cc._decorator;
 
@@ -40,7 +41,7 @@ export default class CourseChapters extends cc.Component {
     onLoad() {
         this.setBackground()
         const config = Config.i
-        this.title.string = config.course.name
+        this.title.string = Util.i18NText(config.course.name);
         const isPreQuiz = !User.getCurrentUser().courseProgressMap.get(config.course.id).currentChapterId
         if (isPreQuiz) {
             this.chaptersLayout.addChild(StartContent.createPreQuizButton(config.course, this.lessonButtonPrefab, this.loading))
