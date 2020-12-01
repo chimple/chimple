@@ -455,7 +455,7 @@ export default class LessonController extends cc.Component {
         this.node.addChild(scorecard)
 
         const gameConfig = GAME_CONFIGS[config.game];
-        if (!!gameConfig.fontName) {
+        if (!!gameConfig && !!gameConfig.fontName) {
             config.releaseFont(config.currentFontName);
         }
         config.game = null;
