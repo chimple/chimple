@@ -55,7 +55,8 @@ export default class TeacherAddedDialog extends cc.Component {
         const chimpleLabel = this.text.getComponent(ChimpleLabel);
         chimpleLabel.string = Util.i18NText("Add Teacher") + " " + this._teacherName;
         const studentAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + this._teacherId) || '[]');
-        this.users = this.users.filter(u => !studentAdded.includes(u.id));
+        const alreadyAddedStudent: boolean = studentAdded.includes(this.selectedStudentId);
+        this.users = this.users.filter(u => !alreadyAddedStudent && !studentAdded.includes(u.id));
         const len = this.users.length;
         this.users.forEach(
             (user) => {
