@@ -53,9 +53,9 @@ public class ChimpleFirebaseMessagingService extends FirebaseMessagingService {
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setStyle(new NotificationCompat.BigTextStyle())
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.mipmap.small)
                     .setChannelId(channelId)
-                    .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher))
+                    .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.mipmap.small))
                     .setContentIntent(PendingIntent.getActivity(this, 0, new Intent(this, AppActivity.class), 0))
                     .setAutoCancel(true);
 
