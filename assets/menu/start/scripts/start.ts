@@ -1,4 +1,12 @@
-import { RECEIVED_TEACHER_REQUEST, TEACHER_ADDED, TEACHER_ADD_STUDENT_ID, TEACHER_ID_KEY, TEACHER_NAME_KEY, TEACHER_SECTION_ID } from "../../../chimple";
+import {
+    RECEIVED_TEACHER_REQUEST,
+    TEACHER_ADDED,
+    TEACHER_ADD_STUDENT_ID,
+    TEACHER_ID_KEY,
+    TEACHER_NAME_KEY,
+    TEACHER_SECTION_ID,
+    ACCEPT_TEACHER_REQUEST
+} from "../../../chimple";
 import Friend from "../../../common/scripts/friend";
 import Config, { StartAction } from "../../../common/scripts/lib/config";
 import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
@@ -207,10 +215,14 @@ export default class Start extends cc.Component {
                 const addStudentId = curMessage[TEACHER_ADD_STUDENT_ID];
                 cc.sys.localStorage.setItem(RECEIVED_TEACHER_REQUEST, JSON.stringify(messages));
 
-                const studentAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + id) || '[]');
+                const tKey = ACCEPT_TEACHER_REQUEST + id;
+                const studentAdded = JSON.parse(cc.sys.localStorage.getItem(tKey) || '[]');
                 const alreadyAddedStudent: boolean = studentAdded.includes(addStudentId);
+
                 let users = User.getUsers() || [];
-                users = users.filter(u => !alreadyAddedStudent && !studentAdded.includes(u.id))
+
+                const teachersAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + id) || '[]');
+                users = users.filter(u => !alreadyAddedStudent && !teachersAdded.includes(u.id))
                 cc.log('remaining users', users, 'alreadyAddedStudent', alreadyAddedStudent);
 
 
