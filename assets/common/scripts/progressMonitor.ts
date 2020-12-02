@@ -247,10 +247,6 @@ export default class ProgressMonitor extends cc.Component {
                             cc.scaleTo(0.5, 1 / currentStarScale)
                         ),
                         cc.callFunc(() => {
-                            glow.active = false
-                            anim.stop()
-                        }),
-                        cc.callFunc(() => {
                             currentSpriteNode.removeFromParent();
                             if (current < this.totalStars) {
                                 const nowNode = this.node.getChildByName((current + 1).toString());
