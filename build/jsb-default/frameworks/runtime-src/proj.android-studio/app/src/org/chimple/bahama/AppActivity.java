@@ -115,7 +115,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     public static AppActivity app = null;
     private CountDownTimer repeatHandShakeTimer = null;
     private static final int REPEAT_HANDSHAKE_TIMER = 1 * 30 * 1000; // 30 second
-    private static final int IMMEDIATE_HANDSHAKE_TIMER = 5 * 1000; // 5 second
 
     private FirebaseAuth mAuth = null;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = null;
@@ -660,23 +659,15 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                     @Override
                     public void run() {
                         if (app != null) {
-                            new CountDownTimer(IMMEDIATE_HANDSHAKE_TIMER, 1) {
-                                public void onTick(long millisUntilFinished) {
-                                    Log.d(TAG, "processDeepLinkAction ticking ...");
+                            app.runOnGLThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    String javaScriptVariable = "cc.deep_link($url)";
+                                    javaScriptVariable = javaScriptVariable.replace("$url", "'" + url + "'");
+                                    Log.d(TAG, "calling deep link with: " + javaScriptVariable);
+                                    Cocos2dxJavascriptJavaBridge.evalString(javaScriptVariable);
                                 }
-
-                                public void onFinish() {
-                                    app.runOnGLThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            String javaScriptVariable = "cc.deep_link($url)";
-                                            javaScriptVariable = javaScriptVariable.replace("$url", "'" + url + "'");
-                                            Log.d(TAG, "calling deep link with: " + javaScriptVariable);
-                                            Cocos2dxJavascriptJavaBridge.evalString(javaScriptVariable);
-                                        }
-                                    });
-                                }
-                            }.start();
+                            });
                         }
                     }
                 });
