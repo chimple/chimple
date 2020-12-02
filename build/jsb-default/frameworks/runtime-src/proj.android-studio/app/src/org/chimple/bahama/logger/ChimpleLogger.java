@@ -888,10 +888,5 @@ public class ChimpleLogger {
     public static String getCountryCode() {
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         return tm.getNetworkCountryIso();
-    }
-
-    public static void init() {
-        AppActivity.app.processDeepLink();
-    }
-
+     }
 }
