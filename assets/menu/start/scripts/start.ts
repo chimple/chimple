@@ -208,9 +208,11 @@ export default class Start extends cc.Component {
                 cc.sys.localStorage.setItem(RECEIVED_TEACHER_REQUEST, JSON.stringify(messages));
 
                 const studentAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + id) || '[]');
+                const alreadyAddedStudent: boolean = studentAdded.includes(addStudentId);
                 let users = User.getUsers() || [];
-                users = users.filter(u => !studentAdded.includes(u.id))
-                cc.log('remaining users', users);
+                users = users.filter(u => !alreadyAddedStudent && !studentAdded.includes(u.id))
+                cc.log('remaining users', users, 'alreadyAddedStudent', alreadyAddedStudent);
+
 
                 if (!!id && !!name && !!sectionId && !!addStudentId
                     && users && users.length > 0) {
