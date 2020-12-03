@@ -115,7 +115,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     public static AppActivity app = null;
     private CountDownTimer repeatHandShakeTimer = null;
     private static final int REPEAT_HANDSHAKE_TIMER = 1 * 30 * 1000; // 30 second
-    private static final int IMMEDIATE_HANDSHAKE_TIMER = 5 * 1000; // 5 second
+    private static final int IMMEDIATE_HANDSHAKE_TIMER = 1 * 1000; // 5 second
 
     private FirebaseAuth mAuth = null;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = null;
@@ -186,9 +186,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                 }
             }
         }.start();
-
-        //Deep Links
-        this.processDeepLink();
 
         // OTP integration
         initFireBaseAuthLoginUsingOTP();
