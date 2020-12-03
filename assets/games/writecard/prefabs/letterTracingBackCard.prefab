@@ -331,8 +331,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 450,
-      "height": 450
+      "width": 460,
+      "height": 463
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -440,7 +440,11 @@
       "__id__": 9
     },
     "_enabled": true,
-    "_materials": [],
+    "_materials": [
+      {
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+      }
+    ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": null,
@@ -540,7 +544,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 325.9,
-      "height": 100.8
+      "height": 113.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -589,11 +593,12 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
-    "_useOriginalSize": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_string": "DONKEY",
     "_N$string": "DONKEY",
     "_fontSize": 80,
-    "_lineHeight": 80,
+    "_lineHeight": 90,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "32213392-c6fa-4e43-b062-6fdd8e6adecc"
@@ -601,6 +606,8 @@
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -637,7 +644,7 @@
     "asset": {
       "__uuid__": "19f450fe-e30b-40b8-b299-2e8e27a1648e"
     },
-    "fileId": "d5L8wBHEtIMrVoUAdERTBb",
+    "fileId": "",
     "sync": false
   }
 ]
