@@ -90,6 +90,11 @@ export default class TeacherAddedDialog extends cc.Component {
             const teachersAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + this._teacherId) || '[]');
             teachersAdded.push(this.selectedStudentId);
 
+            const tKey = ACCEPT_TEACHER_REQUEST + this._teacherId;
+            const teacherRequestAcceptedForFireBaseIds = JSON.parse(cc.sys.localStorage.getItem(tKey) || '[]');
+            teacherRequestAcceptedForFireBaseIds.push(this._firebaseStudentId);
+            cc.sys.localStorage.setItem(tKey, JSON.stringify(teacherRequestAcceptedForFireBaseIds));
+
             const key = `teacher_for_student_${this.selectedStudentId}`;
             const teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
             teachersForStudent.push(this._teacherName);
