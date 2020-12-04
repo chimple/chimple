@@ -7,7 +7,7 @@ export default class BackButton extends cc.Component {
     extraFunction: Function = null
 
     onLoad() {
-        this.node.on('touchend', () => {
+        this.node.once('touchend', () => {
             if(this.extraFunction) this.extraFunction()
             Config.i.popScene()
         })

@@ -65,7 +65,7 @@ export default class Friend extends cc.Component {
 
     private loadAndPlay(bundle: any) {
         bundle.load(this.helpFile, cc.AudioClip, (err, clip) => {
-            if (!err) {
+            if (!err && this.isValid ) {
                 this.helpSpoken.add(this.helpFile);
                 this.speakFullHelp = true;
                 this.helpAudioId = this.speak(clip, this.speakExtra.bind(this));
