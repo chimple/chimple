@@ -116,6 +116,7 @@ export default class JumpSentence extends Game {
   public decreaseCharacterByOne() {
     this.charactersLeft -= 1;
     if (this.charactersLeft == 0) {
+      this.node.pauseSystemEvents(true);
       this.friend.stopAnimation("jumping2")
 
       new cc.Tween()
