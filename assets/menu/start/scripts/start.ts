@@ -15,7 +15,7 @@ import { User } from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
 import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
 import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
-import { INVENTORY_ANIMATIONS, INVENTORY_SAVE_CONSTANTS, REWARD_TYPES, Util } from "../../../common/scripts/util";
+import { INVENTORY_ANIMATIONS, INVENTORY_SAVE_CONSTANTS, REWARD_TYPES, Util, INVENTORY_ICONS } from "../../../common/scripts/util";
 import Inventory from "../../inventory/scripts/inventory";
 import LessonButton from "./lessonButton";
 
@@ -328,20 +328,61 @@ export default class Start extends cc.Component {
                     const anim = node.getComponent(cc.Animation)
                     anim.play()
                 }, 2)
-                this.scheduleOnce(() => {
-                    user.pushNewLessonPlaceholder()
-                    this.displayLessonPlan()
-                }, 6)
                 const rewardItem = Util.unlockNextReward()
                 if (rewardItem) {
                     const splitItems = rewardItem.split('-')
+                    var rewardSpriteFrame = ''
+                    if (splitItems[0] == REWARD_TYPES[0]) {
+                        rewardSpriteFrame = 'char_icons/' + splitItems[1] + '_icon'
+                    } else if (splitItems[0] == REWARD_TYPES[1]) {
+                        rewardSpriteFrame = 'backgrounds/textures/bg_icons/background-' + splitItems[1]
+                    } else if (splitItems[0] == REWARD_TYPES[2]) {
 
-                    if (splitItems[0] == REWARD_TYPES[3]) {
-                        this.scheduleOnce(() => {
-                            const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2])
-                            Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2])
-                        }, 4)
+                    } else if (splitItems[0] == REWARD_TYPES[3]) {
+                        rewardSpriteFrame = INVENTORY_ICONS[splitItems[2]] + splitItems[3]
                     }
+                    cc.resources.load(rewardSpriteFrame, cc.SpriteFrame, (err, spriteFrame) => {
+                        const rewardIcon = new cc.Node()
+                        rewardIcon.y = 100
+                        rewardIcon.scale = 0
+                        const sprite = rewardIcon.addComponent(cc.Sprite)
+                        // @ts-ignore
+                        sprite.spriteFrame = spriteFrame
+                        node.addChild(rewardIcon)
+                        new cc.Tween().target(rewardIcon)
+                            .delay(4)
+                            .to(0.5, { scale: 1, y: 200 }, null)
+                            .delay(2)
+                            .to(0.5,
+                                { scale: 0.1, position: node.parent.convertToNodeSpaceAR(cc.v3(cc.winSize.width - 64, cc.winSize.height - 32)) },
+                                null)
+                            .delay(0.5)
+                            .call(() => {
+                                if (splitItems[0] == REWARD_TYPES[0]) {
+                                    user.currentCharacter = splitItems[1]
+                                } else if (splitItems[0] == REWARD_TYPES[1]) {
+                                    user.currentBg = splitItems[1]
+                                } else if (splitItems[0] == REWARD_TYPES[2]) {
+
+                                } else if (splitItems[0] == REWARD_TYPES[3]) {
+                                    const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2])
+                                    user.updateInventory(`${splitItems[1]}-${splitItems[2]}`, splitItems[3]);
+                                    Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2])
+                                }
+                                rewardIcon.opacity = 0
+                            })
+                            .delay(1)
+                            .call(() => {
+                                user.pushNewLessonPlaceholder()
+                                this.displayLessonPlan()
+                            })
+                            .start()
+                    })
+                } else {
+                    this.scheduleOnce(() => {
+                        user.pushNewLessonPlaceholder()
+                        this.displayLessonPlan()
+                    }, 4)
                 }
             }
         })

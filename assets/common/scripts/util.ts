@@ -24,6 +24,13 @@ export const INVENTORY_DATA = [
 
 export const INVENTORY_SAVE_CONSTANTS = ["hat1", "handacc", "glassacc", "left_shoe", "neck_acc"]
 export const INVENTORY_ANIMATIONS = ["hat", "hand", "glass", "leg", "neck"]
+export const INVENTORY_ICONS = {
+    'hat1': 'rewards/hat_icons/',
+    'handacc': 'rewards/hand_icons/',
+    'glassacc': 'rewards/glass_icons/',
+    'left_shoe': 'rewards/shoe_icons/',
+    'neck_acc': 'rewards/neck_icons/'
+}
 
 export const REWARD_TYPES = ["character", "background", "achievement", "inventory"]
 export const REWARD_CHARACTERS = ['chimp', 'bear', 'camel', 'cat', 'dog', 'duck', 'hippo', 'horse', 'koala', 'rabbit', 'tiger']
@@ -883,7 +890,7 @@ export class Util {
             if (remainingInventory.length == 0) {
                 if (currentCharIndex + 1 < REWARD_CHARACTERS.length) {
                     //finished all inventory for current char. unlock next char
-                    user.currentCharacter = REWARD_CHARACTERS[currentCharIndex + 1]
+                    // user.currentCharacter = REWARD_CHARACTERS[currentCharIndex + 1]
                     user.unlockRewardsForItem(`${REWARD_TYPES[0]}-${REWARD_CHARACTERS[currentCharIndex + 1]}`, 1)
                     return `${REWARD_TYPES[0]}-${REWARD_CHARACTERS[currentCharIndex + 1]}`
                 } else {
@@ -894,14 +901,14 @@ export class Util {
                 if (remainingInventory.length < allInventoryCount / 2
                     && !(`${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[currentCharIndex]}` in unlockedRewards)) {
                     // we have unlocked half inventory for char. now unlock background
-                    user.currentBg = REWARD_BACKGROUNDS[currentCharIndex]
+                    // user.currentBg = REWARD_BACKGROUNDS[currentCharIndex]
                     user.unlockRewardsForItem(`${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[currentCharIndex]}`, 1)
                     return `${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[currentCharIndex]}`
                 } else {
                     // give an inventory for current character
                     const inventoryItem = remainingInventory[Math.floor(Math.random() * remainingInventory.length)]
                     const split = inventoryItem.split('-')
-                    user.updateInventory(`${REWARD_CHARACTERS[currentCharIndex]}-${split[0]}`, split[1]);
+                    // user.updateInventory(`${REWARD_CHARACTERS[currentCharIndex]}-${split[0]}`, split[1]);
                     user.unlockRewardsForItem(`${REWARD_TYPES[3]}-${REWARD_CHARACTERS[currentCharIndex]}-${inventoryItem}`, 1)
                     return `${REWARD_TYPES[3]}-${REWARD_CHARACTERS[currentCharIndex]}-${inventoryItem}`
                 }
