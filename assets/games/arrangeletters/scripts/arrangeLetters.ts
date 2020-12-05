@@ -7,8 +7,6 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class ArrangeLetters extends Game {
 
-  @property(cc.Prefab)
-  playground: cc.Prefab = null;
 
   @property(cc.Prefab)
   playground2: cc.Prefab = null;
