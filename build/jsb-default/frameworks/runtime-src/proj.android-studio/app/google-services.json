@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "164143434825-namirco60b3fsrelqbc02ldo53velhu5.apps.googleusercontent.com",
+          "client_id": "164143434825-63hb8ritinokasdaa4ncu5mfv4vus8du.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "org.chimple.bahama",
-            "certificate_hash": "adda392a507e9ed37437ce639ddb9f5e81e86e71"
+            "certificate_hash": "b79197a9ba4551396f0f32201d2c7de76712a6f4"
+          }
+        },
+        {
+          "client_id": "164143434825-8jadt67u4uhm4v6ukbnjs872qli9uebv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.chimple.bahama",
+            "certificate_hash": "c731359e679653c6d493ea996711804e8496a16f"
           }
         },
         {
@@ -28,6 +36,51 @@
           "android_info": {
             "package_name": "org.chimple.bahama",
             "certificate_hash": "cacf2f6652bbdd0ddd92913a54587a47cd466f8c"
+          }
+        },
+        {
+          "client_id": "164143434825-namirco60b3fsrelqbc02ldo53velhu5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.chimple.bahama",
+            "certificate_hash": "adda392a507e9ed37437ce639ddb9f5e81e86e71"
+          }
+        },
+        {
+          "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcFIxMjbsvHJ0kNtAMXtYKzZXolt0D4fY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164143434825:android:b1fb95f23aafb4ec964398",
+        "android_client_info": {
+          "package_name": "org.chimple.malta.malta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "164143434825-4mc7g9ltj85lf8fc4ed7kesrsp2oiss8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.chimple.malta.malta",
+            "certificate_hash": "8ec0375f880abb6444f2fda890df03cde621844f"
           }
         },
         {
