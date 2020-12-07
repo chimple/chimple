@@ -92,7 +92,7 @@ export default class LessonController extends cc.Component {
             this.node.getChildByName("quit").active = true;
             const config = Config.i;
             const gameConfig = GAME_CONFIGS[config.game];
-            if (!!gameConfig.fontName) {
+            if (!!gameConfig && !!gameConfig.fontName) {
                 config.releaseFont(config.currentFontName);
             }
             config.game = null;
@@ -296,7 +296,7 @@ export default class LessonController extends cc.Component {
     private problemEnd(replaceScene: boolean, forward: boolean = true) {
         const config = Config.i;
         const gameConfig = GAME_CONFIGS[config.game];
-        if (!!gameConfig.fontName) {
+        if (!!gameConfig && !!gameConfig.fontName) {
             config.releaseFont(config.currentFontName);
         }
 
