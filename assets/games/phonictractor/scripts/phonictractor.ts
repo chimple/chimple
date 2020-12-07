@@ -143,7 +143,7 @@ export default class PhonicTractor extends Game {
             .to(
               0.5,
               { position: cc.v2(e.position.x + i * 20, e.position.y) }, ////// first tween
-              { progress: null, easing: "easeOutInElastic" }
+              { progress: null, easing: "elasticOut" }
             )
             .start();
         });
