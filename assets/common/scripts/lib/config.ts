@@ -3,6 +3,7 @@ import UtilLogger from "../util-logger";
 import { Chapter, Course, Lesson } from "./convert";
 import Profile, { LANGUAGE, User } from "./profile";
 import TTFFont = cc.TTFFont;
+import {GAME_CONFIGS} from "./gameConfigs";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
@@ -249,7 +250,16 @@ export default class Config {
         UtilLogger.logChimpleEvent("scene_exit", {
             scene: popScene.scene,
             bundle: popScene.bundle
-        })
+        });
+
+        const config = Config.i;
+        if(!!config && !!config.game) {
+            const gameConfig = GAME_CONFIGS[config.game];
+            if (!!gameConfig && !!gameConfig.fontName && !!config.currentFontName) {
+                config.releaseFont(config.currentFontName);
+            }
+            config.game = null;
+        }
 
         var sceneDef = this._scenes[this._scenes.length - 1];
         var scene = sceneDef.scene;

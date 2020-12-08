@@ -90,12 +90,6 @@ export default class LessonController extends cc.Component {
         this.lessonStart();
         this.backButton.on('touchend', () => {
             this.node.getChildByName("quit").active = true;
-            const config = Config.i;
-            const gameConfig = GAME_CONFIGS[config.game];
-            if (!!gameConfig && !!gameConfig.fontName) {
-                config.releaseFont(config.currentFontName);
-            }
-            config.game = null;
         });
     }
 
