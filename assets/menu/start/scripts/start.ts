@@ -329,6 +329,7 @@ export default class Start extends cc.Component {
                     anim.play()
                 }, 2)
                 const rewardItem = Util.unlockNextReward()
+                user.pushNewLessonPlaceholder()
                 if (rewardItem) {
                     const splitItems = rewardItem.split('-')
                     var rewardSpriteFrame = ''
@@ -373,14 +374,12 @@ export default class Start extends cc.Component {
                             })
                             .delay(1)
                             .call(() => {
-                                user.pushNewLessonPlaceholder()
                                 this.displayLessonPlan()
                             })
                             .start()
                     })
                 } else {
                     this.scheduleOnce(() => {
-                        user.pushNewLessonPlaceholder()
                         this.displayLessonPlan()
                     }, 4)
                 }
