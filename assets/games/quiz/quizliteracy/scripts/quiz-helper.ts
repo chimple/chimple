@@ -212,20 +212,19 @@ export class QuizHelper {
         return howMany === -1 ? numbers : numbers.slice(0, howMany);
     }
 
-    public static generateAnswer(input: string, choices: string) {
+    public static generateAnswer(input: string) {
         let answer: number = 0;
         let results = input.match(/(\d+)~(\d+)/);
-        let choicesResults = choices.match(/(\d+)~(\d+)/);
         if (results && results.length === 3) {
             let start = Number(results[1]);
             let end = Number(results[2]);
             if (start === end) {
                 answer = start
-            } else if (choicesResults && choicesResults.length === 3) {
+            } else if (results && results.length === 3) {
                 let start = Number(results[1]);
                 let end = Number(results[2]);
-                let choices = [start, end];
-                answer = Util.randomElements([...choices], 1)
+                let choices = QuizHelper.range(start, end, 1);
+                answer = choices[0];
             }
         }
         return answer;
@@ -242,6 +241,27 @@ export class QuizHelper {
             rNumbers = sort === SORT_RANDOM ? rNumbers :
                 sort === SORT_ASC ? rNumbers.sort() : rNumbers.sort((a, b) => b - a);
             random = rNumbers.map(x => String(x));
+        }
+        return random;
+    }
+
+    public static randomInRangeWithAnswer(input: string, answer: string, howMany: number, sort: string = SORT_RANDOM): string[] {
+        let random = [];
+        let results = input.match(/(\d+)~(\d+)/);
+        if (results && results.length === 3) {
+            let start = Number(results[1]);
+            let end = Number(results[2]);
+            end = (end - start < 4) ? start + 3 : end;
+            let rNumbers = QuizHelper.range(start, end, howMany);
+            rNumbers = sort === SORT_RANDOM ? rNumbers :
+                sort === SORT_ASC ? rNumbers.sort() : rNumbers.sort((a, b) => b - a);
+            random = rNumbers.map(x => String(x));
+
+            if (!random.includes(answer)) {
+                let rIndex = QuizHelper.range(0, random.length - 1, 1)[0];
+                var deleted = random.splice(rIndex, 1);
+                random.splice(rIndex, 0, answer);
+            }
         }
         return random;
     }
