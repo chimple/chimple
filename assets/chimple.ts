@@ -137,6 +137,15 @@ export default class Chimple extends cc.Component {
             if (index == updates.length - 1) {
                 if (doRestart) {
                     cc.audioEngine.stopAll();
+                    if (CC_JSB) {
+                        // @ts-ignore
+                        cc.assetManager.cacheManager.cachedFiles.forEach((val, key) => {
+                            cc.log('removeCache: ' + key)
+                            // if(val!= null && val.bundle == 'en0000') 
+                            // @ts-ignore
+                            cc.assetManager.cacheManager.removeCache(key)
+                        })
+                    }    
                     cc.game.restart();
                 } else {
                     this.selectModes();
