@@ -1,7 +1,7 @@
-import {Queue} from "../../queue";
+import { Queue } from "../../queue";
 import Friend from "./friend";
 import Game from "./game";
-import Config, {DEFAULT_FONT, Lang, LANG_CONFIGS} from "./lib/config";
+import Config, { DEFAULT_FONT, Lang, LANG_CONFIGS } from "./lib/config";
 import {
     BUNDLE_URL,
     CURRENT_CLASS_ID,
@@ -11,17 +11,17 @@ import {
     CURRENT_SUBJECT_ID,
     EXAM
 } from "./lib/constants";
-import {Lesson} from "./lib/convert";
-import {GAME_CONFIGS} from "./lib/gameConfigs";
-import Profile, {LANGUAGE, User} from "./lib/profile";
-import ProgressMonitor, {StarType} from "./progressMonitor";
-import {QUIZ_ANSWERED} from "./quiz-monitor";
-import {Util} from "./util";
+import { Lesson } from "./lib/convert";
+import { GAME_CONFIGS } from "./lib/gameConfigs";
+import Profile, { LANGUAGE, User } from "./lib/profile";
+import ProgressMonitor, { StarType } from "./progressMonitor";
+import { QUIZ_ANSWERED } from "./quiz-monitor";
+import { Util } from "./util";
 import UtilLogger from "./util-logger";
 import Scorecard from "../scorecard/scripts/scorecard";
-import {APIMode, ServiceConfig} from "./services/ServiceConfig";
+import { APIMode, ServiceConfig } from "./services/ServiceConfig";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class LessonController extends cc.Component {
@@ -126,19 +126,10 @@ export default class LessonController extends cc.Component {
             })
             LessonController.loadQuizzes(lessons, callback, node);
         } else {
-            cc.assetManager.loadBundle(config.lesson.id, (err, bundle) => {
-                if (err) {
-                    cc.assetManager.loadBundle(BUNDLE_URL + config.lesson.id, (err1, bundle1) => {
-                        if (err1) {
-                            callback(err)
-                        } else {
-                            LessonController.preloadAndFirst(bundle1, callback);
-                        }
-                    })
-                } else {
-                    LessonController.preloadAndFirst(bundle, callback);
-                }
-            })
+            this.loadBundle(config.lesson.id, (bundle) => {
+                LessonController.preloadAndFirst(bundle, callback)
+            },
+                callback)
         }
     }
 
@@ -164,30 +155,33 @@ export default class LessonController extends cc.Component {
         }, node, lessons, maxPerLesson);
     }
 
+    private static loadBundle(lessonId: string, callback: Function, errCallback: Function) {
+        cc.assetManager.loadBundle(lessonId, (err, bundle) => {
+            if (err) {
+                cc.assetManager.loadBundle(BUNDLE_URL + lessonId, (err2, bundle2) => {
+                    if (err2) {
+                        errCallback(err2);
+                    } else {
+                        callback(bundle2)
+                    }
+                })
+            } else {
+                callback(bundle)
+            }
+        });
+    }
+
     private static loadQuizzes(lessons: Lesson[], callback: Function, node: cc.Node, maxPerLesson: number = 0) {
         let numLessons = lessons.length;
         lessons.forEach((les) => {
-            cc.assetManager.loadBundle(les.id, (err, bundle) => {
-                if (err) {
-                    cc.assetManager.loadBundle(BUNDLE_URL + les.id, (err1, bundle1) => {
-                        if (err1) {
-                            callback(err);
-                        } else {
-                            bundle1.preloadDir('res', null, null, (err: Error, items) => {
-                                Util.bundles.set(les.id, bundle1);
-                                LessonController.bundles.push(bundle1)
-                                numLessons--;
-                            });
-                        }
-                    })
-                } else {
-                    bundle.preloadDir('res', null, null, (err: Error, items) => {
-                        Util.bundles.set(les.id, bundle);
-                        LessonController.bundles.push(bundle)
-                        numLessons--;
-                    });
-                }
-            });
+            this.loadBundle(les.id, (bundle) => {
+                bundle.preloadDir('res', null, null, (err: Error, items) => {
+                    Util.bundles.set(les.id, bundle);
+                    LessonController.bundles.push(bundle)
+                    numLessons--;
+                });
+            },
+                callback)
         });
         const checkAllLoaded = () => {
             if (numLessons <= 0) {

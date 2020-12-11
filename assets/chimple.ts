@@ -49,6 +49,7 @@ export enum UpdateEvent {
 }
 
 export const PROJECT_MANIFEST = 'project.manifest'
+export const DO_HOT_UPDATE = true
 
 //@ts-ignore
 cc.deep_link = function (url) {
@@ -113,7 +114,7 @@ export default class Chimple extends cc.Component {
         const langConfig = LANG_CONFIGS.get(lang)
         if (langConfig) Config.i.loadFontDynamically(langConfig.font)
         UtilLogger.init();
-        if (!cc.sys.isNative) {
+        if (!cc.sys.isNative || !DO_HOT_UPDATE) {
             this.selectModes();
             return
         }
