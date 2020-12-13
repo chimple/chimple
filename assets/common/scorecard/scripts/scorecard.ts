@@ -51,6 +51,11 @@ export default class Scorecard extends cc.Component {
             Util.loadAccessoriesAndEquipAcc(friendNode.children[1], friendNode)
             friend.playHappyAnimation(1)
         })
+        const scorecardAnim = this.getComponent(cc.Animation);
+        scorecardAnim.play('scorecard');
+        const continueNode = this.node.getChildByName("commonButton")
+        const continueAnime: cc.Animation = continueNode.getComponent(cc.Animation)
+        continueAnime.play('continue')
         if (this.reward) {
             if (this.reward[0] == REWARD_TYPES[0]) {
                 //animate character
