@@ -2,7 +2,6 @@ import Config from "../../../common/scripts/lib/config";
 import { REWARD_TYPES, Util } from "../../scripts/util";
 import Achievement from "./achievement";
 import Friend from "../../scripts/friend";
-import CommonButton from "../../scripts/commonButton";
 
 const { ccclass, property } = cc._decorator;
 
@@ -38,9 +37,6 @@ export default class Scorecard extends cc.Component {
     @property(cc.Prefab)
     achievementPrefab: cc.Prefab
 
-    @property(cc.Node)
-    continueAnimation: cc.Node = null;
-
     reward: [string, string]
 
     onLoad() {
@@ -59,7 +55,7 @@ export default class Scorecard extends cc.Component {
         console.log('Scorecard Animation statement exicuted ', scorecardAnim);
         scorecardAnim.play('scorecard');
         const continueNode = this.node.getChildByName("commonButton")
-        const continueAnime:cc.Animation=continueNode.getComponent(cc.Animation)
+        const continueAnime: cc.Animation = continueNode.getComponent(cc.Animation)
         continueAnime.play('continue')
         if (this.reward) {
             if (this.reward[0] == REWARD_TYPES[0]) {
