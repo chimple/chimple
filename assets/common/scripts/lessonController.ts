@@ -288,7 +288,7 @@ export default class LessonController extends cc.Component {
             config.releaseFont(config.currentFontName);
         }
 
-        const timeSpent = Math.ceil((new Date().getTime() - this.problemStartTime) / 1000);
+        const timeSpent = this.problemStartTime > 0 ? Math.ceil((new Date().getTime() - this.problemStartTime) / 1000) : 1;
         const monitor = this.progressMonitorNode.getComponent(ProgressMonitor);
         const currentProblem = config.problem;
         this.isQuiz = config.game.toLowerCase().includes("quizmaths") || config.game.toLowerCase().includes("quizliteracy");
