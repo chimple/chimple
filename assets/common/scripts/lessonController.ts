@@ -1,7 +1,7 @@
-import {Queue} from "../../queue";
+import { Queue } from "../../queue";
 import Friend from "./friend";
 import Game from "./game";
-import Config, {DEFAULT_FONT, Lang, LANG_CONFIGS} from "./lib/config";
+import Config, { DEFAULT_FONT, Lang, LANG_CONFIGS } from "./lib/config";
 import {
     BUNDLE_URL,
     CURRENT_CLASS_ID,
@@ -11,17 +11,17 @@ import {
     CURRENT_SUBJECT_ID,
     EXAM
 } from "./lib/constants";
-import {Lesson} from "./lib/convert";
-import {GAME_CONFIGS} from "./lib/gameConfigs";
-import Profile, {LANGUAGE, User} from "./lib/profile";
-import ProgressMonitor, {StarType} from "./progressMonitor";
-import {QUIZ_ANSWERED} from "./quiz-monitor";
-import {Util} from "./util";
+import { Lesson } from "./lib/convert";
+import { GAME_CONFIGS } from "./lib/gameConfigs";
+import Profile, { LANGUAGE, User } from "./lib/profile";
+import ProgressMonitor, { StarType } from "./progressMonitor";
+import { QUIZ_ANSWERED } from "./quiz-monitor";
+import { Util } from "./util";
 import UtilLogger from "./util-logger";
 import Scorecard from "../scorecard/scripts/scorecard";
-import {APIMode, ServiceConfig} from "./services/ServiceConfig";
+import { APIMode, ServiceConfig } from "./services/ServiceConfig";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class LessonController extends cc.Component {
@@ -102,12 +102,17 @@ export default class LessonController extends cc.Component {
         const config = Config.i;
         config.problem = 0;
         if (User.getCurrentUser().courseProgressMap.get(config.course.id).currentChapterId == null) {
-            const lessons: Array<Lesson> = []
-            const sample = Math.floor(config.course.chapters.length / 5)
-            for (let index = 0; index < config.course.chapters.length; index += sample) {
-                lessons.push(config.course.chapters[index].lessons[0])
+            const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
+            if (quizChapter) {
+                LessonController.loadQuizzes(quizChapter.lessons, callback, node, 3);
+            } else {
+                const lessons: Array<Lesson> = []
+                const sample = Math.floor(config.course.chapters.length / 5)
+                for (let index = 0; index < config.course.chapters.length; index += sample) {
+                    lessons.push(config.course.chapters[index].lessons[0])
+                }
+                LessonController.loadQuizzes(lessons, callback, node, 2);
             }
-            LessonController.loadQuizzes(lessons, callback, node, 2);
         } else if (config.lesson.type == EXAM) {
             const lessons: Array<Lesson> = []
             var found = false
@@ -127,8 +132,8 @@ export default class LessonController extends cc.Component {
             LessonController.loadQuizzes(lessons, callback, node);
         } else {
             this.loadBundle(config.lesson.id, (bundle) => {
-                    LessonController.preloadAndFirst(bundle, callback)
-                },
+                LessonController.preloadAndFirst(bundle, callback)
+            },
                 callback)
         }
     }
@@ -175,12 +180,12 @@ export default class LessonController extends cc.Component {
         let numLessons = lessons.length;
         lessons.forEach((les) => {
             this.loadBundle(les.id, (bundle) => {
-                    bundle.preloadDir('res', null, null, (err: Error, items) => {
-                        Util.bundles.set(les.id, bundle);
-                        LessonController.bundles.push(bundle)
-                        numLessons--;
-                    });
-                },
+                bundle.preloadDir('res', null, null, (err: Error, items) => {
+                    Util.bundles.set(les.id, bundle);
+                    LessonController.bundles.push(bundle)
+                    numLessons--;
+                });
+            },
                 callback)
         });
         const checkAllLoaded = () => {
