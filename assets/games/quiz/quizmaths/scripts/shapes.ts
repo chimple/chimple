@@ -4,6 +4,8 @@ import { QuizHelper } from "../../quizliteracy/scripts/quiz-helper";
 import property = cc._decorator.property;
 import { Util } from "../../../../common/scripts/util";
 import catchError from "../../../../common/scripts/lib/error-handler";
+import {HELP_DIR, QUIZ_MATHS_DIR} from "../../../../common/scripts/helper";
+import Profile, {LANGUAGE} from "../../../../common/scripts/lib/profile";
 
 const LABEL_WIDTH = 850;
 const WIDTH = 200;
@@ -16,6 +18,7 @@ const FONT_SIZE = 40;
 export default class Shapes extends cc.Component {
     quizConfig: QuizMathsConfig;
     assetDir: string;
+    audioDir: string;
 
     @property(cc.Prefab)
     imageButton: cc.Prefab = null;
@@ -25,6 +28,7 @@ export default class Shapes extends cc.Component {
 
     @catchError()
     protected onLoad(): void {
+        this.audioDir = HELP_DIR + Profile.getValue(LANGUAGE) + '-help/' + QUIZ_MATHS_DIR;
         this.quizConfig.choices = this.quizConfig.choices.replace(/,/g, '^');
         this.quizConfig.answer = this.quizConfig.answer.replace(/,/g, '^');
         const options = this.quizConfig.answer.split('^');
@@ -57,7 +61,7 @@ export default class Shapes extends cc.Component {
 
     @catchError()
     renderSoundButton(parent: cc.Node) {
-        QuizHelper.renderSoundButton(this.quizConfig, parent, this.assetDir);
+        QuizHelper.renderSoundButton(this.quizConfig, parent, this.audioDir);
     }
 
     @catchError()
