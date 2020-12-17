@@ -159,7 +159,8 @@ export class WriteSet extends Game {
         this.buildLayout();
         this._words.width = cc.winSize.width;
         this._words.height = cc.winSize.height / 2;
-        if (!!this._shelf) this._shelf.width = this._layout.node.width;
+        if (!!this._shelf) this._shelf.width = this._shelf.width < this._layout.node.width ?
+            this._layout.node.width :this._shelf.width;
         this._words.setPosition(new cc.Vec2(50, 25));
         this._anims.setPosition(new cc.Vec2(0, 250));
 
