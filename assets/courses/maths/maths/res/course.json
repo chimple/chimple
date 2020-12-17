@@ -1,6 +1,34 @@
 {
   "chapters": [
     {
+      "id": "maths_quiz",
+      "image": "maths_quiz.png",
+      "type": "quiz",
+      "lessons": [
+        {
+          "id": "maths_quiz00",
+          "image": "maths_quiz00.png",
+          "name": "maths05"
+        },
+        {
+          "id": "maths_quiz01",
+          "image": "maths_quiz01.png",
+          "name": "maths09"
+        },
+        {
+          "id": "maths_quiz02",
+          "image": "maths_quiz02.png",
+          "name": "maths16"
+        },
+        {
+          "id": "maths_quiz03",
+          "image": "maths_quiz03.png",
+          "name": "maths24"
+        }
+      ],
+      "name": "quiz"
+    },
+    {
       "id": "maths00",
       "image": "maths00.png",
       "lessons": [
@@ -175,7 +203,7 @@
         {
           "id": "maths0403",
           "image": "maths0403.png",
-          "name": "Shapes-5"
+          "name": "Shapes 4"
         }
       ],
       "name": "Beginners Shapes"
@@ -235,7 +263,7 @@
           "name": "20"
         }
       ],
-      "name": "Numbers 10-20"
+      "name": "Numbers 11-20"
     },
     {
       "id": "maths06",
@@ -281,81 +309,76 @@
         {
           "id": "maths0701",
           "image": "maths0701.png",
-          "name": "Order Number"
+          "name": "Write 21-30"
         },
         {
           "id": "maths0702",
           "image": "maths0702.png",
-          "name": "Write 21-30"
+          "name": "Puzzle Time 31-40"
         },
         {
           "id": "maths0703",
           "image": "maths0703.png",
-          "name": "Puzzle Time 31-40"
+          "name": "Write 31-40"
         },
         {
           "id": "maths0704",
           "image": "maths0704.png",
-          "name": "Write 31-40"
+          "name": "Puzzle Time 41-50"
         },
         {
           "id": "maths0705",
           "image": "maths0705.png",
-          "name": "Puzzle Time 41-50"
+          "name": "Write 41--50"
         },
         {
           "id": "maths0706",
           "image": "maths0706.png",
-          "name": "Write 41--50"
+          "name": "Puzzle Time 51-60"
         },
         {
           "id": "maths0707",
           "image": "maths0707.png",
-          "name": "Puzzle Time 51-60"
+          "name": "Write 51-60"
         },
         {
           "id": "maths0708",
           "image": "maths0708.png",
-          "name": "Write 51-60"
+          "name": "Puzzle Time 61-70"
         },
         {
           "id": "maths0709",
           "image": "maths0709.png",
-          "name": "Puzzle Time 61-70"
+          "name": "Write 61-70"
         },
         {
           "id": "maths0710",
           "image": "maths0710.png",
-          "name": "Write 61-70"
+          "name": "Puzzle Time 71-80"
         },
         {
           "id": "maths0711",
           "image": "maths0711.png",
-          "name": "Puzzle Time 71-80"
+          "name": "Write 71-80"
         },
         {
           "id": "maths0712",
           "image": "maths0712.png",
-          "name": "Write 71-80"
+          "name": "Puzzle Time 81-90"
         },
         {
           "id": "maths0713",
           "image": "maths0713.png",
-          "name": "Puzzle Time 81-90"
+          "name": "Write  81-90"
         },
         {
           "id": "maths0714",
           "image": "maths0714.png",
-          "name": "Write  81-90"
+          "name": "Puzzle Time 91-100"
         },
         {
           "id": "maths0715",
           "image": "maths0715.png",
-          "name": "Puzzle Time 91-100"
-        },
-        {
-          "id": "maths0716",
-          "image": "maths0716.png",
           "name": "Write 91-100"
         }
       ],
@@ -931,7 +954,7 @@
         {
           "id": "maths1702",
           "image": "maths1702.png",
-          "name": "Big & Small  1-50"
+          "name": "More Big & Small  1-50"
         },
         {
           "id": "maths1703",

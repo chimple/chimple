@@ -1,9 +1,9 @@
-import {Queue} from "../../../queue";
+import { Queue } from "../../../queue";
 import Header from "../header";
-import {INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util} from "../util";
+import { INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util } from "../util";
 import UtilLogger from "../util-logger";
-import Config, {ALL_LANGS, StartAction} from "./config";
-import {COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS} from "./constants";
+import Config, { ALL_LANGS, StartAction } from "./config";
+import { COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -412,16 +412,32 @@ export class User {
         var reward: [string, string]
         const config = Config.i
         if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == null) {
-            const formulaScore = quizScores.reduce((acc, cur, i, arr): number => {
-                const mul = Math.floor(arr.length / 2) - Math.floor(i / 2)
-                const neg = cur == 0 ? -0.5 : cur
-                return acc + neg * mul
-            }, 0)
-            const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
-            const total = Math.max(0, formulaScore / max)
-            const chapters = config.curriculum.get(config.course.id).chapters
-            const cpm = this.courseProgressMap.get(config.course.id)
-            cpm.updateChapterId(chapters[Math.floor((chapters.length - 1) * total)].id);
+            const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
+            if (quizChapter) {
+                let currentCourse = config.course.chapters.find((c) => c.id != config.course.id + '_quiz')
+                let qzId = 0
+                for (let index = 0; index + 2 < quizScores.length; index+= 3) {
+                    if(quizScores[index] + quizScores[index+1] + quizScores[index+2] >= 2) {
+                        currentCourse = config.course.chapters.find((c) => c.id == quizChapter.lessons[qzId].name)
+                    } else {
+                        break
+                    }
+                    qzId++
+                }
+                const cpm = this.courseProgressMap.get(config.course.id)
+                cpm.updateChapterId(currentCourse.id);                
+            } else {
+                const formulaScore = quizScores.reduce((acc, cur, i, arr): number => {
+                    const mul = Math.floor(arr.length / 2) - Math.floor(i / 2)
+                    const neg = cur == 0 ? -0.5 : cur
+                    return acc + neg * mul
+                }, 0)
+                const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
+                const total = Math.max(0, formulaScore / max)
+                const chapters = config.curriculum.get(config.course.id).chapters
+                const cpm = this.courseProgressMap.get(config.course.id)
+                cpm.updateChapterId(chapters[Math.floor((chapters.length - 1) * total)].id);
+            }
         } else {
             if (this._lessonProgressMap.has(lessonId)) {
                 const lessonProgress = this._lessonProgressMap.get(lessonId)
@@ -581,10 +597,10 @@ export class User {
                     ['test-maths', new CourseProgressClass('chapter_0')]
                 ])
                 : new Map([
-                    ['en', new CourseProgressClass('en00')],
-                    ['maths', new CourseProgressClass('maths00')],
-                    ['hi', new CourseProgressClass('hi00')],
-                    ['puzzle', new CourseProgressClass('puzzle00')]
+                    ['en', new CourseProgressClass()],
+                    ['maths', new CourseProgressClass()],
+                    ['hi', new CourseProgressClass()],
+                    ['puzzle', new CourseProgressClass()]
                 ]),
             new Map(),
             new Map(),
@@ -862,7 +878,7 @@ export default class Profile {
     }
 
     static async teacherPostLoginActivity(objectId: string) {
-        const currentUser: User = User.createUserOrFindExistingUser({id: objectId});
+        const currentUser: User = User.createUserOrFindExistingUser({ id: objectId });
         User.setCurrentUser(currentUser);
         return currentUser;
     }

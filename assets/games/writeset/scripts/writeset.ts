@@ -2,9 +2,9 @@ import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import Layout = cc.Layout;
 import Config from "../../../common/scripts/lib/config";
-import { Util } from "../../../common/scripts/util";
-import { LETTER_SCALE, SingleNumberTracing } from "./singlenumbertracing";
-import { CONFIG_LOADED, TRACING_FINISHED, TRACING_CORRECT, TRACING_WRONG } from "../../../common/scripts/helper";
+import {Util} from "../../../common/scripts/util";
+import {LETTER_SCALE, SingleNumberTracing} from "./singlenumbertracing";
+import {CONFIG_LOADED, TRACING_FINISHED, TRACING_CORRECT, TRACING_WRONG} from "../../../common/scripts/helper";
 import Game from "../../../common/scripts/game";
 
 export const TRACE_HEIGHT = 768;
@@ -48,6 +48,7 @@ export class WriteSet extends Game {
     private _words: cc.Node = null;
     private _anims: cc.Node = null;
     private _currentLetterIndex: number = 0;
+    private _shelf: cc.Node = null;
 
     private _touchAllowedOnAnimLayout: boolean = false;
     private _speakCount: number;
@@ -57,6 +58,10 @@ export class WriteSet extends Game {
         manager.enabled = true;
         // manager.enabledDebugDraw = true;
         // manager.enabledDrawBoundingBox = true;
+        const writeBg: cc.Node = this.node.getChildByName('writeset_bg');
+        if (!!writeBg) {
+            this._shelf = writeBg.getChildByName('writeset_shelf_main');
+        }
 
         this._currentConfig = this.processConfiguration(Config.getInstance().data[0]);
         if (this._currentConfig !== null) {
@@ -154,6 +159,8 @@ export class WriteSet extends Game {
         this.buildLayout();
         this._words.width = cc.winSize.width;
         this._words.height = cc.winSize.height / 2;
+        if (!!this._shelf) this._shelf.width = this._shelf.width < this._layout.node.width ?
+            this._layout.node.width :this._shelf.width;
         this._words.setPosition(new cc.Vec2(50, 25));
         this._anims.setPosition(new cc.Vec2(0, 250));
 
