@@ -105,6 +105,11 @@ export default class Chimple extends cc.Component {
     manifest: cc.Asset = null
 
     async onLoad() {
+        if (cc.sys.isNative)
+        jsb.fileUtils.setSearchPaths([
+            jsb.fileUtils.getWritablePath() + 'HotUpdateSearchPaths',
+            '@assets/'
+        ])
         ServiceConfig.getInstance(APIMode.FIREBASE);
         cc.macro.ENABLE_MULTI_TOUCH = false
         UtilLogger.initPluginFirebase();
