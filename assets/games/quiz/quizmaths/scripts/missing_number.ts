@@ -99,7 +99,7 @@ export class MissingNumber extends cc.Component {
                     choices.push(String(start));
                 }
             } else {
-                let rNumber = Util.randomBetween(Number(values[0]) + (3 * this.step), Number(values[1]));
+                let rNumber = Util.randomBetween(Number(values[0]) + (4 * this.step), Number(values[1]));
                 for (let i = 0; i < 4; i++) {
                     start = rNumber;
                     start -= i * this.step;
