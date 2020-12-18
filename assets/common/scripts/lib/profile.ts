@@ -599,8 +599,8 @@ export class User {
                 : new Map([
                     ['en', new CourseProgressClass()],
                     ['maths', new CourseProgressClass()],
-                    ['hi', new CourseProgressClass()],
-                    ['puzzle', new CourseProgressClass()]
+                    ['hi', new CourseProgressClass('hi00')],
+                    ['puzzle', new CourseProgressClass('puzzle00')]
                 ]),
             new Map(),
             new Map(),
