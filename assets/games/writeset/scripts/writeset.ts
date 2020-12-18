@@ -79,6 +79,15 @@ export class WriteSet extends Game {
                 String(Number(this._currentConfig.count) - (Number(this._currentConfig.count) % 10)),
                 String(Number(this._currentConfig.count) % 10)
             ];
+
+            if(Number(this._currentConfig.count) <= LIMIT)
+            {
+                this.friend.node.setPosition(
+                    this.friend.node.position.x,
+                    this.friend.node.position.y - 600
+                )
+            }
+
             Util.showHelp(null, null, () => {
                 this.friend.speakEquation(equations, (index) => {
                     // @ts-ignore
@@ -99,7 +108,7 @@ export class WriteSet extends Game {
     private buildLayout() {
         this._layout = this._words.getComponent(cc.Layout);
         this._layout.node.zIndex = 2;
-        this._layout.padding = 20;
+        // this._layout.padding = 20;
         this._layout.spacingX = 125;
         this._layout.spacingY = 0;
         this._layout.resizeMode = Layout.ResizeMode.CONTAINER;
@@ -159,8 +168,10 @@ export class WriteSet extends Game {
         this.buildLayout();
         this._words.width = cc.winSize.width;
         this._words.height = cc.winSize.height / 2;
-        if (!!this._shelf) this._shelf.width = this._shelf.width < this._layout.node.width ?
-            this._layout.node.width :this._shelf.width;
+        if (!!this._shelf && Number(this._currentConfig.count) <= LIMIT) {
+            this._shelf.width = this._shelf.width < this._layout.node.width ?
+                (this._layout.node.width) :this._shelf.width;
+        }
         this._words.setPosition(new cc.Vec2(50, 25));
         this._anims.setPosition(new cc.Vec2(0, 250));
 
