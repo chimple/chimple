@@ -244,7 +244,7 @@ export default class QuizMaths extends cc.Component {
             let choice2 = configurations[6];
             let choice3 = configurations[7];
             let choice4 = configurations[8];
-            choices = choice1 + "," + choice2 + "," + choice3 + "," + choice4;
+            choices = choice1.trim() + "," + choice2.trim() + "," + choice3.trim() + "," + choice4.trim();
             order = configurations[9];
             soundFile = configurations[10];
             displayTexts = configurations[11];
