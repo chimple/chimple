@@ -6,6 +6,7 @@ import MathDrag from "../../quizmaths/scripts/math-drag";
 import MathDrop from "../../quizmaths/scripts/math-drop";
 import Overflow = cc.Label.Overflow;
 import {QuizLiteracyConfig, QuizBtnData, QuizBtnType} from "./quiz-literacy";
+import ChimpleLabel from "../../../../common/scripts/chimple-label";
 
 const GRID_ELEMENT_SIZE = 24;
 const LABEL_WIDTH = 250;
@@ -21,7 +22,7 @@ export class QuizHelper {
     }
 
     public static renderTextLabelWithContent(quizConfig: QuizLiteracyConfig | QuizMathsConfig, parent: cc.Node, content: string, width: number = LABEL_WIDTH, hex: string = '#000000', childName, fontSize: number = 75, overflow: Overflow.SHRINK) {
-        fontSize = content.length === 1 ? 125 : fontSize;
+        // fontSize = content.length < 3 ? 100 : fontSize;
         const label = parent.getChildByName(childName);
         if (label) {
             label.color = new cc.Color().fromHEX(hex);
@@ -100,14 +101,16 @@ export class QuizHelper {
         choices = choices.filter((el) => el != null && el.length > 0);
         choices.forEach(
             (c, i) => {
+                c = c.trim();
                 const textBtn = cc.instantiate(textButtonPrefab);
                 const quizButtonComponent = textBtn.getComponent(QuizLiteracyButton);
                 quizButtonComponent.data = new QuizBtnData(QuizBtnType.Sentence,
                     c, null, quizConfig.answer && c && c.trim() === quizConfig.answer.trim());
                 const label = textBtn.getChildByName('label');
                 if (label) {
-                    fontSize = c.length > 1 ? fontSize : 125;
-                    const labelComponent = label.getComponent(cc.Label);
+                    fontSize = c.length > 2 ? fontSize : 100;
+                    const labelComponent = label.getComponent(ChimpleLabel);
+                    labelComponent.enableWrapText = false;
                     labelComponent.overflow = Overflow.SHRINK;
                     label.width = width;
                     label.height = height;

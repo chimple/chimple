@@ -268,7 +268,7 @@ export class QuizLiteracy extends cc.Component {
             displayTexts,
             soundFile,
             additionalQuestion] = configurations;
-        let choices: string = choice1 + "^" + choice2 + "^" + choice3;
+        let choices: string = choice1.trim() + "^" + choice2.trim() + "^" + choice3.trim();
 
         return {
             level,
