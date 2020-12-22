@@ -1,4 +1,4 @@
-android_client_infoimport ccclass = cc._decorator.ccclass;
+import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import { Util } from "../../../../common/scripts/util";
 import catchError from "../../../../common/scripts/lib/error-handler";
