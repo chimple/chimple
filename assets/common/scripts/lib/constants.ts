@@ -340,10 +340,10 @@ export const COUNTRY_CODES: object[] = [
 
 export const firebaseConfigWeb = {
    apiKey: "AIzaSyBY9Q_FPif0h82-GsUNKOQfOsFk02iptC4",
-   authDomain: "chimple-stage.firebaseapp.com",
-   databaseURL: "https://chimple-stage.firebaseio.com",
-   projectId: "chimple-stage",
-   storageBucket: "chimple-stage.appspot.com",
+   authDomain: "chimple-demo.firebaseapp.com",
+   databaseURL: "https://chimple-demo.firebaseio.com",
+   projectId: "chimple-demo",
+   storageBucket: "chimple-demo.appspot.com",
    messagingSenderId: "164143434825",
    appId: "1:164143434825:web:eee37bcdbc0fb20f964398",
    measurementId: "G-FNDYT82RFC"
