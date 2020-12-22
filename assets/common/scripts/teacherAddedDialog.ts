@@ -3,14 +3,18 @@ import property = cc._decorator.property;
 import {User} from "./lib/profile";
 import StudentPreviewInfo, {TEACHER_ADD_STUDENT_SELECTED} from "./studentPreviewInfo";
 import ChimpleLabel from "./chimple-label";
-import {Queue} from "../../queue";
-import {ACCEPT_TEACHER_REQUEST, REJECT_TEACHER_REQUEST, TEACHER_ADDED} from "../../chimple";
+import {
+    ACCEPT_TEACHER_REQUEST,
+    ACCEPT_TEACHER_REQUEST_LINKED_USED,
+    REJECT_TEACHER_REQUEST,
+    TEACHER_ADDED
+} from "../../chimple";
 import UtilLogger from "./util-logger";
-import {ParseSchool} from "./domain/parseSchool";
-import {ParseApi, UpdateHomeTeacher} from "./services/parseApi";
+import {UpdateHomeTeacher} from "./services/parseApi";
 import {ServiceConfig} from "./services/ServiceConfig";
 import {AcceptTeacherRequest} from "./services/ServiceApi";
 import {Util} from "./util";
+
 
 export const TEACHER_ADD_DIALOG_CLOSED = 'TEACHER_ADD_DIALOG_CLOSED';
 @ccclass
@@ -54,8 +58,6 @@ export default class TeacherAddedDialog extends cc.Component {
     private render() {
         const chimpleLabel = this.text.getComponent(ChimpleLabel);
         chimpleLabel.string = Util.i18NText("Add Teacher") + " " + this._teacherName;
-        const studentAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + this._teacherId) || '[]');
-        this.users = this.users.filter(u => !studentAdded.includes(u.id));
         const len = this.users.length;
         this.users.forEach(
             (user) => {
@@ -87,29 +89,23 @@ export default class TeacherAddedDialog extends cc.Component {
                 firebaseStudentId: this._firebaseStudentId
             }
             await ServiceConfig.getI().handle.teacherRequestAccepted(request);
-            const teachersAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + this._teacherId) || '[]');
-            teachersAdded.push(this.selectedStudentId);
 
-            const tKey = ACCEPT_TEACHER_REQUEST + this._teacherId;
-            const teacherRequestAcceptedForFireBaseIds = JSON.parse(cc.sys.localStorage.getItem(tKey) || '[]');
-            teacherRequestAcceptedForFireBaseIds.push(this._firebaseStudentId);
-            cc.sys.localStorage.setItem(tKey, JSON.stringify(teacherRequestAcceptedForFireBaseIds));
+            const teachersAdded: AcceptTeacherRequest[] = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED) || '[]');
+            teachersAdded.push(request);
+            cc.sys.localStorage.setItem(TEACHER_ADDED, JSON.stringify(teachersAdded));
+            UtilLogger.logChimpleEvent(TEACHER_ADDED, teachersAdded);
+
+            UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, request);
+
+            const tKey = ACCEPT_TEACHER_REQUEST_LINKED_USED + this._teacherId;
+            const teacherRequestsAccepted = JSON.parse(cc.sys.localStorage.getItem(tKey) || '[]');
+            teacherRequestsAccepted.push(this._teacherId + '|' + this._teacherSectionId + '|' + this._firebaseStudentId);
+            cc.sys.localStorage.setItem(tKey, JSON.stringify(teacherRequestsAccepted));
 
             const key = `teacher_for_student_${this.selectedStudentId}`;
             const teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
             teachersForStudent.push(this._teacherName);
             cc.sys.localStorage.setItem(key, JSON.stringify(teachersForStudent));
-
-            cc.sys.localStorage.setItem(TEACHER_ADDED + this._teacherId, JSON.stringify(teachersAdded));
-            UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, request);
-            try {
-                const messages = cc.sys.localStorage.getItem(ACCEPT_TEACHER_REQUEST) || '[]';
-                const jsonMessages: any[] = JSON.parse(messages);
-                jsonMessages.push(this._teacherId);
-                cc.sys.localStorage.setItem(ACCEPT_TEACHER_REQUEST, JSON.stringify(jsonMessages));
-            } catch (e) {
-
-            }
         }
 
         this.closeDialog();
