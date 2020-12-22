@@ -273,7 +273,7 @@ export default class Start extends cc.Component {
             })
         } else {
             lessons.push(Start.preQuizLesson(course))
-            lessons.push(course.chapters[0].lessons[0])
+            lessons.push(course.chapters[1].lessons[0])
         }
         return lessons
     }
