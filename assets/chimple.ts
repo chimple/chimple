@@ -125,7 +125,9 @@ export default class Chimple extends cc.Component {
 
         const teachersAdded: AcceptTeacherRequest[] = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED) || '[]');
         if (teachersAdded && teachersAdded.length > 0) {
-            UtilLogger.logChimpleEvent(TEACHER_ADDED, teachersAdded);
+            teachersAdded.forEach(
+                t => UtilLogger.logChimpleEvent(TEACHER_ADDED, t)
+            )
         }
 
 
