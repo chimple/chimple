@@ -32,7 +32,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.apache.commons.io.FilenameUtils;
 import org.chimple.bahama.AppActivity;
-import org.chimple.bahama.R;
+import org.chimple.maths_fr.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

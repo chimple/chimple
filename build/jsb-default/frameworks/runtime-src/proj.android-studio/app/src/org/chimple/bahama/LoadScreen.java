@@ -30,6 +30,7 @@ import android.os.Handler;
 import android.widget.ImageView;
 import androidx.fragment.app.FragmentActivity;
 import org.chimple.bahama.AppActivity;
+import org.chimple.maths_fr.R;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;

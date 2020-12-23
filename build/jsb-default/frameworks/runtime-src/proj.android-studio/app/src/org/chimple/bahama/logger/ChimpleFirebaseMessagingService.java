@@ -16,7 +16,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 
 import org.chimple.bahama.AppActivity;
-import org.chimple.bahama.R;
+import org.chimple.maths_fr.R;
 
 public class ChimpleFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "AlarmReceiver";
