@@ -503,7 +503,7 @@ export class Util {
         Util.load(
             phonicsLoc,
             (err, clip) => {
-                if (err! = null) {
+                if (err != null && clip == null) {
                     this.playGameSound(audio, callback);
                 } else if (!err && clip != null) {
                     const audioId = Util.play(clip, false);
@@ -528,6 +528,9 @@ export class Util {
                         callback();
                     });
                 }
+            } else {
+
+                callback();
             }
         });
     }
