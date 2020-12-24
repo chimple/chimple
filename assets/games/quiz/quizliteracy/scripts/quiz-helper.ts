@@ -97,7 +97,7 @@ export class QuizHelper {
                                     width: number,
                                     height: number,
                                     choices: string[],
-                                    fontSize: number = 75) {
+                                    fontSize: number = 80) {
         choices = choices.filter((el) => el != null && el.length > 0);
         choices.forEach(
             (c, i) => {
@@ -108,7 +108,7 @@ export class QuizHelper {
                     c, null, quizConfig.answer && c && c.trim() === quizConfig.answer.trim());
                 const label = textBtn.getChildByName('label');
                 if (label) {
-                    fontSize = c.length > 2 ? fontSize : 100;
+                    // fontSize = c.length > 2 ? fontSize : 100;
                     const labelComponent = label.getComponent(ChimpleLabel);
                     labelComponent.enableWrapText = false;
                     labelComponent.overflow = Overflow.SHRINK;

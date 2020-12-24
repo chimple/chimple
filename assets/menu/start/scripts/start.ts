@@ -1,21 +1,26 @@
 import {
+    ACCEPT_TEACHER_REQUEST_LINKED_USED,
     RECEIVED_TEACHER_REQUEST,
-    TEACHER_ADDED,
     TEACHER_ADD_STUDENT_ID,
     TEACHER_ID_KEY,
     TEACHER_NAME_KEY,
-    TEACHER_SECTION_ID,
-    ACCEPT_TEACHER_REQUEST
+    TEACHER_SECTION_ID
 } from "../../../chimple";
 import Friend from "../../../common/scripts/friend";
-import Config, { StartAction } from "../../../common/scripts/lib/config";
-import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
-import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
-import { User } from "../../../common/scripts/lib/profile";
+import Config, {StartAction} from "../../../common/scripts/lib/config";
+import {EXAM, MIN_PASS} from "../../../common/scripts/lib/constants";
+import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
+import {User} from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
-import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
-import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
-import { INVENTORY_ANIMATIONS, INVENTORY_SAVE_CONSTANTS, REWARD_TYPES, Util, INVENTORY_ICONS } from "../../../common/scripts/util";
+import {ServiceConfig} from "../../../common/scripts/services/ServiceConfig";
+import TeacherAddedDialog, {TEACHER_ADD_DIALOG_CLOSED} from "../../../common/scripts/teacherAddedDialog";
+import {
+    INVENTORY_ANIMATIONS,
+    INVENTORY_ICONS,
+    INVENTORY_SAVE_CONSTANTS,
+    REWARD_TYPES,
+    Util
+} from "../../../common/scripts/util";
 import Inventory from "../../inventory/scripts/inventory";
 import LessonButton from "./lessonButton";
 
@@ -215,19 +220,13 @@ export default class Start extends cc.Component {
                 const addStudentId = curMessage[TEACHER_ADD_STUDENT_ID];
                 cc.sys.localStorage.setItem(RECEIVED_TEACHER_REQUEST, JSON.stringify(messages));
 
-                const tKey = ACCEPT_TEACHER_REQUEST + id;
-                const studentAdded = JSON.parse(cc.sys.localStorage.getItem(tKey) || '[]');
-                const alreadyAddedStudent: boolean = studentAdded.includes(addStudentId);
-
-                let users = User.getUsers() || [];
-
-                const teachersAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + id) || '[]');
-                users = users.filter(u => !alreadyAddedStudent && !teachersAdded.includes(u.id))
-                cc.log('remaining users', users, 'alreadyAddedStudent', alreadyAddedStudent);
-
+                const tKey = ACCEPT_TEACHER_REQUEST_LINKED_USED + id;
+                const teacherRequestsAccepted = JSON.parse(cc.sys.localStorage.getItem(tKey) || '[]');
+                const buildLink = id + '|' + sectionId + '|' + addStudentId;
+                const linkUsed: boolean = teacherRequestsAccepted.includes(buildLink);
 
                 if (!!id && !!name && !!sectionId && !!addStudentId
-                    && users && users.length > 0) {
+                    && !linkUsed) {
                     const teacherDialog: cc.Node = cc.instantiate(this.teacherDialogPrefab);
                     const script: TeacherAddedDialog = teacherDialog.getComponent(TeacherAddedDialog);
                     script.TeacherName = name;
@@ -273,7 +272,7 @@ export default class Start extends cc.Component {
             })
         } else {
             lessons.push(Start.preQuizLesson(course))
-            lessons.push(course.chapters[0].lessons[0])
+            lessons.push(course.chapters[1].lessons[0])
         }
         return lessons
     }
