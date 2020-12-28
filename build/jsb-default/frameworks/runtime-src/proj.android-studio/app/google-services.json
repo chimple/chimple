@@ -1,177 +1,33 @@
 {
   "project_info": {
-    "project_number": "164143434825",
-    "firebase_url": "https://chimple-stage.firebaseio.com",
-    "project_id": "chimple-stage",
-    "storage_bucket": "chimple-stage.appspot.com"
+    "project_number": "646423738390",
+    "project_id": "chimple-demo",
+    "storage_bucket": "chimple-demo.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:164143434825:android:6d397dda724c5056964398",
+        "mobilesdk_app_id": "1:646423738390:android:d8941a525d9f2983875d37",
         "android_client_info": {
           "package_name": "org.chimple.bahama"
         }
       },
       "oauth_client": [
         {
-          "client_id": "164143434825-63hb8ritinokasdaa4ncu5mfv4vus8du.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.chimple.bahama",
-            "certificate_hash": "b79197a9ba4551396f0f32201d2c7de76712a6f4"
-          }
-        },
-        {
-          "client_id": "164143434825-jac7oroidtv4u6v1e2a4ei0nj30mo9e5.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.chimple.bahama",
-            "certificate_hash": "0bdc5da7912aa4bc5b642b7add5efd75131c7788"
-          }
-        },
-        {
-          "client_id": "164143434825-jsjm7vt7ch00ui9enlr3nkt69261s03e.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.chimple.bahama",
-            "certificate_hash": "64572737f124de7234a7d54b41c04571eb155e28"
-          }
-        },
-        {
-          "client_id": "164143434825-lvntnim3bqipt55tkev3opqkhov0sen7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.chimple.bahama",
-            "certificate_hash": "cacf2f6652bbdd0ddd92913a54587a47cd466f8c"
-          }
-        },
-        {
-          "client_id": "164143434825-namirco60b3fsrelqbc02ldo53velhu5.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.chimple.bahama",
-            "certificate_hash": "adda392a507e9ed37437ce639ddb9f5e81e86e71"
-          }
-        },
-        {
-          "client_id": "164143434825-os3st3n1of5rp2c9sr1spb1d31rskt78.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.chimple.bahama",
-            "certificate_hash": "a318ac160ce6682f0217912f9939bcb462b94603"
-          }
-        },
-        {
-          "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
+          "client_id": "646423738390-e33058h87c745oc860lab55v69hvcc6j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAcFIxMjbsvHJ0kNtAMXtYKzZXolt0D4fY"
+          "current_key": "AIzaSyCWx9vuE8Gd-3A-ASsbz7d5y13ux3pzuYE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:164143434825:android:b1fb95f23aafb4ec964398",
-        "android_client_info": {
-          "package_name": "org.chimple.malta.malta"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "164143434825-4mc7g9ltj85lf8fc4ed7kesrsp2oiss8.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.chimple.malta.malta",
-            "certificate_hash": "8ec0375f880abb6444f2fda890df03cde621844f"
-          }
-        },
-        {
-          "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAcFIxMjbsvHJ0kNtAMXtYKzZXolt0D4fY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:164143434825:android:5564e2a47bc068fb964398",
-        "android_client_info": {
-          "package_name": "org.chimple.maths_fr"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAcFIxMjbsvHJ0kNtAMXtYKzZXolt0D4fY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:164143434825:android:71010703dd1f75c5964398",
-        "android_client_info": {
-          "package_name": "org.cocos2d.demo"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAcFIxMjbsvHJ0kNtAMXtYKzZXolt0D4fY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
+              "client_id": "646423738390-e33058h87c745oc860lab55v69hvcc6j.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

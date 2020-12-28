@@ -82,6 +82,7 @@ cc.deep_link = function (url) {
                     })
                 }
                 try {
+                    cc.log('RECEIVED_TEACHER_REQUEST', JSON.stringify(data));
                     const jsonMessages: any[] = Util.removeDuplicateMessages(data, messageType);
                     UtilLogger.logChimpleEvent(RECEIVED_TEACHER_REQUEST, data);
                     cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
