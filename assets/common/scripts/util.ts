@@ -866,7 +866,8 @@ export class Util {
         if (!!data) {
             jsonMessages.push(data);
         }
-        jsonMessages = jsonMessages.filter((v, i, a) => a.findIndex(t => (t.id === v.id && t.sectionId === v.sectionId)) === i);
+        // jsonMessages = jsonMessages.filter((v, i, a) => a.findIndex(t => (t.id === v.id && t.sectionId === v.sectionId)) === i);
+        cc.log('teacher requests', JSON.stringify(jsonMessages));
         return jsonMessages;
     }
 

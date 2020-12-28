@@ -20,7 +20,6 @@ export default class Loading extends cc.Component {
     @property(Boolean)
     allowCancel: Boolean = false
 
-    delay: number = 3
     animate: boolean = true
 
     onLoad() {
@@ -41,15 +40,13 @@ export default class Loading extends cc.Component {
         this.messageLabel.string = ''
         this.messageLabel.node.active = false
         this.cancelBtn.active = false
-        this.scheduleOnce(() => {
-            this.cancelBtn.active = false && this.allowCancel.valueOf() //not using allowCancel
-            this.messageLabel.node.active = true
-            this.block.color = cc.Color.GRAY;
-            this.block.opacity = 128
-            if (this.animate) {
-                this.animation.active = true
-            }
-        }, this.delay);
+        this.cancelBtn.active = false && this.allowCancel.valueOf() //not using allowCancel
+        this.messageLabel.node.active = true
+        this.block.color = cc.Color.GRAY;
+        this.block.opacity = 128
+        if (this.animate) {
+            this.animation.active = true
+        }
     }
 
     addMessage(message: string, stopAnimation: boolean = true, replace: boolean = false) {

@@ -211,7 +211,7 @@ export default class Start extends cc.Component {
         try {
             const messageStr: string = cc.sys.localStorage.getItem(RECEIVED_TEACHER_REQUEST) || '[]';
             let messages: any[] = JSON.parse(messageStr);
-            messages = messages.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
+            cc.log("showTeacherDialog", messageStr);
             if (messages && messages.length > 0) {
                 const curMessage = messages.splice(0, 1)[0];
                 const name: string = curMessage[TEACHER_NAME_KEY];
@@ -224,7 +224,7 @@ export default class Start extends cc.Component {
                 const teacherRequestsAccepted = JSON.parse(cc.sys.localStorage.getItem(tKey) || '[]');
                 const buildLink = id + '|' + sectionId + '|' + addStudentId;
                 const linkUsed: boolean = teacherRequestsAccepted.includes(buildLink);
-
+                cc.log(`checking if received teacher request link ${buildLink}  is used ${linkUsed}`);
                 if (!!id && !!name && !!sectionId && !!addStudentId
                     && !linkUsed) {
                     const teacherDialog: cc.Node = cc.instantiate(this.teacherDialogPrefab);
