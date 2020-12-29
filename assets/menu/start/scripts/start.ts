@@ -89,7 +89,6 @@ export default class Start extends cc.Component {
         }
         const loadingComp = this.loading.getComponent(Loading)
         loadingComp.allowCancel = false
-        loadingComp.delay = 0
 
         this.homeButton.on('touchend', () => {
             this.drawer.active = true

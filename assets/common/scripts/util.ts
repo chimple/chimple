@@ -922,7 +922,6 @@ export class Util {
 
     static preloadStartScene(node: cc.Node, loading: cc.Node) {
         const loadingComp = loading.getComponent(Loading)
-        loadingComp.delay = 0
         loadingComp.allowCancel = false
 
         loading.active = true
