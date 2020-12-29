@@ -7,7 +7,7 @@ import {GAME_CONFIGS} from "./gameConfigs";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
-export const COURSES = ['en', 'en-maths', 'hi', 'hi-maths', 'ur', 'ur-maths'];
+export const COURSES = ['en', 'en-maths', 'hi', 'hi-maths', 'ur', 'ur-maths','fr','fr-maths'];
 
 export enum Flow {
     Default,
@@ -38,6 +38,7 @@ const RTL_COURSES = ['ur', 'ur-maths'];
 export enum Lang {
     ENGLISH = 'en',
     HINDI = 'hi',
+    FRENCH='fr',
 }
 
 export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI];
@@ -51,7 +52,8 @@ export class LangConfig {
 
 export const LANG_CONFIGS = new Map<Lang, LangConfig>([
     [Lang.ENGLISH, { 'font': 'en-main', 'displayName': 'English', 'symbol': 'A', 'colorCode': '#FFBC00' }],
-    [Lang.HINDI, { 'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7' }]
+    [Lang.HINDI, { 'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7' }],
+    [Lang.FRENCH, { 'font': 'fr-main', 'displayName': 'French', 'symbol': 'a', 'colorCode': '#FFBC00' }]
 ])
 
 export class World {
