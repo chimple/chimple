@@ -94,6 +94,9 @@ export default class Start extends cc.Component {
             this.drawer.active = true
         })
         const config = Config.i
+        if(!config.course) {
+            config.course = config.curriculum.values().next().value
+        }
         const startAction = config.startAction
         user.curriculumLoaded
             ? this.initPage()
@@ -141,26 +144,33 @@ export default class Start extends cc.Component {
         // drawerComp.onCourseClick = this.onCourseClick.bind(this);
         const user = User.getCurrentUser()
         const now = new Date()
-        const currentLessonInPlan = user.lessonPlan[Math.floor(user.lessonPlan.length / 2)]
-        if (currentLessonInPlan.length > 1
-            && user.lessonPlanDate
-            && user.lessonPlanDate.getDate() == now.getDate()
-            && user.lessonPlanDate.getMonth() == now.getMonth()
-            && user.lessonPlanDate.getFullYear() == now.getFullYear()
-        ) {
+        // const currentLessonInPlan = user.lessonPlan[Math.floor(user.lessonPlan.length / 2)]
+        // if (currentLessonInPlan.length > 1
+        //     && user.lessonPlanDate
+        //     && user.lessonPlanDate.getDate() == now.getDate()
+        //     && user.lessonPlanDate.getMonth() == now.getMonth()
+        //     && user.lessonPlanDate.getFullYear() == now.getFullYear())
+        const config = Config.i
+        const courseProgressMap = user.courseProgressMap.get(config.course.id)
+        if(courseProgressMap.lessonPlan 
+            && courseProgressMap.lessonPlanIndex < courseProgressMap.lessonPlan.length)
+        {
             this.displayLessonPlan()
         } else {
-            const courses = Array.from(user.courseProgressMap.keys())
-                .sort((a, b) =>
-                    user.courseProgressMap.get(a).date.getTime() - user.courseProgressMap.get(b).date.getTime()
-                )
-            const courseId = courses[0]
-            const lessons = this.createLessonPlan(courseId)
-            user.lessonPlanCourseId = courseId
-            const start = currentLessonInPlan == 'r' ? 1 : 0
-            user.lessonPlan[Math.floor(user.lessonPlan.length / 2) + start] = lessons[0].id
-            user.lessonPlan[Math.floor(user.lessonPlan.length / 2) + start + 1] = lessons[1].id
-            user.lessonPlanDate = now
+            // const courses = Array.from(user.courseProgressMap.keys())
+            //     .sort((a, b) =>
+            //         user.courseProgressMap.get(a).date.getTime() - user.courseProgressMap.get(b).date.getTime()
+            //     )
+            // const courseId = courses[0]
+            const lessons = this.createLessonPlan(config.course.id)
+            courseProgressMap.lessonPlan = lessons.map((l) => l.id)
+            courseProgressMap.lessonPlanIndex = 0
+            courseProgressMap.lessonPlanDate = now
+            // user.lessonPlanCourseId = courseId
+            // const start = currentLessonInPlan == 'r' ? 1 : 0
+            // user.lessonPlan[Math.floor(user.lessonPlan.length / 2) + start] = lessons[0].id
+            // user.lessonPlan[Math.floor(user.lessonPlan.length / 2) + start + 1] = lessons[1].id
+            // user.lessonPlanDate = now
             this.displayLessonPlan()
         }
         this.loading.active = false;
@@ -291,125 +301,131 @@ export default class Start extends cc.Component {
         this.ctx.moveTo(x1, y1)
         this.ctx.bezierCurveTo(x2, y2, x3, y3, x4, y4)
         this.ctx.stroke()
-        const midIndex = Math.floor(user.lessonPlan.length / 2)
-        var posIndex = 0
-        user.lessonPlan.forEach((lessonId, index, lessons) => {
-            const node: cc.Node = lessonId == ''
-                ? new cc.Node()
-                : lessonId == 'r'
-                    ? cc.instantiate(this.giftBoxPrefab)
-                    : lessonId.length == 1
-                        ? cc.instantiate(this.giftBoxPrefab)
-                        : Start.createLessonButton(
+        // const midIndex = Math.floor(user.lessonPlan.length / 2)
+        // var posIndex = 0
+        const courseProgressMap = user.courseProgressMap.get(Config.i.course.id);
+        courseProgressMap.lessonPlan.forEach((lessonId, index, lessons) => {
+            const node: cc.Node = Start.createLessonButton(
                             lessonId.endsWith('_PreQuiz')
                                 ? Start.preQuizLesson(Config.i.curriculum.get(lessonId.split('_')[0]))
                                 : Config.i.allLessons.get(lessonId),
                             this.lessonButtonPrefab,
                             this.loading,
-                            index == midIndex)
+                            index <= courseProgressMap.lessonPlanIndex)
 
-            if (index == midIndex) {
-                posIndex += 2
-            }
-            const t = -0.2 + posIndex / (lessons.length + 4 - 1) * 1.4
-            if (index == midIndex) {
-                posIndex += 2
-            } else {
-                node.scale = 0.4
-            }
-            posIndex++
+            // if (index == midIndex) {
+            //     posIndex += 2
+            // }
+            // const t = -0.2 + posIndex / (lessons.length + 4 - 1) * 1.4
+            // if (index == midIndex) {
+            //     posIndex += 2
+            // } else {
+            //     node.scale = 0.4
+            // }
+            // posIndex++
+            const t = index / lessons.length
             node.x = Math.pow(1 - t, 3) * x1 + 3 * Math.pow(1 - t, 2) * t * x2 + 3 * (1 - t) * Math.pow(t, 2) * x3 + Math.pow(t, 3) * x4
             node.y = Math.pow(1 - t, 3) * y1 + 3 * Math.pow(1 - t, 2) * t * y2 + 3 * (1 - t) * Math.pow(t, 2) * y3 + Math.pow(t, 3) * y4
             this.content.addChild(node)
-            if (index == midIndex && lessonId == 'r') {
-                this.scheduleOnce(() => {
-                    const anim = node.getComponent(cc.Animation)
-                    anim.play()
-                }, 2)
-                const rewardItem = Util.unlockNextReward()
-                user.pushNewLessonPlaceholder()
-                if (rewardItem) {
-                    const splitItems = rewardItem.split('-')
-                    var rewardSpriteFrame = ''
-                    if (splitItems[0] == REWARD_TYPES[0]) {
-                        rewardSpriteFrame = 'char_icons/' + splitItems[1] + '_icon'
-                    } else if (splitItems[0] == REWARD_TYPES[1]) {
-                        rewardSpriteFrame = 'backgrounds/textures/bg_icons/background-' + splitItems[1]
-                    } else if (splitItems[0] == REWARD_TYPES[2]) {
-
-                    } else if (splitItems[0] == REWARD_TYPES[3]) {
-                        rewardSpriteFrame = INVENTORY_ICONS[splitItems[2]] + splitItems[3]
-                    }
-                    cc.resources.load(rewardSpriteFrame, cc.SpriteFrame, (err, spriteFrame) => {
-                        const rewardIcon = new cc.Node()
-                        rewardIcon.y = 100
-                        rewardIcon.scale = 0
-                        const sprite = rewardIcon.addComponent(cc.Sprite)
-                        // @ts-ignore
-                        sprite.spriteFrame = spriteFrame
-                        node.addChild(rewardIcon)
-                        new cc.Tween().target(rewardIcon)
-                            .delay(4)
-                            .to(0.5, { scale: 1, y: 200 }, null)
-                            .delay(2)
-                            .to(0.5,
-                                { scale: 0.1, position: node.parent.convertToNodeSpaceAR(cc.v3(cc.winSize.width - 64, cc.winSize.height - 32)) },
-                                null)
-                            .delay(0.5)
-                            .call(() => {
-                                if (splitItems[0] == REWARD_TYPES[0]) {
-                                    user.currentCharacter = splitItems[1]
-                                } else if (splitItems[0] == REWARD_TYPES[1]) {
-                                    user.currentBg = splitItems[1]
-                                } else if (splitItems[0] == REWARD_TYPES[2]) {
-
-                                } else if (splitItems[0] == REWARD_TYPES[3]) {
-                                    const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2])
-                                    user.updateInventory(`${splitItems[1]}-${splitItems[2]}`, splitItems[3]);
-                                    Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2])
-                                }
-                                rewardIcon.opacity = 0
-                            })
-                            .delay(1)
-                            .call(() => {
-                                this.displayLessonPlan()
-                            })
-                            .start()
-                    })
-                } else {
-                    this.scheduleOnce(() => {
-                        this.displayLessonPlan()
-                    }, 4)
-                }
+            if(index == courseProgressMap.lessonPlanIndex) {
+                const currentLessonNode = new cc.Node()
+                const clSprite = currentLessonNode.addComponent(cc.Sprite)
+                clSprite.spriteFrame = this.currentLesson
+                node.addChild(currentLessonNode)
             }
         })
-        if (Config.i.startAction == StartAction.MoveLessonPlan) {
-            this.content.children.forEach((node: cc.Node, index: number, children: cc.Node[]) => {
-                if (index + 1 < children.length && index > 0) {
-                    const pos = node.position.clone()
-                    node.position = children[index + 1].position.clone()
-                    if (index == Math.floor(user.lessonPlan.length / 2)) {
-                        node.scale = 0.4
-                        new cc.Tween().target(node)
-                            .to(0.5, { position: pos, scale: 1 }, null)
-                            .start()
-                    } else if (index == Math.floor(user.lessonPlan.length / 2) - 1) {
-                        node.scale = 1
-                        new cc.Tween().target(node)
-                            .to(0.5, { position: pos, scale: 0.4 }, null)
-                            .start()
-                    } else {
-                        new cc.Tween().target(node)
-                            .to(0.5, { position: pos }, null)
-                            .start()
-                    }
-                }
-            })
-        }
-        if (user.lessonPlan[midIndex] == 'r') {
-        }
+        // if (Config.i.startAction == StartAction.MoveLessonPlan) {
+        //     this.content.children.forEach((node: cc.Node, index: number, children: cc.Node[]) => {
+        //         if (index + 1 < children.length && index > 0) {
+        //             const pos = node.position.clone()
+        //             node.position = children[index + 1].position.clone()
+        //             if (index == Math.floor(user.lessonPlan.length / 2)) {
+        //                 node.scale = 0.4
+        //                 new cc.Tween().target(node)
+        //                     .to(0.5, { position: pos, scale: 1 }, null)
+        //                     .start()
+        //             } else if (index == Math.floor(user.lessonPlan.length / 2) - 1) {
+        //                 node.scale = 1
+        //                 new cc.Tween().target(node)
+        //                     .to(0.5, { position: pos, scale: 0.4 }, null)
+        //                     .start()
+        //             } else {
+        //                 new cc.Tween().target(node)
+        //                     .to(0.5, { position: pos }, null)
+        //                     .start()
+        //             }
+        //         }
+        //     })
+        // }
+        // if (user.lessonPlan[midIndex] == 'r') {
+        // }
         Config.i.startAction = StartAction.Default
 
+    }
+
+    private giveReward(node: cc.Node, user: User) {
+        this.scheduleOnce(() => {
+            const anim = node.getComponent(cc.Animation);
+            anim.play();
+        }, 2);
+        const rewardItem = Util.unlockNextReward();
+        // user.pushNewLessonPlaceholder();
+        if (rewardItem) {
+            const splitItems = rewardItem.split('-');
+            var rewardSpriteFrame = '';
+            if (splitItems[0] == REWARD_TYPES[0]) {
+                rewardSpriteFrame = 'char_icons/' + splitItems[1] + '_icon';
+            }
+            else if (splitItems[0] == REWARD_TYPES[1]) {
+                rewardSpriteFrame = 'backgrounds/textures/bg_icons/background-' + splitItems[1];
+            }
+            else if (splitItems[0] == REWARD_TYPES[2]) {
+            }
+            else if (splitItems[0] == REWARD_TYPES[3]) {
+                rewardSpriteFrame = INVENTORY_ICONS[splitItems[2]] + splitItems[3];
+            }
+            cc.resources.load(rewardSpriteFrame, cc.SpriteFrame, (err, spriteFrame) => {
+                const rewardIcon = new cc.Node();
+                rewardIcon.y = 100;
+                rewardIcon.scale = 0;
+                const sprite = rewardIcon.addComponent(cc.Sprite);
+                // @ts-ignore
+                sprite.spriteFrame = spriteFrame;
+                node.addChild(rewardIcon);
+                new cc.Tween().target(rewardIcon)
+                    .delay(4)
+                    .to(0.5, { scale: 1, y: 200 }, null)
+                    .delay(2)
+                    .to(0.5, { scale: 0.1, position: node.parent.convertToNodeSpaceAR(cc.v3(cc.winSize.width - 64, cc.winSize.height - 32)) }, null)
+                    .delay(0.5)
+                    .call(() => {
+                        if (splitItems[0] == REWARD_TYPES[0]) {
+                            user.currentCharacter = splitItems[1];
+                        }
+                        else if (splitItems[0] == REWARD_TYPES[1]) {
+                            user.currentBg = splitItems[1];
+                        }
+                        else if (splitItems[0] == REWARD_TYPES[2]) {
+                        }
+                        else if (splitItems[0] == REWARD_TYPES[3]) {
+                            const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2]);
+                            user.updateInventory(`${splitItems[1]}-${splitItems[2]}`, splitItems[3]);
+                            Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2]);
+                        }
+                        rewardIcon.opacity = 0;
+                    })
+                    .delay(1)
+                    .call(() => {
+                        this.displayLessonPlan();
+                    })
+                    .start();
+            });
+        }
+        else {
+            this.scheduleOnce(() => {
+                this.displayLessonPlan();
+            }, 4);
+        }
     }
 
     // async addAssignmentsToLessonPlan() {

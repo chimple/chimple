@@ -44,6 +44,9 @@ export interface CourseProgress {
     currentChapterId: string;
     date?: Date;
     assignments?: string[];
+    lessonPlan?: string[];
+    lessonPlanIndex?: number;
+    lessonPlanDate?: Date;
 
     updateChapterId(c: string);
 }
@@ -54,6 +57,7 @@ export class CourseProgressClass implements CourseProgress {
     assignments: string[]
     lessonPlan: string[]
     lessonPlanIndex: number
+    lessonPlanDate: Date
 
     constructor(currentChapterId: string = null) {
         this.currentChapterId = currentChapterId
@@ -114,11 +118,11 @@ export class User {
     private _unlockedRewards: object;
     private _isTeacher: boolean;
     private _level: number;
-    private _lessonPlanDate: Date
-    private _lessonPlan: string[]
-    private _lessonPlanIndex: number
+    // private _lessonPlanDate: Date
+    // private _lessonPlan: string[]
+    // private _lessonPlanIndex: number
+    // private _lessonPlanCourseId: string
     private _assignments: string[]
-    private _lessonPlanCourseId: string
     debug: boolean = false
     curriculumLoaded: boolean = false
 
@@ -163,9 +167,9 @@ export class User {
         this._genderEvent(gender);
         this.debug = debug
         this._serverId = serverId
-        this._lessonPlan = lessonPlan
         this._assignments = []
-        this._lessonPlanCourseId = courseProgressMap.keys().next().value
+        // this._lessonPlan = lessonPlan
+        // this._lessonPlanCourseId = courseProgressMap.keys().next().value
     }
 
     _genderEvent(gender: Gender) {
@@ -318,24 +322,6 @@ export class User {
         this._storeUser();
     }
 
-    set lessonPlan(lessonPlan: string[]) {
-        this._lessonPlan = lessonPlan
-        this._storeUser();
-    }
-
-    get lessonPlan(): string[] {
-        return this._lessonPlan
-    }
-
-    set lessonPlanDate(lessonPlanDate: Date) {
-        this._lessonPlanDate = lessonPlanDate;
-        this._storeUser();
-    }
-
-    get lessonPlanDate(): Date {
-        return this._lessonPlanDate;
-    }
-
     set assignments(assignments: string[]) {
         this._assignments = assignments;
         this._storeUser();
@@ -345,14 +331,32 @@ export class User {
         return this._assignments;
     }
 
-    set lessonPlanCourseId(lessonPlanCourseId: string) {
-        this._lessonPlanCourseId = lessonPlanCourseId;
-        this._storeUser();
-    }
+    // set lessonPlan(lessonPlan: string[]) {
+    //     this._lessonPlan = lessonPlan
+    //     this._storeUser();
+    // }
 
-    get lessonPlanCourseId(): string {
-        return this._lessonPlanCourseId;
-    }
+    // get lessonPlan(): string[] {
+    //     return this._lessonPlan
+    // }
+
+    // set lessonPlanDate(lessonPlanDate: Date) {
+    //     this._lessonPlanDate = lessonPlanDate;
+    //     this._storeUser();
+    // }
+
+    // get lessonPlanDate(): Date {
+    //     return this._lessonPlanDate;
+    // }
+
+    // set lessonPlanCourseId(lessonPlanCourseId: string) {
+    //     this._lessonPlanCourseId = lessonPlanCourseId;
+    //     this._storeUser();
+    // }
+
+    // get lessonPlanCourseId(): string {
+    //     return this._lessonPlanCourseId;
+    // }
 
     unlockInventoryForItem(item: string) {
         this._unlockedInventory[item] = true;
@@ -482,10 +486,15 @@ export class User {
                 }
             }
         }
-        if (this.lessonPlan
-            && this.lessonPlan[Math.floor(this.lessonPlan.length / 2)] == config.lesson.id
-        ) {
-            this.pushNewLessonPlaceholder();
+        // if (this.lessonPlan
+        //     && this.lessonPlan[Math.floor(this.lessonPlan.length / 2)] == config.lesson.id
+        // ) {
+        //     this.pushNewLessonPlaceholder();
+        // }
+        const lessonPlan = this.courseProgressMap.get(config.course.id).lessonPlan
+        if (lessonPlan && lessonPlan[this.courseProgressMap.get(config.course.id).lessonPlanIndex] == config.lesson.id) {
+            this.courseProgressMap.get(config.course.id).lessonPlanIndex++
+            Config.i.startAction = StartAction.MoveLessonPlan;
         }
         if (this.assignments) {
             const index = this.assignments.indexOf(config.lesson.id)
@@ -519,12 +528,12 @@ export class User {
         return reward
     }
 
-    pushNewLessonPlaceholder() {
-        this.lessonPlan.splice(0, 1);
-        this.lessonPlan.push(this.lessonPlan[this.lessonPlan.length - 3]);
-        Config.i.startAction = StartAction.MoveLessonPlan;
-        this._storeUser()
-    }
+    // pushNewLessonPlaceholder() {
+    //     this.lessonPlan.splice(0, 1);
+    //     this.lessonPlan.push(this.lessonPlan[this.lessonPlan.length - 3]);
+    //     Config.i.startAction = StartAction.MoveLessonPlan;
+    //     this._storeUser()
+    // }
 
     private _storeUser() {
         User.storeUser(this);
@@ -659,6 +668,9 @@ export class User {
             cp.assignments = cpData.assignments
             cp.lessonPlan = cpData.lessonPlan
             cp.lessonPlanIndex = cpData.lessonPlanIndex
+            if(cp.lessonPlanDate) {
+                cpData.lessonPlanDate = new Date(cp.lessonPlanDate)
+            }
             courseProgressMap.set(key, cp);
         }
         const lessonProgressMap = new Map<string, LessonProgress>();
@@ -691,8 +703,8 @@ export class User {
             data.lessonPlan,
             data.serverId
         );
-        user._lessonPlanDate = new Date(data.lessonPlanDate)
-        if (data.lessonPlanCourseId) user._lessonPlanCourseId = data.lessonPlanCourseId
+        // user._lessonPlanDate = new Date(data.lessonPlanDate)
+        // if (data.lessonPlanCourseId) user._lessonPlanCourseId = data.lessonPlanCourseId
         if (data.assignments) user._assignments = data.assignments
         return user;
     }
@@ -727,9 +739,9 @@ export class User {
             'unlockedRewards': user.unlockedRewards,
             'debug': user.debug,
             'serverId': user.serverId,
-            'lessonPlanCourseId': user.lessonPlanCourseId,
-            'lessonPlanDate': user.lessonPlanDate,
-            'lessonPlan': user.lessonPlan,
+            // 'lessonPlanCourseId': user.lessonPlanCourseId,
+            // 'lessonPlanDate': user.lessonPlanDate,
+            // 'lessonPlan': user.lessonPlan,
             'assignments': user.assignments,
             'chapterFinishedMap': chapterFinishedMapObj
         });
