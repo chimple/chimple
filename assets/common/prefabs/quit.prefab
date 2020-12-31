@@ -192,7 +192,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        198.675,
+        182.675,
         144.627,
         0,
         0,
@@ -291,8 +291,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 176,
-      "height": 57
+      "width": 171,
+      "height": 59
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -509,8 +509,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 176,
-      "height": 57
+      "width": 171,
+      "height": 59
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -818,7 +818,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "EXIT?",
     "_N$string": "EXIT?",
     "_fontSize": 40,
@@ -875,7 +874,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 104.51,
+      "width": 97.87,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -887,7 +886,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        198.138,
+        180.138,
         97.525,
         0,
         0,
@@ -927,9 +926,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
-    "_string": "Help?",
-    "_N$string": "Help?",
+    "_string": "help?",
+    "_N$string": "help?",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -965,7 +963,7 @@
     "asset": {
       "__uuid__": "f9d14c1c-88bd-4f67-a0fb-15f675f31b2b"
     },
-    "fileId": "ffTaK4aJFPfa0dchGVVC8H",
+    "fileId": "",
     "sync": false
   }
 ]
