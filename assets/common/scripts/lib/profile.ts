@@ -42,6 +42,7 @@ export interface UserAttribute {
 
 export interface CourseProgress {
     currentChapterId: string;
+    currentLessonId: string;
     date?: Date;
     assignments?: string[];
     lessonPlan?: string[];
@@ -53,6 +54,7 @@ export interface CourseProgress {
 
 export class CourseProgressClass implements CourseProgress {
     currentChapterId: string
+    currentLessonId: string
     date: Date
     assignments: string[]
     lessonPlan: string[]
@@ -468,6 +470,8 @@ export class User {
                 })
                 if (lessons.length > lessonIndex + 1) {
                     const nextLesson = lessons[lessonIndex + 1]
+                    const cpm = this.courseProgressMap.get(config.course.id)
+                    cpm.currentLessonId = nextLesson.id
                     if (!this._lessonProgressMap.has(nextLesson.id)) {
                         this._lessonProgressMap.set(nextLesson.id, new LessonProgressClass(-1));
                     }
@@ -664,6 +668,7 @@ export class User {
         for (const key in data.courseProgressMap) {
             const cpData = data.courseProgressMap[key]
             const cp = new CourseProgressClass(cpData.currentChapterId)
+            cp.currentLessonId = cpData.currentLessonId
             cp.date = new Date(cpData.date)
             cp.assignments = cpData.assignments
             cp.lessonPlan = cpData.lessonPlan

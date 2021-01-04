@@ -7,13 +7,13 @@ import {
     TEACHER_SECTION_ID
 } from "../../../chimple";
 import Friend from "../../../common/scripts/friend";
-import Config, {StartAction} from "../../../common/scripts/lib/config";
-import {EXAM, MIN_PASS} from "../../../common/scripts/lib/constants";
-import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
-import {User} from "../../../common/scripts/lib/profile";
+import Config, { StartAction } from "../../../common/scripts/lib/config";
+import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
+import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
+import { User } from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
-import {ServiceConfig} from "../../../common/scripts/services/ServiceConfig";
-import TeacherAddedDialog, {TEACHER_ADD_DIALOG_CLOSED} from "../../../common/scripts/teacherAddedDialog";
+import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
+import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
 import {
     INVENTORY_ANIMATIONS,
     INVENTORY_ICONS,
@@ -94,7 +94,7 @@ export default class Start extends cc.Component {
             this.drawer.active = true
         })
         const config = Config.i
-        if(!config.course) {
+        if (!config.course) {
             config.course = config.curriculum.values().next().value
         }
         const startAction = config.startAction
@@ -152,9 +152,8 @@ export default class Start extends cc.Component {
         //     && user.lessonPlanDate.getFullYear() == now.getFullYear())
         const config = Config.i
         const courseProgressMap = user.courseProgressMap.get(config.course.id)
-        if(courseProgressMap.lessonPlan 
-            && courseProgressMap.lessonPlanIndex < courseProgressMap.lessonPlan.length)
-        {
+        if (courseProgressMap.lessonPlan
+            && courseProgressMap.lessonPlanIndex < courseProgressMap.lessonPlan.length) {
             this.displayLessonPlan()
         } else {
             // const courses = Array.from(user.courseProgressMap.keys())
@@ -260,42 +259,46 @@ export default class Start extends cc.Component {
 
     createLessonPlan(courseId: string): Lesson[] {
         const user = User.getCurrentUser()
-        const lessons: Array<Lesson> = []
         const courseProgress = user.courseProgressMap.get(courseId)
         const course = Config.i.curriculum.get(courseId)
         if (courseProgress.currentChapterId) {
-            course.chapters.forEach((chapter: Chapter, index: number) => {
-                if (chapter.id == courseProgress.currentChapterId) {
-                    // get reco lesson in current chapter
-                    lessons.push(this.recommendedLessonInChapter(chapter))
-
-                    const last3Chapters: Chapter[] = Util.shuffleByMapSortMap(course.chapters.slice(Math.max(0, index - 3), index))
-                    if (last3Chapters.length > 0) {
-                        // get reco lesson in random past 3 chapters
-                        lessons.push(this.recommendedLessonInChapter(last3Chapters[0]))
-                    } else if (index + 1 < course.chapters.length) {
-                        // or if in first chapter, get reco lesson from next chapter
-                        lessons.push(this.recommendedLessonInChapter(course.chapters[index + 1]))
-                    }
+            const currentChapter = course.chapters.find((chapter: Chapter) => chapter.id == courseProgress.currentChapterId)
+            if (!courseProgress.currentLessonId) {
+                courseProgress.currentLessonId = currentChapter.lessons[0].id
+            }
+            let foundCurrentChapter = false
+            let foundChallenge = false
+            return currentChapter.lessons.filter((lesson: Lesson) => {
+                if (!foundCurrentChapter && lesson.id == courseProgress.currentLessonId) {
+                    foundCurrentChapter = true
                 }
+                if (foundCurrentChapter && !foundChallenge) {
+                    if (!foundChallenge && lesson.type == EXAM) {
+                        foundChallenge = true
+                    }
+                    return true
+                }
+                return false
             })
         } else {
+            const lessons: Array<Lesson> = []
             lessons.push(Start.preQuizLesson(course))
             lessons.push(course.chapters[1].lessons[0])
+            return lessons
         }
-        return lessons
     }
 
     displayLessonPlan() {
         const user = User.getCurrentUser()
-        const x1 = -cc.winSize.width / 2
-        const y1 = -254
-        const x2 = cc.winSize.width / 4
-        const y2 = -254
-        const x3 = -cc.winSize.width / 4
-        const y3 = 254
-        const x4 = cc.winSize.width / 2
-        const y4 = 254
+        const planWidth = cc.winSize.width - 128
+        const x1 = -planWidth / 2
+        const y1 = -172
+        const x2 = planWidth / 4
+        const y2 = -172
+        const x3 = -planWidth / 4
+        const y3 = 172
+        const x4 = planWidth / 2
+        const y4 = 172
 
         this.content.removeAllChildren()
         this.ctx.moveTo(x1, y1)
@@ -306,12 +309,12 @@ export default class Start extends cc.Component {
         const courseProgressMap = user.courseProgressMap.get(Config.i.course.id);
         courseProgressMap.lessonPlan.forEach((lessonId, index, lessons) => {
             const node: cc.Node = Start.createLessonButton(
-                            lessonId.endsWith('_PreQuiz')
-                                ? Start.preQuizLesson(Config.i.curriculum.get(lessonId.split('_')[0]))
-                                : Config.i.allLessons.get(lessonId),
-                            this.lessonButtonPrefab,
-                            this.loading,
-                            index <= courseProgressMap.lessonPlanIndex)
+                lessonId.endsWith('_PreQuiz')
+                    ? Start.preQuizLesson(Config.i.curriculum.get(lessonId.split('_')[0]))
+                    : Config.i.allLessons.get(lessonId),
+                this.lessonButtonPrefab,
+                this.loading,
+                index <= courseProgressMap.lessonPlanIndex)
 
             // if (index == midIndex) {
             //     posIndex += 2
@@ -326,14 +329,32 @@ export default class Start extends cc.Component {
             const t = index / lessons.length
             node.x = Math.pow(1 - t, 3) * x1 + 3 * Math.pow(1 - t, 2) * t * x2 + 3 * (1 - t) * Math.pow(t, 2) * x3 + Math.pow(t, 3) * x4
             node.y = Math.pow(1 - t, 3) * y1 + 3 * Math.pow(1 - t, 2) * t * y2 + 3 * (1 - t) * Math.pow(t, 2) * y3 + Math.pow(t, 3) * y4
+            node.scale = 0.4
             this.content.addChild(node)
-            if(index == courseProgressMap.lessonPlanIndex) {
+            if (index == courseProgressMap.lessonPlanIndex) {
                 const currentLessonNode = new cc.Node()
                 const clSprite = currentLessonNode.addComponent(cc.Sprite)
                 clSprite.spriteFrame = this.currentLesson
+                currentLessonNode.y = 300
+                currentLessonNode.scale = 2
                 node.addChild(currentLessonNode)
+                if (Config.i.startAction == StartAction.MoveLessonPlan && index > 0) {
+                    const prevNode = this.content.children[index - 1]
+                    const currentPos = currentLessonNode.position.clone()
+                    currentLessonNode.position = node.convertToNodeSpaceAR(prevNode.convertToWorldSpaceAR(cc.v3(0, 300, 0)))
+                    currentLessonNode.runAction(cc.bezierTo(1, [
+                        cc.v2(currentLessonNode.position.x, currentPos.y + 200),
+                        cc.v2(currentPos.x, currentPos.y + 100),
+                        cc.v2(currentPos)
+                    ]))
+                }
             }
         })
+        const gift = cc.instantiate(this.giftBoxPrefab)
+        gift.x = Math.pow(1 - 1, 3) * x1 + 3 * Math.pow(1 - 1, 2) * 1 * x2 + 3 * (1 - 1) * Math.pow(1, 2) * x3 + Math.pow(1, 3) * x4
+        gift.y = Math.pow(1 - 1, 3) * y1 + 3 * Math.pow(1 - 1, 2) * 1 * y2 + 3 * (1 - 1) * Math.pow(1, 2) * y3 + Math.pow(1, 3) * y4
+        this.content.addChild(gift)
+
         // if (Config.i.startAction == StartAction.MoveLessonPlan) {
         //     this.content.children.forEach((node: cc.Node, index: number, children: cc.Node[]) => {
         //         if (index + 1 < children.length && index > 0) {
