@@ -1,33 +1,121 @@
 {
   "project_info": {
-    "project_number": "646423738390",
-    "project_id": "chimple-demo",
-    "storage_bucket": "chimple-demo.appspot.com"
+    "project_number": "105857221433",
+    "firebase_url": "https://bahama-stage.firebaseio.com",
+    "project_id": "bahama-stage",
+    "storage_bucket": "bahama-stage.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:646423738390:android:d8941a525d9f2983875d37",
+        "mobilesdk_app_id": "1:105857221433:android:ee3d192f7b7dd88070dee8",
         "android_client_info": {
-          "package_name": "org.chimple.bahama"
+          "package_name": "com.firebase.messaging.demo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "646423738390-e33058h87c745oc860lab55v69hvcc6j.apps.googleusercontent.com",
+          "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCWx9vuE8Gd-3A-ASsbz7d5y13ux3pzuYE"
+          "current_key": "AIzaSyCH82wcawju_XAiibL6QKTpq-lGXahCGx8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "646423738390-e33058h87c745oc860lab55v69hvcc6j.apps.googleusercontent.com",
+              "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105857221433:android:610de84cef1e275770dee8",
+        "android_client_info": {
+          "package_name": "org.chimple.bahama"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH82wcawju_XAiibL6QKTpq-lGXahCGx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105857221433:android:1f06e6ff01c1018570dee8",
+        "android_client_info": {
+          "package_name": "org.chimple.bahamasw"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH82wcawju_XAiibL6QKTpq-lGXahCGx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105857221433:android:e51c212465234ec070dee8",
+        "android_client_info": {
+          "package_name": "org.chimple.malta.malta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH82wcawju_XAiibL6QKTpq-lGXahCGx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
