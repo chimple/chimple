@@ -121,6 +121,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105857221433:android:d80c5224a087b77970dee8",
+        "android_client_info": {
+          "package_name": "org.chimple.maths_fr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH82wcawju_XAiibL6QKTpq-lGXahCGx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
