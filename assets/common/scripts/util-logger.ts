@@ -50,6 +50,10 @@ const REQUEST_OTP_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
 const VERIFY_OTP_METHOD = "verifyOtp";
 const VERIFY_OTP_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
 
+const INITIALIZED = "init";
+const INITIALIZED_MEHTOD_SIGNATURE = "()V";
+
+
 const USER_ID = "userId";
 const DEVICE_ID = "deviceId";
 const TIMESTAMP = "timeStamp";
@@ -140,7 +144,7 @@ export default class UtilLogger {
                     UtilLogger.firebase.analytics().logEvent(key, data);
                 })();
             } else {
-                UtilLogger.firebase ? UtilLogger.firebase.analytics().logEvent(key, data): '';
+                UtilLogger.firebase ? UtilLogger.firebase.analytics().logEvent(key, data) : '';
             }
         }
     }
@@ -290,6 +294,23 @@ export default class UtilLogger {
                 );
             }
             return false;
+        } catch (e) {
+        }
+    }
+
+    public static init(): void {
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID
+            ) {
+                cc.log("calling init");
+                return jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    INITIALIZED,
+                    INITIALIZED_MEHTOD_SIGNATURE
+                );
+            }
         } catch (e) {
         }
     }

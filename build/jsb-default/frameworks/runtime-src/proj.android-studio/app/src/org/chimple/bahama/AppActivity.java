@@ -30,7 +30,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
@@ -43,7 +42,6 @@ import android.os.Looper;
 import android.os.Parcelable;
 import android.os.RemoteException;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -117,6 +115,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     public static AppActivity app = null;
     private CountDownTimer repeatHandShakeTimer = null;
     private static final int REPEAT_HANDSHAKE_TIMER = 1 * 30 * 1000; // 30 second
+    private static final int IMMEDIATE_HANDSHAKE_TIMER = 1 * 1000; // 5 second
 
     private FirebaseAuth mAuth = null;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = null;
@@ -188,9 +187,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             }
         }.start();
 
-        //Deep Links
-        this.processDeepLink();
-
         // OTP integration
         initFireBaseAuthLoginUsingOTP();
     }
@@ -205,17 +201,17 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             Log.d(TAG, "deep link action:" + action);
             Log.d(TAG, "deep link uri:" + uri);
             if (uri != null && action != null && action.equalsIgnoreCase("android.intent.action.VIEW")) {
-                this.createOneTimeHandShakeTimer(uri.toString());
+                this.processDeepLinkAction(uri.toString());
             }
         }
     }
-    
+
     public static void shareText(final String text) {
         app.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);  // instead of Intent.ACTION_SEND
-	            sendIntent.setType("text/plain");
+                sendIntent.setType("text/plain");
 
                 List<Intent> targetedShareIntents = new ArrayList<Intent>();
                 List<ResolveInfo> resInfo = getContext().getPackageManager().queryIntentActivities(sendIntent, 0);
@@ -225,16 +221,15 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                     targetedShareIntent.setType("text/plain");
                     targetedShareIntent.putExtra(android.content.Intent.EXTRA_TEXT, text);
                     targetedShareIntent.setPackage(packageName);
-                    if(packageName.equals("com.whatsapp")){
-                        targetedShareIntents.add(1,targetedShareIntent);
-                    }
-                    else{
+                    if (packageName.equals("com.whatsapp")) {
+                        targetedShareIntents.add(1, targetedShareIntent);
+                    } else {
                         targetedShareIntents.add(targetedShareIntent);
                     }
                 }
                 Intent shareIntent = Intent.createChooser(targetedShareIntents.remove(0), "Share Chimple Learning App");
                 shareIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
-                app.startActivityForResult(shareIntent,SEND_CODE);
+                app.startActivityForResult(shareIntent, SEND_CODE);
             }
         });
     }
@@ -244,7 +239,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationFailed(FirebaseException e) {
-            //    Toast.makeText(AppActivity.this, "verification failed", Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(AppActivity.this, "verification failed", Toast.LENGTH_SHORT).show();
                 Log.d("FirebaseException", e.toString());
             }
 
@@ -258,7 +253,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             public void onCodeSent(String verificationId,
                                    PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                 super.onCodeSent(verificationId, forceResendingToken);
-              //  Toast.makeText(AppActivity.this, "Code Sent", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(AppActivity.this, "Code Sent", Toast.LENGTH_SHORT).show();
                 mVerificationId = verificationId; //Add this line to save //verification Id
                 mResendToken = forceResendingToken;
             }
@@ -655,16 +650,16 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
 
      */
 
-    private void createOneTimeHandShakeTimer(final String url) {
+    private void processDeepLinkAction(final String url) {
         try {
             synchronized (this) {
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
                         if (app != null) {
-                            new CountDownTimer(REPEAT_HANDSHAKE_TIMER, 10000) {
+                            new CountDownTimer(IMMEDIATE_HANDSHAKE_TIMER, 1) {
                                 public void onTick(long millisUntilFinished) {
-                                    Log.d(TAG, "createOneTimeHandShakeTimer ticking ...");
+                                    Log.d(TAG, "processDeepLinkAction ticking ...");
                                 }
 
                                 public void onFinish() {
@@ -753,7 +748,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                      //      Toast.makeText(AppActivity.this, "Verification Success", Toast.LENGTH_SHORT).show();
+                            //      Toast.makeText(AppActivity.this, "Verification Success", Toast.LENGTH_SHORT).show();
                             app.runOnGLThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -766,7 +761,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                             });
                         } else {
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                        //      Toast.makeText(AppActivity.this, "Verification Failed, Invalid credentials", Toast.LENGTH_SHORT).show();
+                                //      Toast.makeText(AppActivity.this, "Verification Failed, Invalid credentials", Toast.LENGTH_SHORT).show();
                                 app.runOnGLThread(new Runnable() {
                                     @Override
                                     public void run() {

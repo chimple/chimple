@@ -1,8 +1,9 @@
-import {Util} from "../util";
+import { Util } from "../util";
 import UtilLogger from "../util-logger";
-import {Chapter, Course, Lesson} from "./convert";
-import Profile, {LANGUAGE, User} from "./profile";
+import { Chapter, Course, Lesson } from "./convert";
+import Profile, { LANGUAGE, User } from "./profile";
 import TTFFont = cc.TTFFont;
+import {GAME_CONFIGS} from "./gameConfigs";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
@@ -49,8 +50,8 @@ export class LangConfig {
 }
 
 export const LANG_CONFIGS = new Map<Lang, LangConfig>([
-    [Lang.ENGLISH, {'font': 'en-main', 'displayName': 'English', 'symbol': 'A', 'colorCode': '#FFBC00'}],
-    [Lang.HINDI, {'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7'}]
+    [Lang.ENGLISH, { 'font': 'en-main', 'displayName': 'English', 'symbol': 'A', 'colorCode': '#FFBC00' }],
+    [Lang.HINDI, { 'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7' }]
 ])
 
 export class World {
@@ -203,14 +204,22 @@ export default class Config {
             })
 
             cc.assetManager.loadBundle(bundle, (err, loadedBundle) => {
-                loadedBundle.loadScene(scene, (err, loadedScene) => {
-                    cc.director.runScene(loadedScene, null, () => {
-                        cc.sys.garbageCollect();
-                        if (callback != null) {
-                            callback();
+                if (err) {
+                    cc.log('Failed loading bundle: ' + bundle + ' ' + err)
+                } else {
+                    loadedBundle.loadScene(scene, (err, loadedScene) => {
+                        if (err) {
+                            cc.log('Failed loading scene: ' + bundle + ' ' + err)
+                        } else {
+                            cc.director.runScene(loadedScene, null, () => {
+                                cc.sys.garbageCollect();
+                                if (callback != null) {
+                                    callback();
+                                }
+                            });
                         }
                     });
-                });
+                }
             });
         } else {
             cc.director.loadScene(scene, () => {
@@ -241,7 +250,16 @@ export default class Config {
         UtilLogger.logChimpleEvent("scene_exit", {
             scene: popScene.scene,
             bundle: popScene.bundle
-        })
+        });
+
+        const config = Config.i;
+        if(!!config && !!config.game) {
+            const gameConfig = GAME_CONFIGS[config.game];
+            if (!!gameConfig && !!gameConfig.fontName && !!config.currentFontName) {
+                config.releaseFont(config.currentFontName);
+            }
+            config.game = null;
+        }
 
         var sceneDef = this._scenes[this._scenes.length - 1];
         var scene = sceneDef.scene;
@@ -269,7 +287,7 @@ export default class Config {
     }
 
     releaseFont(fontName: string) {
-        if(this._textFontMap.has(fontName)) {
+        if (this._textFontMap.has(fontName)) {
             cc.log("releasing current font", fontName);
             cc.resources.release(fontName);
             this._textFontMap.delete(fontName);
@@ -325,9 +343,9 @@ export default class Config {
                     cc.director.getScheduler().unschedule(checkAllLoaded, node);
                     if (maxPerLesson == 0) {
                         Util.shuffle(allLessonData)
-                        this._lessonData = {'rows': allLessonData.slice(0, Math.min(10, allLessonData.length - 1))}
+                        this._lessonData = { 'rows': allLessonData.slice(0, Math.min(10, allLessonData.length - 1)) }
                     } else {
-                        this._lessonData = {'rows': allLessonData}
+                        this._lessonData = { 'rows': allLessonData }
                     }
                     this.totalProblems = this._lessonData.rows.length;
                     this.problem = 1;

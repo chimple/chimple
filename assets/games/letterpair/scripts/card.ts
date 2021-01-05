@@ -182,7 +182,8 @@ export default class Card extends cc.Component {
                 }
             }
         }
-        if (Config.i.course.type == 'maths' && this.cardType == 'image') {
+        if ((Config.i.course.type == 'maths' && this.cardType == 'image') 
+                || this.cardType == 'dice') {
             bgFront.color = this.color
         } else {
             bgBack.color = this.color

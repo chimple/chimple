@@ -1,8 +1,8 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
-import { QuizMathsConfig } from "./quiz-maths";
-import { QuizHelper } from "../../quizliteracy/scripts/quiz-helper";
-import { Util } from "../../../../common/scripts/util";
+import {QuizMathsConfig} from "./quiz-maths";
+import {QuizHelper} from "../../quizliteracy/scripts/quiz-helper";
+import {Util} from "../../../../common/scripts/util";
 import catchError from "../../../../common/scripts/lib/error-handler";
 
 const WIDTH = 200;
@@ -20,10 +20,10 @@ export class RecognizeNumber extends cc.Component {
 
     @catchError()
     protected onLoad(): void {
-        this.quizConfig.choices = this.quizConfig.choices.indexOf("~") !== -1 ? this.quizConfig.choices : '1~'+this.quizConfig.choices;
-        this.choices = QuizHelper.randomInRange(this.quizConfig.choices, 4, this.quizConfig.order);
-        this.answer = QuizHelper.generateAnswer(this.quizConfig.choices, this.choices);
+        this.quizConfig.choices = this.quizConfig.choices.indexOf("~") !== -1 ? this.quizConfig.choices : this.quizConfig.choices+'~'+this.quizConfig.choices;
+        this.answer = QuizHelper.generateAnswer(this.quizConfig.choices);
         this.quizConfig.answer = String(this.answer);
+        this.choices = QuizHelper.randomInRangeWithAnswer(this.quizConfig.choices, this.quizConfig.answer, 4, this.quizConfig.order);
         this.renderTopPanel();
         this.renderBottomPanel();
     }

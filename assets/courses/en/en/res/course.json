@@ -5,6 +5,34 @@
   "type": "literacy",
   "chapters": [
     {
+      "id": "en_quiz",
+      "image": "en00.png",
+      "type": "exam",
+      "name": "Quiz",
+      "lessons": [
+        {
+          "id": "en_quiz0000",
+          "image": "en0000.png",
+          "name": "en05"
+        },
+        {
+          "id": "en_quiz0001",
+          "image": "en0000.png",
+          "name": "en16"
+        },
+        {
+          "id": "en_quiz0002",
+          "image": "en0000.png",
+          "name": "en22"
+        },
+        {
+          "id": "en_quiz0003",
+          "image": "en0000.png",
+          "name": "en29"
+        }
+      ]
+    },
+    {
       "id": "en00",
       "image": "en00.png",
       "lessons": [

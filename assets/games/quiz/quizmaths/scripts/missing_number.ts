@@ -90,16 +90,18 @@ export class MissingNumber extends cc.Component {
         const values = this.quizConfig.choices.split('~');
         if (values && values.length === 2) {
             let start = -1;
+            let first = Number(values[0]) > Number(values[1]) ? Number(values[0]): Number(values[1])
+            let second = Number(values[0]) > Number(values[1]) ? Number(values[1]): Number(values[0])
 
             if (this.quizConfig.order === SORT_ASC || this.quizConfig.order === SORT_ASCENDING) {
-                let rNumber = Util.randomBetween(Number(values[0]), Number(values[1]) - (3 * this.step));
+                let rNumber = Util.randomBetween(second, first - (3 * this.step));
                 for (let i = 0; i < 4; i++) {
                     start = rNumber;
                     start += i * this.step;
                     choices.push(String(start));
                 }
             } else {
-                let rNumber = Util.randomBetween(Number(values[0]) + (3 * this.step), Number(values[1]));
+                let rNumber = Util.randomBetween(second + (4 * this.step), first);
                 for (let i = 0; i < 4; i++) {
                     start = rNumber;
                     start -= i * this.step;

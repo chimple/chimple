@@ -1,7 +1,7 @@
-import {Queue} from "../../queue";
+import { Queue } from "../../queue";
 import Friend from "./friend";
 import Game from "./game";
-import Config, {DEFAULT_FONT, Lang, LANG_CONFIGS} from "./lib/config";
+import Config, { DEFAULT_FONT, Lang, LANG_CONFIGS } from "./lib/config";
 import {
     BUNDLE_URL,
     CURRENT_CLASS_ID,
@@ -11,17 +11,17 @@ import {
     CURRENT_SUBJECT_ID,
     EXAM
 } from "./lib/constants";
-import {Lesson} from "./lib/convert";
-import {GAME_CONFIGS} from "./lib/gameConfigs";
-import Profile, {LANGUAGE, User} from "./lib/profile";
-import ProgressMonitor, {StarType} from "./progressMonitor";
-import {QUIZ_ANSWERED} from "./quiz-monitor";
-import {Util} from "./util";
+import { Lesson } from "./lib/convert";
+import { GAME_CONFIGS } from "./lib/gameConfigs";
+import Profile, { LANGUAGE, User } from "./lib/profile";
+import ProgressMonitor, { StarType } from "./progressMonitor";
+import { QUIZ_ANSWERED } from "./quiz-monitor";
+import { Util } from "./util";
 import UtilLogger from "./util-logger";
 import Scorecard from "../scorecard/scripts/scorecard";
-import {APIMode, ServiceConfig} from "./services/ServiceConfig";
+import { APIMode, ServiceConfig } from "./services/ServiceConfig";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class LessonController extends cc.Component {
@@ -65,7 +65,7 @@ export default class LessonController extends cc.Component {
     lessonStartTime: number = 0;
     lessonSessionId: string = null;
     problemSessionId: string = null;
-    problemStartTime: number = 0;
+    problemStartTime: number = new Date().getTime();
     problemTime: number = 0;
     isGameCompleted: boolean = false;
     isQuizCompleted: boolean = false;
@@ -90,11 +90,6 @@ export default class LessonController extends cc.Component {
         this.lessonStart();
         this.backButton.on('touchend', () => {
             this.node.getChildByName("quit").active = true;
-            const config = Config.i;
-            const gameConfig = GAME_CONFIGS[config.game];
-            if (!!gameConfig.fontName) {
-                config.releaseFont(config.currentFontName);
-            }
         });
     }
 
@@ -107,12 +102,17 @@ export default class LessonController extends cc.Component {
         const config = Config.i;
         config.problem = 0;
         if (User.getCurrentUser().courseProgressMap.get(config.course.id).currentChapterId == null) {
-            const lessons: Array<Lesson> = []
-            const sample = Math.floor(config.course.chapters.length / 5)
-            for (let index = 0; index < config.course.chapters.length; index += sample) {
-                lessons.push(config.course.chapters[index].lessons[0])
+            const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
+            if (quizChapter) {
+                LessonController.loadQuizzes(quizChapter.lessons, callback, node, 3);
+            } else {
+                const lessons: Array<Lesson> = []
+                const sample = Math.floor(config.course.chapters.length / 5)
+                for (let index = 0; index < config.course.chapters.length; index += sample) {
+                    lessons.push(config.course.chapters[index].lessons[0])
+                }
+                LessonController.loadQuizzes(lessons, callback, node, 2);
             }
-            LessonController.loadQuizzes(lessons, callback, node, 2);
         } else if (config.lesson.type == EXAM) {
             const lessons: Array<Lesson> = []
             var found = false
@@ -131,19 +131,10 @@ export default class LessonController extends cc.Component {
             })
             LessonController.loadQuizzes(lessons, callback, node);
         } else {
-            cc.assetManager.loadBundle(config.lesson.id, (err, bundle) => {
-                if (err) {
-                    cc.assetManager.loadBundle(BUNDLE_URL + config.lesson.id, (err1, bundle1) => {
-                        if (err1) {
-                            callback(err)
-                        } else {
-                            LessonController.preloadAndFirst(bundle1, callback);
-                        }
-                    })
-                } else {
-                    LessonController.preloadAndFirst(bundle, callback);
-                }
-            })
+            this.loadBundle(config.lesson.id, (bundle) => {
+                LessonController.preloadAndFirst(bundle, callback)
+            },
+                callback)
         }
     }
 
@@ -169,30 +160,33 @@ export default class LessonController extends cc.Component {
         }, node, lessons, maxPerLesson);
     }
 
+    private static loadBundle(lessonId: string, callback: Function, errCallback: Function) {
+        cc.assetManager.loadBundle(lessonId, (err, bundle) => {
+            if (err) {
+                cc.assetManager.loadBundle(BUNDLE_URL + lessonId, (err2, bundle2) => {
+                    if (err2) {
+                        errCallback(err2);
+                    } else {
+                        callback(bundle2)
+                    }
+                })
+            } else {
+                callback(bundle)
+            }
+        });
+    }
+
     private static loadQuizzes(lessons: Lesson[], callback: Function, node: cc.Node, maxPerLesson: number = 0) {
         let numLessons = lessons.length;
         lessons.forEach((les) => {
-            cc.assetManager.loadBundle(les.id, (err, bundle) => {
-                if (err) {
-                    cc.assetManager.loadBundle(BUNDLE_URL + les.id, (err1, bundle1) => {
-                        if (err1) {
-                            callback(err);
-                        } else {
-                            bundle1.preloadDir('res', null, null, (err: Error, items) => {
-                                Util.bundles.set(les.id, bundle1);
-                                LessonController.bundles.push(bundle1)
-                                numLessons--;
-                            });
-                        }
-                    })
-                } else {
-                    bundle.preloadDir('res', null, null, (err: Error, items) => {
-                        Util.bundles.set(les.id, bundle);
-                        LessonController.bundles.push(bundle)
-                        numLessons--;
-                    });
-                }
-            });
+            this.loadBundle(les.id, (bundle) => {
+                bundle.preloadDir('res', null, null, (err: Error, items) => {
+                    Util.bundles.set(les.id, bundle);
+                    LessonController.bundles.push(bundle)
+                    numLessons--;
+                });
+            },
+                callback)
         });
         const checkAllLoaded = () => {
             if (numLessons <= 0) {
@@ -295,7 +289,7 @@ export default class LessonController extends cc.Component {
     private problemEnd(replaceScene: boolean, forward: boolean = true) {
         const config = Config.i;
         const gameConfig = GAME_CONFIGS[config.game];
-        if (!!gameConfig.fontName) {
+        if (!!gameConfig && !!gameConfig.fontName) {
             config.releaseFont(config.currentFontName);
         }
 
@@ -341,7 +335,7 @@ export default class LessonController extends cc.Component {
             lessonId: config.lesson.id,
             courseName: config.course.id,
             problemNo: config.problem,
-            timeSpent: timeSpent,
+            timeSpent: Math.abs(timeSpent),
             wrongMoves: this.wrongMoves,
             correctMoves: this.rightMoves,
             skills: config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
@@ -396,7 +390,7 @@ export default class LessonController extends cc.Component {
                         lesson: config.lesson.id,
                         courseName: config.course.id,
                         percentComplete: percentageComplete,
-                        timespent: timeSpent,
+                        timespent: Math.abs(timeSpent),
                         assessment: score,
                         kind: 'Progress',
                         studentId: User.getCurrentUser().id
@@ -411,7 +405,7 @@ export default class LessonController extends cc.Component {
                             lesson: config.lesson.id,
                             courseName: config.course.id,
                             percentComplete: percentageComplete,
-                            timespent: timeSpent,
+                            timespent: Math.abs(timeSpent),
                             assessment: score,
                             kind: 'Progress',
                             schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
@@ -435,7 +429,7 @@ export default class LessonController extends cc.Component {
             courseName: config.course.id,
             lessonType: config.lesson.type,
             score: score,
-            timeSpent: timeSpent,
+            timeSpent: Math.abs(timeSpent),
             skills: config.lesson.skills ? config.lesson.skills.join(",") : "",
             attempts: user.lessonProgressMap.get(config.lesson.id) ? user.lessonProgressMap.get(config.lesson.id).attempts : 1
         });
@@ -454,9 +448,10 @@ export default class LessonController extends cc.Component {
         this.node.addChild(scorecard)
 
         const gameConfig = GAME_CONFIGS[config.game];
-        if (!!gameConfig.fontName) {
+        if (!!gameConfig && !!gameConfig.fontName) {
             config.releaseFont(config.currentFontName);
         }
+        config.game = null;
     }
 
     private setupEventHandlers() {
@@ -508,7 +503,7 @@ export default class LessonController extends cc.Component {
                 lessonId: config.lesson.id,
                 courseName: config.course.id,
                 problemNo: config.problem,
-                timeSpent: timeSpent,
+                timeSpent: Math.abs(timeSpent),
                 wrongMoves: this.wrongMoves,
                 correctMoves: this.rightMoves,
                 skills: "",

@@ -32,15 +32,15 @@ export class FirebaseApi implements ServiceApi {
     }
 
     async teacherRequestAccepted(request: AcceptTeacherRequest) {
-        const schoolId = await ServiceConfig.getI().handle.schoolById(request.teacherId);
-        if (!!schoolId && schoolId.length > 0) {
+        // const schoolId = await ServiceConfig.getI().handle.schoolById(request.teacherId);
+        if (!!request.teacherId) {
             let updateHomeTeacherInfo: UpdateHomeTeacher = {
                 homeId: request.studentId,
                 teacherId: request.teacherId,
                 kind: "UpdateHomeTeacher",
                 firebaseStudentId: request.firebaseStudentId,
                 studentName: request.studentName,
-                schoolId: schoolId,
+                schoolId: request.teacherId,
                 sectionId: request.sectionId
             };
             Queue.getInstance().push(updateHomeTeacherInfo);

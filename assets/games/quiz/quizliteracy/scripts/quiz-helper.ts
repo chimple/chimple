@@ -6,6 +6,7 @@ import MathDrag from "../../quizmaths/scripts/math-drag";
 import MathDrop from "../../quizmaths/scripts/math-drop";
 import Overflow = cc.Label.Overflow;
 import {QuizLiteracyConfig, QuizBtnData, QuizBtnType} from "./quiz-literacy";
+import ChimpleLabel from "../../../../common/scripts/chimple-label";
 
 const GRID_ELEMENT_SIZE = 24;
 const LABEL_WIDTH = 250;
@@ -21,7 +22,7 @@ export class QuizHelper {
     }
 
     public static renderTextLabelWithContent(quizConfig: QuizLiteracyConfig | QuizMathsConfig, parent: cc.Node, content: string, width: number = LABEL_WIDTH, hex: string = '#000000', childName, fontSize: number = 75, overflow: Overflow.SHRINK) {
-        fontSize = content.length === 1 ? 125 : fontSize;
+        // fontSize = content.length < 3 ? 100 : fontSize;
         const label = parent.getChildByName(childName);
         if (label) {
             label.color = new cc.Color().fromHEX(hex);
@@ -96,18 +97,20 @@ export class QuizHelper {
                                     width: number,
                                     height: number,
                                     choices: string[],
-                                    fontSize: number = 75) {
+                                    fontSize: number = 80) {
         choices = choices.filter((el) => el != null && el.length > 0);
         choices.forEach(
             (c, i) => {
+                c = c.trim();
                 const textBtn = cc.instantiate(textButtonPrefab);
                 const quizButtonComponent = textBtn.getComponent(QuizLiteracyButton);
                 quizButtonComponent.data = new QuizBtnData(QuizBtnType.Sentence,
                     c, null, quizConfig.answer && c && c.trim() === quizConfig.answer.trim());
                 const label = textBtn.getChildByName('label');
                 if (label) {
-                    fontSize = c.length > 1 ? fontSize : 125;
-                    const labelComponent = label.getComponent(cc.Label);
+                    // fontSize = c.length > 2 ? fontSize : 100;
+                    const labelComponent = label.getComponent(ChimpleLabel);
+                    labelComponent.enableWrapText = false;
                     labelComponent.overflow = Overflow.SHRINK;
                     label.width = width;
                     label.height = height;
@@ -212,19 +215,22 @@ export class QuizHelper {
         return howMany === -1 ? numbers : numbers.slice(0, howMany);
     }
 
-    public static generateAnswer(input: string, choices: string[]) {
+    public static generateAnswer(input: string) {
         let answer: number = 0;
         let results = input.match(/(\d+)~(\d+)/);
         if (results && results.length === 3) {
             let start = Number(results[1]);
             let end = Number(results[2]);
-            if(start === end) {
+            if (start === end) {
                 answer = start
-            } else {
-                answer = Util.randomElements([...choices], 1)
+            } else if (results && results.length === 3) {
+                let start = Number(results[1]);
+                let end = Number(results[2]);
+                let choices = QuizHelper.range(start, end, 1);
+                answer = choices[0];
             }
         }
-       return answer;
+        return answer;
     }
 
     public static randomInRange(input: string, howMany: number, sort: string = SORT_RANDOM): string[] {
@@ -238,6 +244,27 @@ export class QuizHelper {
             rNumbers = sort === SORT_RANDOM ? rNumbers :
                 sort === SORT_ASC ? rNumbers.sort() : rNumbers.sort((a, b) => b - a);
             random = rNumbers.map(x => String(x));
+        }
+        return random;
+    }
+
+    public static randomInRangeWithAnswer(input: string, answer: string, howMany: number, sort: string = SORT_RANDOM): string[] {
+        let random = [];
+        let results = input.match(/(\d+)~(\d+)/);
+        if (results && results.length === 3) {
+            let start = Number(results[1]);
+            let end = Number(results[2]);
+            end = (end - start < 4) ? start + 3 : end;
+            let rNumbers = QuizHelper.range(start, end, howMany);
+            rNumbers = sort === SORT_RANDOM ? rNumbers :
+                sort === SORT_ASC ? rNumbers.sort() : rNumbers.sort((a, b) => b - a);
+            random = rNumbers.map(x => String(x));
+
+            if (!random.includes(answer)) {
+                let rIndex = QuizHelper.range(0, random.length - 1, 1)[0];
+                var deleted = random.splice(rIndex, 1);
+                random.splice(rIndex, 0, answer);
+            }
         }
         return random;
     }

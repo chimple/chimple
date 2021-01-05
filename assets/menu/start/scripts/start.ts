@@ -1,13 +1,26 @@
-import { RECEIVED_TEACHER_REQUEST, TEACHER_ADDED, TEACHER_ADD_STUDENT_ID, TEACHER_ID_KEY, TEACHER_NAME_KEY, TEACHER_SECTION_ID } from "../../../chimple";
+import {
+    ACCEPT_TEACHER_REQUEST_LINKED_USED,
+    RECEIVED_TEACHER_REQUEST,
+    TEACHER_ADD_STUDENT_ID,
+    TEACHER_ID_KEY,
+    TEACHER_NAME_KEY,
+    TEACHER_SECTION_ID
+} from "../../../chimple";
 import Friend from "../../../common/scripts/friend";
-import Config, { StartAction } from "../../../common/scripts/lib/config";
-import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
-import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
-import { User } from "../../../common/scripts/lib/profile";
+import Config, {StartAction} from "../../../common/scripts/lib/config";
+import {EXAM, MIN_PASS} from "../../../common/scripts/lib/constants";
+import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
+import {User} from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
-import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
-import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
-import { INVENTORY_ANIMATIONS, INVENTORY_SAVE_CONSTANTS, REWARD_TYPES, Util } from "../../../common/scripts/util";
+import {ServiceConfig} from "../../../common/scripts/services/ServiceConfig";
+import TeacherAddedDialog, {TEACHER_ADD_DIALOG_CLOSED} from "../../../common/scripts/teacherAddedDialog";
+import {
+    INVENTORY_ANIMATIONS,
+    INVENTORY_ICONS,
+    INVENTORY_SAVE_CONSTANTS,
+    REWARD_TYPES,
+    Util
+} from "../../../common/scripts/util";
 import Inventory from "../../inventory/scripts/inventory";
 import LessonButton from "./lessonButton";
 
@@ -76,7 +89,6 @@ export default class Start extends cc.Component {
         }
         const loadingComp = this.loading.getComponent(Loading)
         loadingComp.allowCancel = false
-        loadingComp.delay = 0
 
         this.homeButton.on('touchend', () => {
             this.drawer.active = true
@@ -198,7 +210,7 @@ export default class Start extends cc.Component {
         try {
             const messageStr: string = cc.sys.localStorage.getItem(RECEIVED_TEACHER_REQUEST) || '[]';
             let messages: any[] = JSON.parse(messageStr);
-            messages = messages.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
+            cc.log("showTeacherDialog", messageStr);
             if (messages && messages.length > 0) {
                 const curMessage = messages.splice(0, 1)[0];
                 const name: string = curMessage[TEACHER_NAME_KEY];
@@ -207,13 +219,13 @@ export default class Start extends cc.Component {
                 const addStudentId = curMessage[TEACHER_ADD_STUDENT_ID];
                 cc.sys.localStorage.setItem(RECEIVED_TEACHER_REQUEST, JSON.stringify(messages));
 
-                const studentAdded = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED + id) || '[]');
-                let users = User.getUsers() || [];
-                users = users.filter(u => !studentAdded.includes(u.id))
-                cc.log('remaining users', users);
-
+                const tKey = ACCEPT_TEACHER_REQUEST_LINKED_USED + id;
+                const teacherRequestsAccepted = JSON.parse(cc.sys.localStorage.getItem(tKey) || '[]');
+                const buildLink = id + '|' + sectionId + '|' + addStudentId;
+                const linkUsed: boolean = teacherRequestsAccepted.includes(buildLink);
+                cc.log(`checking if received teacher request link ${buildLink}  is used ${linkUsed}`);
                 if (!!id && !!name && !!sectionId && !!addStudentId
-                    && users && users.length > 0) {
+                    && !linkUsed) {
                     const teacherDialog: cc.Node = cc.instantiate(this.teacherDialogPrefab);
                     const script: TeacherAddedDialog = teacherDialog.getComponent(TeacherAddedDialog);
                     script.TeacherName = name;
@@ -259,7 +271,7 @@ export default class Start extends cc.Component {
             })
         } else {
             lessons.push(Start.preQuizLesson(course))
-            lessons.push(course.chapters[0].lessons[0])
+            lessons.push(course.chapters[1].lessons[0])
         }
         return lessons
     }
@@ -314,20 +326,60 @@ export default class Start extends cc.Component {
                     const anim = node.getComponent(cc.Animation)
                     anim.play()
                 }, 2)
-                this.scheduleOnce(() => {
-                    user.pushNewLessonPlaceholder()
-                    this.displayLessonPlan()
-                }, 6)
                 const rewardItem = Util.unlockNextReward()
+                user.pushNewLessonPlaceholder()
                 if (rewardItem) {
                     const splitItems = rewardItem.split('-')
+                    var rewardSpriteFrame = ''
+                    if (splitItems[0] == REWARD_TYPES[0]) {
+                        rewardSpriteFrame = 'char_icons/' + splitItems[1] + '_icon'
+                    } else if (splitItems[0] == REWARD_TYPES[1]) {
+                        rewardSpriteFrame = 'backgrounds/textures/bg_icons/background-' + splitItems[1]
+                    } else if (splitItems[0] == REWARD_TYPES[2]) {
 
-                    if (splitItems[0] == REWARD_TYPES[3]) {
-                        this.scheduleOnce(() => {
-                            const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2])
-                            Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2])
-                        }, 4)
+                    } else if (splitItems[0] == REWARD_TYPES[3]) {
+                        rewardSpriteFrame = INVENTORY_ICONS[splitItems[2]] + splitItems[3]
                     }
+                    cc.resources.load(rewardSpriteFrame, cc.SpriteFrame, (err, spriteFrame) => {
+                        const rewardIcon = new cc.Node()
+                        rewardIcon.y = 100
+                        rewardIcon.scale = 0
+                        const sprite = rewardIcon.addComponent(cc.Sprite)
+                        // @ts-ignore
+                        sprite.spriteFrame = spriteFrame
+                        node.addChild(rewardIcon)
+                        new cc.Tween().target(rewardIcon)
+                            .delay(4)
+                            .to(0.5, { scale: 1, y: 200 }, null)
+                            .delay(2)
+                            .to(0.5,
+                                { scale: 0.1, position: node.parent.convertToNodeSpaceAR(cc.v3(cc.winSize.width - 64, cc.winSize.height - 32)) },
+                                null)
+                            .delay(0.5)
+                            .call(() => {
+                                if (splitItems[0] == REWARD_TYPES[0]) {
+                                    user.currentCharacter = splitItems[1]
+                                } else if (splitItems[0] == REWARD_TYPES[1]) {
+                                    user.currentBg = splitItems[1]
+                                } else if (splitItems[0] == REWARD_TYPES[2]) {
+
+                                } else if (splitItems[0] == REWARD_TYPES[3]) {
+                                    const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2])
+                                    user.updateInventory(`${splitItems[1]}-${splitItems[2]}`, splitItems[3]);
+                                    Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2])
+                                }
+                                rewardIcon.opacity = 0
+                            })
+                            .delay(1)
+                            .call(() => {
+                                this.displayLessonPlan()
+                            })
+                            .start()
+                    })
+                } else {
+                    this.scheduleOnce(() => {
+                        this.displayLessonPlan()
+                    }, 4)
                 }
             }
         })
