@@ -40,7 +40,7 @@ export default class Scorecard extends cc.Component {
     reward: [string, string]
 
     onLoad() {
-        this.label.string = this.text
+        this.label.string = Util.i18NText(this.text);
         if (this.score > 25) this.star1.spriteFrame = this.active
         if (this.score > 50) this.star2.spriteFrame = this.active
         if (this.score > 75) this.star3.spriteFrame = this.active
