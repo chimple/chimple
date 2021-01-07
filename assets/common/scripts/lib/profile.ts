@@ -120,11 +120,8 @@ export class User {
     private _unlockedRewards: object;
     private _isTeacher: boolean;
     private _level: number;
-    // private _lessonPlanDate: Date
-    // private _lessonPlan: string[]
-    // private _lessonPlanIndex: number
-    // private _lessonPlanCourseId: string
     private _assignments: string[]
+    private _currentCourseId: string
     debug: boolean = false
     curriculumLoaded: boolean = false
 
@@ -170,8 +167,6 @@ export class User {
         this.debug = debug
         this._serverId = serverId
         this._assignments = []
-        // this._lessonPlan = lessonPlan
-        // this._lessonPlanCourseId = courseProgressMap.keys().next().value
     }
 
     _genderEvent(gender: Gender) {
@@ -333,33 +328,6 @@ export class User {
         return this._assignments;
     }
 
-    // set lessonPlan(lessonPlan: string[]) {
-    //     this._lessonPlan = lessonPlan
-    //     this._storeUser();
-    // }
-
-    // get lessonPlan(): string[] {
-    //     return this._lessonPlan
-    // }
-
-    // set lessonPlanDate(lessonPlanDate: Date) {
-    //     this._lessonPlanDate = lessonPlanDate;
-    //     this._storeUser();
-    // }
-
-    // get lessonPlanDate(): Date {
-    //     return this._lessonPlanDate;
-    // }
-
-    // set lessonPlanCourseId(lessonPlanCourseId: string) {
-    //     this._lessonPlanCourseId = lessonPlanCourseId;
-    //     this._storeUser();
-    // }
-
-    // get lessonPlanCourseId(): string {
-    //     return this._lessonPlanCourseId;
-    // }
-
     unlockInventoryForItem(item: string) {
         this._unlockedInventory[item] = true;
         this._storeUser();
@@ -490,11 +458,6 @@ export class User {
                 }
             }
         }
-        // if (this.lessonPlan
-        //     && this.lessonPlan[Math.floor(this.lessonPlan.length / 2)] == config.lesson.id
-        // ) {
-        //     this.pushNewLessonPlaceholder();
-        // }
         const lessonPlan = this.courseProgressMap.get(config.course.id).lessonPlan
         if (lessonPlan && lessonPlan[this.courseProgressMap.get(config.course.id).lessonPlanIndex] == config.lesson.id) {
             this.courseProgressMap.get(config.course.id).lessonPlanIndex++
@@ -531,13 +494,6 @@ export class User {
         this._storeUser();
         return reward
     }
-
-    // pushNewLessonPlaceholder() {
-    //     this.lessonPlan.splice(0, 1);
-    //     this.lessonPlan.push(this.lessonPlan[this.lessonPlan.length - 3]);
-    //     Config.i.startAction = StartAction.MoveLessonPlan;
-    //     this._storeUser()
-    // }
 
     private _storeUser() {
         User.storeUser(this);
@@ -610,8 +566,8 @@ export class User {
                     ['test-maths', new CourseProgressClass('chapter_0')]
                 ])
                 : new Map([
-                    ['en', new CourseProgressClass()],
-                    ['maths', new CourseProgressClass()],
+                    ['en', new CourseProgressClass('en00')],
+                    ['maths', new CourseProgressClass('maths00')],
                     ['hi', new CourseProgressClass('hi00')],
                     ['puzzle', new CourseProgressClass('puzzle00')]
                 ]),
