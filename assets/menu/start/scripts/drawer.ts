@@ -39,7 +39,7 @@ export default class Drawer extends cc.Component {
             const drawerButtonComp = drawerButton.getComponent(HeaderButton)
             this.courseLayout.addChild(drawerButton)
             const course = config.curriculum.get(courseId)
-            drawerButtonComp.label.string = Util.i18NText(course.name)
+            drawerButtonComp.label.string = Util.i18NText(config.course.id == course.id ? 'Library' : course.name)
             const color = DRAWER_ICON_COLORS[courseId]
             if(color) drawerButtonComp.selected.node.color = new cc.Color().fromHEX(color)
             Util.load(courseId + '/course/res/icons/' + courseId + '.png', (err: Error, texture) => {
@@ -47,8 +47,12 @@ export default class Drawer extends cc.Component {
             })
             drawerButtonComp.button.node.on('touchend', (event: cc.Event) => {
                 if (event.target.getComponent(cc.Button).enabled) {
-                    config.course = course;
-                    config.pushScene('menu/start/scenes/courseChapters', 'menu')
+                    if(config.course.id == course.id) {
+                        config.pushScene('menu/start/scenes/courseChapters', 'menu')    
+                    } else {
+                        config.course = course;
+                        Config.loadScene('menu/start/scenes/start', 'menu')
+                    }
                 }
             })
             if (!Header.homeSelected && config.course && config.course.id == course.id) {

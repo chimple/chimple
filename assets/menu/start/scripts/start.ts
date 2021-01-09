@@ -77,6 +77,9 @@ export default class Start extends cc.Component {
     @property(cc.Graphics)
     ctx: cc.Graphics = null
 
+    @property(cc.Label)
+    library: cc.Label = null
+
     friend: cc.Node
 
     async onLoad() {
@@ -97,6 +100,7 @@ export default class Start extends cc.Component {
         if (!config.course) {
             config.course = config.curriculum.values().next().value
         }
+        this.library.string = config.course.name
         const startAction = config.startAction
         user.curriculumLoaded
             ? this.initPage()

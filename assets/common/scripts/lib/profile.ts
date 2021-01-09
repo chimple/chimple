@@ -328,6 +328,15 @@ export class User {
         return this._assignments;
     }
 
+    set currentCourseId(currentCourseId: string) {
+        this._currentCourseId = currentCourseId;
+        this._storeUser();
+    }
+
+    get currentCourseId(): string {
+        return this._currentCourseId;
+    }
+
     unlockInventoryForItem(item: string) {
         this._unlockedInventory[item] = true;
         this._storeUser();
