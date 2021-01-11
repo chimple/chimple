@@ -636,7 +636,10 @@ export class Util {
     }
 
     public static i18NText(key: string) {
-        return Util._i18NMap.has(key.toLowerCase()) ? this._i18NMap.get(key.toLowerCase()) : key;
+        if(typeof key === 'string') {
+            return Util._i18NMap.has(key.toLowerCase()) ? this._i18NMap.get(key.toLowerCase()) : key;
+        }
+        return key;
     }
 
     public static i18NNumberConvert(
