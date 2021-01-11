@@ -636,7 +636,10 @@ export class Util {
     }
 
     public static i18NText(key: string) {
-        return Util._i18NMap.has(key.toLowerCase()) ? this._i18NMap.get(key.toLowerCase()) : key;
+        if(typeof key === 'string') {
+            return Util._i18NMap.has(key.toLowerCase()) ? this._i18NMap.get(key.toLowerCase()) : key;
+        }
+        return key;
     }
 
     public static i18NNumberConvert(
@@ -922,7 +925,6 @@ export class Util {
 
     static preloadStartScene(node: cc.Node, loading: cc.Node) {
         const loadingComp = loading.getComponent(Loading)
-        loadingComp.delay = 0
         loadingComp.allowCancel = false
 
         loading.active = true
