@@ -248,7 +248,6 @@ export default class ProgressMonitor extends cc.Component {
                         ),
                         cc.callFunc(() => {
                             glow.active = false
-                            anim.stop()
                         }),
                         cc.callFunc(() => {
                             currentSpriteNode.removeFromParent();
