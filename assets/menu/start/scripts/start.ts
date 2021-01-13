@@ -257,6 +257,7 @@ export default class Start extends cc.Component {
         courseProgress.lessonPlan = lessons.map((l) => l.id)
         courseProgress.lessonPlanIndex = 0
         courseProgress.lessonPlanDate = new Date()
+        user.storeUser()
         return lessons
     }
 
@@ -364,7 +365,6 @@ export default class Start extends cc.Component {
                         sprite.spriteFrame = spriteFrame;
                         node.addChild(rewardIcon);
                         new cc.Tween().target(rewardIcon)
-                            .delay(4)
                             .to(0.5, { scale: 1, y: 200 }, null)
                             .delay(2)
                             .to(0.5, { scale: 0.1, position: node.parent.convertToNodeSpaceAR(cc.v3(cc.winSize.width - 64, cc.winSize.height - 32)) }, null)

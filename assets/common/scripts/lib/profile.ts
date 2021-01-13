@@ -185,13 +185,13 @@ export class User {
 
     set serverId(id: string) {
         this._serverId = id;
-        this._storeUser();
+        this.storeUser();
         UtilLogger.setUserIdEvent(id);
     }
 
     set id(id: string) {
         this._id = id;
-        this._storeUser();
+        this.storeUser();
         UtilLogger.setUserIdEvent(id);
     }
 
@@ -205,7 +205,7 @@ export class User {
 
     set name(name: string) {
         this._name = name;
-        this._storeUser();
+        this.storeUser();
         UtilLogger.setUserPropertiesEvent("userName", name);
     }
 
@@ -215,7 +215,7 @@ export class User {
 
     set age(age: number) {
         this._age = age;
-        this._storeUser();
+        this.storeUser();
         UtilLogger.setUserPropertiesEvent("userAge", age);
     }
 
@@ -225,7 +225,7 @@ export class User {
 
     set gender(gender: Gender) {
         this._gender = gender;
-        this._storeUser();
+        this.storeUser();
         this._genderEvent(gender);
     }
 
@@ -235,7 +235,7 @@ export class User {
 
     set imgPath(imgPath: string) {
         this._imgPath = imgPath;
-        this._storeUser();
+        this.storeUser();
     }
 
     get imgPath(): string {
@@ -246,7 +246,7 @@ export class User {
         console.log(" avatar image : ", avatarImage);
         this._avatarImage = avatarImage;
         UtilLogger.setUserPropertiesEvent("userAvatarImage", avatarImage);
-        this._storeUser();
+        this.storeUser();
     }
 
     get avatarImage(): string {
@@ -255,7 +255,7 @@ export class User {
 
     set inventory(inventory: object) {
         this._inventory = inventory;
-        this._storeUser();
+        this.storeUser();
     }
 
     get inventory(): object {
@@ -264,7 +264,7 @@ export class User {
 
     set currentBg(currentBg: string) {
         this._currentBg = currentBg;
-        this._storeUser();
+        this.storeUser();
     }
 
     get currentBg(): string {
@@ -273,7 +273,7 @@ export class User {
 
     set currentCharacter(currentCharacter: string) {
         this._currentCharacter = currentCharacter;
-        this._storeUser();
+        this.storeUser();
     }
 
     get currentCharacter(): string {
@@ -298,7 +298,7 @@ export class User {
 
     set unlockedInventory(unlockedInventory: object) {
         this._unlockedInventory = {};
-        this._storeUser();
+        this.storeUser();
     }
 
     get unlockedInventory(): object {
@@ -307,7 +307,7 @@ export class User {
 
     set unlockedRewards(unlockedRewards: object) {
         this._unlockedRewards = {};
-        this._storeUser();
+        this.storeUser();
     }
 
     get unlockedRewards(): object {
@@ -316,12 +316,12 @@ export class User {
 
     set isTeacher(isTeacher: boolean) {
         this._isTeacher = isTeacher;
-        this._storeUser();
+        this.storeUser();
     }
 
     set assignments(assignments: string[]) {
         this._assignments = assignments;
-        this._storeUser();
+        this.storeUser();
     }
 
     get assignments(): string[] {
@@ -330,7 +330,7 @@ export class User {
 
     set currentCourseId(currentCourseId: string) {
         this._currentCourseId = currentCourseId;
-        this._storeUser();
+        this.storeUser();
     }
 
     get currentCourseId(): string {
@@ -339,17 +339,17 @@ export class User {
 
     unlockInventoryForItem(item: string) {
         this._unlockedInventory[item] = true;
-        this._storeUser();
+        this.storeUser();
     }
 
     unlockRewardsForItem(item: string, value: number) {
         this._unlockedRewards[item] = value;
-        this._storeUser();
+        this.storeUser();
     }
 
     updateInventory(name: string, value: string) {
         this._inventory[name] = value
-        this._storeUser()
+        this.storeUser()
     }
 
     openAllRewards() {
@@ -364,7 +364,7 @@ export class User {
         REWARD_BACKGROUNDS.forEach((bg) => {
             this._unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] = 1
         })
-        this._storeUser()
+        this.storeUser()
     }
 
     openAllRewardsForCharacter(character: string) {
@@ -462,6 +462,7 @@ export class User {
                         })
                     if (nextChapter) {
                         const cpm = this.courseProgressMap.get(config.course.id)
+                        cpm.currentLessonId = null
                         cpm.updateChapterId(nextChapter.id)
                     }
                 }
@@ -500,11 +501,11 @@ export class User {
                 }
             }
         }
-        this._storeUser();
+        this.storeUser();
         return reward
     }
 
-    private _storeUser() {
+    storeUser() {
         User.storeUser(this);
     }
 
