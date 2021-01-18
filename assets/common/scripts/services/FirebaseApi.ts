@@ -106,6 +106,7 @@ export class FirebaseApi implements ServiceApi {
                     a => {
                         let b: any = {};
                         let shouldInclude: boolean = true;
+                        b.assignmentId = a.assignmentId;
                         b.chapterId = a.chapter;
                         b.lessonId = a.lesson;
                         b.courseCode = a.subject.courseCode;
