@@ -30,6 +30,7 @@ export interface Lesson {
     skills?: Array<string>;
     color?: string;
     chapter: Chapter;
+    assignmentId?: string;
 }
 
 // Converts JSON strings to/from your types
