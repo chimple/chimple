@@ -361,6 +361,23 @@ export default class Start extends cc.Component {
                 // user.pushNewLessonPlaceholder();
                 if (rewardItem) {
                     const splitItems = rewardItem.split('-');
+                    if (splitItems[0] == REWARD_TYPES[0]) {
+                        user.currentCharacter = splitItems[1];
+                    }
+                    else if (splitItems[0] == REWARD_TYPES[1]) {
+                        user.currentBg = splitItems[1];
+                    }
+                    else if (splitItems[0] == REWARD_TYPES[2]) {
+                    }
+                    else if (splitItems[0] == REWARD_TYPES[3]) {
+                        user.updateInventory(`${splitItems[1]}-${splitItems[2]}`, splitItems[3]);
+                    }
+                    const courseProgress = user.courseProgressMap.get(Config.i.course.id)
+                    if(courseProgress) {
+                        courseProgress.lessonPlan = null
+                        courseProgress.lessonPlanDate = null
+                        courseProgress.lessonPlanIndex = 0
+                    }
                     var rewardSpriteFrame = '';
                     if (splitItems[0] == REWARD_TYPES[0]) {
                         rewardSpriteFrame = 'char_icons/' + splitItems[1] + '_icon';
@@ -387,17 +404,8 @@ export default class Start extends cc.Component {
                             .to(0.5, { scale: 0.1, position: node.parent.convertToNodeSpaceAR(cc.v3(cc.winSize.width - 64, cc.winSize.height - 32)) }, null)
                             .delay(0.5)
                             .call(() => {
-                                if (splitItems[0] == REWARD_TYPES[0]) {
-                                    user.currentCharacter = splitItems[1];
-                                }
-                                else if (splitItems[0] == REWARD_TYPES[1]) {
-                                    user.currentBg = splitItems[1];
-                                }
-                                else if (splitItems[0] == REWARD_TYPES[2]) {
-                                }
-                                else if (splitItems[0] == REWARD_TYPES[3]) {
+                                if (splitItems[0] == REWARD_TYPES[3]) {
                                     const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2]);
-                                    user.updateInventory(`${splitItems[1]}-${splitItems[2]}`, splitItems[3]);
                                     Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2]);
                                 }
                                 rewardIcon.opacity = 0;
