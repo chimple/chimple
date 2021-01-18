@@ -35,15 +35,18 @@
     {
       "id": "en00",
       "image": "en00.png",
+      "color":"#FFBC00",
       "lessons": [
         {
           "id": "en0000",
           "image": "en0000.png",
+          "color":"#FFBC00",
           "name": "a"
         },
         {
           "id": "en0001",
           "image": "en0001.png",
+          "color":"#42C0FF",
           "name": "b"
         },
         {
@@ -89,6 +92,7 @@
     {
       "id": "en01",
       "image": "en01.png",
+      "color":"#42C0FF",
       "lessons": [
         {
           "id": "en0100",
@@ -143,6 +147,7 @@
     {
       "id": "en02",
       "image": "en02.png",
+      "color":"#009158",
       "lessons": [
         {
           "id": "en0200",
@@ -202,6 +207,7 @@
     {
       "id": "en03",
       "image": "en03.png",
+      "color":"#FF5500",
       "lessons": [
         {
           "id": "en0300",
@@ -261,6 +267,7 @@
     {
       "id": "en04",
       "image": "en04.png",
+      "color":"#FFFFFF",
       "lessons": [
         {
           "id": "en0400",
@@ -331,6 +338,7 @@
     {
       "id": "en06",
       "image": "en06.png",
+      "color":"#FFFFFF",
       "lessons": [
         {
           "id": "en0600",
@@ -380,6 +388,7 @@
     {
       "id": "en05",
       "image": "en05.png",
+      "color":"#FF5500",
       "lessons": [
         {
           "id": "en0500",
@@ -408,6 +417,7 @@
     {
       "id": "en07",
       "image": "en07.png",
+      "color":"#009158",
       "lessons": [
         {
           "id": "en0700",
@@ -462,11 +472,12 @@
           "name": "Challenge"
         }
       ],
-      "name": "Vowel  Sounds"
+      "name": "Vowel Sounds"
     },
     {
       "id": "en08",
       "image": "en08.png",
+      "color":"#42C0FF",
       "lessons": [
         {
           "id": "en0800",
@@ -526,6 +537,7 @@
     {
       "id": "en09",
       "image": "en09.png",
+      "color":"#FFBC00",
       "lessons": [
         {
           "id": "en0900",
@@ -606,6 +618,7 @@
     {
       "id": "en10",
       "image": "en10.png",
+      "color":"#FFBC00",
       "lessons": [
         {
           "id": "en1000",
@@ -707,6 +720,7 @@
     {
       "id": "en12",
       "image": "en12.png",
+      "color":"#42C0FF",
       "lessons": [
         {
           "id": "en1200",
@@ -740,6 +754,7 @@
     {
       "id": "en13",
       "image": "en13.png",
+      "color":"#009158",
       "lessons": [
         {
           "id": "en1300",
@@ -799,6 +814,7 @@
     {
       "id": "en14",
       "image": "en14.png",
+      "color":"#FF5500",
       "lessons": [
         {
           "id": "en1400",
@@ -848,6 +864,7 @@
     {
       "id": "en15",
       "image": "en15.png",
+      "color":"#FFFFFF",
       "lessons": [
         {
           "id": "en1500",
@@ -897,6 +914,7 @@
     {
       "id": "en16",
       "image": "en16.png",
+      "color":"#FFFFFF",
       "lessons": [
         {
           "id": "en1600",
@@ -1009,6 +1027,7 @@
     {
       "id": "en17",
       "image": "en17.png",
+      "color":"#FF5500",
       "lessons": [
         {
           "id": "en1703",
@@ -1121,6 +1140,7 @@
     {
       "id": "en19",
       "image": "en19.png",
+      "color":"#009158",
       "lessons": [
         {
           "id": "en1900",
@@ -1222,6 +1242,7 @@
     {
       "id": "en20",
       "image": "en20.png",
+      "color":"#42C0FF",
       "lessons": [
         {
           "id": "en2000",
@@ -1276,6 +1297,7 @@
     {
       "id": "en21",
       "image": "en21.png",
+      "color":"#FFBC00",
       "lessons": [
         {
           "id": "en2100",
@@ -1309,6 +1331,7 @@
     {
       "id": "en22",
       "image": "en22.png",
+      "color":"#FFBC00",
       "lessons": [
         {
           "id": "en2200",
@@ -1376,6 +1399,7 @@
     {
       "id": "en32",
       "image": "en32.png",
+      "color":"#009158",
       "lessons": [
         {
           "id": "en3200",
@@ -1425,6 +1449,7 @@
     {
       "id": "en24",
       "image": "en24.png",
+      "color":"#FF5500",
       "lessons": [
         {
           "id": "en2400",
@@ -1484,6 +1509,7 @@
     {
       "id": "en25",
       "image": "en25.png",
+      "color":"#FFFFFF",
       "lessons": [
         {
           "id": "en2500",
@@ -1554,6 +1580,7 @@
     {
       "id": "en26",
       "image": "en26.png",
+      "color":"#FFFFFF",
       "lessons": [
         {
           "id": "en2600",
@@ -1608,6 +1635,7 @@
     {
       "id": "en28",
       "image": "en28.png",
+      "color":"#FF5500",
       "lessons": [
         {
           "id": "en2800",
@@ -1647,6 +1675,7 @@
     {
       "id": "en29",
       "image": "en29.png",
+      "color":"#009158",
       "lessons": [
         {
           "id": "en2700",
@@ -1706,6 +1735,7 @@
     {
       "id": "en30",
       "image": "en30.png",
+      "color":"#42C0FF",
       "lessons": [
         {
           "id": "en3000",
@@ -1750,6 +1780,7 @@
     {
       "id": "en31",
       "image": "en31.png",
+      "color":"#FFBC00",
       "lessons": [
         {
           "id": "en3100",
@@ -1783,6 +1814,7 @@
     {
       "id": "en33",
       "image": "en33.png",
+      "color":"#FFBC00",
       "lessons": [
         {
           "id": "en3300",
