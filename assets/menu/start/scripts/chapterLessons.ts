@@ -1,9 +1,9 @@
 import Config from "../../../common/scripts/lib/config";
 import LessonButton from "./lessonButton";
-import { User } from "../../../common/scripts/lib/profile";
-import { Lesson } from "../../../common/scripts/lib/convert";
+import {User} from "../../../common/scripts/lib/profile";
+import {Lesson} from "../../../common/scripts/lib/convert";
 
-const { ccclass, property } = cc._decorator;
+const {ccclass, property} = cc._decorator;
 
 const HEADER_COLORS = {
     'en': '#FFBC00',
@@ -52,6 +52,7 @@ export default class ChapterLessons extends cc.Component {
                 const lesson = Config.i.allLessons.get(ass.lessonId)
                 const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
                 if (lesson && !(lessonProgress && lessonProgress.date > ass.createAt)) {
+                    lesson.assignmentId = ass.assignmentId;
                     this.createLessonButton(lesson, true)
                 }
             })
