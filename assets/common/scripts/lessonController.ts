@@ -65,7 +65,7 @@ export default class LessonController extends cc.Component {
     lessonStartTime: number = 0;
     lessonSessionId: string = null;
     problemSessionId: string = null;
-    problemStartTime: number = 0;
+    problemStartTime: number = new Date().getTime();
     problemTime: number = 0;
     isGameCompleted: boolean = false;
     isQuizCompleted: boolean = false;
@@ -102,12 +102,17 @@ export default class LessonController extends cc.Component {
         const config = Config.i;
         config.problem = 0;
         if (User.getCurrentUser().courseProgressMap.get(config.course.id).currentChapterId == null) {
-            const lessons: Array<Lesson> = []
-            const sample = Math.floor(config.course.chapters.length / 5)
-            for (let index = 0; index < config.course.chapters.length; index += sample) {
-                lessons.push(config.course.chapters[index].lessons[0])
+            const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
+            if (quizChapter) {
+                LessonController.loadQuizzes(quizChapter.lessons, callback, node, 3);
+            } else {
+                const lessons: Array<Lesson> = []
+                const sample = Math.floor(config.course.chapters.length / 5)
+                for (let index = 0; index < config.course.chapters.length; index += sample) {
+                    lessons.push(config.course.chapters[index].lessons[0])
+                }
+                LessonController.loadQuizzes(lessons, callback, node, 2);
             }
-            LessonController.loadQuizzes(lessons, callback, node, 2);
         } else if (config.lesson.type == EXAM) {
             const lessons: Array<Lesson> = []
             var found = false
@@ -330,7 +335,7 @@ export default class LessonController extends cc.Component {
             lessonId: config.lesson.id,
             courseName: config.course.id,
             problemNo: config.problem,
-            timeSpent: timeSpent,
+            timeSpent: Math.abs(timeSpent),
             wrongMoves: this.wrongMoves,
             correctMoves: this.rightMoves,
             skills: config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
@@ -385,7 +390,7 @@ export default class LessonController extends cc.Component {
                         lesson: config.lesson.id,
                         courseName: config.course.id,
                         percentComplete: percentageComplete,
-                        timespent: timeSpent,
+                        timespent: Math.abs(timeSpent),
                         assessment: score,
                         kind: 'Progress',
                         studentId: User.getCurrentUser().id
@@ -400,7 +405,7 @@ export default class LessonController extends cc.Component {
                             lesson: config.lesson.id,
                             courseName: config.course.id,
                             percentComplete: percentageComplete,
-                            timespent: timeSpent,
+                            timespent: Math.abs(timeSpent),
                             assessment: score,
                             kind: 'Progress',
                             schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
@@ -424,7 +429,7 @@ export default class LessonController extends cc.Component {
             courseName: config.course.id,
             lessonType: config.lesson.type,
             score: score,
-            timeSpent: timeSpent,
+            timeSpent: Math.abs(timeSpent),
             skills: config.lesson.skills ? config.lesson.skills.join(",") : "",
             attempts: user.lessonProgressMap.get(config.lesson.id) ? user.lessonProgressMap.get(config.lesson.id).attempts : 1
         });
@@ -498,7 +503,7 @@ export default class LessonController extends cc.Component {
                 lessonId: config.lesson.id,
                 courseName: config.course.id,
                 problemNo: config.problem,
-                timeSpent: timeSpent,
+                timeSpent: Math.abs(timeSpent),
                 wrongMoves: this.wrongMoves,
                 correctMoves: this.rightMoves,
                 skills: "",

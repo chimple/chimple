@@ -1,66 +1,34 @@
 {
   "project_info": {
-    "project_number": "164143434825",
-    "firebase_url": "https://chimple-stage.firebaseio.com",
-    "project_id": "chimple-stage",
-    "storage_bucket": "chimple-stage.appspot.com"
+    "project_number": "105857221433",
+    "firebase_url": "https://bahama-stage.firebaseio.com",
+    "project_id": "bahama-stage",
+    "storage_bucket": "bahama-stage.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:164143434825:android:6d397dda724c5056964398",
+        "mobilesdk_app_id": "1:105857221433:android:ee3d192f7b7dd88070dee8",
         "android_client_info": {
-          "package_name": "org.chimple.bahama"
+          "package_name": "com.firebase.messaging.demo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "164143434825-63hb8ritinokasdaa4ncu5mfv4vus8du.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.chimple.bahama",
-            "certificate_hash": "b79197a9ba4551396f0f32201d2c7de76712a6f4"
-          }
-        },
-        {
-          "client_id": "164143434825-8jadt67u4uhm4v6ukbnjs872qli9uebv.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.chimple.bahama",
-            "certificate_hash": "c731359e679653c6d493ea996711804e8496a16f"
-          }
-        },
-        {
-          "client_id": "164143434825-lvntnim3bqipt55tkev3opqkhov0sen7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.chimple.bahama",
-            "certificate_hash": "cacf2f6652bbdd0ddd92913a54587a47cd466f8c"
-          }
-        },
-        {
-          "client_id": "164143434825-namirco60b3fsrelqbc02ldo53velhu5.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.chimple.bahama",
-            "certificate_hash": "adda392a507e9ed37437ce639ddb9f5e81e86e71"
-          }
-        },
-        {
-          "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
+          "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAcFIxMjbsvHJ0kNtAMXtYKzZXolt0D4fY"
+          "current_key": "AIzaSyCH82wcawju_XAiibL6QKTpq-lGXahCGx8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
+              "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -69,14 +37,72 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:164143434825:android:b1fb95f23aafb4ec964398",
+        "mobilesdk_app_id": "1:105857221433:android:610de84cef1e275770dee8",
+        "android_client_info": {
+          "package_name": "org.chimple.bahama"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH82wcawju_XAiibL6QKTpq-lGXahCGx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105857221433:android:1f06e6ff01c1018570dee8",
+        "android_client_info": {
+          "package_name": "org.chimple.bahamasw"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH82wcawju_XAiibL6QKTpq-lGXahCGx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105857221433:android:e51c212465234ec070dee8",
         "android_client_info": {
           "package_name": "org.chimple.malta.malta"
         }
       },
       "oauth_client": [
         {
-          "client_id": "164143434825-4mc7g9ltj85lf8fc4ed7kesrsp2oiss8.apps.googleusercontent.com",
+          "client_id": "105857221433-u40eb1fccak38e4v81lcbe4dhl7jf1uc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "org.chimple.malta.malta",
@@ -84,20 +110,20 @@
           }
         },
         {
-          "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
+          "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAcFIxMjbsvHJ0kNtAMXtYKzZXolt0D4fY"
+          "current_key": "AIzaSyCH82wcawju_XAiibL6QKTpq-lGXahCGx8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
+              "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -106,27 +132,27 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:164143434825:android:71010703dd1f75c5964398",
+        "mobilesdk_app_id": "1:105857221433:android:d80c5224a087b77970dee8",
         "android_client_info": {
-          "package_name": "org.cocos2d.demo"
+          "package_name": "org.chimple.maths_fr"
         }
       },
       "oauth_client": [
         {
-          "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
+          "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAcFIxMjbsvHJ0kNtAMXtYKzZXolt0D4fY"
+          "current_key": "AIzaSyCH82wcawju_XAiibL6QKTpq-lGXahCGx8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "164143434825-1v3s68bq5qg3nn508d1hn5een3hrt4dj.apps.googleusercontent.com",
+              "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

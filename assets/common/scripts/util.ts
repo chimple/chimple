@@ -503,7 +503,7 @@ export class Util {
         Util.load(
             phonicsLoc,
             (err, clip) => {
-                if (err! = null) {
+                if (err != null && clip == null) {
                     this.playGameSound(audio, callback);
                 } else if (!err && clip != null) {
                     const audioId = Util.play(clip, false);
@@ -528,6 +528,9 @@ export class Util {
                         callback();
                     });
                 }
+            } else {
+
+                callback();
             }
         });
     }
@@ -633,7 +636,10 @@ export class Util {
     }
 
     public static i18NText(key: string) {
-        return Util._i18NMap.has(key.toLowerCase()) ? this._i18NMap.get(key.toLowerCase()) : key;
+        if(typeof key === 'string') {
+            return Util._i18NMap.has(key.toLowerCase()) ? this._i18NMap.get(key.toLowerCase()) : key;
+        }
+        return key;
     }
 
     public static i18NNumberConvert(
@@ -863,7 +869,8 @@ export class Util {
         if (!!data) {
             jsonMessages.push(data);
         }
-        jsonMessages = jsonMessages.filter((v, i, a) => a.findIndex(t => (t.id === v.id && t.sectionId === v.sectionId)) === i);
+        // jsonMessages = jsonMessages.filter((v, i, a) => a.findIndex(t => (t.id === v.id && t.sectionId === v.sectionId)) === i);
+        cc.log('teacher requests', JSON.stringify(jsonMessages));
         return jsonMessages;
     }
 
@@ -918,7 +925,6 @@ export class Util {
 
     static preloadStartScene(node: cc.Node, loading: cc.Node) {
         const loadingComp = loading.getComponent(Loading)
-        loadingComp.delay = 0
         loadingComp.allowCancel = false
 
         loading.active = true

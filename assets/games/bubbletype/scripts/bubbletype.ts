@@ -148,11 +148,11 @@ export default class BubbleType extends Game {
             tempButton.getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = alphabetArray[i]//this.alphabets.substr(i, 1)
             tempButton.name = alphabetArray[i]//this.alphabets.substr(i, 1)
             tempButton.on('touchend', this.callback, this)
-            if (formattedData.indexOf(tempButton.name) === -1) {
-                tempButton.getComponent(cc.Button).interactable = false
+            if (this.words.indexOf(tempButton.name) >= 0 || formattedData.indexOf(tempButton.name) >= 0) {
+                tempButton.getComponent(cc.Button).interactable = true
             }
             else {
-                tempButton.getComponent(cc.Button).interactable = true
+                tempButton.getComponent(cc.Button).interactable = false
             }
             this.node.getChildByName("mainLayout").getChildByName("layout" + layoutToAdd).addChild(tempButton);
             if (tempButton.name == this.wordsOnScreen[0]) {
@@ -163,8 +163,6 @@ export default class BubbleType extends Game {
         }
         ////////// in this block
 
-        //// keyboard letters toggle button
-        // this.node.getChildByName("togglePrefab").on('touchend', this.toggleKeyboard, this);
     }
     @catchError()
     createDog() {
@@ -174,94 +172,6 @@ export default class BubbleType extends Game {
         if (Config.i.direction == Direction.RTL) {
             this.friendPos.setPosition(new cc.Vec2(460, -50));
             this.friendPos.scaleX = -0.4;
-        }
-    }
-    @catchError()
-    toggleKeyboard(event) {
-        if (this.isFirstPageKeys) {
-            this.isFirstPageKeys = false
-            cc.log("its first");
-            // clear other buttons first 
-            this.node.getChildByName("keyboardNode").removeAllChildren();
-            // add new keyboard buttons
-            let formattedData = this.dataConvert(this.words);
-            let padding = 20;
-            let buttonSize = 100 + padding;
-            // let width = 1200;
-            // let total_letters_in_row = 10;
-            // let startX = width / total_letters_in_row;
-            // for (var i = 0; i < this.alphabets.length; i++) {
-            let alphabetArray = this.alphabets.split(" ")
-            for (let i = 30; i < alphabetArray.length; i++) {
-
-                let y = -90
-                let x = -530 + (i - 30) * buttonSize
-                if (i - 30 > (9) && i - 30 < (20)) {
-                    y = -210
-                    x = -530 + (i - 10 - 30) * buttonSize
-                }
-                if (i - 30 > (19)) {
-                    if (this.alphabets.length < (29 - 30))
-                        x = -350 + (i - 20 - 30) * buttonSize
-                    else
-                        x = -530 + (i - 20 - 30) * buttonSize
-                    y = -330
-                }
-
-                let tempButton = cc.instantiate(this.buttonPrefab);
-                tempButton.position = cc.v2(x, y)
-                tempButton.getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = alphabetArray[0]//this.alphabets.substr(i, 1)
-                tempButton.name = alphabetArray[0]//this.alphabets.substr(i, 1)
-                tempButton.on('touchend', this.callback, this)
-                if (formattedData.indexOf(tempButton.name) === -1) {
-                    tempButton.getComponent(cc.Button).interactable = false
-                }
-                else {
-                    tempButton.getComponent(cc.Button).interactable = true
-                }
-                this.node.getChildByName("keyboardNode").addChild(tempButton)
-            }
-        }
-        else {
-            // clear other buttons first 
-            this.node.getChildByName("keyboardNode").removeAllChildren();
-            // add new keyboard buttons
-            this.isFirstPageKeys = true
-            cc.log("its second");
-            let formattedData = this.dataConvert(this.words);
-            let padding = 20;
-            let buttonSize = 100 + padding;
-            // let width = 1200;
-            // let total_letters_in_row = 10;
-            // let startX = width / total_letters_in_row;
-            let alphabetArray = this.alphabets.split(" ")
-            for (let i = 0; i < alphabetArray.length; i++) {
-                let y = -90
-                let x = -530 + i * buttonSize
-                if (i > 9 && i < 20) {
-                    y = -210
-                    x = -530 + (i - 10) * buttonSize
-                }
-                if (i > 19) {
-                    if (this.alphabets.length < 29)
-                        x = -350 + (i - 20) * buttonSize
-                    else
-                        x = -530 + (i - 20) * buttonSize
-                    y = -330
-                }
-                let tempButton = cc.instantiate(this.buttonPrefab);
-                tempButton.position = cc.v2(x, y)
-                tempButton.getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = alphabetArray[i]//this.alphabets.substr(i, 1)
-                tempButton.name = alphabetArray[i]//this.alphabets.substr(i, 1)
-                tempButton.on('touchend', this.callback, this)
-                if (formattedData.indexOf(tempButton.name) === -1) {
-                    tempButton.getComponent(cc.Button).interactable = false
-                }
-                else {
-                    tempButton.getComponent(cc.Button).interactable = true
-                }
-                this.node.getChildByName("keyboardNode").addChild(tempButton)
-            }
         }
     }
     @catchError()

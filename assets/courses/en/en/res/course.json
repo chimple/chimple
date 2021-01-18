@@ -5,6 +5,34 @@
   "type": "literacy",
   "chapters": [
     {
+      "id": "en_quiz",
+      "image": "en00.png",
+      "type": "exam",
+      "name": "Quiz",
+      "lessons": [
+        {
+          "id": "en_quiz0000",
+          "image": "en0000.png",
+          "name": "en05"
+        },
+        {
+          "id": "en_quiz0001",
+          "image": "en0000.png",
+          "name": "en16"
+        },
+        {
+          "id": "en_quiz0002",
+          "image": "en0000.png",
+          "name": "en22"
+        },
+        {
+          "id": "en_quiz0003",
+          "image": "en0000.png",
+          "name": "en29"
+        }
+      ]
+    },
+    {
       "id": "en00",
       "image": "en00.png",
       "lessons": [
@@ -27,8 +55,7 @@
           "id": "ambulance",
           "image": "ambulance.png",
           "type": "exam",
-          "open": true,
-          "name": "Ambulance"
+          "name": "Challenge"
         },
         {
           "id": "en0003",
@@ -54,8 +81,7 @@
           "id": "anchor",
           "image": "anchor.png",
           "type": "exam",
-          "open": true,
-          "name": "Anchor"
+          "name": "Challenge"
         }
       ],
       "name": "Alphabet a - f"
@@ -88,8 +114,7 @@
           "id": "auto",
           "image": "auto.png",
           "type": "exam",
-          "open": true,
-          "name": "Auto"
+          "name": "Challenge"
         },
         {
           "id": "en0104",
@@ -110,8 +135,7 @@
           "id": "pram",
           "image": "pram.png",
           "type": "exam",
-          "open": true,
-          "name": "Pram"
+          "name": "Challenge"
         }
       ],
       "name": "Alphabet g - l"
@@ -139,8 +163,7 @@
           "id": "bag",
           "image": "bag.png",
           "type": "exam",
-          "open": true,
-          "name": "Bag"
+          "name": "Challenge"
         },
         {
           "id": "en0203",
@@ -171,8 +194,7 @@
           "id": "ball",
           "image": "ball.png",
           "type": "exam",
-          "open": true,
-          "name": "Ball"
+          "name": "Challenge"
         }
       ],
       "name": "Alphabet m - s"
@@ -203,10 +225,9 @@
         },
         {
           "id": "balloon",
-          "image": "balloon.png",
+          "image": "van_rewards.png",
           "type": "exam",
-          "open": true,
-          "name": "Balloon"
+          "name": "Alphabet t - z"
         },
         {
           "id": "en0304",
@@ -232,8 +253,7 @@
           "id": "bell",
           "image": "bell.png",
           "type": "exam",
-          "open": true,
-          "name": "Bell"
+          "name": "Alphabet t - z"
         }
       ],
       "name": "Alphabet t - z"
@@ -258,6 +278,12 @@
           "name": "Alphabet G - L"
         },
         {
+          "id": "balloon1",
+          "image": "vanilla_rewards.png",
+          "type": "exam",
+          "name": "Uppercase Alphabet"
+        },
+        {
           "id": "en0403",
           "image": "en0403.png",
           "name": "Revision G - L"
@@ -273,9 +299,15 @@
           "name": "Revision M - S"
         },
         {
+          "id": "balloon2",
+          "image": "voilin_rewards.png",
+          "type": "exam",
+          "name": "Alphabet t - z"
+        },
+        {
           "id": "en0406",
           "image": "en0406.png",
-          "name": "Alphabet T - Z"
+          "name": "Uppercase Alphabet"
         },
         {
           "id": "en0407",
@@ -286,6 +318,12 @@
           "id": "en0408",
           "image": "en0408.png",
           "name": "Revision Aa-Zz"
+        },
+        {
+          "id": "balloon3",
+          "image": "wafers_rewards.png",
+          "type": "exam",
+          "name": "Uppercase Alphabet"
         }
       ],
       "name": "Uppercase Alphabet"
@@ -310,6 +348,12 @@
           "name": "K- O"
         },
         {
+          "id": "balloon4",
+          "image": "wallet_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en0603",
           "image": "en0603.png",
           "name": "P - T"
@@ -323,6 +367,12 @@
           "id": "en0605",
           "image": "en0605.png",
           "name": "Type Alphabet"
+        },
+        {
+          "id": "balloon5",
+          "image": "rat_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Alphabet Practice"
@@ -345,6 +395,12 @@
           "id": "en0502",
           "image": "en0502.png",
           "name": "Vowel words"
+        },
+        {
+          "id": "balloon6",
+          "image": "ribbom_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Vowels"
@@ -374,6 +430,12 @@
           "name": "Ending 'o'"
         },
         {
+          "id": "balloon7",
+          "image": "rings_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en0704",
           "image": "en0704.png",
           "name": "Ending 'u'"
@@ -392,6 +454,12 @@
           "id": "en0707",
           "image": "en0707.png",
           "name": "Beginning Vowel Sounds"
+        },
+        {
+          "id": "balloon8",
+          "image": "robot_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Vowel  Sounds"
@@ -421,6 +489,12 @@
           "name": "Beginning Sounds - 4"
         },
         {
+          "id": "balloon9",
+          "image": "rope_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en0804",
           "image": "en0804.png",
           "name": "Beginning Sounds - 5"
@@ -439,6 +513,12 @@
           "id": "en0807",
           "image": "en0807.png",
           "name": "Ending Sounds"
+        },
+        {
+          "id": "balloon10",
+          "image": "rose_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Phonic Sense"
@@ -463,6 +543,12 @@
           "name": "Word sounds - 3"
         },
         {
+          "id": "balloon11",
+          "image": "sandwich_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en0903",
           "image": "en0903.png",
           "name": "Word Sounds - 4"
@@ -483,6 +569,12 @@
           "name": "Word Sounds - 7"
         },
         {
+          "id": "balloon12",
+          "image": "scale_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en0907",
           "image": "en0907.png",
           "name": "Word Sounds - 8"
@@ -501,6 +593,12 @@
           "id": "en0910",
           "image": "en0910.png",
           "name": "Word Sounds - 11 "
+        },
+        {
+          "id": "balloon13",
+          "image": "scissors_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Word Phonics"
@@ -525,6 +623,12 @@
           "name": "an"
         },
         {
+          "id": "balloon14",
+          "image": "scooter_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en1003",
           "image": "en1003.png",
           "name": "am"
@@ -538,6 +642,12 @@
           "id": "en1005",
           "image": "en1005.png",
           "name": "ag, ay"
+        },
+        {
+          "id": "balloon15",
+          "image": "shell_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         },
         {
           "id": "en1100",
@@ -560,6 +670,12 @@
           "name": "ane, ave, "
         },
         {
+          "id": "balloon16",
+          "image": "shirt_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en1104",
           "image": "en1104.png",
           "name": "ale, ate, ade"
@@ -578,6 +694,12 @@
           "id": "en1107",
           "image": "en1107.png",
           "name": "ark, all"
+        },
+        {
+          "id": "balloon17",
+          "image": "shoes_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Word Family - a"
@@ -605,6 +727,12 @@
           "id": "en1203",
           "image": "en1203.png",
           "name": "eese, eat"
+        },
+        {
+          "id": "balloon18",
+          "image": "spade_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Word Family - e"
@@ -634,6 +762,12 @@
           "name": "int, ine, irt"
         },
         {
+          "id": "balloon19",
+          "image": "spoon_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en1304",
           "image": "en1304.png",
           "name": "ig, ix"
@@ -652,6 +786,12 @@
           "id": "en1307",
           "image": "en1307.png",
           "name": "ire, ile, ive, ike"
+        },
+        {
+          "id": "balloon20",
+          "image": "stamp_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Word Family - i"
@@ -676,6 +816,12 @@
           "name": "op, "
         },
         {
+          "id": "balloon21",
+          "image": "star_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en1403",
           "image": "en1403.png",
           "name": "om, oom, ome, one"
@@ -689,6 +835,12 @@
           "id": "en1405",
           "image": "en1405.png",
           "name": "oil, orn"
+        },
+        {
+          "id": "balloon22",
+          "image": "stones_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Word Family - o"
@@ -713,6 +865,12 @@
           "name": "ug, "
         },
         {
+          "id": "balloon23",
+          "image": "sun_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en1503",
           "image": "en1503.png",
           "name": "ut, ute"
@@ -726,6 +884,12 @@
           "id": "en1505",
           "image": "en1505.png",
           "name": "um, ume, ule"
+        },
+        {
+          "id": "balloon24",
+          "image": "teacup_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Word Family - u"
@@ -750,6 +914,12 @@
           "name": "Blend - th"
         },
         {
+          "id": "balloon25",
+          "image": "teddy_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en1603",
           "image": "en1603.png",
           "name": "Blend - th - 2"
@@ -763,6 +933,12 @@
           "id": "en1605",
           "image": "en1605.png",
           "name": "Blend - sh 2"
+        },
+        {
+          "id": "balloon26",
+          "image": "telescope_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         },
         {
           "id": "en1606",
@@ -780,6 +956,12 @@
           "name": "Blend - ck"
         },
         {
+          "id": "balloon27",
+          "image": "television_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en1609",
           "image": "en1609.png",
           "name": "Blend - ck- 2"
@@ -795,6 +977,12 @@
           "name": "Blend - cr"
         },
         {
+          "id": "balloon28",
+          "image": "tent_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en1700",
           "image": "en1700.png",
           "name": "Blend - st"
@@ -808,6 +996,12 @@
           "id": "en1702",
           "image": "en1702.png",
           "name": "Blend - pl"
+        },
+        {
+          "id": "balloon29",
+          "image": "tie_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Sound Blends"
@@ -832,6 +1026,12 @@
           "name": "Blend - ue"
         },
         {
+          "id": "balloon30",
+          "image": "token_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en1706",
           "image": "en1706.png",
           "name": "Blend - ow"
@@ -845,6 +1045,12 @@
           "id": "en1708",
           "image": "en1708.png",
           "name": "Blend - ar - 2"
+        },
+        {
+          "id": "balloon31",
+          "image": "tooth_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         },
         {
           "id": "en1709",
@@ -862,6 +1068,12 @@
           "name": "Blend - fl"
         },
         {
+          "id": "balloon32",
+          "image": "toy_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en1802",
           "image": "en1802.png",
           "name": "Blend - cl"
@@ -877,6 +1089,12 @@
           "name": "Blend - ea"
         },
         {
+          "id": "balloon33",
+          "image": "truck_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en1805",
           "image": "en1805.png",
           "name": "Blend - ea - 2"
@@ -890,6 +1108,12 @@
           "id": "en1807",
           "image": "en1807.png",
           "name": "Blend - ai"
+        },
+        {
+          "id": "balloon34",
+          "image": "umbrella_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "More Sound Blends"
@@ -914,6 +1138,12 @@
           "name": "Animals"
         },
         {
+          "id": "balloon35",
+          "image": "unicon.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en1903",
           "image": "en1903.png",
           "name": "Food"
@@ -927,6 +1157,12 @@
           "id": "en1905",
           "image": "en1905.png",
           "name": "Playing "
+        },
+        {
+          "id": "balloon36",
+          "image": "unicycle_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         },
         {
           "id": "en1906",
@@ -949,6 +1185,12 @@
           "name": "Day to day"
         },
         {
+          "id": "balloon37",
+          "image": "watch_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en1910",
           "image": "en1910.png",
           "name": "Activities"
@@ -967,6 +1209,12 @@
           "id": "en1913",
           "image": "en1913.png",
           "name": "Practice More Words"
+        },
+        {
+          "id": "balloon38",
+          "image": "zylophone_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Simple Dictionary "
@@ -991,6 +1239,12 @@
           "name": "Colours"
         },
         {
+          "id": "balloon39",
+          "image": "ap_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en2003",
           "image": "en2003.png",
           "name": "Profession"
@@ -1009,6 +1263,12 @@
           "id": "en2006",
           "image": "en2006.png",
           "name": "Simple sentences = 2"
+        },
+        {
+          "id": "balloon40",
+          "image": "coffeejar_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Vocabulary Builder"
@@ -1036,6 +1296,12 @@
           "id": "en2103",
           "image": "en2103.png",
           "name": "6 letters"
+        },
+        {
+          "id": "balloon41",
+          "image": "dinosaur_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Scribble Words"
@@ -1053,6 +1319,12 @@
           "id": "en2201",
           "image": "en2201.png",
           "name": "Type Words"
+        },
+        {
+          "id": "balloon42",
+          "image": "drynuts_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Tiny Typist"
@@ -1072,6 +1344,12 @@
           "name": "Tiny Words - 2"
         },
         {
+          "id": "balloon43",
+          "image": "jacks_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en2302",
           "image": "en2302.png",
           "name": "Big words"
@@ -1085,6 +1363,12 @@
           "id": "en2304",
           "image": "en2304.png",
           "name": "Bigger words"
+        },
+        {
+          "id": "balloon44",
+          "image": "jam_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Spellings "
@@ -1109,6 +1393,12 @@
           "name": "Simple sentence - 4 words"
         },
         {
+          "id": "balloon45",
+          "image": "joker_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en3203",
           "image": "en3203.png",
           "name": "About people "
@@ -1122,6 +1412,12 @@
           "id": "en3205",
           "image": "en3205.png",
           "name": "About things"
+        },
+        {
+          "id": "balloon46",
+          "image": "keyboard_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Simple Sentences"
@@ -1151,6 +1447,12 @@
           "name": "Noun - Place"
         },
         {
+          "id": "balloon47",
+          "image": "kiwi_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en2404",
           "image": "en2404.png",
           "name": "Noun - Animal"
@@ -1169,6 +1471,12 @@
           "id": "en2407",
           "image": "en2407.png",
           "name": "Countable nouns "
+        },
+        {
+          "id": "balloon48",
+          "image": "ladder_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Nouns"
@@ -1193,6 +1501,12 @@
           "name": "You"
         },
         {
+          "id": "balloon49",
+          "image": "ladybug_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en2503",
           "image": "en2503.png",
           "name": "They"
@@ -1208,6 +1522,12 @@
           "name": "I"
         },
         {
+          "id": "balloon50",
+          "image": "lime_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en2506",
           "image": "en2506.png",
           "name": "We"
@@ -1221,6 +1541,12 @@
           "id": "en2508",
           "image": "en2508.png",
           "name": "Revision - 2"
+        },
+        {
+          "id": "balloon51",
+          "image": "mermaid_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Pronouns"
@@ -1245,6 +1571,12 @@
           "name": "Past- Tense"
         },
         {
+          "id": "balloon52",
+          "image": "necklace_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en2603",
           "image": "en2603.png",
           "name": "Present Tense"
@@ -1263,6 +1595,12 @@
           "id": "en2606",
           "image": "en2606.png",
           "name": "Sentences with verb in present tense"
+        },
+        {
+          "id": "balloon53",
+          "image": "nightlamp_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Action Words"
@@ -1282,6 +1620,12 @@
           "name": "Sentences with article 'a'"
         },
         {
+          "id": "balloon54",
+          "image": "nurse_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en2802",
           "image": "en2802.png",
           "name": "Sentences with article 'an'"
@@ -1290,6 +1634,12 @@
           "id": "en2803",
           "image": "en2803.png",
           "name": "Revision"
+        },
+        {
+          "id": "balloon55",
+          "image": "omlette_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Articles"
@@ -1319,6 +1669,12 @@
           "name": "Opposites"
         },
         {
+          "id": "balloon56",
+          "image": "pennib_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en2900",
           "image": "en2900.png",
           "name": "Sequences"
@@ -1337,6 +1693,12 @@
           "id": "en2903",
           "image": "en2903.png",
           "name": "Prepositions 3"
+        },
+        {
+          "id": "balloon57",
+          "image": "table_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Grammar"
@@ -1356,6 +1718,12 @@
           "name": "Word Space"
         },
         {
+          "id": "balloon58",
+          "image": "tablevase_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en3002",
           "image": "en3002.png",
           "name": "Practice 1"
@@ -1369,6 +1737,12 @@
           "id": "en3004",
           "image": "en3004.png",
           "name": "Capitalization"
+        },
+        {
+          "id": "balloon59",
+          "image": "urn_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Punctuation"
@@ -1396,6 +1770,12 @@
           "id": "en3103",
           "image": "en3103.png",
           "name": "Sentences ending with adjectives"
+        },
+        {
+          "id": "balloon60",
+          "image": "teddybear_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Adjectives"
@@ -1420,6 +1800,12 @@
           "name": "Negative Sentences "
         },
         {
+          "id": "balloon61",
+          "image": "tree_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
+        },
+        {
           "id": "en3303",
           "image": "en3303.png",
           "name": "Large Sentences"
@@ -1438,6 +1824,12 @@
           "id": "en3306",
           "image": "en3306.png",
           "name": "Complex sentences"
+        },
+        {
+          "id": "balloon62",
+          "image": "unicorn_rewards.png",
+          "type": "exam",
+          "name": "Challenge"
         }
       ],
       "name": "Create Sentences"

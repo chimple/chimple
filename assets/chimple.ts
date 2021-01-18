@@ -4,6 +4,8 @@ import {Mode, MODE} from "./common/scripts/lib/constants";
 import UtilLogger from "./common/scripts/util-logger";
 import {Util} from "./common/scripts/util";
 import {APIMode, ServiceConfig} from "./common/scripts/services/ServiceConfig";
+import {AcceptTeacherRequest} from "./common/scripts/services/ServiceApi";
+
 const {ccclass, property} = cc._decorator;
 
 export const CHIMPLE_MODE = 'CHIMPLE_MODE';
@@ -17,6 +19,7 @@ export const NONE: string = "NONE";
 
 export const REJECT_TEACHER_REQUEST: string = 'reject_teacher_request';
 export const ACCEPT_TEACHER_REQUEST: string = 'accept_teacher_request';
+export const ACCEPT_TEACHER_REQUEST_LINKED_USED: string = 'accept_teacher_request_used';
 export const TEACHER_ADDED: string = 'teacher_added';
 export const RECEIVED_TEACHER_REQUEST: string = 'received_teacher_request';
 export const TEACHER_ID_KEY = 'id';
@@ -79,6 +82,7 @@ cc.deep_link = function (url) {
                     })
                 }
                 try {
+                    cc.log('RECEIVED_TEACHER_REQUEST', JSON.stringify(data));
                     const jsonMessages: any[] = Util.removeDuplicateMessages(data, messageType);
                     UtilLogger.logChimpleEvent(RECEIVED_TEACHER_REQUEST, data);
                     cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
@@ -105,6 +109,11 @@ export default class Chimple extends cc.Component {
     manifest: cc.Asset = null
 
     async onLoad() {
+        if (cc.sys.isNative)
+            jsb.fileUtils.setSearchPaths([
+                jsb.fileUtils.getWritablePath() + 'HotUpdateSearchPaths',
+                '@assets/'
+            ])
         ServiceConfig.getInstance(APIMode.FIREBASE);
         cc.macro.ENABLE_MULTI_TOUCH = false
         UtilLogger.initPluginFirebase();
@@ -114,6 +123,15 @@ export default class Chimple extends cc.Component {
         const langConfig = LANG_CONFIGS.get(lang)
         if (langConfig) Config.i.loadFontDynamically(langConfig.font)
         UtilLogger.init();
+
+        const teachersAdded: AcceptTeacherRequest[] = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED) || '[]');
+        if (teachersAdded && teachersAdded.length > 0) {
+            teachersAdded.forEach(
+                t => UtilLogger.logChimpleEvent(TEACHER_ADDED, t)
+            )
+        }
+
+
         if (!cc.sys.isNative || !DO_HOT_UPDATE) {
             this.selectModes();
             return
@@ -127,7 +145,7 @@ export default class Chimple extends cc.Component {
         const subpackages = Util.getSubpackages().map((val) => {
             return {
                 storagePath: subpackages + '/' + val,
-                manifestUrl: val+'/project.manifest'
+                manifestUrl: val + '/project.manifest'
             }
         })
         // updates.push(...subpackages) //TODO do this in background
@@ -146,7 +164,7 @@ export default class Chimple extends cc.Component {
                             // @ts-ignore
                             cc.assetManager.cacheManager.removeCache(key)
                         })
-                    }    
+                    }
                     cc.game.restart();
                 } else {
                     this.selectModes();

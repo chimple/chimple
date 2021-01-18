@@ -1,9 +1,9 @@
-import {Queue} from "../../../queue";
+import { Queue } from "../../../queue";
 import Header from "../header";
-import {INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util} from "../util";
+import { INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util } from "../util";
 import UtilLogger from "../util-logger";
-import Config, {ALL_LANGS, StartAction} from "./config";
-import {COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS} from "./constants";
+import Config, { ALL_LANGS, StartAction } from "./config";
+import { COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -42,18 +42,24 @@ export interface UserAttribute {
 
 export interface CourseProgress {
     currentChapterId: string;
+    currentLessonId: string;
     date?: Date;
     assignments?: string[];
+    lessonPlan?: string[];
+    lessonPlanIndex?: number;
+    lessonPlanDate?: Date;
 
     updateChapterId(c: string);
 }
 
 export class CourseProgressClass implements CourseProgress {
     currentChapterId: string
+    currentLessonId: string
     date: Date
     assignments: string[]
     lessonPlan: string[]
     lessonPlanIndex: number
+    lessonPlanDate: Date
 
     constructor(currentChapterId: string = null) {
         this.currentChapterId = currentChapterId
@@ -114,11 +120,8 @@ export class User {
     private _unlockedRewards: object;
     private _isTeacher: boolean;
     private _level: number;
-    private _lessonPlanDate: Date
-    private _lessonPlan: string[]
-    private _lessonPlanIndex: number
     private _assignments: string[]
-    private _lessonPlanCourseId: string
+    private _currentCourseId: string
     debug: boolean = false
     curriculumLoaded: boolean = false
 
@@ -163,9 +166,7 @@ export class User {
         this._genderEvent(gender);
         this.debug = debug
         this._serverId = serverId
-        this._lessonPlan = lessonPlan
         this._assignments = []
-        this._lessonPlanCourseId = courseProgressMap.keys().next().value
     }
 
     _genderEvent(gender: Gender) {
@@ -184,13 +185,13 @@ export class User {
 
     set serverId(id: string) {
         this._serverId = id;
-        this._storeUser();
+        this.storeUser();
         UtilLogger.setUserIdEvent(id);
     }
 
     set id(id: string) {
         this._id = id;
-        this._storeUser();
+        this.storeUser();
         UtilLogger.setUserIdEvent(id);
     }
 
@@ -204,7 +205,7 @@ export class User {
 
     set name(name: string) {
         this._name = name;
-        this._storeUser();
+        this.storeUser();
         UtilLogger.setUserPropertiesEvent("userName", name);
     }
 
@@ -214,7 +215,7 @@ export class User {
 
     set age(age: number) {
         this._age = age;
-        this._storeUser();
+        this.storeUser();
         UtilLogger.setUserPropertiesEvent("userAge", age);
     }
 
@@ -224,7 +225,7 @@ export class User {
 
     set gender(gender: Gender) {
         this._gender = gender;
-        this._storeUser();
+        this.storeUser();
         this._genderEvent(gender);
     }
 
@@ -234,7 +235,7 @@ export class User {
 
     set imgPath(imgPath: string) {
         this._imgPath = imgPath;
-        this._storeUser();
+        this.storeUser();
     }
 
     get imgPath(): string {
@@ -245,7 +246,7 @@ export class User {
         console.log(" avatar image : ", avatarImage);
         this._avatarImage = avatarImage;
         UtilLogger.setUserPropertiesEvent("userAvatarImage", avatarImage);
-        this._storeUser();
+        this.storeUser();
     }
 
     get avatarImage(): string {
@@ -254,7 +255,7 @@ export class User {
 
     set inventory(inventory: object) {
         this._inventory = inventory;
-        this._storeUser();
+        this.storeUser();
     }
 
     get inventory(): object {
@@ -263,7 +264,7 @@ export class User {
 
     set currentBg(currentBg: string) {
         this._currentBg = currentBg;
-        this._storeUser();
+        this.storeUser();
     }
 
     get currentBg(): string {
@@ -272,7 +273,7 @@ export class User {
 
     set currentCharacter(currentCharacter: string) {
         this._currentCharacter = currentCharacter;
-        this._storeUser();
+        this.storeUser();
     }
 
     get currentCharacter(): string {
@@ -297,7 +298,7 @@ export class User {
 
     set unlockedInventory(unlockedInventory: object) {
         this._unlockedInventory = {};
-        this._storeUser();
+        this.storeUser();
     }
 
     get unlockedInventory(): object {
@@ -306,7 +307,7 @@ export class User {
 
     set unlockedRewards(unlockedRewards: object) {
         this._unlockedRewards = {};
-        this._storeUser();
+        this.storeUser();
     }
 
     get unlockedRewards(): object {
@@ -315,58 +316,40 @@ export class User {
 
     set isTeacher(isTeacher: boolean) {
         this._isTeacher = isTeacher;
-        this._storeUser();
-    }
-
-    set lessonPlan(lessonPlan: string[]) {
-        this._lessonPlan = lessonPlan
-        this._storeUser();
-    }
-
-    get lessonPlan(): string[] {
-        return this._lessonPlan
-    }
-
-    set lessonPlanDate(lessonPlanDate: Date) {
-        this._lessonPlanDate = lessonPlanDate;
-        this._storeUser();
-    }
-
-    get lessonPlanDate(): Date {
-        return this._lessonPlanDate;
+        this.storeUser();
     }
 
     set assignments(assignments: string[]) {
         this._assignments = assignments;
-        this._storeUser();
+        this.storeUser();
     }
 
     get assignments(): string[] {
         return this._assignments;
     }
 
-    set lessonPlanCourseId(lessonPlanCourseId: string) {
-        this._lessonPlanCourseId = lessonPlanCourseId;
-        this._storeUser();
+    set currentCourseId(currentCourseId: string) {
+        this._currentCourseId = currentCourseId;
+        this.storeUser();
     }
 
-    get lessonPlanCourseId(): string {
-        return this._lessonPlanCourseId;
+    get currentCourseId(): string {
+        return this._currentCourseId;
     }
 
     unlockInventoryForItem(item: string) {
         this._unlockedInventory[item] = true;
-        this._storeUser();
+        this.storeUser();
     }
 
     unlockRewardsForItem(item: string, value: number) {
         this._unlockedRewards[item] = value;
-        this._storeUser();
+        this.storeUser();
     }
 
     updateInventory(name: string, value: string) {
         this._inventory[name] = value
-        this._storeUser()
+        this.storeUser()
     }
 
     openAllRewards() {
@@ -381,7 +364,7 @@ export class User {
         REWARD_BACKGROUNDS.forEach((bg) => {
             this._unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] = 1
         })
-        this._storeUser()
+        this.storeUser()
     }
 
     openAllRewardsForCharacter(character: string) {
@@ -412,16 +395,32 @@ export class User {
         var reward: [string, string]
         const config = Config.i
         if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == null) {
-            const formulaScore = quizScores.reduce((acc, cur, i, arr): number => {
-                const mul = Math.floor(arr.length / 2) - Math.floor(i / 2)
-                const neg = cur == 0 ? -0.5 : cur
-                return acc + neg * mul
-            }, 0)
-            const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
-            const total = Math.max(0, formulaScore / max)
-            const chapters = config.curriculum.get(config.course.id).chapters
-            const cpm = this.courseProgressMap.get(config.course.id)
-            cpm.updateChapterId(chapters[Math.floor((chapters.length - 1) * total)].id);
+            const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
+            if (quizChapter) {
+                let currentCourse = config.course.chapters.find((c) => c.id != config.course.id + '_quiz')
+                let qzId = 0
+                for (let index = 0; index + 2 < quizScores.length; index+= 3) {
+                    if(quizScores[index] + quizScores[index+1] + quizScores[index+2] >= 2) {
+                        currentCourse = config.course.chapters.find((c) => c.id == quizChapter.lessons[qzId].name)
+                    } else {
+                        break
+                    }
+                    qzId++
+                }
+                const cpm = this.courseProgressMap.get(config.course.id)
+                cpm.updateChapterId(currentCourse.id);                
+            } else {
+                const formulaScore = quizScores.reduce((acc, cur, i, arr): number => {
+                    const mul = Math.floor(arr.length / 2) - Math.floor(i / 2)
+                    const neg = cur == 0 ? -0.5 : cur
+                    return acc + neg * mul
+                }, 0)
+                const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
+                const total = Math.max(0, formulaScore / max)
+                const chapters = config.curriculum.get(config.course.id).chapters
+                const cpm = this.courseProgressMap.get(config.course.id)
+                cpm.updateChapterId(chapters[Math.floor((chapters.length - 1) * total)].id);
+            }
         } else {
             if (this._lessonProgressMap.has(lessonId)) {
                 const lessonProgress = this._lessonProgressMap.get(lessonId)
@@ -448,6 +447,8 @@ export class User {
                 })
                 if (lessons.length > lessonIndex + 1) {
                     const nextLesson = lessons[lessonIndex + 1]
+                    const cpm = this.courseProgressMap.get(config.course.id)
+                    cpm.currentLessonId = nextLesson.id
                     if (!this._lessonProgressMap.has(nextLesson.id)) {
                         this._lessonProgressMap.set(nextLesson.id, new LessonProgressClass(-1));
                     }
@@ -461,15 +462,16 @@ export class User {
                         })
                     if (nextChapter) {
                         const cpm = this.courseProgressMap.get(config.course.id)
+                        cpm.currentLessonId = null
                         cpm.updateChapterId(nextChapter.id)
                     }
                 }
             }
         }
-        if (this.lessonPlan
-            && this.lessonPlan[Math.floor(this.lessonPlan.length / 2)] == config.lesson.id
-        ) {
-            this.pushNewLessonPlaceholder();
+        const lessonPlan = this.courseProgressMap.get(config.course.id).lessonPlan
+        if (lessonPlan && lessonPlan[this.courseProgressMap.get(config.course.id).lessonPlanIndex] == config.lesson.id) {
+            this.courseProgressMap.get(config.course.id).lessonPlanIndex++
+            Config.i.startAction = StartAction.MoveLessonPlan;
         }
         if (this.assignments) {
             const index = this.assignments.indexOf(config.lesson.id)
@@ -499,18 +501,11 @@ export class User {
                 }
             }
         }
-        this._storeUser();
+        this.storeUser();
         return reward
     }
 
-    pushNewLessonPlaceholder() {
-        this.lessonPlan.splice(0, 1);
-        this.lessonPlan.push(this.lessonPlan[this.lessonPlan.length - 3]);
-        Config.i.startAction = StartAction.MoveLessonPlan;
-        this._storeUser()
-    }
-
-    private _storeUser() {
+    storeUser() {
         User.storeUser(this);
     }
 
@@ -639,10 +634,14 @@ export class User {
         for (const key in data.courseProgressMap) {
             const cpData = data.courseProgressMap[key]
             const cp = new CourseProgressClass(cpData.currentChapterId)
+            cp.currentLessonId = cpData.currentLessonId
             cp.date = new Date(cpData.date)
             cp.assignments = cpData.assignments
             cp.lessonPlan = cpData.lessonPlan
             cp.lessonPlanIndex = cpData.lessonPlanIndex
+            if(cp.lessonPlanDate) {
+                cpData.lessonPlanDate = new Date(cp.lessonPlanDate)
+            }
             courseProgressMap.set(key, cp);
         }
         const lessonProgressMap = new Map<string, LessonProgress>();
@@ -675,8 +674,8 @@ export class User {
             data.lessonPlan,
             data.serverId
         );
-        user._lessonPlanDate = new Date(data.lessonPlanDate)
-        if (data.lessonPlanCourseId) user._lessonPlanCourseId = data.lessonPlanCourseId
+        // user._lessonPlanDate = new Date(data.lessonPlanDate)
+        // if (data.lessonPlanCourseId) user._lessonPlanCourseId = data.lessonPlanCourseId
         if (data.assignments) user._assignments = data.assignments
         return user;
     }
@@ -711,9 +710,9 @@ export class User {
             'unlockedRewards': user.unlockedRewards,
             'debug': user.debug,
             'serverId': user.serverId,
-            'lessonPlanCourseId': user.lessonPlanCourseId,
-            'lessonPlanDate': user.lessonPlanDate,
-            'lessonPlan': user.lessonPlan,
+            // 'lessonPlanCourseId': user.lessonPlanCourseId,
+            // 'lessonPlanDate': user.lessonPlanDate,
+            // 'lessonPlan': user.lessonPlan,
             'assignments': user.assignments,
             'chapterFinishedMap': chapterFinishedMapObj
         });
@@ -862,7 +861,7 @@ export default class Profile {
     }
 
     static async teacherPostLoginActivity(objectId: string) {
-        const currentUser: User = User.createUserOrFindExistingUser({id: objectId});
+        const currentUser: User = User.createUserOrFindExistingUser({ id: objectId });
         User.setCurrentUser(currentUser);
         return currentUser;
     }

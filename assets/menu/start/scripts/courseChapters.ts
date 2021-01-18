@@ -47,6 +47,7 @@ export default class CourseChapters extends cc.Component {
             this.chaptersLayout.addChild(StartContent.createPreQuizButton(config.course, this.lessonButtonPrefab, this.loading))
         }
         for (const chapter of config.course.chapters) {
+            if(chapter.id == config.course.id + '_quiz') continue
             const chapterMenuButton = cc.instantiate(this.chapterMenuButtonPrefab)
             const chapterMenuButtonComp = chapterMenuButton.getComponent(ChapterMenuButton)
             chapterMenuButtonComp.chapter = chapter

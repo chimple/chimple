@@ -40,7 +40,7 @@ export default class Scorecard extends cc.Component {
     reward: [string, string]
 
     onLoad() {
-        this.label.string = this.text
+        this.label.string = Util.i18NText(this.text);
         if (this.score > 25) this.star1.spriteFrame = this.active
         if (this.score > 50) this.star2.spriteFrame = this.active
         if (this.score > 75) this.star3.spriteFrame = this.active
@@ -51,8 +51,7 @@ export default class Scorecard extends cc.Component {
             Util.loadAccessoriesAndEquipAcc(friendNode.children[1], friendNode)
             friend.playHappyAnimation(1)
         })
-        var scorecardAnim = this.getComponent(cc.Animation);
-        console.log('Scorecard Animation statement exicuted ', scorecardAnim);
+        const scorecardAnim = this.getComponent(cc.Animation);
         scorecardAnim.play('scorecard');
         const continueNode = this.node.getChildByName("commonButton")
         const continueAnime: cc.Animation = continueNode.getComponent(cc.Animation)
