@@ -135,6 +135,7 @@ export default class Start extends cc.Component {
             }
             friendComp.speakHelp(true)
         })
+        ChapterLessons.showAssignments = false
         const assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
         config.assignments = assignments.filter((ass) => {
             const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
