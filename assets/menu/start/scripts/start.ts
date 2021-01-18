@@ -23,6 +23,7 @@ import {
 } from "../../../common/scripts/util";
 import Inventory from "../../inventory/scripts/inventory";
 import LessonButton from "./lessonButton";
+import ChapterLessons from "./chapterLessons";
 
 const COMPLETE_AUDIOS = [
     'congratulations',
@@ -80,6 +81,9 @@ export default class Start extends cc.Component {
     @property(cc.Label)
     library: cc.Label = null
 
+    @property(cc.Node)
+    assignmentButton: cc.Node = null
+
     friend: cc.Node
 
     async onLoad() {
@@ -131,8 +135,15 @@ export default class Start extends cc.Component {
             }
             friendComp.speakHelp(true)
         })
-        const assignments: [] = await ServiceConfig.getI().handle.listAssignments(user.id);
-        console.log(assignments)
+        const assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
+        config.assignments = assignments.filter((ass) => {
+            const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
+            return !(lessonProgress && lessonProgress.date > ass.createAt)
+        })
+        if(config.assignments.length > 0) {
+            this.assignmentButton.active = true
+        }
+        console.log(config.assignments)
     }
 
     private initPage() {
@@ -230,6 +241,11 @@ export default class Start extends cc.Component {
 
     onProfileClick() {
         Config.i.pushScene('menu/rewards/scenes/rewards', 'menu')
+    }
+
+    onAssignmentsClick() {
+        ChapterLessons.showAssignments = true
+        Config.i.pushScene('menu/start/scenes/chapterLessons', 'menu')
     }
 
     createLessonPlan(courseId: string): Lesson[] {
