@@ -100,7 +100,6 @@ export class LessonProgressClass implements LessonProgress {
     }
 }
 
-
 export class User {
     private static _currentUser: User;
     private _serverId: string;
