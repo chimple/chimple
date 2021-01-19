@@ -70,6 +70,7 @@ export default class Inventory extends cc.Component {
     }
 
     onDoneButtonClick(event) {
+        this.doneButtonNode.getComponent(cc.Button).interactable = false
         Util.preloadStartScene(this.node, cc.director.getScene().getChildByName('Canvas').getChildByName('loading'))
         // Config.i.pushScene('menu/start/scenes/start', 'menu', null);
         User.getCurrentUser().openOnlyTheSelectedRewards("chimp")
