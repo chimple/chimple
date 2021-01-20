@@ -111,6 +111,7 @@ export default class Config {
     gameLevelName: string;
     worksheet: number;
     startAction: StartAction = StartAction.Default
+    assignments: any []
 
     //remove later
     flow: Flow;

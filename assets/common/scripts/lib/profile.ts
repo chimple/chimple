@@ -100,7 +100,6 @@ export class LessonProgressClass implements LessonProgress {
     }
 }
 
-
 export class User {
     private static _currentUser: User;
     private _serverId: string;
@@ -379,10 +378,11 @@ export class User {
         INVENTORY_DATA.forEach((arr, i) => {
             let unlockItem = this._inventory[`${character}-${arr[0].split("-")[0]}`];
             arr.forEach((inv) => {
-                this._unlockedRewards[`${REWARD_TYPES[3]}-${character}-${inv}`] = 0
+                delete this._unlockedRewards[`${REWARD_TYPES[3]}-${character}-${inv}`]
             })
 
-            this._unlockedRewards[`${REWARD_TYPES[3]}-${character}-${arr[i].split('-')[0].concat(`-${unlockItem}`)}`] = 1
+            if (unlockItem != undefined)
+                this._unlockedRewards[`${REWARD_TYPES[3]}-${character}-${arr[i].split('-')[0].concat(`-${unlockItem}`)}`] = 1
         })
     }
 
@@ -399,8 +399,8 @@ export class User {
             if (quizChapter) {
                 let currentCourse = config.course.chapters.find((c) => c.id != config.course.id + '_quiz')
                 let qzId = 0
-                for (let index = 0; index + 2 < quizScores.length; index+= 3) {
-                    if(quizScores[index] + quizScores[index+1] + quizScores[index+2] >= 2) {
+                for (let index = 0; index + 2 < quizScores.length; index += 3) {
+                    if (quizScores[index] + quizScores[index + 1] + quizScores[index + 2] >= 2) {
                         currentCourse = config.course.chapters.find((c) => c.id == quizChapter.lessons[qzId].name)
                     } else {
                         break
@@ -408,7 +408,7 @@ export class User {
                     qzId++
                 }
                 const cpm = this.courseProgressMap.get(config.course.id)
-                cpm.updateChapterId(currentCourse.id);                
+                cpm.updateChapterId(currentCourse.id);
             } else {
                 const formulaScore = quizScores.reduce((acc, cur, i, arr): number => {
                     const mul = Math.floor(arr.length / 2) - Math.floor(i / 2)
@@ -639,7 +639,7 @@ export class User {
             cp.assignments = cpData.assignments
             cp.lessonPlan = cpData.lessonPlan
             cp.lessonPlanIndex = cpData.lessonPlanIndex
-            if(cp.lessonPlanDate) {
+            if (cp.lessonPlanDate) {
                 cpData.lessonPlanDate = new Date(cp.lessonPlanDate)
             }
             courseProgressMap.set(key, cp);
