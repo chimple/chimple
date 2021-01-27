@@ -139,7 +139,7 @@ export default class Start extends cc.Component {
         const assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
         config.assignments = assignments.filter((ass) => {
             const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
-            return !(lessonProgress && lessonProgress.date > ass.createAt)
+            return !(lessonProgress && lessonProgress.date < ass.createAt)
         })
         if(config.assignments.length > 0) {
             this.assignmentButton.active = true
