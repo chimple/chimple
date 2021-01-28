@@ -278,7 +278,7 @@ export class SumTogether extends Game {
     }
 
     createDog(i: number) {
-        const dName: string = `${'domino' + i}`;
+        const dName: string = `${'domino0'}`;
         const domino: cc.Node = cc.instantiate(this[dName]);
         domino.y = 30
         // domino.setPosition(new cc.Vec2(domino.position.x, -205));
