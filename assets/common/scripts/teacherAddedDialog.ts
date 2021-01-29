@@ -56,10 +56,22 @@ export default class TeacherAddedDialog extends cc.Component {
     }
 
     private render() {
+        const validUsers = [];
         const chimpleLabel = this.text.getComponent(ChimpleLabel);
         chimpleLabel.string = Util.i18NText("Add Teacher") + " " + this._teacherName;
         const len = this.users.length;
-        this.users.forEach(
+
+        const teachersAdded: AcceptTeacherRequest[] = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED) || '[]');
+        this.users.forEach(u => {
+            const t = teachersAdded.find(t => {
+               return t.teacherId === this._teacherId && t.sectionId === this._teacherSectionId && t.studentId === u.id                
+            })
+            if(!t) {
+                validUsers.push(u);
+            }            
+        })
+
+        validUsers.forEach(
             (user) => {
                 const studentPreviewInfoNode: cc.Node = cc.instantiate(this.studentPreviewInfoPrefab);
                 studentPreviewInfoNode.scale = 2;
@@ -73,7 +85,7 @@ export default class TeacherAddedDialog extends cc.Component {
                 }
             }
         )
-        if (this.users.length > 1) {
+        if (validUsers.length > 1) {
             this.yesButton.color = new cc.Color().fromHEX('#6A6D5D');
             this.yesButton.active = true;
         }
