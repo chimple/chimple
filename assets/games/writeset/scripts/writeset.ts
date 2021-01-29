@@ -226,6 +226,18 @@ export class WriteSet extends Game {
         if (this._currentLetterIndex === this._characters.length) {
             this.scheduleOnce(
                 () => {
+                    let equations: string[] = Number(this._currentConfig.count) <= 100 ? [this._currentConfig.count] : [
+                        String(Number(this._currentConfig.count) - (Number(this._currentConfig.count) % 10)),
+                        String(Number(this._currentConfig.count) % 10)
+                    ];
+                    Util.showHelp(null, null, () => {
+                        this.friend.speakEquation(equations, (index) => {
+                            // @ts-ignore
+                            this.emitLetterEnabledEvent(
+                                this._layout.node.getChildByName(this._originalLetterName + '0'), 0
+                            );
+                        });
+                    })
                     this.node.emit('nextProblem');
                 }, 1
             );
