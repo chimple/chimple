@@ -51,7 +51,7 @@ export default class StartContent extends cc.Component {
             node.y = - cc.winSize.height / 2 + STARTY + (cc.winSize.height - STARTY) / array.length * index
             this.node.addChild(node)
         })
-        const assignments = await ServiceConfig.getI().handle.listAssignments('0bb66d84-2767-4a03-ac7d-a6101a7830d5');
+        const assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
         assignments.forEach((ass) => {
             const course: Course = Config.i.curriculum.get(ass.courseCode);
             if (course) {

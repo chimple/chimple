@@ -26,6 +26,12 @@ export default class Drawer extends cc.Component {
     @property(cc.Node)
     block: cc.Node = null
 
+    @property(cc.Node)
+    more: cc.Node = null
+
+    @property(cc.Node)
+    left: cc.Node = null
+
     onCourseClick: Function
     onHomeClick: Function
     onRightClick: Function
@@ -33,13 +39,19 @@ export default class Drawer extends cc.Component {
 
     onLoad() {
         const config = Config.i
-        this.courseLayout.x = - cc.winSize.width / 2
+        this.left.x = - cc.winSize.width / 2
+        
         User.getCurrentUser().courseProgressMap.forEach((val: CourseProgress, courseId: string) => {
             const drawerButton = cc.instantiate(this.drawerButtonPrefab)
             const drawerButtonComp = drawerButton.getComponent(HeaderButton)
-            this.courseLayout.addChild(drawerButton)
             const course = config.curriculum.get(courseId)
-            drawerButtonComp.label.string = Util.i18NText(course.name)
+            if(config.course.id == course.id) {
+                this.more.addChild(drawerButton)
+                drawerButtonComp.label.string = 'More...'
+            } else {
+                this.courseLayout.addChild(drawerButton)
+                drawerButtonComp.label.string = Util.i18NText(course.name)
+            }
             const color = DRAWER_ICON_COLORS[courseId]
             if(color) drawerButtonComp.selected.node.color = new cc.Color().fromHEX(color)
             Util.load(courseId + '/course/res/icons/' + courseId + '.png', (err: Error, texture) => {
@@ -47,8 +59,12 @@ export default class Drawer extends cc.Component {
             })
             drawerButtonComp.button.node.on('touchend', (event: cc.Event) => {
                 if (event.target.getComponent(cc.Button).enabled) {
-                    config.course = course;
-                    config.pushScene('menu/start/scenes/courseChapters', 'menu')
+                    if(config.course.id == course.id) {
+                        config.pushScene('menu/start/scenes/courseChapters', 'menu')    
+                    } else {
+                        config.course = course;
+                        Config.loadScene('menu/start/scenes/start', 'menu')
+                    }
                 }
             })
             if (!Header.homeSelected && config.course && config.course.id == course.id) {
@@ -78,13 +94,13 @@ export default class Drawer extends cc.Component {
         this.block.on('touchend', () => {
             this.closeDrawer()
         })
-        new cc.Tween().target(this.courseLayout)
+        new cc.Tween().target(this.left)
             .to(0.5, {x: - cc.winSize.width / 2 + 320}, { progress: null, easing: 'cubicInOut' })
             .start()
     }
 
     closeDrawer() {
-        new cc.Tween().target(this.courseLayout)
+        new cc.Tween().target(this.left)
         .to(0.5, {x: - cc.winSize.width / 2}, { progress: null, easing: 'cubicInOut' })
         .call(() => {
             this.node.active = false

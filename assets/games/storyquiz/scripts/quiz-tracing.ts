@@ -90,7 +90,7 @@ export default class QuizTracing extends cc.Component {
 
     @catchError()
     private minScrollToLeft(index: number, child: cc.Node) {
-        const scrollToLeft = cc.winSize.width / 6;
+        const scrollToLeft = cc.winSize.width / 4;
         const wordLayout = this.words.getComponent(cc.Layout);
         const newPos = new cc.Vec2(wordLayout.node.position.x - scrollToLeft, wordLayout.node.position.y);
         this.tweenMove(wordLayout, newPos, index);

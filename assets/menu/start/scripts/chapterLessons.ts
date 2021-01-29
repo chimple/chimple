@@ -1,8 +1,9 @@
 import Config from "../../../common/scripts/lib/config";
 import LessonButton from "./lessonButton";
-import { User } from "../../../common/scripts/lib/profile";
+import {User} from "../../../common/scripts/lib/profile";
+import {Lesson} from "../../../common/scripts/lib/convert";
 
-const { ccclass, property } = cc._decorator;
+const {ccclass, property} = cc._decorator;
 
 const HEADER_COLORS = {
     'en': '#FFBC00',
@@ -33,7 +34,7 @@ export default class ChapterLessons extends cc.Component {
     @property(cc.Node)
     header: cc.Node = null;
 
-
+    static showAssignments: boolean = false
 
     onLoad() {
 
@@ -45,25 +46,40 @@ export default class ChapterLessons extends cc.Component {
         }
 
         const config = Config.i
-        this.label.string = config.chapter.name
-        config.chapter.lessons.forEach((lesson, index) => {
-            const lessonButton = cc.instantiate(this.lessonButtonPrefab)
-            const lessonButtonComp = lessonButton.getComponent(LessonButton)
-            lessonButtonComp.lesson = lesson
-            lessonButtonComp.loading = this.loading
-            lessonButtonComp.open = (index == 0
-                || lesson.open
-                || User.getCurrentUser().lessonProgressMap.has(lesson.id))
-            this.layout.addChild(lessonButton)
-        })
+        if (ChapterLessons.showAssignments) {
+            this.label.string = 'Assignments'
+            config.assignments.forEach((ass) => {
+                const lesson = Config.i.allLessons.get(ass.lessonId)
+                const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
+                if (lesson && !(lessonProgress && lessonProgress.date < ass.createAt)) {
+                    lesson.assignmentId = ass.assignmentId;
+                    this.createLessonButton(lesson, true)
+                }
+            })
+        } else {
+            this.label.string = config.chapter.name
+            config.chapter.lessons.forEach((lesson, index) => {
+                this.createLessonButton(lesson, (index == 0
+                    || lesson.open
+                    || User.getCurrentUser().lessonProgressMap.has(lesson.id)));
+            })
+        }
         this.layout.width = cc.winSize.width
         this.layout.parent.width = cc.winSize.width
         this.layout.parent.parent.width = cc.winSize.width
         this.layout.getComponent(cc.Layout).updateLayout()
         this.layout.parent.height = this.layout.height
         const color = HEADER_COLORS[config.course.id]
-        if(color) this.header.color = new cc.Color().fromHEX(color)
-        
+        if (color) this.header.color = new cc.Color().fromHEX(color)
+    }
+
+    private createLessonButton(lesson: Lesson, open: boolean) {
+        const lessonButton = cc.instantiate(this.lessonButtonPrefab);
+        const lessonButtonComp = lessonButton.getComponent(LessonButton);
+        lessonButtonComp.lesson = lesson;
+        lessonButtonComp.loading = this.loading;
+        lessonButtonComp.open = open;
+        this.layout.addChild(lessonButton);
     }
 
     private setBackground(bgprefabName: string) {
