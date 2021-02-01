@@ -46,13 +46,10 @@
     "_components": [
       {
         "__id__": 27
-      },
-      {
-        "__id__": 28
       }
     ],
     "_prefab": {
-      "__id__": 29
+      "__id__": 28
     },
     "_opacity": 255,
     "_color": {
@@ -991,25 +988,6 @@
     },
     "fileId": "ccPuQz9u1KVppr51PBjVuA",
     "sync": false
-  },
-  {
-    "__type__": "cc.AudioSource",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "_clip": {
-      "__uuid__": "097ff626-9e75-48fd-8393-3b5478beea02"
-    },
-    "_volume": 1,
-    "_mute": false,
-    "_loop": true,
-    "_firstlyEnabled": true,
-    "playOnLoad": false,
-    "preload": false,
-    "_id": ""
   },
   {
     "__type__": "e9c76rOfsRMNruLTUm9odcG",
