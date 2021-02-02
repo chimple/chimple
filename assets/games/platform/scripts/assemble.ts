@@ -248,27 +248,7 @@ export default class Assemble extends cc.Component {
         this.player.active = false;
         this.node.off(TouchEvents.TOUCH_START)
         this.node.off(TouchEvents.TOUCH_END)
-        const bal = cc.instantiate(this.balloon);
-        const balloonComp = bal.getComponent(Balloon);
-        if (balloonComp != null) {
-            balloonComp.label.string = Util.i18NText('Game Over');
-            balloonComp.onClickCallback = () => {
-                config.popScene()
-            };
-        }
-        bal.x = cc.winSize.width / 2;
-        bal.y = cc.winSize.height;
-        cc.director.getScene().addChild(bal);
-        bal.zIndex = 5;
-
-        new cc.Tween().target(bal)
-            .to(1, {y: 50}, null)
-            .delay(2)
-            .call(() => {
-                balloonComp.onBalloonClick();
-            })
-            .start();
-
+        this.node.emit('nextProblem');
     }
 
     private addPath(isPlaying: boolean, count: number) {
