@@ -57,6 +57,9 @@ export default class Start extends cc.Component {
     @property(cc.Node)
     bgHolder: cc.Node = null;
 
+    @property(cc.AudioClip)
+    bgMusic: cc.AudioClip = null;
+
     @property(cc.Node)
     drawer: cc.Node = null
 
@@ -89,6 +92,7 @@ export default class Start extends cc.Component {
     async onLoad() {
         const user = User.getCurrentUser()
         this.bgHolder.removeAllChildren();
+        Util.playSfx(this.bgMusic, true, true);
         if (!!user && !!user.currentBg) {
             this.setBackground(user.currentBg);
         } else {
@@ -141,7 +145,7 @@ export default class Start extends cc.Component {
             const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
             return !(lessonProgress && lessonProgress.date < ass.createAt)
         })
-        if(config.assignments.length > 0) {
+        if (config.assignments.length > 0) {
             this.assignmentButton.active = true
         }
         console.log(config.assignments)
@@ -185,19 +189,6 @@ export default class Start extends cc.Component {
             bgPrefabInstance.x = 0
             // @ts-ignore
             this.bgHolder.addChild(bgPrefabInstance);
-            // userButtonRef.getChildByName("Background").getChildByName("avatar").getChildByName("icon").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
-            // @ts-ignore
-            const audioSource = bgPrefabInstance.getComponent(cc.AudioSource);
-            if (audioSource) {
-                let audioClip = audioSource.clip;
-                try {
-                    if (audioClip) {
-                        Util.playSfx(audioClip, true);
-                    }
-                } catch (e) {
-                    cc.log(e);
-                }
-            }
         });
     }
 
@@ -373,7 +364,7 @@ export default class Start extends cc.Component {
                         user.updateInventory(`${splitItems[1]}-${splitItems[2]}`, splitItems[3]);
                     }
                     const courseProgress = user.courseProgressMap.get(Config.i.course.id)
-                    if(courseProgress) {
+                    if (courseProgress) {
                         courseProgress.lessonPlan = null
                         courseProgress.lessonPlanDate = null
                         courseProgress.lessonPlanIndex = 0
