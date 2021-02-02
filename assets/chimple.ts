@@ -61,37 +61,40 @@ cc.deep_link = function (url) {
         let messageType: string = null;
         let splits = url.split("://chimple.github.io/");
         if (splits !== null && splits.length === 2) {
-            let elements = splits[1].split('/');
-            messageType = elements.splice(0, 1)[0];
-            if (messageType === RECEIVED_TEACHER_REQUEST) {
-                let data = Object.assign({});
-                if (elements !== null && (elements.length % 2 === 0)) {
-                    let all_keys = elements;
-                    let all_values = [];
-                    for (let i = 0; i < elements.length; i++) {
-                        all_values.push(all_keys.splice(i + 1, 1)[0]);
-                    }
-                    let mappings = all_keys.map(function (e, i) {
-                        return [e, all_values[i]];
-                    });
-
-                    mappings.forEach(arr => {
-                        if (arr && arr.length === 2) {
-                            data[arr[0].toLowerCase()] = arr[1]
+            let elements = splits[1].split('?');
+            if (elements && elements.length === 2) {
+                messageType = elements.splice(0, 1)[0];
+                if (messageType.includes(RECEIVED_TEACHER_REQUEST)) {
+                    const items = elements[0].split(/[&=]+/)
+                    let data = Object.assign({});
+                    if (items !== null && (items.length % 2 === 0)) {
+                        let all_keys = items;
+                        let all_values = [];
+                        for (let i = 0; i < items.length; i++) {
+                            all_values.push(all_keys.splice(i + 1, 1)[0]);
                         }
-                    })
-                }
-                try {
-                    cc.log('RECEIVED_TEACHER_REQUEST', JSON.stringify(data));
-                    const jsonMessages: any[] = Util.removeDuplicateMessages(data, messageType);
-                    UtilLogger.logChimpleEvent(RECEIVED_TEACHER_REQUEST, data);
-                    cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
-                } catch (e) {
+                        let mappings = all_keys.map(function (e, i) {
+                            return [e, all_values[i]];
+                        });
 
+                        mappings.forEach(arr => {
+                            if (arr && arr.length === 2) {
+                                data[arr[0].toLowerCase()] = arr[1]
+                            }
+                        })
+                    }
+                    try {
+                        cc.log('RECEIVED_TEACHER_REQUEST', JSON.stringify(data));
+                        const jsonMessages: any[] = Util.removeDuplicateMessages(data, messageType);
+                        UtilLogger.logChimpleEvent(RECEIVED_TEACHER_REQUEST, data);
+                        cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
+                    } catch (e) {
+
+                    }
                 }
+                cc.log('saved into local storage:' + cc.sys.localStorage.getItem(messageType));
             }
         }
-        cc.log('saved into local storage:' + cc.sys.localStorage.getItem(messageType));
     }
 };
 
@@ -183,9 +186,6 @@ export default class Chimple extends cc.Component {
             case Mode.School:
                 // send to selectSections.ts
                 Config.i.pushScene('private/school/scenes/selectSections', 'private', null, true);
-                break;
-            case Mode.Platformer:
-                Config.i.pushScene('platform/scenes/assemble', 'platform', null, true);
                 break;
             default:
                 Config.i.pushScene('private/home/loginnew/scenes/welcomeScene', 'private', null, true);
