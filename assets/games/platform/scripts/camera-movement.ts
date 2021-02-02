@@ -2,7 +2,7 @@ import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import Vec2 = cc.Vec2;
 import {Platformer} from "./platformer";
-import { TouchEvents } from "../../common/scripts/util";
+import { TouchEvents } from "../../../common/scripts/util";
 
 
 @ccclass

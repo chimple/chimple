@@ -1,6 +1,6 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
-import { BG_NAME } from "../../common/scripts/lib/config";
+import { BG_NAME } from "../../../common/scripts/lib/config";
 
 const PLAYER_Z_INDEX = 100;
 const PLATFORM_ZINDEX = -5;

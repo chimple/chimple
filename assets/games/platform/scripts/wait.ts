@@ -1,5 +1,3 @@
-import { CamraMovement } from "./camera-movement";
-
 const {ccclass, property} = cc._decorator;
 
 @ccclass

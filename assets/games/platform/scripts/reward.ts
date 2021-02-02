@@ -1,7 +1,7 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import Vec2 = cc.Vec2;
-import { OBSTACLE_GROUP } from "../../common/scripts/helper";
+import { OBSTACLE_GROUP } from "../../../common/scripts/helper";
 
 @ccclass
 export class Reward extends cc.Component {

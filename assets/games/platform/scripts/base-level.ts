@@ -1,8 +1,8 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import Vec2 = cc.Vec2;
-import { FONT_SIZE, QUIZ_GROUP } from "../../common/scripts/helper";
-import { Util } from "../../common/scripts/util";
+import { FONT_SIZE, QUIZ_GROUP } from "../../../common/scripts/helper";
+import { Util } from "../../../common/scripts/util";
 import Assemble from "./assemble";
 import { QuizCollect } from "./quiz-collect";
 import { Reward } from "./reward";
@@ -99,6 +99,7 @@ export abstract class BaseLevel extends cc.Component {
                 reward.correctAnswer = this._correctNumber;
                 let min = this._generator.next().value;
                 isReward ? Math.random() < 0.5 ? reward.loadImage(this._correctNumber) : reward.loadImage(min) : reward.loadObstacle();
+                // @ts-ignore
                 rewardNode.position = new cc.Vec2(quiz.position.x, quiz.position.y + 50);
                 this._allRewardItems.push(rewardNode);
             }
@@ -108,9 +109,12 @@ export abstract class BaseLevel extends cc.Component {
     }
 
     private randomFruit(): number {
-        const platform: cc.Node = cc.find('Platform');
-        const assemble = platform.getComponent(Assemble);
-        return assemble.randomFruitNumber;
+        const platform: cc.Node = this.node.parent.parent;
+        if(platform != null) {
+            const assemble = platform.getComponent(Assemble);
+            return assemble.randomFruitNumber;
+        }
+        return 0;
     }
 
     private buildQuizzes() {
@@ -124,6 +128,7 @@ export abstract class BaseLevel extends cc.Component {
                 quizCollect.correctAnswers = this.correctAnswers;
                 quizCollect.text = quiz.text;
                 Util.initText(parent, this.textFont, quiz.text, FONT_SIZE, null, true, new Vec2(-5.5, 10));
+                // @ts-ignore
                 parent.position = new cc.Vec2(quiz.position.x, quiz.position.y + 50);
                 this._quizItems.push(parent);
             }

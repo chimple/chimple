@@ -36,7 +36,7 @@ export const LESSON_ID_KEY_FOR_ASSIGN_HW = 'lid';
 
 export const LANDING_SCENE = 'private/school/scenes/landing';
 export const HOME_SCENE = 'menu/home/scenes/home';
-export const start_scene = 'menu/start/scenes/start';
+export const START_SCENE = 'menu/start/scenes/start';
 
 class UpdateConfig {
     storagePath: string = null
@@ -184,6 +184,9 @@ export default class Chimple extends cc.Component {
                 // send to selectSections.ts
                 Config.i.pushScene('private/school/scenes/selectSections', 'private', null, true);
                 break;
+            case Mode.Platformer:
+                Config.i.pushScene('platform/scenes/assemble', 'platform', null, true);
+                break;
             default:
                 Config.i.pushScene('private/home/loginnew/scenes/welcomeScene', 'private', null, true);
         }
@@ -244,6 +247,7 @@ export default class Chimple extends cc.Component {
         if (cc.sys.os === cc.sys.OS_ANDROID) {
             // Some Android device may slow down the download process when concurrent tasks is too much.
             // The value may not be accurate, please do more test and find what's most suitable for your game.
+            // @ts-ignore
             am.setMaxConcurrentTask(2);
             callback(UpdateEvent.Checking, 'Max concurrent tasks count have been limited to 2', 0)
         }

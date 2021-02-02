@@ -225,5 +225,13 @@ export const GAME_CONFIGS = {
     "dragthealphabet": {
         "bundle": "dragthealphabet",
         "prefab": "prefabs/dragthealphabet"
-    }
+    },
+    "jungle": {
+        "bundle": "platform",
+        "prefab": "prefabs/assemble/Platform"
+    },
+    "beach": {
+        "bundle": "platform",
+        "prefab": "prefabs/beach/Platform"
+    },
 }

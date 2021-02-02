@@ -1,13 +1,18 @@
-import Balloon from "../../common/scripts/balloon";
-import Config from "../../common/scripts/lib/config";
-import { TouchEvents, Util } from "../../common/scripts/util";
-import UtilLogger from "../../common/scripts/util-logger";
-import { Platformer } from "./platformer";
-import { Reward } from "./reward";
-import RewardsMonitor, { ALL_REWARDS_COLLECTED } from "./rewardsMonitor";
-import { LOG_TYPE, FAIL_TO_COLLECT_ALL_REWARDS, LOG_WORLD, LOG_LEVEL, COURSE } from "../../common/scripts/lib/constants";
+import Balloon from "../../../common/scripts/balloon";
+import Config from "../../../common/scripts/lib/config";
+import {TouchEvents, Util} from "../../../common/scripts/util";
+import UtilLogger from "../../../common/scripts/util-logger";
+import {Platformer} from "./platformer";
+import {Reward} from "./reward";
+import RewardsMonitor, {ALL_REWARDS_COLLECTED} from "./rewardsMonitor";
+import {
+    LOG_TYPE,
+    FAIL_TO_COLLECT_ALL_REWARDS,
+    COURSE
+} from "../../../common/scripts/lib/constants";
 
-const { ccclass, property } = cc._decorator;
+
+const {ccclass, property} = cc._decorator;
 
 const LEVEL_MAP = [
     'map1',
@@ -77,6 +82,10 @@ export default class Assemble extends cc.Component {
     @property(cc.Prefab)
     displayCollectLabel: cc.Prefab = null;
 
+    @property(cc.Prefab)
+    rewardsMonitorPrefab: cc.Prefab = null;
+
+
     displayImage: cc.SpriteFrame = null;
 
     bridgeNode: cc.Node;
@@ -85,7 +94,7 @@ export default class Assemble extends cc.Component {
     x: number = 0;
     gameIndex: number = 0;
     cameraNode: cc.Node = null;
-    rewardStatus: RewardStatus = RewardStatus.Idle;
+    rewardStatus: RewardStatus = RewardStatus.Collecting;
     numScreens: number = 1;
     stopScrollX: number = 10 * cc.winSize.width;
     balloonMode: boolean = false;
@@ -112,7 +121,8 @@ export default class Assemble extends cc.Component {
     }
 
     private createRewardMonitor() {
-        this.rewardsMonitor = cc.find('RewardsMonitor');
+        this.rewardsMonitor = cc.instantiate(this.rewardsMonitorPrefab);
+        this.node.parent.addChild(this.rewardsMonitor);
         const rewardMonitorComponent = this.rewardsMonitor.getComponent(RewardsMonitor);
         if (this.rewardsMonitor !== null) {
             this.rewardsMonitor.on(ALL_REWARDS_COLLECTED, () => {
@@ -252,7 +262,7 @@ export default class Assemble extends cc.Component {
         bal.zIndex = 5;
 
         new cc.Tween().target(bal)
-            .to(1, { y: 50 }, null)
+            .to(1, {y: 50}, null)
             .delay(2)
             .call(() => {
                 balloonComp.onBalloonClick();
@@ -285,11 +295,13 @@ export default class Assemble extends cc.Component {
     }
 
     protected lateUpdate(): void {
-        if (this.rewardStatus == RewardStatus.Collecting && this.world.x > -this.stopScrollX - cc.winSize.width * 1 / 4) {
+        if (
+            this.rewardStatus == RewardStatus.Collecting &&
+            this.world.x > -this.stopScrollX - cc.winSize.width * 1 / 4) {
             const currentWorldX = this.world.x;
             this.world.x = -this.player.x - cc.winSize.width * 1 / 4;
             this.node.getComponent(Platformer).scrollLayersInParallax(this.world.x - currentWorldX);
-            if (-this.world.x / 1024 > this.numScreens) {
+            if ((-this.world.x / 1024) + 0.5 > this.numScreens) {
                 this.numScreens++;
                 this.addPath(false, 1);
             }

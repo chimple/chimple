@@ -121,7 +121,19 @@
           "name": "Succession in Shapes"
         }
       ],
-      "name": "Puzzle"
+      "name": "Shape Tractor"
+    },
+    {
+      "id": "puzzle02",
+      "image": "puzzle01.png",
+      "lessons": [
+        {
+          "id": "platformer01",
+          "image": "puzzle0100.png",
+          "name": "Jungle"
+        }
+      ],
+      "name": "Platformer Game"
     }
   ]
 }

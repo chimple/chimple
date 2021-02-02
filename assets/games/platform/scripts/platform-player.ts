@@ -2,8 +2,8 @@ import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import { QuizCollect } from "./quiz-collect";
 import { Reward } from "./reward";
-import { Util, TouchEvents } from "../../common/scripts/util";
-import { GROUND_GROUP, WALL_GROUP, QUIZ_GROUP, OBSTACLE_GROUP } from "../../common/scripts/helper";
+import { Util, TouchEvents } from "../../../common/scripts/util";
+import { GROUND_GROUP, WALL_GROUP, QUIZ_GROUP, OBSTACLE_GROUP } from "../../../common/scripts/helper";
 import { PlatformUtil } from "./platformUtil";
 
 export const Y_PULL = -425;
@@ -54,10 +54,11 @@ export class PlatformPlayer extends cc.Component {
     private _isInAir: boolean = false;
 
     protected onLoad(): void {
-        cc.find('Platform')
+        const platform = this.node.parent.parent;
+        platform
             .on(TouchEvents.TOUCH_START, this.onTouchStart, this);
 
-        cc.find('Platform')
+        platform
             .on(TouchEvents.TOUCH_END, this.onTouchEnded, this);
 
         this._speed = new cc.Vec2(0, this.jumpSpeed * (1 + this.gravity * 1 / 60));
@@ -140,7 +141,9 @@ export class PlatformPlayer extends cc.Component {
     }
 
     protected lateUpdate(): void {
+        // @ts-ignore
         this._prevPos = this._currentPos ? new cc.Vec2(this._currentPos.x, this._currentPos.y) : this.node.position;
+        // @ts-ignore
         this._currentPos = this.node.position;
     }
 

@@ -4,8 +4,8 @@ import Vec2 = cc.Vec2;
 import HorizontalAlign = cc.Label.HorizontalAlign;
 import VerticalAlign = cc.Label.VerticalAlign;
 import { COLLECT_REWARD_EVENT } from "../../platform/scripts/platformer";
-import Config, { Flow } from "../../common/scripts/lib/config";
-import { Util } from "../../common/scripts/util";
+import Config, { Flow } from "../../../common/scripts/lib/config";
+import { Util } from "../../../common/scripts/util";
 
 export const ALL_REWARDS_COLLECTED = 'ALL_REWARDS_COLLECTED';
 
