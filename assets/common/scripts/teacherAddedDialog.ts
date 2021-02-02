@@ -62,14 +62,19 @@ export default class TeacherAddedDialog extends cc.Component {
         const len = this.users.length;
 
         const teachersAdded: AcceptTeacherRequest[] = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED) || '[]');
+        console.log("teachersAdded", JSON.stringify(teachersAdded));
         this.users.forEach(u => {
             const t = teachersAdded.find(t => {
                return t.teacherId === this._teacherId && t.sectionId === this._teacherSectionId && t.studentId === u.id                
             })
+            console.log("on filter found", t);
             if(!t) {
+                console.log("Pushing to Validators", JSON.stringify(u));
                 validUsers.push(u);
             }            
         })
+
+        console.log("Validators", JSON.stringify(validUsers));
 
         validUsers.forEach(
             (user) => {

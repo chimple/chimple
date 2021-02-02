@@ -121,7 +121,64 @@
           "name": "Succession in Shapes"
         }
       ],
-      "name": "Puzzle"
+      "name": "Shape Tractor"
+    },
+    {
+      "id": "puzzle02",
+      "image": "puzzle01.png",
+      "lessons": [
+        {
+          "id": "platformer01",
+          "image": "puzzle0100.png",
+          "name": "Jungle"
+        },
+        {
+          "id": "platformer02",
+          "image": "puzzle0200.png",
+          "name": "Beach"
+        },
+        {
+          "id": "platformer03",
+          "image": "puzzle0200.png",
+          "name": "City"
+        },
+        {
+          "id": "platformer04",
+          "image": "puzzle0200.png",
+          "name": "Desert"
+        },
+        {
+          "id": "platformer05",
+          "image": "puzzle0200.png",
+          "name": "Farm"
+        },
+        {
+          "id": "platformer06",
+          "image": "puzzle0200.png",
+          "name": "Garden"
+        },
+        {
+          "id": "platformer07",
+          "image": "puzzle0200.png",
+          "name": "PlayGround"
+        },
+        {
+          "id": "platformer08",
+          "image": "puzzle0200.png",
+          "name": "Sea"
+        },
+        {
+          "id": "platformer09",
+          "image": "puzzle0200.png",
+          "name": "Sky"
+        },
+        {
+          "id": "platformer10",
+          "image": "puzzle0200.png",
+          "name": "Snow"
+        }
+      ],
+      "name": "Platformer Game"
     }
   ]
 }
