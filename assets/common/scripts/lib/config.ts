@@ -112,6 +112,7 @@ export default class Config {
     worksheet: number;
     startAction: StartAction = StartAction.Default
     assignments: any []
+    isMicroLink: boolean
 
     //remove later
     flow: Flow;

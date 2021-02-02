@@ -52,7 +52,7 @@ export enum UpdateEvent {
 }
 
 export const PROJECT_MANIFEST = 'project.manifest'
-export const DO_HOT_UPDATE = true
+export const DO_HOT_UPDATE = false
 
 //@ts-ignore
 cc.deep_link = function (url) {
