@@ -234,4 +234,36 @@ export const GAME_CONFIGS = {
         "bundle": "platform",
         "prefab": "prefabs/beach/Platform"
     },
+    "city": {
+        "bundle": "platform",
+        "prefab": "prefabs/city/Platform"
+    },
+    "desert": {
+        "bundle": "platform",
+        "prefab": "prefabs/desert/Platform"
+    },
+    "farm": {
+        "bundle": "platform",
+        "prefab": "prefabs/farm/Platform"
+    },
+    "garden": {
+        "bundle": "platform",
+        "prefab": "prefabs/garden/Platform"
+    },
+    "playground": {
+        "bundle": "platform",
+        "prefab": "prefabs/playground/Platform"
+    },
+    "sea": {
+        "bundle": "platform",
+        "prefab": "prefabs/sea/Platform"
+    },
+    "sky": {
+        "bundle": "platform",
+        "prefab": "prefabs/sky/Platform"
+    },
+    "snow": {
+        "bundle": "platform",
+        "prefab": "prefabs/snow/Platform"
+    }
 }
