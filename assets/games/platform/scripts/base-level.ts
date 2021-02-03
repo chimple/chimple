@@ -95,6 +95,7 @@ export abstract class BaseLevel extends cc.Component {
             const quiz: Quiz = rewardsNodesInUI[i];
             if (!!quiz) {
                 const rewardNode = cc.instantiate(this.rewardPrefab);
+                rewardNode.scale = 0.5;
                 const reward = rewardNode.getComponent(Reward);
                 reward.correctAnswer = this._correctNumber;
                 let min = this._generator.next().value;
