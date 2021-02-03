@@ -123,6 +123,11 @@ export default class Assemble extends cc.Component {
     private createRewardMonitor() {
         this.rewardsMonitor = cc.instantiate(this.rewardsMonitorPrefab);
         this.node.parent.addChild(this.rewardsMonitor);
+        const progressMonitorNode = this.node.parent.parent.getChildByName('ProgressMonitor')
+        if(!!progressMonitorNode) {
+            progressMonitorNode.opacity = 0;
+        }
+
         const rewardMonitorComponent = this.rewardsMonitor.getComponent(RewardsMonitor);
         if (this.rewardsMonitor !== null) {
             this.rewardsMonitor.on(ALL_REWARDS_COLLECTED, () => {
@@ -181,7 +186,7 @@ export default class Assemble extends cc.Component {
                 spriteNode.scale = 2.0;
                 sprite.spriteFrame = this.displayImage;
                 displayCollectReward.opacity = 255;
-                displayCollectReward.scale = 1.0;
+                displayCollectReward.scale = 0.5;
                 displayCollectReward.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
                 cc.director.getScene().addChild(displayCollectReward);
                 this.scheduleOnce(() => {
