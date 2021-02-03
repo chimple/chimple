@@ -101,7 +101,8 @@ export default class LessonController extends cc.Component {
         LessonController.bundles.length = 0
         const config = Config.i;
         config.problem = 0;
-        if (User.getCurrentUser().courseProgressMap.get(config.course.id).currentChapterId == null) {
+        const user = User.getCurrentUser()
+        if (user && user.courseProgressMap.get(config.course.id).currentChapterId == null) {
             const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
             if (quizChapter) {
                 LessonController.loadQuizzes(quizChapter.lessons, callback, node, 3);
@@ -431,7 +432,7 @@ export default class LessonController extends cc.Component {
             score: score,
             timeSpent: Math.abs(timeSpent),
             skills: config.lesson.skills ? config.lesson.skills.join(",") : "",
-            attempts: user.lessonProgressMap.get(config.lesson.id) ? user.lessonProgressMap.get(config.lesson.id).attempts : 1,
+            attempts: user ? (user.lessonProgressMap.get(config.lesson.id) ? user.lessonProgressMap.get(config.lesson.id).attempts : 1) : 1,
             assignmentId: config.lesson.assignmentId
         });
 
@@ -443,6 +444,9 @@ export default class LessonController extends cc.Component {
         scorecardComp.score = score
         scorecardComp.text = config.lesson.name
         scorecardComp.reward = reward
+        if(config.isMicroLink) {
+            scorecardComp.continueButton.active = false
+        }
         LessonController.friend.node.removeFromParent()
         // scorecardComp.friendPos.addChild(this.friend.node)
         // LessonController.friend.playAnimation('joy', 1)

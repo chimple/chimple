@@ -37,6 +37,9 @@ export default class Scorecard extends cc.Component {
     @property(cc.Prefab)
     achievementPrefab: cc.Prefab
 
+    @property(cc.Node)
+    continueButton: cc.Node
+
     reward: [string, string]
 
     onLoad() {
