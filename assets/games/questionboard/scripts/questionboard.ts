@@ -3,10 +3,12 @@ import property = cc._decorator.property;
 import Vec2 = cc.Vec2;
 import CountingLayout from "../../../common/scripts/countingLayout";
 import Game from "../../../common/scripts/game";
-import Config from "../../../common/scripts/lib/config";
+import Config, { Lang } from "../../../common/scripts/lib/config";
 import { catchError } from "../../../common/scripts/lib/error-handler";
 import { Util } from "../../../common/scripts/util";
 import OptionScript from "./option-script";
+import Profile, { LANGUAGE } from "../../../common/scripts/lib/profile";
+import { ASSET_URL } from "../../../common/scripts/lib/constants";
 
 export const CORRECT_ANSWER = 'CORRECT_ANSWER';
 export const WRONG_ANSWER = 'WRONG_ANSWER';
@@ -215,8 +217,13 @@ export default class QuestionBoard extends Game {
 
     @catchError()
     private configureSound() {
-        Util.loadGameSound(this._currentConfig.voiceSource, (clip) => {
-            this.friend.extraClip = clip
+        // Util.loadGameSound(this._currentConfig.voiceSource, (clip) => {
+        const lang = Profile.getValue(LANGUAGE) || Lang.ENGLISH
+        cc.assetManager.loadRemote(`${ASSET_URL}/assets/help/${lang}-help/questionboard/${this._currentConfig.voiceSource}`, (err, clip) => {
+            if (clip && !err) {
+                //@ts-ignore
+                this.friend.extraClip = clip
+            }
         })
     }
 
@@ -460,7 +467,7 @@ export default class QuestionBoard extends Game {
 
     @catchError()
     private showFruits(array = this._fruitNodes, shadowOnTopOnLoad: boolean = false, callBack: Function = null,
-                       timeDelay: number = 2) {
+        timeDelay: number = 2) {
         if (shadowOnTopOnLoad) {
             array.forEach(
                 n => {
@@ -519,7 +526,7 @@ export default class QuestionBoard extends Game {
             (node, index) => {
                 new cc.Tween()
                     .target(node)
-                    .to(1 + index * 0.25, {opacity: 255}, {progress: null, easing: 'quadOut'})
+                    .to(1 + index * 0.25, { opacity: 255 }, { progress: null, easing: 'quadOut' })
                     .call(() => {
                         try {
                             node.active = true;
@@ -715,12 +722,12 @@ export default class QuestionBoard extends Game {
     @catchError()
     private showBox(showQuestion: boolean) {
         new cc.Tween().target(showQuestion ? this._answer : this._question)
-            .to(0.25, {opacity: 255}, {progress: null, easing: 'quadOut'})
-            .to(0.15, {scaleX: 0}, {progress: null, easing: 'quadOut'})
+            .to(0.25, { opacity: 255 }, { progress: null, easing: 'quadOut' })
+            .to(0.15, { scaleX: 0 }, { progress: null, easing: 'quadOut' })
             .call(() => {
                 new cc.Tween().target(showQuestion ? this._question : this._answer)
-                    .to(0.25, {opacity: 255}, {progress: null, easing: 'quadOut'})
-                    .to(0.15, {scaleX: 1}, {progress: null, easing: 'quadOut'})
+                    .to(0.25, { opacity: 255 }, { progress: null, easing: 'quadOut' })
+                    .to(0.15, { scaleX: 1 }, { progress: null, easing: 'quadOut' })
                     .start();
             })
             .start();
