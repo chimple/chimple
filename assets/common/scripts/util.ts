@@ -118,7 +118,6 @@ export class Util {
         const qLabelNode = new cc.Node(text);
         const label = qLabelNode.addComponent(ChimpleLabel);
         label.string = showLabel ? text : "";
-        //label.font = textFont;
         label.overflow = Overflow.NONE;
         let defaultFontColor: cc.Color = DEFAULT_FONT_COLOR;
         if (!!fontColor) {

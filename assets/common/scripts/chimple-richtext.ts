@@ -4,8 +4,7 @@ import Config from "./lib/config";
 @ccclass
 export default class ChimpleRichText extends cc.RichText {
     protected onLoad(): void {
-        super.onLoad();
-        this.useSystemFont = true;
+        this.useSystemFont = false;
         if (Config.getInstance() !== null) {
             const fontName: string = Config.getInstance().currentFontName;
             let fontLoaded: boolean = Config.getInstance().hasLoadedTextFont(fontName);

@@ -5,6 +5,7 @@ import Right from "./right";
 import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
 import { SOUND_LOADED_EVENT } from "../../../common/scripts/helper";
+import ChimpleRichText from "../../../common/scripts/chimple-richtext";
 
 interface StoryConfig {
     pageNo: string;
@@ -227,7 +228,7 @@ export class StoryPage extends cc.Component {
     showText() {
         if (this._textNode) {
             const tokenized = this.createTextToken(this._storyConfig.text);
-            this._textNode.getComponent(cc.RichText).string = tokenized;
+            this._textNode.getComponent(ChimpleRichText).string = tokenized;
             this._rightComponent.storyText = JSON.parse(JSON.stringify(tokenized));
             this._rightComponent.words = this._words;
             this.scheduleOnce(

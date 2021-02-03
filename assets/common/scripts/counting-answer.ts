@@ -3,6 +3,7 @@ import property = cc._decorator.property;
 import AnswerGrid, { ANSWER_GRID_BUTTON_CLICKED, CLEAR_BUTTON_CLICKED, CONFIRM_BUTTON_CLICKED } from "./answer-grid";
 import catchError from "./lib/error-handler";
 import { Util } from "./util";
+import ChimpleRichText from "./chimple-richtext";
 
 const DIGITS = 'digits';
 const LABEL = 'label';
@@ -73,7 +74,7 @@ export default class CountingAnswer extends cc.Component {
     private updateDigits(digit: string, onLoad: boolean = false) {
         const digits = this.node.getChildByName(DIGITS);
         const label = digits.getChildByName(LABEL);
-        const textComponent = label.getComponent(cc.RichText);
+        const textComponent = label.getComponent(ChimpleRichText);
         let displayStr = textComponent.string || '';
         displayStr = displayStr.concat(digit);
         if (onLoad) {
@@ -101,7 +102,7 @@ export default class CountingAnswer extends cc.Component {
     public clearDigits(oneByOne: boolean = false) {
         const digits = this.node.getChildByName(DIGITS);
         const label = digits.getChildByName(LABEL);
-        const textComponent = label.getComponent(cc.RichText);
+        const textComponent = label.getComponent(ChimpleRichText);
         textComponent.string = '?'.repeat(this.result.length);
     }
 
@@ -109,7 +110,7 @@ export default class CountingAnswer extends cc.Component {
     private checkResult() {
         const digits = this.node.getChildByName(DIGITS);
         const label = digits.getChildByName(LABEL);
-        const textComponent = label.getComponent(cc.RichText);
+        const textComponent = label.getComponent(ChimpleRichText);
         if (!!textComponent.string) {
             const customEvent: cc.Event.EventCustom = new cc.Event.EventCustom(VALIDATE_RESULT, true);
             customEvent.setUserData({
@@ -123,7 +124,7 @@ export default class CountingAnswer extends cc.Component {
     private updateRichText() {
         const countingLabel = this.node.getChildByName(COUNTING_LABEL);
         const richText = countingLabel.getChildByName(CHIMPLE_RICHTEXT);
-        const rc: cc.RichText = richText.getComponent(cc.RichText);
+        const rc: ChimpleRichText = richText.getComponent(ChimpleRichText);
         rc.string = `<color=#8B4513><bold>${Util.i18NText('How Many??')}</bold></color>`;
     }
 

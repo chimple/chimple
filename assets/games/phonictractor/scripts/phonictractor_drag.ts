@@ -14,6 +14,11 @@ export default class PhonicTractorDrag extends Drag {
             this._soundClip = clip
         })
     }
+
+    start() {
+        this.enableTouch();
+    }
+
     onTouchStart(touch: cc.Touch) {
         super.onTouchStart(touch)
         if (this._soundClip != null) {

@@ -9,6 +9,7 @@ import { Util } from "../../../common/scripts/util";
 import OptionScript from "./option-script";
 import Profile, { LANGUAGE } from "../../../common/scripts/lib/profile";
 import { ASSET_URL } from "../../../common/scripts/lib/constants";
+import ChimpleRichText from "../../../common/scripts/chimple-richtext";
 
 export const CORRECT_ANSWER = 'CORRECT_ANSWER';
 export const WRONG_ANSWER = 'WRONG_ANSWER';
@@ -712,7 +713,7 @@ export default class QuestionBoard extends Game {
     private buildEquation(text, isBold: boolean = false) {
         const equationText = cc.instantiate(this.equationTextPrefab);
         equationText.setPosition(new cc.Vec2(equationText.x, equationText.y + 30));
-        const richText = equationText.getComponent(cc.RichText);
+        const richText = equationText.getComponent(ChimpleRichText);
         richText.string = isBold ? `<color=#FFFFFFF><bold>${text}</bold></color>` : `<color=#FFFFFFF>${text}</color>`;
         richText.fontSize = 80;
         const layout = this._equations.getComponent(cc.Layout);
