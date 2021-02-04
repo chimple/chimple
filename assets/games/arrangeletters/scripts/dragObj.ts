@@ -46,6 +46,7 @@ export default class DragObj extends Drag {
       super.onTouchStart(touch);
     if (!this.touchSoundIsPlaying) {
       this.touchSoundIsPlaying = true;
+      // @ts-ignore
       Util.speakPhonicsOrLetter(touch.currentTarget.name, () => {
         this.touchSoundIsPlaying = false;
       });
@@ -57,6 +58,7 @@ export default class DragObj extends Drag {
   onTouchMove(touch: cc.Touch) {
     super.onTouchMove(touch);
     this.node.setPosition(this.node.position.x, -cc.winSize.height / 4);
+    // @ts-ignore
     touch.currentTarget.position.z = 1;
     
   }
@@ -66,6 +68,7 @@ export default class DragObj extends Drag {
     let actiona = cc.moveTo(
       0.1,
       cc.v2(
+          // @ts-ignore
         ArrangeLetters.correctPosition.get(touch.currentTarget.name),
         -cc.winSize.height / 4
       )

@@ -11,7 +11,7 @@ export default class WordBlock extends CommonBlock {
     @catchError()
     protected onLoad(): void {
         this.fontColor = '#654321';
-        const label: cc.Node = this.createLabelNode(this.textFont, this.contentText, this.fontSize, this.fontColor, false);
+        const label: cc.Node = this.createLabelNode(null, this.contentText, this.fontSize, this.fontColor, false);
         this.node.addChild(label);
         this.node.width = Grid._maxNodeWidth + H_GAP;
         this.node.height = Grid._maxNodeHeight + V_GAP;

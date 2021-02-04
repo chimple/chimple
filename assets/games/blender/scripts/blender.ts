@@ -6,6 +6,7 @@ import { catchError } from "../../../common/scripts/lib/error-handler";
 import { Util } from "../../../common/scripts/util";
 import AddButton from "./add-button";
 import RemoveButton from "./remove-button";
+import ChimpleRichText from "../../../common/scripts/chimple-richtext";
 
 export interface BlenderConfig {
     level: string;
@@ -264,7 +265,7 @@ export default class Blender extends Game {
         if (placeLabel !== null) {
             const labelNode = placeLabel.getChildByName('label');
             if (labelNode !== null) {
-                const labelComponent = labelNode.getComponent(cc.RichText);
+                const labelComponent = labelNode.getComponent(ChimpleRichText);
                 result = labelComponent.string.replace(/<\/?[^>]+(>|$)/g, "") || '';
             }
         }
@@ -341,7 +342,7 @@ export default class Blender extends Game {
         if (placeLabel !== null) {
             const labelNode = placeLabel.getChildByName('label');
             if (labelNode !== null) {
-                const labelComponent = labelNode.getComponent(cc.RichText);
+                const labelComponent = labelNode.getComponent(ChimpleRichText);
                 new cc.Tween()
                     .target(labelNode)
                     .to(0.25, {opacity: 0}, null)
@@ -492,7 +493,7 @@ export default class Blender extends Game {
         if (placeLabel !== null) {
             const labelNode = placeLabel.getChildByName('label');
             if (labelNode !== null) {
-                const labelComponent = labelNode.getComponent(cc.RichText);
+                const labelComponent = labelNode.getComponent(ChimpleRichText);
                 const eStr = labelComponent.string;
                 const zeroT = Util.i18NText(this.zeroT);
                 const allZeros = speakText.startsWith(zeroT) && speakText.endsWith(zeroT);
@@ -752,7 +753,7 @@ export default class Blender extends Game {
     private createLabel(name: string, color: string = '#ffffff', shrink: boolean = false): cc.Node {
         const labelNode = cc.instantiate(this.placeLabelPrefab);
         const child = labelNode.getChildByName('label');
-        const label = child.getComponent(cc.RichText);
+        const label = child.getComponent(ChimpleRichText);
         name = Util.i18NNumberConvert(name);
         label.string = `<color=${color}><bold>${name}</bold></color>`;
         if (shrink) {

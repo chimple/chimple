@@ -711,14 +711,12 @@
       "__id__": 1
     },
     "_enabled": true,
+    "textFont": null,
     "rewardPrefab": {
       "__uuid__": "61a15f96-ab3c-4741-aa58-41e02f00e505"
     },
     "quizPrefab": {
       "__uuid__": "3b0fa16c-b088-4eb0-b12c-3b4398cfa408"
-    },
-    "textFont": {
-      "__uuid__": "dee4ee01-e8db-4c7a-8026-47474be20a5a"
     },
     "_id": ""
   },
@@ -730,7 +728,7 @@
     "asset": {
       "__uuid__": "f6e93c2c-ae0f-404a-843c-9b545461fa28"
     },
-    "fileId": "574QayIjZEl5OEdxJ+o9Mw",
+    "fileId": "",
     "sync": false
   }
 ]
