@@ -247,7 +247,7 @@ export default class Assemble extends cc.Component {
 
     private afterRewardsCollected() {
         cc.audioEngine.stopMusic();
-        Util.playSfx(this.startAudio);
+        // Util.playSfx(this.startAudio);
         const config = Config.getInstance();
         this.addBridge();
         this.player.active = false;
@@ -286,7 +286,7 @@ export default class Assemble extends cc.Component {
             const currentWorldX = this.world.x;
             this.world.x = -this.player.x - cc.winSize.width * 1 / 4;
             this.node.getComponent(Platformer).scrollLayersInParallax(this.world.x - currentWorldX);
-            if ((-this.world.x / 1024) + 0.5 > this.numScreens) {
+            if ((-this.world.x / 1024) + 0.9 > this.numScreens) {
                 this.numScreens++;
                 this.addPath(false, 1);
             }

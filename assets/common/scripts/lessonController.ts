@@ -365,9 +365,12 @@ export default class LessonController extends cc.Component {
         Util.playSfx(this.startAudio);
         const config = Config.getInstance();
         const timeSpent = Math.ceil((new Date().getTime() - this.lessonStartTime) / 1000);
-        const score = Math.round(this.totalQuizzes > 0
+        let score: number = Math.round(this.totalQuizzes > 0
             ? this.quizScore / this.totalQuizzes * 70 + this.rightMoves / (this.rightMoves + this.wrongMoves) * 30
             : this.rightMoves / (this.rightMoves + this.wrongMoves) * 100);
+
+        if (isNaN(score)) score = 0;
+
         const user = User.getCurrentUser();
         var reward: [string, string]
         if (user) {
@@ -444,7 +447,7 @@ export default class LessonController extends cc.Component {
         scorecardComp.score = score
         scorecardComp.text = config.lesson.name
         scorecardComp.reward = reward
-        if(config.isMicroLink) {
+        if (config.isMicroLink) {
             scorecardComp.continueButton.active = false
         }
         LessonController.friend.node.removeFromParent()
