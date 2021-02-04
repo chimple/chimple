@@ -23,7 +23,7 @@ import {
 } from "../../../common/scripts/util";
 import Inventory from "../../inventory/scripts/inventory";
 import LessonButton from "./lessonButton";
-import ChapterLessons from "./chapterLessons";
+import ChapterLessons, { ChapterLessonType } from "./chapterLessons";
 
 const COMPLETE_AUDIOS = [
     'congratulations',
@@ -84,8 +84,14 @@ export default class Start extends cc.Component {
     @property(cc.Label)
     library: cc.Label = null
 
-    @property(cc.Node)
-    assignmentButton: cc.Node = null
+    @property(cc.Sprite)
+    librarySprite: cc.Sprite
+
+    @property(cc.Button)
+    assignmentButton: cc.Button = null
+
+    @property(cc.Button)
+    featuredButton: cc.Button = null
 
     friend: cc.Node
 
@@ -109,6 +115,10 @@ export default class Start extends cc.Component {
             config.course = config.curriculum.values().next().value
         }
         this.library.string = config.course.name
+        Util.load(config.course.id + '/course/res/icons/' + config.course.id + '.png', (err: Error, texture) => {
+            this.librarySprite.spriteFrame = err ? null : new cc.SpriteFrame(texture);
+        })
+
         const startAction = config.startAction
         user.curriculumLoaded
             ? this.initPage()
@@ -139,16 +149,21 @@ export default class Start extends cc.Component {
             }
             friendComp.speakHelp(true)
         })
-        ChapterLessons.showAssignments = false
+        ChapterLessons.showType = ChapterLessonType.Library
         const assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
         config.assignments = assignments.filter((ass) => {
             const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
             return !(lessonProgress && lessonProgress.date < ass.createAt)
         })
         if (config.assignments.length > 0) {
-            this.assignmentButton.active = true
+            this.assignmentButton.interactable = true
         }
-        console.log(config.assignments)
+        // call API to get featured stories
+        // store in config.featuredLessons
+        config.featuredLessons = ['en0003']
+        if (config.featuredLessons.length > 0) {
+            this.featuredButton.interactable = true
+        }
     }
 
     private initPage() {
@@ -236,8 +251,17 @@ export default class Start extends cc.Component {
     }
 
     onAssignmentsClick() {
-        ChapterLessons.showAssignments = true
+        ChapterLessons.showType = ChapterLessonType.Assignments
         Config.i.pushScene('menu/start/scenes/chapterLessons', 'menu')
+    }
+
+    onFeaturedClick() {
+        ChapterLessons.showType = ChapterLessonType.Featured
+        Config.i.pushScene('menu/start/scenes/chapterLessons', 'menu')
+    }
+
+    onLibraryClick() {
+        Config.i.pushScene('menu/start/scenes/courseChapters', 'menu')
     }
 
     createLessonPlan(courseId: string): Lesson[] {
