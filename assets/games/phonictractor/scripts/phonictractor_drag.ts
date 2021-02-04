@@ -15,9 +15,6 @@ export default class PhonicTractorDrag extends Drag {
         })
     }
 
-    start() {
-        this.enableTouch();
-    }
 
     onTouchStart(touch: cc.Touch) {
         super.onTouchStart(touch)

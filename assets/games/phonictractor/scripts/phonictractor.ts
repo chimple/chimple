@@ -3,6 +3,7 @@ import { Util } from "../../../common/scripts/util";
 import PhonicTractorDrag from "./phonictractor_drag";
 import { catchError } from "../../../common/scripts/lib/error-handler";
 import Game from "../../../common/scripts/game";
+import Drag from "../../../common/scripts/drag";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -48,6 +49,7 @@ export default class PhonicTractor extends Game {
 
   @catchError()
   onLoad() {
+    Drag.letDrag = false
     cc.director.getCollisionManager().enabled = true
     this._isRTL = Config.i.direction == Direction.RTL;
     // this.friend.isFace = true
@@ -208,6 +210,7 @@ export default class PhonicTractor extends Game {
         this.friend.extraClip = clip
       }
       Util.showHelp(this.firstDrag, this.firstDrop);
+      Drag.letDrag = true
     });
   }
 
