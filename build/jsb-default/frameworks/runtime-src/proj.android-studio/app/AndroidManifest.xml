@@ -47,7 +47,7 @@
                 <data
                     android:scheme="http"
                     android:host="chimple.github.io"
-                    android:pathPrefix="/received_teacher_request/" />
+                    android:pathPrefix="/received_teacher_request" />
             </intent-filter>
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
@@ -58,7 +58,7 @@
                 <data
                     android:scheme="http"
                     android:host="chimple.github.io"
-                    android:pathPrefix="/assign_homework/" />
+                    android:pathPrefix="/microlink" />
             </intent-filter>            
         </activity>
         <activity

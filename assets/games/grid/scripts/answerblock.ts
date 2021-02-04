@@ -64,7 +64,7 @@ export default class AnswerBlock extends CommonBlock {
         this.node.on(TouchEvents.TOUCH_CANCEL, this.onTouchEnd, this);
         this.fontColor = "#654321";
         const label: cc.Node = this.createLabelNode(
-            this.textFont,
+            null,
             this.contentText,
             this.fontSize,
             this.fontColor
@@ -110,6 +110,7 @@ export default class AnswerBlock extends CommonBlock {
             )
         );
         // this.matchRect = pairingPlaceHolderBlockBox;
+        // @ts-ignore
         this.finishPosition = this.pairingPlaceHolderBlock.node.position;
         const action = cc.moveTo(0.3, this.originalPosition);
         this.node.runAction(action);
@@ -209,11 +210,8 @@ export default class AnswerBlock extends CommonBlock {
             (1 / MATRIX_CONTAINER_SCALE) * touch.getDelta().y
         );
 
-        this.node.setPosition(
-            this.node.position.add(
-                cc.v2(this._isRTL ? delta.neg().x : delta.x, delta.y)
-            )
-        );
+        // @ts-ignore
+        this.node.setPosition(this.node.position.add(cc.v2(this._isRTL ? delta.neg().x : delta.x, delta.y)));
 
 
         // this.node.setPosition(this.node.getParent().convertToNodeSpaceAR(touch.getLocation()));

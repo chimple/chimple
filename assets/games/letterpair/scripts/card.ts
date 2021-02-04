@@ -1,11 +1,11 @@
-import { Util } from "../../../common/scripts/util";
+import {Util} from "../../../common/scripts/util";
 import LetterPair from "./letterpair";
 import ChimpleLabel from "../../../common/scripts/chimple-label";
 import CountingLayout from "../../../common/scripts/countingLayout";
 import LessonController from "../../../common/scripts/lessonController";
 import Config from "../../../common/scripts/lib/config";
 
-const { ccclass, property } = cc._decorator;
+const {ccclass, property} = cc._decorator;
 
 const FRUITS = [
     'items/fruit/peach',
@@ -45,6 +45,7 @@ const FRUITS = [
 
 @ccclass
 export default class Card extends cc.Component {
+
     @property(cc.Prefab)
     cardParticle: cc.Prefab = null;
 
@@ -66,11 +67,6 @@ export default class Card extends cc.Component {
 
     @property(cc.AudioClip)
     wordAudio: cc.AudioClip = null
-
-    @property({
-        type: cc.Font
-    })
-    textFont: cc.Font = null;
 
     @property(cc.Prefab)
     square: cc.Prefab = null
@@ -118,7 +114,7 @@ export default class Card extends cc.Component {
                 this.node.addChild(spriteNode);
             });
         } else if (this.cardType == 'dice') {
-            cc.resources.load('items/'+this.cardContent, cc.SpriteFrame, (err, spriteFrame) => {
+            cc.resources.load('items/' + this.cardContent, cc.SpriteFrame, (err, spriteFrame) => {
                 if (!err) {
                     const spriteNode = new cc.Node('frontSprite');
                     const sprite = spriteNode.addComponent(cc.Sprite);
@@ -161,7 +157,6 @@ export default class Card extends cc.Component {
             labelNode.width = this.node.width * 0.8
             const label = labelNode.addComponent(ChimpleLabel);
             label.string = this.cardContent;
-            label.font = this.textFont;
             label.horizontalAlign = cc.Label.HorizontalAlign.CENTER
             label.overflow = cc.Label.Overflow.SHRINK
             label.enableWrapText = false
@@ -182,8 +177,8 @@ export default class Card extends cc.Component {
                 }
             }
         }
-        if ((Config.i.course.type == 'maths' && this.cardType == 'image') 
-                || this.cardType == 'dice') {
+        if ((Config.i.course.type == 'maths' && this.cardType == 'image')
+            || this.cardType == 'dice') {
             bgFront.color = this.color
         } else {
             bgBack.color = this.color
@@ -220,24 +215,31 @@ export default class Card extends cc.Component {
             this.node.zIndex = 3
             Util.playSfx(this.pickupAudio);
             this.node.setSiblingIndex(this.node.parent.childrenCount - 1);
-            new cc.Tween().target(this.node).to(0.25, { scale: 1.1 }, { progress: null, easing: 'sineOut' }).start();
+            new cc.Tween().target(this.node).to(0.25, {scale: 1.1}, {progress: null, easing: 'sineOut'}).start();
         }
     }
 
     onTouchMove(touch: cc.Touch) {
         if (this.isInteracting) {
+            // @ts-ignore
             this.node.setPosition(this.node.position.add(touch.getDelta()));
             if (this.node.getBoundingBoxToWorld().intersects(this.pairCard.node.getBoundingBoxToWorld())) {
                 this.sparkle();
                 if (this.particleNode != null) {
                     this.pairCard.node.setSiblingIndex(this.node.parent.childrenCount - 2);
-                    new cc.Tween().target(this.pairCard.node).to(0.25, { scale: 1.1 }, { progress: null, easing: 'elasticOut' }).start();
+                    new cc.Tween().target(this.pairCard.node).to(0.25, {scale: 1.1}, {
+                        progress: null,
+                        easing: 'elasticOut'
+                    }).start();
                     this.pairCard.node.zIndex = 2
                     this.pairCard.sparkle();
                 }
             } else {
                 this.unSparkle();
-                new cc.Tween().target(this.pairCard.node).to(0.25, { scale: 1 }, { progress: null, easing: 'elasticOut' }).start();
+                new cc.Tween().target(this.pairCard.node).to(0.25, {scale: 1}, {
+                    progress: null,
+                    easing: 'elasticOut'
+                }).start();
                 this.pairCard.node.zIndex = 0
                 this.pairCard.unSparkle();
             }
@@ -256,24 +258,24 @@ export default class Card extends cc.Component {
                 blockNode.opacity = 224
                 blockNode.zIndex = 1
                 new cc.Tween().target(LessonController.getFriend().node)
-                    .to(0.25, { y: 0 }, { progress: null, easing: 'sineOut' })
+                    .to(0.25, {y: 0}, {progress: null, easing: 'sineOut'})
                     .call(() => {
                         this.node.parent.parent.emit('correct');
                     })
                     .delay(1)
-                    .to(0.25, { y: -600 }, { progress: null, easing: 'sineOut' })
+                    .to(0.25, {y: -600}, {progress: null, easing: 'sineOut'})
                     .start()
                 this.unregisterTouch()
                 this.unSparkle();
                 new cc.Tween().target(this.node)
-                    .to(0.25, { position: this.pairCard.node.position, scale: 1 }, { progress: null, easing: 'elasticOut' })
+                    .to(0.25, {position: this.pairCard.node.position, scale: 1}, {progress: null, easing: 'elasticOut'})
                     .delay(0.5)
                     .call(() => {
                         if (this.wordAudio != null) {
                             LessonController.getFriend().speak(this.wordAudio);
                         }
                     })
-                    .to(0.5, { position: cc.v2(-this.node.width / 2 - 20, 0) }, null)
+                    .to(0.5, {position: cc.v2(-this.node.width / 2 - 20, 0)}, null)
                     .delay(0.5)
                     .call(() => {
                         const explode = cc.instantiate(this.explodeParticle);
@@ -295,9 +297,9 @@ export default class Card extends cc.Component {
                     .start();
                 this.pairCard.unSparkle();
                 new cc.Tween().target(this.pairCard.node)
-                    .to(0.25, { scale: 1 }, { progress: null, easing: 'elasticOut' })
+                    .to(0.25, {scale: 1}, {progress: null, easing: 'elasticOut'})
                     .delay(0.5)
-                    .to(0.5, { position: cc.v2(this.node.width / 2 + 20, 0) }, null)
+                    .to(0.5, {position: cc.v2(this.node.width / 2 + 20, 0)}, null)
                     .delay(0.5)
                     .call(() => {
                         const explode = cc.instantiate(this.explodeParticle);
@@ -310,20 +312,21 @@ export default class Card extends cc.Component {
                     .start();
             } else {
                 new cc.Tween().target(LessonController.getFriend().node)
-                    .to(0.25, { y: 0 }, { progress: null, easing: 'sineOut' })
+                    .to(0.25, {y: 0}, {progress: null, easing: 'sineOut'})
                     .call(() => {
                         this.node.parent.parent.emit('wrong');
                     })
                     .delay(1)
-                    .to(0.25, { y: -600 }, { progress: null, easing: 'sineOut' })
+                    .to(0.25, {y: -600}, {progress: null, easing: 'sineOut'})
                     .start()
                 new cc.Tween().target(this.node)
                     .to(0.25, {
                         scale: 1, position: this.node.position.clampf(
+                            // @ts-ignore
                             new cc.Vec2(this.node.width - cc.winSize.width, this.node.height - cc.winSize.height).mul(0.5),
                             new cc.Vec2(cc.winSize.width - this.node.width, cc.winSize.height - this.node.height).mul(0.5)
                         )
-                    }, { progress: null, easing: 'sineOut' })
+                    }, {progress: null, easing: 'sineOut'})
                     .call(() => {
                         const match = this.node.parent.parent.getComponent(LetterPair);
                         Card.letDrag = true
@@ -338,11 +341,16 @@ export default class Card extends cc.Component {
                         let inter = new cc.Rect();
                         element.getBoundingBox().intersection(inter, this.node.getBoundingBox());
                         const mag = new cc.Vec2(inter.width / element.getBoundingBox().width, inter.height / element.getBoundingBox().height);
+                        // @ts-ignore
                         const pos = element.position.add(element.position.sub(this.node.position).scale(mag).mul(2)).clampf(
+                            // @ts-ignore
                             new cc.Vec2(element.getBoundingBox().width - cc.winSize.width, element.getBoundingBox().height - cc.winSize.height).mul(0.5),
                             new cc.Vec2(cc.winSize.width - element.getBoundingBox().width, cc.winSize.height - element.getBoundingBox().height).mul(0.5)
                         );
-                        new cc.Tween().target(element).to(0.5, { position: pos }, { progress: null, easing: 'quadOut' }).start();
+                        new cc.Tween().target(element).to(0.5, {position: pos}, {
+                            progress: null,
+                            easing: 'quadOut'
+                        }).start();
                     }
                 });
             }

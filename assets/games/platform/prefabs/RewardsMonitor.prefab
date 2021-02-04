@@ -97,7 +97,6 @@
     },
     "_resize": 2,
     "_N$layoutType": 1,
-    "_N$padding": 0,
     "_N$cellSize": {
       "__type__": "cc.Size",
       "width": 40,
@@ -150,9 +149,7 @@
       "__id__": 1
     },
     "_enabled": true,
-    "incomplete": {
-      "__uuid__": "e861329d-3065-4dd6-b02c-88313ba9124d"
-    },
+    "incomplete": null,
     "rewardImageNode": {
       "__uuid__": "49cb6ef1-7603-4c1f-8b62-9b977db21943"
     },
@@ -198,7 +195,7 @@
     "asset": {
       "__uuid__": "bd23220c-c7cb-401b-a690-5c2fb0b8e25e"
     },
-    "fileId": "41MPqZKPFJu5YHhdu1u3DA",
+    "fileId": "",
     "sync": false
   }
 ]

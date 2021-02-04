@@ -76,9 +76,11 @@ export class PlatformUtil {
             let animState = anim.getAnimationState(`${clip}`);
             animState.wrapMode = cc.WrapMode.Normal;
             anim.play(`${clip}`);
+            player.node.parent.parent.emit('correct')
             if (!!rewardsMonitor)
                 rewardsMonitor.emit(COLLECT_REWARD_EVENT, reward, isAnswerCorrectly);
         } else {
+            player.node.parent.parent.emit('wrong')
             if (!!rewardsMonitor)
                 rewardsMonitor.emit(COLLECT_REWARD_EVENT, reward, isAnswerCorrectly);
         }
