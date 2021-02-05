@@ -334,7 +334,7 @@ export default class Start extends cc.Component {
             const t = index / lessons.length
             node.x = Math.pow(1 - t, 3) * x1 + 3 * Math.pow(1 - t, 2) * t * x2 + 3 * (1 - t) * Math.pow(t, 2) * x3 + Math.pow(t, 3) * x4
             node.y = Math.pow(1 - t, 3) * y1 + 3 * Math.pow(1 - t, 2) * t * y2 + 3 * (1 - t) * Math.pow(t, 2) * y3 + Math.pow(t, 3) * y4
-            node.scale = 0.4
+            node.scale = 0.75
             this.content.addChild(node)
             if (index == courseProgressMap.lessonPlanIndex) {
                 const currentLessonNode = new cc.Node()
