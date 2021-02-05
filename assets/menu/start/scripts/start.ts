@@ -215,11 +215,11 @@ export default class Start extends cc.Component {
         if(Config.isMicroLink){
             const dataStr: string = cc.sys.localStorage.getItem(MICROLINK);
             let data: any[] = JSON.parse(dataStr)|| '[]';
+            Config.isMicroLink=false;
             if (data && data.length > 0) {
                 const courseDetails = data.splice(data.length-1, data.length)[0];
                 Util.loadDirectLessonWithLink(courseDetails['courseid'],courseDetails['chapterid'],courseDetails['lessonid'],this.node)
             }
-            Config.isMicroLink=false;
         }
     }
     private showTeacherDialog() {
