@@ -4,7 +4,8 @@ import {
     TEACHER_ADD_STUDENT_ID,
     TEACHER_ID_KEY,
     TEACHER_NAME_KEY,
-    TEACHER_SECTION_ID
+    TEACHER_SECTION_ID,
+    MICROLINK
 } from "../../../chimple";
 import Friend from "../../../common/scripts/friend";
 import Config, { StartAction } from "../../../common/scripts/lib/config";
@@ -179,6 +180,7 @@ export default class Start extends cc.Component {
             this.displayLessonPlan()
         }
         this.loading.active = false;
+        this.loadLesson()
         this.registerTeacherDialogCloseEvent();
     }
 
@@ -207,7 +209,17 @@ export default class Start extends cc.Component {
         });
     }
 
-
+    private loadLesson(){
+        if(Config.i.isMicroLink){
+            const dataStr: string = cc.sys.localStorage.getItem(MICROLINK);
+            let data: any[] = JSON.parse(dataStr)|| '[]';
+            if (data && data.length > 0) {
+                const courseDetails = data.splice(0, 1)[0];
+                Util.loadDirectLessonWithLink(courseDetails['courseid'],courseDetails['chapterid'],courseDetails['lessonid'],this.node)
+            }
+            Config.i.isMicroLink=false;
+        }
+    }
     private showTeacherDialog() {
         try {
             const messageStr: string = cc.sys.localStorage.getItem(RECEIVED_TEACHER_REQUEST) || '[]';
