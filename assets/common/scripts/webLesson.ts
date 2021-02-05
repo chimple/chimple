@@ -12,6 +12,6 @@ export default class WebLesson extends cc.Component {
     onLoad () {
         const params = new URLSearchParams(window.location.search)
         Config.i.isMicroLink = true
-        Util.loadDirectLessonWithLink(params.get('courseId'),params.get('chapterId'),params.get('lessonId'),this.node);
+        Util.loadDirectLessonWithLink(params.get('courseid'),params.get('chapterid'),params.get('lessonid'),this.node);
     }
 }
