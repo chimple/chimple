@@ -633,6 +633,21 @@ export class Util {
             }
         });
     }
+    public static loadDirectLessonWithLink(courseId: string,chapterId: string,lessonId: string,node:cc.Node){
+        const config = Config.i
+        config.loadSingleCourseJson(courseId, () => {
+            config.course = config.curriculum.get(courseId)
+            config.chapter = config.course.chapters.find((c) => c.id == chapterId)
+            config.lesson = config.chapter.lessons.find((l) => l.id == lessonId)
+            LessonController.preloadLesson(node, (err: Error) => {
+                if(err) {
+                    console.log(err)
+                } else {
+                    Config.loadScene('common/scenes/lessonController')
+                }
+            })    
+        })
+    }
 
     public static i18NText(key: string) {
         if(typeof key === 'string') {
