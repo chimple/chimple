@@ -84,6 +84,9 @@ cc.deep_link = function (url) {
                             }
                         })
                     }
+                    if ( messageType.includes(MICROLINK)) {
+                        Config.isMicroLink = true
+                    }
                     try {
                         cc.log('RECEIVED_TEACHER_REQUEST', JSON.stringify(data));
                         const jsonMessages: any[] = Util.removeDuplicateMessages(data, messageType);

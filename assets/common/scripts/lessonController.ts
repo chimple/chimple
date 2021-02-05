@@ -447,7 +447,7 @@ export default class LessonController extends cc.Component {
         scorecardComp.score = score
         scorecardComp.text = config.lesson.name
         scorecardComp.reward = reward
-        if (config.isMicroLink) {
+        if (Config.isMicroLink && !cc.sys.isNative) {
             scorecardComp.continueButton.active = false
         }
         LessonController.friend.node.removeFromParent()

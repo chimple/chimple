@@ -11,7 +11,7 @@ const {ccclass, property} = cc._decorator;
 export default class WebLesson extends cc.Component {
     onLoad () {
         const params = new URLSearchParams(window.location.search)
-        Config.i.isMicroLink = true
+        Config.isMicroLink = true
         Util.loadDirectLessonWithLink(params.get('courseid'),params.get('chapterid'),params.get('lessonid'),this.node);
     }
 }

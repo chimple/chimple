@@ -113,7 +113,7 @@ export default class Config {
     startAction: StartAction = StartAction.Default
     assignments: any []
     featuredLessons: any []
-    isMicroLink: boolean
+    static isMicroLink: boolean
 
     //remove later
     flow: Flow;

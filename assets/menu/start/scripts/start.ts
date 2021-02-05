@@ -210,14 +210,14 @@ export default class Start extends cc.Component {
     }
 
     private loadLesson(){
-        if(Config.i.isMicroLink){
+        if(Config.isMicroLink){
             const dataStr: string = cc.sys.localStorage.getItem(MICROLINK);
             let data: any[] = JSON.parse(dataStr)|| '[]';
             if (data && data.length > 0) {
                 const courseDetails = data.splice(0, 1)[0];
                 Util.loadDirectLessonWithLink(courseDetails['courseid'],courseDetails['chapterid'],courseDetails['lessonid'],this.node)
             }
-            Config.i.isMicroLink=false;
+            Config.isMicroLink=false;
         }
     }
     private showTeacherDialog() {
