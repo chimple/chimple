@@ -179,7 +179,9 @@ export default class Start extends cc.Component {
             this.createLessonPlan(config.course.id)
             this.displayLessonPlan()
         }
-        this.loading.active = false;
+        if(!Config.isMicroLink){
+            this.loading.active = false;
+        }
         this.loadLesson()
         this.registerTeacherDialogCloseEvent();
     }
@@ -214,7 +216,7 @@ export default class Start extends cc.Component {
             const dataStr: string = cc.sys.localStorage.getItem(MICROLINK);
             let data: any[] = JSON.parse(dataStr)|| '[]';
             if (data && data.length > 0) {
-                const courseDetails = data.splice(0, 1)[0];
+                const courseDetails = data.splice(data.length-1, data.length)[0];
                 Util.loadDirectLessonWithLink(courseDetails['courseid'],courseDetails['chapterid'],courseDetails['lessonid'],this.node)
             }
             Config.isMicroLink=false;
