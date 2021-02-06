@@ -161,10 +161,41 @@ export default class Start extends cc.Component {
         }
         // call API to get featured stories
         // store in config.featuredLessons
-        config.featuredLessons = ['en0003']
-        if (config.featuredLessons.length > 0) {
-            this.featuredButton.interactable = true
-        }
+        // config.featuredLessons = [
+        //     {
+        //         "id": "drawshape0010",
+        //         "image": "puzzle0010.png",
+        //         "name": "Watermelon",
+        //         "color": "#D48FF9",
+        //         "course": "puzzle"
+        //     },
+        //     {
+        //         "id": "hi1902",
+        //         "image": "hi1902.png",
+        //         "name": "पढ़ने के सुधार",
+        //         "color": "#B8D855",
+        //         "course": "hi"
+        //     },
+        //     {
+        //         "id": "entest",
+        //         "image": "en0805.png",
+        //         "name": "New Story",
+        //         "color": "#D48FF9",
+        //         "course": "en"
+        //     }
+        // ]
+        const featuredLessonsUrl = 'https://raw.githubusercontent.com/chimple/chimple/master/featured_lessons.json'
+        cc.assetManager.loadRemote(featuredLessonsUrl, (err, jsonAsset) => {
+                // @ts-ignore
+                if (!err && jsonAsset && jsonAsset.json) {
+                // @ts-ignore
+                config.featuredLessons = jsonAsset.json
+                if (config.featuredLessons.length > 0) {
+                    this.featuredButton.interactable = true
+                }
+            }
+        })
+
     }
 
     private initPage() {
@@ -179,7 +210,7 @@ export default class Start extends cc.Component {
             this.createLessonPlan(config.course.id)
             this.displayLessonPlan()
         }
-        if(!Config.isMicroLink){
+        if (!Config.isMicroLink) {
             this.loading.active = false;
         }
         this.loadLesson()
@@ -211,14 +242,14 @@ export default class Start extends cc.Component {
         });
     }
 
-    private loadLesson(){
-        if(Config.isMicroLink){
+    private loadLesson() {
+        if (Config.isMicroLink) {
             const dataStr: string = cc.sys.localStorage.getItem(MICROLINK);
-            let data: any[] = JSON.parse(dataStr)|| '[]';
-            Config.isMicroLink=false;
+            let data: any[] = JSON.parse(dataStr) || '[]';
+            Config.isMicroLink = false;
             if (data && data.length > 0) {
-                const courseDetails = data.splice(data.length-1, data.length)[0];
-                Util.loadDirectLessonWithLink(courseDetails['courseid'],courseDetails['chapterid'],courseDetails['lessonid'],this.node)
+                const courseDetails = data.splice(data.length - 1, data.length)[0];
+                Util.loadDirectLessonWithLink(courseDetails['courseid'], courseDetails['chapterid'], courseDetails['lessonid'], this.node)
             }
         }
     }
