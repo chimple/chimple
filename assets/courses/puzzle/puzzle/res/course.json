@@ -182,15 +182,90 @@
     },
     {
       "id": "drawshape00",
-      "image": "puzzle01.png",
+      "image": "puzzle00.png",
       "lessons": [
         {
-          "id": "drawshape00",
-          "image": "puzzle0100.png",
-          "name": "drawshape"
+          "id": "drawshape0000",
+          "image": "puzzle0000.png",
+          "name": "Balloon"
+        },
+        {
+          "id": "drawshape0001",
+          "image": "puzzle0001.png",
+          "name": "Box"
+        },
+        {
+          "id": "drawshape0002",
+          "image": "puzzle0002.png",
+          "name": "Egg"
+        },
+        {
+          "id": "drawshape0003",
+          "image": "puzzle0003.png",
+          "name": "Flower"
+        },
+        {
+          "id": "drawshape0004",
+          "image": "puzzle0004.png",
+          "name": "Heart"
+        },
+        {
+          "id": "drawshape0005",
+          "image": "puzzle0005.png",
+          "name": "House"
+        },
+        {
+          "id": "drawshape0006",
+          "image": "puzzle0006.png",
+          "name": "Lamp"
+        },
+        {
+          "id": "drawshape0007",
+          "image": "puzzle0007.png",
+          "name": "Moon"
+        },
+        {
+          "id": "drawshape0008",
+          "image": "puzzle0008.png",
+          "name": "Rectangle"
+        },
+        {
+          "id": "drawshape0009",
+          "image": "puzzle0009.png",
+          "name": "Star"
+        },
+        {
+          "id": "drawshape0010",
+          "image": "puzzle0010.png",
+          "name": "Watermelon"
+        },
+        {
+          "id": "drawshape0011",
+          "image": "puzzle0010.png",
+          "name": "Trophy"
+        },
+        {
+          "id": "drawshape0012",
+          "image": "puzzle0010.png",
+          "name": "Dog"
+        },
+        {
+          "id": "drawshape0013",
+          "image": "puzzle0010.png",
+          "name": "Fish"
+        },
+        {
+          "id": "drawshape0014",
+          "image": "puzzle0010.png",
+          "name": "Bird"
+        },
+        {
+          "id": "drawshape0015",
+          "image": "puzzle0010.png",
+          "name": "Arrow"
         }
       ],
-      "name": "Drawshape"
+      "name": "drawshape"
     }
   ]
 }
