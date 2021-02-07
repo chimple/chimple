@@ -469,6 +469,8 @@ export default class Start extends cc.Component {
                         // @ts-ignore
                         sprite.spriteFrame = spriteFrame;
                         node.addChild(rewardIcon);
+                        const friendComp = this.friend.getComponent(Friend)
+                        friendComp.playAnimation('dance', 1)
                         new cc.Tween().target(rewardIcon)
                             .to(0.5, { scale: 1, y: 200 }, null)
                             .delay(2)
@@ -476,8 +478,18 @@ export default class Start extends cc.Component {
                             .delay(0.5)
                             .call(() => {
                                 if (splitItems[0] == REWARD_TYPES[3]) {
-                                    const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2]);
-                                    Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2]);
+                                    const friendComp = this.friend.getComponent(Friend)
+                                    friendComp.playAnimation('happy', 1)
+                                    const friendPos = cc.v3(this.friend.position)
+                                    new cc.Tween().target(this.friend)
+                                        .to(1, { position: cc.v3(0, -200, 0)}, null)
+                                        .call(() => {
+                                            const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2]);
+                                            Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2]);        
+                                        })
+                                        .delay(2)
+                                        .to(0.5, { position: friendPos}, null)
+                                        .start()
                                 }
                                 rewardIcon.opacity = 0;
                             })
