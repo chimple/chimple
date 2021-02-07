@@ -4,7 +4,8 @@ import {
     TEACHER_ADD_STUDENT_ID,
     TEACHER_ID_KEY,
     TEACHER_NAME_KEY,
-    TEACHER_SECTION_ID
+    TEACHER_SECTION_ID,
+    MICROLINK
 } from "../../../chimple";
 import Friend from "../../../common/scripts/friend";
 import Config, { StartAction } from "../../../common/scripts/lib/config";
@@ -23,7 +24,7 @@ import {
 } from "../../../common/scripts/util";
 import Inventory from "../../inventory/scripts/inventory";
 import LessonButton from "./lessonButton";
-import ChapterLessons from "./chapterLessons";
+import ChapterLessons, { ChapterLessonType } from "./chapterLessons";
 
 const COMPLETE_AUDIOS = [
     'congratulations',
@@ -84,8 +85,14 @@ export default class Start extends cc.Component {
     @property(cc.Label)
     library: cc.Label = null
 
-    @property(cc.Node)
-    assignmentButton: cc.Node = null
+    @property(cc.Sprite)
+    librarySprite: cc.Sprite
+
+    @property(cc.Button)
+    assignmentButton: cc.Button = null
+
+    @property(cc.Button)
+    featuredButton: cc.Button = null
 
     friend: cc.Node
 
@@ -109,6 +116,10 @@ export default class Start extends cc.Component {
             config.course = config.curriculum.values().next().value
         }
         this.library.string = config.course.name
+        Util.load(config.course.id + '/course/res/icons/' + config.course.id + '.png', (err: Error, texture) => {
+            this.librarySprite.spriteFrame = err ? null : new cc.SpriteFrame(texture);
+        })
+
         const startAction = config.startAction
         user.curriculumLoaded
             ? this.initPage()
@@ -139,16 +150,52 @@ export default class Start extends cc.Component {
             }
             friendComp.speakHelp(true)
         })
-        ChapterLessons.showAssignments = false
+        ChapterLessons.showType = ChapterLessonType.Library
         const assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
         config.assignments = assignments.filter((ass) => {
             const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
             return !(lessonProgress && lessonProgress.date < ass.createAt)
         })
         if (config.assignments.length > 0) {
-            this.assignmentButton.active = true
+            this.assignmentButton.interactable = true
         }
-        console.log(config.assignments)
+        // call API to get featured stories
+        // store in config.featuredLessons
+        // config.featuredLessons = [
+        //     {
+        //         "id": "drawshape0010",
+        //         "image": "puzzle0010.png",
+        //         "name": "Watermelon",
+        //         "color": "#D48FF9",
+        //         "course": "puzzle"
+        //     },
+        //     {
+        //         "id": "hi1902",
+        //         "image": "hi1902.png",
+        //         "name": "पढ़ने के सुधार",
+        //         "color": "#B8D855",
+        //         "course": "hi"
+        //     },
+        //     {
+        //         "id": "entest",
+        //         "image": "en0805.png",
+        //         "name": "New Story",
+        //         "color": "#D48FF9",
+        //         "course": "en"
+        //     }
+        // ]
+        const featuredLessonsUrl = 'https://raw.githubusercontent.com/chimple/chimple/master/featured_lessons.json'
+        cc.assetManager.loadRemote(featuredLessonsUrl, (err, jsonAsset) => {
+            // @ts-ignore
+            if (!err && jsonAsset && jsonAsset.json) {
+                // @ts-ignore
+                config.featuredLessons = jsonAsset.json
+                if (config.featuredLessons.length > 0) {
+                    this.featuredButton.interactable = true
+                }
+            }
+        })
+
     }
 
     private initPage() {
@@ -163,7 +210,10 @@ export default class Start extends cc.Component {
             this.createLessonPlan(config.course.id)
             this.displayLessonPlan()
         }
-        this.loading.active = false;
+        if (!Config.isMicroLink) {
+            this.loading.active = false;
+        }
+        this.loadLesson()
         this.registerTeacherDialogCloseEvent();
     }
 
@@ -192,7 +242,17 @@ export default class Start extends cc.Component {
         });
     }
 
-
+    private loadLesson() {
+        if (Config.isMicroLink) {
+            const dataStr: string = cc.sys.localStorage.getItem(MICROLINK);
+            let data: any[] = JSON.parse(dataStr) || '[]';
+            Config.isMicroLink = false;
+            if (data && data.length > 0) {
+                const courseDetails = data.splice(data.length - 1, data.length)[0];
+                Util.loadDirectLessonWithLink(courseDetails['courseid'], courseDetails['chapterid'], courseDetails['lessonid'], this.node)
+            }
+        }
+    }
     private showTeacherDialog() {
         try {
             const messageStr: string = cc.sys.localStorage.getItem(RECEIVED_TEACHER_REQUEST) || '[]';
@@ -236,8 +296,17 @@ export default class Start extends cc.Component {
     }
 
     onAssignmentsClick() {
-        ChapterLessons.showAssignments = true
+        ChapterLessons.showType = ChapterLessonType.Assignments
         Config.i.pushScene('menu/start/scenes/chapterLessons', 'menu')
+    }
+
+    onFeaturedClick() {
+        ChapterLessons.showType = ChapterLessonType.Featured
+        Config.i.pushScene('menu/start/scenes/chapterLessons', 'menu')
+    }
+
+    onLibraryClick() {
+        Config.i.pushScene('menu/start/scenes/courseChapters', 'menu')
     }
 
     createLessonPlan(courseId: string): Lesson[] {
@@ -248,20 +317,31 @@ export default class Start extends cc.Component {
         if (!courseProgress.currentLessonId) {
             courseProgress.currentLessonId = currentChapter.lessons[0].id
         }
-        let foundCurrentChapter = false
-        let foundChallenge = false
-        const lessons = currentChapter.lessons.filter((lesson: Lesson) => {
-            if (!foundCurrentChapter && lesson.id == courseProgress.currentLessonId) {
-                foundCurrentChapter = true
-            }
-            if (foundCurrentChapter && !foundChallenge) {
-                if (!foundChallenge && lesson.type == EXAM) {
-                    foundChallenge = true
+        var lessons: Lesson[]
+        if (course.id == 'puzzle') {
+            lessons = []
+            course.chapters.forEach((ch) => {
+                const puzLes = ch.lessons.find((l, i, ls) =>
+                    !user.lessonProgressMap.has(l.id) || (i + 1 == ls.length)
+                )
+                if (puzLes) lessons.push(puzLes)
+            })
+        } else {
+            let foundCurrentChapter = false
+            let foundChallenge = false
+            lessons = currentChapter.lessons.filter((lesson: Lesson) => {
+                if (!foundCurrentChapter && lesson.id == courseProgress.currentLessonId) {
+                    foundCurrentChapter = true
                 }
-                return true
-            }
-            return false
-        })
+                if (foundCurrentChapter && !foundChallenge) {
+                    if (!foundChallenge && lesson.type == EXAM) {
+                        foundChallenge = true
+                    }
+                    return true
+                }
+                return false
+            })
+        }
         courseProgress.lessonPlan = lessons.map((l) => l.id)
         courseProgress.lessonPlanIndex = 0
         courseProgress.lessonPlanDate = new Date()
@@ -298,7 +378,7 @@ export default class Start extends cc.Component {
             const t = index / lessons.length
             node.x = Math.pow(1 - t, 3) * x1 + 3 * Math.pow(1 - t, 2) * t * x2 + 3 * (1 - t) * Math.pow(t, 2) * x3 + Math.pow(t, 3) * x4
             node.y = Math.pow(1 - t, 3) * y1 + 3 * Math.pow(1 - t, 2) * t * y2 + 3 * (1 - t) * Math.pow(t, 2) * y3 + Math.pow(t, 3) * y4
-            node.scale = 0.4
+            node.scale = 0.75
             this.content.addChild(node)
             if (index == courseProgressMap.lessonPlanIndex) {
                 const currentLessonNode = new cc.Node()
@@ -389,6 +469,8 @@ export default class Start extends cc.Component {
                         // @ts-ignore
                         sprite.spriteFrame = spriteFrame;
                         node.addChild(rewardIcon);
+                        const friendComp = this.friend.getComponent(Friend)
+                        friendComp.playAnimation('dance', 1)
                         new cc.Tween().target(rewardIcon)
                             .to(0.5, { scale: 1, y: 200 }, null)
                             .delay(2)
@@ -396,8 +478,18 @@ export default class Start extends cc.Component {
                             .delay(0.5)
                             .call(() => {
                                 if (splitItems[0] == REWARD_TYPES[3]) {
-                                    const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2]);
-                                    Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2]);
+                                    const friendComp = this.friend.getComponent(Friend)
+                                    friendComp.playAnimation('happy', 1)
+                                    const friendPos = cc.v3(this.friend.position)
+                                    new cc.Tween().target(this.friend)
+                                        .to(1, { position: cc.v3(0, -200, 0)}, null)
+                                        .call(() => {
+                                            const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2]);
+                                            Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2]);        
+                                        })
+                                        .delay(2)
+                                        .to(0.5, { position: friendPos}, null)
+                                        .start()
                                 }
                                 rewardIcon.opacity = 0;
                             })
@@ -418,22 +510,6 @@ export default class Start extends cc.Component {
             })
             .start()
     }
-
-    // async addAssignmentsToLessonPlan() {
-    //     const assignments = await ParseApi.getInstance().listAssignments(User.getCurrentUser().serverId)
-    //     assignments.forEach((ass) => {
-    //         const course: Course = Config.i.curriculum.get(ass.courseCode);
-    //         if (course) {
-    //             const chapter: Chapter = course.chapters.find(c => c.id == ass.chapterId)
-    //             let lesson = null;
-    //             if (chapter) {
-    //                 lesson = chapter.lessons.find(l => l.id == ass.lessonId)
-    //                 if (lesson)
-    //                     this.node.children[0].getComponent(cc.PageView).insertPage(this.createButton(lesson), 0)
-    //             }
-    //         }
-    //     })
-    // }
 
     private recommendedLessonInChapter(chapter: Chapter): Lesson {
         const user = User.getCurrentUser()

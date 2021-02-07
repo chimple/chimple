@@ -22,6 +22,7 @@ export const ACCEPT_TEACHER_REQUEST: string = 'accept_teacher_request';
 export const ACCEPT_TEACHER_REQUEST_LINKED_USED: string = 'accept_teacher_request_used';
 export const TEACHER_ADDED: string = 'teacher_added';
 export const RECEIVED_TEACHER_REQUEST: string = 'received_teacher_request';
+export const MICROLINK='microlink';
 export const TEACHER_ID_KEY = 'id';
 export const TEACHER_NAME_KEY = 'name';
 export const TEACHER_SECTION_ID = 'sectionid';
@@ -64,7 +65,7 @@ cc.deep_link = function (url) {
             let elements = splits[1].split('?');
             if (elements && elements.length === 2) {
                 messageType = elements.splice(0, 1)[0];
-                if (messageType.includes(RECEIVED_TEACHER_REQUEST)) {
+                if (messageType.includes(RECEIVED_TEACHER_REQUEST) || messageType.includes(MICROLINK)) {
                     const items = elements[0].split(/[&=]+/)
                     let data = Object.assign({});
                     if (items !== null && (items.length % 2 === 0)) {
@@ -83,10 +84,15 @@ cc.deep_link = function (url) {
                             }
                         })
                     }
+                    if ( messageType.includes(MICROLINK)) {
+                        Config.isMicroLink = true
+                    }
                     try {
                         cc.log('RECEIVED_TEACHER_REQUEST', JSON.stringify(data));
                         const jsonMessages: any[] = Util.removeDuplicateMessages(data, messageType);
-                        UtilLogger.logChimpleEvent(RECEIVED_TEACHER_REQUEST, data);
+                        if(messageType.includes(RECEIVED_TEACHER_REQUEST)){
+                            UtilLogger.logChimpleEvent(RECEIVED_TEACHER_REQUEST, data);
+                        }
                         cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
                     } catch (e) {
 

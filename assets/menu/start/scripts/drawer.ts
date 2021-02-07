@@ -27,9 +27,6 @@ export default class Drawer extends cc.Component {
     block: cc.Node = null
 
     @property(cc.Node)
-    more: cc.Node = null
-
-    @property(cc.Node)
     left: cc.Node = null
 
     onCourseClick: Function
@@ -40,27 +37,24 @@ export default class Drawer extends cc.Component {
     onLoad() {
         const config = Config.i
         this.left.x = - cc.winSize.width / 2
-        
+
         User.getCurrentUser().courseProgressMap.forEach((val: CourseProgress, courseId: string) => {
             const drawerButton = cc.instantiate(this.drawerButtonPrefab)
             const drawerButtonComp = drawerButton.getComponent(HeaderButton)
             const course = config.curriculum.get(courseId)
-            if(config.course.id == course.id) {
-                this.more.addChild(drawerButton)
-                drawerButtonComp.label.string = 'More...'
-            } else {
+            if (config.course.id != course.id) {
                 this.courseLayout.addChild(drawerButton)
                 drawerButtonComp.label.string = Util.i18NText(course.name)
             }
             const color = DRAWER_ICON_COLORS[courseId]
-            if(color) drawerButtonComp.selected.node.color = new cc.Color().fromHEX(color)
+            if (color) drawerButtonComp.selected.node.color = new cc.Color().fromHEX(color)
             Util.load(courseId + '/course/res/icons/' + courseId + '.png', (err: Error, texture) => {
                 drawerButtonComp.sprite.spriteFrame = err ? null : new cc.SpriteFrame(texture);
             })
             drawerButtonComp.button.node.on('touchend', (event: cc.Event) => {
                 if (event.target.getComponent(cc.Button).enabled) {
-                    if(config.course.id == course.id) {
-                        config.pushScene('menu/start/scenes/courseChapters', 'menu')    
+                    if (config.course.id == course.id) {
+                        config.pushScene('menu/start/scenes/courseChapters', 'menu')
                     } else {
                         config.course = course;
                         Config.loadScene('menu/start/scenes/start', 'menu')
@@ -95,16 +89,16 @@ export default class Drawer extends cc.Component {
             this.closeDrawer()
         })
         new cc.Tween().target(this.left)
-            .to(0.5, {x: - cc.winSize.width / 2 + 320}, { progress: null, easing: 'cubicInOut' })
+            .to(0.5, { x: - cc.winSize.width / 2 + 320 }, { progress: null, easing: 'cubicInOut' })
             .start()
     }
 
     closeDrawer() {
         new cc.Tween().target(this.left)
-        .to(0.5, {x: - cc.winSize.width / 2}, { progress: null, easing: 'cubicInOut' })
-        .call(() => {
-            this.node.active = false
-        })
-        .start()
+            .to(0.5, { x: - cc.winSize.width / 2 }, { progress: null, easing: 'cubicInOut' })
+            .call(() => {
+                this.node.active = false
+            })
+            .start()
     }
 }

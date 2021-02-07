@@ -1,11 +1,11 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import Vec2 = cc.Vec2;
-import { FONT_SIZE, QUIZ_GROUP } from "../../../common/scripts/helper";
-import { Util } from "../../../common/scripts/util";
+import {FONT_SIZE, QUIZ_GROUP} from "../../../common/scripts/helper";
+import {Util} from "../../../common/scripts/util";
 import Assemble from "./assemble";
-import { QuizCollect } from "./quiz-collect";
-import { Reward } from "./reward";
+import {QuizCollect} from "./quiz-collect";
+import {Reward} from "./reward";
 
 interface Quiz {
     position: cc.Vec2;
@@ -26,16 +26,12 @@ export abstract class BaseLevel extends cc.Component {
     private _shouldShowReward: boolean = false;
     private _generator: any;
     private _correctNumber: number;
+
     @property(cc.Prefab)
     rewardPrefab: cc.Prefab = null;
 
     @property(cc.Prefab)
     quizPrefab: cc.Prefab = null;
-
-    @property({
-        type: cc.Font
-    })
-    textFont: cc.Font = null;
 
     protected onLoad(): void {
     }
@@ -111,7 +107,7 @@ export abstract class BaseLevel extends cc.Component {
 
     private randomFruit(): number {
         const platform: cc.Node = this.node.parent.parent;
-        if(platform != null) {
+        if (platform != null) {
             const assemble = platform.getComponent(Assemble);
             return assemble.randomFruitNumber;
         }
@@ -128,7 +124,7 @@ export abstract class BaseLevel extends cc.Component {
                 const quizCollect = parent.getComponent(QuizCollect);
                 quizCollect.correctAnswers = this.correctAnswers;
                 quizCollect.text = quiz.text;
-                Util.initText(parent, this.textFont, quiz.text, FONT_SIZE, null, true, new Vec2(-5.5, 10));
+                Util.initText(parent, null, quiz.text, FONT_SIZE, null, true, new Vec2(-5.5, 10));
                 // @ts-ignore
                 parent.position = new cc.Vec2(quiz.position.x, quiz.position.y + 50);
                 this._quizItems.push(parent);
@@ -168,7 +164,7 @@ export abstract class BaseLevel extends cc.Component {
                 if (c.group === QUIZ_GROUP && c.name.startsWith("collect")) {
                     const quiz: Quiz = {
                         position: c.getPosition(),
-                        text    : texts[index]
+                        text: texts[index]
                     };
                     return quiz;
                 }

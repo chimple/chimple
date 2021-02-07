@@ -107,7 +107,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 235.68,
+      "width": 238.95,
       "height": 75.6
     },
     "_anchorPoint": {
@@ -152,7 +152,7 @@
       "__id__": 2
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 4
@@ -171,7 +171,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 117.9,
+      "width": 120.03,
       "height": 75.6
     },
     "_anchorPoint": {
@@ -181,10 +181,10 @@
     },
     "_trs": {
       "__type__": "TypedArray",
-      "ctor": "Float32Array",
+      "ctor": "Float64Array",
       "array": [
-        -117.83999633789062,
-        -37.79999923706055,
+        -119.475,
+        -37.8,
         0,
         0,
         0,
@@ -203,7 +203,6 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_zIndex": -32768,
     "_is3DNode": false,
     "_groupIndex": 0,
     "groupIndex": 0,
@@ -223,18 +222,19 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
-    "_useOriginalSize": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_string": "Rich",
     "_N$string": "Rich",
     "_fontSize": 60,
     "_lineHeight": 60,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "dee4ee01-e8db-4c7a-8026-47474be20a5a"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -248,9 +248,9 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "a8b92d25-4def-4930-a143-68281b07680f"
     },
-    "fileId": "83erleVUpDZLpQOYCwc+3N",
+    "fileId": "216p9vTnRF3Y3ckJkyjwga",
     "sync": false
   },
   {
@@ -261,7 +261,7 @@
       "__id__": 2
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 7
@@ -280,7 +280,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 117.78,
+      "width": 118.92,
       "height": 75.6
     },
     "_anchorPoint": {
@@ -290,10 +290,10 @@
     },
     "_trs": {
       "__type__": "TypedArray",
-      "ctor": "Float32Array",
+      "ctor": "Float64Array",
       "array": [
-        0.05999999865889549,
-        -37.79999923706055,
+        0.5550000000000068,
+        -37.8,
         0,
         0,
         0,
@@ -312,7 +312,6 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_zIndex": -32768,
     "_is3DNode": false,
     "_groupIndex": 0,
     "groupIndex": 0,
@@ -332,18 +331,19 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
-    "_useOriginalSize": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_string": "Text",
     "_N$string": "Text",
     "_fontSize": 60,
     "_lineHeight": 60,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "dee4ee01-e8db-4c7a-8026-47474be20a5a"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
+    "_styleFlags": 1,
+    "_underlineHeight": 0,
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -357,13 +357,13 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "a8b92d25-4def-4930-a143-68281b07680f"
     },
-    "fileId": "6bBH9ubHlEVJoaSIsxRNk4",
+    "fileId": "c1OliOBKZH74mQNYme4yNx",
     "sync": false
   },
   {
-    "__type__": "cc.RichText",
+    "__type__": "0f8cbR4trZMipR5IzFHkC0C",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -375,9 +375,8 @@
     "_N$string": "<color=#00ff00>Rich</c><color=#0fffff><bold>Text</bold></color>",
     "_N$horizontalAlign": 1,
     "_N$fontSize": 60,
-    "_N$font": {
-      "__uuid__": "dee4ee01-e8db-4c7a-8026-47474be20a5a"
-    },
+    "_N$font": null,
+    "_N$cacheMode": 0,
     "_N$maxWidth": 0,
     "_N$lineHeight": 60,
     "_N$imageAtlas": null,
@@ -390,7 +389,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "a8b92d25-4def-4930-a143-68281b07680f"
     },
     "fileId": "39bZicDNhAIIRroC7vZSYT",
     "sync": false
@@ -401,9 +400,9 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "a8b92d25-4def-4930-a143-68281b07680f"
     },
-    "fileId": "84Acdx1NxP9LYHGcroGWZ6",
+    "fileId": "",
     "sync": false
   }
 ]

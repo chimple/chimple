@@ -1,9 +1,9 @@
 import Config from "../../../common/scripts/lib/config";
 import LessonButton from "./lessonButton";
-import {User} from "../../../common/scripts/lib/profile";
-import {Lesson} from "../../../common/scripts/lib/convert";
+import { User } from "../../../common/scripts/lib/profile";
+import { Lesson } from "../../../common/scripts/lib/convert";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 const HEADER_COLORS = {
     'en': '#FFBC00',
@@ -12,6 +12,12 @@ const HEADER_COLORS = {
     'puzzle': '#FF5500',
     'test-lit': '#FFBC00',
     'test-maths': '#42C0FF'
+}
+
+export enum ChapterLessonType {
+    Library,
+    Assignments,
+    Featured
 }
 
 @ccclass
@@ -34,7 +40,7 @@ export default class ChapterLessons extends cc.Component {
     @property(cc.Node)
     header: cc.Node = null;
 
-    static showAssignments: boolean = false
+    static showType: ChapterLessonType = ChapterLessonType.Library
 
     onLoad() {
 
@@ -46,23 +52,51 @@ export default class ChapterLessons extends cc.Component {
         }
 
         const config = Config.i
-        if (ChapterLessons.showAssignments) {
-            this.label.string = 'Assignments'
-            config.assignments.forEach((ass) => {
-                const lesson = Config.i.allLessons.get(ass.lessonId)
-                const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
-                if (lesson && !(lessonProgress && lessonProgress.date < ass.createAt)) {
-                    lesson.assignmentId = ass.assignmentId;
-                    this.createLessonButton(lesson, true)
-                }
-            })
-        } else {
-            this.label.string = config.chapter.name
-            config.chapter.lessons.forEach((lesson, index) => {
-                this.createLessonButton(lesson, (index == 0
-                    || lesson.open
-                    || User.getCurrentUser().lessonProgressMap.has(lesson.id)));
-            })
+        switch (ChapterLessons.showType) {
+            case ChapterLessonType.Assignments:
+                this.label.string = 'Assignments'
+                config.assignments.forEach((ass) => {
+                    const lesson = Config.i.allLessons.get(ass.lessonId)
+                    const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
+                    if (lesson && !(lessonProgress && lessonProgress.date < ass.createAt)) {
+                        lesson.assignmentId = ass.assignmentId;
+                        this.createLessonButton(lesson, true)
+                    }
+                })
+                break;
+            case ChapterLessonType.Featured:
+                this.label.string = 'Featured'
+                config.featuredLessons.forEach((les) => {
+                    const lessonProgress = User.getCurrentUser().lessonProgressMap.get(les.id)
+                    if(!lessonProgress) {
+                        const lesson = Config.i.allLessons.get(les.id)
+                        if (lesson) {
+                            this.createLessonButton(lesson, true)
+                        } else {
+                            const course = config.curriculum.get(les.course)
+                            if(course) {
+                                les.chapter = {
+                                    id: course.id + '_featured',
+                                    lessons: [],
+                                    name: course.name,
+                                    image: '',
+                                    course: course
+                                }    
+                            }
+                            this.createLessonButton(les, true)
+                        }
+                    }
+                })
+                break;
+            case ChapterLessonType.Library:
+            default:
+                this.label.string = config.chapter.name
+                config.chapter.lessons.forEach((lesson, index) => {
+                    this.createLessonButton(lesson, (index == 0
+                        || lesson.open
+                        || User.getCurrentUser().lessonProgressMap.has(lesson.id)));
+                })
+                break;
         }
         this.layout.width = cc.winSize.width
         this.layout.parent.width = cc.winSize.width

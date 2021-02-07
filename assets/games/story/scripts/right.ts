@@ -1,4 +1,5 @@
 import catchError from "../../../common/scripts/lib/error-handler";
+import ChimpleRichText from "../../../common/scripts/chimple-richtext";
 
 const {ccclass, property} = cc._decorator;
 
@@ -42,17 +43,17 @@ export default class Right extends cc.Component {
         let replaceWithString = `color="${color2}" param="${word}_${index}"`;
         if (shouldCheckIndex) {
             if (this.lastIndex > -1) {
-                this.node.getComponent(cc.RichText).string =
+                this.node.getComponent(ChimpleRichText).string =
                     this.storyText.slice(0, this.lastIndex) + this.storyText.slice(this.lastIndex).replace(replaceString, replaceWithString);
             } else {
-                this.node.getComponent(cc.RichText).string = this.storyText.replace(
+                this.node.getComponent(ChimpleRichText).string = this.storyText.replace(
                     replaceString, replaceWithString
                 );
             }
-            cc.log('this.storyText after highlight', this.node.getComponent(cc.RichText).string);
+            cc.log('this.storyText after highlight', this.node.getComponent(ChimpleRichText).string);
             this.lastIndex = this.storyText.indexOf(word) > this.lastIndex ? this.storyText.indexOf(word) : this.lastIndex;
         } else {
-            this.node.getComponent(cc.RichText).string = this.storyText.replace(
+            this.node.getComponent(ChimpleRichText).string = this.storyText.replace(
                 replaceString, replaceWithString
             );
         }
@@ -62,9 +63,9 @@ export default class Right extends cc.Component {
     public noHighlight(word, index: number, color1, color2) {
         let replaceString = `color="${color1}" param="${word}_${index}"`;
         let replaceWithString = `color="${color2}" param="${word}_${index}"`;
-        this.node.getComponent(cc.RichText).string = this.storyText.replace(
+        this.node.getComponent(ChimpleRichText).string = this.storyText.replace(
             replaceString, replaceWithString
         );
-        cc.log('this.storyText after no highlight', this.node.getComponent(cc.RichText).string);
+        cc.log('this.storyText after no highlight', this.node.getComponent(ChimpleRichText).string);
     }
 }

@@ -112,7 +112,8 @@ export default class Config {
     worksheet: number;
     startAction: StartAction = StartAction.Default
     assignments: any []
-    isMicroLink: boolean
+    featuredLessons: any []
+    static isMicroLink: boolean
 
     //remove later
     flow: Flow;

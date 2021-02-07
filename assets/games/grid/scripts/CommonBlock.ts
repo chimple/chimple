@@ -7,11 +7,6 @@ import ChimpleLabel from "../../../common/scripts/chimple-label";
 export const DEFAULT_FONT_COLOR = cc.Color.BLACK;
 
 export default abstract class CommonBlock extends cc.Component {
-    @property({
-        type: cc.Font
-    })
-    textFont: cc.Font = null;
-
     @property(cc.Prefab)
     slotSelectedPrefab: cc.Prefab = null;
 
@@ -48,11 +43,10 @@ export default abstract class CommonBlock extends cc.Component {
     }
 
     @catchError()
-    createLabelNode(textFont: cc.Font, text: string = '', fontSize: string = '10', fontColor: string = null, showLabel: boolean = true): cc.Node {
+    createLabelNode(textFont: cc.Font = null, text: string = '', fontSize: string = '10', fontColor: string = null, showLabel: boolean = true): cc.Node {
         const qLabelNode = new cc.Node(text);
         const label = qLabelNode.addComponent(ChimpleLabel);
         label.string = showLabel ? text : '';
-        label.font = textFont;
         label.overflow = Overflow.NONE;
         let defaultFontColor: cc.Color = DEFAULT_FONT_COLOR;
         if (!!fontColor) {
@@ -64,6 +58,7 @@ export default abstract class CommonBlock extends cc.Component {
         const fSize: number = parseInt(fontSize);
         label.fontSize = fSize;
         label.lineHeight = fSize;
+        // @ts-ignore
         qLabelNode.position = new cc.Vec2(0, fSize * 0.1); // to align text with middle since in bigger font size it aligns down
         return qLabelNode;
     }

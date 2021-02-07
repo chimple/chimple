@@ -34,10 +34,6 @@ export default class Map extends cc.Component {
     @property(cc.Node)
     block: cc.Node = null
 
-    @property({
-        type: cc.Font
-    })
-    textFont: cc.Font = null;
 
     @property
     world: number = 0
@@ -171,9 +167,10 @@ export default class Map extends cc.Component {
         if (Config.getInstance().flow != Flow.Default) {
             levelIndicator.touchable = true
         }
+        // @ts-ignore
         lCNode.position = pos;
         node.addChild(lCNode);
-        Util.initText(lCNode, this.textFont, String(level + 1), LEVEL_FONT_SIZE, '#808080', true, new cc.Vec2(-2.5, 0));
+        Util.initText(lCNode, null, String(level + 1), LEVEL_FONT_SIZE, '#808080', true, new cc.Vec2(-2.5, 0));
         if (completed) {
             this.balloon = lCNode
         }
