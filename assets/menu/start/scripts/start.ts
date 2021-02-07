@@ -186,8 +186,8 @@ export default class Start extends cc.Component {
         // ]
         const featuredLessonsUrl = 'https://raw.githubusercontent.com/chimple/chimple/master/featured_lessons.json'
         cc.assetManager.loadRemote(featuredLessonsUrl, (err, jsonAsset) => {
-                // @ts-ignore
-                if (!err && jsonAsset && jsonAsset.json) {
+            // @ts-ignore
+            if (!err && jsonAsset && jsonAsset.json) {
                 // @ts-ignore
                 config.featuredLessons = jsonAsset.json
                 if (config.featuredLessons.length > 0) {
@@ -317,20 +317,31 @@ export default class Start extends cc.Component {
         if (!courseProgress.currentLessonId) {
             courseProgress.currentLessonId = currentChapter.lessons[0].id
         }
-        let foundCurrentChapter = false
-        let foundChallenge = false
-        const lessons = currentChapter.lessons.filter((lesson: Lesson) => {
-            if (!foundCurrentChapter && lesson.id == courseProgress.currentLessonId) {
-                foundCurrentChapter = true
-            }
-            if (foundCurrentChapter && !foundChallenge) {
-                if (!foundChallenge && lesson.type == EXAM) {
-                    foundChallenge = true
+        var lessons: Lesson[]
+        if (course.id == 'puzzle') {
+            lessons = []
+            course.chapters.forEach((ch) => {
+                const puzLes = ch.lessons.find((l, i, ls) =>
+                    !user.lessonProgressMap.has(l.id) || (i + 1 == ls.length)
+                )
+                if (puzLes) lessons.push(puzLes)
+            })
+        } else {
+            let foundCurrentChapter = false
+            let foundChallenge = false
+            lessons = currentChapter.lessons.filter((lesson: Lesson) => {
+                if (!foundCurrentChapter && lesson.id == courseProgress.currentLessonId) {
+                    foundCurrentChapter = true
                 }
-                return true
-            }
-            return false
-        })
+                if (foundCurrentChapter && !foundChallenge) {
+                    if (!foundChallenge && lesson.type == EXAM) {
+                        foundChallenge = true
+                    }
+                    return true
+                }
+                return false
+            })
+        }
         courseProgress.lessonPlan = lessons.map((l) => l.id)
         courseProgress.lessonPlanIndex = 0
         courseProgress.lessonPlanDate = new Date()
@@ -487,22 +498,6 @@ export default class Start extends cc.Component {
             })
             .start()
     }
-
-    // async addAssignmentsToLessonPlan() {
-    //     const assignments = await ParseApi.getInstance().listAssignments(User.getCurrentUser().serverId)
-    //     assignments.forEach((ass) => {
-    //         const course: Course = Config.i.curriculum.get(ass.courseCode);
-    //         if (course) {
-    //             const chapter: Chapter = course.chapters.find(c => c.id == ass.chapterId)
-    //             let lesson = null;
-    //             if (chapter) {
-    //                 lesson = chapter.lessons.find(l => l.id == ass.lessonId)
-    //                 if (lesson)
-    //                     this.node.children[0].getComponent(cc.PageView).insertPage(this.createButton(lesson), 0)
-    //             }
-    //         }
-    //     })
-    // }
 
     private recommendedLessonInChapter(chapter: Chapter): Lesson {
         const user = User.getCurrentUser()
