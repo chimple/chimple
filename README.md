@@ -24,7 +24,7 @@ When you start Cocos Creator:
 cd sdcard/bahama
 http-server -p 8901
 
-
+Change this later
 Some common operations:
 for i in *.jpg; do echo "${i}"; sips -s format png "${i}" --out "${i%jpg}png"; done
 for i in *.png; do echo "${i}"; sips --resampleHeight 273  "${i}"; done
