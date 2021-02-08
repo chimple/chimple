@@ -420,14 +420,16 @@ export default class Config {
         let appendPath: string = null;
         fileName = fileName.trim();
         isNumber = !isNaN(Number(fileName));
+        let jsonFile = null;
+
         if (fileName.indexOf("tutorial") !== -1) {
             fileName = fileName.replace(".png", "");
-            appendPath = 'json';
+            jsonFile = 'course-' + this.course.id + '/' + this.lesson.id + '/res/' + fileName;
         } else {
             const isUpperCase: boolean = fileName === fileName.toUpperCase();
             appendPath = isNumber ? 'numbers' : isUpperCase ? 'upper' : 'lower';
+            jsonFile = this.course.id + '/course/res/paths/' + appendPath + '/' + fileName; //default
         }
-        let jsonFile = this.course.id + '/course/res/paths/' + appendPath + '/' + fileName; //default
         jsonFile = jsonFile + ".json";
         Util.load(jsonFile, (err, jsonAsset) => {
             data = [];
