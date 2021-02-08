@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "73d29d52-9900-49fd-8ed9-b2d64559ba60",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "point",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 256,
+  "height": 191,
+  "platformSettings": {},
+  "subMetas": {
+    "farm_hill1": {
+      "ver": "1.0.4",
+      "uuid": "db6e6c89-5edd-4140-b6eb-8b0916c38a96",
+      "rawTextureUuid": "73d29d52-9900-49fd-8ed9-b2d64559ba60",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": -3.5,
+      "trimX": 0,
+      "trimY": 7,
+      "width": 256,
+      "height": 184,
+      "rawWidth": 256,
+      "rawHeight": 191,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "5f67bbb8-3894-4397-a22e-ed2c8d70073c",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "point",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 260,
+  "height": 13,
+  "platformSettings": {},
+  "subMetas": {
+    "desertcloud1_bg": {
+      "ver": "1.0.4",
+      "uuid": "d9fa0682-1f26-4005-bc42-70bd7f547997",
+      "rawTextureUuid": "5f67bbb8-3894-4397-a22e-ed2c8d70073c",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 0,
+      "width": 259,
+      "height": 13,
+      "rawWidth": 260,
+      "rawHeight": 13,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

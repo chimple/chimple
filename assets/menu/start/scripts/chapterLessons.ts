@@ -67,24 +67,10 @@ export default class ChapterLessons extends cc.Component {
             case ChapterLessonType.Featured:
                 this.label.string = 'Featured'
                 config.featuredLessons.forEach((les) => {
-                    const lessonProgress = User.getCurrentUser().lessonProgressMap.get(les.id)
-                    if(!lessonProgress) {
-                        const lesson = Config.i.allLessons.get(les.id)
-                        if (lesson) {
-                            this.createLessonButton(lesson, true)
-                        } else {
-                            const course = config.curriculum.get(les.course)
-                            if(course) {
-                                les.chapter = {
-                                    id: course.id + '_featured',
-                                    lessons: [],
-                                    name: course.name,
-                                    image: '',
-                                    course: course
-                                }    
-                            }
-                            this.createLessonButton(les, true)
-                        }
+                    const lesson = Config.i.allLessons.get(les)
+                    const lessonProgress = User.getCurrentUser().lessonProgressMap.get(les)
+                    if (lesson && !lessonProgress) {
+                        this.createLessonButton(lesson, true)
                     }
                 })
                 break;
