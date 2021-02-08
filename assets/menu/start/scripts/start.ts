@@ -384,8 +384,8 @@ export default class Start extends cc.Component {
                 const currentLessonNode = new cc.Node()
                 const clSprite = currentLessonNode.addComponent(cc.Sprite)
                 clSprite.spriteFrame = this.currentLesson
-                currentLessonNode.y = 300
-                currentLessonNode.scale = 2
+                currentLessonNode.y = 200
+                currentLessonNode.scale = 1
                 const lessonButton = node.getComponent(LessonButton)
                 if (lessonButton) {
                     const clButton = currentLessonNode.addComponent(cc.Button)
