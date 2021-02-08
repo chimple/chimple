@@ -40,15 +40,9 @@ export default class Scorecard extends cc.Component {
     @property(cc.Node)
     continueButton: cc.Node
 
-    @property(cc.Node)
-    downloadButton: cc.Node
-
     reward: [string, string]
 
     onLoad() {
-        if(!cc.sys.isNative && Config.isMicroLink){
-            this.downloadButton.active = true;
-        }
         this.label.string = Util.i18NText(this.text);
         if (this.score > 25) this.star1.spriteFrame = this.active
         if (this.score > 50) this.star2.spriteFrame = this.active
@@ -91,9 +85,5 @@ export default class Scorecard extends cc.Component {
 
     onContinueClick() {
         Config.i.popScene()
-    }
-
-    onDownloadClick(){
-        cc.sys.openURL("https://play.google.com/store/apps/details?id=org.chimple.bahama&hl=en_IN");
     }
 }
