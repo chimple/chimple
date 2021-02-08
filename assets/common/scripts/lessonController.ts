@@ -339,6 +339,7 @@ export default class LessonController extends cc.Component {
             timeSpent: Math.abs(timeSpent),
             wrongMoves: this.wrongMoves,
             correctMoves: this.rightMoves,
+            correct: this.isQuizAnsweredCorrectly ? 1 : 0,
             skills: config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
             game_completed: this.isGameCompleted,
             quiz_completed: this.isQuizCompleted

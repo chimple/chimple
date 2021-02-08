@@ -190,7 +190,7 @@ export default class Start extends cc.Component {
             if (!err && jsonAsset && jsonAsset.json) {
                 // @ts-ignore
                 config.featuredLessons = jsonAsset.json
-                if (config.featuredLessons.length > 0) {
+                if (config.featuredLessons.length > 0 && this.featuredButton) {
                     this.featuredButton.interactable = true
                 }
             }
