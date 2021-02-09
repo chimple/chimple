@@ -424,7 +424,7 @@ export default class Config {
 
         if (fileName.indexOf("tutorial") !== -1) {
             fileName = fileName.replace(".png", "");
-            jsonFile = 'course-' + this.course.id + '/' + this.lesson.id + '/res/' + fileName;
+            jsonFile = 'course-' + this.course.id + '/' + this.lesson.id + '/res/' + fileName + '-json';
         } else {
             const isUpperCase: boolean = fileName === fileName.toUpperCase();
             appendPath = isNumber ? 'numbers' : isUpperCase ? 'upper' : 'lower';
