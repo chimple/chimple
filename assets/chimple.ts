@@ -128,7 +128,7 @@ export default class Chimple extends cc.Component {
         UtilLogger.initPluginFirebase();
         Util.loadi18NMapping(() => {
         })
-        const lang = Profile.getValue(LANGUAGE) || Lang.ENGLISH
+        const lang = Profile.lang || Lang.ENGLISH
         const langConfig = LANG_CONFIGS.get(lang)
         if (langConfig) Config.i.loadFontDynamically(langConfig.font)
         UtilLogger.init();
