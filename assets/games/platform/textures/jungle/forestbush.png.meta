@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "fc85d3cf-0dc8-443b-a086-a455f477078b",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "point",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 25,
+  "height": 32,
+  "platformSettings": {},
+  "subMetas": {
+    "forestbush": {
+      "ver": "1.0.4",
+      "uuid": "6ad513dc-a1f3-4cf6-b27c-6926763c9181",
+      "rawTextureUuid": "fc85d3cf-0dc8-443b-a086-a455f477078b",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 25,
+      "height": 32,
+      "rawWidth": 25,
+      "rawHeight": 32,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
