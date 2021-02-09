@@ -85,9 +85,7 @@ export default class TeacherAddedDialog extends cc.Component {
                 script.setParent(this.studentLayout);
                 script.renderStudent();
                 this.studentLayout.addChild(studentPreviewInfoNode);
-                if (len === 1) {
-                    script.generateEvent();
-                }
+                script.generateEvent();                
             }
         )
         if (validUsers.length > 1) {
