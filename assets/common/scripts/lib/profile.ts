@@ -2,7 +2,7 @@ import { Queue } from "../../../queue";
 import Header from "../header";
 import { INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util } from "../util";
 import UtilLogger from "../util-logger";
-import Config, { ALL_LANGS, StartAction } from "./config";
+import Config, { ALL_LANGS, StartAction, Lang } from "./config";
 import { COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
 
 const WORLD = "World";
@@ -796,6 +796,10 @@ export default class Profile {
 
     static setItem(item: string, val: number) {
         Profile.setValue(item, val.toString())
+    }
+
+    static get lang(): String {
+        return Profile.getValue(LANGUAGE) || Lang.ENGLISH
     }
 
     static fromJsonUsingParse(parseStoredProfile: string) {

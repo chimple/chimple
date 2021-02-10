@@ -12,7 +12,7 @@ export default class ChimpleLabel extends cc.Label {
         this.useSystemFont = false;
         this._key = this.string;
         const config = Config.i;
-        const lang = Profile.getValue(LANGUAGE) || Lang.ENGLISH;
+        const lang = Profile.lang || Lang.ENGLISH;
         if (config !== null) {
             config.currentFontName = config.currentFontName === null ? lang + '-main' : config.currentFontName;
             const fontName: string = config.currentFontName;

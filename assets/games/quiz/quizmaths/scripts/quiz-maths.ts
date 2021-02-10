@@ -94,7 +94,7 @@ export default class QuizMaths extends cc.Component {
 
         const config = Config.getInstance();
         this._mathsConfig = this.processConfiguration(config.data[0]);
-        this._assetDir = HELP_DIR + Profile.getValue(LANGUAGE) + '-help/' + QUIZ_MATHS_DIR;
+        this._assetDir = HELP_DIR + Profile.lang + '-help/' + QUIZ_MATHS_DIR;
 
         this.node.on(QUIZ_CORRECT, event => {
             if (!this._nextDone) {
@@ -206,7 +206,7 @@ export default class QuizMaths extends cc.Component {
                 const wordProblem = cc.instantiate(this.wordProblem);
                 const wordProblemComponent = wordProblem.getComponent(WordProblem);
                 wordProblemComponent.quizConfig = this._mathsConfig;
-                wordProblemComponent.assetDir = HELP_DIR + Profile.getValue(LANGUAGE) + '-help/' + QUESTION_BOARD;
+                wordProblemComponent.assetDir = HELP_DIR + Profile.lang + '-help/' + QUESTION_BOARD;
                 this.node.addChild(wordProblem);
                 break;
         }

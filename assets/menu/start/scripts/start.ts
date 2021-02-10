@@ -131,6 +131,9 @@ export default class Start extends cc.Component {
     @property(cc.Prefab)
     giftBoxPrefab: cc.Prefab = null
 
+    @property(cc.Prefab)
+    currentLessonButton: cc.Prefab = null
+
     @property(cc.Graphics)
     ctx: cc.Graphics = null
 
@@ -433,17 +436,20 @@ export default class Start extends cc.Component {
             node.scale = 0.75
             this.content.addChild(node)
             if (index == courseProgressMap.lessonPlanIndex) {
-                const currentLessonNode = new cc.Node()
-                const clSprite = currentLessonNode.addComponent(cc.Sprite)
-                clSprite.spriteFrame = this.currentLesson
-                currentLessonNode.y = 300
-                currentLessonNode.scale = 2
+                const currentLessonNode = cc.instantiate(this.currentLessonButton)
+                var animationCmp = currentLessonNode.getComponent(cc.Animation);
+                animationCmp.play("level_play_button").repeatCount=20
+    
+                currentLessonNode.y = 80
+                currentLessonNode.scale = 1
                 const lessonButton = node.getComponent(LessonButton)
                 if (lessonButton) {
-                    const clButton = currentLessonNode.addComponent(cc.Button)
+                    const clsprite=currentLessonNode.getChildByName('play button')
+                    const clButton = clsprite.addComponent(cc.Button)
                     clButton.transition = cc.Button.Transition.SCALE
-                    currentLessonNode.on('touchend', (event: cc.Event) => {
+                    clButton.node.on('touchend', (event: cc.Event) => {
                         if (lessonButton.button.interactable) {
+                            animationCmp.stop("level_play_button")
                             lessonButton.onClick()
                         }
                     })

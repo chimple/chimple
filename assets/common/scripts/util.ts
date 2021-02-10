@@ -176,7 +176,7 @@ export class Util {
             let num: string =
                 val in numberMappings ? numberMappings[val] : "d_" + val;
             num = !num.endsWith(".mp3") ? num + ".mp3" : num;
-            return Config.dir + Profile.getValue(LANGUAGE) + '-help/' + NUMBER_VOICE + num;
+            return Config.dir + Profile.lang + '-help/' + NUMBER_VOICE + num;
         });
         this.speakOneByOne(audios, 0, callbackOnEnd);
     }
@@ -243,7 +243,7 @@ export class Util {
     public static loadNumericSound(text: string, callBack: Function) {
         let fileName = `d_${text.toLowerCase()}`;
         fileName = fileName.endsWith(".mp3") ? fileName : fileName + ".mp3";
-        const location = Config.dir + Profile.getValue(LANGUAGE) + '-help/' + NUMBER_VOICE;
+        const location = Config.dir + Profile.lang + '-help/' + NUMBER_VOICE;
         const fullFilePath = location + fileName;
 
         Util.load(
@@ -308,7 +308,7 @@ export class Util {
         const filePath = path.startsWith(Config.dir)
             ? path
             : (Config.i.course.type != 'literacy'
-                ? Config.dir + `${Profile.getValue(LANGUAGE)}-help/${Config.i.game}/${path}`
+                ? Config.dir + `${Profile.lang}-help/${Config.i.game}/${path}`
                 : Config.dir + `${Config.i.currentGameLessonId}/res/${path}`);
         const fullFilePath =
             filePath + (path.endsWith(".mp3") || path.endsWith(".m4a") ? "" : ".mp3");
@@ -616,7 +616,7 @@ export class Util {
     }
 
     public static loadi18NMapping(callBack: Function) {
-        let jsonFile = 'lang/' + Profile.getValue(LANGUAGE) + '/i18n'
+        let jsonFile = 'lang/' + Profile.lang + '/i18n'
         cc.resources.load(jsonFile, (err, jsonAsset) => {
             if (!err && !!jsonAsset) {
                 const data =
