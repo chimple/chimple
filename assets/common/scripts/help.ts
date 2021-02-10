@@ -1,7 +1,10 @@
+import PhonicTractorDrag from "../../games/phonictractor/scripts/phonictractor_drag";
+
 const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class Help extends cc.Component {
+    originalFrom: cc.Node;
     from: cc.Node;
     to: cc.Node;
     callBack: Function = null;
@@ -25,6 +28,7 @@ export default class Help extends cc.Component {
         this.from = from
         this.to = to
         this.callBack = callBack;
+        this.clone();
     }
 
     onLoad() {
@@ -51,10 +55,17 @@ export default class Help extends cc.Component {
         this.help();
     }
 
+    private clone() {
+        const fromClone = cc.instantiate(this.from)
+        this.originalFrom = this.from;
+        this.hand.parent.insertChild(fromClone, 0)
+        this.from = fromClone;
+    }
+
     private help() {
         this.node.active = true
         new cc.Tween().target(this.hand)
-            .set({position: this.node.convertToNodeSpaceAR(this.from.getBoundingBoxToWorld().center)})
+            .set({position: this.node.convertToNodeSpaceAR(this.originalFrom.getBoundingBoxToWorld().center)})
             .to(0.25, {scale: 0.8}, null)
             .delay(1)
             .call(() => {
@@ -67,6 +78,19 @@ export default class Help extends cc.Component {
                 if (this.callBack != null) {
                     this.callBack();
                 }
+            })
+            .start();
+
+        new cc.Tween().target(this.from)
+            .set({position: this.node.convertToNodeSpaceAR(this.originalFrom.getBoundingBoxToWorld().center)})
+            .to(0.25, {scale: 0.8}, null)
+            .delay(1)
+            // .to(1, {position: this.from.convertToNodeSpaceAR(this.to.getBoundingBoxToWorld().center)}, null)
+            .to(1, {position: this.node.convertToNodeSpaceAR(this.to.getBoundingBoxToWorld().center)}, null)
+            .to(0.25, {scale: 1}, null)
+            .call(() => {
+                this.from.active = false;
+                this.from.removeFromParent(true);
             })
             .start();
     }
