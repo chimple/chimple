@@ -390,7 +390,7 @@ export default class Start extends cc.Component {
                 currentLessonNode.scale = 1
                 const lessonButton = node.getComponent(LessonButton)
                 if (lessonButton) {
-                    var clsprite=currentLessonNode.getChildByName('play button')
+                    const clsprite=currentLessonNode.getChildByName('play button')
                     const clButton = clsprite.addComponent(cc.Button)
                     clButton.transition = cc.Button.Transition.SCALE
                     clButton.node.on('touchend', (event: cc.Event) => {
