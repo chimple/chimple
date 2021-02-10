@@ -385,8 +385,10 @@ export default class Start extends cc.Component {
             this.content.addChild(node)
             if (index == courseProgressMap.lessonPlanIndex) {
                 const currentLessonNode = cc.instantiate(this.currentLessonButton)
+                var animationCmp = currentLessonNode.getComponent(cc.Animation);
+                animationCmp.play("level_play_button").repeatCount=20
     
-                currentLessonNode.y = 0
+                currentLessonNode.y = 80
                 currentLessonNode.scale = 1
                 const lessonButton = node.getComponent(LessonButton)
                 if (lessonButton) {
@@ -395,6 +397,7 @@ export default class Start extends cc.Component {
                     clButton.transition = cc.Button.Transition.SCALE
                     clButton.node.on('touchend', (event: cc.Event) => {
                         if (lessonButton.button.interactable) {
+                            animationCmp.stop("level_play_button")
                             lessonButton.onClick()
                         }
                     })
