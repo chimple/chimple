@@ -119,8 +119,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        360.344,
-        153.448,
+        386.739,
+        180.6,
         0,
         0,
         0,
@@ -239,8 +239,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
-      "height": 120
+      "width": 180,
+      "height": 180
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -295,7 +295,7 @@
     "_N$string": "",
     "_fontSize": 20,
     "_lineHeight": 40,
-    "_enableWrapText": true,
+    "_enableWrapText": false,
     "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -409,7 +409,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        -16.931,
         0,
         0,
         0,
