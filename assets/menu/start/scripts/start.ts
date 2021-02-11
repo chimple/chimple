@@ -5,16 +5,16 @@ import {
     TEACHER_ID_KEY,
     TEACHER_NAME_KEY,
     TEACHER_SECTION_ID,
-    MICROLINK
+    MICROLINK, RECEIVED_TEACHER_REQUESTS
 } from "../../../chimple";
 import Friend from "../../../common/scripts/friend";
-import Config, { StartAction } from "../../../common/scripts/lib/config";
-import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
-import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
-import { User } from "../../../common/scripts/lib/profile";
+import Config, {StartAction} from "../../../common/scripts/lib/config";
+import {EXAM, MIN_PASS} from "../../../common/scripts/lib/constants";
+import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
+import {User} from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
-import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
-import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
+import {ServiceConfig} from "../../../common/scripts/services/ServiceConfig";
+import TeacherAddedDialog, {TEACHER_ADD_DIALOG_CLOSED} from "../../../common/scripts/teacherAddedDialog";
 import {
     INVENTORY_ANIMATIONS,
     INVENTORY_ICONS,
@@ -24,7 +24,7 @@ import {
 } from "../../../common/scripts/util";
 import Inventory from "../../inventory/scripts/inventory";
 import LessonButton from "./lessonButton";
-import ChapterLessons, { ChapterLessonType } from "./chapterLessons";
+import ChapterLessons, {ChapterLessonType} from "./chapterLessons";
 
 const COMPLETE_AUDIOS = [
     'congratulations',
@@ -42,7 +42,7 @@ const DEFAULT_AUDIOS = [
     'my_name_is_chimple'
 ]
 
-const { ccclass, property } = cc._decorator;
+const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class Start extends cc.Component {
@@ -219,11 +219,7 @@ export default class Start extends cc.Component {
         this.loadLesson()
         this.registerTeacherDialogCloseEvent();
     }
-
-    protected start() {
-        this.setUpTeacherDialog();
-    }
-
+    
     private registerTeacherDialogCloseEvent() {
         this.node.on(TEACHER_ADD_DIALOG_CLOSED, async (event) => {
             event.stopPropagation();
@@ -256,6 +252,7 @@ export default class Start extends cc.Component {
             }
         }
     }
+
     private showTeacherDialog() {
         try {
             const messageStr: string = cc.sys.localStorage.getItem(RECEIVED_TEACHER_REQUEST) || '[]';
@@ -386,13 +383,13 @@ export default class Start extends cc.Component {
             if (index == courseProgressMap.lessonPlanIndex) {
                 const currentLessonNode = cc.instantiate(this.currentLessonButton)
                 var animationCmp = currentLessonNode.getComponent(cc.Animation);
-                animationCmp.play("level_play_button").repeatCount=20
-    
+                animationCmp.play("level_play_button").repeatCount = 20
+
                 currentLessonNode.y = 80
                 currentLessonNode.scale = 1
                 const lessonButton = node.getComponent(LessonButton)
                 if (lessonButton) {
-                    const clsprite=currentLessonNode.getChildByName('play button')
+                    const clsprite = currentLessonNode.getChildByName('play button')
                     const clButton = clsprite.addComponent(cc.Button)
                     clButton.transition = cc.Button.Transition.SCALE
                     clButton.node.on('touchend', (event: cc.Event) => {
@@ -427,7 +424,7 @@ export default class Start extends cc.Component {
 
     private giveReward(node: cc.Node, user: User) {
         new cc.Tween().target(node)
-            .to(0.5, { position: cc.Vec3.ZERO }, null)
+            .to(0.5, {position: cc.Vec3.ZERO}, null)
             .call(() => {
                 const anim = node.getComponent(cc.Animation);
                 anim.play();
@@ -440,13 +437,10 @@ export default class Start extends cc.Component {
                     const splitItems = rewardItem.split('-');
                     if (splitItems[0] == REWARD_TYPES[0]) {
                         user.currentCharacter = splitItems[1];
-                    }
-                    else if (splitItems[0] == REWARD_TYPES[1]) {
+                    } else if (splitItems[0] == REWARD_TYPES[1]) {
                         user.currentBg = splitItems[1];
-                    }
-                    else if (splitItems[0] == REWARD_TYPES[2]) {
-                    }
-                    else if (splitItems[0] == REWARD_TYPES[3]) {
+                    } else if (splitItems[0] == REWARD_TYPES[2]) {
+                    } else if (splitItems[0] == REWARD_TYPES[3]) {
                         user.updateInventory(`${splitItems[1]}-${splitItems[2]}`, splitItems[3]);
                     }
                     const courseProgress = user.courseProgressMap.get(Config.i.course.id)
@@ -458,13 +452,10 @@ export default class Start extends cc.Component {
                     var rewardSpriteFrame = '';
                     if (splitItems[0] == REWARD_TYPES[0]) {
                         rewardSpriteFrame = 'char_icons/' + splitItems[1] + '_icon';
-                    }
-                    else if (splitItems[0] == REWARD_TYPES[1]) {
+                    } else if (splitItems[0] == REWARD_TYPES[1]) {
                         rewardSpriteFrame = 'backgrounds/textures/bg_icons/background-' + splitItems[1];
-                    }
-                    else if (splitItems[0] == REWARD_TYPES[2]) {
-                    }
-                    else if (splitItems[0] == REWARD_TYPES[3]) {
+                    } else if (splitItems[0] == REWARD_TYPES[2]) {
+                    } else if (splitItems[0] == REWARD_TYPES[3]) {
                         rewardSpriteFrame = INVENTORY_ICONS[splitItems[2]] + splitItems[3];
                     }
                     cc.resources.load(rewardSpriteFrame, cc.SpriteFrame, (err, spriteFrame) => {
@@ -478,9 +469,12 @@ export default class Start extends cc.Component {
                         const friendComp = this.friend.getComponent(Friend)
                         friendComp.playAnimation('dance', 1)
                         new cc.Tween().target(rewardIcon)
-                            .to(0.5, { scale: 1, y: 200 }, null)
+                            .to(0.5, {scale: 1, y: 200}, null)
                             .delay(2)
-                            .to(0.5, { scale: 0.1, position: node.parent.convertToNodeSpaceAR(cc.v3(cc.winSize.width - 64, cc.winSize.height - 32)) }, null)
+                            .to(0.5, {
+                                scale: 0.1,
+                                position: node.parent.convertToNodeSpaceAR(cc.v3(cc.winSize.width - 64, cc.winSize.height - 32))
+                            }, null)
                             .delay(0.5)
                             .call(() => {
                                 if (splitItems[0] == REWARD_TYPES[3]) {
@@ -488,13 +482,13 @@ export default class Start extends cc.Component {
                                     friendComp.playAnimation('happy', 1)
                                     const friendPos = cc.v3(this.friend.position)
                                     new cc.Tween().target(this.friend)
-                                        .to(1, { position: cc.v3(0, -200, 0)}, null)
+                                        .to(1, {position: cc.v3(0, -200, 0)}, null)
                                         .call(() => {
                                             const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2]);
-                                            Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2]);        
+                                            Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2]);
                                         })
                                         .delay(2)
-                                        .to(0.5, { position: friendPos}, null)
+                                        .to(0.5, {position: friendPos}, null)
                                         .start()
                                 }
                                 rewardIcon.opacity = 0;
@@ -506,8 +500,7 @@ export default class Start extends cc.Component {
                             })
                             .start();
                     });
-                }
-                else {
+                } else {
                     this.scheduleOnce(() => {
                         this.createLessonPlan(Config.i.course.id)
                         this.displayLessonPlan();
@@ -645,4 +638,13 @@ export default class Start extends cc.Component {
     onDestroy() {
         cc.audioEngine.stopMusic();
     }
+
+    protected update(dt: number) {
+        if (RECEIVED_TEACHER_REQUESTS) {
+            // @ts-ignore
+            RECEIVED_TEACHER_REQUESTS = false;
+            this.setUpTeacherDialog();
+        }
+    }
 }
+
