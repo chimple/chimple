@@ -65,13 +65,13 @@ export default class TeacherAddedDialog extends cc.Component {
         console.log("teachersAdded", JSON.stringify(teachersAdded));
         this.users.forEach(u => {
             const t = teachersAdded.find(t => {
-               return t.teacherId === this._teacherId && t.sectionId === this._teacherSectionId && t.studentId === u.id                
+               return t.teacherId === this._teacherId && t.sectionId === this._teacherSectionId && t.studentId === u.id
             })
             console.log("on filter found", t);
             if(!t) {
                 console.log("Pushing to Validators", JSON.stringify(u));
                 validUsers.push(u);
-            }            
+            }
         })
 
         console.log("Validators", JSON.stringify(validUsers));
@@ -85,7 +85,9 @@ export default class TeacherAddedDialog extends cc.Component {
                 script.setParent(this.studentLayout);
                 script.renderStudent();
                 this.studentLayout.addChild(studentPreviewInfoNode);
-                script.generateEvent();                
+                if (validUsers.length === 1) {
+                    script.generateEvent();
+                }
             }
         )
         if (validUsers.length > 1) {
