@@ -5,6 +5,7 @@ import UtilLogger from "./common/scripts/util-logger";
 import {Util} from "./common/scripts/util";
 import {APIMode, ServiceConfig} from "./common/scripts/services/ServiceConfig";
 import {AcceptTeacherRequest} from "./common/scripts/services/ServiceApi";
+import Start from "./menu/start/scripts/start";
 
 const {ccclass, property} = cc._decorator;
 
@@ -55,6 +56,9 @@ export enum UpdateEvent {
 export const PROJECT_MANIFEST = 'project.manifest'
 export const DO_HOT_UPDATE = false
 
+
+export let RECEIVED_TEACHER_REQUESTS: boolean = false;
+
 //@ts-ignore
 cc.deep_link = function (url) {
     cc.log("deep link called with url:" + url);
@@ -92,8 +96,10 @@ cc.deep_link = function (url) {
                         const jsonMessages: any[] = Util.removeDuplicateMessages(data, messageType);
                         if(messageType.includes(RECEIVED_TEACHER_REQUEST)){
                             UtilLogger.logChimpleEvent(RECEIVED_TEACHER_REQUEST, data);
+                            cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
+                            RECEIVED_TEACHER_REQUESTS = true;
                         }
-                        cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
+
                     } catch (e) {
 
                     }
@@ -345,3 +351,4 @@ export default class Chimple extends cc.Component {
 
     }
 }
+
