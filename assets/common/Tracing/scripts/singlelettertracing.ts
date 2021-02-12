@@ -1,7 +1,7 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
-import { CONFIG_LOADED } from "../../../common/scripts/helper";
-import { Util } from "../../../common/scripts/util";
+import {CONFIG_LOADED} from "../../../common/scripts/helper";
+import {Util} from "../../../common/scripts/util";
 import TracingContainer from "../../../common/Tracing/scripts/tracing-container";
 import WriteWord from "./writeword";
 
@@ -41,15 +41,19 @@ export class SingleLetterTracing extends cc.Component {
     }
 
     loadSounds(text: string) {
-        const isString = isNaN(Number(text));
-        if (isString) {
-            Util.loadsPhonicsOrLetter(text.toLowerCase(), (clip) => {
-                this._sound = clip;
-            });
-        } else {
-            Util.loadNumericSound(text, (clip) => {
-                this._sound = clip;
-            });
+        try {
+            const isString = isNaN(Number(text));
+            if (isString) {
+                Util.loadsPhonicsOrLetter(text.toLowerCase(), (clip) => {
+                    this._sound = clip;
+                });
+            } else {
+                Util.loadNumericSound(text, (clip) => {
+                    this._sound = clip;
+                });
+            }
+        } catch (e) {
+            console.log(e);
         }
     }
 
