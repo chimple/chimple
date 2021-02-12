@@ -26,7 +26,7 @@ export default class HelpChimp extends cc.Component {
             .start()
         this.chimp.playAnimation('idle', 0);
         this.node.getComponent(cc.Button).interactable = false
-        const name = Profile.getValue(LANGUAGE) + '-help'
+        const name = Profile.lang + '-help'
         const bundle = Util.bundles.get(name)
         if (bundle) {
             this.loadAndPlay(bundle);

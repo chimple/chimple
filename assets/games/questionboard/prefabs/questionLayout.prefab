@@ -119,8 +119,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -343.18499755859375,
-        0,
+        386.739,
+        180.6,
         0,
         0,
         0,
@@ -291,14 +291,13 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "",
     "_N$string": "",
     "_fontSize": 20,
     "_lineHeight": 40,
     "_enableWrapText": false,
     "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -397,7 +396,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 650,
+      "width": 800,
       "height": 400
     },
     "_anchorPoint": {
@@ -409,8 +408,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        87.27300262451172,
         0,
+        -16.931,
         0,
         0,
         0,
@@ -449,14 +448,13 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "There are 16 children in a classroom. Some children go outside to play.\n7 children stay inside to read books. How many children are outside?",
     "_N$string": "There are 16 children in a classroom. Some children go outside to play.\n7 children stay inside to read books. How many children are outside?",
     "_fontSize": 50,
     "_lineHeight": 50,
     "_enableWrapText": true,
     "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -519,7 +517,7 @@
     "asset": {
       "__uuid__": "385d6c04-0e8e-45c6-8cf1-2c82a77376ea"
     },
-    "fileId": "408xTeeaxNBb93+XRZ0dWD",
+    "fileId": "",
     "sync": false
   }
 ]

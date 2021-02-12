@@ -46,12 +46,12 @@ export default class Friend extends cc.Component {
             this.speakFullHelp = false
             this.speakExtra()
         } else {
-            const name = Profile.getValue(LANGUAGE) + '-help'
+            const name = Profile.lang + '-help'
             const bundle = Util.bundles.get(name)
             if (bundle) {
                 this.loadAndPlay(bundle);
             } else {
-                cc.assetManager.loadBundle(Profile.getValue(LANGUAGE) + '-help', (err, bundle) => {
+                cc.assetManager.loadBundle(Profile.lang + '-help', (err, bundle) => {
                     if (!err) {
                         Util.bundles.set(name, bundle)
                         this.loadAndPlay(bundle);

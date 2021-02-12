@@ -118,13 +118,16 @@ export default class ChapterLessons extends cc.Component {
 
     private setBackground(bgprefabName: string) {
         cc.resources.load(`backgrounds/prefabs/${bgprefabName}`, (err, sp) => {
-            let bgPrefabInstance = cc.instantiate(sp);
+            // @ts-ignore
+            let bgPrefabInstance: cc.Node = cc.instantiate(sp);
             // @ts-ignore
             bgPrefabInstance.y = 0
             // @ts-ignore
             bgPrefabInstance.x = 0
             // @ts-ignore
-            this.bgHolder.addChild(bgPrefabInstance);
+            if(!!this.bgHolder) {
+                this.bgHolder.addChild(bgPrefabInstance);
+            }
             // userButtonRef.getChildByName("Background").getChildByName("avatar").getChildByName("icon").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
         });
     }
@@ -133,3 +136,4 @@ export default class ChapterLessons extends cc.Component {
         Config.i.popScene()
     }
 }
+

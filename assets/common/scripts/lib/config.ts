@@ -182,7 +182,7 @@ export default class Config {
     static loadScene(scene: string, bundle: string = null, callback: Function = null) {
         Util.freeResources();
 
-        const lang = Profile.getValue(LANGUAGE) || Lang.ENGLISH
+        const lang  = Profile.lang || Lang.ENGLISH
         const langConfig = LANG_CONFIGS.get(lang)
         if (!Config.i.hasLoadedTextFont(langConfig.font)) {
             Config.i.loadFontDynamically(langConfig.font, () => {

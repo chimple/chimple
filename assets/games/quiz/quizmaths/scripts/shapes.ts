@@ -28,7 +28,7 @@ export default class Shapes extends cc.Component {
 
     @catchError()
     protected onLoad(): void {
-        this.audioDir = HELP_DIR + Profile.getValue(LANGUAGE) + '-help/' + QUIZ_MATHS_DIR;
+        this.audioDir = HELP_DIR + Profile.lang + '-help/' + QUIZ_MATHS_DIR;
         this.quizConfig.choices = this.quizConfig.choices.replace(/,/g, '^');
         this.quizConfig.answer = this.quizConfig.answer.replace(/,/g, '^');
         const options = this.quizConfig.answer.split('^');

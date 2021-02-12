@@ -10,8 +10,8 @@ android {
         applicationId "org.chimple.bahama"
         minSdkVersion PROP_MIN_SDK_VERSION
         targetSdkVersion PROP_TARGET_SDK_VERSION
-        versionCode 1
-        versionName "1.0"
+        versionCode 34
+        versionName "2.0"
         multiDexEnabled true
 
         externalNativeBuild {

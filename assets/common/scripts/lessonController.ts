@@ -88,9 +88,13 @@ export default class LessonController extends cc.Component {
         Util.loadAccessoriesAndEquipAcc(LessonController.friend.node.children[1], LessonController.friend.node)
         LessonController.friend.node.removeFromParent()
         this.lessonStart();
-        this.backButton.on('touchend', () => {
-            this.node.getChildByName("quit").active = true;
-        });
+        if(Config.isMicroLink) {
+            this.backButton.active = false
+        } else {
+            this.backButton.on('touchend', () => {
+                this.node.getChildByName("quit").active = true;
+            });    
+        }
     }
 
     static preloadLesson(node: cc.Node, callback: Function) {
