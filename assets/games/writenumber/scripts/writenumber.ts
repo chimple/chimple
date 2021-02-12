@@ -131,10 +131,10 @@ export class WriteNumber extends Game {
             this.buildNumbers();
             this.subScribeToTracingEvents();
             this.node.emit(CONFIG_LOADED);
-            this.loadSounds(this._currentConfig.count);
             this.emitLetterEnabledEvent(
                 this._layout.node.getChildByName(this._originalLetterName + '0'), 0
             );
+            this.loadSounds(this._currentConfig.count);
         }
     }
 
