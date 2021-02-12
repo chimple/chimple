@@ -798,8 +798,8 @@ export default class Profile {
         Profile.setValue(item, val.toString())
     }
 
-    static get lang(): String {
-        return Profile.getValue(LANGUAGE) || Lang.ENGLISH
+    static get lang(): Lang {
+        return Profile.getValue(LANGUAGE)
     }
 
     static fromJsonUsingParse(parseStoredProfile: string) {
