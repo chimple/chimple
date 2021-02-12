@@ -139,9 +139,11 @@ export default class UtilLogger {
                 (async () => {
                     UtilLogger._isfireBaseInitialized = true;
                     await UtilLogger.importFirebaseForWeb();
-                    UtilLogger.firebase.initializeApp(firebaseConfigWeb);
-                    UtilLogger.firebase.analytics();
-                    UtilLogger.firebase.analytics().logEvent(key, data);
+                    if(UtilLogger.firebase) {
+                        UtilLogger.firebase.initializeApp(firebaseConfigWeb);
+                        UtilLogger.firebase.analytics();
+                        UtilLogger.firebase.analytics().logEvent(key, data);
+                    }
                 })();
             } else {
                 UtilLogger.firebase ? UtilLogger.firebase.analytics().logEvent(key, data) : '';
