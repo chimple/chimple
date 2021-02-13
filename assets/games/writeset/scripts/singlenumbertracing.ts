@@ -58,6 +58,14 @@ export class SingleNumberTracing extends cc.Component {
         }
     }
 
+    reset() {
+        this._tracingContainer.removeFromParent(true);
+        this._tracingContainer = cc.instantiate(this.tracingContainerPrefab);
+        this._tracingContainer.scale = 0.75;
+        this.setAlphabetToDisplay(this._letter);
+        this._traceGraphics.emit('enabledGraphics');
+    }
+
     preloadSound(content: string, loadFrom: string) {
         const soundFile: string = loadFrom + content;
         cc.resources.load(soundFile, cc.AudioClip, (err, clip) => {

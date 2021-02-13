@@ -5,7 +5,14 @@ import Config from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
 import { Anim } from "./anim";
 import catchError from "../../../common/scripts/lib/error-handler";
-import { CONFIG_LOADED, SOUND_LOADED_EVENT, TRACING_FINISHED, TRACING_CORRECT, TRACING_WRONG } from "../../../common/scripts/helper";
+import {
+    CONFIG_LOADED,
+    SOUND_LOADED_EVENT,
+    TRACING_FINISHED,
+    TRACING_CORRECT,
+    TRACING_WRONG,
+    RESET_TRACING
+} from "../../../common/scripts/helper";
 import { SingleLetterTracing } from "../../../common/Tracing/scripts/singlelettertracing";
 import Game from "../../../common/scripts/game";
 
@@ -238,6 +245,14 @@ export class WriteNumber extends Game {
         this.node.on(TRACING_WRONG, (event) => {
             event.stopPropagation();
             this.node.emit('wrong');
+        });
+
+        this.node.on(RESET_TRACING, (event) => {
+            event.stopPropagation();
+            const letterNode: cc.Node =
+                this._layout.node.getChildByName(this._originalLetterName + (this._currentLetterIndex));
+            const singleLetterTracing: SingleLetterTracing = letterNode.getComponent(SingleLetterTracing);
+            singleLetterTracing.reset();
         });
     }
 
