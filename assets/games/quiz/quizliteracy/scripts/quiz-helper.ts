@@ -339,7 +339,6 @@ export class QuizHelper {
                 const tempNode = new cc.Node();
                 const drop = cc.instantiate(dropButtonPrefab);
                 const mathDropComponent = drop.getComponent(MathDrop);
-                mathDropComponent.allowOnlyOneDrop = true;
                 drop.width = width;
                 drop.height = height;
                 tempNode.width = width;
