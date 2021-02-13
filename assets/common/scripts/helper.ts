@@ -27,7 +27,7 @@ export const TRACING_WRONG = 'tracingWrong';
 export const MOVE_TO_NEXT_LETTER_EVENT = 'moveToNextLetter';
 export const RECORDING_FINISHED = 'recordingFinished';
 export const BACK_FINISHED = 'backFinished';
-
+export const RESET_TRACING = 'resetTracing';
 export const MOVE_MATCH = 'MoveMatch';
 export const MOVE_NOT_MATCH = 'MoveNotMatch';
 

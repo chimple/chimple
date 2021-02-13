@@ -1,11 +1,18 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import Config from "../../../common/scripts/lib/config";
-import { Util } from "../../../common/scripts/util";
+import {Util} from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
-import { TRACING_FINISHED, TRACING_CORRECT, TRACING_WRONG, SOUND_LOADED_EVENT } from "../../../common/scripts/helper";
+import {
+    TRACING_FINISHED,
+    TRACING_CORRECT,
+    TRACING_WRONG,
+    SOUND_LOADED_EVENT,
+    RESET_TRACING
+} from "../../../common/scripts/helper";
 import TracingContainer from "../../../common/Tracing/scripts/tracing-container";
 import Game from "../../../common/scripts/game";
+import TraceGraphics from "../../../common/Tracing/scripts/trace-graphics";
 
 interface WriteLetterConfig {
     level: string;
@@ -48,13 +55,17 @@ export class WriteLetter extends Game {
             this._letterTracingContainer.scale *= 1;
             this.node.width = cc.winSize.width;
             this.node.height = cc.winSize.height;
-            this._tracingContainer = cc.instantiate(this.tracingContainerPrefab);
-            this.setAlphabetToDisplay(this._currentConfig.traceText);
+            this.initTracingContainer();
             this.subScribeToTracingEvents();
             this.loadSounds(this._currentConfig.traceText);
             this.node.opacity = 255;
         }
         Util.showHelp(null, null)
+    }
+
+    private initTracingContainer() {
+        this._tracingContainer = cc.instantiate(this.tracingContainerPrefab);
+        this.setAlphabetToDisplay(this._currentConfig.traceText);
     }
 
     @catchError()
@@ -72,6 +83,13 @@ export class WriteLetter extends Game {
         this.node.on(TRACING_WRONG, (event) => {
             event.stopPropagation();
             this.node.emit('wrong');
+        });
+
+        this.node.on(RESET_TRACING, (event) => {
+            event.stopPropagation();
+            console.log("RESET_TRACING.....")
+            this._tracingContainer.removeFromParent(true);
+            this.initTracingContainer();
         });
     }
 
@@ -113,8 +131,7 @@ export class WriteLetter extends Game {
         this._tracingContainerComponent.traceGraphics.emit('enabledGraphics');
         if (Config.dir === 'en/') {
             this._tracingContainer.setPosition(new cc.Vec2(-256, -350));
-        }
-        else if (Config.dir === 'hi/') {
+        } else if (Config.dir === 'hi/') {
             this._tracingContainer.setPosition(new cc.Vec2(-256, -450));
         }
 
