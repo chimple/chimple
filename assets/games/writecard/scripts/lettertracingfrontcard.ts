@@ -49,13 +49,12 @@ export class LetterTracingFrontCard extends cc.Component {
             event.stopPropagation();
             this.node.parent.emit('wrong');
         });
+    }
 
-        this.node.on(RESET_TRACING, (event) => {
-            event.stopPropagation();
-            this._tracingContainer.removeFromParent(true);
-            this._tracingContainer = cc.instantiate(this.tracingContainerPrefab);
-            this.setAlphabetToDisplay(this._WriteCard.currentConfig.traceText);
-        });
+    public resetTracing() {
+        this._tracingContainer.removeFromParent(true);
+        this._tracingContainer = cc.instantiate(this.tracingContainerPrefab);
+        this.setAlphabetToDisplay(this._WriteCard.currentConfig.traceText);
     }
 
     private setAlphabetToDisplay(letter: string): void {

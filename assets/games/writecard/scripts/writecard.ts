@@ -4,9 +4,9 @@ import Config from "../../../common/scripts/lib/config";
 import {LetterTracingBackCard} from "./lettertracingbackcard";
 import {LetterTracingFrontCard} from "./lettertracingfrontcard";
 import catchError from "../../../common/scripts/lib/error-handler";
-import { CONFIG_LOADED } from "../../../common/scripts/helper";
+import {CONFIG_LOADED, RESET_TRACING} from "../../../common/scripts/helper";
 import Game from "../../../common/scripts/game";
-import { Util } from "../../../common/scripts/util";
+import {Util} from "../../../common/scripts/util";
 
 
 export const LETTER_TRACING_CARD_SCALE = 0.85;
@@ -41,6 +41,7 @@ export class WriteCard extends Game {
     _backCard: cc.Node = null;
     _frontCards: cc.Node[] = [];
     _backCards: cc.Node[] = [];
+    _currentIndex: number = 0;
 
     _originalFrontCardName: string;
     _originalBackCardName: string;
@@ -58,6 +59,19 @@ export class WriteCard extends Game {
         });
         this.buildUI();
         Util.showHelp(null, null);
+
+        this.node.on(RESET_TRACING, (event) => {
+            event.stopPropagation();
+            console.log("current index" + this._currentIndex);
+            const fNode = this.node.getChildByName(this._originalFrontCardName + this._currentIndex);
+            if (!!fNode) {
+                const frontComponent: LetterTracingFrontCard = fNode.getComponent(LetterTracingFrontCard)
+                if (!!frontComponent) {
+                    frontComponent.resetTracing();
+                    this.emitCardEnabledEvent(fNode, this._currentIndex);
+                }
+            }
+        });
     }
 
     @catchError()
@@ -108,6 +122,7 @@ export class WriteCard extends Game {
     private emitCardEnabledEvent(fNode: cc.Node, index: number) {
         fNode.opacity = 255;
         fNode.emit('cardEnabled', index);
+        this._currentIndex = index;
     }
 
     private processConfiguration(data: any[] = []): WriteCardConfig | null {
