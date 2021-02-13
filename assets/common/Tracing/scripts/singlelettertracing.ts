@@ -1,6 +1,6 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
-import {CONFIG_LOADED} from "../../../common/scripts/helper";
+import {CONFIG_LOADED, RESET_TRACING} from "../../../common/scripts/helper";
 import {Util} from "../../../common/scripts/util";
 import TracingContainer from "../../../common/Tracing/scripts/tracing-container";
 import WriteWord from "./writeword";
@@ -38,6 +38,14 @@ export class SingleLetterTracing extends cc.Component {
             this.setAlphabetToDisplay(this._letter);
             this.loadSounds(this._letter);
         });
+    }
+
+    reset() {
+        this._tracingContainer.removeFromParent(true);
+        this._tracingContainer = cc.instantiate(this.tracingContainerPrefab);
+        this._tracingContainer.scale = 0.75;
+        this.setAlphabetToDisplay(this._letter);
+        this._traceGraphics.emit('enabledGraphics');
     }
 
     loadSounds(text: string) {
