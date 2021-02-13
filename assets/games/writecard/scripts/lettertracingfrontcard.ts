@@ -2,7 +2,13 @@ import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import { LETTER_TRACING_CARD_EVENT, LETTER_TRACING_CARD_SCALE, WriteCard } from "./writecard";
 import { Util } from "../../../common/scripts/util";
-import { CONFIG_LOADED, TRACING_FINISHED, TRACING_CORRECT, TRACING_WRONG } from "../../../common/scripts/helper";
+import {
+    CONFIG_LOADED,
+    TRACING_FINISHED,
+    TRACING_CORRECT,
+    TRACING_WRONG,
+    RESET_TRACING
+} from "../../../common/scripts/helper";
 import TracingContainer from "../../../common/Tracing/scripts/tracing-container";
 import LessonController from "../../../common/scripts/lessonController";
 
@@ -17,7 +23,6 @@ export class LetterTracingFrontCard extends cc.Component {
     private _traceGraphics: cc.Node = null;
     private _WriteCard: WriteCard;
     private _sound: any = null;
-    private _soundID: number;
 
     protected onLoad(): void {
         this._WriteCard = this.node.parent.getComponent(WriteCard);
@@ -43,6 +48,13 @@ export class LetterTracingFrontCard extends cc.Component {
         this.node.on(TRACING_WRONG, (event) => {
             event.stopPropagation();
             this.node.parent.emit('wrong');
+        });
+
+        this.node.on(RESET_TRACING, (event) => {
+            event.stopPropagation();
+            this._tracingContainer.removeFromParent(true);
+            this._tracingContainer = cc.instantiate(this.tracingContainerPrefab);
+            this.setAlphabetToDisplay(this._WriteCard.currentConfig.traceText);
         });
     }
 
