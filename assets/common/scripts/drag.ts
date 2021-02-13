@@ -95,7 +95,9 @@ export default class Drag extends cc.Component {
             if (this.isReverseXNeeded)
                 this.node.setPosition(this.node.position.x - touch.getDelta().x, this.node.position.y + touch.getDelta().y);
             else
-                this.node.setPosition(this.node.position.add(touch.getDelta()));
+                { // @ts-ignore
+                    this.node.setPosition(this.node.position.add(touch.getDelta()));
+                }
         }
     }
 
@@ -107,7 +109,7 @@ export default class Drag extends cc.Component {
             if (this.match) {
                 this.allowDrag = false
                 this.disableTouch()
-                this.matchingNode.getComponent(Drop).onMatchOver()
+                this.matchingNode.getComponent(Drop).onMatchOver(this.node)
                 new cc.Tween().target(this.node)
                     .to(0.25, { position: this.matchPos(touch.getLocation()) }, null)
                     .call(() => {
@@ -166,6 +168,7 @@ export default class Drag extends cc.Component {
             this.allowDrag = false
             const mNode = this.matchingNode;
             this.node.removeFromParent();
+            // @ts-ignore
             this.node.position = cc.Vec2.ZERO;
             mNode.addChild(this.node);
             if (this.node.getChildByName("shouldFlip")) { 
