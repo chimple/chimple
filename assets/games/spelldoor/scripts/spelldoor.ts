@@ -104,6 +104,8 @@ export default class SpellDoor extends Game {
                 this.choices.forEach((drag) => {
                     if (drag.parent != null) {
                         drag.removeFromParent()
+
+                        // @ts-ignore
                         drag.position = cc.Vec2.ZERO
                     }
                     const temp = new cc.Node()
