@@ -34,7 +34,7 @@ export class WriteLetter extends Game {
 
     _tracingContainer: cc.Node;
     _tracingContainerComponent: TracingContainer = null;
-
+    _traceGraphics: cc.Node = null;
     _letter: string = null;
     _currentConfig: WriteLetterConfig = null;
     _letterTracingContainer: cc.Node = null;
@@ -88,8 +88,12 @@ export class WriteLetter extends Game {
         this.node.on(RESET_TRACING, (event) => {
             event.stopPropagation();
             console.log("RESET_TRACING.....")
-            this._tracingContainer.removeFromParent(true);
-            this.initTracingContainer();
+            this._tracingContainerComponent = this._tracingContainer.getComponent(TracingContainer);
+            this._traceGraphics = this._tracingContainerComponent.traceGraphics;
+            if(this._traceGraphics !== null) {
+                const traceGraphics: TraceGraphics = this._traceGraphics.getComponent(TraceGraphics);
+                traceGraphics.resetGraphics();
+            }
         });
     }
 

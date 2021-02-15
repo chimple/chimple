@@ -1,7 +1,7 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
-import { LETTER_TRACING_CARD_EVENT, LETTER_TRACING_CARD_SCALE, WriteCard } from "./writecard";
-import { Util } from "../../../common/scripts/util";
+import {LETTER_TRACING_CARD_EVENT, LETTER_TRACING_CARD_SCALE, WriteCard} from "./writecard";
+import {Util} from "../../../common/scripts/util";
 import {
     CONFIG_LOADED,
     TRACING_FINISHED,
@@ -11,6 +11,7 @@ import {
 } from "../../../common/scripts/helper";
 import TracingContainer from "../../../common/Tracing/scripts/tracing-container";
 import LessonController from "../../../common/scripts/lessonController";
+import TraceGraphics from "../../../common/Tracing/scripts/trace-graphics";
 
 @ccclass
 export class LetterTracingFrontCard extends cc.Component {
@@ -52,9 +53,8 @@ export class LetterTracingFrontCard extends cc.Component {
     }
 
     public resetTracing() {
-        this._tracingContainer.removeFromParent(true);
-        this._tracingContainer = cc.instantiate(this.tracingContainerPrefab);
-        this.setAlphabetToDisplay(this._WriteCard.currentConfig.traceText);
+        const traceGraphics: TraceGraphics = this._traceGraphics.getComponent(TraceGraphics);
+        traceGraphics.resetGraphics();
     }
 
     private setAlphabetToDisplay(letter: string): void {

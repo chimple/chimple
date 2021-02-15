@@ -1,14 +1,14 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import Color = cc.Color;
-import TracingContainer, { TracePoint } from "./tracing-container";
+import TracingContainer, {TracePoint} from "./tracing-container";
 import TracingNode from "./tracing-node";
 import IndicatorNode from "./indicator-node";
 import ArrowNode from "./arrow-node";
 import Config from "../../scripts/lib/config";
 import catchError from "../../scripts/lib/error-handler";
-import { Util, TouchEvents } from "../../scripts/util";
-import { TRACING_CORRECT, SHOW_CHILD_IMAGE, TRACING_FINISHED } from "../../scripts/helper";
+import {Util, TouchEvents} from "../../scripts/util";
+import {TRACING_CORRECT, SHOW_CHILD_IMAGE, TRACING_FINISHED} from "../../scripts/helper";
 
 const BOUNDARY_CHECK_LIMIT = 20;
 
@@ -116,6 +116,7 @@ export default class TraceGraphics extends cc.Component {
     public arrowStarCounter: number = 0;
     private _displayNodes: cc.Node[] = [];
     private _displayScheduler = null;
+    private _isResetGraphicsAllowed: boolean = false;
 
     @catchError()
     protected onLoad(): void {
@@ -282,7 +283,7 @@ export default class TraceGraphics extends cc.Component {
                     this._activeStarsTillIndex = i;
                     return {
                         oIndex: i,
-                        node  : n
+                        node: n
                     };
                 }
             }
@@ -322,6 +323,7 @@ export default class TraceGraphics extends cc.Component {
 
     @catchError()
     onTouchMove(touch: cc.Touch) {
+        this._isResetGraphicsAllowed = true;
         this._isValid = this._isTouchStartValid && !!this._indicatorNodeComponent && this._indicatorNodeComponent.collisionCount > 0;
         if (this._touchEnabled && (this._isValid || this.traceGenerationMode)) {
             this._lastCounterValue = this._indicatorNodeComponent.counterValue > this._lastCounterValue ?
@@ -769,6 +771,7 @@ export default class TraceGraphics extends cc.Component {
 
     @catchError()
     private moveToNextPath() {
+        this._isResetGraphicsAllowed = false;
         this._lastStarNodeInCurrentPath = null;
         this.currentArrowValue = 0;
         this.nextArrowValue = 0;
@@ -833,6 +836,34 @@ export default class TraceGraphics extends cc.Component {
             );
             this._showHelp = true;
             this.configureCurrentValidationPath(this._path);
+        }
+    }
+
+    resetGraphics() {
+        if (this._isResetGraphicsAllowed) {
+            this._isResetGraphicsAllowed = false;
+            this._lastStarNodeInCurrentPath = null;
+            this.currentArrowValue = 0;
+            this.nextArrowValue = 0;
+            this._activeStarsTillIndex = -1;
+            this._lastCounterValue = 0;
+            this._firstTouchInCurrentPath = false;
+            this._lastValidPointIndexInCurrentPath = -1;
+            this.stopTracingSound();
+
+            this._starNodesInPath.forEach(
+                n => {
+                    n.active = false;
+                }
+            );
+
+            if (this._startIndicator !== null) {
+                this._startIndicator.setPosition(this._starNodesInPath[0].getPosition());
+            }
+
+            if (this._endIndicator !== null) {
+                this._endIndicator.setPosition(this._starNodesInPath[this._starNodesInPath.length - 1].getPosition());
+            }
         }
     }
 

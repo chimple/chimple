@@ -157,10 +157,12 @@ export default class Start extends cc.Component {
         const assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
         config.assignments = assignments.filter((ass) => {
             const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
-            return !(lessonProgress && lessonProgress.date < ass.createAt)
+            return lessonProgress === null || !(lessonProgress && lessonProgress.date < ass.createAt)
         })
         if (config.assignments.length > 0) {
-            this.assignmentButton.interactable = true
+            if (!!this.assignmentButton) {
+                this.assignmentButton.interactable = true
+            }
         }
         // call API to get featured stories
         // store in config.featuredLessons
@@ -219,7 +221,7 @@ export default class Start extends cc.Component {
         this.loadLesson()
         this.registerTeacherDialogCloseEvent();
     }
-    
+
     private registerTeacherDialogCloseEvent() {
         this.node.on(TEACHER_ADD_DIALOG_CLOSED, async (event) => {
             event.stopPropagation();
