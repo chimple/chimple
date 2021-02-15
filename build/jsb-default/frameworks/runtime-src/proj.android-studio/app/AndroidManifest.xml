@@ -45,8 +45,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data 
-                    android:scheme="bahama" 
-                    android:host="bahama.com" 
+                    android:scheme="chimple" 
+                    android:host="chimple.net" 
                     android:pathPrefix="/received_teacher_request" />
             </intent-filter>
             <intent-filter android:autoVerify="true">
