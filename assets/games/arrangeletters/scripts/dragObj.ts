@@ -75,11 +75,12 @@ export default class DragObj extends Drag {
     );
     this.node.runAction(actiona);
     this.checkIfMatch();
+    this.isCollisionEnable = false; 
   }
 
   onCollisionEnter(other: cc.Collider, self: cc.Collider) {
     if (this.isCollisionEnable) {
-      this.isCollisionEnable = false; //prevents return of both nodes & self is same as name of touch object.
+      //this.isCollisionEnable = false; //prevents return of both nodes & self is same as name of touch object.
       this.selfName = self.node.name;
       this.otherName = other.node.name;
       let actiona = cc.moveTo(
