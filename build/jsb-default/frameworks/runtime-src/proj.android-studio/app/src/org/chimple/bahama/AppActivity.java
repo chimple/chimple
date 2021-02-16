@@ -104,12 +104,12 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     protected LockScreenReceiver lockScreenReceiver;
     private static final String TAG = AppActivity.class.getSimpleName();
     StringBuilder stringBuilder;
-    private FirebaseAnalytics firebaseAnalytics = null;
+    private static FirebaseAnalytics firebaseAnalytics = null;
     private final String PREFERENCE_FILE_KEY = "bahamaPreferences";
     private final String KEY_REFERRER_EXISTS = "referrer_exists";
     private final Executor backgroundExecutor = Executors.newSingleThreadExecutor();
     private final Executor advertisingApiBackgroundExecutor = Executors.newSingleThreadExecutor();
-    private FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
+    public static FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
     private static final int CAMERA_CODE = 31;
     public static final int YOUTUBE_CODE = 32;
     public static final int SEND_CODE = 33;
@@ -771,61 +771,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                                     }
                                 });
                             }
-                        }
-                    }
-                });
-    }
-
-
-    public void syncFmcForUsers(final String userIds) {
-        String fmcToken = ChimpleLogger.getStringFromSharedPreference(this, FIREBASE_MESSAGE_TOKEN);
-        String advertisingId = ChimpleLogger.getStringFromSharedPreference(this, ADVERTISING_ID);
-        if (fmcToken != null && advertisingId != null) {
-            String lastPlayedTime = ChimpleLogger.getStringFromSharedPreference(this, ChimpleLogger.APP_LAST_PLAYED_TIME);
-            Log.i(TAG, "Sync fmcToken:" + fmcToken + " adId:" + advertisingId + "userId:" + userIds);
-            final Map<String, Object> fmcMap = new HashMap<String, Object>();
-            fmcMap.put(FIREBASE_MESSAGE_TOKEN.toLowerCase(), fmcToken);
-            fmcMap.put(ADVERTISING_ID.toLowerCase(), advertisingId);
-            String[] progressIds = userIds.split(",");
-            fmcMap.put(PROGRESS_IDS.toLowerCase(), progressIds);
-            fmcMap.put(APP_LAST_PLAYED_TIME.toLowerCase(), Long.parseLong(lastPlayedTime));
-            Date currentDate = new Date();
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            String strDate = formatter.format(currentDate);
-            fmcMap.put("current_date", strDate);
-
-            String installedTime = ChimpleLogger.getStringFromSharedPreference(this, ChimpleLogger.APP_INSTALLED_TIME);
-            fmcMap.put(APP_INSTALLED_TIME.toLowerCase(), Long.parseLong(installedTime));
-
-            mDatabase.collection(FIREBASE_MESSAGES_SYNC.toLowerCase())
-                    .document(advertisingId).set(fmcMap)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.i(TAG, "Successfully updated cms:" + fmcMap);
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "Failed to update fmcs:" + e.toString());
-                        }
-                    });
-        }
-    }
-
-    public void subscribeToTopic(final String topicId) {
-        FirebaseMessaging.getInstance().subscribeToTopic(topicId)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            String advertisingId = ChimpleLogger.getStringFromSharedPreference(AppActivity.this, ADVERTISING_ID);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("topicId", topicId);
-                            bundle.putString("advertising_id", advertisingId);
-                            firebaseAnalytics.logEvent("subscribe_topic", bundle);
-                            Log.d(TAG, "Successfully Subscribed to Topic:" + topicId);
                         }
                     }
                 });

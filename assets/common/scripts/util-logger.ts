@@ -1,7 +1,7 @@
 import {ASSET_LOAD_METHOD, firebaseConfigWeb} from "./lib/constants";
 import {User} from "./lib/profile";
 
-const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
+const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";``
 
 const LOGGER_METHOD = "logEvent";
 const LOGGER_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
@@ -436,8 +436,9 @@ export default class UtilLogger {
 
     public static syncFmcTokenForUsers() {
         const userIds: string = User.getUserIds().join(",");
+        console.log("syncFmcTokenForUsers:" + userIds);
         try {
-            if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID && userIds && userIds.length > 0) {
+            if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
                 cc.log("sync fmc userIds", userIds);
 
                 jsb.reflection.callStaticMethod(
@@ -448,6 +449,7 @@ export default class UtilLogger {
                 );
             }
         } catch (e) {
+            console.log(e);
         }
     }
 
