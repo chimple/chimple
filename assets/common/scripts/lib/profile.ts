@@ -621,7 +621,7 @@ export class User {
         return response;
     }
 
-    private static getUserIds() {
+    public static getUserIds() {
         return JSON.parse(cc.sys.localStorage.getItem(USER_ID)) as Array<string>;
     }
 

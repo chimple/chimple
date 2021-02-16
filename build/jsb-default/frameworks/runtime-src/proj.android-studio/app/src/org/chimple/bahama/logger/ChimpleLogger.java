@@ -111,6 +111,7 @@ public class ChimpleLogger {
     public static String APP_INSTALLED_TIME = "APP_INSTALLED_TIME";
     public static String FIREBASE_MESSAGE_TOKEN = "FIREBASE_MESSAGE_TOKEN";
     public static String ADVERTISING_ID = "ADVERTISING_ID";
+    public static String PROGRESS_IDS = "PROGRESS_IDS";
     public static int UNIT_OF_MEASUREMENT = 1;
 
     public static int UNIQUE_REPEAT_NOTIFICATION_ID_9_AM = 1;

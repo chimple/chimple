@@ -25,6 +25,7 @@ import {
 import Inventory from "../../inventory/scripts/inventory";
 import LessonButton from "./lessonButton";
 import ChapterLessons, {ChapterLessonType} from "./chapterLessons";
+import UtilLogger from "../../../common/scripts/util-logger";
 
 const COMPLETE_AUDIOS = [
     'congratulations',
@@ -153,7 +154,8 @@ export default class Start extends cc.Component {
             }
             friendComp.speakHelp(true)
         })
-        ChapterLessons.showType = ChapterLessonType.Library
+        ChapterLessons.showType = ChapterLessonType.Library;
+        UtilLogger.syncFmcTokenForUsers();
         const assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
         // config.assignments = assignments.filter((ass) => {
         //     const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)

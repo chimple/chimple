@@ -67,6 +67,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.chimple.bahama.logger.ChimpleLogger;
 import org.chimple.bahama.logger.LockScreenReceiver;
@@ -95,6 +96,7 @@ import static org.chimple.bahama.logger.ChimpleLogger.APP_INSTALLED_TIME;
 import static org.chimple.bahama.logger.ChimpleLogger.APP_LAST_PLAYED_TIME;
 import static org.chimple.bahama.logger.ChimpleLogger.FIREBASE_MESSAGES_SYNC;
 import static org.chimple.bahama.logger.ChimpleLogger.FIREBASE_MESSAGE_TOKEN;
+import static org.chimple.bahama.logger.ChimpleLogger.PROGRESS_IDS;
 
 public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private static final int STORAGE_PERMISSION_CODE = 101;
@@ -299,7 +301,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                                 ChimpleLogger.storeInSharedPreference(AppActivity.this, FIREBASE_MESSAGE_TOKEN, token);
                                 Log.i(TAG, "Firebase Message Token:" + token);
                                 AppActivity.this.syncFcm();
-                                ChimpleLogger.logEventToFireBase("fcm_token_generated", "token", token);
+//                                ChimpleLogger.logEventToFireBase("fcm_token_generated", "token", token);
                             }
                         });
             }
@@ -769,6 +771,61 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                                     }
                                 });
                             }
+                        }
+                    }
+                });
+    }
+
+
+    public void syncFmcForUsers(final String userIds) {
+        String fmcToken = ChimpleLogger.getStringFromSharedPreference(this, FIREBASE_MESSAGE_TOKEN);
+        String advertisingId = ChimpleLogger.getStringFromSharedPreference(this, ADVERTISING_ID);
+        if (fmcToken != null && advertisingId != null) {
+            String lastPlayedTime = ChimpleLogger.getStringFromSharedPreference(this, ChimpleLogger.APP_LAST_PLAYED_TIME);
+            Log.i(TAG, "Sync fmcToken:" + fmcToken + " adId:" + advertisingId + "userId:" + userIds);
+            final Map<String, Object> fmcMap = new HashMap<String, Object>();
+            fmcMap.put(FIREBASE_MESSAGE_TOKEN.toLowerCase(), fmcToken);
+            fmcMap.put(ADVERTISING_ID.toLowerCase(), advertisingId);
+            String[] progressIds = userIds.split(",");
+            fmcMap.put(PROGRESS_IDS.toLowerCase(), progressIds);
+            fmcMap.put(APP_LAST_PLAYED_TIME.toLowerCase(), Long.parseLong(lastPlayedTime));
+            Date currentDate = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String strDate = formatter.format(currentDate);
+            fmcMap.put("current_date", strDate);
+
+            String installedTime = ChimpleLogger.getStringFromSharedPreference(this, ChimpleLogger.APP_INSTALLED_TIME);
+            fmcMap.put(APP_INSTALLED_TIME.toLowerCase(), Long.parseLong(installedTime));
+
+            mDatabase.collection(FIREBASE_MESSAGES_SYNC.toLowerCase())
+                    .document(advertisingId).set(fmcMap)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.i(TAG, "Successfully updated cms:" + fmcMap);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "Failed to update fmcs:" + e.toString());
+                        }
+                    });
+        }
+    }
+
+    public void subscribeToTopic(final String topicId) {
+        FirebaseMessaging.getInstance().subscribeToTopic(topicId)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            String advertisingId = ChimpleLogger.getStringFromSharedPreference(AppActivity.this, ADVERTISING_ID);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("topicId", topicId);
+                            bundle.putString("advertising_id", advertisingId);
+                            firebaseAnalytics.logEvent("subscribe_topic", bundle);
+                            Log.d(TAG, "Successfully Subscribed to Topic:" + topicId);
                         }
                     }
                 });

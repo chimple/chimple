@@ -50,6 +50,12 @@ const REQUEST_OTP_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
 const VERIFY_OTP_METHOD = "verifyOtp";
 const VERIFY_OTP_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
 
+const SYNC_FMC_METHOD = "syncFmcForUsers";
+const SYNC_FMC_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
+
+const SUBSCRIBE_TOPIC_METHOD = "subscribeToTopic";
+const SUBSCRIBE_TOPIC_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
+
 const INITIALIZED = "init";
 const INITIALIZED_MEHTOD_SIGNATURE = "()V";
 
@@ -139,7 +145,7 @@ export default class UtilLogger {
                 (async () => {
                     UtilLogger._isfireBaseInitialized = true;
                     await UtilLogger.importFirebaseForWeb();
-                    if(UtilLogger.firebase) {
+                    if (UtilLogger.firebase) {
                         UtilLogger.firebase.initializeApp(firebaseConfigWeb);
                         UtilLogger.firebase.analytics();
                         UtilLogger.firebase.analytics().logEvent(key, data);
@@ -152,7 +158,9 @@ export default class UtilLogger {
     }
 
     static async importFirebaseForWeb() {
+        // @ts-ignore
         UtilLogger.firebase = await import("firebase/app");
+        // @ts-ignore
         await import("firebase/analytics");
     }
 
@@ -421,6 +429,39 @@ export default class UtilLogger {
                     verifyOtpText
                 );
 
+            }
+        } catch (e) {
+        }
+    }
+
+    public static syncFmcTokenForUsers() {
+        const userIds: string = User.getUserIds().join(",");
+        try {
+            if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID && userIds && userIds.length > 0) {
+                cc.log("sync fmc userIds", userIds);
+
+                jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    SYNC_FMC_METHOD,
+                    SYNC_FMC_METHOD_SIGNATURE,
+                    userIds
+                );
+            }
+        } catch (e) {
+        }
+    }
+
+    public static subscribeToTopic(topicId: string) {
+        try {
+            if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID && topicId && topicId.length > 0) {
+                cc.log("subscribe to topic", topicId);
+
+                jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    SUBSCRIBE_TOPIC_METHOD,
+                    SUBSCRIBE_TOPIC_METHOD_SIGNATURE,
+                    topicId
+                );
             }
         } catch (e) {
         }

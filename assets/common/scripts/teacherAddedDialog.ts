@@ -106,7 +106,7 @@ export default class TeacherAddedDialog extends cc.Component {
                 firebaseStudentId: this._firebaseStudentId
             }
             await ServiceConfig.getI().handle.teacherRequestAccepted(request);
-
+            UtilLogger.subscribeToTopic(`assignment-${this._teacherId}-${this._teacherSectionId}`)
             const teachersAdded: AcceptTeacherRequest[] = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED) || '[]');
             teachersAdded.push(request);
             cc.sys.localStorage.setItem(TEACHER_ADDED, JSON.stringify(teachersAdded));
