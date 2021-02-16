@@ -300,7 +300,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                                 String token = task.getResult().getToken();
                                 ChimpleLogger.storeInSharedPreference(AppActivity.this, FIREBASE_MESSAGE_TOKEN, token);
                                 Log.i(TAG, "Firebase Message Token:" + token);
-                                AppActivity.this.syncFcm();
+//                                AppActivity.this.syncFcm();
 //                                ChimpleLogger.logEventToFireBase("fcm_token_generated", "token", token);
                             }
                         });
@@ -448,7 +448,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     protected void onStop() {
         Log.d(TAG, "updating STOP_TIME:" + new Date().getTime());
         ChimpleLogger.storeInSharedPreference(this, APP_LAST_PLAYED_TIME, String.valueOf(new Date().getTime()));
-        this.syncFcm();
+//        this.syncFcm();
         if (app.repeatHandShakeTimer != null) {
             app.repeatHandShakeTimer.cancel();
         }
@@ -488,7 +488,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         ChimpleLogger.storeInSharedPreference(this, ChimpleLogger.DAILY_REMINDER_SHOWED_TIME, null);
         ChimpleLogger.storeInSharedPreference(this, ChimpleLogger.THREE_DAY_REMINDER_SHOWED_TIME, null);
         ChimpleLogger.storeInSharedPreference(this, ChimpleLogger.WEEKLY_REMINDER_SHOWED_TIME, null);
-        this.syncFcm();
+//        this.syncFcm();
         if (app.repeatHandShakeTimer != null) {
             app.repeatHandShakeTimer.cancel();
             app.repeatHandShakeTimer.start();
