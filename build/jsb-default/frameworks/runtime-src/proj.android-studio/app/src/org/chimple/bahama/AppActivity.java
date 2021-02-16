@@ -67,6 +67,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.chimple.bahama.logger.ChimpleLogger;
 import org.chimple.bahama.logger.LockScreenReceiver;
@@ -95,6 +96,7 @@ import static org.chimple.bahama.logger.ChimpleLogger.APP_INSTALLED_TIME;
 import static org.chimple.bahama.logger.ChimpleLogger.APP_LAST_PLAYED_TIME;
 import static org.chimple.bahama.logger.ChimpleLogger.FIREBASE_MESSAGES_SYNC;
 import static org.chimple.bahama.logger.ChimpleLogger.FIREBASE_MESSAGE_TOKEN;
+import static org.chimple.bahama.logger.ChimpleLogger.PROGRESS_IDS;
 
 public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private static final int STORAGE_PERMISSION_CODE = 101;
@@ -102,12 +104,12 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     protected LockScreenReceiver lockScreenReceiver;
     private static final String TAG = AppActivity.class.getSimpleName();
     StringBuilder stringBuilder;
-    private FirebaseAnalytics firebaseAnalytics = null;
+    private static FirebaseAnalytics firebaseAnalytics = null;
     private final String PREFERENCE_FILE_KEY = "bahamaPreferences";
     private final String KEY_REFERRER_EXISTS = "referrer_exists";
     private final Executor backgroundExecutor = Executors.newSingleThreadExecutor();
     private final Executor advertisingApiBackgroundExecutor = Executors.newSingleThreadExecutor();
-    private FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
+    public static FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
     private static final int CAMERA_CODE = 31;
     public static final int YOUTUBE_CODE = 32;
     public static final int SEND_CODE = 33;
@@ -299,7 +301,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                                 ChimpleLogger.storeInSharedPreference(AppActivity.this, FIREBASE_MESSAGE_TOKEN, token);
                                 Log.i(TAG, "Firebase Message Token:" + token);
                                 AppActivity.this.syncFcm();
-                                ChimpleLogger.logEventToFireBase("fcm_token_generated", "token", token);
+//                                ChimpleLogger.logEventToFireBase("fcm_token_generated", "token", token);
                             }
                         });
             }
