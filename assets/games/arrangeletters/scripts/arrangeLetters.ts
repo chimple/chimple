@@ -48,7 +48,7 @@ export default class ArrangeLetters extends Game {
       this.wordAudioFileName,
       this.imageFileName
     ] = Config.getInstance().data[0];
-
+    
     this.correctLetterArray = this.word.split(",");
     ArrangeLetters.correctPosition = new Map();
     ArrangeLetters.wordLength = this.correctLetterArray.length
