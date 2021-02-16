@@ -121,9 +121,23 @@ export class FirebaseApi implements ServiceApi {
                         }
                         if (lessonMap.has(a.lesson)) {
                             const lProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(a.lesson);
-                            shouldInclude = lProgress.date.getTime() < b.createAt.getTime() || lProgress.score < 0;
-                        }
-                        if (shouldInclude) {
+                            if (lProgress === null || lProgress === undefined) {
+                                shouldInclude = true;
+                            } else {
+                                const mm = lProgress.date.getMonth() + 1;
+                                const dd = lProgress.date.getDate();
+                                const yyyymmddDate =
+                                    [lProgress.date.getFullYear(),
+                                        (mm > 9 ? '' : '0') + mm,
+                                        (dd > 9 ? '' : '0') + dd
+                                    ].join('');
+                                shouldInclude = (lProgress.assignmentId === null || lProgress.assignmentId === undefined) &&
+                                    Number(yyyymmddDate) < Number(a.createAt);
+                            }
+                            if (shouldInclude) {
+                                results.push(b)
+                            }
+                        } else {
                             results.push(b)
                         }
                     }

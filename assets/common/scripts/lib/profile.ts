@@ -85,6 +85,7 @@ export interface LessonProgress {
     score: number;
     attempts?: number;
     date?: Date;
+    assignmentId?: string;
 }
 
 export class LessonProgressClass implements LessonProgress {
@@ -92,11 +93,13 @@ export class LessonProgressClass implements LessonProgress {
     score: number;
     attempts: number;
     date: Date;
+    assignmentId: string = null;
 
-    constructor(score: number, attempts: number = 0) {
+    constructor(score: number, attempts: number = 0, assignmentId: string = null) {
         this.score = score;
         this.attempts = attempts;
-        this.date = new Date()
+        this.date = new Date();
+        this.assignmentId = assignmentId;
     }
 }
 
@@ -391,7 +394,7 @@ export class User {
         this.unlockRewardsForItem(`${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[0]}`, 1)
     }
 
-    updateLessonProgress(lessonId: string, score: number, quizScores: number[]): [string, string] {
+    updateLessonProgress(lessonId: string, score: number, quizScores: number[], assignmentId: string = null): [string, string] {
         var reward: [string, string]
         const config = Config.i
         if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == null) {
@@ -436,7 +439,7 @@ export class User {
                 if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
                     reward = [REWARD_TYPES[2], Config.i.lesson.image]
                 }
-                this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1));
+                this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1, Config.i.lesson.assignmentId));
             }
 
             if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {

@@ -155,10 +155,11 @@ export default class Start extends cc.Component {
         })
         ChapterLessons.showType = ChapterLessonType.Library
         const assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
-        config.assignments = assignments.filter((ass) => {
-            const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
-            return !(lessonProgress && lessonProgress.date < ass.createAt)
-        })
+        // config.assignments = assignments.filter((ass) => {
+        //     const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
+        //     return !(lessonProgress && lessonProgress.date < ass.createAt)
+        // })
+        config.assignments = assignments;
         if (config.assignments.length > 0) {
             if (!!this.assignmentButton) {
                 this.assignmentButton.interactable = true
