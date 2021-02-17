@@ -55,25 +55,29 @@ export default class TeacherAddedDialog extends cc.Component {
         this.render();
     }
 
-    private render() {
+    public validate() {
         const validUsers = [];
-        const chimpleLabel = this.text.getComponent(ChimpleLabel);
-        chimpleLabel.string = Util.i18NText("Add Teacher") + " " + this._teacherName;
-        const len = this.users.length;
-
+        this.users = User.getUsers();
         const teachersAdded: AcceptTeacherRequest[] = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED) || '[]');
         console.log("teachersAdded", JSON.stringify(teachersAdded));
         this.users.forEach(u => {
             const t = teachersAdded.find(t => {
-               return t.teacherId === this._teacherId && t.sectionId === this._teacherSectionId && t.studentId === u.id
+                return t.teacherId === this._teacherId && t.sectionId === this._teacherSectionId && t.studentId === u.id
             })
             console.log("on filter found", t);
-            if(!t) {
+            if (!t) {
                 console.log("Pushing to Validators", JSON.stringify(u));
                 validUsers.push(u);
             }
         })
+        return validUsers;
+    }
 
+    private render() {
+        const chimpleLabel = this.text.getComponent(ChimpleLabel);
+        chimpleLabel.string = Util.i18NText("Add Teacher") + " " + this._teacherName;
+
+        const validUsers = this.validate();
         console.log("Validators", JSON.stringify(validUsers));
 
         validUsers.forEach(
@@ -105,8 +109,10 @@ export default class TeacherAddedDialog extends cc.Component {
                 studentName: this.selectedStudentName,
                 firebaseStudentId: this._firebaseStudentId
             }
+
             await ServiceConfig.getI().handle.teacherRequestAccepted(request);
             UtilLogger.subscribeToTopic(`assignment-${this._teacherId}-${this._teacherSectionId}`)
+
             const teachersAdded: AcceptTeacherRequest[] = JSON.parse(cc.sys.localStorage.getItem(TEACHER_ADDED) || '[]');
             teachersAdded.push(request);
             cc.sys.localStorage.setItem(TEACHER_ADDED, JSON.stringify(teachersAdded));
@@ -118,12 +124,11 @@ export default class TeacherAddedDialog extends cc.Component {
             };
 
             UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, request);
-
             const tKey = ACCEPT_TEACHER_REQUEST_LINKED_USED + this._teacherId;
             const teacherRequestsAccepted = JSON.parse(cc.sys.localStorage.getItem(tKey) || '[]');
             teacherRequestsAccepted.push(this._teacherId + '|' + this._teacherSectionId + '|' + this._firebaseStudentId);
             cc.sys.localStorage.setItem(tKey, JSON.stringify(teacherRequestsAccepted));
-
+            
             const key = `teacher_for_student_${this.selectedStudentId}`;
             const teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
             teachersForStudent.push(this._teacherName);

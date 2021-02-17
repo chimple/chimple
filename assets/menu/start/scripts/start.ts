@@ -284,7 +284,9 @@ export default class Start extends cc.Component {
                     script.TeacherId = id;
                     script.SelectedSectionId = sectionId;
                     script.SelectedAddStudentId = addStudentId;
-                    this.node.addChild(teacherDialog);
+                    if (script.validate().length > 0) {
+                        this.node.addChild(teacherDialog);
+                    }
                 }
             }
         } catch (e) {
