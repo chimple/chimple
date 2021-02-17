@@ -189,6 +189,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             }
         }.start();
 
+        this.processDeepLink();
         // OTP integration
         initFireBaseAuthLoginUsingOTP();
     }
@@ -434,6 +435,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        setIntent(intent);
         SDKWrapper.getInstance().onNewIntent(intent);
         this.processDeepLink();
     }
