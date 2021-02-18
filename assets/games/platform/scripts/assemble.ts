@@ -122,7 +122,6 @@ export default class Assemble extends cc.Component {
 
     private createRewardMonitor() {
         this.rewardsMonitor = cc.instantiate(this.rewardsMonitorPrefab);
-        this.node.parent.addChild(this.rewardsMonitor);
         const progressMonitorNode = this.node.parent.parent.getChildByName('ProgressMonitor')
         if(!!progressMonitorNode) {
             progressMonitorNode.opacity = 0;
@@ -152,6 +151,7 @@ export default class Assemble extends cc.Component {
                 }
             }
         }
+        this.node.parent.addChild(this.rewardsMonitor);
     }
 
     private platformFlowPlay() {
