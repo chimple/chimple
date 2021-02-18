@@ -125,7 +125,8 @@ export default class ChapterLessons extends cc.Component {
             // @ts-ignore
             bgPrefabInstance.x = 0
             // @ts-ignore
-            if(!!this.bgHolder) {
+            if(!!this.bgHolder && bgPrefabInstance!=null) {
+                
                 this.bgHolder.addChild(bgPrefabInstance);
             }
             // userButtonRef.getChildByName("Background").getChildByName("avatar").getChildByName("icon").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
