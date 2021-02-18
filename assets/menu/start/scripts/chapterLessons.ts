@@ -57,11 +57,8 @@ export default class ChapterLessons extends cc.Component {
                 this.label.string = 'Assignments'
                 config.assignments.forEach((ass) => {
                     const lesson = Config.i.allLessons.get(ass.lessonId)
-                    const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
-                    if (lesson && !(lessonProgress && lessonProgress.date < ass.createAt)) {
-                        lesson.assignmentId = ass.assignmentId;
-                        this.createLessonButton(lesson, true)
-                    }
+                    lesson.assignmentId = ass.assignmentId;
+                    this.createLessonButton(lesson, true)
                 })
                 break;
             case ChapterLessonType.Featured:
