@@ -74,26 +74,16 @@ export default class ArrangeLetters extends Game {
           break
         }
       }
-      //if (this.correctLetterArray.length > 4) {
         dragObj.width = ((1-(.1*this.correctLetterArray.length))+.7) * dragObj.width;
         dragObj.height = ((1-(.1*this.correctLetterArray.length))+.7) * dragObj.height;
         dragObj.getChildByName("objLabel").getComponent(cc.Label).fontSize=((1-(.1*this.correctLetterArray.length))+.5)*150;
         dragObj.getChildByName("objLabel").getComponent(cc.Label).lineHeight=((1-(.1*this.correctLetterArray.length))+.5)*150;
-      //}
-      if(this.correctLetterArray.length <= 4)
-      {
-      dragObj.position = cc.v3(
-        -cc.winSize.width / 2.8 + i * cc.winSize.width / this.correctLetterArray.length,
-        -cc.winSize.height / 4
-      );
-    }
-    else{
-      dragObj.position = cc.v3(
-        -cc.winSize.width / 2.4 + i * cc.winSize.width / this.correctLetterArray.length,
-        -cc.winSize.height / 4
-      );
-
-    }
+        dragObj.position = cc.v3(
+          (this.correctLetterArray.length <= 4)?-cc.winSize.width / 2.8 + i * cc.winSize.width / this.correctLetterArray.length
+          :-cc.winSize.width / 2.4 + i * cc.winSize.width / this.correctLetterArray.length,
+          -cc.winSize.height / 4
+        );
+        
       ArrangeLetters.correctPosition.set(dragObj.name,dragObj.position.x)
       dragObj.getChildByName("objLabel").getComponent(cc.Label).string = shuffledArray[i];
     }
