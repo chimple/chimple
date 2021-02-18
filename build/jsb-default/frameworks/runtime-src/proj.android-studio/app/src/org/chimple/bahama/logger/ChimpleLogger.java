@@ -21,13 +21,19 @@ import android.os.Environment;
 import android.util.Log;
 import android.telephony.TelephonyManager;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
 import org.apache.commons.io.FilenameUtils;
@@ -51,8 +57,11 @@ import java.net.ProtocolException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -111,6 +120,7 @@ public class ChimpleLogger {
     public static String APP_INSTALLED_TIME = "APP_INSTALLED_TIME";
     public static String FIREBASE_MESSAGE_TOKEN = "FIREBASE_MESSAGE_TOKEN";
     public static String ADVERTISING_ID = "ADVERTISING_ID";
+    public static String PROGRESS_IDS = "PROGRESS_IDS";
     public static int UNIT_OF_MEASUREMENT = 1;
 
     public static int UNIQUE_REPEAT_NOTIFICATION_ID_9_AM = 1;
@@ -894,4 +904,60 @@ public class ChimpleLogger {
         AppActivity.app.processDeepLink();
     }
 
+    public static void syncFmcForUsers(final String userIds) {
+        String fmcToken = ChimpleLogger.getStringFromSharedPreference(AppActivity.getContext(), FIREBASE_MESSAGE_TOKEN);
+        String advertisingId = ChimpleLogger.getStringFromSharedPreference(AppActivity.getContext(), ADVERTISING_ID);
+        Log.d(TAG, "Called syncFmcForUsers with userIds:" + userIds);
+        Log.d(TAG, "Called syncFmcForUsers with advertisingId:" + advertisingId);
+        Log.d(TAG, "Called syncFmcForUsers with fmcToken:" + fmcToken);
+        if (fmcToken != null && advertisingId != null) {
+            String lastPlayedTime = ChimpleLogger.getStringFromSharedPreference(AppActivity.getContext(), ChimpleLogger.APP_LAST_PLAYED_TIME);
+            Log.i(TAG, "Sync fmcToken:" + fmcToken + " adId:" + advertisingId + "userId:" + userIds);
+            final Map<String, Object> fmcMap = new HashMap<String, Object>();
+            fmcMap.put(FIREBASE_MESSAGE_TOKEN.toLowerCase(), fmcToken);
+            fmcMap.put(ADVERTISING_ID.toLowerCase(), advertisingId);
+            List progressIds = Arrays.asList(userIds.split(","));
+            fmcMap.put(PROGRESS_IDS.toLowerCase(), progressIds);
+            fmcMap.put(APP_LAST_PLAYED_TIME.toLowerCase(), Long.parseLong(lastPlayedTime));
+            Date currentDate = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String strDate = formatter.format(currentDate);
+            fmcMap.put("current_date", strDate);
+
+            String installedTime = ChimpleLogger.getStringFromSharedPreference(AppActivity.getContext(), ChimpleLogger.APP_INSTALLED_TIME);
+            fmcMap.put(APP_INSTALLED_TIME.toLowerCase(), Long.parseLong(installedTime));
+
+            AppActivity.mDatabase.collection(FIREBASE_MESSAGES_SYNC.toLowerCase())
+                    .document(advertisingId).set(fmcMap)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.i(TAG, "Successfully updated cms:" + fmcMap);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "Failed to update fmcs:" + e.toString());
+                        }
+                    });
+        }
+    }
+
+    public static void subscribeToTopic(final String topicId) {
+        FirebaseMessaging.getInstance().subscribeToTopic(topicId)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            String advertisingId = ChimpleLogger.getStringFromSharedPreference(AppActivity.getContext(), ADVERTISING_ID);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("topicId", topicId);
+                            bundle.putString("advertising_id", advertisingId);
+                            firebaseAnalytics.logEvent("subscribe_topic", bundle);
+                            Log.d(TAG, "Successfully Subscribed to Topic:" + topicId);
+                        }
+                    }
+                });
+    }
 }

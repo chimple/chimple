@@ -1,9 +1,9 @@
-import {catchError} from "../../../common/scripts/lib/error-handler";
+import { catchError } from "../../../common/scripts/lib/error-handler";
 import Drag from "../../../common/scripts/drag";
-import {Util} from "../../../common/scripts/util";
+import { Util } from "../../../common/scripts/util";
 import LessonController from "../../../common/scripts/lessonController";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class PhonicTractorDrag extends Drag {
@@ -11,13 +11,11 @@ export default class PhonicTractorDrag extends Drag {
 
     onLoad() {
         this.label.string = this.node.name
-        try {
-            Util.loadsPhonicsOrLetter(this.node.name.toLowerCase(), (clip) => {
+        Util.loadGameSound(this.node.name.toLowerCase(), (clip) => {
+            if (clip != null) {
                 this._soundClip = clip
-            })
-        } catch (e) {
-            console.log(e);
-        }
+            }
+        });
     }
 
 
