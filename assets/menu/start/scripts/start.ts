@@ -221,7 +221,6 @@ export default class Start extends cc.Component {
         if (!Config.isMicroLink) {
             this.loading.active = false;
         }
-        this.loadLesson()
         this.registerTeacherDialogCloseEvent();
     }
 
@@ -248,9 +247,9 @@ export default class Start extends cc.Component {
 
     private loadLesson() {
         if (Config.isMicroLink) {
+            Config.isMicroLink = false;
             const dataStr: string = cc.sys.localStorage.getItem(MICROLINK);
             let data: any[] = JSON.parse(dataStr) || [];
-            Config.isMicroLink = false;
             if (data && data.length > 0) {
                 const courseDetails = data.splice(data.length - 1, data.length)[0];
                 const input = {
@@ -657,6 +656,8 @@ export default class Start extends cc.Component {
             // @ts-ignore
             RECEIVED_TEACHER_REQUESTS = false;
             this.setUpTeacherDialog();
+        } else if (Config.isMicroLink) {
+            this.loadLesson();
         }
     }
 }
