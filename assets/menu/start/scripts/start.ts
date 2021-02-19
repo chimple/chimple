@@ -253,7 +253,13 @@ export default class Start extends cc.Component {
             Config.isMicroLink = false;
             if (data && data.length > 0) {
                 const courseDetails = data.splice(data.length - 1, data.length)[0];
-                Util.loadDirectLessonWithLink(courseDetails['courseid'], courseDetails['chapterid'], courseDetails['lessonid'], this.node)
+                const input = {
+                    courseid: courseDetails['courseid'],
+                    chapterid: courseDetails['chapterid'],
+                    lessonid: courseDetails['lessonid'],
+                    assignmentid: courseDetails['assignmentid'] || null,
+                }
+                Util.loadDirectLessonWithLink(input, this.node)
             }
         }
     }

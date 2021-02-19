@@ -199,12 +199,47 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         Intent intent = getIntent();
         Log.d(TAG, "intent:" + intent);
         if (intent != null) {
-            String action = intent.getAction();
-            Uri uri = intent.getData();
-            Log.d(TAG, "deep link action:" + action);
-            Log.d(TAG, "deep link uri:" + uri);
-            if (uri != null && action != null && action.equalsIgnoreCase("android.intent.action.VIEW")) {
-                this.processDeepLinkAction(uri.toString());
+            String chapter = null;
+            String lesson = null;
+            String assignmentId = null;
+            String subject = null;
+            Bundle extra = intent.getExtras();
+            if (extra != null) {
+                for (String key : extra.keySet()) {
+                    if (key.equalsIgnoreCase("chapter")) {
+                        chapter = (String) extra.get(key);
+                    } else if (key.equalsIgnoreCase("lesson")) {
+                        lesson = (String) extra.get(key);
+                    } else if (key.equalsIgnoreCase("assignmentId")) {
+                        assignmentId = (String) extra.get(key);
+                    } else if (key.equalsIgnoreCase("subject")) {
+                        subject = (String) extra.get(key);
+                    }
+                }
+            }
+
+            if (chapter != null && lesson != null && subject != null && assignmentId != null) {
+                AppActivity.assignmentMicroLink(chapter, lesson, subject, assignmentId);
+            } else {
+                String action = intent.getAction();
+                Uri uri = intent.getData();
+                Log.d(TAG, "deep link action:" + action);
+                Log.d(TAG, "deep link uri:" + uri);
+                if (uri != null && action != null && action.equalsIgnoreCase("android.intent.action.VIEW")) {
+                    AppActivity.processDeepLinkAction(uri.toString());
+                }
+            }
+        }
+    }
+
+    public static void assignmentMicroLink(String chapter, String lesson,
+                                           String subject, String assignmentId) {
+        if (chapter != null && lesson != null && subject != null && assignmentId != null) {
+            Log.d(TAG, "received data for chapter:" + chapter + " lesson:" + lesson + " assignmentId: " + assignmentId + " subject: " + subject);
+            String uri = "http://chimple.github.io/microlink?courseid=" + subject + "&chapterid=" + chapter + "&lessonid=" + lesson + "&assignmentid=" + assignmentId;
+            Log.d(TAG, "assignment deep link uri:" + uri);
+            if (uri != null) {
+                AppActivity.app.processDeepLinkAction(uri.toString());
             }
         }
     }
@@ -654,9 +689,9 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
 
      */
 
-    private void processDeepLinkAction(final String url) {
+    private static void processDeepLinkAction(final String url) {
         try {
-            synchronized (this) {
+            synchronized (AppActivity.app) {
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
