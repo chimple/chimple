@@ -249,7 +249,7 @@ export default class Start extends cc.Component {
     private loadLesson() {
         if (Config.isMicroLink) {
             const dataStr: string = cc.sys.localStorage.getItem(MICROLINK);
-            let data: any[] = JSON.parse(dataStr) || '[]';
+            let data: any[] = JSON.parse(dataStr) || [];
             Config.isMicroLink = false;
             if (data && data.length > 0) {
                 const courseDetails = data.splice(data.length - 1, data.length)[0];
