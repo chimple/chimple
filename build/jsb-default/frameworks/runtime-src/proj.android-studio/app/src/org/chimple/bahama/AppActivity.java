@@ -219,27 +219,27 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             }
 
             if (chapter != null && lesson != null && subject != null && assignmentId != null) {
-                this.assignmentMicroLink(chapter, lesson, subject, assignmentId);
+                AppActivity.assignmentMicroLink(chapter, lesson, subject, assignmentId);
             } else {
                 String action = intent.getAction();
                 Uri uri = intent.getData();
                 Log.d(TAG, "deep link action:" + action);
                 Log.d(TAG, "deep link uri:" + uri);
                 if (uri != null && action != null && action.equalsIgnoreCase("android.intent.action.VIEW")) {
-                    this.processDeepLinkAction(uri.toString());
+                    AppActivity.processDeepLinkAction(uri.toString());
                 }
             }
         }
     }
 
-    public void assignmentMicroLink(String chapter, String lesson,
+    public static void assignmentMicroLink(String chapter, String lesson,
                                            String subject, String assignmentId) {
         if (chapter != null && lesson != null && subject != null && assignmentId != null) {
             Log.d(TAG, "received data for chapter:" + chapter + " lesson:" + lesson + " assignmentId: " + assignmentId + " subject: " + subject);
             String uri = "http://chimple.github.io/microlink?courseid=" + subject + "&chapterid=" + chapter + "&lessonid=" + lesson + "&assignmentid=" + assignmentId;
             Log.d(TAG, "assignment deep link uri:" + uri);
             if (uri != null) {
-                this.processDeepLinkAction(uri.toString());
+                AppActivity.app.processDeepLinkAction(uri.toString());
             }
         }
     }
@@ -689,9 +689,9 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
 
      */
 
-    private void processDeepLinkAction(final String url) {
+    private static void processDeepLinkAction(final String url) {
         try {
-            synchronized (this) {
+            synchronized (AppActivity.app) {
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {

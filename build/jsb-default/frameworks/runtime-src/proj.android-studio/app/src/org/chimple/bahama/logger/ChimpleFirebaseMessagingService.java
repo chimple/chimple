@@ -88,7 +88,7 @@ public class ChimpleFirebaseMessagingService extends FirebaseMessagingService {
                         subject = (String) message.getValue();
                     }
                 }
-//                AppActivity.assignmentMicroLink(chapter, lesson, subject, assignmentId);
+                AppActivity.assignmentMicroLink(chapter, lesson, subject, assignmentId);
             }
         }
     }
