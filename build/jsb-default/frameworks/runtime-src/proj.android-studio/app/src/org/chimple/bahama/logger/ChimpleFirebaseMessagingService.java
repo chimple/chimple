@@ -18,8 +18,6 @@ import com.google.firebase.messaging.RemoteMessage;
 import org.chimple.bahama.AppActivity;
 import org.chimple.bahama.R;
 
-import java.util.Map;
-
 public class ChimpleFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "AlarmReceiver";
 
@@ -27,9 +25,6 @@ public class ChimpleFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(String s) {
         super.onNewToken(s);
         Log.i(TAG, "onNewToken:" + s);
-    }
-
-    public ChimpleFirebaseMessagingService() {
     }
 
     @Override
@@ -68,28 +63,6 @@ public class ChimpleFirebaseMessagingService extends FirebaseMessagingService {
             Log.i(TAG, "diff onMessageReceived title:" + remoteMessage.getNotification().getTitle());
             Log.i(TAG, "diff onMessageReceived body:" + remoteMessage.getNotification().getBody());
             notificationManager.notify(notificationId, notificationBuilder.build());
-
-            if (remoteMessage != null && remoteMessage.getData() != null) {
-                String chapter = null;
-                String lesson = null;
-                String subject = null;
-                String assignmentId = null;
-
-                for (Map.Entry<String, String> message : remoteMessage.getData().entrySet()) {
-                    Log.d(TAG, "message received:" + message.getKey() + " = " + message.getValue());
-                    String key = message.getKey();
-                    if (key.equalsIgnoreCase("chapter")) {
-                        chapter = (String) message.getValue();
-                    } else if (key.equalsIgnoreCase("lesson")) {
-                        lesson = (String) message.getValue();
-                    } else if (key.equalsIgnoreCase("assignmentId")) {
-                        assignmentId = (String) message.getValue();
-                    } else if (key.equalsIgnoreCase("subject")) {
-                        subject = (String) message.getValue();
-                    }
-                }
-                AppActivity.assignmentMicroLink(chapter, lesson, subject, assignmentId);
-            }
         }
     }
 }
