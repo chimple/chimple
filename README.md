@@ -141,3 +141,5 @@ to='questionboard'
 mv common/res/icons/${from}.png common/res/icons/${to}.png
 mv ${from}/res/${from}.json ${from}/res/${to}.json
 mv ${from} ${to}
+
+
