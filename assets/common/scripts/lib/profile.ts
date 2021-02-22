@@ -450,23 +450,8 @@ export class User {
                 })
                 if (lessons.length > lessonIndex + 1) {
                     const nextLesson = lessons[lessonIndex + 1]
-                    const cpm = this.courseProgressMap.get(config.course.id)
-                    cpm.currentLessonId = nextLesson.id
                     if (!this._lessonProgressMap.has(nextLesson.id)) {
                         this._lessonProgressMap.set(nextLesson.id, new LessonProgressClass(-1));
-                    }
-                } else if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == Config.i.chapter.id) {
-                    var found = false
-                    const nextChapter = Config.i.course.chapters
-                        .find((c) => {
-                            if (found) return true
-                            found = c.id == this.courseProgressMap.get(Config.i.course.id).currentChapterId
-                            return false
-                        })
-                    if (nextChapter) {
-                        const cpm = this.courseProgressMap.get(config.course.id)
-                        cpm.currentLessonId = null
-                        cpm.updateChapterId(nextChapter.id)
                     }
                 }
             }
@@ -475,6 +460,28 @@ export class User {
         if (lessonPlan && lessonPlan[this.courseProgressMap.get(config.course.id).lessonPlanIndex] == config.lesson.id) {
             this.courseProgressMap.get(config.course.id).lessonPlanIndex++
             Config.i.startAction = StartAction.MoveLessonPlan;
+            const lessons = Config.i.chapter.lessons
+            const lessonIndex = lessons.findIndex((les) => {
+                return les.id == lessonId
+            })
+            if (lessons.length > lessonIndex + 1) {
+                const nextLesson = lessons[lessonIndex + 1]
+                const cpm = this.courseProgressMap.get(config.course.id)
+                cpm.currentLessonId = nextLesson.id
+            } else if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == Config.i.chapter.id) {
+                var found = false
+                const nextChapter = Config.i.course.chapters
+                    .find((c) => {
+                        if (found) return true
+                        found = c.id == this.courseProgressMap.get(Config.i.course.id).currentChapterId
+                        return false
+                    })
+                if (nextChapter) {
+                    const cpm = this.courseProgressMap.get(config.course.id)
+                    cpm.currentLessonId = null
+                    cpm.updateChapterId(nextChapter.id)
+                }
+            }
         }
         if (this.assignments) {
             const index = this.assignments.indexOf(config.lesson.id)
