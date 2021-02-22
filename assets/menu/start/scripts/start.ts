@@ -26,6 +26,7 @@ import Inventory from "../../inventory/scripts/inventory";
 import LessonButton from "./lessonButton";
 import ChapterLessons, {ChapterLessonType} from "./chapterLessons";
 import UtilLogger from "../../../common/scripts/util-logger";
+import { makeWallet, makeClient } from "../../../../node_modules/@ixo/client-sdk";
 
 const COMPLETE_AUDIOS = [
     'congratulations',
@@ -44,6 +45,7 @@ const DEFAULT_AUDIOS = [
 ]
 
 const {ccclass, property} = cc._decorator;
+
 
 @ccclass
 export default class Start extends cc.Component {
@@ -99,6 +101,16 @@ export default class Start extends cc.Component {
     featuredButton: cc.Button = null
 
     friend: cc.Node
+
+    // makeWallet = null
+    // makeClient = null
+
+    async ixoApi(){
+        console.log('ixoApi method called ');
+        const wallet = await makeWallet();
+        const client = makeClient(wallet);
+        await client.register();
+    }
 
     async onLoad() {
         const user = User.getCurrentUser()
@@ -232,6 +244,8 @@ export default class Start extends cc.Component {
             }, 1)
         });
     }
+
+   
 
     private setBackground(bgprefabName: string) {
         cc.resources.load(`backgrounds/prefabs/${bgprefabName}`, (err, sp) => {
