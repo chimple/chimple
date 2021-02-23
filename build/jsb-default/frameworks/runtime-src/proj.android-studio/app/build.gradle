@@ -10,7 +10,7 @@ android {
         applicationId "org.chimple.maths_fr"
         minSdkVersion PROP_MIN_SDK_VERSION
         targetSdkVersion PROP_TARGET_SDK_VERSION
-        versionCode 6
+        versionCode 11
         versionName "1.0"
         multiDexEnabled true
 
