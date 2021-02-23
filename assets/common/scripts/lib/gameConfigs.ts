@@ -43,22 +43,22 @@ export const GAME_CONFIGS = {
     "alphabetrecorder": {
         "bundle": "alphabetrecorder",
         "prefab": "prefabs/alphabetrecorder",
-        "fontName": "en-trace",
+        "fontName": "en-main",
     },
     "writeletter": {
         "bundle": "writeletter",
         "prefab": "prefabs/writeletter",
-        "fontName": "en-trace",
+        "fontName": "en-main",
     },
     "writecard": {
         "bundle": "writecard",
         "prefab": "prefabs/writecard",
-        "fontName": "en-trace",
+        "fontName": "en-main",
     },
     "writeword": {
         "bundle": "writeword",
         "prefab": "prefabs/writeword",
-        "fontName": "en-trace",
+        "fontName": "en-main",
     },
     "letterboard": {
         "bundle": "board",
@@ -92,12 +92,12 @@ export const GAME_CONFIGS = {
     "story": {
         "bundle": "story",
         "prefab": "prefabs/story",
-        "fontName": "en-trace",
+        "fontName": "en-main",
     },
     "storyquiz": {
         "bundle": "storyquiz",
         "prefab": "prefabs/storyquiz",
-        "fontName": "en-trace",
+        "fontName": "en-main",
     },
     "youtube": {
         "bundle": "youtube",
@@ -139,12 +139,12 @@ export const GAME_CONFIGS = {
     "writenumber": {
         "bundle": "writenumber",
         "prefab": "prefabs/writenumber",
-        "fontName": "en-trace",
+        "fontName": "en-main",
     },
     "writeset": {
         "bundle": "writeset",
         "prefab": "prefabs/writeset",
-        "fontName": "en-trace",
+        "fontName": "en-main",
     },
     "numberboard": {
         "bundle": "board",
