@@ -53,12 +53,12 @@ export class LetterTracingFrontCard extends cc.Component {
 
         this.node.on(RESET_TRACING_ALLOWED, () => {
             if (this.node.getChildByName('reeetTracingButton') !== null)
-                this.node.getChildByName('reeetTracingButton').active = true;
+                this.node.getChildByName('reeetTracingButton').opacity = 255;
         })
 
         this.node.on(RESET_TRACING_NOT_ALLOWED, () => {
             if (this.node.getChildByName('reeetTracingButton') !== null)
-                this.node.getChildByName('reeetTracingButton').active = false;
+                this.node.getChildByName('reeetTracingButton').opacity = 0
 
         })
 

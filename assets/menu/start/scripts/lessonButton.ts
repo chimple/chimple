@@ -1,13 +1,13 @@
 import LessonController from "../../../common/scripts/lessonController";
 import LessonIcon from "../../../common/scripts/lessonIcon";
 import Config from "../../../common/scripts/lib/config";
-import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
-import { User } from "../../../common/scripts/lib/profile";
+import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
+import {User} from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
-import { Util } from "../../../common/scripts/util";
-import { EXAM } from "../../../common/scripts/lib/constants";
+import {Util} from "../../../common/scripts/util";
+import {EXAM} from "../../../common/scripts/lib/constants";
 
-const { ccclass, property } = cc._decorator;
+const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class LessonButton extends cc.Component {
@@ -59,10 +59,19 @@ export default class LessonButton extends cc.Component {
             })
             this.button.interactable = this.open
             const lessonProgress = User.getCurrentUser().lessonProgressMap.get(this.lesson.id)
-            if (this.open && lessonProgress && lessonProgress.score >= 0) {
-                this.star1.spriteFrame = lessonProgress.score > 25 ? this.goldStar : this.grayStar
-                this.star2.spriteFrame = lessonProgress.score > 50 ? this.goldStar : this.grayStar
-                this.star3.spriteFrame = lessonProgress.score > 75 ? this.goldStar : this.grayStar
+            if (this.lesson.assignmentId !== null) {
+                if (this.open && lessonProgress && lessonProgress.assignmentId === this.lesson.assignmentId
+                    && lessonProgress.score >= 0) {
+                    this.star1.spriteFrame = lessonProgress.score > 25 ? this.goldStar : this.grayStar
+                    this.star2.spriteFrame = lessonProgress.score > 50 ? this.goldStar : this.grayStar
+                    this.star3.spriteFrame = lessonProgress.score > 75 ? this.goldStar : this.grayStar
+                }
+            } else {
+                if (this.open && lessonProgress && lessonProgress.score >= 0) {
+                    this.star1.spriteFrame = lessonProgress.score > 25 ? this.goldStar : this.grayStar
+                    this.star2.spriteFrame = lessonProgress.score > 50 ? this.goldStar : this.grayStar
+                    this.star3.spriteFrame = lessonProgress.score > 75 ? this.goldStar : this.grayStar
+                }
             }
 
         }
@@ -78,8 +87,7 @@ export default class LessonButton extends cc.Component {
         LessonController.preloadLesson(this.node, (err: Error) => {
             if (err) {
                 this.loading.getComponent(Loading).addMessage(Util.i18NText('Error downloading content. Please connect to internet and try again'), true, true);
-            }
-            else {
+            } else {
                 if (this.loading.activeInHierarchy) {
                     config.pushScene('common/scenes/lessonController');
                 }

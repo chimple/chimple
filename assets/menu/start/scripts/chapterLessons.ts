@@ -58,7 +58,13 @@ export default class ChapterLessons extends cc.Component {
                 config.assignments.forEach((ass) => {
                     const lesson = Config.i.allLessons.get(ass.lessonId)
                     lesson.assignmentId = ass.assignmentId;
-                    this.createLessonButton(lesson, true)
+                    console.log('User.getCurrentUser().lessonProgressMap', User.getCurrentUser().lessonProgressMap);
+                    const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
+                    if(lessonProgress === null) {
+                        this.createLessonButton(lesson, true)
+                    } else if(lessonProgress && lessonProgress.assignmentId !== ass.assignmentId) {
+                        this.createLessonButton(lesson, true)
+                    }
                 })
                 break;
             case ChapterLessonType.Featured:
@@ -78,7 +84,7 @@ export default class ChapterLessons extends cc.Component {
                                     name: course.name,
                                     image: '',
                                     course: course
-                                }    
+                                }
                             }
                             this.createLessonButton(les, true)
                         }
@@ -123,7 +129,7 @@ export default class ChapterLessons extends cc.Component {
             bgPrefabInstance.x = 0
             // @ts-ignore
             if(!!this.bgHolder && bgPrefabInstance!=null) {
-                
+
                 this.bgHolder.addChild(bgPrefabInstance);
             }
             // userButtonRef.getChildByName("Background").getChildByName("avatar").getChildByName("icon").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
