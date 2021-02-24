@@ -379,7 +379,7 @@ export default class LessonController extends cc.Component {
         const user = User.getCurrentUser();
         var reward: [string, string]
         if (user) {
-            reward = user.updateLessonProgress(config.lesson.id, score, this.quizScores);
+            reward = user.updateLessonProgress(config.lesson.id, score, this.quizScores, config.lesson.assignmentId);
             let finishedLessons = 0;
             let percentageComplete = 0;
             if (config.chapter && config.chapter.lessons &&

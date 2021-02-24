@@ -33,6 +33,7 @@ export default class KeyboardAlphabets extends cc.Component {
       key.string = alphabets[index];
       key.fontSize = FONT_SIZE;
       key.lineHeight = LINE_HEIGHT;
+      key.font = Config.i.getTextFont(Config.i.currentFontName)
     });
     if (this.keys.length == 0) {
       this.hideKeyboard()

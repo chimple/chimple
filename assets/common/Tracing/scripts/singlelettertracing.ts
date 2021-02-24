@@ -4,6 +4,7 @@ import {CONFIG_LOADED, RESET_TRACING} from "../../../common/scripts/helper";
 import {Util} from "../../../common/scripts/util";
 import TracingContainer from "../../../common/Tracing/scripts/tracing-container";
 import WriteWord from "./writeword";
+import TraceGraphics from "./trace-graphics";
 
 
 export const LETTER_SCALE = 0.95;
@@ -41,11 +42,8 @@ export class SingleLetterTracing extends cc.Component {
     }
 
     reset() {
-        this._tracingContainer.removeFromParent(true);
-        this._tracingContainer = cc.instantiate(this.tracingContainerPrefab);
-        this._tracingContainer.scale = 0.75;
-        this.setAlphabetToDisplay(this._letter);
-        this._traceGraphics.emit('enabledGraphics');
+        const traceGraphics: TraceGraphics = this._traceGraphics.getComponent(TraceGraphics);
+        traceGraphics.resetGraphics();
     }
 
     loadSounds(text: string) {

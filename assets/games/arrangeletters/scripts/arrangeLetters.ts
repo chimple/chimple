@@ -48,13 +48,13 @@ export default class ArrangeLetters extends Game {
       this.wordAudioFileName,
       this.imageFileName
     ] = Config.getInstance().data[0];
-
+    
     this.correctLetterArray = this.word.split(",");
     ArrangeLetters.correctPosition = new Map();
     ArrangeLetters.wordLength = this.correctLetterArray.length
     this.loadBackground();
-    this.makeDragObjects();
     ArrangeLetters.letterArray = this.word.split(",");
+    this.makeDragObjects();    
     this.startGameSound();
     this.node.getChildByName('friendPos').zIndex = 1
     this.node.getChildByName('friendPos').scale = 0.5
@@ -67,14 +67,23 @@ export default class ArrangeLetters extends Game {
       let dragObj = cc.instantiate(this[this.objectName]);
       dragObj.parent = this.node;
       dragObj.name = shuffledArray[i];
-      if (this.correctLetterArray.length > 4) {
-        dragObj.width = 0.7 * dragObj.width;
-        dragObj.height = 0.7 * dragObj.height;
+      for( let j = 0; j<ArrangeLetters.letterArray.length; j++){
+        if(dragObj.name===ArrangeLetters.letterArray[j]){
+          dragObj.name = dragObj.name + i;
+          ArrangeLetters.letterArray[j] = ArrangeLetters.letterArray[j]+i;
+          break
+        }
       }
-      dragObj.position = cc.v3(
-        -cc.winSize.width / 2.8 + i * cc.winSize.width / this.correctLetterArray.length,
-        -cc.winSize.height / 4
-      );
+        dragObj.width = ((1-(.1*this.correctLetterArray.length))+.7) * dragObj.width;
+        dragObj.height = ((1-(.1*this.correctLetterArray.length))+.7) * dragObj.height;
+        dragObj.getChildByName("objLabel").getComponent(cc.Label).fontSize=((1-(.1*this.correctLetterArray.length))+.5)*150;
+        dragObj.getChildByName("objLabel").getComponent(cc.Label).lineHeight=((1-(.1*this.correctLetterArray.length))+.5)*150;
+        dragObj.position = cc.v3(
+          (this.correctLetterArray.length <= 4)?-cc.winSize.width / 2.8 + i * cc.winSize.width / this.correctLetterArray.length
+          :-cc.winSize.width / 2.4 + i * cc.winSize.width / this.correctLetterArray.length,
+          -cc.winSize.height / 4
+        );
+        
       ArrangeLetters.correctPosition.set(dragObj.name,dragObj.position.x)
       dragObj.getChildByName("objLabel").getComponent(cc.Label).string = shuffledArray[i];
     }

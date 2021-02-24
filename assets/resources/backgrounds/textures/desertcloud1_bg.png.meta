@@ -1,9 +1,9 @@
 {
   "ver": "2.3.5",
-  "uuid": "5f67bbb8-3894-4397-a22e-ed2c8d70073c",
+  "uuid": "a43ece16-d64f-4b7c-8b6e-295cf01820c2",
   "type": "sprite",
   "wrapMode": "clamp",
-  "filterMode": "point",
+  "filterMode": "bilinear",
   "premultiplyAlpha": false,
   "genMipmaps": false,
   "packable": true,
@@ -13,8 +13,8 @@
   "subMetas": {
     "desertcloud1_bg": {
       "ver": "1.0.4",
-      "uuid": "d9fa0682-1f26-4005-bc42-70bd7f547997",
-      "rawTextureUuid": "5f67bbb8-3894-4397-a22e-ed2c8d70073c",
+      "uuid": "39b37b8a-f8a2-425d-ad16-9f17bfc880cc",
+      "rawTextureUuid": "a43ece16-d64f-4b7c-8b6e-295cf01820c2",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

@@ -122,7 +122,6 @@ export default class Assemble extends cc.Component {
 
     private createRewardMonitor() {
         this.rewardsMonitor = cc.instantiate(this.rewardsMonitorPrefab);
-        this.node.parent.addChild(this.rewardsMonitor);
         const progressMonitorNode = this.node.parent.parent.getChildByName('ProgressMonitor')
         if(!!progressMonitorNode) {
             progressMonitorNode.opacity = 0;
@@ -152,6 +151,7 @@ export default class Assemble extends cc.Component {
                 }
             }
         }
+        this.node.parent.addChild(this.rewardsMonitor);
     }
 
     private platformFlowPlay() {
@@ -202,21 +202,21 @@ export default class Assemble extends cc.Component {
         }
 
         // start timer for REWARD_COLLECTED_EXPIRED_TIME
-        this.scheduleOnce(
-            () => {
-                if (this.rewardStatus == RewardStatus.Collecting) {
-                    this.rewardStatus = RewardStatus.TimedOut;
-                    const config = Config.getInstance();
-                    const log = Object.assign({});
-                    log[`${LOG_TYPE}`] = FAIL_TO_COLLECT_ALL_REWARDS;
-                    // log[`${LOG_WORLD}`] = config.world;
-                    // log[`${LOG_LEVEL}`] = config.level;
-                    log[`${COURSE}`] = config.course.id;
-                    UtilLogger.logEvent(log);
-                    this.afterRewardsCollected();
-                }
-            }, REWARD_COLLECTED_EXPIRED_TIME
-        );
+        // this.scheduleOnce(
+        //     () => {
+        //         if (this.rewardStatus == RewardStatus.Collecting) {
+        //             this.rewardStatus = RewardStatus.TimedOut;
+        //             const config = Config.getInstance();
+        //             const log = Object.assign({});
+        //             log[`${LOG_TYPE}`] = FAIL_TO_COLLECT_ALL_REWARDS;
+        //             // log[`${LOG_WORLD}`] = config.world;
+        //             // log[`${LOG_LEVEL}`] = config.level;
+        //             log[`${COURSE}`] = config.course.id;
+        //             UtilLogger.logEvent(log);
+        //             this.afterRewardsCollected();
+        //         }
+        //     }, REWARD_COLLECTED_EXPIRED_TIME
+        // );
     }
 
     private configureRewards() {
