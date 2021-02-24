@@ -11,7 +11,7 @@ import {
     TRACING_FINISHED,
     TRACING_CORRECT,
     TRACING_WRONG,
-    RESET_TRACING
+    RESET_TRACING, RESET_TRACING_ALLOWED, RESET_TRACING_NOT_ALLOWED
 } from "../../../common/scripts/helper";
 import { SingleLetterTracing } from "../../../common/Tracing/scripts/singlelettertracing";
 import Game from "../../../common/scripts/game";
@@ -254,6 +254,17 @@ export class WriteNumber extends Game {
             const singleLetterTracing: SingleLetterTracing = letterNode.getComponent(SingleLetterTracing);
             singleLetterTracing.reset();
         });
+
+        this.node.on(RESET_TRACING_ALLOWED, () => {
+            if (this.node.getChildByName('reeetTracingButton') !== null)
+                this.node.getChildByName('reeetTracingButton').active = true;
+        })
+
+        this.node.on(RESET_TRACING_NOT_ALLOWED, () => {
+            if (this.node.getChildByName('reeetTracingButton') !== null)
+                this.node.getChildByName('reeetTracingButton').active = false;
+
+        })
     }
 
     @catchError()

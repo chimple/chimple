@@ -8,7 +8,7 @@ import {
     TRACING_CORRECT,
     TRACING_WRONG,
     SOUND_LOADED_EVENT,
-    RESET_TRACING
+    RESET_TRACING, RESET_TRACING_ALLOWED, RESET_TRACING_NOT_ALLOWED
 } from "../../../common/scripts/helper";
 import TracingContainer from "../../../common/Tracing/scripts/tracing-container";
 import Game from "../../../common/scripts/game";
@@ -95,6 +95,17 @@ export class WriteLetter extends Game {
                 traceGraphics.resetGraphics();
             }
         });
+
+        this.node.on(RESET_TRACING_ALLOWED, () => {
+            if (this.node.getChildByName('reeetTracingButton') !== null)
+                this.node.getChildByName('reeetTracingButton').active = true;
+        })
+
+        this.node.on(RESET_TRACING_NOT_ALLOWED, () => {
+            if (this.node.getChildByName('reeetTracingButton') !== null)
+                this.node.getChildByName('reeetTracingButton').active = false;
+
+        })
     }
 
     loadSounds(text: string) {

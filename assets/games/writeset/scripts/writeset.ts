@@ -6,7 +6,7 @@ import {Util} from "../../../common/scripts/util";
 import {LETTER_SCALE, SingleNumberTracing} from "./singlenumbertracing";
 import {
     CONFIG_LOADED,
-    RESET_TRACING,
+    RESET_TRACING, RESET_TRACING_ALLOWED, RESET_TRACING_NOT_ALLOWED,
     TRACING_CORRECT,
     TRACING_FINISHED,
     TRACING_WRONG
@@ -214,6 +214,17 @@ export class WriteSet extends Game {
             const singleLetterTracing: SingleNumberTracing = letterNode.getComponent(SingleNumberTracing);
             singleLetterTracing.reset();
         });
+
+        this.node.on(RESET_TRACING_ALLOWED, () => {
+            if (this.node.getChildByName('reeetTracingButton') !== null)
+                this.node.getChildByName('reeetTracingButton').active = true;
+        })
+
+        this.node.on(RESET_TRACING_NOT_ALLOWED, () => {
+            if (this.node.getChildByName('reeetTracingButton') !== null)
+                this.node.getChildByName('reeetTracingButton').active = false;
+
+        })
     }
 
     private emitLetterEnabledEvent(fNode: cc.Node, index: number) {

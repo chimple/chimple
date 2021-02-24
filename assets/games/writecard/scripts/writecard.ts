@@ -4,7 +4,12 @@ import Config from "../../../common/scripts/lib/config";
 import {LetterTracingBackCard} from "./lettertracingbackcard";
 import {LetterTracingFrontCard} from "./lettertracingfrontcard";
 import catchError from "../../../common/scripts/lib/error-handler";
-import {CONFIG_LOADED, RESET_TRACING} from "../../../common/scripts/helper";
+import {
+    CONFIG_LOADED,
+    RESET_TRACING,
+    RESET_TRACING_ALLOWED,
+    RESET_TRACING_NOT_ALLOWED
+} from "../../../common/scripts/helper";
 import Game from "../../../common/scripts/game";
 import {Util} from "../../../common/scripts/util";
 
@@ -59,6 +64,17 @@ export class WriteCard extends Game {
         });
         this.buildUI();
         Util.showHelp(null, null);
+
+        this.node.on(RESET_TRACING_ALLOWED, () => {
+            if (this.node.getChildByName('reeetTracingButton') !== null)
+                this.node.getChildByName('reeetTracingButton').active = true;
+        })
+
+        this.node.on(RESET_TRACING_NOT_ALLOWED, () => {
+            if (this.node.getChildByName('reeetTracingButton') !== null)
+                this.node.getChildByName('reeetTracingButton').active = false;
+
+        })
 
         this.node.on(RESET_TRACING, (event) => {
             event.stopPropagation();

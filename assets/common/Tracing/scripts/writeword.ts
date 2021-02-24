@@ -11,7 +11,7 @@ import {
     TRACING_FINISHED,
     TRACING_CORRECT,
     TRACING_WRONG,
-    RESET_TRACING
+    RESET_TRACING, RESET_TRACING_ALLOWED, RESET_TRACING_NOT_ALLOWED
 } from "../../../common/scripts/helper";
 import Game from "../../scripts/game";
 
@@ -256,6 +256,17 @@ export default class WriteWord extends Game {
                 }
             }
         });
+
+        this.node.on(RESET_TRACING_ALLOWED, () => {
+            if (this.node.getChildByName('reeetTracingButton') !== null)
+                this.node.getChildByName('reeetTracingButton').active = true;
+        })
+
+        this.node.on(RESET_TRACING_NOT_ALLOWED, () => {
+            if (this.node.getChildByName('reeetTracingButton') !== null)
+                this.node.getChildByName('reeetTracingButton').active = false;
+
+        })
     }
 
     @catchError()

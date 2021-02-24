@@ -8,7 +8,13 @@ import ArrowNode from "./arrow-node";
 import Config from "../../scripts/lib/config";
 import catchError from "../../scripts/lib/error-handler";
 import {Util, TouchEvents} from "../../scripts/util";
-import {TRACING_CORRECT, SHOW_CHILD_IMAGE, TRACING_FINISHED} from "../../scripts/helper";
+import {
+    TRACING_CORRECT,
+    SHOW_CHILD_IMAGE,
+    TRACING_FINISHED,
+    RESET_TRACING_ALLOWED,
+    RESET_TRACING_NOT_ALLOWED
+} from "../../scripts/helper";
 
 const BOUNDARY_CHECK_LIMIT = 20;
 
@@ -323,7 +329,6 @@ export default class TraceGraphics extends cc.Component {
 
     @catchError()
     onTouchMove(touch: cc.Touch) {
-        this._isResetGraphicsAllowed = true;
         this._isValid = this._isTouchStartValid && !!this._indicatorNodeComponent && this._indicatorNodeComponent.collisionCount > 0;
         if (this._touchEnabled && (this._isValid || this.traceGenerationMode)) {
             this._lastCounterValue = this._indicatorNodeComponent.counterValue > this._lastCounterValue ?
@@ -353,6 +358,10 @@ export default class TraceGraphics extends cc.Component {
                     );
                     if (this._isValid) {
                         this._startIndicator.setPosition(this._currPoint);
+                        if (!this._isResetGraphicsAllowed) {
+                            this._isResetGraphicsAllowed = true;
+                            this.node.dispatchEvent(new cc.Event.EventCustom(RESET_TRACING_ALLOWED, true));
+                        }
                     }
                 }
             }
@@ -772,6 +781,7 @@ export default class TraceGraphics extends cc.Component {
     @catchError()
     private moveToNextPath() {
         this._isResetGraphicsAllowed = false;
+        this.node.dispatchEvent(new cc.Event.EventCustom(RESET_TRACING_NOT_ALLOWED, true));
         this._lastStarNodeInCurrentPath = null;
         this.currentArrowValue = 0;
         this.nextArrowValue = 0;
@@ -842,6 +852,7 @@ export default class TraceGraphics extends cc.Component {
     resetGraphics() {
         if (this._isResetGraphicsAllowed) {
             this._isResetGraphicsAllowed = false;
+            this.node.dispatchEvent(new cc.Event.EventCustom(RESET_TRACING_NOT_ALLOWED, true));
             this._lastStarNodeInCurrentPath = null;
             this.currentArrowValue = 0;
             this.nextArrowValue = 0;
