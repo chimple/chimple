@@ -6,6 +6,7 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class MathDrop extends Drop {
     origWidth: number = 0;
+    droppedNodeUUID: string = null;
 
     onLoad() {
         super.onLoad();
@@ -21,7 +22,9 @@ export default class MathDrop extends Drop {
 
     onCollisionExit(other: cc.Collider, self: cc.Collider) {
         super.onCollisionExit(other, self);
-        this.allowDrop = true;
+        if (this.droppedNodeUUID === other.node.uuid)
+            this.allowDrop = true;
+
         if (this.allowDrop) {
             this.node.width = this.origWidth;
         }
@@ -39,12 +42,10 @@ export default class MathDrop extends Drop {
         }
     }
 
-
-    onMatchOver() {
+    onMatchOver(matchingDragNode: cc.Node) {
+        this.droppedNodeUUID = matchingDragNode.uuid;
         this.match = false;
-        if (this.allowOnlyOneDrop) {
-            this.allowDrop = false;
-        }
+        this.allowDrop = false;
     }
 
     collisionEnterCondition(self, other) {

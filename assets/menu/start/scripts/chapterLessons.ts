@@ -57,11 +57,8 @@ export default class ChapterLessons extends cc.Component {
                 this.label.string = 'Assignments'
                 config.assignments.forEach((ass) => {
                     const lesson = Config.i.allLessons.get(ass.lessonId)
-                    const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
-                    if (lesson && !(lessonProgress && lessonProgress.date < ass.createAt)) {
-                        lesson.assignmentId = ass.assignmentId;
-                        this.createLessonButton(lesson, true)
-                    }
+                    lesson.assignmentId = ass.assignmentId;
+                    this.createLessonButton(lesson, true)
                 })
                 break;
             case ChapterLessonType.Featured:
@@ -118,13 +115,17 @@ export default class ChapterLessons extends cc.Component {
 
     private setBackground(bgprefabName: string) {
         cc.resources.load(`backgrounds/prefabs/${bgprefabName}`, (err, sp) => {
-            let bgPrefabInstance = cc.instantiate(sp);
+            // @ts-ignore
+            let bgPrefabInstance: cc.Node = cc.instantiate(sp);
             // @ts-ignore
             bgPrefabInstance.y = 0
             // @ts-ignore
             bgPrefabInstance.x = 0
             // @ts-ignore
-            this.bgHolder.addChild(bgPrefabInstance);
+            if(!!this.bgHolder && bgPrefabInstance!=null) {
+                
+                this.bgHolder.addChild(bgPrefabInstance);
+            }
             // userButtonRef.getChildByName("Background").getChildByName("avatar").getChildByName("icon").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
         });
     }
@@ -133,3 +134,4 @@ export default class ChapterLessons extends cc.Component {
         Config.i.popScene()
     }
 }
+

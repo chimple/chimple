@@ -1,7 +1,7 @@
-import { Util } from "../util";
+import {Util} from "../util";
 import UtilLogger from "../util-logger";
-import { Chapter, Course, Lesson } from "./convert";
-import Profile, { LANGUAGE, User } from "./profile";
+import {Chapter, Course, Lesson} from "./convert";
+import Profile, {LANGUAGE, User} from "./profile";
 import TTFFont = cc.TTFFont;
 import {GAME_CONFIGS} from "./gameConfigs";
 
@@ -50,8 +50,8 @@ export class LangConfig {
 }
 
 export const LANG_CONFIGS = new Map<Lang, LangConfig>([
-    [Lang.ENGLISH, { 'font': 'en-main', 'displayName': 'English', 'symbol': 'A', 'colorCode': '#FFBC00' }],
-    [Lang.HINDI, { 'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7' }]
+    [Lang.ENGLISH, {'font': 'en-main', 'displayName': 'English', 'symbol': 'A', 'colorCode': '#FFBC00'}],
+    [Lang.HINDI, {'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7'}]
 ])
 
 export class World {
@@ -164,6 +164,17 @@ export default class Config {
         return isValid;
     }
 
+    hadLoadedTraceFont(): string {
+        let traceFont: string = null;
+        Array.from(this._textFontMap, ([key, value]) => {
+            if(key.indexOf("trace") !== -1) {
+                traceFont = key;
+            }
+        });
+
+        return traceFont;
+    }
+
     getTextFont(fontName: string) {
         cc.log("fonts loaded:" + Array.from(this._textFontMap.keys()))
         return this._textFontMap.get(fontName);
@@ -256,7 +267,7 @@ export default class Config {
         });
 
         const config = Config.i;
-        if(!!config && !!config.game) {
+        if (!!config && !!config.game) {
             const gameConfig = GAME_CONFIGS[config.game];
             if (!!gameConfig && !!gameConfig.fontName && !!config.currentFontName) {
                 config.releaseFont(config.currentFontName);
@@ -309,15 +320,15 @@ export default class Config {
                 } else {
                     console.log("loading font from Config", fontName);
                     this._textFontMap.set(fontName, fontAsset);
-                    this.currentFontName = fontName;
+                    if (this.hadLoadedTraceFont() !== null)  {
+                        this.currentFontName = this.hadLoadedTraceFont();
+                    } else {
+                        this.currentFontName = fontName;
+                    }
                     if (!!callBack) callBack(data);
                 }
             });
         }
-    }
-
-    loadFont() {
-
     }
 
     loadLessonJson(callback: Function, node: cc.Node = null, lessons: Array<Lesson> = null, maxPerLesson: number = 0) {
@@ -346,9 +357,9 @@ export default class Config {
                     cc.director.getScheduler().unschedule(checkAllLoaded, node);
                     if (maxPerLesson == 0) {
                         Util.shuffle(allLessonData)
-                        this._lessonData = { 'rows': allLessonData.slice(0, Math.min(10, allLessonData.length - 1)) }
+                        this._lessonData = {'rows': allLessonData.slice(0, Math.min(10, allLessonData.length - 1))}
                     } else {
-                        this._lessonData = { 'rows': allLessonData }
+                        this._lessonData = {'rows': allLessonData}
                     }
                     this.totalProblems = this._lessonData.rows.length;
                     this.problem = 1;

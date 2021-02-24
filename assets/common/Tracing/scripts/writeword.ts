@@ -1,10 +1,18 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
-import Config, { Direction } from "../../../common/scripts/lib/config";
-import { LETTER_SCALE, SingleLetterTracing } from "./singlelettertracing";
-import { Util } from "../../../common/scripts/util";
+import Config, {Direction} from "../../../common/scripts/lib/config";
+import {LETTER_SCALE, SingleLetterTracing} from "./singlelettertracing";
+import {Util} from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
-import { MOVE_TO_NEXT_LETTER_EVENT, CONFIG_LOADED, SOUND_LOADED_EVENT, TRACING_FINISHED, TRACING_CORRECT, TRACING_WRONG } from "../../../common/scripts/helper";
+import {
+    MOVE_TO_NEXT_LETTER_EVENT,
+    CONFIG_LOADED,
+    SOUND_LOADED_EVENT,
+    TRACING_FINISHED,
+    TRACING_CORRECT,
+    TRACING_WRONG,
+    RESET_TRACING
+} from "../../../common/scripts/helper";
 import Game from "../../scripts/game";
 
 export const TRACE_WIDTH = 512;
@@ -235,6 +243,18 @@ export default class WriteWord extends Game {
         this.node.on(TRACING_WRONG, (event) => {
             event.stopPropagation();
             this._wordTracingContainer.emit('wrong');
+        });
+
+        this.node.on(RESET_TRACING, (event) => {
+            event.stopPropagation();
+            console.log("RESET_TRACING.....")
+            const child = this._wordLayout.node.getChildByName(this._originalLetterName + this._currentLetterIndex);
+            if (!!child) {
+                const singleLetterComponent: SingleLetterTracing = child.getComponent(SingleLetterTracing);
+                if (SingleLetterTracing !== null) {
+                    singleLetterComponent.reset();
+                }
+            }
         });
     }
 

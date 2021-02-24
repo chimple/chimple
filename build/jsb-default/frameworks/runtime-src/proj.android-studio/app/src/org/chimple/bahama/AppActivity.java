@@ -67,6 +67,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.chimple.bahama.logger.ChimpleLogger;
 import org.chimple.bahama.logger.LockScreenReceiver;
@@ -95,6 +96,7 @@ import static org.chimple.bahama.logger.ChimpleLogger.APP_INSTALLED_TIME;
 import static org.chimple.bahama.logger.ChimpleLogger.APP_LAST_PLAYED_TIME;
 import static org.chimple.bahama.logger.ChimpleLogger.FIREBASE_MESSAGES_SYNC;
 import static org.chimple.bahama.logger.ChimpleLogger.FIREBASE_MESSAGE_TOKEN;
+import static org.chimple.bahama.logger.ChimpleLogger.PROGRESS_IDS;
 
 public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private static final int STORAGE_PERMISSION_CODE = 101;
@@ -102,12 +104,12 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     protected LockScreenReceiver lockScreenReceiver;
     private static final String TAG = AppActivity.class.getSimpleName();
     StringBuilder stringBuilder;
-    private FirebaseAnalytics firebaseAnalytics = null;
+    private static FirebaseAnalytics firebaseAnalytics = null;
     private final String PREFERENCE_FILE_KEY = "bahamaPreferences";
     private final String KEY_REFERRER_EXISTS = "referrer_exists";
     private final Executor backgroundExecutor = Executors.newSingleThreadExecutor();
     private final Executor advertisingApiBackgroundExecutor = Executors.newSingleThreadExecutor();
-    private FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
+    public static FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
     private static final int CAMERA_CODE = 31;
     public static final int YOUTUBE_CODE = 32;
     public static final int SEND_CODE = 33;
@@ -187,6 +189,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             }
         }.start();
 
+        this.processDeepLink();
         // OTP integration
         initFireBaseAuthLoginUsingOTP();
     }
@@ -196,11 +199,46 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         Intent intent = getIntent();
         Log.d(TAG, "intent:" + intent);
         if (intent != null) {
-            String action = intent.getAction();
-            Uri uri = intent.getData();
-            Log.d(TAG, "deep link action:" + action);
-            Log.d(TAG, "deep link uri:" + uri);
-            if (uri != null && action != null && action.equalsIgnoreCase("android.intent.action.VIEW")) {
+            String chapter = null;
+            String lesson = null;
+            String assignmentId = null;
+            String subject = null;
+            Bundle extra = intent.getExtras();
+            if (extra != null) {
+                for (String key : extra.keySet()) {
+                    if (key.equalsIgnoreCase("chapter")) {
+                        chapter = (String) extra.get(key);
+                    } else if (key.equalsIgnoreCase("lesson")) {
+                        lesson = (String) extra.get(key);
+                    } else if (key.equalsIgnoreCase("assignmentId")) {
+                        assignmentId = (String) extra.get(key);
+                    } else if (key.equalsIgnoreCase("subject")) {
+                        subject = (String) extra.get(key);
+                    }
+                }
+            }
+
+            if (chapter != null && lesson != null && subject != null && assignmentId != null) {
+                this.assignmentMicroLink(chapter, lesson, subject, assignmentId);
+            } else {
+                String action = intent.getAction();
+                Uri uri = intent.getData();
+                Log.d(TAG, "deep link action:" + action);
+                Log.d(TAG, "deep link uri:" + uri);
+                if (uri != null && action != null && action.equalsIgnoreCase("android.intent.action.VIEW")) {
+                    this.processDeepLinkAction(uri.toString());
+                }
+            }
+        }
+    }
+
+    public void assignmentMicroLink(String chapter, String lesson,
+                                           String subject, String assignmentId) {
+        if (chapter != null && lesson != null && subject != null && assignmentId != null) {
+            Log.d(TAG, "received data for chapter:" + chapter + " lesson:" + lesson + " assignmentId: " + assignmentId + " subject: " + subject);
+            String uri = "http://chimple.github.io/microlink?courseid=" + subject + "&chapterid=" + chapter + "&lessonid=" + lesson + "&assignmentid=" + assignmentId;
+            Log.d(TAG, "assignment deep link uri:" + uri);
+            if (uri != null) {
                 this.processDeepLinkAction(uri.toString());
             }
         }
@@ -298,8 +336,8 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                                 String token = task.getResult().getToken();
                                 ChimpleLogger.storeInSharedPreference(AppActivity.this, FIREBASE_MESSAGE_TOKEN, token);
                                 Log.i(TAG, "Firebase Message Token:" + token);
-                                AppActivity.this.syncFcm();
-                                ChimpleLogger.logEventToFireBase("fcm_token_generated", "token", token);
+//                                AppActivity.this.syncFcm();
+//                                ChimpleLogger.logEventToFireBase("fcm_token_generated", "token", token);
                             }
                         });
             }
@@ -432,6 +470,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        setIntent(intent);
         SDKWrapper.getInstance().onNewIntent(intent);
         this.processDeepLink();
     }
@@ -446,7 +485,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     protected void onStop() {
         Log.d(TAG, "updating STOP_TIME:" + new Date().getTime());
         ChimpleLogger.storeInSharedPreference(this, APP_LAST_PLAYED_TIME, String.valueOf(new Date().getTime()));
-        this.syncFcm();
+//        this.syncFcm();
         if (app.repeatHandShakeTimer != null) {
             app.repeatHandShakeTimer.cancel();
         }
@@ -486,7 +525,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         ChimpleLogger.storeInSharedPreference(this, ChimpleLogger.DAILY_REMINDER_SHOWED_TIME, null);
         ChimpleLogger.storeInSharedPreference(this, ChimpleLogger.THREE_DAY_REMINDER_SHOWED_TIME, null);
         ChimpleLogger.storeInSharedPreference(this, ChimpleLogger.WEEKLY_REMINDER_SHOWED_TIME, null);
-        this.syncFcm();
+//        this.syncFcm();
         if (app.repeatHandShakeTimer != null) {
             app.repeatHandShakeTimer.cancel();
             app.repeatHandShakeTimer.start();

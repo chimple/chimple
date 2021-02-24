@@ -85,6 +85,7 @@ export interface LessonProgress {
     score: number;
     attempts?: number;
     date?: Date;
+    assignmentId?: string;
 }
 
 export class LessonProgressClass implements LessonProgress {
@@ -92,11 +93,13 @@ export class LessonProgressClass implements LessonProgress {
     score: number;
     attempts: number;
     date: Date;
+    assignmentId: string = null;
 
-    constructor(score: number, attempts: number = 0) {
+    constructor(score: number, attempts: number = 0, assignmentId: string = null) {
         this.score = score;
         this.attempts = attempts;
-        this.date = new Date()
+        this.date = new Date();
+        this.assignmentId = assignmentId;
     }
 }
 
@@ -391,7 +394,7 @@ export class User {
         this.unlockRewardsForItem(`${REWARD_TYPES[1]}-${REWARD_BACKGROUNDS[0]}`, 1)
     }
 
-    updateLessonProgress(lessonId: string, score: number, quizScores: number[]): [string, string] {
+    updateLessonProgress(lessonId: string, score: number, quizScores: number[], assignmentId: string = null): [string, string] {
         var reward: [string, string]
         const config = Config.i
         if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == null) {
@@ -436,7 +439,7 @@ export class User {
                 if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
                     reward = [REWARD_TYPES[2], Config.i.lesson.image]
                 }
-                this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1));
+                this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1, Config.i.lesson.assignmentId));
             }
 
             if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
@@ -447,23 +450,8 @@ export class User {
                 })
                 if (lessons.length > lessonIndex + 1) {
                     const nextLesson = lessons[lessonIndex + 1]
-                    const cpm = this.courseProgressMap.get(config.course.id)
-                    cpm.currentLessonId = nextLesson.id
                     if (!this._lessonProgressMap.has(nextLesson.id)) {
                         this._lessonProgressMap.set(nextLesson.id, new LessonProgressClass(-1));
-                    }
-                } else if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == Config.i.chapter.id) {
-                    var found = false
-                    const nextChapter = Config.i.course.chapters
-                        .find((c) => {
-                            if (found) return true
-                            found = c.id == this.courseProgressMap.get(Config.i.course.id).currentChapterId
-                            return false
-                        })
-                    if (nextChapter) {
-                        const cpm = this.courseProgressMap.get(config.course.id)
-                        cpm.currentLessonId = null
-                        cpm.updateChapterId(nextChapter.id)
                     }
                 }
             }
@@ -472,6 +460,28 @@ export class User {
         if (lessonPlan && lessonPlan[this.courseProgressMap.get(config.course.id).lessonPlanIndex] == config.lesson.id) {
             this.courseProgressMap.get(config.course.id).lessonPlanIndex++
             Config.i.startAction = StartAction.MoveLessonPlan;
+            const lessons = Config.i.chapter.lessons
+            const lessonIndex = lessons.findIndex((les) => {
+                return les.id == lessonId
+            })
+            if (lessons.length > lessonIndex + 1) {
+                const nextLesson = lessons[lessonIndex + 1]
+                const cpm = this.courseProgressMap.get(config.course.id)
+                cpm.currentLessonId = nextLesson.id
+            } else if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == Config.i.chapter.id) {
+                var found = false
+                const nextChapter = Config.i.course.chapters
+                    .find((c) => {
+                        if (found) return true
+                        found = c.id == this.courseProgressMap.get(Config.i.course.id).currentChapterId
+                        return false
+                    })
+                if (nextChapter) {
+                    const cpm = this.courseProgressMap.get(config.course.id)
+                    cpm.currentLessonId = null
+                    cpm.updateChapterId(nextChapter.id)
+                }
+            }
         }
         if (this.assignments) {
             const index = this.assignments.indexOf(config.lesson.id)
@@ -618,7 +628,7 @@ export class User {
         return response;
     }
 
-    private static getUserIds() {
+    public static getUserIds() {
         return JSON.parse(cc.sys.localStorage.getItem(USER_ID)) as Array<string>;
     }
 
@@ -798,8 +808,8 @@ export default class Profile {
         Profile.setValue(item, val.toString())
     }
 
-    static get lang(): String {
-        return Profile.getValue(LANGUAGE) || Lang.ENGLISH
+    static get lang(): Lang {
+        return Profile.getValue(LANGUAGE)
     }
 
     static fromJsonUsingParse(parseStoredProfile: string) {

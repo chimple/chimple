@@ -3,16 +3,19 @@ import Drag from "../../../common/scripts/drag";
 import { Util } from "../../../common/scripts/util";
 import LessonController from "../../../common/scripts/lessonController";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class PhonicTractorDrag extends Drag {
     private _soundClip: cc.AudioClip = null;
+
     onLoad() {
         this.label.string = this.node.name
-        Util.loadsPhonicsOrLetter(this.node.name.toLowerCase(), (clip) => {
-            this._soundClip = clip
-        })
+        Util.loadGameSound(this.node.name.toLowerCase(), (clip) => {
+            if (clip != null) {
+                this._soundClip = clip
+            }
+        });
     }
 
 
@@ -26,6 +29,7 @@ export default class PhonicTractorDrag extends Drag {
             }
         }
     }
+
     @catchError()
     onTouchEnd(touch: cc.Touch) {
         super.onTouchEnd(touch)

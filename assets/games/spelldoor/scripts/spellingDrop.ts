@@ -1,36 +1,31 @@
-import {LetterType} from './Utility';
+import {LetterType} from "../../../common/scripts/Utility";
 
-export class MissingBox{
-
+export class SpellingDrop {
     index: number;
     isVowelOrConsonant: LetterType;
-    letter : string;
+    letter: string;
     boundary: cc.Rect;
     position: cc.Vec2;
 
-    constructor(index: number, letter: string, letterType: LetterType){
+    constructor(index: number, letter: string, letterType: LetterType) {
         this.letter = letter;
         this.index = index;
         this.isVowelOrConsonant = letterType;
     }
 
-    setIndex(index: number)
-    {
+    setIndex(index: number) {
         this.index = index;
     }
 
-    setLetter(letter: string)
-    {
+    setLetter(letter: string) {
         this.letter = letter;
     }
 
-    setBoundary(boundary: cc.Rect)
-    {
+    setBoundary(boundary: cc.Rect) {
         this.boundary = boundary;
     }
 
-    setPosition(position: cc.Vec2)
-    {
+    setPosition(position: cc.Vec2) {
         this.position = position;
     }
 }

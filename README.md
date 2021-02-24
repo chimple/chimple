@@ -1,6 +1,7 @@
 ### bahama
  
 For setting up:
+
 mkdir -p sdcard/bahama
 cd sdcard/bahama
 git clone https://github.com/chimple/hi.git

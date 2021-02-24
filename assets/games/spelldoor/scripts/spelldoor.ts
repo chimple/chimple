@@ -1,12 +1,14 @@
 import Config from "../../../common/scripts/lib/config";
 import Drag from "../../../common/scripts/drag";
 import SpellingDrag from "./spellingDrag";
-import { Util } from "../../../common/scripts/util";
+import {Util} from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
-import { AlphabetUtil, LetterType } from "../../../common/scripts/Utility";
+import {AlphabetUtil, LetterType} from "../../../common/scripts/Utility";
 import Game from "../../../common/scripts/game";
+import {SpellingDrop} from "./spellingDrop";
+import Drop from "../../../common/scripts/drop";
 
-const { ccclass, property } = cc._decorator;
+const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class SpellDoor extends Game {
@@ -52,12 +54,20 @@ export default class SpellDoor extends Game {
                 numVowels--
             }
             const drop = cc.instantiate(this.spellingDrop)
+            const dropC: Drop = drop.getComponent(Drop);
+            if(dropC) {
+                dropC.allowDrop = false;
+            }
             drop.name = val
             this.dropLayout.addChild(drop)
             const drag = this.createDrag(val);
             drop.addChild(drag)
             if (positions[index] == '*' || (this.empty == 0 && index == arr.length - 1)) {
                 this.empty++
+                const dropComponent: Drop = drag.parent.getComponent(Drop);
+                if (dropComponent !== null) {
+                    dropComponent.allowDrop = dropComponent.node.name === drag.name ? true : false;
+                }
                 this.choices.push(drag)
                 if (firstDrag == null) {
                     firstDrag = drag
@@ -65,7 +75,7 @@ export default class SpellDoor extends Game {
                 }
                 new cc.Tween().target(drag)
                     .delay(3)
-                    .to(0.5, { y: -cc.winSize.height }, null)
+                    .to(0.5, {y: -cc.winSize.height}, null)
                     .start()
             } else {
                 drag.getComponent(SpellingDrag).allowDrag = false
@@ -97,13 +107,15 @@ export default class SpellDoor extends Game {
         })
         const choiceY = this.choiceLayout.y
         new cc.Tween().target(this.choiceLayout)
-            .set({ y: -cc.winSize.height })
+            .set({y: -cc.winSize.height})
             .delay(5)
             .call(() => {
                 Util.shuffle(this.choices)
                 this.choices.forEach((drag) => {
                     if (drag.parent != null) {
                         drag.removeFromParent()
+
+                        // @ts-ignore
                         drag.position = cc.Vec2.ZERO
                     }
                     const temp = new cc.Node()
@@ -112,7 +124,7 @@ export default class SpellDoor extends Game {
                     this.choiceLayout.addChild(temp)
                 })
             })
-            .to(0.5, { y: choiceY }, null)
+            .to(0.5, {y: choiceY}, null)
             .call(() => {
                 Util.showHelp(firstDrag, firstDrop)
                 Drag.letDrag = true
@@ -129,6 +141,7 @@ export default class SpellDoor extends Game {
         })
         return drag;
     }
+
     onMatch() {
         this.node.emit('correct')
         if (--this.empty <= 0) {
@@ -147,7 +160,7 @@ export default class SpellDoor extends Game {
                     .call(() => {
                         if (this.friend != null) this.friend.playAnimation('jumping', 1);
                     })
-                    .to(1, { x: 0 }, null)
+                    .to(1, {x: 0}, null)
                     .delay(1)
                     .call(() => {
                         this.node.emit('nextProblem');

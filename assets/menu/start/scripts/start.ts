@@ -5,13 +5,13 @@ import {
     TEACHER_ID_KEY,
     TEACHER_NAME_KEY,
     TEACHER_SECTION_ID,
-    MICROLINK
+    MICROLINK, RECEIVED_TEACHER_REQUESTS
 } from "../../../chimple";
 import Friend from "../../../common/scripts/friend";
 import Config, { StartAction } from "../../../common/scripts/lib/config";
 import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
 import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
-import { User } from "../../../common/scripts/lib/profile";
+import { User, CourseProgress } from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
 import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
 import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
@@ -26,57 +26,6 @@ import Inventory from "../../inventory/scripts/inventory";
 import LessonButton from "./lessonButton";
 import ChapterLessons, { ChapterLessonType } from "./chapterLessons";
 import UtilLogger from "../../../common/scripts/util-logger";
-
-
-//@ts-ignore
-cc.deep_link = function (url) {
-    cc.log("deep link called with url:" + url);
-    if (url !== null && url.includes("http://chimple.github.io/")) {
-        let messageType: string = null;
-        let splits = url.split("://chimple.github.io/");
-        if (splits !== null && splits.length === 2) {
-            let elements = splits[1].split('?');
-            if (elements && elements.length === 2) {
-                messageType = elements.splice(0, 1)[0];
-                if (messageType.includes(RECEIVED_TEACHER_REQUEST) || messageType.includes(MICROLINK)) {
-                    const items = elements[0].split(/[&=]+/)
-                    let data = Object.assign({});
-                    if (items !== null && (items.length % 2 === 0)) {
-                        let all_keys = items;
-                        let all_values = [];
-                        for (let i = 0; i < items.length; i++) {
-                            all_values.push(all_keys.splice(i + 1, 1)[0]);
-                        }
-                        let mappings = all_keys.map(function (e, i) {
-                            return [e, all_values[i]];
-                        });
-
-                        mappings.forEach(arr => {
-                            if (arr && arr.length === 2) {
-                                data[arr[0].toLowerCase()] = arr[1]
-                            }
-                        })
-                    }
-                    if ( messageType.includes(MICROLINK)) {
-                        Config.isMicroLink = true
-                    }
-                    try {
-                        cc.log('RECEIVED_TEACHER_REQUEST', JSON.stringify(data));
-                        const jsonMessages: any[] = Util.removeDuplicateMessages(data, messageType);
-                        if(messageType.includes(RECEIVED_TEACHER_REQUEST)){
-                            UtilLogger.logChimpleEvent(RECEIVED_TEACHER_REQUEST, data);
-                        }
-                        cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
-                    } catch (e) {
-
-                    }
-                }
-                cc.log('saved into local storage:' + cc.sys.localStorage.getItem(messageType));
-            }
-        }
-    }
-};
-
 
 const COMPLETE_AUDIOS = [
     'congratulations',
@@ -168,7 +117,7 @@ export default class Start extends cc.Component {
         })
         const config = Config.i
         if (!config.course) {
-            config.course = config.curriculum.values().next().value
+            config.course = this.getNextCourse()
         }
         this.library.string = config.course.name
         Util.load(config.course.id + '/course/res/icons/' + config.course.id + '.png', (err: Error, texture) => {
@@ -205,14 +154,18 @@ export default class Start extends cc.Component {
             }
             friendComp.speakHelp(true)
         })
-        ChapterLessons.showType = ChapterLessonType.Library
+        ChapterLessons.showType = ChapterLessonType.Library;
+        UtilLogger.syncFmcTokenForUsers();
         const assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
-        config.assignments = assignments.filter((ass) => {
-            const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
-            return !(lessonProgress && lessonProgress.date < ass.createAt)
-        })
+        // config.assignments = assignments.filter((ass) => {
+        //     const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
+        //     return !(lessonProgress && lessonProgress.date < ass.createAt)
+        // })
+        config.assignments = assignments;
         if (config.assignments.length > 0) {
-            this.assignmentButton.interactable = true
+            if (!!this.assignmentButton) {
+                this.assignmentButton.interactable = true
+            }
         }
         // call API to get featured stories
         // store in config.featuredLessons
@@ -262,18 +215,25 @@ export default class Start extends cc.Component {
             && courseProgressMap.lessonPlanIndex <= courseProgressMap.lessonPlan.length) {
             this.displayLessonPlan()
         } else {
+            config.course = this.getNextCourse()
             this.createLessonPlan(config.course.id)
             this.displayLessonPlan()
         }
         if (!Config.isMicroLink) {
             this.loading.active = false;
         }
-        this.loadLesson()
         this.registerTeacherDialogCloseEvent();
     }
 
-    protected start() {
-        this.setUpTeacherDialog();
+    private getNextCourse() {
+        const cpm = User.getCurrentUser().courseProgressMap
+        const ar = Array.from(cpm.keys())
+        try {
+            ar.sort((a, b) => cpm.get(a).date.getTime() - cpm.get(b).date.getTime())
+        } catch (error) {
+            cc.log(error)
+        }
+        return Config.i.curriculum.get(ar[0])
     }
 
     private registerTeacherDialogCloseEvent() {
@@ -299,15 +259,22 @@ export default class Start extends cc.Component {
 
     private loadLesson() {
         if (Config.isMicroLink) {
-            const dataStr: string = cc.sys.localStorage.getItem(MICROLINK);
-            let data: any[] = JSON.parse(dataStr) || '[]';
             Config.isMicroLink = false;
+            const dataStr: string = cc.sys.localStorage.getItem(MICROLINK);
+            let data: any[] = JSON.parse(dataStr) || [];
             if (data && data.length > 0) {
                 const courseDetails = data.splice(data.length - 1, data.length)[0];
-                Util.loadDirectLessonWithLink(courseDetails['courseid'], courseDetails['chapterid'], courseDetails['lessonid'], this.node)
+                const input = {
+                    courseid: courseDetails['courseid'],
+                    chapterid: courseDetails['chapterid'],
+                    lessonid: courseDetails['lessonid'],
+                    assignmentid: courseDetails['assignmentid'] || null,
+                }
+                Util.loadDirectLessonWithLink(input, this.node)
             }
         }
     }
+
     private showTeacherDialog() {
         try {
             const messageStr: string = cc.sys.localStorage.getItem(RECEIVED_TEACHER_REQUEST) || '[]';
@@ -334,7 +301,9 @@ export default class Start extends cc.Component {
                     script.TeacherId = id;
                     script.SelectedSectionId = sectionId;
                     script.SelectedAddStudentId = addStudentId;
-                    this.node.addChild(teacherDialog);
+                    if (script.validate().length > 0) {
+                        this.node.addChild(teacherDialog);
+                    }
                 }
             }
         } catch (e) {
@@ -369,7 +338,8 @@ export default class Start extends cc.Component {
         const courseProgress = user.courseProgressMap.get(courseId)
         const course = Config.i.curriculum.get(courseId)
         const currentChapter = course.chapters.find((chapter: Chapter) => chapter.id == courseProgress.currentChapterId)
-        if (!courseProgress.currentLessonId) {
+        if (!courseProgress.currentLessonId
+            || !currentChapter.lessons.find(l => l.id == courseProgress.currentLessonId)) {
             courseProgress.currentLessonId = currentChapter.lessons[0].id
         }
         var lessons: Lesson[]
@@ -382,26 +352,36 @@ export default class Start extends cc.Component {
                 if (puzLes) lessons.push(puzLes)
             })
         } else {
-            let foundCurrentChapter = false
-            let foundChallenge = false
-            lessons = currentChapter.lessons.filter((lesson: Lesson) => {
-                if (!foundCurrentChapter && lesson.id == courseProgress.currentLessonId) {
-                    foundCurrentChapter = true
-                }
-                if (foundCurrentChapter && !foundChallenge) {
-                    if (!foundChallenge && lesson.type == EXAM) {
-                        foundChallenge = true
-                    }
-                    return true
-                }
-                return false
-            })
+            lessons = this.getLessonsForPlan(currentChapter, courseProgress.currentLessonId);
+            if(!lessons || lessons.length == 0) {
+                courseProgress.currentLessonId = currentChapter.lessons[0].id
+                lessons = this.getLessonsForPlan(currentChapter, courseProgress.currentLessonId);
+            }
         }
         courseProgress.lessonPlan = lessons.map((l) => l.id)
         courseProgress.lessonPlanIndex = 0
         courseProgress.lessonPlanDate = new Date()
         user.storeUser()
         return lessons
+    }
+
+    private getLessonsForPlan(currentChapter: Chapter, currentLessonId: string) {
+        var lessons: Lesson[]
+        let foundCurrentChapter = false;
+        let foundChallenge = false;
+        lessons = currentChapter.lessons.filter((lesson: Lesson) => {
+            if (!foundCurrentChapter && lesson.id == currentLessonId) {
+                foundCurrentChapter = true;
+            }
+            if (foundCurrentChapter && !foundChallenge) {
+                if (!foundChallenge && lesson.type == EXAM) {
+                    foundChallenge = true;
+                }
+                return true;
+            }
+            return false;
+        });
+        return lessons;
     }
 
     displayLessonPlan() {
@@ -438,13 +418,13 @@ export default class Start extends cc.Component {
             if (index == courseProgressMap.lessonPlanIndex) {
                 const currentLessonNode = cc.instantiate(this.currentLessonButton)
                 var animationCmp = currentLessonNode.getComponent(cc.Animation);
-                animationCmp.play("level_play_button").repeatCount=20
-    
+                animationCmp.play("level_play_button").repeatCount = 20
+
                 currentLessonNode.y = 80
                 currentLessonNode.scale = 1
                 const lessonButton = node.getComponent(LessonButton)
                 if (lessonButton) {
-                    const clsprite=currentLessonNode.getChildByName('play button')
+                    const clsprite = currentLessonNode.getChildByName('play button')
                     const clButton = clsprite.addComponent(cc.Button)
                     clButton.transition = cc.Button.Transition.SCALE
                     clButton.node.on('touchend', (event: cc.Event) => {
@@ -492,13 +472,10 @@ export default class Start extends cc.Component {
                     const splitItems = rewardItem.split('-');
                     if (splitItems[0] == REWARD_TYPES[0]) {
                         user.currentCharacter = splitItems[1];
-                    }
-                    else if (splitItems[0] == REWARD_TYPES[1]) {
+                    } else if (splitItems[0] == REWARD_TYPES[1]) {
                         user.currentBg = splitItems[1];
-                    }
-                    else if (splitItems[0] == REWARD_TYPES[2]) {
-                    }
-                    else if (splitItems[0] == REWARD_TYPES[3]) {
+                    } else if (splitItems[0] == REWARD_TYPES[2]) {
+                    } else if (splitItems[0] == REWARD_TYPES[3]) {
                         user.updateInventory(`${splitItems[1]}-${splitItems[2]}`, splitItems[3]);
                     }
                     const courseProgress = user.courseProgressMap.get(Config.i.course.id)
@@ -510,13 +487,10 @@ export default class Start extends cc.Component {
                     var rewardSpriteFrame = '';
                     if (splitItems[0] == REWARD_TYPES[0]) {
                         rewardSpriteFrame = 'char_icons/' + splitItems[1] + '_icon';
-                    }
-                    else if (splitItems[0] == REWARD_TYPES[1]) {
+                    } else if (splitItems[0] == REWARD_TYPES[1]) {
                         rewardSpriteFrame = 'backgrounds/textures/bg_icons/background-' + splitItems[1];
-                    }
-                    else if (splitItems[0] == REWARD_TYPES[2]) {
-                    }
-                    else if (splitItems[0] == REWARD_TYPES[3]) {
+                    } else if (splitItems[0] == REWARD_TYPES[2]) {
+                    } else if (splitItems[0] == REWARD_TYPES[3]) {
                         rewardSpriteFrame = INVENTORY_ICONS[splitItems[2]] + splitItems[3];
                     }
                     cc.resources.load(rewardSpriteFrame, cc.SpriteFrame, (err, spriteFrame) => {
@@ -532,7 +506,10 @@ export default class Start extends cc.Component {
                         new cc.Tween().target(rewardIcon)
                             .to(0.5, { scale: 1, y: 200 }, null)
                             .delay(2)
-                            .to(0.5, { scale: 0.1, position: node.parent.convertToNodeSpaceAR(cc.v3(cc.winSize.width - 64, cc.winSize.height - 32)) }, null)
+                            .to(0.5, {
+                                scale: 0.1,
+                                position: node.parent.convertToNodeSpaceAR(cc.v3(cc.winSize.width - 64, cc.winSize.height - 32))
+                            }, null)
                             .delay(0.5)
                             .call(() => {
                                 if (splitItems[0] == REWARD_TYPES[3]) {
@@ -540,33 +517,36 @@ export default class Start extends cc.Component {
                                     friendComp.playAnimation('happy', 1)
                                     const friendPos = cc.v3(this.friend.position)
                                     new cc.Tween().target(this.friend)
-                                        .to(1, { position: cc.v3(0, -200, 0)}, null)
+                                        .to(1, { position: cc.v3(0, -200, 0) }, null)
                                         .call(() => {
                                             const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2]);
-                                            Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2]);        
+                                            Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2]);
                                         })
                                         .delay(2)
-                                        .to(0.5, { position: friendPos}, null)
+                                        .to(0.5, { position: friendPos }, null)
                                         .start()
                                 }
                                 rewardIcon.opacity = 0;
                             })
                             .delay(1)
                             .call(() => {
-                                this.createLessonPlan(Config.i.course.id)
-                                this.displayLessonPlan();
+                                this.afterRewardLessonPlan()
                             })
                             .start();
                     });
-                }
-                else {
+                } else {
                     this.scheduleOnce(() => {
-                        this.createLessonPlan(Config.i.course.id)
-                        this.displayLessonPlan();
+                        this.afterRewardLessonPlan()
                     }, 4);
                 }
             })
             .start()
+    }
+
+
+    private afterRewardLessonPlan() {
+        this.createLessonPlan(Config.i.course.id);
+        this.displayLessonPlan();
     }
 
     private recommendedLessonInChapter(chapter: Chapter): Lesson {
@@ -696,5 +676,15 @@ export default class Start extends cc.Component {
 
     onDestroy() {
         cc.audioEngine.stopMusic();
+    }
+
+    protected update(dt: number) {
+        if (RECEIVED_TEACHER_REQUESTS) {
+            // @ts-ignore
+            RECEIVED_TEACHER_REQUESTS = false;
+            this.setUpTeacherDialog();
+        } else if (Config.isMicroLink) {
+            this.loadLesson();
+        }
     }
 }

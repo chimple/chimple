@@ -5,6 +5,7 @@ import UtilLogger from "./common/scripts/util-logger";
 import {Util} from "./common/scripts/util";
 import {APIMode, ServiceConfig} from "./common/scripts/services/ServiceConfig";
 import {AcceptTeacherRequest} from "./common/scripts/services/ServiceApi";
+import Start from "./menu/start/scripts/start";
 
 const {ccclass, property} = cc._decorator;
 
@@ -55,6 +56,61 @@ export enum UpdateEvent {
 export const PROJECT_MANIFEST = 'project.manifest'
 export const DO_HOT_UPDATE = false
 
+
+export let RECEIVED_TEACHER_REQUESTS: boolean = false;
+
+//@ts-ignore
+cc.deep_link = function (url) {
+    cc.log("deep link called with url:" + url);
+    if (url !== null && url.includes("http://chimple.github.io/")) {
+        let messageType: string = null;
+        let splits = url.split("://chimple.github.io/");
+        if (splits !== null && splits.length === 2) {
+            let elements = splits[1].split('?');
+            if (elements && elements.length === 2) {
+                messageType = elements.splice(0, 1)[0];
+                if (messageType.includes(RECEIVED_TEACHER_REQUEST) || messageType.includes(MICROLINK)) {
+                    const items = elements[0].split(/[&=]+/)
+                    let data = Object.assign({});
+                    if (items !== null && (items.length % 2 === 0)) {
+                        let all_keys = items;
+                        let all_values = [];
+                        for (let i = 0; i < items.length; i++) {
+                            all_values.push(all_keys.splice(i + 1, 1)[0]);
+                        }
+                        let mappings = all_keys.map(function (e, i) {
+                            return [e, all_values[i]];
+                        });
+
+                        mappings.forEach(arr => {
+                            if (arr && arr.length === 2) {
+                                data[arr[0].toLowerCase()] = arr[1]
+                            }
+                        })
+                    }
+                    if ( messageType.includes(MICROLINK)) {
+                        Config.isMicroLink = true
+                        const jsonMessages: any[] = Util.removeDuplicateMessages(data, messageType);
+                        cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
+                    }
+                    try {
+                        cc.log('RECEIVED_TEACHER_REQUEST', JSON.stringify(data));
+                        const jsonMessages: any[] = Util.removeDuplicateMessages(data, messageType);
+                        if(messageType.includes(RECEIVED_TEACHER_REQUEST)){
+                            UtilLogger.logChimpleEvent(RECEIVED_TEACHER_REQUEST, data);
+                            cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
+                            RECEIVED_TEACHER_REQUESTS = true;
+                        }
+
+                    } catch (e) {
+
+                    }
+                }
+                cc.log('saved into local storage:' + cc.sys.localStorage.getItem(messageType));
+            }
+        }
+    }
+};
 
 @ccclass
 export default class Chimple extends cc.Component {
@@ -121,7 +177,7 @@ export default class Chimple extends cc.Component {
                         // @ts-ignore
                         cc.assetManager.cacheManager.cachedFiles.forEach((val, key) => {
                             cc.log('removeCache: ' + key)
-                            // if(val!= null && val.bundle == 'en0000') 
+                            // if(val!= null && val.bundle == 'en0000')
                             // @ts-ignore
                             cc.assetManager.cacheManager.removeCache(key)
                         })

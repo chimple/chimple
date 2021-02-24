@@ -1,10 +1,17 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
-import { LETTER_TRACING_CARD_EVENT, LETTER_TRACING_CARD_SCALE, WriteCard } from "./writecard";
-import { Util } from "../../../common/scripts/util";
-import { CONFIG_LOADED, TRACING_FINISHED, TRACING_CORRECT, TRACING_WRONG } from "../../../common/scripts/helper";
+import {LETTER_TRACING_CARD_EVENT, LETTER_TRACING_CARD_SCALE, WriteCard} from "./writecard";
+import {Util} from "../../../common/scripts/util";
+import {
+    CONFIG_LOADED,
+    TRACING_FINISHED,
+    TRACING_CORRECT,
+    TRACING_WRONG,
+    RESET_TRACING
+} from "../../../common/scripts/helper";
 import TracingContainer from "../../../common/Tracing/scripts/tracing-container";
 import LessonController from "../../../common/scripts/lessonController";
+import TraceGraphics from "../../../common/Tracing/scripts/trace-graphics";
 
 @ccclass
 export class LetterTracingFrontCard extends cc.Component {
@@ -17,7 +24,6 @@ export class LetterTracingFrontCard extends cc.Component {
     private _traceGraphics: cc.Node = null;
     private _WriteCard: WriteCard;
     private _sound: any = null;
-    private _soundID: number;
 
     protected onLoad(): void {
         this._WriteCard = this.node.parent.getComponent(WriteCard);
@@ -44,6 +50,11 @@ export class LetterTracingFrontCard extends cc.Component {
             event.stopPropagation();
             this.node.parent.emit('wrong');
         });
+    }
+
+    public resetTracing() {
+        const traceGraphics: TraceGraphics = this._traceGraphics.getComponent(TraceGraphics);
+        traceGraphics.resetGraphics();
     }
 
     private setAlphabetToDisplay(letter: string): void {

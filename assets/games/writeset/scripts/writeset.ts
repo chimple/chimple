@@ -4,7 +4,13 @@ import Layout = cc.Layout;
 import Config from "../../../common/scripts/lib/config";
 import {Util} from "../../../common/scripts/util";
 import {LETTER_SCALE, SingleNumberTracing} from "./singlenumbertracing";
-import {CONFIG_LOADED, TRACING_FINISHED, TRACING_CORRECT, TRACING_WRONG} from "../../../common/scripts/helper";
+import {
+    CONFIG_LOADED,
+    RESET_TRACING,
+    TRACING_CORRECT,
+    TRACING_FINISHED,
+    TRACING_WRONG
+} from "../../../common/scripts/helper";
 import Game from "../../../common/scripts/game";
 
 export const TRACE_HEIGHT = 768;
@@ -200,6 +206,13 @@ export class WriteSet extends Game {
         this.node.on(TRACING_WRONG, (event) => {
             event.stopPropagation();
             this.node.emit('wrong');
+        });
+
+        this.node.on(RESET_TRACING, (event) => {
+            event.stopPropagation();
+            const letterNode: cc.Node = this._layout.node.getChildByName(this._originalLetterName + this._currentLetterIndex);
+            const singleLetterTracing: SingleNumberTracing = letterNode.getComponent(SingleNumberTracing);
+            singleLetterTracing.reset();
         });
     }
 
