@@ -3,9 +3,9 @@ import property = cc._decorator.property;
 import Vec2 = cc.Vec2;
 import HorizontalAlign = cc.Label.HorizontalAlign;
 import VerticalAlign = cc.Label.VerticalAlign;
-import { COLLECT_REWARD_EVENT } from "../../platform/scripts/platformer";
-import Config, { Flow } from "../../../common/scripts/lib/config";
-import { Util } from "../../../common/scripts/util";
+import {COLLECT_REWARD_EVENT} from "../../platform/scripts/platformer";
+import Config, {Flow} from "../../../common/scripts/lib/config";
+import {Util} from "../../../common/scripts/util";
 
 export const ALL_REWARDS_COLLECTED = 'ALL_REWARDS_COLLECTED';
 
@@ -47,6 +47,7 @@ export default class RewardsMonitor extends cc.Component {
     private createRewardStar(node: cc.Node, index: number) {
         node.name = index.toString();
         const spriteNode = cc.instantiate(this.rewardImageNode);
+        spriteNode.scale = 0.5;
         spriteNode.name = 'sprite';
         spriteNode.group = 'gameCamera';
         node.addChild(spriteNode);
@@ -106,7 +107,7 @@ export default class RewardsMonitor extends cc.Component {
             const currentSpriteNode = currentNode.getChildByName('sprite');
             item.width = currentSpriteNode.width;
             item.height = currentSpriteNode.height;
-            item.scale = 1;
+            item.scale = 0.5;
             item.opacity = 255;
             item.group = 'gameCamera';
             const worldPos = item.convertToWorldSpaceAR(new cc.Vec2(0, 0));
