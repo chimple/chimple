@@ -3,6 +3,10 @@ export const GAME_CONFIGS = {
         "bundle": "letterpair",
         "prefab": "prefabs/letterpair",
     },
+    "balloonpop": {
+        "bundle": "balloonpop",
+        "prefab": "prefabs/balloonpop",
+    },
     "fillblank": {
         "bundle": "fillblank",
         "prefab": "prefabs/fillblank",
