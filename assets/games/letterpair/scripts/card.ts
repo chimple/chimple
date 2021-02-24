@@ -162,7 +162,7 @@ export default class Card extends cc.Component {
             label.enableWrapText = false
             labelNode.color = this.color;
             label.fontSize = 128;
-            label.lineHeight = 128;
+            label.lineHeight = 150;
             labelNode.position = new cc.Vec3(0, 128 * 0.1); // to align text with middle since in bigger font size it aligns down
             this.node.addChild(labelNode);
             if (this.audio.length == 0) {

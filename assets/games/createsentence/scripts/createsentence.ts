@@ -142,6 +142,7 @@ export default class CreateSentence extends Game {
     this.node.emit('correct')
     // if (this.friend != null) this.friend.playAnimation('face_happy', 1)
     if (--this.numAnswers <= 0) {
+      this.node.pauseSystemEvents(true);
       Drag.letDrag = false
       this.scheduleOnce(() => {
         this.friend.speakExtra(() => {
