@@ -90,7 +90,11 @@ export default class Scorecard extends cc.Component {
     }
 
     onContinueClick() {
-        Config.i.popScene()
+        if(cc.sys.isNative && Config.isMicroLink){
+            Config.i.pushScene('menu/start/scenes/start', 'menu', null, true);
+        }else{
+            Config.i.popScene()
+        } 
     }
 
     onDownloadClick(){
