@@ -10,9 +10,6 @@ export default class NumberDisplay extends cc.Component {
     @property
     type: string = 'Alpha'
 
-    @property(cc.Font)
-    font: cc.Font = null
-
     @property
     fontSize: number = null
 
@@ -56,7 +53,10 @@ export default class NumberDisplay extends cc.Component {
         if(this.type == 'Stick') {
             const layout = this.getComponent(cc.Layout)
             if(this.num <= 10) {
-                layout.padding = 10
+                layout.paddingBottom = 10
+                layout.paddingTop = 10
+                layout.paddingLeft = 10
+                layout.paddingRight = 10
                 layout.spacingX = 10
             }
             for (let index = 0; index < this.num; index++) {
@@ -75,7 +75,6 @@ export default class NumberDisplay extends cc.Component {
             }    
         } else if(this.type == 'Alpha') {
             const label = this.node.addComponent(ChimpleLabel)
-            label.font = this.font
             label.fontSize = this.fontSize
             label.lineHeight = this.lineHeight
             label.string = this.num.toString()

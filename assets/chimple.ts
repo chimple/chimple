@@ -54,7 +54,7 @@ export enum UpdateEvent {
 }
 
 export const PROJECT_MANIFEST = 'project.manifest'
-export const DO_HOT_UPDATE = false
+export const DO_HOT_UPDATE = true
 
 
 export let RECEIVED_TEACHER_REQUESTS: boolean = false;

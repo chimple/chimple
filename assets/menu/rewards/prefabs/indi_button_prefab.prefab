@@ -417,9 +417,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "40e28b35-e1a9-4a1f-8b3a-c55740384741"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -629,16 +627,13 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "button",
     "_N$string": "button",
     "_fontSize": 18,
     "_lineHeight": 40,
     "_enableWrapText": false,
-    "_N$file": {
-      "__uuid__": "0646cf51-fd6c-4dce-927f-6ffa48d833ea"
-    },
-    "_isSystemFontUsed": false,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -1049,7 +1044,7 @@
     "asset": {
       "__uuid__": "b39ce832-d06e-4343-8c65-cff37266c592"
     },
-    "fileId": "2e74ozEXFOlYv2fwTMvLdm",
+    "fileId": "",
     "sync": false
   }
 ]

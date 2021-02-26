@@ -215,7 +215,6 @@ export default class Start extends cc.Component {
             && courseProgressMap.lessonPlanIndex <= courseProgressMap.lessonPlan.length) {
             this.displayLessonPlan()
         } else {
-            config.course = this.getNextCourse()
             this.createLessonPlan(config.course.id)
             this.displayLessonPlan()
         }
