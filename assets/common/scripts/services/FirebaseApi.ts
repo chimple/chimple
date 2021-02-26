@@ -99,55 +99,61 @@ export class FirebaseApi implements ServiceApi {
     }
 
     buildAssignments(results: any[], assignments: any[]) {
-        const lessonMap = User.getCurrentUser().lessonProgressMap;
-        let allAssignments = [];
-        assignments.forEach(a => allAssignments = allAssignments.concat(a));
+        let results = [];
+        try {
+            if (User.getCurrentUser() !== null) {
+                const lessonMap = User.getCurrentUser().lessonProgressMap;
+                let allAssignments = [];
+                assignments.forEach(a => allAssignments = allAssignments.concat(a));
 
-        allAssignments.forEach(
-            a => {
-                let b: any = {};
-                let shouldInclude: boolean = true;
-                b.assignmentId = a.assignmentId;
-                b.chapterId = a.chapter;
-                b.lessonId = a.lesson;
-                b.courseCode = a.subject.courseCode;
-                let dateString = a.createAt.toString();
-                if (!!dateString) {
-                    if(dateString.length === 8) {
-                        const year = dateString.substring(0, 4);
-                        const month = dateString.substring(4, 6);
-                        const day = dateString.substring(6, 8);
-                        b.createAt = new Date(year, month - 1, day);
-                    } else {
-                        dateString = Number(a.createAt._seconds) * 1000;
-                        b.createAt = new Date(dateString);
-                    }
-                } else {
-                    b.createAt = new Date();
-                }
-                if (lessonMap.has(a.lesson)) {
-                    const lProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(a.lesson);
-                    if (lProgress === null || lProgress === undefined) {
-                        shouldInclude = true;
-                    } else {
-                        if (lProgress.assignmentId === null || lProgress.assignmentId === undefined) {
-                            shouldInclude = true;
-                        } else if (lProgress.assignmentId !== null && lProgress.assignmentId !== a.assignmentId) {
-                            shouldInclude = true;
+                allAssignments.forEach(
+                    a => {
+                        let b: any = {};
+                        let shouldInclude: boolean = true;
+                        b.assignmentId = a.assignmentId;
+                        b.chapterId = a.chapter;
+                        b.lessonId = a.lesson;
+                        b.courseCode = a.subject.courseCode;
+                        let dateString = a.createAt.toString();
+                        if (!!dateString) {
+                            if (dateString.length === 8) {
+                                const year = dateString.substring(0, 4);
+                                const month = dateString.substring(4, 6);
+                                const day = dateString.substring(6, 8);
+                                b.createAt = new Date(year, month - 1, day);
+                            } else {
+                                dateString = Number(a.createAt._seconds) * 1000;
+                                b.createAt = new Date(dateString);
+                            }
+                        } else {
+                            b.createAt = new Date();
+                        }
+                        if (lessonMap.has(a.lesson)) {
+                            const lProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(a.lesson);
+                            if (lProgress === null || lProgress === undefined) {
+                                shouldInclude = true;
+                            } else {
+                                if (lProgress.assignmentId === null || lProgress.assignmentId === undefined) {
+                                    shouldInclude = true;
+                                } else if (lProgress.assignmentId !== null && lProgress.assignmentId !== a.assignmentId) {
+                                    shouldInclude = true;
+                                }
+                            }
+                            if (shouldInclude) {
+                                results.push(b)
+                            }
+                        } else {
+                            results.push(b)
                         }
                     }
-                    if (shouldInclude) {
-                        results.push(b)
-                    }
-                } else {
-                    results.push(b)
-                }
+                )
+
+                results = results.filter((v, i, a) => a.findIndex(t => (t.chapterId === v.chapterId && t.lessonId === v.lessonId)) === i);
+                results = results.sort((a, b) => (a.createAt > b.createAt) ? 1 : -1)
             }
-        )
-
-        results = results.filter((v, i, a) => a.findIndex(t => (t.chapterId === v.chapterId && t.lessonId === v.lessonId)) === i);
-        results = results.sort((a, b) => (a.createAt > b.createAt) ? 1 : -1)
+        } catch (e) {
+            results = []
+        }
         return results;
-
     }
 }
