@@ -99,7 +99,6 @@ export class FirebaseApi implements ServiceApi {
     }
 
     buildAssignments(results: any[], assignments: any[]) {
-        let results = [];
         try {
             if (User.getCurrentUser() !== null) {
                 const lessonMap = User.getCurrentUser().lessonProgressMap;
