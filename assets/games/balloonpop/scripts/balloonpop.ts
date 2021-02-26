@@ -58,6 +58,7 @@ export default class Balloonpop extends Game {
                         cc.scaleTo(0.5, 0.10)
                     ),
                     cc.scaleTo(0.5, 0.10),
+                    cc.callFunc(this.displayProgressBar,this,this.name),
                     cc.callFunc(this.createBallon,this,this.name)
                 ),
             )
@@ -66,7 +67,7 @@ export default class Balloonpop extends Game {
     }
     
     public createBallon(){
-        for(let i = 1; i<10; i++){
+        for(let i = 1; i<this.currentConfig.options.length; i++){
             let ballon = cc.instantiate(this.balloon);
             this.node.addChild(ballon);
             ballon.getComponentInChildren(cc.Label).string = this.currentConfig.options[Math.floor(0 + Math.random() * (this.currentConfig.options.length - 0))]
