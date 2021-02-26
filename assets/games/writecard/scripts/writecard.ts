@@ -76,6 +76,9 @@ export class WriteCard extends Game {
 
         })
 
+        if (this.node.getChildByName('reeetTracingButton') !== null)
+            this.node.getChildByName('reeetTracingButton').opacity = 0
+
         this.node.on(RESET_TRACING, (event) => {
             event.stopPropagation();
             console.log("current index" + this._currentIndex);

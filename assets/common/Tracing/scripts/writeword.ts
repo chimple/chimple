@@ -267,6 +267,10 @@ export default class WriteWord extends Game {
                 this.node.getChildByName('reeetTracingButton').opacity = 0
 
         })
+
+        if (this.node.getChildByName('reeetTracingButton') !== null)
+            this.node.getChildByName('reeetTracingButton').opacity = 0
+
     }
 
     @catchError()

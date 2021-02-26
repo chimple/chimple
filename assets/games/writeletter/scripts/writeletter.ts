@@ -104,8 +104,10 @@ export class WriteLetter extends Game {
         this.node.on(RESET_TRACING_NOT_ALLOWED, () => {
             if (this.node.getChildByName('reeetTracingButton') !== null)
                 this.node.getChildByName('reeetTracingButton').opacity = 0
-
         })
+
+        if (this.node.getChildByName('reeetTracingButton') !== null)
+            this.node.getChildByName('reeetTracingButton').opacity = 0;
     }
 
     loadSounds(text: string) {

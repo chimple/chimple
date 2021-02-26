@@ -62,6 +62,10 @@ export class LetterTracingFrontCard extends cc.Component {
 
         })
 
+        if (this.node.getChildByName('reeetTracingButton') !== null)
+            this.node.getChildByName('reeetTracingButton').opacity = 0
+
+
     }
 
     public resetTracing() {

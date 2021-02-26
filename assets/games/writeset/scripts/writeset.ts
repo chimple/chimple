@@ -225,6 +225,10 @@ export class WriteSet extends Game {
                 this.node.getChildByName('reeetTracingButton').opacity = 0
 
         })
+
+        if (this.node.getChildByName('reeetTracingButton') !== null)
+            this.node.getChildByName('reeetTracingButton').opacity = 0
+
     }
 
     private emitLetterEnabledEvent(fNode: cc.Node, index: number) {
