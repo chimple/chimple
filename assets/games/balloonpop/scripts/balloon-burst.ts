@@ -6,17 +6,33 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class BalloonBurst extends Drag {
 
+    static letterBursted:number=0;
+    
+    onEnable() {
+        this.enableTouch();
+    }
+
+    enableTouch() {
+        this.node.on('touchstart', this.onTouchStart, this);
+    }
 
     onTouchStart(touch: cc.Touch){
-        super.onTouchStart(touch);
+        this.node.parent.getComponent("balloonpop").createSingleBallon(this.node.x);
+        if(this.node.getComponentInChildren(cc.Label).string===Balloonpop.correctLetter){                            
+            BalloonBurst.letterBursted= BalloonBurst.letterBursted+(1/Balloonpop.letterNo);
+            this.node.parent.getComponent("balloonpop").letterProgress();
+            this.node.parent.emit("correct")
+        } else{
+            this.node.parent.emit("wrong")
+        }
         this.node.destroy();
-        cc.log(this.node.getComponentInChildren(cc.Label).string);
     }
 
 
 
     update (dt) {
         if(this.node.position.y>cc.winSize.height/2){
+            this.node.parent.getComponent("balloonpop").createSingleBallon(this.node.x);
             this.node.destroy();
         }
     }
