@@ -54,10 +54,10 @@ export default class Balloonpop extends Game {
             display.runAction(
                 cc.sequence(
                     cc.spawn(
-                        cc.moveTo(1, cc.v2((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/2.5))), 0),
-                        cc.scaleTo(0.5, 0.10)
+                        cc.moveTo(1, cc.v2((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/2.3))), 0),
+                        cc.scaleTo(0.5, 0.08)
                     ),
-                    cc.scaleTo(0.5, 0.10),
+                    cc.scaleTo(0.5, 0.08),
                     cc.callFunc(this.displayProgressBar,this,this.name),
                     cc.callFunc(this.createBallon,this,this.name)
                 ),
@@ -67,7 +67,7 @@ export default class Balloonpop extends Game {
     }
     
     public createBallon(){
-        for(let i = 1; i<this.currentConfig.options.length; i++){
+        for(let i = 1; i<8; i++){
             let ballon = cc.instantiate(this.balloon);
             this.node.addChild(ballon);
             ballon.getComponentInChildren(cc.Label).string = this.currentConfig.options[Math.floor(0 + Math.random() * (this.currentConfig.options.length - 0))]
@@ -89,7 +89,8 @@ export default class Balloonpop extends Game {
 
     displayProgressBar(){
         this.progressBar.active=true;        
-        this.progressBar.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/1.5)));
+        this.progressBar.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/1.6)));
+        this.prgbar.progress=0.0;
     }
 
     letterProgress(){
@@ -100,6 +101,11 @@ export default class Balloonpop extends Game {
             this.node.emit('correct')
             this.node.emit('nextProblem')  
         }
+    }
+
+    onDestroy(){
+        BalloonBurst.letterBursted=0;
+        this.node.destroy();
     }
 
     private processConfiguration(data: any[] = []): BalloonpopConfig | null {
