@@ -48,7 +48,7 @@ devtools://devtools/bundled/inspector.html?v8only=true&ws=127.0.0.1:6086/0001000
 
 To hot update:
 Click on Build->Build
-node scripts/version_generator.js -v 32 -u https://chimple-stage.web.app/hot-update/ -s build/jsb-default -d hot-update/
+node scripts/version_generator.js -v 33 -u https://chimple-stage.web.app/hot-update/ -s build/jsb-default -d hot-update/
 cp -R build/jsb-default/assets hot-update
 cp -R build/jsb-default/src hot-update
 cp -R hot-update ../lang/chimple-stage/public
