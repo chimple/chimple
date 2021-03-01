@@ -258,7 +258,6 @@ export default class Start extends cc.Component {
 
     private loadLesson() {
         if (Config.isMicroLink) {
-            Config.isMicroLink = false;
             const dataStr: string = cc.sys.localStorage.getItem(MICROLINK);
             let data: any[] = JSON.parse(dataStr) || [];
             if (data && data.length > 0) {

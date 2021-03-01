@@ -22,6 +22,7 @@ export default class QuitPopup extends cc.Component {
     }
 
     onClickYesButton() {
+        Config.isMicroLink = false;
         Config.i.popScene();
         LessonController.getFriend().stopAudio();
     }
