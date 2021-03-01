@@ -91,6 +91,7 @@ export default class Scorecard extends cc.Component {
 
     onContinueClick() {
         if(cc.sys.isNative && Config.isMicroLink){
+            Config.isMicroLink = false;
             Config.i.pushScene('menu/start/scenes/start', 'menu', null, true);
         }else{
             Config.i.popScene()
