@@ -435,6 +435,10 @@ export class User {
                         reward = [REWARD_TYPES[2], Config.i.lesson.image]
                     }
                 }
+                if (Config.i.lesson.type == EXAM && score < MIN_PASS) {
+                    // attempted challenge twice but did not pass
+
+                }
             } else {
                 if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
                     reward = [REWARD_TYPES[2], Config.i.lesson.image]
@@ -458,29 +462,34 @@ export class User {
         }
         const lessonPlan = this.courseProgressMap.get(config.course.id).lessonPlan
         if (lessonPlan && lessonPlan[this.courseProgressMap.get(config.course.id).lessonPlanIndex] == config.lesson.id) {
-            this.courseProgressMap.get(config.course.id).lessonPlanIndex++
             Config.i.startAction = StartAction.MoveLessonPlan;
-            const lessons = Config.i.chapter.lessons
-            const lessonIndex = lessons.findIndex((les) => {
-                return les.id == lessonId
-            })
-            if (lessons.length > lessonIndex + 1) {
-                const nextLesson = lessons[lessonIndex + 1]
-                const cpm = this.courseProgressMap.get(config.course.id)
-                cpm.currentLessonId = nextLesson.id
-            } else if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == Config.i.chapter.id) {
-                var found = false
-                const nextChapter = Config.i.course.chapters
-                    .find((c) => {
-                        if (found) return true
-                        found = c.id == this.courseProgressMap.get(Config.i.course.id).currentChapterId
-                        return false
-                    })
-                if (nextChapter) {
+            if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
+                // if passed challenge in reco
+                this.courseProgressMap.get(config.course.id).lessonPlanIndex++
+                const lessons = Config.i.chapter.lessons
+                const lessonIndex = lessons.findIndex((les) => {
+                    return les.id == lessonId
+                })
+                if (lessons.length > lessonIndex + 1) {
+                    const nextLesson = lessons[lessonIndex + 1]
                     const cpm = this.courseProgressMap.get(config.course.id)
-                    cpm.currentLessonId = null
-                    cpm.updateChapterId(nextChapter.id)
+                    cpm.currentLessonId = nextLesson.id
+                } else if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == Config.i.chapter.id) {
+                    var found = false
+                    const nextChapter = Config.i.course.chapters
+                        .find((c) => {
+                            if (found) return true
+                            found = c.id == this.courseProgressMap.get(Config.i.course.id).currentChapterId
+                            return false
+                        })
+                    if (nextChapter) {
+                        const cpm = this.courseProgressMap.get(config.course.id)
+                        cpm.currentLessonId = null
+                        cpm.updateChapterId(nextChapter.id)
+                    }
                 }
+            } else {
+                this.courseProgressMap.get(config.course.id).lessonPlanIndex = 0
             }
         }
         if (this.assignments) {
