@@ -586,9 +586,9 @@ export class User {
                     ['test-maths', new CourseProgressClass('chapter_0')]
                 ])
                 : new Map([
-                    ['en', new CourseProgressClass('en00')],
-                    ['maths', new CourseProgressClass('maths00')],
-                    ['hi', new CourseProgressClass('hi00')],
+                    ['en', new CourseProgressClass()],
+                    ['maths', new CourseProgressClass()],
+                    ['hi', new CourseProgressClass()],
                     ['puzzle', new CourseProgressClass('puzzle00')]
                 ]),
             new Map(),

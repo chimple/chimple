@@ -1,13 +1,13 @@
-import Config, {LANG_CONFIGS, Lang} from "./common/scripts/lib/config";
-import Profile, {Gender, User, LANGUAGE} from "./common/scripts/lib/profile";
-import {Mode, MODE} from "./common/scripts/lib/constants";
+import Config, { LANG_CONFIGS, Lang } from "./common/scripts/lib/config";
+import Profile, { Gender, User, LANGUAGE } from "./common/scripts/lib/profile";
+import { Mode, MODE } from "./common/scripts/lib/constants";
 import UtilLogger from "./common/scripts/util-logger";
-import {Util} from "./common/scripts/util";
-import {APIMode, ServiceConfig} from "./common/scripts/services/ServiceConfig";
-import {AcceptTeacherRequest} from "./common/scripts/services/ServiceApi";
+import { Util } from "./common/scripts/util";
+import { APIMode, ServiceConfig } from "./common/scripts/services/ServiceConfig";
+import { AcceptTeacherRequest } from "./common/scripts/services/ServiceApi";
 import Start from "./menu/start/scripts/start";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 export const CHIMPLE_MODE = 'CHIMPLE_MODE';
 export const DEPLOY_MODE = 'DEPLOY_MODE';
@@ -23,7 +23,7 @@ export const ACCEPT_TEACHER_REQUEST: string = 'accept_teacher_request';
 export const ACCEPT_TEACHER_REQUEST_LINKED_USED: string = 'accept_teacher_request_used';
 export const TEACHER_ADDED: string = 'teacher_added';
 export const RECEIVED_TEACHER_REQUEST: string = 'received_teacher_request';
-export const MICROLINK='microlink';
+export const MICROLINK = 'microlink';
 export const TEACHER_ID_KEY = 'id';
 export const TEACHER_NAME_KEY = 'name';
 export const TEACHER_SECTION_ID = 'sectionid';
@@ -88,7 +88,7 @@ cc.deep_link = function (url) {
                             }
                         })
                     }
-                    if ( messageType.includes(MICROLINK)) {
+                    if (messageType.includes(MICROLINK)) {
                         Config.isMicroLink = true
                         const jsonMessages: any[] = Util.removeDuplicateMessages(data, messageType);
                         cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
@@ -96,7 +96,7 @@ cc.deep_link = function (url) {
                     try {
                         cc.log('RECEIVED_TEACHER_REQUEST', JSON.stringify(data));
                         const jsonMessages: any[] = Util.removeDuplicateMessages(data, messageType);
-                        if(messageType.includes(RECEIVED_TEACHER_REQUEST)){
+                        if (messageType.includes(RECEIVED_TEACHER_REQUEST)) {
                             UtilLogger.logChimpleEvent(RECEIVED_TEACHER_REQUEST, data);
                             cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
                             RECEIVED_TEACHER_REQUESTS = true;
@@ -131,6 +131,14 @@ export default class Chimple extends cc.Component {
                 jsb.fileUtils.getWritablePath() + 'HotUpdateSearchPaths',
                 '@assets/'
             ])
+        if (CC_JSB) {
+            // @ts-ignore
+            cc.assetManager.cacheManager.cachedFiles.forEach((val, key) => {
+                cc.log('removeCache: ' + key)
+                // @ts-ignore
+                cc.assetManager.cacheManager.removeCache(key)
+            })
+        }
         ServiceConfig.getInstance(APIMode.FIREBASE);
         cc.macro.ENABLE_MULTI_TOUCH = false
         UtilLogger.initPluginFirebase();

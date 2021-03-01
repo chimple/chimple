@@ -337,8 +337,9 @@ export default class Start extends cc.Component {
         const courseProgress = user.courseProgressMap.get(courseId)
         const course = Config.i.curriculum.get(courseId)
         const currentChapter = course.chapters.find((chapter: Chapter) => chapter.id == courseProgress.currentChapterId)
-        if (!courseProgress.currentLessonId 
-                || !currentChapter.lessons.find(l => l.id == courseProgress.currentLessonId)) {
+        if (currentChapter && 
+                (!courseProgress.currentLessonId 
+                || !currentChapter.lessons.find(l => l.id == courseProgress.currentLessonId))) {
             courseProgress.currentLessonId = currentChapter.lessons[0].id
         }
         var lessons: Lesson[]
@@ -351,10 +352,14 @@ export default class Start extends cc.Component {
                 if (puzLes) lessons.push(puzLes)
             })
         } else {
-            lessons = this.getLessonsForPlan(currentChapter, courseProgress.currentLessonId);
-            if(!lessons || lessons.length == 0) {
-                courseProgress.currentLessonId = currentChapter.lessons[0].id
+            if(!courseProgress.currentChapterId) {
+                lessons = [Start.preQuizLesson(course)]
+            } else {
                 lessons = this.getLessonsForPlan(currentChapter, courseProgress.currentLessonId);
+                if(!lessons || lessons.length == 0) {
+                    courseProgress.currentLessonId = currentChapter.lessons[0].id
+                    lessons = this.getLessonsForPlan(currentChapter, courseProgress.currentLessonId);
+                }    
             }
         }
         courseProgress.lessonPlan = lessons.map((l) => l.id)
