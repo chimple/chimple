@@ -313,7 +313,10 @@ export default class Start extends cc.Component {
         this.showTeacherDialog();
     }
 
-    onProfileClick() {
+    onProfileClick(event, customEventData) {
+        const node = event.target
+        const button = node.getComponent(cc.Button)
+        if(button) button.interactable = false
         Config.i.pushScene('menu/rewards/scenes/rewards', 'menu')
     }
 
