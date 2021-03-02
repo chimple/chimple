@@ -1,7 +1,3 @@
-import LessonController from "./lessonController";
-
-import Loading from "./loading";
-
 import {Util} from "./util";
 import Config, {Lang} from "./lib/config";
 import Profile, {LANGUAGE} from "./lib/profile";
@@ -18,7 +14,10 @@ export default class WebLesson extends cc.Component {
         const input = {
             courseid: params.get('courseid'),
             chapterid: params.get('chapterid'),
-            lessonid: params.get('lessonid')
+            lessonid: params.get('lessonid'),
+            mlPartnerId: params.get('mlPartnerId'),
+            mlClassId: params.get('mlClassId'),
+            mlStudentId: params.get('mlStudentId')
         }
         Util.loadDirectLessonWithLink(input, this.node);
     }

@@ -93,7 +93,7 @@ export default class LessonController extends cc.Component {
         } else {
             this.backButton.on('touchend', () => {
                 this.node.getChildByName("quit").active = true;
-            });    
+            });
         }
     }
 
@@ -520,6 +520,9 @@ export default class LessonController extends cc.Component {
                 wrongMoves: this.wrongMoves,
                 correctMoves: this.rightMoves,
                 skills: "",
+                mlStudentId: config.lesson.mlStudentId,
+                mlClassId: config.lesson.mlClassId,
+                mlPartnerId: config.lesson.mlPartnerId,
                 game_completed: this.isGameCompleted,
                 quiz_completed: this.isQuizCompleted
             });
