@@ -88,7 +88,7 @@ export default class LessonController extends cc.Component {
         Util.loadAccessoriesAndEquipAcc(LessonController.friend.node.children[1], LessonController.friend.node)
         LessonController.friend.node.removeFromParent()
         this.lessonStart();
-        if(Config.isMicroLink) {
+        if (Config.isMicroLink) {
             this.backButton.active = false
         } else {
             this.backButton.on('touchend', () => {
@@ -346,7 +346,12 @@ export default class LessonController extends cc.Component {
             correct: this.isQuizAnsweredCorrectly ? 1 : 0,
             skills: config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
             game_completed: this.isGameCompleted,
-            quiz_completed: this.isQuizCompleted
+            quiz_completed: this.isQuizCompleted,
+            assignmentId: config.lesson.assignmentId,
+            mlStudentId: config.lesson.mlStudentId,
+            mlClassId: config.lesson.mlClassId,
+            mlPartnerId: config.lesson.mlPartnerId,
+
         });
 
         const starType = this.isQuiz
@@ -439,9 +444,12 @@ export default class LessonController extends cc.Component {
             lessonType: config.lesson.type,
             score: score,
             timeSpent: Math.abs(timeSpent),
-            skills: config.lesson.skills ? config.lesson.skills.join(",") : "",
+            skills: config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
             attempts: user ? (user.lessonProgressMap.get(config.lesson.id) ? user.lessonProgressMap.get(config.lesson.id).attempts : 1) : 1,
-            assignmentId: config.lesson.assignmentId
+            assignmentId: config.lesson.assignmentId,
+            mlStudentId: config.lesson.mlStudentId,
+            mlClassId: config.lesson.mlClassId,
+            mlPartnerId: config.lesson.mlPartnerId
         });
 
         const block = cc.instantiate(this.blockPrefab);
@@ -519,10 +527,11 @@ export default class LessonController extends cc.Component {
                 timeSpent: Math.abs(timeSpent),
                 wrongMoves: this.wrongMoves,
                 correctMoves: this.rightMoves,
-                skills: "",
+                skills: config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
                 mlStudentId: config.lesson.mlStudentId,
                 mlClassId: config.lesson.mlClassId,
                 mlPartnerId: config.lesson.mlPartnerId,
+                assignmentId: config.lesson.assignmentId,
                 game_completed: this.isGameCompleted,
                 quiz_completed: this.isQuizCompleted
             });
