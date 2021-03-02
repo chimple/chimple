@@ -58,7 +58,7 @@ export default class HelpChimp extends cc.Component {
     speak() {
         if (this.helpAudioId == -1 && this.clip) {
             this.helpAudioId = Util.play(this.clip, false);
-            if (this.helpAudioId != -1 && this.chimp!==null) {
+            if (this.helpAudioId != -1) {
                 this.chimp.armature().animation.stop('idle')
                 this.chimp.playAnimation('talking', 0)
                 this.getComponent(cc.Button).interactable = false
