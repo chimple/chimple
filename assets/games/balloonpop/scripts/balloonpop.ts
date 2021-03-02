@@ -67,16 +67,15 @@ export default class Balloonpop extends Game {
     }
     
     public createBallon(){
-        for(let i = 1; i<8; i++){
+        let maxBalloon=Math.floor((cc.winSize.width/160));
+        for(let i = 1; i<maxBalloon; i++){
             let ballon = cc.instantiate(this.balloon);
-            let maxBallon = (-(cc.winSize.width/2)+(cc.winSize.height/8))+((ballon.width)*(i));
-            if(maxBallon < cc.winSize.width/2){
-                this.node.addChild(ballon);
-                ballon.getComponentInChildren(cc.Label).string = this.currentConfig.options[Math.floor(0 + Math.random() * (this.currentConfig.options.length - 0))]
-                ballon.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8))+((ballon.width)*(i)), -480);
-                ballon.color=cc.color(Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255))
-                ballon.addComponent(cc.RigidBody).gravityScale = -0.5 + Math.random() * (-0.1 - (-0.5));
-            }
+            this.node.addChild(ballon);
+            ballon.getComponentInChildren(cc.Label).string = this.currentConfig.options[Math.floor(0 + Math.random() * (this.currentConfig.options.length - 0))]
+            ballon.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8))+((ballon.width)*(i)), -480);
+            ballon.color=cc.color(Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255))
+            ballon.addComponent(cc.RigidBody).gravityScale = -0.5 + Math.random() * (-0.1 - (-0.5));
+            
         }
     }
 
