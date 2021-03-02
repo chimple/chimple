@@ -31,6 +31,9 @@ export interface Lesson {
     color?: string;
     chapter: Chapter;
     assignmentId?: string;
+    mlPartnerId?: string;
+    mlClassId?: string;
+    mlStudentId?: string;
 }
 
 // Converts JSON strings to/from your types
