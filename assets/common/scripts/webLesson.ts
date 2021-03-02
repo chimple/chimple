@@ -15,9 +15,9 @@ export default class WebLesson extends cc.Component {
             courseid: params.get('courseid'),
             chapterid: params.get('chapterid'),
             lessonid: params.get('lessonid'),
-            mlPartnerId: params.get('mlPartnerId'),
-            mlClassId: params.get('mlClassId'),
-            mlStudentId: params.get('mlStudentId')
+            mlpartnerid: params.get('mlPartnerId'),
+            mlclassid: params.get('mlClassId'),
+            mlstudentid: params.get('mlStudentId')
         }
         Util.loadDirectLessonWithLink(input, this.node);
     }
