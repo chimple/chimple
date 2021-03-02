@@ -67,35 +67,16 @@ export default class Balloonpop extends Game {
     }
     
     public createBallon(){
-        cc.log("This is the friend pos")
-        cc.log(cc.winSize.width)
-        cc.log(cc.winSize.width/160)
-        cc.log(Math.floor((cc.winSize.width/160)-1))
-        cc.log(Math.round((cc.winSize.width/160)-1))
-        cc.log(cc.winSize.width-this.friendPos.width)
-        cc.log((cc.winSize.width/2)+(cc.winSize.height/8))
-        cc.log((cc.winSize.width-(410))/160)
-        cc.log((cc.winSize.width-((cc.winSize.width/2)+(cc.winSize.height/8)))/160)
-        let maxBalloon1=Math.floor((cc.winSize.width/160));
-        for(let i = 1; i<maxBalloon1; i++){
+        for(let i = 1; i<8; i++){
             let ballon = cc.instantiate(this.balloon);
-             let maxBallon = (-(cc.winSize.width/2)+(cc.winSize.height/8))+((ballon.width)*(i));
-             cc.log("This is the maxBallon")
-             cc.log("This is "+i+" th balloon "+maxBallon)
-             cc.log(ballon.width)
-            //let maxBallon1 = -((Math.abs(cc.winSize.width)-((Math.abs(cc.winSize.width)/2)+(Math.abs(cc.winSize.height/8))))/ballon.width);
-            // cc.log("This is the absolute value")
-            // cc.log(maxBallon1)
-            // cc.log(Math.floor(maxBallon1))
-            // cc.log(Math.round(maxBallon1))
-
-            //if(maxBallon < cc.winSize.width/2){
+            let maxBallon = (-(cc.winSize.width/2)+(cc.winSize.height/8))+((ballon.width)*(i));
+            if(maxBallon < cc.winSize.width/2){
                 this.node.addChild(ballon);
                 ballon.getComponentInChildren(cc.Label).string = this.currentConfig.options[Math.floor(0 + Math.random() * (this.currentConfig.options.length - 0))]
                 ballon.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8))+((ballon.width)*(i)), -480);
                 ballon.color=cc.color(Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255))
                 ballon.addComponent(cc.RigidBody).gravityScale = -0.5 + Math.random() * (-0.1 - (-0.5));
-           // }
+            }
         }
     }
 
