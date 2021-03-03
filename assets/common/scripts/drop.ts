@@ -13,6 +13,9 @@ export default class Drop extends cc.Component {
     @property
     allowDrop: boolean = true
 
+    @property
+    allowOnlyOneDrop: boolean = true
+
     protected match: boolean = false;
     protected matchingNode: cc.Node = null;
 
@@ -35,7 +38,9 @@ export default class Drop extends cc.Component {
 
     onMatchOver(matchedDragNode: cc.Node = null) {
         this.match = false
-        this.allowDrop = false
+        if (this.allowOnlyOneDrop) {
+            this.allowDrop = false
+        }
     }
 
     collisionEnterCondition(self, other) {
