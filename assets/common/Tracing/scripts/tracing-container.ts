@@ -160,7 +160,7 @@ export default class TracingContainer extends cc.Component {
         }
 
         const colors = [].concat.apply([], Util.pickRandomElements(
-            ['#f1C82a', '#f25949', '#00cfff', '#e556f4'], 1
+            ['#9900cc', '#f25949', '#00cfff', '#e556f4'], 1
         ));
 
         const colorSelected = colors.shift();

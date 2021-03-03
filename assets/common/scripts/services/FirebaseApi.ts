@@ -100,7 +100,7 @@ export class FirebaseApi implements ServiceApi {
 
     buildAssignments(results: any[], assignments: any[]) {
         try {
-            if (User.getCurrentUser() !== null) {
+            if (!!User.getCurrentUser()) {
                 const lessonMap = User.getCurrentUser().lessonProgressMap;
                 let allAssignments = [];
                 assignments.forEach(a => allAssignments = allAssignments.concat(a));

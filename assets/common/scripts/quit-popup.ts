@@ -1,8 +1,6 @@
-import { PlayerAnimations } from "../../platform/scripts/player-animations";
-import Friend from "./friend";
+import LessonController from "./lessonController";
 import Config from "./lib/config";
 import { Util } from "./util";
-import LessonController from "./lessonController";
 
 const { ccclass, property } = cc._decorator;
 

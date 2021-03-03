@@ -8,13 +8,13 @@ import {
     MICROLINK, RECEIVED_TEACHER_REQUESTS
 } from "../../../chimple";
 import Friend from "../../../common/scripts/friend";
-import Config, { StartAction } from "../../../common/scripts/lib/config";
-import { EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
-import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
-import { User, CourseProgress } from "../../../common/scripts/lib/profile";
+import Config, {StartAction} from "../../../common/scripts/lib/config";
+import {EXAM, MIN_PASS} from "../../../common/scripts/lib/constants";
+import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
+import {User, CourseProgress} from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
-import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
-import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
+import {ServiceConfig} from "../../../common/scripts/services/ServiceConfig";
+import TeacherAddedDialog, {TEACHER_ADD_DIALOG_CLOSED} from "../../../common/scripts/teacherAddedDialog";
 import {
     INVENTORY_ANIMATIONS,
     INVENTORY_ICONS,
@@ -24,7 +24,7 @@ import {
 } from "../../../common/scripts/util";
 import Inventory from "../../inventory/scripts/inventory";
 import LessonButton from "./lessonButton";
-import ChapterLessons, { ChapterLessonType } from "./chapterLessons";
+import ChapterLessons, {ChapterLessonType} from "./chapterLessons";
 import UtilLogger from "../../../common/scripts/util-logger";
 
 const COMPLETE_AUDIOS = [
@@ -43,7 +43,7 @@ const DEFAULT_AUDIOS = [
     'my_name_is_chimple'
 ]
 
-const { ccclass, property } = cc._decorator;
+const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class Start extends cc.Component {
@@ -256,21 +256,18 @@ export default class Start extends cc.Component {
         });
     }
 
-    private loadLesson() {
-        if (Config.isMicroLink) {
-            const dataStr: string = cc.sys.localStorage.getItem(MICROLINK);
-            let data: any[] = JSON.parse(dataStr) || [];
-            if (data && data.length > 0) {
-                const courseDetails = data.splice(data.length - 1, data.length)[0];
-                const input = {
-                    courseid: courseDetails['courseid'],
-                    chapterid: courseDetails['chapterid'],
-                    lessonid: courseDetails['lessonid'],
-                    assignmentid: courseDetails['assignmentid'] || null,
-                }
-                Util.loadDirectLessonWithLink(input, this.node)
+    private loadLesson(data) {
+        if (Config.isMicroLink && data && data.length > 0) {
+            const courseDetails = data.splice(data.length - 1, data.length)[0];
+            const input = {
+                courseid: courseDetails['courseid'],
+                chapterid: courseDetails['chapterid'],
+                lessonid: courseDetails['lessonid'],
+                assignmentid: courseDetails['assignmentid'] || null,
             }
+            Util.loadDirectLessonWithLink(input, this.node)
         }
+
     }
 
     private showTeacherDialog() {
@@ -313,7 +310,10 @@ export default class Start extends cc.Component {
         this.showTeacherDialog();
     }
 
-    onProfileClick() {
+    onProfileClick(event, customEventData) {
+        const node = event.target
+        const button = node.getComponent(cc.Button)
+        if (button) button.interactable = false
         Config.i.pushScene('menu/rewards/scenes/rewards', 'menu')
     }
 
@@ -336,8 +336,9 @@ export default class Start extends cc.Component {
         const courseProgress = user.courseProgressMap.get(courseId)
         const course = Config.i.curriculum.get(courseId)
         const currentChapter = course.chapters.find((chapter: Chapter) => chapter.id == courseProgress.currentChapterId)
-        if (!courseProgress.currentLessonId 
-                || !currentChapter.lessons.find(l => l.id == courseProgress.currentLessonId)) {
+        if (currentChapter &&
+            (!courseProgress.currentLessonId
+                || !currentChapter.lessons.find(l => l.id == courseProgress.currentLessonId))) {
             courseProgress.currentLessonId = currentChapter.lessons[0].id
         }
         var lessons: Lesson[]
@@ -350,10 +351,14 @@ export default class Start extends cc.Component {
                 if (puzLes) lessons.push(puzLes)
             })
         } else {
-            lessons = this.getLessonsForPlan(currentChapter, courseProgress.currentLessonId);
-            if(!lessons || lessons.length == 0) {
-                courseProgress.currentLessonId = currentChapter.lessons[0].id
+            if (!courseProgress.currentChapterId) {
+                lessons = [Start.preQuizLesson(course)]
+            } else {
                 lessons = this.getLessonsForPlan(currentChapter, courseProgress.currentLessonId);
+                if (!lessons || lessons.length == 0) {
+                    courseProgress.currentLessonId = currentChapter.lessons[0].id
+                    lessons = this.getLessonsForPlan(currentChapter, courseProgress.currentLessonId);
+                }
             }
         }
         courseProgress.lessonPlan = lessons.map((l) => l.id)
@@ -457,7 +462,7 @@ export default class Start extends cc.Component {
 
     private giveReward(node: cc.Node, user: User) {
         new cc.Tween().target(node)
-            .to(0.5, { position: cc.Vec3.ZERO }, null)
+            .to(0.5, {position: cc.Vec3.ZERO}, null)
             .call(() => {
                 const anim = node.getComponent(cc.Animation);
                 anim.play();
@@ -502,7 +507,7 @@ export default class Start extends cc.Component {
                         const friendComp = this.friend.getComponent(Friend)
                         friendComp.playAnimation('dance', 1)
                         new cc.Tween().target(rewardIcon)
-                            .to(0.5, { scale: 1, y: 200 }, null)
+                            .to(0.5, {scale: 1, y: 200}, null)
                             .delay(2)
                             .to(0.5, {
                                 scale: 0.1,
@@ -515,13 +520,13 @@ export default class Start extends cc.Component {
                                     friendComp.playAnimation('happy', 1)
                                     const friendPos = cc.v3(this.friend.position)
                                     new cc.Tween().target(this.friend)
-                                        .to(1, { position: cc.v3(0, -200, 0) }, null)
+                                        .to(1, {position: cc.v3(0, -200, 0)}, null)
                                         .call(() => {
                                             const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2]);
                                             Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2]);
                                         })
                                         .delay(2)
-                                        .to(0.5, { position: friendPos }, null)
+                                        .to(0.5, {position: friendPos}, null)
                                         .start()
                                 }
                                 rewardIcon.opacity = 0;
@@ -540,7 +545,7 @@ export default class Start extends cc.Component {
             })
             .start()
     }
-    
+
 
     private afterRewardLessonPlan() {
         this.createLessonPlan(Config.i.course.id);
@@ -682,7 +687,14 @@ export default class Start extends cc.Component {
             RECEIVED_TEACHER_REQUESTS = false;
             this.setUpTeacherDialog();
         } else if (Config.isMicroLink) {
-            this.loadLesson();
+            const dataStr: string = cc.sys.localStorage.getItem(MICROLINK);
+            cc.sys.localStorage.removeItem(MICROLINK);
+            if (!!dataStr && dataStr.length > 0) {
+                let data: any[] = JSON.parse(dataStr) || [];
+                if (data && data.length > 0) {
+                    this.loadLesson(data);
+                }
+            }
         }
     }
 }
