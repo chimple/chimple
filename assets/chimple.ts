@@ -131,14 +131,14 @@ export default class Chimple extends cc.Component {
                 jsb.fileUtils.getWritablePath() + 'HotUpdateSearchPaths',
                 '@assets/'
             ])
-        if (CC_JSB) {
-            // @ts-ignore
-            cc.assetManager.cacheManager.cachedFiles.forEach((val, key) => {
-                cc.log('removeCache: ' + key)
-                // @ts-ignore
-                cc.assetManager.cacheManager.removeCache(key)
-            })
-        }
+        // if (CC_JSB) {
+        //     // @ts-ignore
+        //     cc.assetManager.cacheManager.cachedFiles.forEach((val, key) => {
+        //         cc.log('removeCache: ' + key)
+        //         // @ts-ignore
+        //         cc.assetManager.cacheManager.removeCache(key)
+        //     })
+        // }
         ServiceConfig.getInstance(APIMode.FIREBASE);
         cc.macro.ENABLE_MULTI_TOUCH = false
         UtilLogger.initPluginFirebase();

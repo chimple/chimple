@@ -48,10 +48,17 @@ devtools://devtools/bundled/inspector.html?v8only=true&ws=127.0.0.1:6086/0001000
 
 To hot update:
 Click on Build->Build
-node scripts/version_generator.js -v 32 -u https://chimple-stage.web.app/hot-update/ -s build/jsb-default -d hot-update/
+node scripts/version_generator.js -v 34 -u https://chimple-stage.web.app/hot-update/ -s build/jsb-default -d hot-update/
 cp -R build/jsb-default/assets hot-update
 cp -R build/jsb-default/src hot-update
 cp -R hot-update ../lang/chimple-stage/public
+
+For production hot update:
+node scripts/version_generator.js -v 35 -u https://bahama-ta-stage.web.app/hot-update/ -s build/jsb-default -d hot-update/
+cp -R build/jsb-default/assets hot-update
+cp -R build/jsb-default/src hot-update
+cp -R hot-update ../lang/chimple-stage/public
+
 
 To run debug and test hot update:
 adb reverse tcp:8901 tcp:8901

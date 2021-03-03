@@ -37,6 +37,9 @@ export interface MicroLink {
     chapterid: string;
     lessonid: string;
     assignmentid?: string;
+    mlpartnerid?: string;
+    mlclassid?: string;
+    mlstudentid?: string;
 }
 
 export const REWARD_TYPES = ["character", "background", "achievement", "inventory"]
@@ -648,6 +651,9 @@ export class Util {
             config.chapter = config.course.chapters.find((c) => c.id == data.chapterid)
             config.lesson = config.chapter.lessons.find((l) => l.id == data.lessonid)
             config.lesson.assignmentId = data.assignmentid || null;
+            config.lesson.mlPartnerId = data.mlpartnerid || null;
+            config.lesson.mlClassId = data.mlclassid || null;
+            config.lesson.mlStudentId = data.mlstudentid || null;
             LessonController.preloadLesson(node, (err: Error) => {
                 if (err) {
                     console.log(err)
