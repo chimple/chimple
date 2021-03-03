@@ -17,6 +17,8 @@ export default class BalloonBurst extends Drag {
     }
 
     onTouchStart(touch: cc.Touch){
+        this.node.getChildByName("label").destroy();
+        this.node.getChildByName("ballon_texture").destroy();
         this.node.parent.getComponent("balloonpop").createSingleBallon(this.node.x);
         if(this.node.getComponentInChildren(cc.Label).string===Balloonpop.correctLetter){                            
             BalloonBurst.letterBursted= BalloonBurst.letterBursted+(1/Balloonpop.letterNo);
@@ -25,10 +27,14 @@ export default class BalloonBurst extends Drag {
         } else{
             this.node.parent.emit("wrong")
         }
-        this.node.destroy();
     }
 
-
+    burstBalloonAnimation(){
+        let balloonAnimation = this.node.getComponent(cc.Animation);
+        if(balloonAnimation!=null){
+            balloonAnimation.play();
+        }
+    }
 
     update (dt) {
         if(this.node.position.y>cc.winSize.height/2){

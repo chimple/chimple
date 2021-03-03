@@ -58,6 +58,7 @@ export default class Balloonpop extends Game {
                         cc.scaleTo(0.5, 0.08)
                     ),
                     cc.scaleTo(0.5, 0.08),
+                    cc.callFunc(this.displayLetterInProgressBar,this,display),
                     cc.callFunc(this.displayProgressBar,this,this.name),
                     cc.callFunc(this.createBallon,this,this.name)
                 ),
@@ -73,8 +74,10 @@ export default class Balloonpop extends Game {
             this.node.addChild(ballon);
             ballon.getComponentInChildren(cc.Label).string = this.currentConfig.options[Math.floor(0 + Math.random() * (this.currentConfig.options.length - 0))]
             ballon.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8))+((ballon.width)*(i)), -480);
-            ballon.color=cc.color(Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255))
+            let currentColor=cc.color(Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255));
+            ballon.getChildByName("ballon_texture").color = currentColor;
             ballon.addComponent(cc.RigidBody).gravityScale = -0.5 + Math.random() * (-0.1 - (-0.5));
+            ballon.getChildByName("burst_node").color = currentColor;
             
         }
     }
@@ -84,8 +87,10 @@ export default class Balloonpop extends Game {
         this.node.addChild(ballon);
         ballon.getComponentInChildren(cc.Label).string = this.currentConfig.options[Math.floor(0 + Math.random() * (this.currentConfig.options.length - 0))]
         ballon.setPosition(xPos, -550);
-        ballon.color=cc.color(Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255))
+        let currentColor=cc.color(Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255))
+        ballon.getChildByName("ballon_texture").color = currentColor;
         ballon.addComponent(cc.RigidBody).gravityScale = -0.5 + Math.random() * (-0.1 - (-0.5));
+        ballon.getChildByName("burst_node").color = currentColor;
    
     }
 
@@ -93,6 +98,13 @@ export default class Balloonpop extends Game {
         this.progressBar.active=true;        
         this.progressBar.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/1.6)));
         this.prgbar.progress=0.0;
+    }
+
+    displayLetterInProgressBar(disp){
+        disp.getChildByName('frontFace').active=false;
+        disp.getChildByName('shadowFace').active=false;
+        disp.getChildByName('label').color=cc.Color.WHITE;
+        disp.getChildByName('label').getComponent(cc.Label).fontSize=1000;
     }
 
     letterProgress(){
