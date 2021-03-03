@@ -74,8 +74,8 @@ export default class Balloonpop extends Game {
             this.node.addChild(ballon);
             ballon.getComponentInChildren(cc.Label).string = this.currentConfig.options[Math.floor(0 + Math.random() * (this.currentConfig.options.length - 0))]
             ballon.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8))+((ballon.width)*(i)), -480);
-            let currentColor=cc.color(Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255));
-            ballon.getChildByName("ballon_texture").color = currentColor;
+            let currentColor = cc.color(Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255));
+            ballon.getChildByName("balloon_texture").color = currentColor;
             ballon.addComponent(cc.RigidBody).gravityScale = -0.5 + Math.random() * (-0.1 - (-0.5));
             ballon.getChildByName("burst_node").color = currentColor;
             
@@ -87,8 +87,8 @@ export default class Balloonpop extends Game {
         this.node.addChild(ballon);
         ballon.getComponentInChildren(cc.Label).string = this.currentConfig.options[Math.floor(0 + Math.random() * (this.currentConfig.options.length - 0))]
         ballon.setPosition(xPos, -550);
-        let currentColor=cc.color(Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255))
-        ballon.getChildByName("ballon_texture").color = currentColor;
+        let currentColor = cc.color(Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255))
+        ballon.getChildByName("balloon_texture").color = currentColor;
         ballon.addComponent(cc.RigidBody).gravityScale = -0.5 + Math.random() * (-0.1 - (-0.5));
         ballon.getChildByName("burst_node").color = currentColor;
    

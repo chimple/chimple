@@ -18,7 +18,8 @@ export default class BalloonBurst extends Drag {
 
     onTouchStart(touch: cc.Touch){
         this.node.getChildByName("label").destroy();
-        this.node.getChildByName("ballon_texture").destroy();
+        this.node.getChildByName("balloon_texture").destroy();
+        this.burstBalloonAnimation();
         this.node.parent.getComponent("balloonpop").createSingleBallon(this.node.x);
         if(this.node.getComponentInChildren(cc.Label).string===Balloonpop.correctLetter){                            
             BalloonBurst.letterBursted= BalloonBurst.letterBursted+(1/Balloonpop.letterNo);
