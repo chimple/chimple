@@ -4,8 +4,6 @@ import {Queue} from "../../../queue";
 import {UpdateHomeTeacher} from "./parseApi";
 import {
     FIREBASE_LIST_ASSIGNMENTS,
-    FIREBASE_GET_STUDENT_LIST_URL,
-    FIREBASE_GET_SECTION_LIST_URL,
     FIREBASE_SCHOOL_URL,
     FIREBASE_UPDATE_HOME_TEACHER_URL, FIREBASE_UPDATE_PROGRESS_URL, LIST_ASSIGNMENTS, UPDATE_PROGRESS_URL
 } from "../domain/parseConstants";
@@ -98,31 +96,6 @@ export class FirebaseApi implements ServiceApi {
         console.log('assignments', jsonResult)
         this.buildAssignments(assignments, jsonResult);
         return assignments;
-    }
-    async sectionList(schoolCode: string, password:string,limit: number = 10) {
-        try {
-            const requestParams: RequestParams = {
-                url: FIREBASE_GET_SECTION_LIST_URL+schoolCode+"&password="+password
-            };
-            let jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader()) || [];
-            console.log('sectionList', jsonResult)
-          //  this.buildAssignments(assignments, jsonResult);
-            return jsonResult;
-        } catch (error) {
-            console.log('@@@@@@@@@@@@@@')
-            
-        }
-    }
-    async studentList(schoolCode: string, password:string,sectionId: string, limit: number = 10) {
-        const requestParams: RequestParams = {
-            url: FIREBASE_GET_STUDENT_LIST_URL
-        };
-        console.log('$$$$$$$$$$$$$$'+FIREBASE_GET_STUDENT_LIST_URL)
-        let jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader()) || [];
-        console.log('studentList', jsonResult.name)
-        console.log('studentLis11t', jsonResult['name'])
-        //this.buildAssignments(assignments, jsonResult);
-        return jsonResult;
     }
 
     buildAssignments(results: any[], assignments: any[]) {
