@@ -1,7 +1,8 @@
 import {ASSET_LOAD_METHOD, firebaseConfigWeb} from "./lib/constants";
 import {User} from "./lib/profile";
 
-const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";``
+const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
+``
 
 const LOGGER_METHOD = "logEvent";
 const LOGGER_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
@@ -59,7 +60,7 @@ const SUBSCRIBE_TOPIC_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
 const INITIALIZED = "init";
 const INITIALIZED_MEHTOD_SIGNATURE = "()V";
 
-
+const OFFLINE_EVENT_DATES = 'offlineEventDates';
 const USER_ID = "userId";
 const DEVICE_ID = "deviceId";
 const TIMESTAMP = "timeStamp";
@@ -127,6 +128,76 @@ export default class UtilLogger {
         }
     }
 
+    public static processOfflineEvents() {
+        const isNetworkAvailable: boolean = UtilLogger.isNetworkAvailable();
+        if (isNetworkAvailable) {
+            const offlineEventDatesString = cc.sys.localStorage.getItem(OFFLINE_EVENT_DATES);
+            if (offlineEventDatesString !== null && offlineEventDatesString.length > 0) {
+                let offlineEvents = JSON.parse(cc.sys.localStorage.getItem(offlineEventDatesString))
+                const dateKey: string = offlineEvents.shift();
+                UtilLogger.processLogForDate(dateKey)
+            }
+
+        }
+    }
+
+    private static processLogForDate(dateKey: string) {
+        const currentDayEventString = cc.sys.localStorage.getItem(dateKey);
+        let eventsByCurrentDateArray = [];
+        if (currentDayEventString !== null && currentDayEventString.length > 0) {
+            eventsByCurrentDateArray = JSON.parse(currentDayEventString);
+        }
+
+        let counter = 0;
+
+        while (eventsByCurrentDateArray.length > 0 && UtilLogger.isNetworkAvailable()) {
+            const item = eventsByCurrentDateArray.shift();
+            counter++;
+            const key = item["key"];
+            const data = item["data"];
+            if (!!key && !!data) {
+                UtilLogger.logEventToFireBaseWithKey(key, data);
+            }
+
+            if (counter === 15 || !UtilLogger.isNetworkAvailable()) {
+                cc.sys.localStorage.setItem(dateKey, JSON.stringify(eventsByCurrentDateArray));
+                counter = 0;
+            }
+        }
+    }
+
+    public static logEventToLocalStorage(key: string, data: object) {
+        const isNetworkAvailable: boolean = UtilLogger.isNetworkAvailable();
+        if (!isNetworkAvailable) {
+
+            // @ts-ignore
+            const currentDateKey = parseInt(new Date().toISOString().slice(0, 10).replaceAll("-",""));
+            const offlineEventDatesString = cc.sys.localStorage.getItem(OFFLINE_EVENT_DATES);
+            let offlineEvents = [];
+            if (offlineEventDatesString !== null && offlineEventDatesString.length > 0) {
+                offlineEvents = JSON.parse(cc.sys.localStorage.getItem(offlineEventDatesString)) || []
+            }
+            const found = offlineEvents.find((s) => s === currentDateKey);
+            if (!found) {
+                offlineEvents.push(currentDateKey);
+                cc.sys.localStorage.setItem(OFFLINE_EVENT_DATES, JSON.stringify(offlineEvents));
+            }
+
+            const currentDayEventString = cc.sys.localStorage.getItem(currentDateKey);
+            let eventsByCurrentDateArray = [];
+            if (currentDayEventString !== null && currentDayEventString.length > 0) {
+                eventsByCurrentDateArray = JSON.parse(cc.sys.localStorage.getItem(currentDateKey)) || []
+            }
+
+            let item = {
+                key,
+                data
+            }
+            eventsByCurrentDateArray.push(item);
+            cc.sys.localStorage.setItem(currentDateKey, JSON.stringify(eventsByCurrentDateArray));
+        }
+    }
+
     public static logEventToFireBaseWithKey(key: string, data: object) {
         cc.log(
             "logging firebase event",
@@ -134,6 +205,8 @@ export default class UtilLogger {
             " with content",
             JSON.stringify(data)
         );
+
+        UtilLogger.logEventToLocalStorage(key, data);
 
         if ("undefined" != typeof sdkbox) {
             // @ts-ignore

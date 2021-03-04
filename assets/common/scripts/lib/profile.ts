@@ -559,7 +559,7 @@ export class User {
             dt = Math.floor(dt / 16);
             return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
         });
-        return uuid;
+        return "5eb2f2e1-021f-470b-a45e-040b7e7950d3";
     }
 
     static createUser(
