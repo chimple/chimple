@@ -60,7 +60,7 @@ export default class ChapterLessons extends cc.Component {
                     lesson.assignmentId = ass.assignmentId;
                     console.log('User.getCurrentUser().lessonProgressMap', User.getCurrentUser().lessonProgressMap);
                     const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
-                    if(lessonProgress === null) {
+                    if(!lessonProgress) {
                         this.createLessonButton(lesson, true)
                     } else if(lessonProgress && lessonProgress.assignmentId !== ass.assignmentId) {
                         this.createLessonButton(lesson, true)
