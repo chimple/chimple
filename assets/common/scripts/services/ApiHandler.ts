@@ -38,10 +38,4 @@ export class ApiHandler {
     public async listAssignments(studentId: string, limit: number = 10) {
         return await this.s.listAssignments(studentId, limit);
     }
-    public async studentList(schoolCode: string, password:string,sectionId: string, limit: number = 10) {
-        return await this.s.studentList(schoolCode,password,sectionId, limit);
-    }
-    public async sectionList(schoolCode: string, password:string, limit: number = 10) {
-        return await this.s.sectionList(schoolCode,password,limit);
-    }
 }
