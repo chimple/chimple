@@ -1,4 +1,5 @@
 import Drag from "../../../common/scripts/drag";
+import { Util } from "../../../common/scripts/util";
 import Balloonpop from "./balloonpop";
 
 const {ccclass, property} = cc._decorator;
@@ -17,16 +18,20 @@ export default class BalloonBurst extends Drag {
     }
 
     onTouchStart(touch: cc.Touch){
-        this.node.getChildByName("label").destroy();
-        this.node.getChildByName("balloon_texture").destroy();
-        this.burstBalloonAnimation();
-        this.node.parent.getComponent("balloonpop").createSingleBallon(this.node.x);
-        if(this.node.getComponentInChildren(cc.Label).string===Balloonpop.correctLetter){                            
-            BalloonBurst.letterBursted= BalloonBurst.letterBursted+(1/Balloonpop.letterNo);
-            this.node.parent.getComponent("balloonpop").letterProgress();
-            this.node.parent.emit("correct")
-        } else{
-            this.node.parent.emit("wrong")
+        if(this.node.getChildByName("label")!=null){
+            this.node.getChildByName("label").destroy();
+            this.node.getChildByName("balloon_texture").destroy();
+            let letter = this.node.getComponentInChildren(cc.Label).string;
+            Util.speakLettersOrWords(letter.toLowerCase(), ()=>{});
+            this.burstBalloonAnimation();
+            this.node.parent.getComponent("balloonpop").createSingleBallon(this.node.x);
+            if(this.node.getComponentInChildren(cc.Label).string===Balloonpop.correctLetter){                            
+                BalloonBurst.letterBursted= BalloonBurst.letterBursted+(1/Balloonpop.letterNo);
+                this.node.parent.getComponent("balloonpop").letterProgress();
+                this.node.parent.emit("correct")
+            } else{
+                this.node.parent.emit("wrong")
+            }
         }
     }
 
