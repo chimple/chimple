@@ -227,11 +227,26 @@ export default class Total extends Game {
 
     @catchError()
     animate(count: number) {
+        var yAxis=-384;
+        var xAxis=0;
         this._countingQuestion.children.forEach(
             (n, i) => {
+                xAxis++;
+                if(n.name.substr(0,2)=='br'){
+                    if(i%3==0){
+                        yAxis=yAxis+n.height+50
+                        xAxis=0;
+                    }
+                }
+                else{
+                    if(i%4==0){
+                        yAxis=yAxis+n.height+30
+                        xAxis=0;
+                    }
+                }
                 new cc.Tween().target(n)
                     .to(0.5 + 0.2 * i / 4,
-                        { position: new cc.Vec2(this._randomPositions[i].x, this._randomPositions[i].y) }, null)
+                        { position: new cc.Vec2((xAxis*(n.width+30))-100, yAxis) }, null)
                     .call(() => {
                         n.getComponent(CountingItem).playLoadingSound();
                     })
