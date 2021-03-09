@@ -62,6 +62,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -69,6 +70,10 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.chimple.bahama.database.AppDatabase;
+import org.chimple.bahama.database.DbOperations;
+import org.chimple.bahama.database.FirebaseOperations;
+import org.chimple.bahama.database.Helper;
 import org.chimple.bahama.logger.ChimpleLogger;
 import org.chimple.bahama.logger.LockScreenReceiver;
 import org.chimple.bahama.logger.NotificationData;
@@ -91,6 +96,9 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import static org.chimple.bahama.database.Helper.EMAIL;
+import static org.chimple.bahama.database.Helper.PASSWORD;
+import static org.chimple.bahama.database.Helper.SHARED_PREF;
 import static org.chimple.bahama.logger.ChimpleLogger.ADVERTISING_ID;
 import static org.chimple.bahama.logger.ChimpleLogger.APP_INSTALLED_TIME;
 import static org.chimple.bahama.logger.ChimpleLogger.APP_LAST_PLAYED_TIME;
@@ -124,12 +132,20 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
 
+    private AppDatabase mDb = null;
+    private FirebaseOperations firebaseOperations = null;
+    private Helper helper = null;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
         logger = ChimpleLogger.getInstance(this, firebaseAnalytics);
         app = this;
+
+        helper = Helper.getInstance(this, this.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE));
+        mAuth = FirebaseAuth.getInstance();
 
         // Workaround in
         // https://stackoverflow.com/questions/16283079/re-launch-of-activity-on-home-button-but-only-the-first-time/16447508
@@ -233,7 +249,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     }
 
     public void assignmentMicroLink(String chapter, String lesson,
-                                           String subject, String assignmentId) {
+                                    String subject, String assignmentId) {
         if (chapter != null && lesson != null && subject != null && assignmentId != null) {
             Log.d(TAG, "received data for chapter:" + chapter + " lesson:" + lesson + " assignmentId: " + assignmentId + " subject: " + subject);
             String uri = "http://chimple.github.io/microlink?courseid=" + subject + "&chapterid=" + chapter + "&lessonid=" + lesson + "&assignmentid=" + assignmentId;
@@ -415,6 +431,15 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         super.onDestroy();
         Log.d(TAG, "updating STOP_TIME:" + new Date().getTime());
         unRegisterReceivers();
+        if (mDb != null) {
+            if (mDb.isOpen()) {
+                mDb.close();
+            }
+            mDb = null;
+        }
+        if (firebaseOperations != null) {
+            firebaseOperations.removeAllSyncListeners();
+        }
         SDKWrapper.getInstance().onDestroy();
     }
 
@@ -812,4 +837,63 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                     }
                 });
     }
+
+    private void auth() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            reload();
+        } else {
+            signIn();
+        }
+    }
+
+    private void reload() {
+        mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                FirebaseUser user = task.isSuccessful() ?
+                        mAuth.getCurrentUser() : null;
+
+                if (user != null) {
+                    app.initDB();
+                } else {
+                    signIn();
+                }
+            }
+        });
+    }
+
+    private void signIn() {
+        String email = this.helper.getSharedPreferences().getString(EMAIL, "");
+        String password = this.helper.getSharedPreferences().getString(PASSWORD, "");
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        FirebaseUser user = task.isSuccessful() ?
+                                mAuth.getCurrentUser() : null;
+                        if (user != null) {
+                            app.initDB();
+                        }
+                    }
+                });
+
+    }
+
+    private void initDB() {
+        mDb = AppDatabase.getInstance(getApplicationContext());
+        firebaseOperations = FirebaseOperations.getInstance(getApplicationContext(), DbOperations.getInstance(mDb));
+    }
+
+    public static void login(String email, String password) {
+        app.helper.getSharedPreferences().edit().putString(EMAIL, email).apply();
+        app.helper.getSharedPreferences().edit().putString(PASSWORD, password).apply();
+        app.auth();
+    }
+
+    public static void updateProfileToFirebase(String schoolId, String sectionId, String studentId, String profileData) {
+        app.firebaseOperations.updateProfileToFirebase(schoolId, sectionId, studentId, profileData);
+    }
+
 }
