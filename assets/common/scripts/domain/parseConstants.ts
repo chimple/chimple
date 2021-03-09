@@ -84,3 +84,5 @@ export const FIREBASE_SCHOOL_URL = 'https://us-central1-bahama-stage.cloudfuncti
 export const FIREBASE_UPDATE_HOME_TEACHER_URL = 'https://us-central1-bahama-stage.cloudfunctions.net/chimple/createStudent';
 export const FIREBASE_LIST_ASSIGNMENTS = 'https://us-central1-bahama-stage.cloudfunctions.net/chimple/assignments?studentId='
 export const FIREBASE_UPDATE_PROGRESS_URL = 'https://us-central1-bahama-stage.cloudfunctions.net/chimple/updateProgressOnHttp';
+export const FIREBASE_GET_SECTION_LIST_URL='https://us-central1-bahama-stage.cloudfunctions.net/chimple/getSections?schoolCode=';
+export const FIREBASE_GET_STUDENT_LIST_URL='https://us-central1-bahama-stage.cloudfunctions.net/chimple/getStudents?schoolCode=code&password=pass&sectionId=QAyHHSZ3v6KQ8pCSKxZa'
