@@ -2,8 +2,10 @@ package org.chimple.bahama.database;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 public class Helper {
+    private static final String TAG = Helper.class.getName();
     private SharedPreferences sharedPreferences = null;
 
     public static String SHARED_PREF = "org.chimple.bahama";
@@ -18,6 +20,11 @@ public class Helper {
     private static Helper sInstance = null;
     private static final Object LOCK = new Object();
 
+    private AppDatabase mDb = null;
+    private FirebaseOperations firebaseOperations = null;
+    private boolean isFirebaseUserLoggedIn = false;
+
+
     public Helper(SharedPreferences sharedPreferences, Context context) {
         this.sharedPreferences = sharedPreferences;
         this.context = context;
@@ -27,6 +34,7 @@ public class Helper {
         if (sInstance == null) {
             synchronized (LOCK) {
                 sInstance = new Helper(sharedPreferences, context);
+                sInstance.initDB(context);
             }
         }
         return sInstance;
@@ -38,5 +46,33 @@ public class Helper {
 
     public SharedPreferences getSharedPreferences() {
         return sharedPreferences;
+    }
+
+    private void initDB(Context context) {
+        try {
+            Log.d(TAG, "AppActivity calling AppDatabase");
+            mDb = AppDatabase.getInstance(context);
+            Log.d(TAG, "AppActivity calling FirebaseOperations");
+            firebaseOperations = FirebaseOperations.getInstance(context, DbOperations.getInstance(mDb));
+        } catch (Exception e) {
+            Log.d(TAG, "initDB failed:" + e);
+            e.printStackTrace();
+        }
+    }
+
+    public AppDatabase getmDb() {
+        return mDb;
+    }
+
+    public FirebaseOperations getFirebaseOperations() {
+        return firebaseOperations;
+    }
+
+    public boolean isFirebaseUserLoggedIn() {
+        return isFirebaseUserLoggedIn;
+    }
+
+    public void setFirebaseUserLoggedIn(boolean firebaseUserLoggedIn) {
+        isFirebaseUserLoggedIn = firebaseUserLoggedIn;
     }
 }

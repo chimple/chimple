@@ -14,8 +14,13 @@ import org.chimple.bahama.model.School;
 import org.chimple.bahama.model.Section;
 import org.chimple.bahama.model.Student;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import static org.chimple.bahama.database.Helper.SCHOOL_COLLECTION;
 import static org.chimple.bahama.database.Helper.SECTION_COLLECTION;
@@ -46,8 +51,10 @@ public class DbOperations {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                db.schoolDao().insertSchool(school);
                 Log.d(TAG, "Upsert school: " + school);
+                db.schoolDao().insertSchool(school);
+                School s = db.schoolDao().findSchoolByEmail(school.getEmail());
+                Log.d(TAG, "Found school: " + s);
             }
         });
     }
@@ -68,8 +75,7 @@ public class DbOperations {
             @Override
             public void run() {
                 db.studentDao().insertStudent(student);
-                Student s1 = db.studentDao().loadStudentById(student.getFirebaseId());
-                Log.d(TAG, "Upsert Student: " + s1);
+                Log.d(TAG, "Upsert Student: " + student);
             }
         });
     }
@@ -136,64 +142,50 @@ public class DbOperations {
         });
     }
 
-    public void convertSchoolToJson(final String firebaseId) {
-        final School[] school = new School[1];
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                school[0] = db.schoolDao().loadSchoolById(firebaseId);
-                Log.d(TAG, "School loaded" + school[0]);
-                if (school != null) {
-                    Gson gson = new GsonBuilder().create();
-                    String jsonSchool = gson.toJson(school);
-                    FirebaseOperations.getInitializedInstance().dbOperationResult(jsonSchool);
-                }
-            }
-        });
-    }
 
-    public void convertSectionsToJson(final String schoolId) {
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                List<Section> sections = db.sectionDao().loadAllSectionsBySchoolId(schoolId);
-                if (sections != null) {
-                    Gson gson = new GsonBuilder().create();
-                    String jsonSections = gson.toJson(sections);
-                    FirebaseOperations.getInitializedInstance().dbOperationResult(jsonSections);
-                }
-            }
-        });
-    }
-
-    public void convertStudentsForSchoolToJson(final String schoolId) {
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                List<Student> students;
-                students = db.studentDao().loadAllStudentsBySchoolId(schoolId);
-                if (students != null) {
-                    Gson gson = new GsonBuilder().create();
-                    String jsonSections = gson.toJson(students);
-                    FirebaseOperations.getInitializedInstance().dbOperationResult(jsonSections);
-                }
-            }
-        });
-    }
-
-    public void convertStudentsForSchoolAndSectionToJson(final String schoolId, final String sectionId) {
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                List<Student> students = db.studentDao().loadAllStudentsBySchoolIdAndSectionId(schoolId, sectionId);
-                if (students != null) {
-                    Gson gson = new GsonBuilder().create();
-                    String jsonSections = gson.toJson(students);
-                    FirebaseOperations.getInitializedInstance().dbOperationResult(jsonSections);
-                }
-            }
-        });
-    }
+//    public void convertSectionsToJson(final String schoolId) {
+//        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                List<Section> sections = db.sectionDao().loadAllSectionsBySchoolId(schoolId);
+//                if (sections != null) {
+//                    Gson gson = new GsonBuilder().create();
+//                    String jsonSections = gson.toJson(sections);
+//                    FirebaseOperations.getInitializedInstance().dbOperationResult(jsonSections);
+//                }
+//            }
+//        });
+//    }
+//
+//    public void convertStudentsForSchoolToJson(final String schoolId) {
+//        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                List<Student> students;
+//                students = db.studentDao().loadAllStudentsBySchoolId(schoolId);
+//                if (students != null) {
+//                    Gson gson = new GsonBuilder().create();
+//                    String jsonSections = gson.toJson(students);
+//                    FirebaseOperations.getInitializedInstance().dbOperationResult(jsonSections);
+//                }
+//            }
+//        });
+//    }
+//
+//    public void convertStudentsForSchoolAndSectionToJson(final String schoolId, final String sectionId) {
+//        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                List<Student> students = db.studentDao().loadAllStudentsBySchoolIdAndSectionId(schoolId, sectionId);
+//                List<Student> students = db.studentDao().loadAllStudentsBySchoolIdAndSectionId(schoolId, sectionId);
+//                if (students != null) {
+//                    Gson gson = new GsonBuilder().create();
+//                    String jsonSections = gson.toJson(students);
+//                    FirebaseOperations.getInitializedInstance().dbOperationResult(jsonSections);
+//                }
+//            }
+//        });
+//    }
 
     public void loadStudentById(final String firebaseId) {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
@@ -227,31 +219,6 @@ public class DbOperations {
         });
     }
 
-    public void loadAllSectionsWithStudents(final String schoolId) {
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                List<Section> s = db.sectionDao().loadAllSectionsBySchoolId(schoolId);
-                for (Section s1 : s) {
-                    Log.d(TAG, "Section found:" + s1);
-                    loadAllStudents(schoolId, s1.getFirebaseId());
-                }
-            }
-        });
-    }
-
-    public void loadAllStudents(final String schoolId, final String sectionId) {
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                List<Student> s = db.studentDao().loadAllStudentsBySchoolIdAndSectionId(schoolId, sectionId);
-                for (Student s1 : s) {
-                    Log.d(TAG, "Student found:" + s1);
-                }
-            }
-        });
-    }
-
     public void updateSync(final String firebaseId, final boolean sync) {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
@@ -266,6 +233,7 @@ public class DbOperations {
             @Override
             public void run() {
                 List<Student> unSyncProfiles = db.studentDao().findAllNonSyncedProfiles(schoolId);
+                Log.d(TAG, "Profiles to Sync, count:" + unSyncProfiles.size());
                 for (final Student s : unSyncProfiles) {
                     DocumentReference student = FirebaseOperations.getInitializedInstance().getDb().collection(SCHOOL_COLLECTION + "/" + schoolId + "/" + SECTION_COLLECTION + "/" + s.getSectionId() + "/" + STUDENT_COLLECTION).document(s.getFirebaseId());
                     HashMap updatedProfileMap = new Gson().fromJson(s.getProfileInfo(), HashMap.class);
@@ -313,4 +281,63 @@ public class DbOperations {
             }
         });
     }
+
+    public School findSchoolByEmail(final String email) {
+        try {
+            final School[] mutable = new School[1];
+            Future<School[]> result = AppExecutors.getInstance().diskIO().submit(new Runnable() {
+                @Override
+                public void run() {
+                    mutable[0] = db.schoolDao().findSchoolByEmail(email);
+                    Log.d(TAG, "found school:" + mutable[0]);
+                }
+            }, mutable);
+            School[] schools = result.get();
+            return schools[0];
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Section> findSectionsBySchool(final String schoolId) {
+        try {
+            final List[] mutable = new List[1];
+            Future<List[]> result = AppExecutors.getInstance().diskIO().submit(new Runnable() {
+                @Override
+                public void run() {
+                    List sections = db.sectionDao().loadAllSectionsBySchoolId(schoolId);
+                    Log.d(TAG, "found sections:" + sections.size());
+                    mutable[0] = sections;
+                }
+            }, mutable);
+            List[] t = result.get();
+            Log.d(TAG, "found t.size:" + t.length);
+            return (List<Section>) t[0];
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List loadAllStudentsForSchoolAndSection(final String schoolId, final String sectionId) {
+        try {
+            final List[] mutable = new List[1];
+            Future<List[]> result = AppExecutors.getInstance().diskIO().submit(new Runnable() {
+                @Override
+                public void run() {
+                    List students = db.studentDao().loadAllStudentsBySchoolIdAndSectionId(schoolId, sectionId);
+                    mutable[0] = students;
+                    Log.d(TAG, "found students:" + students.size());
+                }
+            }, mutable);
+            List[] t = result.get();
+            return (List) t[0];
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }

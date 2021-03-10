@@ -15,12 +15,13 @@ public class School {
     public School() {
     }
 
-    public School(String firebaseId, String image, String name, boolean open, List<String> subjects) {
+    public School(String firebaseId, String email, String image, String name, boolean open, List<String> subjects) {
         this.image = image;
         this.firebaseId = firebaseId;
         this.name = name;
         this.open = open;
         this.subjects = subjects;
+        this.email = email;
     }
 
     @ColumnInfo(name = "image")
@@ -31,6 +32,10 @@ public class School {
 
     @ColumnInfo(name = "open")
     private boolean open;
+
+    @ColumnInfo(name = "email")
+    private String email;
+
 
     @NonNull
     @PrimaryKey
@@ -71,23 +76,12 @@ public class School {
         this.open = open;
     }
 
-    public List<String> getSubjects() {
-        return subjects;
+    public String getEmail() {
+        return email;
     }
 
-    public void setSubjects(List<String> subjects) {
-        this.subjects = subjects;
-    }
-
-    @Override
-    public String toString() {
-        return "School{" +
-                ", image='" + image + '\'' +
-                ", name='" + name + '\'' +
-                ", open=" + open +
-                ", firebaseId='" + firebaseId + '\'' +
-                ", subjects=" + subjects +
-                '}';
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
@@ -98,12 +92,26 @@ public class School {
         return open == school.open &&
                 Objects.equals(image, school.image) &&
                 Objects.equals(name, school.name) &&
+                Objects.equals(email, school.email) &&
                 firebaseId.equals(school.firebaseId) &&
                 Objects.equals(subjects, school.subjects);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(image, name, open, firebaseId, subjects);
+        return Objects.hash(image, name, open, email, firebaseId, subjects);
     }
+
+    @Override
+    public String toString() {
+        return "School{" +
+                "image='" + image + '\'' +
+                ", name='" + name + '\'' +
+                ", open=" + open +
+                ", email='" + email + '\'' +
+                ", firebaseId='" + firebaseId + '\'' +
+                ", subjects=" + subjects +
+                '}';
+    }
+
 }

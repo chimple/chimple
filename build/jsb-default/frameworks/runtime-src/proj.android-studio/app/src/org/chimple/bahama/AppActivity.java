@@ -131,11 +131,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = null;
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
-
-    private AppDatabase mDb = null;
-    private FirebaseOperations firebaseOperations = null;
     private Helper helper = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,10 +139,9 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
         logger = ChimpleLogger.getInstance(this, firebaseAnalytics);
         app = this;
-
         helper = Helper.getInstance(this, this.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE));
         mAuth = FirebaseAuth.getInstance();
-
+        this.auth();
         // Workaround in
         // https://stackoverflow.com/questions/16283079/re-launch-of-activity-on-home-button-but-only-the-first-time/16447508
         if (!isTaskRoot()) {
@@ -208,6 +203,15 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         this.processDeepLink();
         // OTP integration
         initFireBaseAuthLoginUsingOTP();
+
+        String school = ChimpleLogger.findSchool("prakash@sutara.org");
+        Log.d(TAG, "school:" + school);
+
+        String sections = ChimpleLogger.fetchSectionsForSchool("mYLtsjfVuFD6NGLLIVHG");
+        Log.d(TAG, "sections:" + sections);
+
+        String students = ChimpleLogger.fetchStudentsForSchoolAndSection("mYLtsjfVuFD6NGLLIVHG", "D7qVA373VEKXtPeg7BEc");
+        Log.d(TAG, "students:" + students);
     }
 
     public void processDeepLink() {
@@ -431,14 +435,14 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         super.onDestroy();
         Log.d(TAG, "updating STOP_TIME:" + new Date().getTime());
         unRegisterReceivers();
-        if (mDb != null) {
-            if (mDb.isOpen()) {
-                mDb.close();
+        if (helper.getmDb() != null) {
+            if (helper.getmDb().isOpen()) {
+                helper.getmDb().close();
             }
-            mDb = null;
+            ;
         }
-        if (firebaseOperations != null) {
-            firebaseOperations.removeAllSyncListeners();
+        if (helper.getFirebaseOperations() != null) {
+            helper.getFirebaseOperations().removeAllSyncListeners();
         }
         SDKWrapper.getInstance().onDestroy();
     }
@@ -862,8 +866,8 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                 Log.d(TAG, "Firebase user:" + user);
 
                 if (user != null) {
-                    Log.d(TAG, "calling app.initDB()");
-                    app.initDB();
+                    Log.d(TAG, "calling enableSync");
+                    app.enableSync();
                 } else {
                     Log.d(TAG, "reload failed, SignIn()");
                     signIn();
@@ -876,47 +880,36 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         String email = this.helper.getSharedPreferences().getString(EMAIL, "");
         String password = this.helper.getSharedPreferences().getString(PASSWORD, "");
         Log.d(TAG, "signIn with email" + email + " and password:" + password);
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        FirebaseUser user = task.isSuccessful() ?
-                                mAuth.getCurrentUser() : null;
-                        if (user != null) {
-                            Log.d(TAG, "SignIn Successful user:" + user);
-                            app.initDB();
-                        } else {
-                            Log.d(TAG, "SignIn Failed");
+        if (email != null && !email.isEmpty() && password != null && !password.isEmpty()) {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            FirebaseUser user = task.isSuccessful() ?
+                                    mAuth.getCurrentUser() : null;
+                            if (user != null) {
+                                Log.d(TAG, "SignIn Successful user:" + user);
+                                app.enableSync();
+                            } else {
+                                Log.d(TAG, "SignIn Failed");
+                            }
                         }
-                    }
-                });
-
-    }
-
-    private void initDB() {
-        try {
-            Log.d(TAG, "AppActivity calling AppDatabase");
-            mDb = AppDatabase.getInstance(getApplicationContext());
-            Log.d(TAG, "AppActivity calling FirebaseOperations");
-            firebaseOperations = FirebaseOperations.getInstance(getApplicationContext(), DbOperations.getInstance(mDb));
-        } catch (Exception e) {
-            Log.d(TAG, "initDB failed:" + e);
-            e.printStackTrace();
+                    });
         }
     }
 
+    private void enableSync() {
+        Log.d(TAG, "calling enableSyncWithFirebase");
+        helper.setFirebaseUserLoggedIn(true);
+        helper.getFirebaseOperations().enableSyncWithFirebase();
+    }
+
     public static void login(String email, String password) {
-        Log.d(TAG, "Login request for email:" + email + " password:" + password);
-        app.helper.getSharedPreferences().edit().putString(EMAIL, email).apply();
-        app.helper.getSharedPreferences().edit().putString(PASSWORD, password).apply();
-        app.auth();
-    }
-
-    public static void updateProfileToFirebase(String schoolId, String sectionId, String studentId, String profileData) {
-        app.firebaseOperations.updateProfileToFirebase(schoolId, sectionId, studentId, profileData);
-    }
-
-    public Helper getHelper() {
-        return helper;
+        if (!AppActivity.app.helper.isFirebaseUserLoggedIn()) {
+            Log.d(TAG, "Login request for email:" + email + " password:" + password);
+            app.helper.getSharedPreferences().edit().putString(EMAIL, email).apply();
+            app.helper.getSharedPreferences().edit().putString(PASSWORD, password).apply();
+            app.auth();
+        }
     }
 }

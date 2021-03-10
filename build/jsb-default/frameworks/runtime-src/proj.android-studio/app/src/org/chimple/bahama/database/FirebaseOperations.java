@@ -69,7 +69,35 @@ public class FirebaseOperations {
                 .setCacheSizeBytes(DEFAULT_CACHE_SIZE_BYTES)
                 .build();
         db.setFirestoreSettings(settings);
+    }
+
+    // Need to call after auth
+    public void enableSyncWithFirebase() {
+        this.syncUpdatedProfiles();
         this.registerSyncListeners();
+    }
+
+    private void syncUpdatedProfiles() {
+        final String email = Helper.ref().getSharedPreferences().getString(EMAIL, "");
+        Task<QuerySnapshot> schoolCollection = db.collection("School")
+                .whereEqualTo("email", email)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "syncUpdatedProfiles:" + email);
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Helper.ref().getSharedPreferences().edit().putString(FB_SELECTED_SCHOOL, document.getId()).apply();
+                                String schoolId = Helper.ref().getSharedPreferences().getString(FB_SELECTED_SCHOOL, "");
+                                Log.d(TAG, "init listeners for school:" + schoolId);
+                                FirebaseOperations.ref.operations.updateAllNonSyncedProfiles(schoolId);
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 
     private void registerSyncListeners() {
@@ -83,10 +111,16 @@ public class FirebaseOperations {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "finding school with email:" + email);
+                            Log.d(TAG, "Query firebase school collection with email:" + email);
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Helper.ref().getSharedPreferences().edit().putString(FB_SELECTED_SCHOOL, document.getId()).apply();
                                 String schoolId = Helper.ref().getSharedPreferences().getString(FB_SELECTED_SCHOOL, "");
+
+                                School school = document.toObject(School.class);
+                                school.setFirebaseId(document.getId());
+                                Log.d(TAG, "creating school" + school.getName());
+                                operations.upsertSchool(school);
+
                                 Log.d(TAG, "init listeners for school:" + schoolId);
                                 FirebaseOperations.ref.initListeners(schoolId);
                             }
@@ -136,7 +170,6 @@ public class FirebaseOperations {
     }
 
     private void initListeners(final String schoolId) {
-        FirebaseOperations.ref.operations.updateAllNonSyncedProfiles(schoolId);
 
         if (FirebaseOperations.ref.sectionListener == null) {
             FirebaseOperations.ref.sectionListener = FirebaseOperations.ref.initSectionSync(schoolId);
@@ -168,13 +201,14 @@ public class FirebaseOperations {
                                 school.setFirebaseId(documentSnapshot.getId());
                                 Log.d(TAG, "school" + school.getName());
 
+                                if (source.equalsIgnoreCase(SERVER)) {
+                                    operations.upsertSchool(school);
+                                }
+
                                 if (FirebaseOperations.ref.sectionListener == null) {
                                     FirebaseOperations.ref.sectionListener = FirebaseOperations.ref.initSectionSync(schoolId);
                                 }
 
-                                if (source.equalsIgnoreCase(SERVER)) {
-                                    operations.upsertSchool(school);
-                                }
                             } else {
                                 Log.d(TAG, source + " Current data: null");
                                 if (FirebaseOperations.ref.sectionListener != null) {
@@ -190,10 +224,6 @@ public class FirebaseOperations {
                     }
                 }
         );
-
-        operations.convertSchoolToJson(schoolId);
-        operations.convertSectionsToJson(schoolId);
-        operations.convertStudentsForSchoolToJson(schoolId);
     }
 
     private ListenerRegistration initSectionSync(final String schoolId) {
@@ -323,11 +353,6 @@ public class FirebaseOperations {
         return student;
     }
 
-
-    public void dbOperationResult(String result) {
-        Log.d(TAG, "JSON result:" + result);
-    }
-
     public static void updateProfileToFirebase(String schoolId, String sectionId, String studentId, String profileData) {
         // First update to Local DB
         FirebaseOperations.ref.operations.updateStudentProfile(profileData, studentId);
@@ -336,5 +361,8 @@ public class FirebaseOperations {
     public FirebaseFirestore getDb() {
         return db;
     }
-    
+
+    public DbOperations getOperations() {
+        return operations;
+    }
 }

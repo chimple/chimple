@@ -62,6 +62,15 @@ const INITIALIZED_MEHTOD_SIGNATURE = "()V";
 const LOGIN_METHOD = "login";
 const LOGIN_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;)V";
 
+const FIND_SCHOOL_METHOD = "findSchool";
+const FIND_SCHOOL_METHOD_SIGNATURE = "(Ljava/lang/String;)Ljava/lang/String;";
+
+const FETCH_SECTIONS_METHOD = "fetchSectionsForSchool";
+const FETCH_SECTIONS_METHOD_SIGNATURE = "(Ljava/lang/String;)Ljava/lang/String;";
+
+const FETCH_STUDENTS_METHOD = "fetchStudentsForSchoolAndSection";
+const FETCH_STUDENTS_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;";
+
 
 const USER_ID = "userId";
 const DEVICE_ID = "deviceId";
@@ -485,6 +494,61 @@ export default class UtilLogger {
                     LOGIN_METHOD_SIGNATURE,
                     email,
                     password
+                );
+            }
+        } catch (e) {
+        }
+    }
+
+    public static fetchStudents(schoolId: string, sectionId: string): void {
+        cc.log(`fetch Students: ${schoolId} and password: ${sectionId}`);
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID
+            ) {
+                return jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    FETCH_STUDENTS_METHOD,
+                    FETCH_STUDENTS_METHOD_SIGNATURE,
+                    schoolId,
+                    sectionId
+                );
+            }
+        } catch (e) {
+        }
+    }
+
+    public static findSchool(email: string): void {
+        cc.log(`find school using email: ${email}`);
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID
+            ) {
+                return jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    FIND_SCHOOL_METHOD,
+                    FIND_SCHOOL_METHOD_SIGNATURE,
+                    email
+                );
+            }
+        } catch (e) {
+        }
+    }
+
+    public static fetchSections(schoolId: string): void {
+        cc.log(`fetch Sections: ${schoolId}`);
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID
+            ) {
+                return jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    FETCH_SECTIONS_METHOD,
+                    FETCH_SECTIONS_METHOD_SIGNATURE,
+                    schoolId
                 );
             }
         } catch (e) {

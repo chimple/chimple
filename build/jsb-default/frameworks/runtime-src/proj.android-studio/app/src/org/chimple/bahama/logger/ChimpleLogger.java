@@ -33,11 +33,17 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 import org.apache.commons.io.FilenameUtils;
 import org.chimple.bahama.AppActivity;
 import org.chimple.bahama.R;
+import org.chimple.bahama.database.FirebaseOperations;
+import org.chimple.bahama.model.School;
+import org.chimple.bahama.model.Section;
+import org.chimple.bahama.model.Student;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -66,8 +72,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -965,4 +973,71 @@ public class ChimpleLogger {
         Log.d(TAG, "Login request for email:" + email + " password:" + password);
         AppActivity.app.login(email, password);
     }
+
+    public static String findSchool(String email) {
+        String json = null;
+        try {
+            FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
+            Log.d(TAG, "FirebaseOperations instance:" + instance);
+            if (instance != null) {
+                School school = instance.getOperations().findSchoolByEmail(email);
+                if (school != null) {
+                    Gson gson = new GsonBuilder().create();
+                    json = gson.toJson(school);
+                }
+            }
+        } catch (Exception e) {
+
+        }
+        Log.d(TAG, "got school json:" + json);
+        return json;
+    }
+
+    public static String fetchSectionsForSchool(String schoolId) {
+        String json = null;
+        try {
+            FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
+            if (instance != null) {
+                List<Section> sections = instance.getOperations().findSectionsBySchool(schoolId);
+                Log.d(TAG, "fetchSectionsForSchool got sections:" + sections.size());
+                if (sections != null && sections.size() > 0) {
+                    Gson gson = new GsonBuilder().create();
+                    json = gson.toJson(sections.toArray());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "got section json:" + json);
+        return json;
+    }
+
+    public static String fetchStudentsForSchoolAndSection(String schoolId, String sectionId) {
+        String json = null;
+        try {
+            FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
+            if (instance != null) {
+                List<Student> students = instance.getOperations().loadAllStudentsForSchoolAndSection(schoolId, sectionId);
+                Log.d(TAG, "fetchStudentsForSchoolAndSection got students:" + students.size());
+                if (students != null && students.size() > 0) {
+                    Gson gson = new GsonBuilder().create();
+                    json = gson.toJson(students.toArray());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "got student json:" + json);
+        return json;
+    }
+
+    public static void updateProfileToFirebase(String schoolId, String sectionId, String studentId, String profileData) {
+        FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
+        if (instance != null) {
+            instance.updateProfileToFirebase(schoolId, sectionId, studentId, profileData);
+        }
+    }
+
 }
+
+

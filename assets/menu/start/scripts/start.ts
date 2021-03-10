@@ -204,6 +204,15 @@ export default class Start extends cc.Component {
             }
         })
 
+        const school = UtilLogger.findSchool("prakash@sutara.org");
+        cc.log("school:", school)
+
+        const sections = UtilLogger.fetchSections("mYLtsjfVuFD6NGLLIVHG");
+        cc.log("sections:", sections);
+
+        const students = UtilLogger.fetchStudents("mYLtsjfVuFD6NGLLIVHG", "D7qVA373VEKXtPeg7BEc");
+        cc.log("students:", students);
+
     }
 
     private initPage() {
