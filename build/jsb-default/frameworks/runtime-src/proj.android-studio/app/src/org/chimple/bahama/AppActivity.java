@@ -839,11 +839,13 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     }
 
     private void auth() {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            reload();
-        } else {
-            signIn();
+        if (ChimpleLogger.isNetworkAvailable()) {
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if (currentUser != null) {
+                reload();
+            } else {
+                signIn();
+            }
         }
     }
 
@@ -887,6 +889,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     }
 
     public static void login(String email, String password) {
+        Log.d(TAG, "Login request for email:" + email + " password:" + password);
         app.helper.getSharedPreferences().edit().putString(EMAIL, email).apply();
         app.helper.getSharedPreferences().edit().putString(PASSWORD, password).apply();
         app.auth();

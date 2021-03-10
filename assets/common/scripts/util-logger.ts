@@ -1,7 +1,7 @@
 import {ASSET_LOAD_METHOD, firebaseConfigWeb} from "./lib/constants";
 import {User} from "./lib/profile";
 
-const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";``
+const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
 
 const LOGGER_METHOD = "logEvent";
 const LOGGER_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
@@ -58,6 +58,9 @@ const SUBSCRIBE_TOPIC_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
 
 const INITIALIZED = "init";
 const INITIALIZED_MEHTOD_SIGNATURE = "()V";
+
+const LOGIN_METHOD = "login";
+const LOGIN_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;)V";
 
 
 const USER_ID = "userId";
@@ -468,4 +471,24 @@ export default class UtilLogger {
         } catch (e) {
         }
     }
+
+    public static login(email: string, password: string): void {
+        cc.log(`login using email: ${email} and password: ${password}`);
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID
+            ) {
+                return jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    LOGIN_METHOD,
+                    LOGIN_METHOD_SIGNATURE,
+                    email,
+                    password
+                );
+            }
+        } catch (e) {
+        }
+    }
+
 }
