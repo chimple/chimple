@@ -840,10 +840,13 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
 
     private void auth() {
         if (ChimpleLogger.isNetworkAvailable()) {
+            Log.d(TAG, "in Auth network is available");
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {
+                Log.d(TAG, "Reload as current User");
                 reload();
             } else {
+                Log.d(TAG, "SignIn With Firebase");
                 signIn();
             }
         }
@@ -856,9 +859,13 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                 FirebaseUser user = task.isSuccessful() ?
                         mAuth.getCurrentUser() : null;
 
+                Log.d(TAG, "Firebase user:" + user);
+
                 if (user != null) {
+                    Log.d(TAG, "calling app.initDB()");
                     app.initDB();
                 } else {
+                    Log.d(TAG, "reload failed, SignIn()");
                     signIn();
                 }
             }
@@ -868,7 +875,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private void signIn() {
         String email = this.helper.getSharedPreferences().getString(EMAIL, "");
         String password = this.helper.getSharedPreferences().getString(PASSWORD, "");
-
+        Log.d(TAG, "signIn with email" + email + " and password:" + password);
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -876,7 +883,10 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                         FirebaseUser user = task.isSuccessful() ?
                                 mAuth.getCurrentUser() : null;
                         if (user != null) {
+                            Log.d(TAG, "SignIn Successful user:" + user);
                             app.initDB();
+                        } else {
+                            Log.d(TAG, "SignIn Failed");
                         }
                     }
                 });
@@ -884,8 +894,15 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     }
 
     private void initDB() {
-        mDb = AppDatabase.getInstance(getApplicationContext());
-        firebaseOperations = FirebaseOperations.getInstance(getApplicationContext(), DbOperations.getInstance(mDb));
+        try {
+            Log.d(TAG, "AppActivity calling AppDatabase");
+            mDb = AppDatabase.getInstance(getApplicationContext());
+            Log.d(TAG, "AppActivity calling FirebaseOperations");
+            firebaseOperations = FirebaseOperations.getInstance(getApplicationContext(), DbOperations.getInstance(mDb));
+        } catch (Exception e) {
+            Log.d(TAG, "initDB failed:" + e);
+            e.printStackTrace();
+        }
     }
 
     public static void login(String email, String password) {
@@ -899,4 +916,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         app.firebaseOperations.updateProfileToFirebase(schoolId, sectionId, studentId, profileData);
     }
 
+    public Helper getHelper() {
+        return helper;
+    }
 }

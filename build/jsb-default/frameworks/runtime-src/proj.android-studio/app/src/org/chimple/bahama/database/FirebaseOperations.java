@@ -54,6 +54,7 @@ public class FirebaseOperations {
     private Context context = null;
 
     private FirebaseOperations(Context context, DbOperations operations) {
+        Log.d(TAG, "FirebaseOperations constructor...");
         this.ref = this;
         this.operations = operations;
         this.setup();
@@ -61,6 +62,7 @@ public class FirebaseOperations {
 
 
     private void setup() {
+        Log.d(TAG, "Setting up FireStore Configuration");
         this.db = FirebaseFirestore.getInstance();
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(true)
@@ -72,7 +74,8 @@ public class FirebaseOperations {
 
     private void registerSyncListeners() {
         // find school by email id
-        String email = Helper.ref().getSharedPreferences().getString(EMAIL, "");
+        Log.d(TAG, "registerSyncListeners");
+        final String email = Helper.ref().getSharedPreferences().getString(EMAIL, "");
         Task<QuerySnapshot> schoolCollection = db.collection("School")
                 .whereEqualTo("email", email)
                 .get()
@@ -80,9 +83,11 @@ public class FirebaseOperations {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            Log.d(TAG, "finding school with email:" + email);
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Helper.ref().getSharedPreferences().edit().putString(FB_SELECTED_SCHOOL, document.getId()).apply();
                                 String schoolId = Helper.ref().getSharedPreferences().getString(FB_SELECTED_SCHOOL, "");
+                                Log.d(TAG, "init listeners for school:" + schoolId);
                                 FirebaseOperations.ref.initListeners(schoolId);
                             }
                         } else {

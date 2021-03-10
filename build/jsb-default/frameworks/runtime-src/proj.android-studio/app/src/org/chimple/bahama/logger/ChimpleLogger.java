@@ -75,6 +75,8 @@ import java.util.zip.ZipOutputStream;
 
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static org.chimple.bahama.AppActivity.YOUTUBE_CODE;
+import static org.chimple.bahama.database.Helper.EMAIL;
+import static org.chimple.bahama.database.Helper.PASSWORD;
 
 public class ChimpleLogger {
 
@@ -957,5 +959,10 @@ public class ChimpleLogger {
                         }
                     }
                 });
+    }
+
+    public static void login(String email, String password) {
+        Log.d(TAG, "Login request for email:" + email + " password:" + password);
+        AppActivity.app.login(email, password);
     }
 }
