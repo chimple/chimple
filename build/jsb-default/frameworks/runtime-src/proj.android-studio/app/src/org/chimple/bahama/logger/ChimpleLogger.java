@@ -24,7 +24,6 @@ import android.telephony.TelephonyManager;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
-import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -200,7 +199,7 @@ public class ChimpleLogger {
             fis.read(b);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            Crashlytics.logException(e);
+            ;
         }
         return b;
     }
@@ -264,7 +263,6 @@ public class ChimpleLogger {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            Crashlytics.logException(ex);
         }
 
         return filePaths;
@@ -295,7 +293,7 @@ public class ChimpleLogger {
                 logPath.createNewFile();
             } catch (Exception e) {
                 e.printStackTrace();
-                Crashlytics.logException(e);
+                ;
             }
         }
     }
@@ -309,7 +307,7 @@ public class ChimpleLogger {
             try {
                 logPath.createNewFile();
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                ;
                 e.printStackTrace();
             }
         }
@@ -322,7 +320,7 @@ public class ChimpleLogger {
             bw.close();
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            Crashlytics.logException(e);
+            ;
         }
     }
 
@@ -339,17 +337,17 @@ public class ChimpleLogger {
             } catch (IOException e) {
                 // Unrecoverable error connecting to Google Play services (e.g.,
                 // the old version of the service doesn't support getting AdvertisingId).
-                Crashlytics.logException(e);
+                ;
             } catch (GooglePlayServicesNotAvailableException e) {
-                Crashlytics.logException(e);
+                ;
             } catch (GooglePlayServicesRepairableException e) {
-                Crashlytics.logException(e);
+                ;
             }
             deviceId = adInfo.getId();
             Log.d(TAG, "deviceId" + deviceId);
             return deviceId;
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            ;
         }
         return deviceId;
     }
@@ -364,7 +362,7 @@ public class ChimpleLogger {
                 logPath.createNewFile();
             } catch (Exception e) {
                 e.printStackTrace();
-                Crashlytics.logException(e);
+                ;
             }
         }
 
@@ -376,7 +374,7 @@ public class ChimpleLogger {
             bw.close();
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            Crashlytics.logException(e);
+            ;
         }
 
 //        Log.d(TAG, "forcing crash.....");
@@ -426,7 +424,7 @@ public class ChimpleLogger {
             zipOS.close();
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            Crashlytics.logException(e);
+            ;
         }
 
         logPath.delete();
@@ -501,7 +499,7 @@ public class ChimpleLogger {
                 ChimpleLogger.logEventToFireBase("download_status", saveAsFileName, DOWNLOAD_FAILED);
                 downloadStatus.put(saveAsFileName, DOWNLOAD_FAILED);
             }
-            Crashlytics.logException(e);
+            ;
         }
     }
 
@@ -543,13 +541,13 @@ public class ChimpleLogger {
             File baseDir = new File(basePath + File.separator + folderName);
             deleteDirOnFail(baseDir);
             e.printStackTrace();
-            Crashlytics.logException(e);
+            ;
         } finally {
             try {
                 if (zis != null) zis.close();
             } catch (Exception e) {
                 e.printStackTrace();
-                Crashlytics.logException(e);
+                ;
             }
         }
     }
