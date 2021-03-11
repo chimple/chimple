@@ -852,6 +852,15 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                 Log.d(TAG, "SignIn With Firebase");
                 signIn();
             }
+        } else {
+            // if not internet and if current user present then enable offline sync
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser != null) {
+                app.enableSync();
+            } else {
+                // currentUser is null and no internet??
+                Log.d(TAG, "current user in not available and no internet");
+            }
         }
     }
 

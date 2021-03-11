@@ -23,6 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 
 
+import org.chimple.bahama.logger.ChimpleLogger;
 import org.chimple.bahama.model.School;
 import org.chimple.bahama.model.Section;
 import org.chimple.bahama.model.Student;
@@ -73,31 +74,46 @@ public class FirebaseOperations {
 
     // Need to call after auth
     public void enableSyncWithFirebase() {
-        this.syncUpdatedProfiles();
-        this.registerSyncListeners();
+        if (ChimpleLogger.isNetworkAvailable()) {
+            this.syncUpdatedProfiles();
+            this.registerSyncListeners();
+        } else {
+            this.registerSyncListenersOffline();
+        }
     }
 
     private void syncUpdatedProfiles() {
-        final String email = Helper.ref().getSharedPreferences().getString(EMAIL, "");
-        Task<QuerySnapshot> schoolCollection = db.collection("School")
-                .whereEqualTo("email", email)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "syncUpdatedProfiles:" + email);
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Helper.ref().getSharedPreferences().edit().putString(FB_SELECTED_SCHOOL, document.getId()).apply();
-                                String schoolId = Helper.ref().getSharedPreferences().getString(FB_SELECTED_SCHOOL, "");
-                                Log.d(TAG, "init listeners for school:" + schoolId);
-                                FirebaseOperations.ref.operations.updateAllNonSyncedProfiles(schoolId);
+        if (ChimpleLogger.isNetworkAvailable()) {
+            final String email = Helper.ref().getSharedPreferences().getString(EMAIL, "");
+            Task<QuerySnapshot> schoolCollection = db.collection("School")
+                    .whereEqualTo("schoolCode", email)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "syncUpdatedProfiles:" + email);
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Helper.ref().getSharedPreferences().edit().putString(FB_SELECTED_SCHOOL, document.getId()).apply();
+                                    String schoolId = Helper.ref().getSharedPreferences().getString(FB_SELECTED_SCHOOL, "");
+                                    Log.d(TAG, "updateAllNonSyncedProfiles" + schoolId);
+                                    FirebaseOperations.ref.operations.updateAllNonSyncedProfiles(schoolId);
+                                }
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
                             }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
                         }
-                    }
-                });
+                    });
+        }
+    }
+
+    private void registerSyncListenersOffline() {
+        final String email = Helper.ref().getSharedPreferences().getString(EMAIL, "");
+        School school = sInstance.getOperations().findSchoolByEmail(email);
+        if (school != null) {
+            Log.d(TAG, "init listeners for school:" + school.getFirebaseId());
+            FirebaseOperations.ref.initListeners(school.getFirebaseId());
+        }
     }
 
     private void registerSyncListeners() {
@@ -105,7 +121,7 @@ public class FirebaseOperations {
         Log.d(TAG, "registerSyncListeners");
         final String email = Helper.ref().getSharedPreferences().getString(EMAIL, "");
         Task<QuerySnapshot> schoolCollection = db.collection("School")
-                .whereEqualTo("email", email)
+                .whereEqualTo("schoolCode", email)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
