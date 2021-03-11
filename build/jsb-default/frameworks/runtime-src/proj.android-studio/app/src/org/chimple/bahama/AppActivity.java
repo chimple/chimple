@@ -110,7 +110,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private static final int STORAGE_PERMISSION_CODE = 101;
     protected ChimpleLogger logger;
     protected LockScreenReceiver lockScreenReceiver;
-    protected NetworkChangeReceiver networkChangeReceiver;
     private static final String TAG = AppActivity.class.getSimpleName();
     StringBuilder stringBuilder;
     private static FirebaseAnalytics firebaseAnalytics = null;
@@ -163,11 +162,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         //Set up a receiver to listen for the Intents in this Service
         lockScreenReceiver = new LockScreenReceiver(this);
         registerReceiver(lockScreenReceiver, filter);
-
-        //Set up a receiver to listen for the Intents in this Service
-        IntentFilter intentFilter = new IntentFilter();
-        networkChangeReceiver = new NetworkChangeReceiver();
-        registerReceiver(networkChangeReceiver, intentFilter);
 
         stringBuilder = new StringBuilder();
         this.checkInstallReferrer(this);
@@ -408,10 +402,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private void unRegisterReceivers() {
         if (lockScreenReceiver != null) {
             unregisterReceiver(lockScreenReceiver);
-        }
-
-        if (networkChangeReceiver != null) {
-            unregisterReceiver(networkChangeReceiver);
         }
     }
 
