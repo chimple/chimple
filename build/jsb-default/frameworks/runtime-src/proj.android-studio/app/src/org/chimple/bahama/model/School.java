@@ -15,13 +15,13 @@ public class School {
     public School() {
     }
 
-    public School(String firebaseId, String email, String image, String name, boolean open, List<String> subjects) {
+    public School(String firebaseId, String schoolCode, String image, String name, boolean open, List<String> subjects) {
         this.image = image;
         this.firebaseId = firebaseId;
         this.name = name;
         this.open = open;
         this.subjects = subjects;
-        this.email = email;
+        this.schoolCode = schoolCode;
     }
 
     @ColumnInfo(name = "image")
@@ -33,8 +33,8 @@ public class School {
     @ColumnInfo(name = "open")
     private boolean open;
 
-    @ColumnInfo(name = "email")
-    private String email;
+    @ColumnInfo(name = "school_code")
+    private String schoolCode;
 
 
     @NonNull
@@ -76,12 +76,12 @@ public class School {
         this.open = open;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSchoolCode() {
+        return schoolCode;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSchoolCode(String schoolCode) {
+        this.schoolCode = schoolCode;
     }
 
     @Override
@@ -92,14 +92,14 @@ public class School {
         return open == school.open &&
                 Objects.equals(image, school.image) &&
                 Objects.equals(name, school.name) &&
-                Objects.equals(email, school.email) &&
+                Objects.equals(schoolCode, school.schoolCode) &&
                 firebaseId.equals(school.firebaseId) &&
                 Objects.equals(subjects, school.subjects);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(image, name, open, email, firebaseId, subjects);
+        return Objects.hash(image, name, open, schoolCode, firebaseId, subjects);
     }
 
     @Override
@@ -108,7 +108,7 @@ public class School {
                 "image='" + image + '\'' +
                 ", name='" + name + '\'' +
                 ", open=" + open +
-                ", email='" + email + '\'' +
+                ", email='" + schoolCode + '\'' +
                 ", firebaseId='" + firebaseId + '\'' +
                 ", subjects=" + subjects +
                 '}';

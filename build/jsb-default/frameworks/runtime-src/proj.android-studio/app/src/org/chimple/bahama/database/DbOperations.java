@@ -8,18 +8,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import org.chimple.bahama.model.School;
 import org.chimple.bahama.model.Section;
 import org.chimple.bahama.model.Student;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import static org.chimple.bahama.database.Helper.SCHOOL_COLLECTION;
@@ -53,7 +48,7 @@ public class DbOperations {
             public void run() {
                 Log.d(TAG, "Upsert school: " + school);
                 db.schoolDao().insertSchool(school);
-                School s = db.schoolDao().findSchoolByEmail(school.getEmail());
+                School s = db.schoolDao().findSchoolBySchoolCode(school.getSchoolCode());
                 Log.d(TAG, "Found school: " + s);
             }
         });
@@ -303,7 +298,7 @@ public class DbOperations {
             Future<School[]> result = AppExecutors.getInstance().diskIO().submit(new Runnable() {
                 @Override
                 public void run() {
-                    mutable[0] = db.schoolDao().findSchoolByEmail(email);
+                    mutable[0] = db.schoolDao().findSchoolBySchoolCode(email);
                     Log.d(TAG, "found school:" + mutable[0]);
                 }
             }, mutable);
