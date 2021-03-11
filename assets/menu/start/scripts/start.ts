@@ -204,15 +204,18 @@ export default class Start extends cc.Component {
             }
         })
 
-        const school = UtilLogger.findSchool("prakash@sutara.org");
-        cc.log("school:", school)
-
-        const sections = UtilLogger.fetchSections("mYLtsjfVuFD6NGLLIVHG");
-        cc.log("sections:", sections);
-
-        const students = UtilLogger.fetchStudents("mYLtsjfVuFD6NGLLIVHG", "D7qVA373VEKXtPeg7BEc");
-        cc.log("students:", students);
-
+        // Sample Code for offline sync
+        // const school = UtilLogger.findSchool("prakash@sutara.org");
+        // cc.log("school:", school)
+        //
+        // const sections = UtilLogger.fetchSections("mYLtsjfVuFD6NGLLIVHG");
+        // cc.log("sections:", sections);
+        //
+        // const students = UtilLogger.fetchStudents("mYLtsjfVuFD6NGLLIVHG", "D7qVA373VEKXtPeg7BEc");
+        // cc.log("students:", students);
+        // user.schoolId = "mYLtsjfVuFD6NGLLIVHG";
+        // user.sectionId = "D7qVA373VEKXtPeg7BEc";
+        // user.studentId = "61oKRmXrCWSGkjN2KuCv";
     }
 
     private initPage() {

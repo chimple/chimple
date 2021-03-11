@@ -369,7 +369,7 @@ public class FirebaseOperations {
         return student;
     }
 
-    public static void updateProfileToFirebase(String schoolId, String sectionId, String studentId, String profileData) {
+    public static void syncProfile(String schoolId, String sectionId, String studentId, String profileData) {
         // First update to Local DB
         FirebaseOperations.ref.operations.updateStudentProfileToLocalDB(schoolId, sectionId, studentId, profileData);
     }

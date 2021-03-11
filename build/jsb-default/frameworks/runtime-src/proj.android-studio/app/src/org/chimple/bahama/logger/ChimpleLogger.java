@@ -72,10 +72,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -83,8 +81,6 @@ import java.util.zip.ZipOutputStream;
 
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static org.chimple.bahama.AppActivity.YOUTUBE_CODE;
-import static org.chimple.bahama.database.Helper.EMAIL;
-import static org.chimple.bahama.database.Helper.PASSWORD;
 
 public class ChimpleLogger {
 
@@ -1031,10 +1027,11 @@ public class ChimpleLogger {
         return json;
     }
 
-    public static void updateProfileToFirebase(String schoolId, String sectionId, String studentId, String profileData) {
+    public static void syncProfile(String schoolId, String sectionId, String studentId, String profileData) {
         FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
+        Log.d(TAG, "Sync profile school:" + schoolId + " section:" + sectionId + " student:" + studentId);
         if (instance != null) {
-            instance.updateProfileToFirebase(schoolId, sectionId, studentId, profileData);
+            instance.syncProfile(schoolId, sectionId, studentId, profileData);
         }
     }
 

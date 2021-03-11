@@ -71,6 +71,8 @@ const FETCH_SECTIONS_METHOD_SIGNATURE = "(Ljava/lang/String;)Ljava/lang/String;"
 const FETCH_STUDENTS_METHOD = "fetchStudentsForSchoolAndSection";
 const FETCH_STUDENTS_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;";
 
+const SYNC_PROFILE_METHOD = "syncProfile";
+const SYNC_PROFILE_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
 
 const USER_ID = "userId";
 const DEVICE_ID = "deviceId";
@@ -549,6 +551,27 @@ export default class UtilLogger {
                     FETCH_SECTIONS_METHOD,
                     FETCH_SECTIONS_METHOD_SIGNATURE,
                     schoolId
+                );
+            }
+        } catch (e) {
+        }
+    }
+
+    public static syncProfile(schoolId: string, sectionId: string, studentId: string, profile: string): void {
+        cc.log(`syncProfile for: ${schoolId}-${sectionId}-${studentId}`);
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID
+            ) {
+                return jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    SYNC_PROFILE_METHOD,
+                    SYNC_PROFILE_METHOD_SIGNATURE,
+                    schoolId,
+                    sectionId,
+                    studentId,
+                    profile
                 );
             }
         } catch (e) {
