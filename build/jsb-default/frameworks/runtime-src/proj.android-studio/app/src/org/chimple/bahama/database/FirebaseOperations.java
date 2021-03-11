@@ -355,7 +355,7 @@ public class FirebaseOperations {
 
     public static void updateProfileToFirebase(String schoolId, String sectionId, String studentId, String profileData) {
         // First update to Local DB
-        FirebaseOperations.ref.operations.updateStudentProfile(profileData, studentId);
+        FirebaseOperations.ref.operations.updateStudentProfileToLocalDB(schoolId, sectionId, studentId, profileData);
     }
 
     public FirebaseFirestore getDb() {

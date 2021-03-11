@@ -235,38 +235,53 @@ public class DbOperations {
                 List<Student> unSyncProfiles = db.studentDao().findAllNonSyncedProfiles(schoolId);
                 Log.d(TAG, "Profiles to Sync, count:" + unSyncProfiles.size());
                 for (final Student s : unSyncProfiles) {
-                    DocumentReference student = FirebaseOperations.getInitializedInstance().getDb().collection(SCHOOL_COLLECTION + "/" + schoolId + "/" + SECTION_COLLECTION + "/" + s.getSectionId() + "/" + STUDENT_COLLECTION).document(s.getFirebaseId());
-                    HashMap updatedProfileMap = new Gson().fromJson(s.getProfileInfo(), HashMap.class);
-                    student.update("profile", updatedProfileMap)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    updateSync(s.getFirebaseId(), true);
-                                    Log.d(TAG, "DocumentSnapshot successfully updated! Sync Completed for:" + s.getFirebaseId());
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Error updating document Sync Failed for :" + s.getFirebaseId(), e);
-                                    updateSync(s.getFirebaseId(), false);
-                                }
-                            });
+                    updateStudentDoc(s);
                 }
             }
         });
     }
 
-    public void updateStudentProfile(final String profile, final String firebaseId) {
+    public void updateStudentProfileToLocalDB(final String schoolId, final String sectionId, final String firebaseId, final String profile) {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                db.studentDao().updateStudentProfile(profile, firebaseId, false);
+                db.studentDao().updateStudentProfile(schoolId, sectionId, profile, firebaseId, false);
                 Log.d(TAG, "Updated student Profile:" + profile + " for:" + firebaseId);
+                updateProfileForStudentToFirebase(schoolId, sectionId, firebaseId);
             }
         });
     }
 
+    private void updateStudentDoc(final Student s) {
+        DocumentReference student = FirebaseOperations.getInitializedInstance().getDb().collection(SCHOOL_COLLECTION + "/" + s.getSchoolId() + "/" + SECTION_COLLECTION + "/" + s.getSectionId() + "/" + STUDENT_COLLECTION).document(s.getFirebaseId());
+        HashMap updatedProfileMap = new Gson().fromJson(s.getProfileInfo(), HashMap.class);
+        student.update("profile", updatedProfileMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        updateSync(s.getFirebaseId(), true);
+                        Log.d(TAG, "DocumentSnapshot successfully updated! Sync Completed for:" + s.getFirebaseId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error updating document Sync Failed for :" + s.getFirebaseId(), e);
+                        updateSync(s.getFirebaseId(), false);
+                    }
+                });
+    }
+
+    private void updateProfileForStudentToFirebase(final String schoolId, final String sectionId, final String firebaseId) {
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                Student unSyncProfile = db.studentDao().findNonSyncedProfileForStudent(schoolId, sectionId, firebaseId);
+                Log.d(TAG, "Profiles to Sync for student:" + unSyncProfile);
+                updateStudentDoc(unSyncProfile);
+            }
+        });
+    }
 
     public void initFirebaseSyncForAllCachedStudents(final String schoolId) {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
