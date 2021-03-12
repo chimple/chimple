@@ -27,6 +27,7 @@ import org.chimple.bahama.logger.ChimpleLogger;
 import org.chimple.bahama.model.School;
 import org.chimple.bahama.model.Section;
 import org.chimple.bahama.model.Student;
+import org.chimple.bahama.workers.SyncOperationManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -148,7 +149,8 @@ public class FirebaseOperations {
 
     }
 
-    public void removeAllSyncListeners() {
+    public void unRegisterListeners() {
+        Log.d(TAG, "unRegisterListeners");
         if (this.schoolListener != null) {
             this.schoolListener.remove();
             this.schoolListener = null;

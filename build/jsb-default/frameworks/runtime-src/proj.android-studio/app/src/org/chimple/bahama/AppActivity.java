@@ -68,11 +68,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.google.firebase.messaging.FirebaseMessaging;
 
-import org.chimple.bahama.database.AppDatabase;
-import org.chimple.bahama.database.DbOperations;
-import org.chimple.bahama.database.FirebaseOperations;
 import org.chimple.bahama.database.Helper;
 import org.chimple.bahama.logger.ChimpleLogger;
 import org.chimple.bahama.logger.LockScreenReceiver;
@@ -98,13 +94,11 @@ import java.util.concurrent.TimeUnit;
 
 import static org.chimple.bahama.database.Helper.EMAIL;
 import static org.chimple.bahama.database.Helper.PASSWORD;
-import static org.chimple.bahama.database.Helper.SHARED_PREF;
 import static org.chimple.bahama.logger.ChimpleLogger.ADVERTISING_ID;
 import static org.chimple.bahama.logger.ChimpleLogger.APP_INSTALLED_TIME;
 import static org.chimple.bahama.logger.ChimpleLogger.APP_LAST_PLAYED_TIME;
 import static org.chimple.bahama.logger.ChimpleLogger.FIREBASE_MESSAGES_SYNC;
 import static org.chimple.bahama.logger.ChimpleLogger.FIREBASE_MESSAGE_TOKEN;
-import static org.chimple.bahama.logger.ChimpleLogger.PROGRESS_IDS;
 
 public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private static final int STORAGE_PERMISSION_CODE = 101;
@@ -137,11 +131,10 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mAuth = FirebaseAuth.getInstance();
         logger = ChimpleLogger.getInstance(this, firebaseAnalytics);
         app = this;
-        helper = Helper.getInstance(this, this.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE));
-        mAuth = FirebaseAuth.getInstance();
-        this.auth();
+        helper = Helper.getInstance(this);
         // Workaround in
         // https://stackoverflow.com/questions/16283079/re-launch-of-activity-on-home-button-but-only-the-first-time/16447508
         if (!isTaskRoot()) {
@@ -441,7 +434,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             ;
         }
         if (helper.getFirebaseOperations() != null) {
-            helper.getFirebaseOperations().removeAllSyncListeners();
+            helper.getFirebaseOperations().unRegisterListeners();
         }
         SDKWrapper.getInstance().onDestroy();
     }
@@ -841,83 +834,16 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                 });
     }
 
-    private void auth() {
-        if (ChimpleLogger.isNetworkAvailable()) {
-            Log.d(TAG, "in Auth network is available");
-            FirebaseUser currentUser = mAuth.getCurrentUser();
-            if (currentUser != null) {
-                Log.d(TAG, "Reload as current User");
-                reload();
-            } else {
-                Log.d(TAG, "SignIn With Firebase");
-                signIn();
-            }
-        } else {
-            // if not internet and if current user present then enable offline sync
-            FirebaseUser currentUser = mAuth.getCurrentUser();
-            if(currentUser != null) {
-                app.enableSync();
-            } else {
-                // currentUser is null and no internet??
-                Log.d(TAG, "current user in not available and no internet");
-            }
-        }
-    }
-
-    private void reload() {
-        mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                FirebaseUser user = task.isSuccessful() ?
-                        mAuth.getCurrentUser() : null;
-
-                Log.d(TAG, "Firebase user:" + user);
-
-                if (user != null) {
-                    Log.d(TAG, "calling enableSync");
-                    app.enableSync();
-                } else {
-                    Log.d(TAG, "reload failed, SignIn()");
-                    signIn();
-                }
-            }
-        });
-    }
-
-    private void signIn() {
-        String email = this.helper.getSharedPreferences().getString(EMAIL, "");
-        String password = this.helper.getSharedPreferences().getString(PASSWORD, "");
-        Log.d(TAG, "signIn with email" + email + " and password:" + password);
-        if (email != null && !email.isEmpty() && password != null && !password.isEmpty()) {
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            FirebaseUser user = task.isSuccessful() ?
-                                    mAuth.getCurrentUser() : null;
-                            if (user != null) {
-                                Log.d(TAG, "SignIn Successful user:" + user);
-                                app.enableSync();
-                            } else {
-                                Log.d(TAG, "SignIn Failed");
-                            }
-                        }
-                    });
-        }
-    }
-
-    private void enableSync() {
-        Log.d(TAG, "calling enableSyncWithFirebase");
-        helper.setFirebaseUserLoggedIn(true);
-        helper.getFirebaseOperations().enableSyncWithFirebase();
-    }
 
     public static void login(String email, String password) {
-        if (!AppActivity.app.helper.isFirebaseUserLoggedIn()) {
+        if (!AppActivity.app.helper.isFirebaseUserLoggedIn()
+                && email != null && !email.isEmpty()
+                && password != null && !password.isEmpty()
+        ) {
             Log.d(TAG, "Login request for email:" + email + " password:" + password);
             app.helper.getSharedPreferences().edit().putString(EMAIL, email).apply();
             app.helper.getSharedPreferences().edit().putString(PASSWORD, password).apply();
-            app.auth();
+            app.helper.auth();
         }
     }
 }

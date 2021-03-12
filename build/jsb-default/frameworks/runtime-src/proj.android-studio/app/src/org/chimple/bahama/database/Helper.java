@@ -4,6 +4,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.chimple.bahama.AppActivity;
+import org.chimple.bahama.auth.FirebaseAuthWithGoogle;
+import org.chimple.bahama.logger.ChimpleLogger;
+import org.chimple.bahama.workers.SyncOperationManager;
+
 public class Helper {
     private static final String TAG = Helper.class.getName();
     private SharedPreferences sharedPreferences = null;
@@ -23,17 +36,19 @@ public class Helper {
     private AppDatabase mDb = null;
     private FirebaseOperations firebaseOperations = null;
     private boolean isFirebaseUserLoggedIn = false;
+    private FirebaseAuth mAuth;
+    private SyncOperationManager syncOperationManager;
 
-
-    public Helper(SharedPreferences sharedPreferences, Context context) {
+    public Helper(Context context, SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
         this.context = context;
+        mAuth = FirebaseAuth.getInstance();
     }
 
-    public static Helper getInstance(Context context, SharedPreferences sharedPreferences) {
+    public static Helper getInstance(Context context) {
         if (sInstance == null) {
             synchronized (LOCK) {
-                sInstance = new Helper(sharedPreferences, context);
+                sInstance = new Helper(context, context.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE));
                 sInstance.initDB(context);
             }
         }
@@ -54,6 +69,7 @@ public class Helper {
             mDb = AppDatabase.getInstance(context);
             Log.d(TAG, "AppActivity calling FirebaseOperations");
             firebaseOperations = FirebaseOperations.getInstance(context, DbOperations.getInstance(mDb));
+            this.syncOperationManager = SyncOperationManager.getInstance(context);
         } catch (Exception e) {
             Log.d(TAG, "initDB failed:" + e);
             e.printStackTrace();
@@ -74,5 +90,81 @@ public class Helper {
 
     public void setFirebaseUserLoggedIn(boolean firebaseUserLoggedIn) {
         isFirebaseUserLoggedIn = firebaseUserLoggedIn;
+    }
+
+    public void enableSync() {
+        Log.d(TAG, "enableSyncWithFirebase");
+        sInstance.setFirebaseUserLoggedIn(true);
+        sInstance.getFirebaseOperations().enableSyncWithFirebase();
+    }
+
+    public void scheduleStartSync() {
+//        firebaseOperations.unRegisterListeners();
+        sInstance.syncOperationManager.scheduleStartSync();
+    }
+
+    public void auth() {
+        if (ChimpleLogger.isNetworkAvailable()) {
+            Log.d(TAG, "in Auth network is available");
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if (currentUser != null) {
+                Log.d(TAG, "Reload as current User");
+                reload();
+            } else {
+                Log.d(TAG, "SignIn With Firebase");
+                signIn();
+            }
+        } else {
+            // if not internet and if current user present then enable offline sync
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if (currentUser != null) {
+                enableSync();
+            } else {
+                // currentUser is null and no internet??
+                Log.d(TAG, "current user in not available and no internet");
+            }
+        }
+    }
+
+    private void reload() {
+        mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                FirebaseUser user = task.isSuccessful() ?
+                        mAuth.getCurrentUser() : null;
+
+                Log.d(TAG, "Firebase user:" + user);
+
+                if (user != null) {
+                    Log.d(TAG, "calling enableSync");
+                    enableSync();
+                } else {
+                    Log.d(TAG, "reload failed, SignIn()");
+                    signIn();
+                }
+            }
+        });
+    }
+
+    private void signIn() {
+        String email = this.getSharedPreferences().getString(EMAIL, "");
+        String password = this.getSharedPreferences().getString(PASSWORD, "");
+        Log.d(TAG, "signIn with email" + email + " and password:" + password);
+        if (email != null && !email.isEmpty() && password != null && !password.isEmpty()) {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(new FirebaseAuthWithGoogle(), new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            FirebaseUser user = task.isSuccessful() ?
+                                    mAuth.getCurrentUser() : null;
+                            if (user != null) {
+                                Log.d(TAG, "SignIn Successful user:" + user);
+                                enableSync();
+                            } else {
+                                Log.d(TAG, "SignIn Failed");
+                            }
+                        }
+                    });
+        }
     }
 }
