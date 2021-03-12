@@ -162,7 +162,11 @@ export default class Start extends cc.Component {
         //     return !(lessonProgress && lessonProgress.date < ass.createAt)
         // })
         config.assignments = assignments;
-        if (config.assignments.length > 0) {
+        if (config.assignments.length > 0 || !user.isConnected) {
+            if(config.assignments.length > 0 && !user.isConnected) {
+                user.isConnected = true
+                user.storeUser()    
+            }
             if (!!this.assignmentButton) {
                 this.assignmentButton.interactable = true
             }

@@ -124,6 +124,7 @@ export class User {
     private _level: number;
     private _assignments: string[]
     private _currentCourseId: string
+    isConnected: boolean = false
     debug: boolean = false
     curriculumLoaded: boolean = false
 
@@ -397,7 +398,7 @@ export class User {
     updateLessonProgress(lessonId: string, score: number, quizScores: number[], assignmentId: string = null): [string, string] {
         var reward: [string, string]
         const config = Config.i
-        if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == null) {
+        if (lessonId == config.course.id + '_PreQuiz') {
             const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
             if (quizChapter) {
                 let currentCourse = config.course.chapters.find((c) => c.id != config.course.id + '_quiz')
@@ -693,6 +694,7 @@ export class User {
             data.lessonPlan,
             data.serverId
         );
+        user.isConnected = data.isConnected
         // user._lessonPlanDate = new Date(data.lessonPlanDate)
         // if (data.lessonPlanCourseId) user._lessonPlanCourseId = data.lessonPlanCourseId
         if (data.assignments) user._assignments = data.assignments
@@ -733,7 +735,8 @@ export class User {
             // 'lessonPlanDate': user.lessonPlanDate,
             // 'lessonPlan': user.lessonPlan,
             'assignments': user.assignments,
-            'chapterFinishedMap': chapterFinishedMapObj
+            'chapterFinishedMap': chapterFinishedMapObj,
+            'isConnected': user.isConnected
         });
     }
 
