@@ -144,6 +144,10 @@ export default class Chimple extends cc.Component {
         UtilLogger.initPluginFirebase();
         Util.loadi18NMapping(() => {
         })
+
+        if (cc.sys.isNative) {
+            UtilLogger.login("prakash@sutara.org", "123456");
+        }
         const lang = Profile.lang || Lang.ENGLISH
         const langConfig = LANG_CONFIGS.get(lang)
         if (langConfig) Config.i.loadFontDynamically(langConfig.font)
@@ -185,7 +189,7 @@ export default class Chimple extends cc.Component {
                         // @ts-ignore
                         cc.assetManager.cacheManager.cachedFiles.forEach((val, key) => {
                             cc.log('removeCache: ' + key)
-                            // if(val!= null && val.bundle == 'en0000') 
+                            // if(val!= null && val.bundle == 'en0000')
                             // @ts-ignore
                             cc.assetManager.cacheManager.removeCache(key)
                         })

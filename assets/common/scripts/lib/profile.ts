@@ -125,6 +125,9 @@ export class User {
     private _assignments: string[]
     private _currentCourseId: string
     isConnected: boolean = false
+    private _schoolId: string;
+    private _sectionId: string;
+    private _studentId: string;
     debug: boolean = false
     curriculumLoaded: boolean = false
 
@@ -340,6 +343,31 @@ export class User {
         return this._currentCourseId;
     }
 
+
+    get schoolId(): string {
+        return this._schoolId;
+    }
+
+    set schoolId(value: string) {
+        this._schoolId = value;
+    }
+
+    get sectionId(): string {
+        return this._sectionId;
+    }
+
+    set sectionId(value: string) {
+        this._sectionId = value;
+    }
+
+    get studentId(): string {
+        return this._studentId;
+    }
+
+    set studentId(value: string) {
+        this._studentId = value;
+    }
+
     unlockInventoryForItem(item: string) {
         this._unlockedInventory[item] = true;
         this.storeUser();
@@ -550,6 +578,10 @@ export class User {
 
                 Queue.getInstance().push(profileInfo);
             }
+        }
+
+        if(cc.sys.isNative && !!user.schoolId && !!user.sectionId && !!user.studentId) {
+            UtilLogger.syncProfile(user.schoolId, user.sectionId, user.studentId, User.toJson(user))
         }
     }
 
