@@ -39,7 +39,7 @@ public class SyncOperationManager {
         this.workManager.cancelAllWork();
         this.workManager
                 .beginWith(this.buildSyncTask())
-                .then(this.cleanSyncTask())
+//                .then(this.cleanSyncTask())
                 .enqueue();
     }
 
@@ -52,14 +52,14 @@ public class SyncOperationManager {
         return oneTimeWorkRequest;
     }
 
-    private OneTimeWorkRequest cleanSyncTask() {
-        OneTimeWorkRequest oneTimeWorkRequest =
-                new OneTimeWorkRequest.Builder(CleanSyncWorker.class)
-                        .setInitialDelay(300, TimeUnit.SECONDS)
-                        .setConstraints(this.buildConstraint())
-                        .build();
-        return oneTimeWorkRequest;
-    }
+//    private OneTimeWorkRequest cleanSyncTask() {
+//        OneTimeWorkRequest oneTimeWorkRequest =
+//                new OneTimeWorkRequest.Builder(CleanSyncWorker.class)
+//                        .setInitialDelay(300, TimeUnit.SECONDS)
+//                        .setConstraints(this.buildConstraint())
+//                        .build();
+//        return oneTimeWorkRequest;
+//    }
 
     private Constraints buildConstraint() {
         Constraints constraints = new Constraints.Builder()
