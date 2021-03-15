@@ -60,6 +60,16 @@ export const DO_HOT_UPDATE = true
 export let RECEIVED_TEACHER_REQUESTS: boolean = false;
 
 //@ts-ignore
+cc.loginSucceeded = async function (schoolInfo: string) {
+    cc.log("loginSucceeded: " + schoolInfo);
+}
+
+//@ts-ignore
+cc.loginFailed = async function (reason) {
+    cc.log("loginFailed: " + reason);
+}
+
+//@ts-ignore
 cc.deep_link = function (url) {
     cc.log("deep link called with url:" + url);
     if (url !== null && url.includes("http://chimple.github.io/")) {
@@ -144,6 +154,10 @@ export default class Chimple extends cc.Component {
         UtilLogger.initPluginFirebase();
         Util.loadi18NMapping(() => {
         })
+
+        if (cc.sys.isNative) {
+            UtilLogger.login("prakash@sutara.org", "123456");
+        }
         const lang = Profile.lang || Lang.ENGLISH
         const langConfig = LANG_CONFIGS.get(lang)
         if (langConfig) Config.i.loadFontDynamically(langConfig.font)
@@ -185,7 +199,7 @@ export default class Chimple extends cc.Component {
                         // @ts-ignore
                         cc.assetManager.cacheManager.cachedFiles.forEach((val, key) => {
                             cc.log('removeCache: ' + key)
-                            // if(val!= null && val.bundle == 'en0000') 
+                            // if(val!= null && val.bundle == 'en0000')
                             // @ts-ignore
                             cc.assetManager.cacheManager.removeCache(key)
                         })

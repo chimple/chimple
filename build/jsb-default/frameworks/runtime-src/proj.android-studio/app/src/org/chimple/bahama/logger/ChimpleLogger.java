@@ -24,7 +24,6 @@ import android.telephony.TelephonyManager;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
-import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -34,11 +33,17 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 import org.apache.commons.io.FilenameUtils;
 import org.chimple.bahama.AppActivity;
 import org.chimple.bahama.R;
+import org.chimple.bahama.database.FirebaseOperations;
+import org.chimple.bahama.model.School;
+import org.chimple.bahama.model.Section;
+import org.chimple.bahama.model.Student;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -200,7 +205,7 @@ public class ChimpleLogger {
             fis.read(b);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            Crashlytics.logException(e);
+            ;
         }
         return b;
     }
@@ -264,7 +269,6 @@ public class ChimpleLogger {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            Crashlytics.logException(ex);
         }
 
         return filePaths;
@@ -295,7 +299,7 @@ public class ChimpleLogger {
                 logPath.createNewFile();
             } catch (Exception e) {
                 e.printStackTrace();
-                Crashlytics.logException(e);
+                ;
             }
         }
     }
@@ -309,7 +313,7 @@ public class ChimpleLogger {
             try {
                 logPath.createNewFile();
             } catch (Exception e) {
-                Crashlytics.logException(e);
+                ;
                 e.printStackTrace();
             }
         }
@@ -322,7 +326,7 @@ public class ChimpleLogger {
             bw.close();
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            Crashlytics.logException(e);
+            ;
         }
     }
 
@@ -339,17 +343,17 @@ public class ChimpleLogger {
             } catch (IOException e) {
                 // Unrecoverable error connecting to Google Play services (e.g.,
                 // the old version of the service doesn't support getting AdvertisingId).
-                Crashlytics.logException(e);
+                ;
             } catch (GooglePlayServicesNotAvailableException e) {
-                Crashlytics.logException(e);
+                ;
             } catch (GooglePlayServicesRepairableException e) {
-                Crashlytics.logException(e);
+                ;
             }
             deviceId = adInfo.getId();
             Log.d(TAG, "deviceId" + deviceId);
             return deviceId;
         } catch (Exception e) {
-            Crashlytics.logException(e);
+            ;
         }
         return deviceId;
     }
@@ -364,7 +368,7 @@ public class ChimpleLogger {
                 logPath.createNewFile();
             } catch (Exception e) {
                 e.printStackTrace();
-                Crashlytics.logException(e);
+                ;
             }
         }
 
@@ -376,7 +380,7 @@ public class ChimpleLogger {
             bw.close();
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            Crashlytics.logException(e);
+            ;
         }
 
 //        Log.d(TAG, "forcing crash.....");
@@ -426,7 +430,7 @@ public class ChimpleLogger {
             zipOS.close();
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            Crashlytics.logException(e);
+            ;
         }
 
         logPath.delete();
@@ -501,7 +505,7 @@ public class ChimpleLogger {
                 ChimpleLogger.logEventToFireBase("download_status", saveAsFileName, DOWNLOAD_FAILED);
                 downloadStatus.put(saveAsFileName, DOWNLOAD_FAILED);
             }
-            Crashlytics.logException(e);
+            ;
         }
     }
 
@@ -543,13 +547,13 @@ public class ChimpleLogger {
             File baseDir = new File(basePath + File.separator + folderName);
             deleteDirOnFail(baseDir);
             e.printStackTrace();
-            Crashlytics.logException(e);
+            ;
         } finally {
             try {
                 if (zis != null) zis.close();
             } catch (Exception e) {
                 e.printStackTrace();
-                Crashlytics.logException(e);
+                ;
             }
         }
     }
@@ -960,4 +964,77 @@ public class ChimpleLogger {
                     }
                 });
     }
+
+    public static void login(String email, String password) {
+        Log.d(TAG, "Login request for email:" + email + " password:" + password);
+        AppActivity.app.login(email, password);
+    }
+
+    public static String findSchool(String email) {
+        String json = null;
+        try {
+            FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
+            Log.d(TAG, "FirebaseOperations instance:" + instance);
+            if (instance != null) {
+                School school = instance.getOperations().findSchoolByEmail(email);
+                if (school != null) {
+                    Gson gson = new GsonBuilder().create();
+                    json = gson.toJson(school);
+                }
+            }
+        } catch (Exception e) {
+
+        }
+        Log.d(TAG, "got school json:" + json);
+        return json;
+    }
+
+    public static String fetchSectionsForSchool(String schoolId) {
+        String json = null;
+        try {
+            FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
+            if (instance != null) {
+                List<Section> sections = instance.getOperations().findSectionsBySchool(schoolId);
+                Log.d(TAG, "fetchSectionsForSchool got sections:" + sections.size());
+                if (sections != null && sections.size() > 0) {
+                    Gson gson = new GsonBuilder().create();
+                    json = gson.toJson(sections.toArray());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "got section json:" + json);
+        return json;
+    }
+
+    public static String fetchStudentsForSchoolAndSection(String schoolId, String sectionId) {
+        String json = null;
+        try {
+            FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
+            if (instance != null) {
+                List<Student> students = instance.getOperations().loadAllStudentsForSchoolAndSection(schoolId, sectionId);
+                Log.d(TAG, "fetchStudentsForSchoolAndSection got students:" + students.size());
+                if (students != null && students.size() > 0) {
+                    Gson gson = new GsonBuilder().create();
+                    json = gson.toJson(students.toArray());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "got student json:" + json);
+        return json;
+    }
+
+    public static void syncProfile(String schoolId, String sectionId, String studentId, String profileData) {
+        FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
+        Log.d(TAG, "Sync profile school:" + schoolId + " section:" + sectionId + " student:" + studentId);
+        if (instance != null) {
+            instance.syncProfile(schoolId, sectionId, studentId, profileData);
+        }
+    }
+
 }
+
+
