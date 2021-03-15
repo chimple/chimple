@@ -25,7 +25,7 @@ public class SyncOperationManager {
     public static SyncOperationManager getInstance(Context context) {
         if (sInstance == null) {
             synchronized (LOCK) {
-                Log.d(TAG, "Init Sync Operation Manager");
+                Log.d(TAG, "Creating new database instance");
                 sInstance = new SyncOperationManager(context);
                 sInstance.workManager = WorkManager.getInstance(context);
                 sInstance.scheduleStartSync();
