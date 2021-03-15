@@ -1,0 +1,75 @@
+package org.chimple.bahama.workers;
+
+import android.content.Context;
+import android.util.Log;
+
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
+
+import java.util.concurrent.TimeUnit;
+
+public class SyncOperationManager {
+    private static final String TAG = SyncOperationManager.class.getName();
+    private static SyncOperationManager sInstance = null;
+    private static final Object LOCK = new Object();
+    private final Context context;
+    private WorkManager workManager;
+
+    private SyncOperationManager(Context context) {
+        this.context = context;
+    }
+
+    public static SyncOperationManager getInstance(Context context) {
+        if (sInstance == null) {
+            synchronized (LOCK) {
+                Log.d(TAG, "Init Sync Operation Manager");
+                sInstance = new SyncOperationManager(context);
+                sInstance.workManager = WorkManager.getInstance(context);
+                sInstance.scheduleStartSync();
+            }
+        }
+
+        return sInstance;
+    }
+
+    public void scheduleStartSync() {
+        this.workManager.cancelAllWork();
+        this.workManager
+                .beginWith(this.buildSyncTask())
+                .then(this.cleanSyncTask())
+                .enqueue();
+    }
+
+    private OneTimeWorkRequest buildSyncTask() {
+        OneTimeWorkRequest oneTimeWorkRequest =
+                new OneTimeWorkRequest.Builder(StartSyncWorker.class)
+                        .setInitialDelay(30, TimeUnit.SECONDS)
+                        .setConstraints(this.buildConstraint())
+                        .build();
+        return oneTimeWorkRequest;
+    }
+
+    private OneTimeWorkRequest cleanSyncTask() {
+        OneTimeWorkRequest oneTimeWorkRequest =
+                new OneTimeWorkRequest.Builder(CleanSyncWorker.class)
+                        .setInitialDelay(300, TimeUnit.SECONDS)
+                        .setConstraints(this.buildConstraint())
+                        .build();
+        return oneTimeWorkRequest;
+    }
+
+    private Constraints buildConstraint() {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiresCharging(true)
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        return constraints;
+    }
+
+    public static SyncOperationManager getsInstance() {
+        return sInstance;
+    }
+}
