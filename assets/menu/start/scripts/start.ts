@@ -11,7 +11,7 @@ import Friend from "../../../common/scripts/friend";
 import Config, {StartAction} from "../../../common/scripts/lib/config";
 import {EXAM, MIN_PASS} from "../../../common/scripts/lib/constants";
 import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
-import Profile, {User, CourseProgress, IS_OTP_VERIFIED} from "../../../common/scripts/lib/profile";
+import {User, CourseProgress} from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
 import {ServiceConfig} from "../../../common/scripts/services/ServiceConfig";
 import TeacherAddedDialog, {TEACHER_ADD_DIALOG_CLOSED} from "../../../common/scripts/teacherAddedDialog";
@@ -162,11 +162,7 @@ export default class Start extends cc.Component {
         //     return !(lessonProgress && lessonProgress.date < ass.createAt)
         // })
         config.assignments = assignments;
-        if (config.assignments.length > 0 || !user.isConnected) {
-            if(config.assignments.length > 0 && !user.isConnected) {
-                user.isConnected = true
-                user.storeUser()
-            }
+        if (config.assignments.length > 0) {
             if (!!this.assignmentButton) {
                 this.assignmentButton.interactable = true
             }
@@ -208,18 +204,6 @@ export default class Start extends cc.Component {
             }
         })
 
-        // Sample Code for offline sync
-        // const school = UtilLogger.findSchool("prakash@sutara.org");
-        // cc.log("school:", school)
-        //
-        // const sections = UtilLogger.fetchSections("mYLtsjfVuFD6NGLLIVHG");
-        // cc.log("sections:", sections);
-        //
-        // const students = UtilLogger.fetchStudents("mYLtsjfVuFD6NGLLIVHG", "D7qVA373VEKXtPeg7BEc");
-        // cc.log("students:", students);
-        // user.schoolId = "mYLtsjfVuFD6NGLLIVHG";
-        // user.sectionId = "D7qVA373VEKXtPeg7BEc";
-        // user.studentId = "61oKRmXrCWSGkjN2KuCv";
     }
 
     private initPage() {

@@ -40,9 +40,6 @@ export default class ChapterLessons extends cc.Component {
     @property(cc.Node)
     header: cc.Node = null;
 
-    @property(cc.Node)
-    whatsappNode: cc.Node = null
-
     static showType: ChapterLessonType = ChapterLessonType.Library
 
     onLoad() {
@@ -57,23 +54,18 @@ export default class ChapterLessons extends cc.Component {
         const config = Config.i
         switch (ChapterLessons.showType) {
             case ChapterLessonType.Assignments:
-                if(User.getCurrentUser().isConnected) {
-                    this.label.string = 'Assignments'
-                    config.assignments.forEach((ass) => {
-                        const lesson = Config.i.allLessons.get(ass.lessonId)
-                        lesson.assignmentId = ass.assignmentId;
-                        console.log('User.getCurrentUser().lessonProgressMap', User.getCurrentUser().lessonProgressMap);
-                        const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
-                        if(!lessonProgress) {
-                            this.createLessonButton(lesson, true)
-                        } else if(lessonProgress && lessonProgress.assignmentId !== ass.assignmentId) {
-                            this.createLessonButton(lesson, true)
-                        }
-                    })    
-                } else {
-                    this.label.string = 'Connect To Class'
-                    this.whatsappNode.active = true
-                }
+                this.label.string = 'Assignments'
+                config.assignments.forEach((ass) => {
+                    const lesson = Config.i.allLessons.get(ass.lessonId)
+                    lesson.assignmentId = ass.assignmentId;
+                    console.log('User.getCurrentUser().lessonProgressMap', User.getCurrentUser().lessonProgressMap);
+                    const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
+                    if(!lessonProgress) {
+                        this.createLessonButton(lesson, true)
+                    } else if(lessonProgress && lessonProgress.assignmentId !== ass.assignmentId) {
+                        this.createLessonButton(lesson, true)
+                    }
+                })
                 break;
             case ChapterLessonType.Featured:
                 this.label.string = 'Featured'
@@ -146,10 +138,6 @@ export default class ChapterLessons extends cc.Component {
 
     onBackClick() {
         Config.i.popScene()
-    }
-
-    onWhatsappClick() {
-        cc.sys.openURL("https://wa.me/919845206203?text=" + User.getCurrentUser().id);
     }
 }
 

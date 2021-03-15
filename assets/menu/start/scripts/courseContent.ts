@@ -21,12 +21,17 @@ export default class CourseContent extends cc.Component {
 
     onLoad() {
         const config = Config.i
+        const isPreQuiz = !User.getCurrentUser().courseProgressMap.get(config.course.id).currentChapterId
+        if (isPreQuiz) {
+            this.chaptersLayout.addChild(StartContent.createPreQuizButton(config.course, this.lessonButtonPrefab, this.loading))
+        }
         for (const chapter of config.course.chapters) {
             const chapterMenuButton = cc.instantiate(this.chapterMenuButtonPrefab)
             const chapterMenuButtonComp = chapterMenuButton.getComponent(ChapterMenuButton)
             chapterMenuButtonComp.chapter = chapter
             chapterMenuButtonComp.content = this.content
             chapterMenuButtonComp.loading = this.loading
+            chapterMenuButtonComp.open = !isPreQuiz
             this.chaptersLayout.addChild(chapterMenuButton)
         }
         this.chaptersLayout.width = cc.winSize.width

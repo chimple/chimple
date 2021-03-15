@@ -4,17 +4,9 @@
   "isBundle": true,
   "bundleName": "",
   "priority": 1,
-  "compressionType": {
-    "android": "default"
-  },
-  "optimizeHotUpdate": {
-    "android": false
-  },
-  "inlineSpriteFrames": {
-    "android": false
-  },
-  "isRemoteBundle": {
-    "android": true
-  },
+  "compressionType": {},
+  "optimizeHotUpdate": {},
+  "inlineSpriteFrames": {},
+  "isRemoteBundle": {},
   "subMetas": {}
 }

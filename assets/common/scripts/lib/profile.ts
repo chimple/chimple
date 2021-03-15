@@ -124,10 +124,6 @@ export class User {
     private _level: number;
     private _assignments: string[]
     private _currentCourseId: string
-    isConnected: boolean = false
-    private _schoolId: string;
-    private _sectionId: string;
-    private _studentId: string;
     debug: boolean = false
     curriculumLoaded: boolean = false
 
@@ -343,31 +339,6 @@ export class User {
         return this._currentCourseId;
     }
 
-
-    get schoolId(): string {
-        return this._schoolId;
-    }
-
-    set schoolId(value: string) {
-        this._schoolId = value;
-    }
-
-    get sectionId(): string {
-        return this._sectionId;
-    }
-
-    set sectionId(value: string) {
-        this._sectionId = value;
-    }
-
-    get studentId(): string {
-        return this._studentId;
-    }
-
-    set studentId(value: string) {
-        this._studentId = value;
-    }
-
     unlockInventoryForItem(item: string) {
         this._unlockedInventory[item] = true;
         this.storeUser();
@@ -426,7 +397,7 @@ export class User {
     updateLessonProgress(lessonId: string, score: number, quizScores: number[], assignmentId: string = null): [string, string] {
         var reward: [string, string]
         const config = Config.i
-        if (lessonId == config.course.id + '_PreQuiz') {
+        if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == null) {
             const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
             if (quizChapter) {
                 let currentCourse = config.course.chapters.find((c) => c.id != config.course.id + '_quiz')
@@ -579,10 +550,6 @@ export class User {
                 Queue.getInstance().push(profileInfo);
             }
         }
-
-        if(cc.sys.isNative && !!user.schoolId && !!user.sectionId && !!user.studentId) {
-            UtilLogger.syncProfile(user.schoolId, user.sectionId, user.studentId, User.toJson(user))
-        }
     }
 
     static createUUID() {
@@ -726,7 +693,6 @@ export class User {
             data.lessonPlan,
             data.serverId
         );
-        user.isConnected = data.isConnected
         // user._lessonPlanDate = new Date(data.lessonPlanDate)
         // if (data.lessonPlanCourseId) user._lessonPlanCourseId = data.lessonPlanCourseId
         if (data.assignments) user._assignments = data.assignments
@@ -767,8 +733,7 @@ export class User {
             // 'lessonPlanDate': user.lessonPlanDate,
             // 'lessonPlan': user.lessonPlan,
             'assignments': user.assignments,
-            'chapterFinishedMap': chapterFinishedMapObj,
-            'isConnected': user.isConnected
+            'chapterFinishedMap': chapterFinishedMapObj
         });
     }
 
