@@ -96,11 +96,6 @@ export default class Config {
     private _textFontMap = new Map();
     private _lessonData;
    
-    schoolData:any
-    students:any;
-    sectionName:any;
-    schoolName:any;
-    sections:any
     course: Course;
     lesson: Lesson;
     chapter: Chapter;
