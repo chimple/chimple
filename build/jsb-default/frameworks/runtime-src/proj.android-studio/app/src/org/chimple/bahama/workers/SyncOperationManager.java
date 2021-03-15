@@ -63,7 +63,6 @@ public class SyncOperationManager {
 
     private Constraints buildConstraint() {
         Constraints constraints = new Constraints.Builder()
-                .setRequiresCharging(true)
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
         return constraints;
