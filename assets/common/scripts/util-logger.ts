@@ -502,7 +502,7 @@ export default class UtilLogger {
         }
     }
 
-    public static fetchStudents(schoolId: string, sectionId: string): void {
+    public static fetchStudents(schoolId: string, sectionId: string): any {
         cc.log(`fetch Students: ${schoolId} and password: ${sectionId}`);
         try {
             if (
@@ -521,7 +521,7 @@ export default class UtilLogger {
         }
     }
 
-    public static findSchool(email: string): void {
+    public static findSchool(email: string): any {
         cc.log(`find school using email: ${email}`);
         try {
             if (
@@ -539,7 +539,7 @@ export default class UtilLogger {
         }
     }
 
-    public static fetchSections(schoolId: string): void {
+    public static fetchSections(schoolId: string): any {
         cc.log(`fetch Sections: ${schoolId}`);
         try {
             if (

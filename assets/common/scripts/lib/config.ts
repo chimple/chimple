@@ -95,7 +95,12 @@ export default class Config {
     private _scenes: Array<SceneDef> = [];
     private _textFontMap = new Map();
     private _lessonData;
-
+   
+    schoolData:any
+    students:any;
+    sectionName:any;
+    schoolName:any;
+    sections:any
     course: Course;
     lesson: Lesson;
     chapter: Chapter;
