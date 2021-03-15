@@ -60,6 +60,16 @@ export const DO_HOT_UPDATE = true
 export let RECEIVED_TEACHER_REQUESTS: boolean = false;
 
 //@ts-ignore
+cc.loginSucceeded = async function (schoolInfo: string) {
+    cc.log("loginSucceeded: " + schoolInfo);
+}
+
+//@ts-ignore
+cc.loginFailed = async function (reason) {
+    cc.log("loginFailed: " + reason);
+}
+
+//@ts-ignore
 cc.deep_link = function (url) {
     cc.log("deep link called with url:" + url);
     if (url !== null && url.includes("http://chimple.github.io/")) {
