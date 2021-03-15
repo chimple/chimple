@@ -25,6 +25,9 @@ export default class Balloonpop extends Game {
     @property(cc.Prefab)
     displayCard: cc.Prefab = null;
 
+    @property(cc.Prefab)
+    backgroundPlatform: cc.Prefab = null;
+
     @property(cc.Node)
     progressBar: cc.Node=null;
     
@@ -39,6 +42,11 @@ export default class Balloonpop extends Game {
     onLoad () {
         cc.director.getPhysicsManager().enabled = true;
         let display = cc.instantiate(this.displayCard);
+        let bgPlatfrom = cc.instantiate(this.backgroundPlatform);
+        this.node.addChild(bgPlatfrom);
+        bgPlatfrom.scale = 1;
+        bgPlatfrom.setPosition(-(cc.winSize.width/2)+(cc.winSize.height/25), -390);  
+    
         this.node.addChild(display);
 
         this.currentConfig = this.processConfiguration(Config.getInstance().data[0]);
@@ -47,14 +55,14 @@ export default class Balloonpop extends Game {
         Balloonpop.letterNo=this.currentConfig.clickOnAnswer;
 
         this.friendPos.scale = 0.5;
-        this.friendPos.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/30)))
+        this.friendPos.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/6.7)))
 
         cc.tween(display)
         .to(1, { scale: 0.5}, {easing: "quintInOut"}).call(()=>{
             display.runAction(
                 cc.sequence(
                     cc.spawn(
-                        cc.moveTo(1, cc.v2((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/2.3))), 0),
+                        cc.moveTo(1, cc.v2((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/1.9))), 0),
                         cc.scaleTo(0.5, 0.08)
                     ),
                     cc.scaleTo(0.5, 0.08),
@@ -96,7 +104,7 @@ export default class Balloonpop extends Game {
 
     displayProgressBar(){
         this.progressBar.active=true;        
-        this.progressBar.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/1.6)));
+        this.progressBar.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/1.4)));
         this.prgbar.progress=0.0;
     }
 
