@@ -45,6 +45,18 @@ const DEFAULT_AUDIOS = [
 
 const {ccclass, property} = cc._decorator;
 
+
+//@ts-ignore
+cc.loginSucceeded = async function (schoolInfo: string) {
+    cc.log("loginSucceeded: " + schoolInfo);
+}
+
+//@ts-ignore
+cc.loginFailed = async function (reason) {
+    cc.log("loginFailed: " + reason);
+}
+
+
 @ccclass
 export default class Start extends cc.Component {
     @property(cc.Prefab)
