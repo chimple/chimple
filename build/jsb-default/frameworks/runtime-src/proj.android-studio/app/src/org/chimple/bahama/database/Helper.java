@@ -12,7 +12,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.chimple.bahama.AppActivity;
+import org.chimple.bahama.AuthCallBack;
 import org.chimple.bahama.auth.FirebaseAuthWithGoogle;
 import org.chimple.bahama.logger.ChimpleLogger;
 import org.chimple.bahama.workers.SyncOperationManager;
@@ -38,17 +38,19 @@ public class Helper {
     private boolean isFirebaseUserLoggedIn = false;
     private FirebaseAuth mAuth;
     private SyncOperationManager syncOperationManager;
+    private AuthCallBack callBack = null;
 
-    public Helper(Context context, SharedPreferences sharedPreferences) {
+    public Helper(Context context, SharedPreferences sharedPreferences, AuthCallBack callBack) {
         this.sharedPreferences = sharedPreferences;
         this.context = context;
         mAuth = FirebaseAuth.getInstance();
+        this.callBack = callBack;
     }
 
-    public static Helper getInstance(Context context) {
+    public static Helper getInstance(Context context, AuthCallBack callBack) {
         if (sInstance == null) {
             synchronized (LOCK) {
-                sInstance = new Helper(context, context.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE));
+                sInstance = new Helper(context, context.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE), callBack);
                 sInstance.initDB(context);
             }
         }
@@ -68,7 +70,7 @@ public class Helper {
             Log.d(TAG, "AppActivity calling AppDatabase");
             mDb = AppDatabase.getInstance(context);
             Log.d(TAG, "AppActivity calling FirebaseOperations");
-            firebaseOperations = FirebaseOperations.getInstance(context, DbOperations.getInstance(mDb));
+            firebaseOperations = FirebaseOperations.getInstance(context, DbOperations.getInstance(mDb), callBack);
             this.syncOperationManager = SyncOperationManager.getInstance(context);
         } catch (Exception e) {
             Log.d(TAG, "initDB failed:" + e);
@@ -162,6 +164,7 @@ public class Helper {
                                 enableSync();
                             } else {
                                 Log.d(TAG, "SignIn Failed");
+                                callBack.loginFailed("Email/Password is not correct");
                             }
                         }
                     });

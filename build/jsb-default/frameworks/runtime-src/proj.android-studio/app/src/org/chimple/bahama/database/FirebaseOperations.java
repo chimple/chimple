@@ -23,11 +23,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 
 
+import org.chimple.bahama.AuthCallBack;
 import org.chimple.bahama.logger.ChimpleLogger;
 import org.chimple.bahama.model.School;
 import org.chimple.bahama.model.Section;
 import org.chimple.bahama.model.Student;
-import org.chimple.bahama.workers.SyncOperationManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,10 +54,13 @@ public class FirebaseOperations {
     private Map<String, ListenerRegistration> studentListeners = new HashMap<String, ListenerRegistration>();
     private FirebaseUser user = null;
     private Context context = null;
+    private AuthCallBack callback = null;
 
-    private FirebaseOperations(Context context, DbOperations operations) {
+    private FirebaseOperations(Context context, DbOperations operations, AuthCallBack callback) {
         Log.d(TAG, "FirebaseOperations constructor...");
         this.ref = this;
+        this.context = context;
+        this.callback = callback;
         this.operations = operations;
         this.setup();
     }
@@ -138,11 +141,14 @@ public class FirebaseOperations {
                                 Log.d(TAG, "creating school" + school.getName());
                                 operations.upsertSchool(school);
 
+                                String schoolJsonString = ChimpleLogger.findSchool(email);
                                 Log.d(TAG, "init listeners for school:" + schoolId);
                                 FirebaseOperations.ref.initListeners(schoolId);
+                                FirebaseOperations.ref.callback.loginSucceed(schoolJsonString);
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
+                            FirebaseOperations.ref.callback.loginFailed("School Not Found");
                         }
                     }
                 });
@@ -176,11 +182,11 @@ public class FirebaseOperations {
         return sInstance;
     }
 
-    public static FirebaseOperations getInstance(Context context, DbOperations operations) {
+    public static FirebaseOperations getInstance(Context context, DbOperations operations, AuthCallBack callBack) {
         if (sInstance == null) {
             synchronized (LOCK) {
                 Log.d(TAG, "Creating new database instance");
-                sInstance = new FirebaseOperations(context, operations);
+                sInstance = new FirebaseOperations(context, operations, callBack);
                 sInstance.context = context;
             }
         }

@@ -62,7 +62,6 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -134,7 +133,31 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         mAuth = FirebaseAuth.getInstance();
         logger = ChimpleLogger.getInstance(this, firebaseAnalytics);
         app = this;
-        helper = Helper.getInstance(this);
+        helper = Helper.getInstance(this, new AuthCallBack() {
+            @Override
+            public void loginSucceed(final String schoolInfo) {
+                app.runOnGLThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String javaScriptVariable = "cc.loginSucceeded(" + schoolInfo + ")";
+                        Log.d(TAG, "calling loginSucceed with: " + javaScriptVariable);
+                        Cocos2dxJavascriptJavaBridge.evalString(javaScriptVariable);
+                    }
+                });
+            }
+
+            @Override
+            public void loginFailed(final String reason) {
+                app.runOnGLThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String javaScriptVariable = "cc.loginFailed(" + reason + ")";
+                        Log.d(TAG, "calling loginFailed with: " + javaScriptVariable);
+                        Cocos2dxJavascriptJavaBridge.evalString(javaScriptVariable);
+                    }
+                });
+            }
+        });
         // Workaround in
         // https://stackoverflow.com/questions/16283079/re-launch-of-activity-on-home-button-but-only-the-first-time/16447508
         if (!isTaskRoot()) {

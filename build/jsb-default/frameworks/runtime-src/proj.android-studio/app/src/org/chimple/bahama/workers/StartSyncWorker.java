@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import org.chimple.bahama.AppActivity;
+import org.chimple.bahama.AuthCallBack;
 import org.chimple.bahama.database.Helper;
 
 public class StartSyncWorker extends Worker {
@@ -24,7 +24,17 @@ public class StartSyncWorker extends Worker {
     @Override
     public Result doWork() {
         Log.d(TAG, "Start Sync Operation");
-        Helper helper = Helper.getInstance(this.context);
+        Helper helper = Helper.getInstance(this.context, new AuthCallBack() {
+            @Override
+            public void loginSucceed(String schoolInfo) {
+                Log.d(TAG, "Login Succeed");
+            }
+
+            @Override
+            public void loginFailed(String reason) {
+                Log.d(TAG, "Login Failed");
+            }
+        });
         if (helper != null) {
             if (!helper.isFirebaseUserLoggedIn()) {
                 Log.d(TAG, "Start Sync Operation Auth");

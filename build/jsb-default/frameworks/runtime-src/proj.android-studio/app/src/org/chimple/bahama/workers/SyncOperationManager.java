@@ -7,8 +7,6 @@ import androidx.work.Constraints;
 import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
-import androidx.work.WorkRequest;
-
 import java.util.concurrent.TimeUnit;
 
 public class SyncOperationManager {
@@ -52,14 +50,6 @@ public class SyncOperationManager {
         return oneTimeWorkRequest;
     }
 
-//    private OneTimeWorkRequest cleanSyncTask() {
-//        OneTimeWorkRequest oneTimeWorkRequest =
-//                new OneTimeWorkRequest.Builder(CleanSyncWorker.class)
-//                        .setInitialDelay(300, TimeUnit.SECONDS)
-//                        .setConstraints(this.buildConstraint())
-//                        .build();
-//        return oneTimeWorkRequest;
-//    }
 
     private Constraints buildConstraint() {
         Constraints constraints = new Constraints.Builder()

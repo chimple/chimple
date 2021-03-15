@@ -11,7 +11,7 @@ import Friend from "../../../common/scripts/friend";
 import Config, {StartAction} from "../../../common/scripts/lib/config";
 import {EXAM, MIN_PASS} from "../../../common/scripts/lib/constants";
 import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
-import {User, CourseProgress} from "../../../common/scripts/lib/profile";
+import Profile, {User, CourseProgress, IS_OTP_VERIFIED} from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
 import {ServiceConfig} from "../../../common/scripts/services/ServiceConfig";
 import TeacherAddedDialog, {TEACHER_ADD_DIALOG_CLOSED} from "../../../common/scripts/teacherAddedDialog";
@@ -44,6 +44,18 @@ const DEFAULT_AUDIOS = [
 ]
 
 const {ccclass, property} = cc._decorator;
+
+
+//@ts-ignore
+cc.loginSucceeded = async function (schoolInfo: string) {
+    cc.log("loginSucceeded: " + schoolInfo);
+}
+
+//@ts-ignore
+cc.loginFailed = async function (reason) {
+    cc.log("loginFailed: " + reason);
+}
+
 
 @ccclass
 export default class Start extends cc.Component {
@@ -165,7 +177,7 @@ export default class Start extends cc.Component {
         if (config.assignments.length > 0 || !user.isConnected) {
             if(config.assignments.length > 0 && !user.isConnected) {
                 user.isConnected = true
-                user.storeUser()    
+                user.storeUser()
             }
             if (!!this.assignmentButton) {
                 this.assignmentButton.interactable = true
