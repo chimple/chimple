@@ -1,7 +1,9 @@
-package org.chimple.bahama.database;
+package org.chimple.firebasesync.database;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -11,11 +13,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import org.chimple.bahama.AuthCallBack;
-import org.chimple.bahama.auth.FirebaseAuthWithGoogle;
-import org.chimple.bahama.logger.ChimpleLogger;
-import org.chimple.bahama.workers.SyncOperationManager;
+import org.chimple.firebasesync.auth.AuthCallBack;
+import org.chimple.firebasesync.auth.FirebaseAuthWithGoogle;
+import org.chimple.firebasesync.model.School;
+import org.chimple.firebasesync.model.Section;
+import org.chimple.firebasesync.model.Student;
+import org.chimple.firebasesync.workers.SyncOperationManager;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class Helper {
     private static final String TAG = Helper.class.getName();
@@ -37,6 +47,7 @@ public class Helper {
     private FirebaseOperations firebaseOperations = null;
     private boolean isFirebaseUserLoggedIn = false;
     private FirebaseAuth mAuth;
+
     private SyncOperationManager syncOperationManager;
     private AuthCallBack callBack = null;
 
@@ -67,9 +78,9 @@ public class Helper {
 
     private void initDB(Context context) {
         try {
-            Log.d(TAG, "AppActivity calling AppDatabase");
+            Log.d(TAG, "Initializing AppDatabase");
             mDb = AppDatabase.getInstance(context);
-            Log.d(TAG, "AppActivity calling FirebaseOperations");
+            Log.d(TAG, "Initializing FirebaseOperations");
             firebaseOperations = FirebaseOperations.getInstance(context, DbOperations.getInstance(mDb), callBack);
             this.syncOperationManager = SyncOperationManager.getInstance(context);
         } catch (Exception e) {
@@ -105,8 +116,24 @@ public class Helper {
         sInstance.syncOperationManager.scheduleStartSync();
     }
 
+    public static boolean isNetworkAvailable() {
+        boolean connected = false;
+        try {
+            ConnectivityManager cm = (ConnectivityManager) sInstance.context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+            connected = networkInfo != null && networkInfo.isAvailable() &&
+                    networkInfo.isConnected();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.i("isNetworkAvailable() ->", connected + "");
+        return connected;
+    }
+
+
     public void auth() {
-        if (ChimpleLogger.isNetworkAvailable()) {
+        if (isNetworkAvailable()) {
             Log.d(TAG, "in Auth network is available");
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {
@@ -168,6 +195,71 @@ public class Helper {
                             }
                         }
                     });
+        }
+    }
+
+    public static String findSchool(String email) {
+        String json = null;
+        try {
+            FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
+            Log.d(TAG, "FirebaseOperations instance:" + instance);
+            if (instance != null) {
+                School school = instance.getOperations().findSchoolByEmail(email);
+                if (school != null) {
+                    Gson gson = new GsonBuilder().create();
+                    json = gson.toJson(school);
+                }
+            }
+        } catch (Exception e) {
+
+        }
+        Log.d(TAG, "got school json:" + json);
+        return json;
+    }
+
+    public static String fetchSectionsForSchool(String schoolId) {
+        String json = null;
+        try {
+            FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
+            if (instance != null) {
+                List<Section> sections = instance.getOperations().findSectionsBySchool(schoolId);
+                Log.d(TAG, "fetchSectionsForSchool got sections:" + sections.size());
+                if (sections != null && sections.size() > 0) {
+                    Gson gson = new GsonBuilder().create();
+                    json = gson.toJson(sections.toArray());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "got section json:" + json);
+        return json;
+    }
+
+    public static String fetchStudentsForSchoolAndSection(String schoolId, String sectionId) {
+        String json = null;
+        try {
+            FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
+            if (instance != null) {
+                List<Student> students = instance.getOperations().loadAllStudentsForSchoolAndSection(schoolId, sectionId);
+                Log.d(TAG, "fetchStudentsForSchoolAndSection got students:" + students.size());
+                if (students != null && students.size() > 0) {
+                    Gson gson = new GsonBuilder().create();
+                    json = gson.toJson(students.toArray());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "got student json:" + json);
+        return json;
+    }
+
+    public static void syncProfile(String schoolId, String sectionId, String studentId, String profileData) {
+        FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
+        Log.d(TAG, "Sync profile school:" + schoolId + " section:" + sectionId + " student:" + studentId);
+        if (instance != null) {
+            instance.syncProfile(schoolId, sectionId, studentId, profileData);
         }
     }
 }

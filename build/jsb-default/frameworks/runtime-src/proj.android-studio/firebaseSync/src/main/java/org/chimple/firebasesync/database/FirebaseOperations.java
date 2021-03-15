@@ -1,4 +1,4 @@
-package org.chimple.bahama.database;
+package org.chimple.firebasesync.database;
 
 import android.content.Context;
 import android.util.Log;
@@ -23,17 +23,16 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 
 
-import org.chimple.bahama.AuthCallBack;
-import org.chimple.bahama.logger.ChimpleLogger;
-import org.chimple.bahama.model.School;
-import org.chimple.bahama.model.Section;
-import org.chimple.bahama.model.Student;
+import org.chimple.firebasesync.auth.AuthCallBack;
+import org.chimple.firebasesync.model.School;
+import org.chimple.firebasesync.model.Section;
+import org.chimple.firebasesync.model.Student;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.chimple.bahama.database.Helper.EMAIL;
-import static org.chimple.bahama.database.Helper.FB_SELECTED_SCHOOL;
+import static org.chimple.firebasesync.database.Helper.EMAIL;
+import static org.chimple.firebasesync.database.Helper.FB_SELECTED_SCHOOL;
 
 
 public class FirebaseOperations {
@@ -78,7 +77,7 @@ public class FirebaseOperations {
 
     // Need to call after auth
     public void enableSyncWithFirebase() {
-        if (ChimpleLogger.isNetworkAvailable()) {
+        if (Helper.isNetworkAvailable()) {
             this.syncUpdatedProfiles();
             this.registerSyncListeners();
         } else {
@@ -87,7 +86,7 @@ public class FirebaseOperations {
     }
 
     private void syncUpdatedProfiles() {
-        if (ChimpleLogger.isNetworkAvailable()) {
+        if (Helper.isNetworkAvailable()) {
             final String email = Helper.ref().getSharedPreferences().getString(EMAIL, "");
             Task<QuerySnapshot> schoolCollection = db.collection("School")
                     .whereEqualTo("schoolCode", email)
@@ -141,7 +140,7 @@ public class FirebaseOperations {
                                 Log.d(TAG, "creating school" + school.getName());
                                 operations.upsertSchool(school);
 
-                                String schoolJsonString = ChimpleLogger.findSchool(email);
+                                String schoolJsonString = Helper.findSchool(email);
                                 Log.d(TAG, "init listeners for school:" + schoolId);
                                 FirebaseOperations.ref.initListeners(schoolId);
                                 FirebaseOperations.ref.callback.loginSucceed(schoolJsonString);
