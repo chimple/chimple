@@ -127,20 +127,6 @@
           }
         }
       },
-      "balloon_texture": {
-        "props": {
-          "opacity": [
-            {
-              "frame": 0,
-              "value": 255
-            },
-            {
-              "frame": 0.03333333333333333,
-              "value": 0
-            }
-          ]
-        }
-      },
       "stars_burst_node/balloonpop_burst_star": {
         "props": {
           "position": [
