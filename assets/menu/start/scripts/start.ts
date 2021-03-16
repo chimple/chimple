@@ -274,6 +274,7 @@ export default class Start extends cc.Component {
 
     private loadLesson(data) {
         if (Config.isMicroLink && data && data.length > 0) {
+            this.loading.active = true;
             const courseDetails = data.splice(data.length - 1, data.length)[0];
             const input = {
                 courseid: courseDetails['courseid'],
