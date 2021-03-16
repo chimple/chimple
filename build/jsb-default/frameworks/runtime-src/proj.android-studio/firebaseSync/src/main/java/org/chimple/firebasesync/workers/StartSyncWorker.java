@@ -41,7 +41,7 @@ public class StartSyncWorker extends Worker {
                 helper.auth(false);
             } else {
                 Log.d(TAG, "Start Sync Operation Enable Sync");
-                helper.enableSync();
+                helper.enableSync(false);
             }
         }
         return Result.success();
