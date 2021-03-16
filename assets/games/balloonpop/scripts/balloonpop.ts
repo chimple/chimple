@@ -38,6 +38,7 @@ export default class Balloonpop extends Game {
 
     static correctLetter:string;
     static letterNo:number;
+    maxBalloon: number;
 
     onLoad () {
         cc.director.getPhysicsManager().enabled = true;
@@ -76,8 +77,9 @@ export default class Balloonpop extends Game {
     }
     
     public createBallon(){
-        let maxBalloon=Math.floor((cc.winSize.width/160));
-        for(let i = 1; i<maxBalloon; i++){
+        this.maxBalloon=Math.floor((cc.winSize.width/160));
+        cc.log(this.maxBalloon + "<------");
+        for(let i = 1; i<this.maxBalloon; i++){
             let ballon = cc.instantiate(this.balloon);
             this.node.addChild(ballon);
             ballon.getComponentInChildren(cc.Label).string = this.currentConfig.options[Math.floor(0 + Math.random() * (this.currentConfig.options.length - 0))]
@@ -94,7 +96,7 @@ export default class Balloonpop extends Game {
         let ballon = cc.instantiate(this.balloon);
         this.node.addChild(ballon);
         ballon.getComponentInChildren(cc.Label).string = this.currentConfig.options[Math.floor(0 + Math.random() * (this.currentConfig.options.length - 0))]
-        ballon.setPosition(xPos, -550);
+        ballon.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8))+((ballon.width)) * Math.floor((1 + Math.random() * (this.maxBalloon -1))), -550);
         let currentColor = cc.color(Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255))
         ballon.getChildByName("balloon_texture").color = currentColor;
         ballon.addComponent(cc.RigidBody).gravityScale = -0.5 + Math.random() * (-0.1 - (-0.5));
