@@ -971,7 +971,7 @@ public class ChimpleLogger {
     }
 
     public static String findSchool(String email) {
-        String json = null;
+        String json = "{}";
         try {
             FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
             Log.d(TAG, "FirebaseOperations instance:" + instance);
@@ -990,7 +990,7 @@ public class ChimpleLogger {
     }
 
     public static String fetchSectionsForSchool(String schoolId) {
-        String json = null;
+        String json = "[]";
         try {
             FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
             if (instance != null) {
@@ -1009,7 +1009,7 @@ public class ChimpleLogger {
     }
 
     public static String fetchStudentsForSchoolAndSection(String schoolId, String sectionId) {
-        String json = null;
+        String json = "[]";
         try {
             FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
             if (instance != null) {
