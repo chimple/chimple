@@ -105,10 +105,10 @@ public class Helper {
         isFirebaseUserLoggedIn = firebaseUserLoggedIn;
     }
 
-    public void enableSync() {
+    public void enableSync(boolean shouldCallBack) {
         Log.d(TAG, "enableSyncWithFirebase");
         sInstance.setFirebaseUserLoggedIn(true);
-        sInstance.getFirebaseOperations().enableSyncWithFirebase();
+        sInstance.getFirebaseOperations().enableSyncWithFirebase(shouldCallBack);
     }
 
     public void scheduleStartSync() {
@@ -132,22 +132,22 @@ public class Helper {
     }
 
 
-    public void auth() {
+    public void auth(boolean shouldCallBack) {
         if (isNetworkAvailable()) {
             Log.d(TAG, "in Auth network is available");
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {
                 Log.d(TAG, "Reload as current User");
-                reload();
+                reload(shouldCallBack);
             } else {
                 Log.d(TAG, "SignIn With Firebase");
-                signIn();
+                signIn(shouldCallBack);
             }
         } else {
             // if not internet and if current user present then enable offline sync
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {
-                enableSync();
+                enableSync(shouldCallBack);
             } else {
                 // currentUser is null and no internet??
                 Log.d(TAG, "current user in not available and no internet");
@@ -155,7 +155,7 @@ public class Helper {
         }
     }
 
-    private void reload() {
+    private void reload(boolean shouldCallBack) {
         mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -166,16 +166,16 @@ public class Helper {
 
                 if (user != null) {
                     Log.d(TAG, "calling enableSync");
-                    enableSync();
+                    enableSync(shouldCallBack);
                 } else {
                     Log.d(TAG, "reload failed, SignIn()");
-                    signIn();
+                    signIn(shouldCallBack);
                 }
             }
         });
     }
 
-    private void signIn() {
+    private void signIn(boolean shouldCallBack) {
         String email = this.getSharedPreferences().getString(EMAIL, "");
         String password = this.getSharedPreferences().getString(PASSWORD, "");
         Log.d(TAG, "signIn with email" + email + " and password:" + password);
@@ -188,7 +188,7 @@ public class Helper {
                                     mAuth.getCurrentUser() : null;
                             if (user != null) {
                                 Log.d(TAG, "SignIn Successful user:" + user);
-                                enableSync();
+                                enableSync(shouldCallBack);
                             } else {
                                 Log.d(TAG, "SignIn Failed");
                                 callBack.loginFailed("Email/Password is not correct");

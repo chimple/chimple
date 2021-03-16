@@ -26,7 +26,7 @@ public class StartSyncWorker extends Worker {
         Log.d(TAG, "Start Sync Operation");
         Helper helper = Helper.getInstance(this.context, new AuthCallBack() {
             @Override
-            public void loginSucceed(String schoolInfo) {
+            public void loginSucceed(String schoolInfo, boolean shouldCallBack) {
                 Log.d(TAG, "Login Succeed");
             }
 
@@ -38,7 +38,7 @@ public class StartSyncWorker extends Worker {
         if (helper != null) {
             if (!helper.isFirebaseUserLoggedIn()) {
                 Log.d(TAG, "Start Sync Operation Auth");
-                helper.auth();
+                helper.auth(false);
             } else {
                 Log.d(TAG, "Start Sync Operation Enable Sync");
                 helper.enableSync();

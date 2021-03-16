@@ -136,15 +136,18 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         app = this;
         helper = Helper.getInstance(this, new AuthCallBack() {
             @Override
-            public void loginSucceed(final String schoolInfo) {
-                app.runOnGLThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        String javaScriptVariable = "cc.loginSucceeded(" + schoolInfo + ")";
-                        Log.d(TAG, "calling loginSucceed with: " + javaScriptVariable);
-                        Cocos2dxJavascriptJavaBridge.evalString(javaScriptVariable);
-                    }
-                });
+            public void loginSucceed(final String schoolInfo, final boolean shouldCallBack) {
+                if (shouldCallBack) {
+                    app.runOnGLThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String javaScriptVariable = "cc.loginSucceeded($schoolInfo)";
+                            javaScriptVariable = javaScriptVariable.replace("$schoolInfo", "'" + schoolInfo + "'");
+                            Log.d(TAG, "calling loginSucceed with: " + javaScriptVariable);
+                            Cocos2dxJavascriptJavaBridge.evalString(javaScriptVariable);
+                        }
+                    });
+                }
             }
 
             @Override
@@ -152,7 +155,8 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                 app.runOnGLThread(new Runnable() {
                     @Override
                     public void run() {
-                        String javaScriptVariable = "cc.loginFailed(" + reason + ")";
+                        String javaScriptVariable = "cc.loginFailed($reason)";
+                        javaScriptVariable = javaScriptVariable.replace("$reason", "'" + reason + "'");
                         Log.d(TAG, "calling loginFailed with: " + javaScriptVariable);
                         Cocos2dxJavascriptJavaBridge.evalString(javaScriptVariable);
                     }
@@ -861,7 +865,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             Log.d(TAG, "Login request for email:" + email + " password:" + password);
             app.helper.getSharedPreferences().edit().putString(EMAIL, email).apply();
             app.helper.getSharedPreferences().edit().putString(PASSWORD, password).apply();
-            app.helper.auth();
+            app.helper.auth(true);
         }
     }
 }

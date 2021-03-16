@@ -76,10 +76,10 @@ public class FirebaseOperations {
     }
 
     // Need to call after auth
-    public void enableSyncWithFirebase() {
+    public void enableSyncWithFirebase(boolean shouldCallBack) {
         if (Helper.isNetworkAvailable()) {
             this.syncUpdatedProfiles();
-            this.registerSyncListeners();
+            this.registerSyncListeners(shouldCallBack);
         } else {
             this.registerSyncListenersOffline();
         }
@@ -119,7 +119,7 @@ public class FirebaseOperations {
         }
     }
 
-    private void registerSyncListeners() {
+    private void registerSyncListeners(final boolean shouldCallBack) {
         // find school by email id
         Log.d(TAG, "registerSyncListeners");
         final String email = Helper.ref().getSharedPreferences().getString(EMAIL, "");
@@ -143,7 +143,7 @@ public class FirebaseOperations {
                                 String schoolJsonString = Helper.findSchool(email);
                                 Log.d(TAG, "init listeners for school:" + schoolId);
                                 FirebaseOperations.ref.initListeners(schoolId);
-                                FirebaseOperations.ref.callback.loginSucceed(schoolJsonString);
+                                FirebaseOperations.ref.callback.loginSucceed(schoolJsonString, shouldCallBack);
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
