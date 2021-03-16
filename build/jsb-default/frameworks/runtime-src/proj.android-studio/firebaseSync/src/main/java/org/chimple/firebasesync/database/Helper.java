@@ -262,4 +262,15 @@ public class Helper {
             instance.syncProfile(schoolId, sectionId, studentId, profileData);
         }
     }
+
+    public void cleanup() {
+        if (getmDb() != null) {
+            if (getmDb().isOpen()) {
+                getmDb().close();
+            }
+        }
+//        if (getFirebaseOperations() != null) {
+//            getFirebaseOperations().unRegisterListeners();
+//        }
+    }
 }

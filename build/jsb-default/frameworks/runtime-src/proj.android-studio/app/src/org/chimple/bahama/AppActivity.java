@@ -451,14 +451,8 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         super.onDestroy();
         Log.d(TAG, "updating STOP_TIME:" + new Date().getTime());
         unRegisterReceivers();
-        if (helper.getmDb() != null) {
-            if (helper.getmDb().isOpen()) {
-                helper.getmDb().close();
-            }
-            ;
-        }
-        if (helper.getFirebaseOperations() != null) {
-            helper.getFirebaseOperations().unRegisterListeners();
+        if (helper != null) {
+            helper.cleanup();
         }
         SDKWrapper.getInstance().onDestroy();
     }
