@@ -1,9 +1,17 @@
-import { Queue } from "../../../queue";
+import {Queue} from "../../../queue";
 import Header from "../header";
-import { INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util } from "../util";
+import {INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util} from "../util";
 import UtilLogger from "../util-logger";
-import Config, { ALL_LANGS, StartAction, Lang } from "./config";
-import { COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
+import Config, {ALL_LANGS, StartAction, Lang} from "./config";
+import {
+    COUNTRY_CODES,
+    CURRENT_STUDENT_ID,
+    EXAM,
+    FIREBASE_SCHOOL_ID,
+    FIREBASE_SECTION_ID,
+    FIREBASE_STUDENT_ID,
+    MIN_PASS
+} from "./constants";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -580,7 +588,7 @@ export class User {
             }
         }
 
-        if(cc.sys.isNative && !!user.schoolId && !!user.sectionId && !!user.studentId) {
+        if (cc.sys.isNative && !!user.schoolId && !!user.sectionId && !!user.studentId) {
             UtilLogger.syncProfile(user.schoolId, user.sectionId, user.studentId, User.toJson(user))
         }
     }
@@ -643,7 +651,16 @@ export class User {
         );
         if (debug) user.openAllRewards()
         // open bydefault unlocked rewards
-        user.unlockBydefaultRewards()
+        user.unlockBydefaultRewards();
+
+
+        let schoolId: string = cc.sys.localStorage.getItem(FIREBASE_SCHOOL_ID);
+        user.schoolId = !!schoolId ? schoolId : null;
+        let sectionId: string = cc.sys.localStorage.getItem(FIREBASE_SECTION_ID);
+        user.sectionId = !!sectionId ? sectionId : null;
+        let studentId: string = cc.sys.localStorage.getItem(FIREBASE_STUDENT_ID);
+        user.studentId = !!studentId ? studentId : null;
+
         User.storeUser(user);
         let userIds = User.getUserIds();
         if (userIds == null) {
@@ -919,7 +936,7 @@ export default class Profile {
     }
 
     static async teacherPostLoginActivity(objectId: string) {
-        const currentUser: User = User.createUserOrFindExistingUser({ id: objectId });
+        const currentUser: User = User.createUserOrFindExistingUser({id: objectId});
         User.setCurrentUser(currentUser);
         return currentUser;
     }
