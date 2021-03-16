@@ -1,4 +1,4 @@
-package org.chimple.bahama.model;
+package org.chimple.firebasesync.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

@@ -1,4 +1,4 @@
-package org.chimple.bahama.auth;
+package org.chimple.firebasesync.auth;
 
 import java.util.concurrent.Executor;
 

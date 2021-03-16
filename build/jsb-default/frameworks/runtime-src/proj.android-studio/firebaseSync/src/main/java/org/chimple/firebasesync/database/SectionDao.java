@@ -1,11 +1,12 @@
-package org.chimple.bahama.database;
+package org.chimple.firebasesync.database;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import org.chimple.bahama.model.Section;
+
+import org.chimple.firebasesync.model.Section;
 
 import java.util.List;
 

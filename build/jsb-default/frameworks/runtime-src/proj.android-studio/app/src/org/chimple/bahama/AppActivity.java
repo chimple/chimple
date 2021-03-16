@@ -68,10 +68,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
-import org.chimple.bahama.database.Helper;
 import org.chimple.bahama.logger.ChimpleLogger;
 import org.chimple.bahama.logger.LockScreenReceiver;
 import org.chimple.bahama.logger.NotificationData;
+import org.chimple.firebasesync.auth.AuthCallBack;
+import org.chimple.firebasesync.database.Helper;
 import org.cocos2dx.javascript.SDKWrapper;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
@@ -91,13 +92,13 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import static org.chimple.bahama.database.Helper.EMAIL;
-import static org.chimple.bahama.database.Helper.PASSWORD;
 import static org.chimple.bahama.logger.ChimpleLogger.ADVERTISING_ID;
 import static org.chimple.bahama.logger.ChimpleLogger.APP_INSTALLED_TIME;
 import static org.chimple.bahama.logger.ChimpleLogger.APP_LAST_PLAYED_TIME;
 import static org.chimple.bahama.logger.ChimpleLogger.FIREBASE_MESSAGES_SYNC;
 import static org.chimple.bahama.logger.ChimpleLogger.FIREBASE_MESSAGE_TOKEN;
+import static org.chimple.firebasesync.database.Helper.EMAIL;
+import static org.chimple.firebasesync.database.Helper.PASSWORD;
 
 public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private static final int STORAGE_PERMISSION_CODE = 101;

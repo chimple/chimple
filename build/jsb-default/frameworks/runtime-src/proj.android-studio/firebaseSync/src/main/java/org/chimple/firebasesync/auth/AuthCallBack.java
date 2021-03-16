@@ -1,4 +1,4 @@
-package org.chimple.bahama;
+package org.chimple.firebasesync.auth;
 
 public interface AuthCallBack {
     public void loginSucceed(String schoolInfo);

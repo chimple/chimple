@@ -1,4 +1,4 @@
-package org.chimple.bahama.database;
+package org.chimple.firebasesync.database;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,9 +7,9 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import org.chimple.bahama.model.School;
-import org.chimple.bahama.model.Section;
-import org.chimple.bahama.model.Student;
+import org.chimple.firebasesync.model.School;
+import org.chimple.firebasesync.model.Section;
+import org.chimple.firebasesync.model.Student;
 
 
 @Database(entities = {School.class, Section.class, Student.class}, version = 1, exportSchema = false)

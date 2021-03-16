@@ -40,10 +40,10 @@ import com.google.gson.GsonBuilder;
 import org.apache.commons.io.FilenameUtils;
 import org.chimple.bahama.AppActivity;
 import org.chimple.bahama.R;
-import org.chimple.bahama.database.FirebaseOperations;
-import org.chimple.bahama.model.School;
-import org.chimple.bahama.model.Section;
-import org.chimple.bahama.model.Student;
+import org.chimple.firebasesync.database.FirebaseOperations;
+import org.chimple.firebasesync.model.School;
+import org.chimple.firebasesync.model.Section;
+import org.chimple.firebasesync.model.Student;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

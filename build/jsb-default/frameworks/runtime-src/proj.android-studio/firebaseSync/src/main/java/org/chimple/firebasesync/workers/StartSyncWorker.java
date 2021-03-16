@@ -1,4 +1,4 @@
-package org.chimple.bahama.workers;
+package org.chimple.firebasesync.workers;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,8 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import org.chimple.bahama.AuthCallBack;
-import org.chimple.bahama.database.Helper;
+import org.chimple.firebasesync.auth.AuthCallBack;
+import org.chimple.firebasesync.database.Helper;
 
 public class StartSyncWorker extends Worker {
 

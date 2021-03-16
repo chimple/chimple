@@ -1,4 +1,4 @@
-package org.chimple.bahama.workers;
+package org.chimple.firebasesync.workers;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,6 +7,7 @@ import androidx.work.Constraints;
 import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+
 import java.util.concurrent.TimeUnit;
 
 public class SyncOperationManager {

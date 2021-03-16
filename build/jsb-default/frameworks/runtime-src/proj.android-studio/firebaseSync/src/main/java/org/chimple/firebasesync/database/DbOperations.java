@@ -1,4 +1,4 @@
-package org.chimple.bahama.database;
+package org.chimple.firebasesync.database;
 
 import android.util.Log;
 
@@ -9,17 +9,18 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.gson.Gson;
 
-import org.chimple.bahama.model.School;
-import org.chimple.bahama.model.Section;
-import org.chimple.bahama.model.Student;
+import org.chimple.firebasesync.model.School;
+import org.chimple.firebasesync.model.Section;
+import org.chimple.firebasesync.model.Student;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Future;
 
-import static org.chimple.bahama.database.Helper.SCHOOL_COLLECTION;
-import static org.chimple.bahama.database.Helper.SECTION_COLLECTION;
-import static org.chimple.bahama.database.Helper.STUDENT_COLLECTION;
+import static org.chimple.firebasesync.database.Helper.SCHOOL_COLLECTION;
+import static org.chimple.firebasesync.database.Helper.SECTION_COLLECTION;
+import static org.chimple.firebasesync.database.Helper.STUDENT_COLLECTION;
+
 
 public class DbOperations {
     private static final Object LOCK = new Object();
