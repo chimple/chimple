@@ -19,3 +19,13 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep class * extends androidx.room.RoomDatabase
+-dontwarn androidx.room.paging.**
+
+-keep public class * extends android.arch.persistence.room.RoomDatabase
+-dontwarn android.arch.persistence.room.paging.**
+
+-keep class * {
+    public private *;
+}
