@@ -370,3 +370,17 @@ export interface Section {
     name: string;
     schoolId: string;
 }
+
+export interface Students {
+    age:any;
+    countryCode:any;
+    firebaseId: string;
+    gender:string;
+    isSynced:string;
+    link:string;
+    name: string;
+    phoneNumber:string
+    progressId:string;
+    schoolId: string;
+    sectionId:string;
+}
