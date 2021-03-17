@@ -157,7 +157,10 @@ export class User {
         unlockedRewards: object,
         debug: boolean = false,
         lessonPlan: string[],
-        serverId: string = ''
+        serverId: string = '',
+        schoolId: string = '',
+        sectionId: string = '',
+        studentId: string = ''
     ) {
         this._id = id;
         this._name = name;
@@ -181,6 +184,9 @@ export class User {
         this.debug = debug
         this._serverId = serverId
         this._assignments = []
+        this._schoolId = schoolId;
+        this._sectionId = sectionId;
+        this._studentId = studentId;
     }
 
     _genderEvent(gender: Gender) {
@@ -358,6 +364,7 @@ export class User {
 
     set schoolId(value: string) {
         this._schoolId = value;
+        this.storeUser();
     }
 
     get sectionId(): string {
@@ -366,6 +373,7 @@ export class User {
 
     set sectionId(value: string) {
         this._sectionId = value;
+        this.storeUser();
     }
 
     get studentId(): string {
@@ -374,6 +382,7 @@ export class User {
 
     set studentId(value: string) {
         this._studentId = value;
+        this.storeUser();
     }
 
     unlockInventoryForItem(item: string) {
@@ -742,7 +751,10 @@ export class User {
             data.unlockedRewards,
             data.debug,
             data.lessonPlan,
-            data.serverId
+            data.serverId,
+            data.schoolId,
+            data.sectionId,
+            data.studentId
         );
         user.isConnected = data.isConnected
         // user._lessonPlanDate = new Date(data.lessonPlanDate)
@@ -786,7 +798,10 @@ export class User {
             // 'lessonPlan': user.lessonPlan,
             'assignments': user.assignments,
             'chapterFinishedMap': chapterFinishedMapObj,
-            'isConnected': user.isConnected
+            'isConnected': user.isConnected,
+            'schoolId': user.schoolId,
+            'sectionId': user.sectionId,
+            'studentId': user.studentId
         });
     }
 
