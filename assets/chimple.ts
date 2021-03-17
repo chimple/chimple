@@ -1,11 +1,14 @@
 import Config, { LANG_CONFIGS, Lang } from "./common/scripts/lib/config";
-import Profile, { Gender, User, LANGUAGE } from "./common/scripts/lib/profile";
+import Profile, {Gender, User, LANGUAGE, CURRENTMODE} from "./common/scripts/lib/profile";
 import { Mode, MODE } from "./common/scripts/lib/constants";
 import UtilLogger from "./common/scripts/util-logger";
 import { Util } from "./common/scripts/util";
 import { APIMode, ServiceConfig } from "./common/scripts/services/ServiceConfig";
 import { AcceptTeacherRequest } from "./common/scripts/services/ServiceApi";
 import Start from "./menu/start/scripts/start";
+import {SECTION_LIST} from "./private/school/scripts/landing";
+import {nextSelectMode} from "./private/school/scripts/selectionScene";
+import {SelectionMode} from "./common/scripts/services/parseApi";
 
 const { ccclass, property } = cc._decorator;
 
@@ -200,7 +203,8 @@ export default class Chimple extends cc.Component {
     }
 
     selectModes() {
-        const modes: number = MODE;
+        let mode = parseInt(Profile.getValue(CURRENTMODE))
+        const modes: number = mode;//MODE;
         switch (modes) {
             case Mode.Home:
                 // send to welcomePage.ts
@@ -208,7 +212,10 @@ export default class Chimple extends cc.Component {
                 break;
             case Mode.School:
                 // send to selectSections.ts
-                Config.i.pushScene('private/school/scenes/selectSections', 'private', null, true);
+                const nextScene = SECTION_LIST;
+                // @ts-ignore
+                nextSelectMode = SelectionMode.Section;
+                Config.i.pushScene('private/school/scenes/sectionList', 'private', null, true);
                 break;
             default:
                 Config.i.pushScene('private/home/loginnew/scenes/welcomeScene', 'private', null, true);
