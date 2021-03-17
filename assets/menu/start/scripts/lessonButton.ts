@@ -51,7 +51,7 @@ export default class LessonButton extends cc.Component {
             lessonIconComp.lesson = this.lesson
             lessonIconComp.open = this.open
             this.button.node.insertChild(lessonIcon, 0)
-            this.label.string = this.lesson.type == EXAM ? Util.i18NText('Challenge') : this.lesson.name
+            this.label.string = this.lesson.type == EXAM ? Util.i18NText('Challenge') : this.lesson.name + "-" + this.lesson.assignmentId
             this.button.node.on('touchend', (event: cc.Event) => {
                 if (event.target.getComponent(cc.Button).interactable) {
                     this.onClick();

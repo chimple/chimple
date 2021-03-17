@@ -93,7 +93,7 @@ export interface LessonProgress {
     score: number;
     attempts?: number;
     date?: Date;
-    assignmentId?: string;
+    assignmentIds: string[];
 }
 
 export class LessonProgressClass implements LessonProgress {
@@ -101,13 +101,13 @@ export class LessonProgressClass implements LessonProgress {
     score: number;
     attempts: number;
     date: Date;
-    assignmentId: string = null;
+    assignmentIds: string[] = [];
 
     constructor(score: number, attempts: number = 0, assignmentId: string = null) {
         this.score = score;
         this.attempts = attempts;
         this.date = new Date();
-        this.assignmentId = assignmentId;
+        !!assignmentId ? this.assignmentIds.push(assignmentId) : '';
     }
 }
 
@@ -464,6 +464,7 @@ export class User {
         } else {
             if (this._lessonProgressMap.has(lessonId)) {
                 const lessonProgress = this._lessonProgressMap.get(lessonId)
+                lessonProgress.assignmentIds.push(Config.i.lesson.assignmentId);
                 lessonProgress.attempts++
                 lessonProgress.date = new Date()
                 if (score > lessonProgress.score) {
