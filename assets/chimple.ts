@@ -1,12 +1,10 @@
-import Config, { LANG_CONFIGS, Lang } from "./common/scripts/lib/config";
-import Profile, {Gender, User, LANGUAGE, CURRENTMODE} from "./common/scripts/lib/profile";
-import { Mode, MODE } from "./common/scripts/lib/constants";
+import Config, {Lang, LANG_CONFIGS} from "./common/scripts/lib/config";
+import Profile, {CURRENTMODE, Gender, User} from "./common/scripts/lib/profile";
+import {Mode} from "./common/scripts/lib/constants";
 import UtilLogger from "./common/scripts/util-logger";
-import { Util } from "./common/scripts/util";
-import { APIMode, ServiceConfig } from "./common/scripts/services/ServiceConfig";
-import { AcceptTeacherRequest } from "./common/scripts/services/ServiceApi";
-import Start from "./menu/start/scripts/start";
-import {nextSelectMode} from "./private/school/scripts/selectionScene";
+import {Util} from "./common/scripts/util";
+import {APIMode, ServiceConfig} from "./common/scripts/services/ServiceConfig";
+import {AcceptTeacherRequest} from "./common/scripts/services/ServiceApi";
 import {SelectionMode} from "./common/scripts/services/parseApi";
 
 const { ccclass, property } = cc._decorator;
