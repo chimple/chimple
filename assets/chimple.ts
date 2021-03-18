@@ -209,7 +209,6 @@ export default class Chimple extends cc.Component {
                 break;
             case Mode.School:
                 // @ts-ignore
-                nextSelectMode = SelectionMode.Section;
                 Config.i.pushScene('private/school/scenes/sectionList', 'private', null, true);
                 break;
             default:
