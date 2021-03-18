@@ -91,6 +91,7 @@ export class CourseProgressClass implements CourseProgress {
 export interface LessonProgress {
     achievement?: number;
     score: number;
+    latestScore: number;
     attempts?: number;
     date?: Date;
     assignmentIds: string[];
@@ -99,12 +100,14 @@ export interface LessonProgress {
 export class LessonProgressClass implements LessonProgress {
     achievement: number = 0;
     score: number;
+    latestScore: number;
     attempts: number;
     date: Date;
     assignmentIds: string[] = [];
 
     constructor(score: number, attempts: number = 0, assignmentId: string = null) {
         this.score = score;
+        this.latestScore = score;
         this.attempts = attempts;
         this.date = new Date();
         !!assignmentId ? this.assignmentIds.push(assignmentId) : '';

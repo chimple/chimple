@@ -5,7 +5,6 @@ import UtilLogger from "./common/scripts/util-logger";
 import {Util} from "./common/scripts/util";
 import {APIMode, ServiceConfig} from "./common/scripts/services/ServiceConfig";
 import {AcceptTeacherRequest} from "./common/scripts/services/ServiceApi";
-import {SelectionMode} from "./common/scripts/services/parseApi";
 
 const { ccclass, property } = cc._decorator;
 

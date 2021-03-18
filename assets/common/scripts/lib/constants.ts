@@ -384,5 +384,5 @@ export interface Student {
     progressId: string;
     schoolId: string;
     sectionId: string;
-    profile: any;
+    profileInfo: any;
 }
