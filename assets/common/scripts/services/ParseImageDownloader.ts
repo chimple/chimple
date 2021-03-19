@@ -1,4 +1,4 @@
-import { ParseNetwork } from "./ParseNetwork";
+import {ParseNetwork} from "./ParseNetwork";
 import DownloaderTask = jsb.DownloaderTask;
 import UtilLogger from "../util-logger";
 
@@ -10,6 +10,12 @@ export class ParseImageDownloader {
     }
 
     public static loadImage(imageUrl: string, callBack: Function) {
+        if (!imageUrl) return;
+
+        if(imageUrl && imageUrl.indexOf('/') == -1) {
+            return;
+        }
+
         if (ParseImageDownloader.downloadStatuses.get(imageUrl)) {
             cc.log('downloading in progress ...', imageUrl);
             return;
