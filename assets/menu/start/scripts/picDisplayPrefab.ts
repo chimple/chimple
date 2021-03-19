@@ -18,7 +18,7 @@ export default class PicDisplayPrefab extends cc.Component {
     loadUserImageOrAvatar() {
         let currentUser = User.getCurrentUser();
         let picNode = this.picNode;
-        if (currentUser.imgPath != '') {
+        if (currentUser && currentUser.imgPath && currentUser.imgPath != '' && currentUser.imgPath.length > 0) {
             cc.loader.load(currentUser.imgPath, function (err, texture) {
                 if (!err) {
                     let temp = new cc.SpriteFrame(texture)
@@ -27,10 +27,12 @@ export default class PicDisplayPrefab extends cc.Component {
             });
         }
         else {
-            cc.resources.load(`avatars/${currentUser.avatarImage}`, (err, sp) => {
-                // @ts-ignore
-                this.picNode.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
-            });
+            if(currentUser && currentUser.avatarImage && currentUser.avatarImage.length > 0) {
+                cc.resources.load(`avatars/${currentUser.avatarImage}`, (err, sp) => {
+                    // @ts-ignore
+                    this.picNode.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
+                });
+            }
         }
         this.usernameNode.getComponent(cc.Label).string = currentUser.name;
     }
