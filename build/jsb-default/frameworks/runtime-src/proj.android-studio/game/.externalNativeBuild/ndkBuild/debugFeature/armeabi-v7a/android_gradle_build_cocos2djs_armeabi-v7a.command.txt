@@ -13,9 +13,6 @@ NDK_TOOLCHAIN_VERSION=clang
 NDK_MODULE_PATH=/Users/shyamalupadhyaya/Dev/chimple-git/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/shyamalupadhyaya/Dev/chimple-git/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/shyamalupadhyaya/Dev/chimple-git/chimple/build/jsb-default/frameworks/cocos2d-x/external
 -j8
 NDK_DEBUG=1
-APP_SHORT_COMMANDS=false
-LOCAL_SHORT_COMMANDS=false
--B
--n
+/Users/shyamalupadhyaya/Dev/chimple-git/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/game/build/intermediates/ndkBuild/feature/debug/obj/local/armeabi-v7a/libcocos2djs.so
 jvmArgs : 
 
