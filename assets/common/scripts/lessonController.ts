@@ -404,6 +404,7 @@ export default class LessonController extends cc.Component {
                         courseName: config.course.id,
                         percentComplete: percentageComplete,
                         timespent: Math.abs(timeSpent),
+                        assignmentId: config.lesson.assignmentId,
                         assessment: score,
                         kind: 'Progress',
                         studentId: User.getCurrentUser().id

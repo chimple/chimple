@@ -55,7 +55,8 @@ export class FirebaseApi implements ServiceApi {
                     lessonId: info.lesson,
                     userId: info.studentId,
                     courseName: info.courseName,
-                    score: info.assessment
+                    score: info.assessment,
+                    assignmentId: info.assignmentId
                 }
             };
             return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
@@ -132,9 +133,10 @@ export class FirebaseApi implements ServiceApi {
                             if (lProgress === null || lProgress === undefined) {
                                 shouldInclude = true;
                             } else {
-                                if (lProgress.assignmentId === null || lProgress.assignmentId === undefined) {
+                                if (lProgress.assignmentIds === null || lProgress.assignmentIds === undefined || lProgress.assignmentIds.length === 0) {
                                     shouldInclude = true;
-                                } else if (lProgress.assignmentId !== null && lProgress.assignmentId !== a.assignmentId) {
+                                } else if (lProgress.assignmentIds !== null && lProgress.assignmentIds.length > 0
+                                    && !lProgress.assignmentIds.includes(a.assignmentId)) {
                                     shouldInclude = true;
                                 }
                             }

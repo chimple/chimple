@@ -91,7 +91,7 @@ export class CourseProgressClass implements CourseProgress {
 export interface LessonProgress {
     achievement?: number;
     score: number;
-    latestScore: number;
+    course: string;
     attempts?: number;
     date?: Date;
     assignmentIds: string[];
@@ -100,16 +100,16 @@ export interface LessonProgress {
 export class LessonProgressClass implements LessonProgress {
     achievement: number = 0;
     score: number;
-    latestScore: number;
     attempts: number;
+    course: string;
     date: Date;
     assignmentIds: string[] = [];
 
-    constructor(score: number, attempts: number = 0, assignmentId: string = null) {
+    constructor(score: number, attempts: number = 0, course: string = null, assignmentId: string = null) {
         this.score = score;
-        this.latestScore = score;
         this.attempts = attempts;
         this.date = new Date();
+        this.course = course;
         !!assignmentId ? this.assignmentIds.push(assignmentId) : '';
     }
 }
@@ -493,7 +493,7 @@ export class User {
                 if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
                     reward = [REWARD_TYPES[2], Config.i.lesson.image]
                 }
-                this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1, Config.i.lesson.assignmentId));
+                this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1, Config.i.course.name, Config.i.lesson.assignmentId));
             }
 
             if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
