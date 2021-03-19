@@ -366,6 +366,7 @@ export interface School {
 
 
 export interface Section {
+    image: string
     firebaseId: string;
     name: string;
     schoolId: string;
