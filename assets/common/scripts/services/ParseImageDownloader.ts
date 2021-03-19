@@ -12,7 +12,7 @@ export class ParseImageDownloader {
     public static loadImage(imageUrl: string, callBack: Function) {
         if (!imageUrl) return;
 
-        if(imageUrl && imageUrl.indexOf('/') == -1) {
+        if (imageUrl && imageUrl.indexOf('/') == -1) {
             return;
         }
 
@@ -75,6 +75,7 @@ export class ParseImageDownloader {
     private static loadImageFromNetwork(imageUrl: string, callBack: Function) {
         try {
             cc.assetManager.loadRemote(imageUrl, function (err, texture) {
+                ParseImageDownloader.downloadStatuses.set(imageUrl, false);
                 if (!err && !!texture) {
                     cc.log('successfully loadImageFromNetwork', imageUrl);
                     callBack(texture);
