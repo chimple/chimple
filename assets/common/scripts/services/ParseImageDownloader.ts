@@ -1,4 +1,4 @@
-import { ParseNetwork } from "./ParseNetwork";
+import {ParseNetwork} from "./ParseNetwork";
 import DownloaderTask = jsb.DownloaderTask;
 import UtilLogger from "../util-logger";
 
@@ -10,6 +10,11 @@ export class ParseImageDownloader {
     }
 
     public static loadImage(imageUrl: string, callBack: Function) {
+        if (!imageUrl) return;
+
+        if (imageUrl && imageUrl.indexOf('/') == -1) {
+            return;
+        }
         const _storagePath = jsb.fileUtils.getWritablePath() + '/school-photos/';
         const imageFileNameToSave = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
         let imageToSave = _storagePath + imageFileNameToSave;
@@ -30,7 +35,7 @@ export class ParseImageDownloader {
         if (ParseImageDownloader.isNative()) {
             ParseImageDownloader.downloadImageFromNetworkAndSave(imageUrl, callBack);
         } else {
-            ParseImageDownloader.loadImageFromNetwork(imageUrl, callBack);
+            ParseImageDownloader.loadImageFromNetwork(imageUrl, imageUrl, callBack);
         }
     }
 
@@ -48,7 +53,7 @@ export class ParseImageDownloader {
         const isNetworkAvailable: boolean = UtilLogger.isNetworkAvailable();
         if (ParseNetwork.getInstance().getStringFromCache(imageToSave)) {
             cc.log('image found in cache', imageToSave);
-            this.loadImageFromNetwork(imageToSave, callBack);
+            this.loadImageFromNetwork(imageUrl, imageToSave, callBack);
             return;
         }
 
@@ -57,7 +62,7 @@ export class ParseImageDownloader {
             _downloader.setOnFileTaskSuccess((task: DownloaderTask) => {
                 cc.log('setOnFileTaskSuccess called for:', task.requestURL, ' stored: ', task.storagePath);
                 ParseNetwork.getInstance().storeIntoCache(task.storagePath, "true");
-                this.loadImageFromNetwork(task.storagePath, callBack);
+                this.loadImageFromNetwork(task.requestURL, task.storagePath, callBack);
             });
 
             _downloader.setOnTaskError((task: DownloaderTask, errorCode: number,
@@ -76,14 +81,14 @@ export class ParseImageDownloader {
         ParseImageDownloader.downloadStatuses.delete(imageUrl);
     }
 
-    private static loadImageFromNetwork(imageUrl: string, callBack: Function) {
+    private static loadImageFromNetwork(imageUrl: string, savedImageUrl: string, callBack: Function) {
         try {
-            cc.assetManager.loadRemote(imageUrl, function (err, texture) {
+            cc.assetManager.loadRemote(savedImageUrl, function (err, texture) {
                 if (!err && !!texture) {
-                    cc.log('successfully loadImageFromNetwork', imageUrl);
+                    cc.log('successfully loadImageFromNetwork', savedImageUrl);
                     callBack(texture);
                 } else {
-                    cc.log('failed loadImageFromNetwork', imageUrl);
+                    cc.log('failed loadImageFromNetwork', savedImageUrl);
                 }
             });
         } catch (e) {
