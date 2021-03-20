@@ -10,9 +10,19 @@ export class ParseImageDownloader {
     }
 
     public static loadImage(imageUrl: string, callBack: Function) {
+        const _storagePath = jsb.fileUtils.getWritablePath() + '/school-photos/';
+        const imageFileNameToSave = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+        let imageToSave = _storagePath + imageFileNameToSave;
         if (ParseImageDownloader.downloadStatuses.get(imageUrl)) {
             cc.log('downloading in progress ...', imageUrl);
-            return;
+            cc.loader.loadResDir(imageToSave, function (err, texture) {
+                if (!err && !!texture) {
+                    cc.log('successfully loadImageFromNetwork', imageUrl);
+                    callBack(texture);
+                } else {
+                    cc.log('failed loadImageFromNetwork', imageUrl);
+                }
+            });
         }
 
         ParseImageDownloader.downloadStatuses.set(imageUrl, true);
