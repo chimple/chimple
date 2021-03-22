@@ -970,13 +970,13 @@ public class ChimpleLogger {
         AppActivity.app.login(email, password);
     }
 
-    public static String findSchool(String email) {
+    public static String findSchool(String id) {
         String json = "{}";
         try {
             FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
             Log.d(TAG, "FirebaseOperations instance:" + instance);
             if (instance != null) {
-                School school = instance.getOperations().findSchoolByEmail(email);
+                School school = instance.getOperations().findSchoolById(id);
                 if (school != null) {
                     Gson gson = new GsonBuilder().create();
                     json = gson.toJson(school);

@@ -49,7 +49,7 @@ public class DbOperations {
             public void run() {
                 Log.d(TAG, "Upsert school: " + school);
                 db.schoolDao().insertSchool(school);
-                School s = db.schoolDao().findSchoolBySchoolCode(school.getSchoolCode());
+                School s = db.schoolDao().findSchoolById(school.getFirebaseId());
                 Log.d(TAG, "Found school: " + s);
             }
         });
@@ -293,13 +293,13 @@ public class DbOperations {
         });
     }
 
-    public School findSchoolByEmail(final String email) {
+    public School findSchoolById(final String id) {
         try {
             final School[] mutable = new School[1];
             Future<School[]> result = AppExecutors.getInstance().diskIO().submit(new Runnable() {
                 @Override
                 public void run() {
-                    mutable[0] = db.schoolDao().findSchoolBySchoolCode(email);
+                    mutable[0] = db.schoolDao().findSchoolById(id);
                     Log.d(TAG, "found school:" + mutable[0]);
                 }
             }, mutable);
