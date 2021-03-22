@@ -94,7 +94,8 @@ public class FirebaseOperations {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     String docId = document.getId();
                                     Log.d(TAG, "got connection Id: " + docId);
-                                    docId = docId.replace("ST_", "");
+                                    int from = docId.indexOf("_");
+                                    docId = from != -1 ? docId.substring(from + 1) : docId;
                                     Log.d(TAG, "got school Id from connection: " + docId);
                                     Helper.ref().getSharedPreferences().edit().putString(SCHOOL_ID, docId).apply();
                                     if (docId != null) {
