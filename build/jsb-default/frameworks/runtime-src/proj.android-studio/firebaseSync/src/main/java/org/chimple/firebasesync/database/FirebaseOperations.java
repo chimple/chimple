@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
@@ -33,6 +34,7 @@ import java.util.Map;
 
 import static org.chimple.firebasesync.database.Helper.EMAIL;
 import static org.chimple.firebasesync.database.Helper.FB_SELECTED_SCHOOL;
+import static org.chimple.firebasesync.database.Helper.SCHOOL_ID;
 
 
 public class FirebaseOperations {
@@ -77,31 +79,63 @@ public class FirebaseOperations {
 
     // Need to call after auth
     public void enableSyncWithFirebase(boolean shouldCallBack) {
-        if (Helper.isNetworkAvailable()) {
-            this.syncUpdatedProfiles();
-            this.registerSyncListeners(shouldCallBack);
-        } else {
-            this.registerSyncListenersOffline();
-        }
-    }
-
-    private void syncUpdatedProfiles() {
-        if (Helper.isNetworkAvailable()) {
-            final String email = Helper.ref().getSharedPreferences().getString(EMAIL, "");
-            Task<QuerySnapshot> schoolCollection = db.collection("School")
-                    .whereEqualTo("schoolCode", email)
+        final Context context = this.context;
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Log.d(TAG, "in enableSyncWithFirebase with User:" + user);
+        if (user != null) {
+            Log.d(TAG, "in enableSyncWithFirebase with User ID:" + user.getUid());
+            db.collection("Connection")
+                    .whereArrayContains("roles", user.getUid())
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
-                                Log.d(TAG, "syncUpdatedProfiles:" + email);
                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                    Helper.ref().getSharedPreferences().edit().putString(FB_SELECTED_SCHOOL, document.getId()).apply();
-                                    String schoolId = Helper.ref().getSharedPreferences().getString(FB_SELECTED_SCHOOL, "");
-                                    Log.d(TAG, "updateAllNonSyncedProfiles" + schoolId);
-                                    FirebaseOperations.ref.operations.updateAllNonSyncedProfiles(schoolId);
+                                    String docId = document.getId();
+                                    Log.d(TAG, "got connection Id: " + docId);
+                                    docId = docId.replace("ST_", "");
+                                    Log.d(TAG, "got school Id from connection: " + docId);
+                                    Helper.ref().getSharedPreferences().edit().putString(SCHOOL_ID, docId).apply();
+                                    if (docId != null) {
+                                        if (Helper.isNetworkAvailable()) {
+                                            FirebaseOperations.getInitializedInstance().syncUpdatedProfiles();
+                                            FirebaseOperations.getInitializedInstance().registerSyncListeners(shouldCallBack);
+                                        } else {
+                                            FirebaseOperations.getInitializedInstance().registerSyncListenersOffline();
+                                        }
+                                    } else {
+                                        FirebaseOperations.ref.callback.loginFailed("Email/Password not correct - connection not found");
+                                    }
                                 }
+
+                            } else {
+                                Log.d(TAG, "Querying Connection was failed...");
+                                FirebaseOperations.ref.callback.loginFailed("Email/Password not correct");
+                            }
+                        }
+                    });
+        } else {
+            FirebaseOperations.ref.callback.loginFailed("Email/Password not correct");
+        }
+    }
+
+    private void syncUpdatedProfiles() {
+        if (Helper.isNetworkAvailable()) {
+            final String id = Helper.ref().getSharedPreferences().getString(SCHOOL_ID, "");
+            db.collection("School")
+                    .document(id)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "syncUpdatedProfiles:" + id);
+                                DocumentSnapshot document = task.getResult();
+                                Helper.ref().getSharedPreferences().edit().putString(FB_SELECTED_SCHOOL, document.getId()).apply();
+                                String schoolId = Helper.ref().getSharedPreferences().getString(FB_SELECTED_SCHOOL, "");
+                                Log.d(TAG, "updateAllNonSyncedProfiles" + schoolId);
+                                FirebaseOperations.ref.operations.updateAllNonSyncedProfiles(schoolId);
                             } else {
                                 Log.d(TAG, "Error getting documents: ", task.getException());
                             }
@@ -111,8 +145,8 @@ public class FirebaseOperations {
     }
 
     private void registerSyncListenersOffline() {
-        final String email = Helper.ref().getSharedPreferences().getString(EMAIL, "");
-        School school = sInstance.getOperations().findSchoolByEmail(email);
+        final String id = Helper.ref().getSharedPreferences().getString(SCHOOL_ID, "");
+        School school = sInstance.getOperations().findSchoolById(id);
         if (school != null) {
             Log.d(TAG, "init listeners for school:" + school.getFirebaseId());
             FirebaseOperations.ref.initListeners(school.getFirebaseId());
@@ -122,16 +156,17 @@ public class FirebaseOperations {
     private void registerSyncListeners(final boolean shouldCallBack) {
         // find school by email id
         Log.d(TAG, "registerSyncListeners");
-        final String email = Helper.ref().getSharedPreferences().getString(EMAIL, "");
-        Task<QuerySnapshot> schoolCollection = db.collection("School")
-                .whereEqualTo("schoolCode", email)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "Query firebase school collection with email:" + email);
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+        final String id = Helper.ref().getSharedPreferences().getString(SCHOOL_ID, "");
+        if (id != null) {
+            db.collection("School")
+                    .document(id)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                Log.d(TAG, "Query firebase school collection with id:" + id);
                                 Helper.ref().getSharedPreferences().edit().putString(FB_SELECTED_SCHOOL, document.getId()).apply();
                                 String schoolId = Helper.ref().getSharedPreferences().getString(FB_SELECTED_SCHOOL, "");
 
@@ -140,18 +175,17 @@ public class FirebaseOperations {
                                 Log.d(TAG, "creating school" + school.getName());
                                 operations.upsertSchool(school);
 
-                                String schoolJsonString = Helper.findSchool(email);
+                                String schoolJsonString = Helper.findSchool(id);
                                 Log.d(TAG, "init listeners for school:" + schoolId);
                                 FirebaseOperations.ref.initListeners(schoolId);
                                 FirebaseOperations.ref.callback.loginSucceed(schoolJsonString, shouldCallBack);
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                                FirebaseOperations.ref.callback.loginFailed("School Not Found");
                             }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                            FirebaseOperations.ref.callback.loginFailed("School Not Found");
                         }
-                    }
-                });
-
+                    });
+        }
     }
 
     public void unRegisterListeners() {
