@@ -345,14 +345,14 @@ export const COUNTRY_CODES: object[] = [
 ];
 
 export const firebaseConfigWeb = {
-    apiKey: "AIzaSyAi92k8nf7IDaviagF86wq164kqpZ_-3PA",
-    authDomain: "bahama-stage.firebaseapp.com",
-    databaseURL: "https://bahama-stage.firebaseio.com",
-    projectId: "bahama-stage",
-    storageBucket: "bahama-stage.appspot.com",
-    messagingSenderId: "105857221433",
-    appId: "1:105857221433:web:c078a997c285ed1f70dee8",
-    measurementId: "G-L3XLM51J4D"
+    apiKey: "AIzaSyBY9Q_FPif0h82-GsUNKOQfOsFk02iptC4",
+    authDomain: "chimple-stage.firebaseapp.com",
+    databaseURL: "https://chimple-stage.firebaseio.com",
+    projectId: "chimple-stage",
+    storageBucket: "chimple-stage.appspot.com",
+    messagingSenderId: "164143434825",
+    appId: "1:164143434825:web:eee37bcdbc0fb20f964398",
+    measurementId: "G-FNDYT82RFC"
 };
 
 
