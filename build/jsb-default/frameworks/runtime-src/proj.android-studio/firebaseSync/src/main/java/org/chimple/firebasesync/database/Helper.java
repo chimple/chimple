@@ -254,11 +254,11 @@ public class Helper {
         return json;
     }
 
-    public static void syncProfile(String schoolId, String sectionId, String studentId, String profileData) {
+    public static void syncProfile(String schoolId, String sectionId, String studentId, String profileData, String progressId) {
         FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
         Log.d(TAG, "Sync profile school:" + schoolId + " section:" + sectionId + " student:" + studentId);
         if (instance != null) {
-            instance.syncProfile(schoolId, sectionId, studentId, profileData);
+            instance.syncProfile(schoolId, sectionId, studentId, profileData, progressId);
         }
     }
 
