@@ -91,23 +91,28 @@ public class FirebaseOperations {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
+                                String docId = null;
                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                    String docId = document.getId();
-                                    Log.d(TAG, "got connection Id: " + docId);
-                                    int from = docId.indexOf("_");
-                                    docId = from != -1 ? docId.substring(from + 1) : docId;
-                                    Log.d(TAG, "got school Id from connection: " + docId);
-                                    Helper.ref().getSharedPreferences().edit().putString(SCHOOL_ID, docId).apply();
-                                    if (docId != null) {
-                                        if (Helper.isNetworkAvailable()) {
-                                            FirebaseOperations.getInitializedInstance().syncUpdatedProfiles();
-                                            FirebaseOperations.getInitializedInstance().registerSyncListeners(shouldCallBack);
-                                        } else {
-                                            FirebaseOperations.getInitializedInstance().registerSyncListenersOffline();
-                                        }
-                                    } else {
-                                        FirebaseOperations.ref.callback.loginFailed("Email/Password not correct - connection not found");
+                                    Log.d(TAG, "got connection Id: " + document.getId());
+                                    int from = document.getId().indexOf("ST_");
+                                    if (docId == null) {
+                                        docId = from != -1 ? document.getId().replace("ST_", "") : null;
                                     }
+                                    Log.d(TAG, "got school Id from connection: " + docId);
+                                    if (docId != null) {
+                                        break;
+                                    }
+                                }
+                                if (docId != null) {
+                                    Helper.ref().getSharedPreferences().edit().putString(SCHOOL_ID, docId).apply();
+                                    if (Helper.isNetworkAvailable()) {
+                                        FirebaseOperations.getInitializedInstance().syncUpdatedProfiles();
+                                        FirebaseOperations.getInitializedInstance().registerSyncListeners(shouldCallBack);
+                                    } else {
+                                        FirebaseOperations.getInitializedInstance().registerSyncListenersOffline();
+                                    }
+                                } else {
+                                    FirebaseOperations.ref.callback.loginFailed("Email/Password not correct - connection not found");
                                 }
 
                             } else {
