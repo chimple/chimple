@@ -105,7 +105,7 @@ export class LessonProgressClass implements LessonProgress {
     date: Date;
     assignmentIds: string[] = [];
 
-    constructor(score: number, attempts: number = 0, course: string = null, assignmentId: string = null) {
+    constructor(score: number, attempts: number = 0, course: string = Config.i.course.id, assignmentId: string = null) {
         this.score = score;
         this.attempts = attempts;
         this.date = new Date();
@@ -602,7 +602,7 @@ export class User {
         }
 
         if (cc.sys.isNative && !!user.schoolId && !!user.sectionId && !!user.studentId) {
-            UtilLogger.syncProfile(user.schoolId, user.sectionId, user.studentId, User.toJson(user))
+            UtilLogger.syncProfile(user.schoolId, user.sectionId, user.studentId, User.toJson(user), User.getCurrentUser().id)
         }
     }
 

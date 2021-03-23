@@ -72,7 +72,7 @@ const FETCH_STUDENTS_METHOD = "fetchStudentsForSchoolAndSection";
 const FETCH_STUDENTS_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;";
 
 const SYNC_PROFILE_METHOD = "syncProfile";
-const SYNC_PROFILE_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
+const SYNC_PROFILE_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
 
 const USER_ID = "userId";
 const DEVICE_ID = "deviceId";
@@ -557,8 +557,8 @@ export default class UtilLogger {
         }
     }
 
-    public static syncProfile(schoolId: string, sectionId: string, studentId: string, profile: string): void {
-        cc.log(`syncProfile for: ${schoolId}-${sectionId}-${studentId}`);
+    public static syncProfile(schoolId: string, sectionId: string, studentId: string, profile: string, progressId: string): void {
+        cc.log(`syncProfile for: ${schoolId}-${sectionId}-${studentId}-${progressId}`);
         try {
             if (
                 cc.sys.isNative &&
@@ -571,7 +571,8 @@ export default class UtilLogger {
                     schoolId,
                     sectionId,
                     studentId,
-                    profile
+                    profile,
+                    progressId
                 );
             }
         } catch (e) {

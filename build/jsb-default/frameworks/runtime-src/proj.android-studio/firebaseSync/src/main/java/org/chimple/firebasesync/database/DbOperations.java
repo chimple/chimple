@@ -237,11 +237,11 @@ public class DbOperations {
         });
     }
 
-    public void updateStudentProfileToLocalDB(final String schoolId, final String sectionId, final String firebaseId, final String profile) {
+    public void updateStudentProfileToLocalDB(final String schoolId, final String sectionId, final String firebaseId, final String profile, String progressId) {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                db.studentDao().updateStudentProfile(schoolId, sectionId, profile, firebaseId, false);
+                db.studentDao().updateStudentProfile(schoolId, sectionId, profile, firebaseId, progressId, false);
                 Log.d(TAG, "Updated student Profile:" + profile + " for:" + firebaseId);
                 updateProfileForStudentToFirebase(schoolId, sectionId, firebaseId);
             }
@@ -252,7 +252,8 @@ public class DbOperations {
         DocumentReference student = FirebaseOperations.getInitializedInstance().getDb().collection(SCHOOL_COLLECTION + "/" + s.getSchoolId() + "/" + SECTION_COLLECTION + "/" + s.getSectionId() + "/" + STUDENT_COLLECTION).document(s.getFirebaseId());
         HashMap updatedProfileMap = new Gson().fromJson(s.getProfileInfo(), HashMap.class);
         student.update("profile", updatedProfileMap,
-                "link", true)
+                "link", true,
+                "progressId", s.getProgressId())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
