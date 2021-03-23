@@ -367,7 +367,6 @@ export class User {
 
     set schoolId(value: string) {
         this._schoolId = value;
-        this.storeUser();
     }
 
     get sectionId(): string {
@@ -376,7 +375,6 @@ export class User {
 
     set sectionId(value: string) {
         this._sectionId = value;
-        this.storeUser();
     }
 
     get studentId(): string {
@@ -385,7 +383,6 @@ export class User {
 
     set studentId(value: string) {
         this._studentId = value;
-        this.storeUser();
     }
 
     unlockInventoryForItem(item: string) {
@@ -601,8 +598,13 @@ export class User {
             }
         }
 
-        if (cc.sys.isNative && !!user.schoolId && !!user.sectionId && !!user.studentId) {
-            UtilLogger.syncProfile(user.schoolId, user.sectionId, user.studentId, User.toJson(user), User.getCurrentUser().id)
+        User.syncProfile();
+    }
+
+    static syncProfile() {
+        const user = User._currentUser;
+        if(cc.sys.isNative && !!user && !!user.schoolId && !!user.sectionId && !!user.studentId && !!user.id) {
+            UtilLogger.syncProfile(user.schoolId, user.sectionId, user.studentId, User.toJson(user), user.id)
         }
     }
 
