@@ -251,7 +251,8 @@ public class DbOperations {
     private void updateStudentDoc(final Student s) {
         DocumentReference student = FirebaseOperations.getInitializedInstance().getDb().collection(SCHOOL_COLLECTION + "/" + s.getSchoolId() + "/" + SECTION_COLLECTION + "/" + s.getSectionId() + "/" + STUDENT_COLLECTION).document(s.getFirebaseId());
         HashMap updatedProfileMap = new Gson().fromJson(s.getProfileInfo(), HashMap.class);
-        student.update("profile", updatedProfileMap)
+        student.update("profile", updatedProfileMap,
+                "link", true)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
