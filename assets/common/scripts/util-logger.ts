@@ -449,7 +449,8 @@ export default class UtilLogger {
     }
 
     public static syncFmcTokenForUsers() {
-        const userIds: string = User.getUserIds().join(",");
+        const u = User.getUserIds() || [];
+        const userIds: string = u.join(",");
         console.log("syncFmcTokenForUsers:" + userIds);
         try {
             if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
