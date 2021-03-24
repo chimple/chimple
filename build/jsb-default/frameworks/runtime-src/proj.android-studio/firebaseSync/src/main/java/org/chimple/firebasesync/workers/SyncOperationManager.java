@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.work.Constraints;
 import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import java.util.concurrent.TimeUnit;
@@ -35,11 +36,13 @@ public class SyncOperationManager {
     }
 
     public void scheduleStartSync() {
+        Log.d(TAG, "scheduleStartSync - build job");
         this.workManager.cancelAllWork();
         this.workManager
                 .beginWith(this.buildSyncTask())
-//                .then(this.cleanSyncTask())
                 .enqueue();
+
+        this.workManager.enqueue(this.buildSyncPeriodTask());
     }
 
     private OneTimeWorkRequest buildSyncTask() {
@@ -51,10 +54,17 @@ public class SyncOperationManager {
         return oneTimeWorkRequest;
     }
 
+    private PeriodicWorkRequest buildSyncPeriodTask() {
+        PeriodicWorkRequest periodicWorkRequest =
+                new PeriodicWorkRequest.Builder(StartSyncWorker.class, 5, TimeUnit.MINUTES)
+                        .setConstraints(this.buildConstraint())
+                        .build();
+        return periodicWorkRequest;
+    }
 
     private Constraints buildConstraint() {
         Constraints constraints = new Constraints.Builder()
-                .setRequiresCharging(true)
+//                .setRequiresCharging(true)
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
         return constraints;
