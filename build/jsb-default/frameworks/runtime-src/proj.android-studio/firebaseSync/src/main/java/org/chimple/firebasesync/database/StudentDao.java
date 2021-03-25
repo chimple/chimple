@@ -25,6 +25,9 @@ public interface StudentDao {
     @Query("SELECT * FROM STUDENT where schoolId = :schoolId and sectionId = :sectionId and is_synced = 0 and firebaseId = :firebaseId LIMIT 1")
     Student findNonSyncedProfileForStudent(String schoolId, String sectionId, String firebaseId);
 
+    @Query("SELECT * FROM STUDENT where schoolId = :schoolId and sectionId = :sectionId and is_synced = 1 and firebaseId = :firebaseId LIMIT 1")
+    Student findSyncedProfileForStudent(String schoolId, String sectionId, String firebaseId);
+
     @Insert(onConflict = REPLACE)
     void insertStudent(Student Student);
 
