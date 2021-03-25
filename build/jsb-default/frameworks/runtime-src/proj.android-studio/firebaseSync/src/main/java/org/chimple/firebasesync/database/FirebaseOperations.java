@@ -407,7 +407,7 @@ public class FirebaseOperations {
             student.setProfileInfo(profileInfo);
         }
 
-        student.setSynced(isNew);
+        student.setSynced(true);
         student.setFirebaseId(s.getId());
         student.setSchoolId(schoolId);
         student.setSectionId(sectionId);

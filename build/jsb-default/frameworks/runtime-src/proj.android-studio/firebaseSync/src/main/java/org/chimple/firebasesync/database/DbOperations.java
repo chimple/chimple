@@ -215,11 +215,15 @@ public class DbOperations {
         });
     }
 
-    public void updateSync(final String firebaseId, final boolean sync) {
+    public void updateSync(final Student s, final boolean sync) {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                db.studentDao().updateSync(firebaseId, sync);
+                db.studentDao().updateSync(s.getFirebaseId(), sync);
+                Student p = db.studentDao().findSyncedProfileForStudent(s.getSchoolId(), s.getSectionId(), s.getFirebaseId());
+                if(p != null) {
+                    Log.d(TAG, "Profile Synced:" + p.isSynced());
+                }
             }
         });
     }
@@ -257,15 +261,15 @@ public class DbOperations {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        updateSync(s.getFirebaseId(), true);
-                        Log.d(TAG, "DocumentSnapshot successfully updated! Sync Completed for:" + s.getFirebaseId());
+                        updateSync(s, true);
+                        Log.d(TAG, s.getName() + ": " + "DocumentSnapshot successfully updated! Sync Completed for:" + s.getFirebaseId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error updating document Sync Failed for :" + s.getFirebaseId(), e);
-                        updateSync(s.getFirebaseId(), false);
+                        updateSync(s, false);
                     }
                 });
     }
