@@ -24,13 +24,35 @@ export class ParseImageDownloader {
         ParseImageDownloader.downloadStatuses.set(imageUrl, true);
 
         if (ParseImageDownloader.isNative()) {
-            ParseImageDownloader.downloadImageFromNetworkAndSave(imageUrl, callBack);
+            const imageFileNameToSave = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+            ParseImageDownloader.downloadImageFromNetworkAndSave(imageUrl, imageFileNameToSave, callBack);
         } else {
             ParseImageDownloader.loadImageFromNetwork(imageUrl, imageUrl, callBack);
         }
     }
 
-    private static downloadImageFromNetworkAndSave(imageUrl: string, callBack: Function) {
+    public static loadImageForSchool(imageUrl: string, savedAs: string, callBack: Function) {
+        if (!imageUrl) return;
+
+        if (imageUrl && imageUrl.indexOf('/') == -1) {
+            return;
+        }
+
+        if (ParseImageDownloader.downloadStatuses.get(imageUrl)) {
+            cc.log('downloading in progress ...', imageUrl);
+            return;
+        }
+
+        ParseImageDownloader.downloadStatuses.set(imageUrl, true);
+
+        if (ParseImageDownloader.isNative()) {
+            ParseImageDownloader.downloadImageFromNetworkAndSave(imageUrl, savedAs, callBack);
+        } else {
+            ParseImageDownloader.loadImageFromNetwork(imageUrl, imageUrl, callBack);
+        }
+    }
+
+    private static downloadImageFromNetworkAndSave(imageUrl: string, imageFileNameToSave: string, callBack: Function) {
         const _storagePath = jsb.fileUtils.getWritablePath() + '/school-photos/';
         cc.log('_storagePath', _storagePath);
         const _inited = jsb.fileUtils.createDirectory(_storagePath);
@@ -39,7 +61,7 @@ export class ParseImageDownloader {
             ParseImageDownloader.downloadStatuses.set(imageUrl, false);
             return;
         }
-        const imageFileNameToSave = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+        imageFileNameToSave = imageFileNameToSave + ".jpg";
         let imageToSave = _storagePath + imageFileNameToSave;
         const isNetworkAvailable: boolean = UtilLogger.isNetworkAvailable();
         if (ParseNetwork.getInstance().getStringFromCache(imageToSave)) {
