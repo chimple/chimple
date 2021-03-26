@@ -1,4 +1,5 @@
 import { User } from "../../../common/scripts/lib/profile";
+import { ParseImageDownloader } from "../../../common/scripts/services/ParseImageDownloader";
 
 const { ccclass, property } = cc._decorator;
 
@@ -19,10 +20,14 @@ export default class PicDisplayPrefab extends cc.Component {
         let currentUser = User.getCurrentUser();
         let picNode = this.picNode;
         if (currentUser && currentUser.imgPath && currentUser.imgPath != '' && currentUser.imgPath.length > 0) {
-            cc.loader.load(currentUser.imgPath, function (err, texture) {
-                if (!err) {
-                    let temp = new cc.SpriteFrame(texture)
-                    picNode.getComponent(cc.Sprite).spriteFrame = temp;
+            ParseImageDownloader.loadImageForSchool(currentUser.imgPath, currentUser.id, (texture) => {
+                if (!!texture && picNode) {
+                    let spriteFrame: cc.SpriteFrame = new cc.SpriteFrame(texture);
+                    const maskNode: cc.Node = picNode.getChildByName('mask');
+                    if (maskNode) {
+                        const image: cc.Node = maskNode.getChildByName('image');
+                        image.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                    }
                 }
             });
         }
