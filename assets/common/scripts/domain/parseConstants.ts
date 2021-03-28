@@ -84,3 +84,4 @@ export const FIREBASE_SCHOOL_URL = 'https://us-central1-chimple-stage.cloudfunct
 export const FIREBASE_UPDATE_HOME_TEACHER_URL = 'https://us-central1-chimple-stage.cloudfunctions.net/chimple/createStudent';
 export const FIREBASE_LIST_ASSIGNMENTS = 'https://us-central1-chimple-stage.cloudfunctions.net/chimple/assignments?studentId='
 export const FIREBASE_UPDATE_PROGRESS_URL = 'https://us-central1-chimple-stage.cloudfunctions.net/chimple/updateProgressOnHttp';
+export const FIREBASE_LINK_STUDENT_URL = 'https://us-central1-chimple-stage.cloudfunctions.net/chimple/LinkStudent';

@@ -38,4 +38,9 @@ export class ApiHandler {
     public async listAssignments(studentId: string, limit: number = 10) {
         return await this.s.listAssignments(studentId, limit);
     }
+
+    public async linkStudent(studentId: string, code: string) {
+        return await this.s.linkStudent(studentId, code);
+    }
+
 }

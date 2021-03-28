@@ -3,6 +3,7 @@ import {AcceptTeacherRequest, ServiceApi, UpdateProgressInfo} from "./ServiceApi
 import {Queue} from "../../../queue";
 import {UpdateHomeTeacher} from "./parseApi";
 import {
+    FIREBASE_LINK_STUDENT_URL,
     FIREBASE_LIST_ASSIGNMENTS,
     FIREBASE_SCHOOL_URL,
     FIREBASE_UPDATE_HOME_TEACHER_URL, FIREBASE_UPDATE_PROGRESS_URL, LIST_ASSIGNMENTS, UPDATE_PROGRESS_URL
@@ -157,4 +158,18 @@ export class FirebaseApi implements ServiceApi {
         }
         return results;
     }
+
+    async linkStudent(studentId: string, code: string): Promise<any> {
+        if (studentId && studentId.length > 0 &&
+            code && code.length > 0) {
+            const requestParams: RequestParams = {
+                url: FIREBASE_LINK_STUDENT_URL,
+                body: {
+                    studentId, code
+                }
+            };
+            return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
+        }
+    }
+
 }

@@ -13,6 +13,8 @@ export interface ServiceApi {
     updateHomeTeacher(info: UpdateHomeTeacher): Promise<any>;
 
     listAssignments(studentId: string, limit: number): Promise<any>;
+
+    linkStudent(studentId: string, code: string): Promise<any>;
 }
 
 export interface AcceptTeacherRequest {
