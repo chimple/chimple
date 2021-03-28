@@ -79,7 +79,7 @@ export default class ChapterLessons extends cc.Component {
                     })
                 } else {
                     this.label.string = 'Connect To Class'
-                    this.whatsappNode.active = true
+                    // this.whatsappNode.active = true
                     this.otpDialogNode.active = true;
                 }
                 break;

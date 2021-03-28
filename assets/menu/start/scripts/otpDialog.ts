@@ -68,6 +68,9 @@ export default class OtpDialog extends cc.Component {
                     user.sectionId = response.data.sectionId;
                     user.schoolId = response.data.schoolId;
                     user.studentId = response.data.studentId;
+                    user.isConnected = true;
+                    user.storeUser();
+
                     const request: AcceptTeacherRequest = {
                         teacherId: user.schoolId,
                         sectionId: user.sectionId,
