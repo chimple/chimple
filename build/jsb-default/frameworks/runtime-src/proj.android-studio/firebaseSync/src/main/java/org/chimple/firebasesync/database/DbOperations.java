@@ -216,16 +216,18 @@ public class DbOperations {
     }
 
     public void updateSync(final Student s, final boolean sync) {
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                db.studentDao().updateSync(s.getFirebaseId(), sync);
-                Student p = db.studentDao().findSyncedProfileForStudent(s.getSchoolId(), s.getSectionId(), s.getFirebaseId());
-                if(p != null) {
-                    Log.d(TAG, "Profile Synced:" + p.isSynced());
+        if(s != null) {
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    db.studentDao().updateSync(s.getFirebaseId(), sync);
+                    Student p = db.studentDao().findSyncedProfileForStudent(s.getSchoolId(), s.getSectionId(), s.getFirebaseId());
+                    if (p != null) {
+                        Log.d(TAG, "Profile Synced:" + p.isSynced());
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     public void updateAllNonSyncedProfiles(final String schoolId) {
@@ -253,25 +255,27 @@ public class DbOperations {
     }
 
     private void updateStudentDoc(final Student s) {
-        DocumentReference student = FirebaseOperations.getInitializedInstance().getDb().collection(SCHOOL_COLLECTION + "/" + s.getSchoolId() + "/" + SECTION_COLLECTION + "/" + s.getSectionId() + "/" + STUDENT_COLLECTION).document(s.getFirebaseId());
-        HashMap updatedProfileMap = new Gson().fromJson(s.getProfileInfo(), HashMap.class);
-        student.update("profile", updatedProfileMap,
-                "link", true,
-                "progressId", s.getProgressId())
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        updateSync(s, true);
-                        Log.d(TAG, s.getName() + ": " + "DocumentSnapshot successfully updated! Sync Completed for:" + s.getFirebaseId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error updating document Sync Failed for :" + s.getFirebaseId(), e);
-                        updateSync(s, false);
-                    }
-                });
+        if (s != null) {
+            DocumentReference student = FirebaseOperations.getInitializedInstance().getDb().collection(SCHOOL_COLLECTION + "/" + s.getSchoolId() + "/" + SECTION_COLLECTION + "/" + s.getSectionId() + "/" + STUDENT_COLLECTION).document(s.getFirebaseId());
+            HashMap updatedProfileMap = new Gson().fromJson(s.getProfileInfo(), HashMap.class);
+            student.update("profile", updatedProfileMap,
+                    "link", true,
+                    "progressId", s.getProgressId())
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            updateSync(s, true);
+                            Log.d(TAG, s.getName() + ": " + "DocumentSnapshot successfully updated! Sync Completed for:" + s.getFirebaseId());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error updating document Sync Failed for :" + s.getFirebaseId(), e);
+                            updateSync(s, false);
+                        }
+                    });
+        }
     }
 
     private void updateProfileForStudentToFirebase(final String schoolId, final String sectionId, final String firebaseId) {
