@@ -25,6 +25,10 @@ export default class OtpDialog extends cc.Component {
     @property(cc.Label)
     errLabel: cc.Label = null;
 
+    @property(cc.Label)
+    parentLabel: cc.Label = null;
+
+
     protected onLoad() {
         this.title.string = Util.i18NText("We sent an OTP to verify your number.");
         this.editBox.string = "";
@@ -80,6 +84,7 @@ export default class OtpDialog extends cc.Component {
                     }
                     UtilLogger.subscribeToTopic(`assignment-${user.schoolId}-${user.sectionId}`)
                     UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, request);
+                    this.parentLabel.string = `Connected to ${user.schoolId}-${user.sectionId}`;
                     this.onOtpClose();
                 }
             } catch (e) {

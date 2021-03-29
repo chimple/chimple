@@ -2110,7 +2110,7 @@
         "__id__": 55
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 86
@@ -2172,7 +2172,7 @@
       "__id__": 51
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 53
@@ -2452,7 +2452,7 @@
       "__id__": 55
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 59
@@ -3654,6 +3654,9 @@
     },
     "errLabel": {
       "__id__": 78
+    },
+    "parentLabel": {
+      "__id__": 12
     },
     "_id": "d9127omF5GL5FZcs/nZ1y7"
   },
