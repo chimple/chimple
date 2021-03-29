@@ -998,4 +998,8 @@ export class ParseApi implements ServiceApi {
     async linkStudent(studentId: string, code: string): Promise<any> {
         return null;
     }
+
+    async syncFailedProgresses(infos: UpdateProgressInfo[]): Promise<any> {
+        return null;
+    }
 }

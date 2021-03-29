@@ -5,7 +5,7 @@ import {UpdateHomeTeacher} from "./parseApi";
 import {
     FIREBASE_LINK_STUDENT_URL,
     FIREBASE_LIST_ASSIGNMENTS,
-    FIREBASE_SCHOOL_URL,
+    FIREBASE_SCHOOL_URL, FIREBASE_SYNC_FAILED_PROGRESS_URL,
     FIREBASE_UPDATE_HOME_TEACHER_URL, FIREBASE_UPDATE_PROGRESS_URL, LIST_ASSIGNMENTS, UPDATE_PROGRESS_URL
 } from "../domain/parseConstants";
 import {ServiceConfig} from "./ServiceConfig";
@@ -58,6 +58,27 @@ export class FirebaseApi implements ServiceApi {
                     courseName: info.courseName,
                     score: info.assessment,
                     assignmentId: info.assignmentId
+                }
+            };
+            return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
+        }
+    }
+
+    async syncFailedProgresses(infos: UpdateProgressInfo[]): Promise<any> {
+        if (Array.isArray(infos) && infos.length > 0) {
+            let inputs = infos.map((info: UpdateProgressInfo) => {
+                return {
+                    lessonId: info.lesson,
+                    userId: info.studentId,
+                    courseName: info.courseName,
+                    score: info.assessment,
+                    assignmentId: info.assignmentId
+                }
+            })
+            const requestParams: RequestParams = {
+                url: FIREBASE_SYNC_FAILED_PROGRESS_URL,
+                body: {
+                    data: inputs
                 }
             };
             return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());

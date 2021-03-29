@@ -43,4 +43,7 @@ export class ApiHandler {
         return await this.s.linkStudent(studentId, code);
     }
 
+    public async syncFailedProgresses(infos: UpdateProgressInfo[]): Promise<any> {
+        return await this.s.syncFailedProgresses(infos);
+    }
 }
