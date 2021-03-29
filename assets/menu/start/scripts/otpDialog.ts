@@ -86,8 +86,9 @@ export default class OtpDialog extends cc.Component {
                     }
                     UtilLogger.subscribeToTopic(`assignment-${user.schoolId}-${user.sectionId}`)
                     UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, request);
-
-                    this.parentLabel.string = `Connected to ${user.schoolName}-${user.sectionName}`;
+                    const s = user.schoolName ? user.schoolName : '';
+                    const sec = user.sectionName ? user.sectionName : '';
+                    this.parentLabel.string = `Connected to ${s} ${sec}`;
                     this.onOtpClose();
                 }
             } catch (e) {
