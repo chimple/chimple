@@ -162,10 +162,12 @@ export class FirebaseApi implements ServiceApi {
     async linkStudent(studentId: string, code: string): Promise<any> {
         if (studentId && studentId.length > 0 &&
             code && code.length > 0) {
+            let sendCode = Number(code);
             const requestParams: RequestParams = {
                 url: FIREBASE_LINK_STUDENT_URL,
                 body: {
-                    studentId, code
+                    studentId,
+                    code: sendCode
                 }
             };
             return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());

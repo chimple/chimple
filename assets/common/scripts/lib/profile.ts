@@ -141,6 +141,8 @@ export class User {
     private _studentId: string;
     debug: boolean = false
     curriculumLoaded: boolean = false
+    private _sectionName: string;
+    private _schoolName: string;
 
     constructor(
         id: string,
@@ -163,7 +165,9 @@ export class User {
         serverId: string = '',
         schoolId: string = '',
         sectionId: string = '',
-        studentId: string = ''
+        studentId: string = '',
+        schoolName: string = '',
+        sectionName: string = ''
     ) {
         this._id = id;
         this._name = name;
@@ -190,6 +194,8 @@ export class User {
         this._schoolId = schoolId;
         this._sectionId = sectionId;
         this._studentId = studentId;
+        this._schoolName = schoolName;
+        this._sectionName = sectionName;
     }
 
     _genderEvent(gender: Gender) {
@@ -384,6 +390,24 @@ export class User {
     set studentId(value: string) {
         this._studentId = value;
     }
+
+    get sectionName(): string {
+        return this._sectionName;
+    }
+
+    set sectionName(value: string) {
+        this._sectionName = value;
+    }
+
+
+    get schoolName(): string {
+        return this._schoolName;
+    }
+
+    set schoolName(value: string) {
+        this._schoolName = value;
+    }
+
 
     unlockInventoryForItem(item: string) {
         this._unlockedInventory[item] = true;
@@ -759,7 +783,9 @@ export class User {
             data.serverId,
             data.schoolId,
             data.sectionId,
-            data.studentId
+            data.studentId,
+            data.schoolName,
+            data.sectionName
         );
         user.isConnected = data.isConnected
         // user._lessonPlanDate = new Date(data.lessonPlanDate)
@@ -806,7 +832,9 @@ export class User {
             'isConnected': user.isConnected,
             'schoolId': user.schoolId,
             'sectionId': user.sectionId,
-            'studentId': user.studentId
+            'studentId': user.studentId,
+            'schoolName': user.schoolName,
+            'sectionName': user.sectionName
         });
     }
 
