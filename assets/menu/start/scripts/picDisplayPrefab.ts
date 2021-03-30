@@ -19,8 +19,8 @@ export default class PicDisplayPrefab extends cc.Component {
     loadUserImageOrAvatar() {
         let currentUser = User.getCurrentUser();
         let picNode = this.picNode;
-        if (currentUser && currentUser.imgPath && currentUser.imgPath != '' && currentUser.imgPath.length > 0) {
-            ParseImageDownloader.loadImageForSchool(currentUser.imgPath, currentUser.id, (texture) => {
+        if (currentUser && currentUser.studentId && currentUser.studentId != '' && currentUser.studentId.length > 0) {
+            ParseImageDownloader.getDownloadedUserImage(currentUser.studentId, (texture) => {
                 if (!!texture && picNode) {
                     let spriteFrame: cc.SpriteFrame = new cc.SpriteFrame(texture);
                     const maskNode: cc.Node = picNode.getChildByName('mask');
