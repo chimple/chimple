@@ -1,9 +1,17 @@
-import { Queue } from "../../../queue";
+import {Queue} from "../../../queue";
 import Header from "../header";
-import { INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util } from "../util";
+import {INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util} from "../util";
 import UtilLogger from "../util-logger";
-import Config, { ALL_LANGS, StartAction, Lang } from "./config";
-import { COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, MIN_PASS } from "./constants";
+import Config, {ALL_LANGS, StartAction, Lang} from "./config";
+import {
+    COUNTRY_CODES,
+    CURRENT_STUDENT_ID,
+    EXAM,
+    FIREBASE_SCHOOL_ID,
+    FIREBASE_SECTION_ID,
+    FIREBASE_STUDENT_ID,
+    MIN_PASS
+} from "./constants";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -83,23 +91,26 @@ export class CourseProgressClass implements CourseProgress {
 export interface LessonProgress {
     achievement?: number;
     score: number;
+    course: string;
     attempts?: number;
     date?: Date;
-    assignmentId?: string;
+    assignmentIds: string[];
 }
 
 export class LessonProgressClass implements LessonProgress {
     achievement: number = 0;
     score: number;
     attempts: number;
+    course: string;
     date: Date;
-    assignmentId: string = null;
+    assignmentIds: string[] = [];
 
-    constructor(score: number, attempts: number = 0, assignmentId: string = null) {
+    constructor(score: number, attempts: number = 0, course: string = Config.i.course.id, assignmentId: string = null) {
         this.score = score;
         this.attempts = attempts;
         this.date = new Date();
-        this.assignmentId = assignmentId;
+        this.course = course;
+        !!assignmentId ? this.assignmentIds.push(assignmentId) : '';
     }
 }
 
@@ -124,8 +135,14 @@ export class User {
     private _level: number;
     private _assignments: string[]
     private _currentCourseId: string
+    isConnected: boolean = false
+    private _schoolId: string;
+    private _sectionId: string;
+    private _studentId: string;
     debug: boolean = false
     curriculumLoaded: boolean = false
+    private _sectionName: string;
+    private _schoolName: string;
 
     constructor(
         id: string,
@@ -145,7 +162,12 @@ export class User {
         unlockedRewards: object,
         debug: boolean = false,
         lessonPlan: string[],
-        serverId: string = ''
+        serverId: string = '',
+        schoolId: string = '',
+        sectionId: string = '',
+        studentId: string = '',
+        schoolName: string = '',
+        sectionName: string = ''
     ) {
         this._id = id;
         this._name = name;
@@ -169,6 +191,11 @@ export class User {
         this.debug = debug
         this._serverId = serverId
         this._assignments = []
+        this._schoolId = schoolId;
+        this._sectionId = sectionId;
+        this._studentId = studentId;
+        this._schoolName = schoolName;
+        this._sectionName = sectionName;
     }
 
     _genderEvent(gender: Gender) {
@@ -339,6 +366,49 @@ export class User {
         return this._currentCourseId;
     }
 
+
+    get schoolId(): string {
+        return this._schoolId;
+    }
+
+    set schoolId(value: string) {
+        this._schoolId = value;
+    }
+
+    get sectionId(): string {
+        return this._sectionId;
+    }
+
+    set sectionId(value: string) {
+        this._sectionId = value;
+    }
+
+    get studentId(): string {
+        return this._studentId;
+    }
+
+    set studentId(value: string) {
+        this._studentId = value;
+    }
+
+    get sectionName(): string {
+        return this._sectionName;
+    }
+
+    set sectionName(value: string) {
+        this._sectionName = value;
+    }
+
+
+    get schoolName(): string {
+        return this._schoolName;
+    }
+
+    set schoolName(value: string) {
+        this._schoolName = value;
+    }
+
+
     unlockInventoryForItem(item: string) {
         this._unlockedInventory[item] = true;
         this.storeUser();
@@ -397,7 +467,7 @@ export class User {
     updateLessonProgress(lessonId: string, score: number, quizScores: number[], assignmentId: string = null): [string, string] {
         var reward: [string, string]
         const config = Config.i
-        if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == null) {
+        if (lessonId == config.course.id + '_PreQuiz') {
             const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
             if (quizChapter) {
                 let currentCourse = config.course.chapters.find((c) => c.id != config.course.id + '_quiz')
@@ -427,6 +497,7 @@ export class User {
         } else {
             if (this._lessonProgressMap.has(lessonId)) {
                 const lessonProgress = this._lessonProgressMap.get(lessonId)
+                lessonProgress.assignmentIds.push(Config.i.lesson.assignmentId);
                 lessonProgress.attempts++
                 lessonProgress.date = new Date()
                 if (score > lessonProgress.score) {
@@ -443,7 +514,7 @@ export class User {
                 if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
                     reward = [REWARD_TYPES[2], Config.i.lesson.image]
                 }
-                this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1, Config.i.lesson.assignmentId));
+                this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1, Config.i.course.id, Config.i.lesson.assignmentId));
             }
 
             if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
@@ -550,6 +621,15 @@ export class User {
                 Queue.getInstance().push(profileInfo);
             }
         }
+
+        User.syncProfile();
+    }
+
+    static syncProfile() {
+        const user = User._currentUser;
+        if(cc.sys.isNative && !!user && !!user.schoolId && !!user.sectionId && !!user.studentId && !!user.id) {
+            UtilLogger.syncProfile(user.schoolId, user.sectionId, user.studentId, User.toJson(user), user.id)
+        }
     }
 
     static createUUID() {
@@ -610,7 +690,16 @@ export class User {
         );
         if (debug) user.openAllRewards()
         // open bydefault unlocked rewards
-        user.unlockBydefaultRewards()
+        user.unlockBydefaultRewards();
+
+
+        let schoolId: string = cc.sys.localStorage.getItem(FIREBASE_SCHOOL_ID);
+        user.schoolId = !!schoolId ? schoolId : null;
+        let sectionId: string = cc.sys.localStorage.getItem(FIREBASE_SECTION_ID);
+        user.sectionId = !!sectionId ? sectionId : null;
+        let studentId: string = cc.sys.localStorage.getItem(FIREBASE_STUDENT_ID);
+        user.studentId = !!studentId ? studentId : null;
+
         User.storeUser(user);
         let userIds = User.getUserIds();
         if (userIds == null) {
@@ -691,8 +780,14 @@ export class User {
             data.unlockedRewards,
             data.debug,
             data.lessonPlan,
-            data.serverId
+            data.serverId,
+            data.schoolId,
+            data.sectionId,
+            data.studentId,
+            data.schoolName,
+            data.sectionName
         );
+        user.isConnected = data.isConnected
         // user._lessonPlanDate = new Date(data.lessonPlanDate)
         // if (data.lessonPlanCourseId) user._lessonPlanCourseId = data.lessonPlanCourseId
         if (data.assignments) user._assignments = data.assignments
@@ -733,7 +828,13 @@ export class User {
             // 'lessonPlanDate': user.lessonPlanDate,
             // 'lessonPlan': user.lessonPlan,
             'assignments': user.assignments,
-            'chapterFinishedMap': chapterFinishedMapObj
+            'chapterFinishedMap': chapterFinishedMapObj,
+            'isConnected': user.isConnected,
+            'schoolId': user.schoolId,
+            'sectionId': user.sectionId,
+            'studentId': user.studentId,
+            'schoolName': user.schoolName,
+            'sectionName': user.sectionName
         });
     }
 
@@ -884,7 +985,7 @@ export default class Profile {
     }
 
     static async teacherPostLoginActivity(objectId: string) {
-        const currentUser: User = User.createUserOrFindExistingUser({ id: objectId });
+        const currentUser: User = User.createUserOrFindExistingUser({id: objectId});
         User.setCurrentUser(currentUser);
         return currentUser;
     }

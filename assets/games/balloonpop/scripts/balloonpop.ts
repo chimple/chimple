@@ -25,6 +25,9 @@ export default class Balloonpop extends Game {
     @property(cc.Prefab)
     displayCard: cc.Prefab = null;
 
+    @property(cc.Prefab)
+    backgroundPlatform: cc.Prefab = null;
+
     @property(cc.Node)
     progressBar: cc.Node=null;
     
@@ -35,10 +38,16 @@ export default class Balloonpop extends Game {
 
     static correctLetter:string;
     static letterNo:number;
+    maxBalloon: number;
 
     onLoad () {
         cc.director.getPhysicsManager().enabled = true;
         let display = cc.instantiate(this.displayCard);
+        let bgPlatfrom = cc.instantiate(this.backgroundPlatform);
+        this.node.addChild(bgPlatfrom);
+        bgPlatfrom.scale = 1;
+        bgPlatfrom.setPosition(-(cc.winSize.width/2)+(cc.winSize.height/25), -390);  
+    
         this.node.addChild(display);
 
         this.currentConfig = this.processConfiguration(Config.getInstance().data[0]);
@@ -47,14 +56,14 @@ export default class Balloonpop extends Game {
         Balloonpop.letterNo=this.currentConfig.clickOnAnswer;
 
         this.friendPos.scale = 0.5;
-        this.friendPos.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/30)))
+        this.friendPos.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/6.7)))
 
         cc.tween(display)
         .to(1, { scale: 0.5}, {easing: "quintInOut"}).call(()=>{
             display.runAction(
                 cc.sequence(
                     cc.spawn(
-                        cc.moveTo(1, cc.v2((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/2.3))), 0),
+                        cc.moveTo(1, cc.v2((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/1.9))), 0),
                         cc.scaleTo(0.5, 0.08)
                     ),
                     cc.scaleTo(0.5, 0.08),
@@ -68,8 +77,9 @@ export default class Balloonpop extends Game {
     }
     
     public createBallon(){
-        let maxBalloon=Math.floor((cc.winSize.width/160));
-        for(let i = 1; i<maxBalloon; i++){
+        this.maxBalloon=Math.floor((cc.winSize.width/160));
+        cc.log(this.maxBalloon + "<------");
+        for(let i = 1; i<this.maxBalloon; i++){
             let ballon = cc.instantiate(this.balloon);
             this.node.addChild(ballon);
             ballon.getComponentInChildren(cc.Label).string = this.currentConfig.options[Math.floor(0 + Math.random() * (this.currentConfig.options.length - 0))]
@@ -86,7 +96,7 @@ export default class Balloonpop extends Game {
         let ballon = cc.instantiate(this.balloon);
         this.node.addChild(ballon);
         ballon.getComponentInChildren(cc.Label).string = this.currentConfig.options[Math.floor(0 + Math.random() * (this.currentConfig.options.length - 0))]
-        ballon.setPosition(xPos, -550);
+        ballon.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8))+((ballon.width)) * Math.floor((1 + Math.random() * (this.maxBalloon -1))), -550);
         let currentColor = cc.color(Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255))
         ballon.getChildByName("balloon_texture").color = currentColor;
         ballon.addComponent(cc.RigidBody).gravityScale = -0.5 + Math.random() * (-0.1 - (-0.5));
@@ -96,7 +106,7 @@ export default class Balloonpop extends Game {
 
     displayProgressBar(){
         this.progressBar.active=true;        
-        this.progressBar.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/1.6)));
+        this.progressBar.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8)),(-(cc.winSize.height/2)+(cc.winSize.height/1.4)));
         this.prgbar.progress=0.0;
     }
 

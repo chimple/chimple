@@ -1,9 +1,10 @@
 import Config from "../../../common/scripts/lib/config";
 import LessonButton from "./lessonButton";
-import { User } from "../../../common/scripts/lib/profile";
-import { Lesson } from "../../../common/scripts/lib/convert";
+import {LessonProgress, User} from "../../../common/scripts/lib/profile";
+import {Lesson} from "../../../common/scripts/lib/convert";
+import {Util} from "../../../common/scripts/util";
 
-const { ccclass, property } = cc._decorator;
+const {ccclass, property} = cc._decorator;
 
 const HEADER_COLORS = {
     'en': '#FFBC00',
@@ -40,6 +41,12 @@ export default class ChapterLessons extends cc.Component {
     @property(cc.Node)
     header: cc.Node = null;
 
+    @property(cc.Node)
+    whatsappNode: cc.Node = null
+
+    @property(cc.Node)
+    otpDialogNode: cc.Node = null
+
     static showType: ChapterLessonType = ChapterLessonType.Library
 
     onLoad() {
@@ -54,30 +61,39 @@ export default class ChapterLessons extends cc.Component {
         const config = Config.i
         switch (ChapterLessons.showType) {
             case ChapterLessonType.Assignments:
-                this.label.string = 'Assignments'
-                config.assignments.forEach((ass) => {
-                    const lesson = Config.i.allLessons.get(ass.lessonId)
-                    lesson.assignmentId = ass.assignmentId;
-                    console.log('User.getCurrentUser().lessonProgressMap', User.getCurrentUser().lessonProgressMap);
-                    const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
-                    if(!lessonProgress) {
-                        this.createLessonButton(lesson, true)
-                    } else if(lessonProgress && lessonProgress.assignmentId !== ass.assignmentId) {
-                        this.createLessonButton(lesson, true)
-                    }
-                })
+                if (User.getCurrentUser().isConnected) {
+                    this.label.string = 'Assignments'
+                    config.assignments.forEach((ass) => {
+                        const lesson = Config.i.allLessons.get(ass.lessonId)
+                        if (!!lesson) {
+                            lesson.assignmentId = ass.assignmentId;
+                            const newLesson = {...lesson};
+                            console.log('User.getCurrentUser().lessonProgressMap', User.getCurrentUser().lessonProgressMap);
+                            const lessonProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
+                            if (!lessonProgress) {
+                                this.createLessonButton(newLesson, true)
+                            } else if (lessonProgress && ![].concat(lessonProgress.assignmentIds).includes(ass.assignmentId)) {
+                                this.createLessonButton(newLesson, true)
+                            }
+                        }
+                    })
+                } else {
+                    this.label.string = 'Connect To Class'
+                    // this.whatsappNode.active = true
+                    this.otpDialogNode.active = true;
+                }
                 break;
             case ChapterLessonType.Featured:
                 this.label.string = 'Featured'
                 config.featuredLessons.forEach((les) => {
                     const lessonProgress = User.getCurrentUser().lessonProgressMap.get(les.id)
-                    if(!lessonProgress) {
+                    if (!lessonProgress) {
                         const lesson = Config.i.allLessons.get(les.id)
                         if (lesson) {
                             this.createLessonButton(lesson, true)
                         } else {
                             const course = config.curriculum.get(les.course)
-                            if(course) {
+                            if (course) {
                                 les.chapter = {
                                     id: course.id + '_featured',
                                     lessons: [],
@@ -128,7 +144,7 @@ export default class ChapterLessons extends cc.Component {
             // @ts-ignore
             bgPrefabInstance.x = 0
             // @ts-ignore
-            if(!!this.bgHolder && bgPrefabInstance!=null) {
+            if (!!this.bgHolder && bgPrefabInstance != null) {
 
                 this.bgHolder.addChild(bgPrefabInstance);
             }
@@ -138,6 +154,10 @@ export default class ChapterLessons extends cc.Component {
 
     onBackClick() {
         Config.i.popScene()
+    }
+
+    onWhatsappClick() {
+        cc.sys.openURL("https://wa.me/919845206203?text=" + User.getCurrentUser().id);
     }
 }
 

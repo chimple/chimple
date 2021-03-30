@@ -67,11 +67,12 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.chimple.bahama.logger.ChimpleLogger;
 import org.chimple.bahama.logger.LockScreenReceiver;
 import org.chimple.bahama.logger.NotificationData;
+import org.chimple.firebasesync.auth.AuthCallBack;
+import org.chimple.firebasesync.database.Helper;
 import org.cocos2dx.javascript.SDKWrapper;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
@@ -96,7 +97,8 @@ import static org.chimple.bahama.logger.ChimpleLogger.APP_INSTALLED_TIME;
 import static org.chimple.bahama.logger.ChimpleLogger.APP_LAST_PLAYED_TIME;
 import static org.chimple.bahama.logger.ChimpleLogger.FIREBASE_MESSAGES_SYNC;
 import static org.chimple.bahama.logger.ChimpleLogger.FIREBASE_MESSAGE_TOKEN;
-import static org.chimple.bahama.logger.ChimpleLogger.PROGRESS_IDS;
+import static org.chimple.firebasesync.database.Helper.EMAIL;
+import static org.chimple.firebasesync.database.Helper.PASSWORD;
 
 public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private static final int STORAGE_PERMISSION_CODE = 101;
@@ -123,14 +125,44 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = null;
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
+    private Helper helper = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mAuth = FirebaseAuth.getInstance();
         logger = ChimpleLogger.getInstance(this, firebaseAnalytics);
         app = this;
+        helper = Helper.getInstance(this, new AuthCallBack() {
+            @Override
+            public void loginSucceed(final String schoolInfo, final boolean shouldCallBack) {
+                if (shouldCallBack) {
+                    app.runOnGLThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String javaScriptVariable = "cc.loginSucceeded($schoolInfo)";
+                            javaScriptVariable = javaScriptVariable.replace("$schoolInfo", "'" + schoolInfo + "'");
+                            Log.d(TAG, "calling loginSucceed with: " + javaScriptVariable);
+                            Cocos2dxJavascriptJavaBridge.evalString(javaScriptVariable);
+                        }
+                    });
+                }
+            }
 
+            @Override
+            public void loginFailed(final String reason) {
+                app.runOnGLThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String javaScriptVariable = "cc.loginFailed($reason)";
+                        javaScriptVariable = javaScriptVariable.replace("$reason", "'" + reason + "'");
+                        Log.d(TAG, "calling loginFailed with: " + javaScriptVariable);
+                        Cocos2dxJavascriptJavaBridge.evalString(javaScriptVariable);
+                    }
+                });
+            }
+        });
         // Workaround in
         // https://stackoverflow.com/questions/16283079/re-launch-of-activity-on-home-button-but-only-the-first-time/16447508
         if (!isTaskRoot()) {
@@ -151,7 +183,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         //Set up a receiver to listen for the Intents in this Service
         lockScreenReceiver = new LockScreenReceiver(this);
         registerReceiver(lockScreenReceiver, filter);
-
 
         stringBuilder = new StringBuilder();
         this.checkInstallReferrer(this);
@@ -192,6 +223,15 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         this.processDeepLink();
         // OTP integration
         initFireBaseAuthLoginUsingOTP();
+
+        String school = ChimpleLogger.findSchool("prakash@sutara.org");
+        Log.d(TAG, "school:" + school);
+
+        String sections = ChimpleLogger.fetchSectionsForSchool("mYLtsjfVuFD6NGLLIVHG");
+        Log.d(TAG, "sections:" + sections);
+
+        String students = ChimpleLogger.fetchStudentsForSchoolAndSection("mYLtsjfVuFD6NGLLIVHG", "D7qVA373VEKXtPeg7BEc");
+        Log.d(TAG, "students:" + students);
     }
 
     public void processDeepLink() {
@@ -233,7 +273,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     }
 
     public void assignmentMicroLink(String chapter, String lesson,
-                                           String subject, String assignmentId) {
+                                    String subject, String assignmentId) {
         if (chapter != null && lesson != null && subject != null && assignmentId != null) {
             Log.d(TAG, "received data for chapter:" + chapter + " lesson:" + lesson + " assignmentId: " + assignmentId + " subject: " + subject);
             String uri = "http://chimple.github.io/microlink?courseid=" + subject + "&chapterid=" + chapter + "&lessonid=" + lesson + "&assignmentid=" + assignmentId;
@@ -345,18 +385,22 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     }
 
     void checkInstallReferrer(Context context) {
-        if (getPreferences(MODE_PRIVATE).getBoolean(KEY_REFERRER_EXISTS, false)) {
-            Log.i(TAG, "referrer url already referred");
-            return;
-        }
-
-        final InstallReferrerClient referrerClient = InstallReferrerClient.newBuilder(this).build();
-        backgroundExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                getInstallReferrerFromClient(referrerClient);
+        try {
+            if (getPreferences(MODE_PRIVATE).getBoolean(KEY_REFERRER_EXISTS, false)) {
+                Log.i(TAG, "referrer url already referred");
+                return;
             }
-        });
+
+            final InstallReferrerClient referrerClient = InstallReferrerClient.newBuilder(this).build();
+            backgroundExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    getInstallReferrerFromClient(referrerClient);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String toUrlEncode(Map<String, String> params) {
@@ -415,6 +459,9 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         super.onDestroy();
         Log.d(TAG, "updating STOP_TIME:" + new Date().getTime());
         unRegisterReceivers();
+        if (helper != null) {
+            helper.cleanup();
+        }
         SDKWrapper.getInstance().onDestroy();
     }
 
@@ -811,5 +858,18 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                         }
                     }
                 });
+    }
+
+
+    public static void login(String email, String password) {
+        if (!AppActivity.app.helper.isFirebaseUserLoggedIn()
+                && email != null && !email.isEmpty()
+                && password != null && !password.isEmpty()
+        ) {
+            Log.d(TAG, "Login request for email:" + email + " password:" + password);
+            app.helper.getSharedPreferences().edit().putString(EMAIL, email).apply();
+            app.helper.getSharedPreferences().edit().putString(PASSWORD, password).apply();
+            app.helper.auth(true);
+        }
     }
 }

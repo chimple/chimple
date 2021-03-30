@@ -1,10 +1,11 @@
 import Config from '../../../common/scripts/lib/config'
-import Profile, { User } from '../../../common/scripts/lib/profile';
+import Profile, { CURRENTMODE, User } from '../../../common/scripts/lib/profile';
 import { LANDING_SCENE } from "../../../chimple";
 import { CURRENT_STUDENT_ID, LOGGED_IN_USER, EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
 import { REWARD_TYPES, REWARD_CHARACTERS, REWARD_BACKGROUNDS } from '../../../common/scripts/util';
 import { Course, Chapter, Lesson } from '../../../common/scripts/lib/convert';
 import Achievement from '../../../common/scorecard/scripts/achievement';
+import { SECTION_LIST } from '../../../private/school/scripts/landing';
 const { ccclass, property } = cc._decorator;
 
 
@@ -238,9 +239,15 @@ export default class Rewards extends cc.Component {
             cc.sys.localStorage.removeItem(LOGGED_IN_USER);
             // @ts-ignore
             // currentSelectMode = SelectionMode.Section;
-            Config.loadScene(LANDING_SCENE, 'private', null);
+            Config.loadScene(SECTION_LIST, 'private', null);
         } else {
-            cc.director.loadScene("welcomePage")
+            if(Profile.getValue(CURRENTMODE) == 3){
+            
+                Config.loadScene(SECTION_LIST, 'private', null);
+            }
+            else{
+              cc.director.loadScene("welcomePage")
+            }
         }
     }
 }

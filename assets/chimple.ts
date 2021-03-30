@@ -1,11 +1,10 @@
-import Config, { LANG_CONFIGS, Lang } from "./common/scripts/lib/config";
-import Profile, { Gender, User, LANGUAGE } from "./common/scripts/lib/profile";
-import { Mode, MODE } from "./common/scripts/lib/constants";
+import Config, {Lang, LANG_CONFIGS} from "./common/scripts/lib/config";
+import Profile, {CURRENTMODE, Gender, User} from "./common/scripts/lib/profile";
+import {Mode} from "./common/scripts/lib/constants";
 import UtilLogger from "./common/scripts/util-logger";
-import { Util } from "./common/scripts/util";
-import { APIMode, ServiceConfig } from "./common/scripts/services/ServiceConfig";
-import { AcceptTeacherRequest } from "./common/scripts/services/ServiceApi";
-import Start from "./menu/start/scripts/start";
+import {Util} from "./common/scripts/util";
+import {APIMode, ServiceConfig} from "./common/scripts/services/ServiceConfig";
+import {AcceptTeacherRequest} from "./common/scripts/services/ServiceApi";
 
 const { ccclass, property } = cc._decorator;
 
@@ -144,6 +143,7 @@ export default class Chimple extends cc.Component {
         UtilLogger.initPluginFirebase();
         Util.loadi18NMapping(() => {
         })
+
         const lang = Profile.lang || Lang.ENGLISH
         const langConfig = LANG_CONFIGS.get(lang)
         if (langConfig) Config.i.loadFontDynamically(langConfig.font)
@@ -185,7 +185,7 @@ export default class Chimple extends cc.Component {
                         // @ts-ignore
                         cc.assetManager.cacheManager.cachedFiles.forEach((val, key) => {
                             cc.log('removeCache: ' + key)
-                            // if(val!= null && val.bundle == 'en0000') 
+                            // if(val!= null && val.bundle == 'en0000')
                             // @ts-ignore
                             cc.assetManager.cacheManager.removeCache(key)
                         })
@@ -199,15 +199,16 @@ export default class Chimple extends cc.Component {
     }
 
     selectModes() {
-        const modes: number = MODE;
+        let mode = parseInt(Profile.getValue(CURRENTMODE))
+        const modes: number = mode;//MODE;
         switch (modes) {
             case Mode.Home:
                 // send to welcomePage.ts
                 Config.i.pushScene('private/home/loginnew/scenes/welcomePage', 'private', null, true);
                 break;
             case Mode.School:
-                // send to selectSections.ts
-                Config.i.pushScene('private/school/scenes/selectSections', 'private', null, true);
+                // @ts-ignore
+                Config.i.pushScene('private/school/scenes/sectionList', 'private', null, true);
                 break;
             default:
                 Config.i.pushScene('private/home/loginnew/scenes/welcomeScene', 'private', null, true);

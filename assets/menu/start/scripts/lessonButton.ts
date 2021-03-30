@@ -60,7 +60,7 @@ export default class LessonButton extends cc.Component {
             this.button.interactable = this.open
             const lessonProgress = User.getCurrentUser().lessonProgressMap.get(this.lesson.id)
             if (this.lesson.assignmentId !== null && this.lesson.assignmentId !== undefined) {
-                if (this.open && lessonProgress && lessonProgress.assignmentId === this.lesson.assignmentId
+                if (this.open && lessonProgress && lessonProgress.assignmentIds.includes(this.lesson.assignmentId)
                     && lessonProgress.score >= 0) {
                     this.star1.spriteFrame = lessonProgress.score > 25 ? this.goldStar : this.grayStar
                     this.star2.spriteFrame = lessonProgress.score > 50 ? this.goldStar : this.grayStar

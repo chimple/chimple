@@ -29,8 +29,12 @@ export default class BalloonBurst extends Drag {
                 BalloonBurst.letterBursted= BalloonBurst.letterBursted+(1/Balloonpop.letterNo);
                 this.node.parent.getComponent("balloonpop").letterProgress();
                 this.node.parent.emit("correct")
-            } else{
-                this.node.parent.emit("wrong")
+            } else {
+                if(BalloonBurst.letterBursted > 0) {
+                    BalloonBurst.letterBursted = BalloonBurst.letterBursted-(1/Balloonpop.letterNo)
+                    this.node.parent.getComponent("balloonpop").letterProgress();
+                }
+                this.node.parent.emit("wrong");
             }
         }
     }

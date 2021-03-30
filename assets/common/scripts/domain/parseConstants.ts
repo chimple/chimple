@@ -78,9 +78,12 @@ export const UPDATE_PROFILE_FAILED = 'update_profile_failed';
 export const ASSIGN_HOMEWORK_FAILED = 'assign_homework_failed';
 export const UPDATE_MONITOR_FAILED = 'update_monitor_failed';
 export const UPDATE_PROGRESS_FAILED = 'update_progress_failed';
+export const SYNC_PROGRESS_FAILED = 'sync_progress_failed';
 
 
-export const FIREBASE_SCHOOL_URL = 'https://us-central1-bahama-stage.cloudfunctions.net/chimple/getSchool?id=';
-export const FIREBASE_UPDATE_HOME_TEACHER_URL = 'https://us-central1-bahama-stage.cloudfunctions.net/chimple/createStudent';
-export const FIREBASE_LIST_ASSIGNMENTS = 'https://us-central1-bahama-stage.cloudfunctions.net/chimple/assignments?studentId='
-export const FIREBASE_UPDATE_PROGRESS_URL = 'https://us-central1-bahama-stage.cloudfunctions.net/chimple/updateProgressOnHttp';
+export const FIREBASE_SCHOOL_URL = 'https://us-central1-chimple-stage.cloudfunctions.net/chimple/getSchool?id=';
+export const FIREBASE_UPDATE_HOME_TEACHER_URL = 'https://us-central1-chimple-stage.cloudfunctions.net/chimple/createStudent';
+export const FIREBASE_LIST_ASSIGNMENTS = 'https://us-central1-chimple-stage.cloudfunctions.net/chimple/assignments?studentId='
+export const FIREBASE_UPDATE_PROGRESS_URL = 'https://us-central1-chimple-stage.cloudfunctions.net/chimple/updateProgressOnHttp';
+export const FIREBASE_SYNC_FAILED_PROGRESS_URL = 'https://us-central1-chimple-stage.cloudfunctions.net/chimple/syncProgressOnHttp';
+export const FIREBASE_LINK_STUDENT_URL = 'https://us-central1-chimple-stage.cloudfunctions.net/chimple/LinkStudent';
