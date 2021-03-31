@@ -119,12 +119,15 @@ export default class OperationWithObjects extends cc.Component {
             } else if (op2CommaBased) {
                 op2V = Util.randomElements(results[3].split(','), 1)[0];
             } else {
-                op1V = results[1].indexOf('~') === -1 ? results[1] :
-                    QuizHelper.randomInRange(results[1], 1)[0];
-                op2V = results[3].indexOf('~') === -1 ? results[3] :
-                    QuizHelper.randomInRange(results[3], 1)[0];
-
-                if (Number(op1V) < Number(op2V)) {
+                const parts = this.quizConfig.choices.split(this.operator);
+                let op1range:string[] = parts[0].split('~');
+                cc.log('op1range ',op1range);
+                op1V = String(Util.randomBetween(Number(op1range[0]), Number(op1range[1])));
+                let op2range:string[] = parts[1].split('~');
+                let temp:string[] = op2range[1].split('=');
+                op2range[1] = temp[0];
+                op2V = String(Util.randomBetween(Number(op2range[0]), Number(op2range[1])));
+                if (Number(op1V) < Number(op2V) && this.operator === '-') {
                     let tmp = op1V;
                     op1V = op2V;
                     op2V = tmp;
