@@ -242,6 +242,8 @@ export class Grid extends Game {
     choices.forEach((choice: GridElement, index: number) => {
       const ch: GridElement = JSON.parse(JSON.stringify(choice));
       const node: cc.Node = cc.instantiate(prefab);
+      cc.log("These are the ch com[ponent")
+      cc.log(ch)
       switch (blockType) {
         case BLOCK_TYPE.H_QUESTION:
         case BLOCK_TYPE.V_QUESTION:
