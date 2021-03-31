@@ -123,7 +123,7 @@ export default class AnswerBlock extends CommonBlock {
 
     @catchError()
     public renderAnswerHolder(renderParams: RenderParams): void {
-        renderParams.yPositionAdj = 25;
+        renderParams.yPositionAdj = 20;
         this.render(renderParams);
         if (!!renderParams.combinedQAndA) {
             const mapKey = renderParams.content;
@@ -138,7 +138,7 @@ export default class AnswerBlock extends CommonBlock {
     @catchError()
     render(renderParams: RenderParams): void {
         const x = renderParams.xPositions[renderParams.index];
-        this.originalPosition = new Vec2(x, -375);
+        this.originalPosition = new Vec2(x, -285);
         this.originalPosition.y += (renderParams.yPositionAdj ? renderParams.yPositionAdj : 0)
         this.grid = renderParams.wordMatrix;
         this.fontSize = FONT_SIZE;
