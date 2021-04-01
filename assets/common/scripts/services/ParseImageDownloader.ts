@@ -127,23 +127,4 @@ export class ParseImageDownloader {
         return cc.sys.isNative &&
             cc.sys.os == cc.sys.OS_ANDROID;
     }
-
-    public static getDownloadedUserImage(savedImageName: string, callBack: Function){
-        const _storagePath = jsb.fileUtils.getWritablePath() + '/school-photos/';
-        const _imagePath= _storagePath+savedImageName+".jpg";
-        cc.log('_storagePath', _storagePath);
-        try {
-            cc.assetManager.loadRemote(_imagePath, function (err, texture) {
-                if (!err && !!texture) {
-                    cc.log('successfully loadImageFromNetwork', _imagePath);
-                    callBack(texture);
-                } else {
-                    cc.log('failed loadImageFromNetwork', _imagePath);
-                }
-            });
-        } catch (e) {
-            cc.error(e);
-            callBack(null);
-        }
-    }
 }
