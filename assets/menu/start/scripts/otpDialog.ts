@@ -89,6 +89,12 @@ export default class OtpDialog extends cc.Component {
                     const s = user.schoolName ? user.schoolName : '';
                     const sec = user.sectionName ? user.sectionName : '';
                     this.parentLabel.string = `Connected to ${s} ${sec}`;
+
+                    const key = `teacher_for_student_${user.id}`;
+                    const teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
+                    teachersForStudent.push(user.sectionName);
+                    cc.sys.localStorage.setItem(key, JSON.stringify(teachersForStudent));
+
                     this.onOtpClose();
                 }
             } catch (e) {
