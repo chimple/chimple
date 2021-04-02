@@ -140,7 +140,7 @@ export default class AnswerBlock extends CommonBlock {
     @catchError()
     render(renderParams: RenderParams): void {
         const x = renderParams.xPositions[renderParams.index];
-        const y= -renderParams.groundHeight * HALF +(0.5)* V_MARGIN;
+        const y= -renderParams.groundHeight * HALF + HALF* V_MARGIN;
         this.originalPosition = new Vec2(x, y);
         this.originalPosition.y += (renderParams.yPositionAdj ? renderParams.yPositionAdj : 0)
         this.grid = renderParams.wordMatrix;
