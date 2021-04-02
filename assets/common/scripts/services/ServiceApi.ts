@@ -27,6 +27,7 @@ export interface AcceptTeacherRequest {
     studentName?: string;
     studentAge?: string;
     studentGender?: string;
+    otpCode?: string;
 }
 
 export interface UpdateProgressInfo {

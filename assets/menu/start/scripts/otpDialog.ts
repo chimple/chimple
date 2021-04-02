@@ -82,7 +82,8 @@ export default class OtpDialog extends cc.Component {
                         sectionId: user.sectionId,
                         studentId: user.id,
                         studentName: user.name,
-                        firebaseStudentId: user.studentId
+                        firebaseStudentId: user.studentId,
+                        otpCode: otpCode
                     }
                     UtilLogger.subscribeToTopic(`assignment-${user.schoolId}-${user.sectionId}`)
                     UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, request);
