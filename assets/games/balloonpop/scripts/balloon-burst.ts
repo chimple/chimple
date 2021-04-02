@@ -22,8 +22,12 @@ export default class BalloonBurst extends Drag {
             this.node.getChildByName("label").destroy();
             this.node.getChildByName("balloon_texture").destroy();
             let letter = this.node.getComponentInChildren(cc.Label).string;
-            if((letter>='a'&&letter<='z')||(letter>='A'&&letter<='Z')){
-                Util.speakLettersOrWords(letter.toLowerCase(), ()=>{})
+            if((letter.charCodeAt(0) >= 97 && letter.charCodeAt(0) <= 122)||(letter.charCodeAt(0) >= 65 && letter.charCodeAt(0) <= 90)){
+                Util.loadsLetter(letter.toLowerCase(), (clip) =>{
+                    if(clip != null){
+                        Util.play(clip);
+                    }
+                });
             } else {
                 Util.loadNumericSound(letter, (clip) => {
                     if(clip != null){
