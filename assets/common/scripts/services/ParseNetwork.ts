@@ -273,7 +273,11 @@ export class ParseNetwork {
                 if (isJsonResponse) {
                     jsonResult = result.data;
                     if ('results' in jsonResult && Array.isArray(jsonResult.results)) {
-                        jsonResult = jsonResult.results;
+                        if ('link' in jsonResult && !jsonResult.link) {
+                            jsonResult.results = null;
+                        } else {
+                            jsonResult = jsonResult.results;
+                        }
                     }
                     !!cachedKey ? ParseNetwork.getInstance().storeIntoCache(cachedKey, jsonResult) : null;
                     ParseNetwork.getInstance().cachedApiTimings.set(cachedKey, cachedValidTime);

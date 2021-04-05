@@ -116,7 +116,20 @@ export class FirebaseApi implements ServiceApi {
             url: FIREBASE_LIST_ASSIGNMENTS + studentId
         };
         let jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader()) || [];
-        console.log('assignments', jsonResult)
+        if (!!jsonResult && !Array.isArray(jsonResult) && 'link' in jsonResult && !jsonResult.link) {
+            User.getCurrentUser().isConnected = false;
+            User.getCurrentUser().studentId = null;
+            User.getCurrentUser().sectionId = null;
+            User.getCurrentUser().schoolId = null;
+        }
+
+        console.log('assignments query result', jsonResult)
+
+        if (!User.getCurrentUser().studentId) {
+            User.getCurrentUser().isConnected = false;
+        } else {
+            User.getCurrentUser().isConnected = true;
+        }
         this.buildAssignments(assignments, jsonResult);
         return assignments;
     }
