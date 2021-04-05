@@ -2,6 +2,7 @@ import Config from "../../../common/scripts/lib/config";
 import LessonButton from "./lessonButton";
 import {LessonProgress, User} from "../../../common/scripts/lib/profile";
 import {Lesson} from "../../../common/scripts/lib/convert";
+import {Util} from "../../../common/scripts/util";
 
 const {ccclass, property} = cc._decorator;
 
@@ -43,6 +44,9 @@ export default class ChapterLessons extends cc.Component {
     @property(cc.Node)
     whatsappNode: cc.Node = null
 
+    @property(cc.Node)
+    otpDialogNode: cc.Node = null
+
     static showType: ChapterLessonType = ChapterLessonType.Library
 
     onLoad() {
@@ -75,7 +79,8 @@ export default class ChapterLessons extends cc.Component {
                     })
                 } else {
                     this.label.string = 'Connect To Class'
-                    this.whatsappNode.active = true
+                    // this.whatsappNode.active = true
+                    this.otpDialogNode.active = true;
                 }
                 break;
             case ChapterLessonType.Featured:

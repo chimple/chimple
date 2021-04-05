@@ -22,15 +22,31 @@ export default class BalloonBurst extends Drag {
             this.node.getChildByName("label").destroy();
             this.node.getChildByName("balloon_texture").destroy();
             let letter = this.node.getComponentInChildren(cc.Label).string;
-            Util.speakLettersOrWords(letter.toLowerCase(), ()=>{});
+            if((letter >= "1" && letter <= "99")){
+                Util.loadNumericSound(letter, (clip) => {
+                    if(clip != null){
+                        Util.play(clip);
+                    }
+                });
+            } else {
+                Util.loadsLetter(letter.toLowerCase(), (clip) =>{
+                    if(clip != null){
+                        Util.play(clip);
+                    }
+                });
+            }
             this.burstBalloonAnimation();
             this.node.parent.getComponent("balloonpop").createSingleBallon(this.node.x);
             if(this.node.getComponentInChildren(cc.Label).string===Balloonpop.correctLetter){                            
                 BalloonBurst.letterBursted= BalloonBurst.letterBursted+(1/Balloonpop.letterNo);
                 this.node.parent.getComponent("balloonpop").letterProgress();
                 this.node.parent.emit("correct")
-            } else{
-                this.node.parent.emit("wrong")
+            } else {
+                if(BalloonBurst.letterBursted > 0) {
+                    BalloonBurst.letterBursted = BalloonBurst.letterBursted-(1/Balloonpop.letterNo)
+                    this.node.parent.getComponent("balloonpop").letterProgress();
+                }
+                this.node.parent.emit("wrong");
             }
         }
     }

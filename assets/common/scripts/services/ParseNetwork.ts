@@ -4,7 +4,7 @@ import {
     DEFAULT_TIMEOUT,
     GET,
     POST,
-    PUT,
+    PUT, SYNC_PROGRESS_FAILED,
     UPDATE_HOME_TEACHER,
     UPDATE_HOME_TEACHER_FAILED,
     UPDATE_MONITOR,
@@ -357,6 +357,21 @@ export class ParseNetwork {
         });
     }
 
+    private updateProgress(payload) {
+        cc.log("calling update progress API");
+        ServiceConfig.getI().handle.updateProgress(payload)
+            .then(res => {
+                UtilLogger.logChimpleEvent(UPDATE_PROGRESS, payload);
+
+            })
+            .catch(err => {
+                const failedSyncProgresses = JSON.parse(cc.sys.localStorage.getItem(SYNC_PROGRESS_FAILED) || '[]');
+                const failedPayload = {...payload};
+                failedSyncProgresses.push(failedPayload);
+                cc.sys.localStorage.setItem(SYNC_PROGRESS_FAILED, JSON.stringify(failedSyncProgresses));
+            });
+    }
+
     public consumeMessage() {
         // cc.log("called consumeMessage");
         if (ParseNetwork.getInstance().isHandlerBusy) {
@@ -373,16 +388,21 @@ export class ParseNetwork {
             if (!!payload) {
                 switch (payload.kind) {
                     case 'Progress':
-                        // only happen in CLOSE, School or Home (with teacher)
-                        cc.log("calling update progress API");
-                        ServiceConfig.getI().handle.updateProgress(payload)
-                            .then(res => {
-                                UtilLogger.logChimpleEvent(UPDATE_PROGRESS, payload);
-                            })
-                            .catch(err => {
-                                // Queue.getInstance().push(payload)
-                                // UtilLogger.logChimpleEvent(UPDATE_PROGRESS_FAILED, payload);
-                            });
+                        // check for last failed sync
+                        const lastFailedToSyncProgresses = JSON.parse(cc.sys.localStorage.getItem(SYNC_PROGRESS_FAILED) || '[]');
+                        if (Array.isArray(lastFailedToSyncProgresses) && lastFailedToSyncProgresses.length > 0) {
+                            ServiceConfig.getI().handle.syncFailedProgresses(lastFailedToSyncProgresses)
+                                .then(res => {
+                                    cc.log('Successfully Synced Failed Progress');
+                                    cc.sys.localStorage.removeItem(SYNC_PROGRESS_FAILED);
+                                    ParseNetwork.getInstance().updateProgress(payload);
+                                })
+                                .catch(err => {
+
+                                })
+                        } else {
+                            ParseNetwork.getInstance().updateProgress(payload);
+                        }
                         break;
                     case 'Monitor':
                         cc.log("calling update monitor API");

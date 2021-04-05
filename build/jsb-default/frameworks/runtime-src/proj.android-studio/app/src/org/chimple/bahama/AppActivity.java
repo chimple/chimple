@@ -385,18 +385,22 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     }
 
     void checkInstallReferrer(Context context) {
-        if (getPreferences(MODE_PRIVATE).getBoolean(KEY_REFERRER_EXISTS, false)) {
-            Log.i(TAG, "referrer url already referred");
-            return;
-        }
-
-        final InstallReferrerClient referrerClient = InstallReferrerClient.newBuilder(this).build();
-        backgroundExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                getInstallReferrerFromClient(referrerClient);
+        try {
+            if (getPreferences(MODE_PRIVATE).getBoolean(KEY_REFERRER_EXISTS, false)) {
+                Log.i(TAG, "referrer url already referred");
+                return;
             }
-        });
+
+            final InstallReferrerClient referrerClient = InstallReferrerClient.newBuilder(this).build();
+            backgroundExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    getInstallReferrerFromClient(referrerClient);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String toUrlEncode(Map<String, String> params) {

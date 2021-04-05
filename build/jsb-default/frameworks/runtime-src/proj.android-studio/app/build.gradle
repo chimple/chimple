@@ -143,7 +143,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:22.1.1'
     implementation 'com.google.android.gms:play-services-base:16.1.0'
     implementation 'com.android.support:multidex:1.0.3'
-    implementation 'com.google.firebase:firebase-auth:20.0.3'
+    implementation 'com.google.firebase:firebase-auth:18.0.0'
     implementation project(path: ':firebaseSync')
 }
 

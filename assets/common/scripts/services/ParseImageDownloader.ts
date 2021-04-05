@@ -31,6 +31,15 @@ export class ParseImageDownloader {
         }
     }
 
+    public static getHash(input) {
+        let hash = 0, len = input ?  input.length : 0;
+        for (let i = 0; i < len; i++) {
+            hash = ((hash << 5) - hash) + input.charCodeAt(i);
+            hash |= 0; // to 32bit integer
+        }
+        return hash;
+    }
+
     public static loadImageForSchool(imageUrl: string, savedAs: string, callBack: Function) {
         if (!imageUrl) return;
 
@@ -45,8 +54,10 @@ export class ParseImageDownloader {
 
         ParseImageDownloader.downloadStatuses.set(imageUrl, true);
 
+        const hash = ParseImageDownloader.getHash(imageUrl);
+        const saveAsHash = savedAs + "_" +  hash;
         if (ParseImageDownloader.isNative()) {
-            ParseImageDownloader.downloadImageFromNetworkAndSave(imageUrl, savedAs, callBack);
+            ParseImageDownloader.downloadImageFromNetworkAndSave(imageUrl, saveAsHash, callBack);
         } else {
             ParseImageDownloader.loadImageFromNetwork(imageUrl, imageUrl, callBack);
         }

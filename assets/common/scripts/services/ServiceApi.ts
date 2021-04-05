@@ -13,6 +13,10 @@ export interface ServiceApi {
     updateHomeTeacher(info: UpdateHomeTeacher): Promise<any>;
 
     listAssignments(studentId: string, limit: number): Promise<any>;
+
+    linkStudent(studentId: string, code: string): Promise<any>;
+
+    syncFailedProgresses(infos: UpdateProgressInfo[]): Promise<any>;
 }
 
 export interface AcceptTeacherRequest {
@@ -23,6 +27,7 @@ export interface AcceptTeacherRequest {
     studentName?: string;
     studentAge?: string;
     studentGender?: string;
+    otpCode?: string;
 }
 
 export interface UpdateProgressInfo {

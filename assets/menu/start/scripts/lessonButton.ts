@@ -88,7 +88,7 @@ export default class LessonButton extends cc.Component {
             if (err) {
                 this.loading.getComponent(Loading).addMessage(Util.i18NText('Error downloading content. Please connect to internet and try again'), true, true);
             } else {
-                if (this.loading.activeInHierarchy) {
+                if (this.loading && this.loading.activeInHierarchy) {
                     config.pushScene('common/scenes/lessonController');
                 }
             }

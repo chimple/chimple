@@ -12,6 +12,7 @@ import HorizontalAlign = cc.Label.HorizontalAlign;
 import VerticalAlign = cc.Label.VerticalAlign;
 import {AssignHomeWorkInfo} from "./services/parseApi";
 import Loading from "./loading";
+import {ParseImageDownloader} from "./services/ParseImageDownloader";
 
 export const INVENTORY_DATA = [
     ["hat1-hat1", "hat1-hat2", "hat1-hat3", "hat1-hat4", "hat1-hat5", "hat1-hat6", "hat1-hat7", "hat1-hat8", "hat1-hat9", "hat1-hat10"],
@@ -964,5 +965,21 @@ export class Util {
                 })
             })
         })
+    }
+
+    static loadImage(photoNode: cc.Node, imageUrl: string, saveAs: string) {
+        ParseImageDownloader.loadImageForSchool(imageUrl, saveAs, (texture) => {
+            if (!!texture && photoNode) {
+                let spriteFrame: cc.SpriteFrame = new cc.SpriteFrame(texture);
+                const photo: cc.Node = photoNode.getChildByName('photo');
+                if (photo) {
+                    const maskNode: cc.Node = photo.getChildByName('mask');
+                    if (maskNode) {
+                        const image: cc.Node = maskNode.getChildByName('image');
+                        image.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                    }
+                }
+            }
+        });
     }
 }

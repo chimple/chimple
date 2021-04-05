@@ -1,5 +1,5 @@
-import {ASSET_LOAD_METHOD, firebaseConfigWeb} from "./lib/constants";
-import {User} from "./lib/profile";
+import {ASSET_LOAD_METHOD, firebaseConfigWeb, Mode} from "./lib/constants";
+import Profile, {CURRENTMODE, User} from "./lib/profile";
 
 const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
 
@@ -561,7 +561,9 @@ export default class UtilLogger {
     public static syncProfile(schoolId: string, sectionId: string, studentId: string, profile: string, progressId: string): void {
         cc.log(`syncProfile for: ${schoolId}-${sectionId}-${studentId}-${progressId}`);
         try {
+            let mode = parseInt(Profile.getValue(CURRENTMODE));
             if (
+                mode === Mode.School &&
                 cc.sys.isNative &&
                 cc.sys.os == cc.sys.OS_ANDROID
             ) {
