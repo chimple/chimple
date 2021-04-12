@@ -121,12 +121,21 @@ export default class OperationWithObjects extends cc.Component {
             } else {
                 const parts = this.quizConfig.choices.split(this.operator);
                 let op1range:string[] = parts[0].split('~');
-                cc.log('op1range ',op1range);
-                op1V = String(Util.randomBetween(Number(op1range[0]), Number(op1range[1])));
+                if(op1range.length>1){
+                    op1V = String(Util.randomBetween(Number(op1range[0]), Number(op1range[1])));
+                }else{
+                    op1V= op1range[0];
+                }
                 let op2range:string[] = parts[1].split('~');
-                let temp:string[] = op2range[1].split('=');
-                op2range[1] = temp[0];
-                op2V = String(Util.randomBetween(Number(op2range[0]), Number(op2range[1])));
+                if(op2range.length>1){
+                    let temp:string[] = op2range[1].split('=');
+                    op2range[1] = temp[0];
+                    op2V = String(Util.randomBetween(Number(op2range[0]), Number(op2range[1])));
+                }else{
+                    let temp:string[] = op2range[0].split('=');
+                    op2range[0] = temp[0];
+                    op2V= op2range[0];
+                }
                 if (Number(op1V) < Number(op2V) && this.operator === '-') {
                     let tmp = op1V;
                     op1V = op2V;
