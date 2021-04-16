@@ -23,24 +23,24 @@ public class StartSyncWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        Log.d(TAG, "Start Sync Operation");
+        Log.d(TAG, "Start Sync Operation - StartSyncWorker");
         Helper helper = Helper.getInstance(this.context, new AuthCallBack() {
             @Override
             public void loginSucceed(String schoolInfo, boolean shouldCallBack) {
-                Log.d(TAG, "Login Succeed");
+                Log.d(TAG, "Login Succeed - StartSyncWorker");
             }
 
             @Override
             public void loginFailed(String reason) {
-                Log.d(TAG, "Login Failed");
+                Log.d(TAG, "Login Failed - StartSyncWorker");
             }
         });
         if (helper != null) {
             if (!helper.isFirebaseUserLoggedIn()) {
-                Log.d(TAG, "Start Sync Operation Auth");
+                Log.d(TAG, "Start Sync Operation Auth - StartSyncWorker");
                 helper.auth(false);
             } else {
-                Log.d(TAG, "Start Sync Operation Enable Sync");
+                Log.d(TAG, "Start Sync Operation Enable Sync - StartSyncWorker");
                 helper.enableSync(false);
             }
         }

@@ -2,6 +2,7 @@ import Config from "../../../common/scripts/lib/config";
 import LessonButton from "./lessonButton";
 import {LessonProgress, User} from "../../../common/scripts/lib/profile";
 import {Lesson} from "../../../common/scripts/lib/convert";
+import {Util} from "../../../common/scripts/util";
 
 const {ccclass, property} = cc._decorator;
 
@@ -43,6 +44,9 @@ export default class ChapterLessons extends cc.Component {
     @property(cc.Node)
     whatsappNode: cc.Node = null
 
+    @property(cc.Node)
+    otpDialogNode: cc.Node = null
+
     static showType: ChapterLessonType = ChapterLessonType.Library
 
     onLoad() {
@@ -61,19 +65,22 @@ export default class ChapterLessons extends cc.Component {
                     this.label.string = 'Assignments'
                     config.assignments.forEach((ass) => {
                         const lesson = Config.i.allLessons.get(ass.lessonId)
-                        lesson.assignmentId = ass.assignmentId;
-                        const newLesson = {...lesson};
-                        console.log('User.getCurrentUser().lessonProgressMap', User.getCurrentUser().lessonProgressMap);
-                        const lessonProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
-                        if (!lessonProgress) {
-                            this.createLessonButton(newLesson, true)
-                        } else if (lessonProgress && ![].concat(lessonProgress.assignmentIds).includes(ass.assignmentId)) {
-                            this.createLessonButton(newLesson, true)
+                        if (!!lesson) {
+                            lesson.assignmentId = ass.assignmentId;
+                            const newLesson = {...lesson};
+                            console.log('User.getCurrentUser().lessonProgressMap', User.getCurrentUser().lessonProgressMap);
+                            const lessonProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
+                            if (!lessonProgress) {
+                                this.createLessonButton(newLesson, true)
+                            } else if (lessonProgress && ![].concat(lessonProgress.assignmentIds).includes(ass.assignmentId)) {
+                                this.createLessonButton(newLesson, true)
+                            }
                         }
                     })
                 } else {
                     this.label.string = 'Connect To Class'
-                    this.whatsappNode.active = true
+                    // this.whatsappNode.active = true
+                    this.otpDialogNode.active = true;
                 }
                 break;
             case ChapterLessonType.Featured:

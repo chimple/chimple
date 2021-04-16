@@ -105,7 +105,7 @@ export class LessonProgressClass implements LessonProgress {
     date: Date;
     assignmentIds: string[] = [];
 
-    constructor(score: number, attempts: number = 0, course: string = null, assignmentId: string = null) {
+    constructor(score: number, attempts: number = 0, course: string = Config.i.course.id, assignmentId: string = null) {
         this.score = score;
         this.attempts = attempts;
         this.date = new Date();
@@ -141,6 +141,8 @@ export class User {
     private _studentId: string;
     debug: boolean = false
     curriculumLoaded: boolean = false
+    private _sectionName: string;
+    private _schoolName: string;
 
     constructor(
         id: string,
@@ -163,7 +165,9 @@ export class User {
         serverId: string = '',
         schoolId: string = '',
         sectionId: string = '',
-        studentId: string = ''
+        studentId: string = '',
+        schoolName: string = '',
+        sectionName: string = ''
     ) {
         this._id = id;
         this._name = name;
@@ -190,6 +194,8 @@ export class User {
         this._schoolId = schoolId;
         this._sectionId = sectionId;
         this._studentId = studentId;
+        this._schoolName = schoolName;
+        this._sectionName = sectionName;
     }
 
     _genderEvent(gender: Gender) {
@@ -367,7 +373,6 @@ export class User {
 
     set schoolId(value: string) {
         this._schoolId = value;
-        this.storeUser();
     }
 
     get sectionId(): string {
@@ -376,7 +381,6 @@ export class User {
 
     set sectionId(value: string) {
         this._sectionId = value;
-        this.storeUser();
     }
 
     get studentId(): string {
@@ -385,8 +389,25 @@ export class User {
 
     set studentId(value: string) {
         this._studentId = value;
-        this.storeUser();
     }
+
+    get sectionName(): string {
+        return this._sectionName;
+    }
+
+    set sectionName(value: string) {
+        this._sectionName = value;
+    }
+
+
+    get schoolName(): string {
+        return this._schoolName;
+    }
+
+    set schoolName(value: string) {
+        this._schoolName = value;
+    }
+
 
     unlockInventoryForItem(item: string) {
         this._unlockedInventory[item] = true;
@@ -493,7 +514,7 @@ export class User {
                 if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
                     reward = [REWARD_TYPES[2], Config.i.lesson.image]
                 }
-                this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1, Config.i.course.name, Config.i.lesson.assignmentId));
+                this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1, Config.i.course.id, Config.i.lesson.assignmentId));
             }
 
             if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
@@ -601,8 +622,13 @@ export class User {
             }
         }
 
-        if (cc.sys.isNative && !!user.schoolId && !!user.sectionId && !!user.studentId) {
-            UtilLogger.syncProfile(user.schoolId, user.sectionId, user.studentId, User.toJson(user))
+        User.syncProfile();
+    }
+
+    static syncProfile() {
+        const user = User._currentUser;
+        if(cc.sys.isNative && !!user && !!user.schoolId && !!user.sectionId && !!user.studentId && !!user.id) {
+            UtilLogger.syncProfile(user.schoolId, user.sectionId, user.studentId, User.toJson(user), user.id)
         }
     }
 
@@ -757,7 +783,9 @@ export class User {
             data.serverId,
             data.schoolId,
             data.sectionId,
-            data.studentId
+            data.studentId,
+            data.schoolName,
+            data.sectionName
         );
         user.isConnected = data.isConnected
         // user._lessonPlanDate = new Date(data.lessonPlanDate)
@@ -804,7 +832,9 @@ export class User {
             'isConnected': user.isConnected,
             'schoolId': user.schoolId,
             'sectionId': user.sectionId,
-            'studentId': user.studentId
+            'studentId': user.studentId,
+            'schoolName': user.schoolName,
+            'sectionName': user.sectionName
         });
     }
 

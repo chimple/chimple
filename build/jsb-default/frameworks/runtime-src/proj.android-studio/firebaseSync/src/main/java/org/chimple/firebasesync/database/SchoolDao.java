@@ -33,7 +33,7 @@ public interface SchoolDao {
     @Query("SELECT * FROM SCHOOL WHERE firebaseId = :firebaseId LIMIT 1")
     School loadSchoolById(String firebaseId);
 
-    @Query("SELECT * FROM SCHOOL WHERE school_code = :schoolCode LIMIT 1")
-    School findSchoolBySchoolCode(String schoolCode);
+    @Query("SELECT * FROM SCHOOL WHERE firebaseId = :firebaseId LIMIT 1")
+    School findSchoolById(String firebaseId);
 
 }

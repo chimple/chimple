@@ -351,8 +351,8 @@ export const firebaseConfigWeb = {
     projectId: "bahama-stage",
     storageBucket: "bahama-stage.appspot.com",
     messagingSenderId: "105857221433",
-    appId: "1:105857221433:web:c078a997c285ed1f70dee8",
-    measurementId: "G-L3XLM51J4D"
+    appId: "1:105857221433:web:424f71c230302a6b70dee8",
+    measurementId: "G-DB6WEMCZ0D"
 };
 
 

@@ -1,5 +1,5 @@
-import {ASSET_LOAD_METHOD, firebaseConfigWeb} from "./lib/constants";
-import {User} from "./lib/profile";
+import {ASSET_LOAD_METHOD, firebaseConfigWeb, Mode} from "./lib/constants";
+import Profile, {CURRENTMODE, User} from "./lib/profile";
 
 const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
 
@@ -72,7 +72,7 @@ const FETCH_STUDENTS_METHOD = "fetchStudentsForSchoolAndSection";
 const FETCH_STUDENTS_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;";
 
 const SYNC_PROFILE_METHOD = "syncProfile";
-const SYNC_PROFILE_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
+const SYNC_PROFILE_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
 
 const USER_ID = "userId";
 const DEVICE_ID = "deviceId";
@@ -449,7 +449,8 @@ export default class UtilLogger {
     }
 
     public static syncFmcTokenForUsers() {
-        const userIds: string = User.getUserIds().join(",");
+        const u = User.getUserIds() || [];
+        const userIds: string = u.join(",");
         console.log("syncFmcTokenForUsers:" + userIds);
         try {
             if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
@@ -557,10 +558,12 @@ export default class UtilLogger {
         }
     }
 
-    public static syncProfile(schoolId: string, sectionId: string, studentId: string, profile: string): void {
-        cc.log(`syncProfile for: ${schoolId}-${sectionId}-${studentId}`);
+    public static syncProfile(schoolId: string, sectionId: string, studentId: string, profile: string, progressId: string): void {
+        cc.log(`syncProfile for: ${schoolId}-${sectionId}-${studentId}-${progressId}`);
         try {
+            let mode = parseInt(Profile.getValue(CURRENTMODE));
             if (
+                mode === Mode.School &&
                 cc.sys.isNative &&
                 cc.sys.os == cc.sys.OS_ANDROID
             ) {
@@ -571,7 +574,8 @@ export default class UtilLogger {
                     schoolId,
                     sectionId,
                     studentId,
-                    profile
+                    profile,
+                    progressId
                 );
             }
         } catch (e) {

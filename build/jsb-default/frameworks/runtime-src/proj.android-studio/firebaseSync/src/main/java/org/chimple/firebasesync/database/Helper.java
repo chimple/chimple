@@ -23,16 +23,15 @@ import org.chimple.firebasesync.model.Section;
 import org.chimple.firebasesync.model.Student;
 import org.chimple.firebasesync.workers.SyncOperationManager;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class Helper {
     private static final String TAG = Helper.class.getName();
     private SharedPreferences sharedPreferences = null;
 
     public static String SHARED_PREF = "org.chimple.bahama";
-    public static String EMAIL = "FB_EMAIL";
+    public static String EMAIL = "EMAIL";
+    public static String SCHOOL_ID = "SCHOOL_ID";
     public static String PASSWORD = "FB_PASSWORD";
     public static String SCHOOL_COLLECTION = "School";
     public static String SECTION_COLLECTION = "Section";
@@ -187,7 +186,7 @@ public class Helper {
                             FirebaseUser user = task.isSuccessful() ?
                                     mAuth.getCurrentUser() : null;
                             if (user != null) {
-                                Log.d(TAG, "SignIn Successful user:" + user);
+                                Log.d(TAG, "SignIn Successful user:" + user.getUid());
                                 enableSync(shouldCallBack);
                             } else {
                                 Log.d(TAG, "SignIn Failed");
@@ -204,7 +203,7 @@ public class Helper {
             FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
             Log.d(TAG, "FirebaseOperations instance:" + instance);
             if (instance != null) {
-                School school = instance.getOperations().findSchoolByEmail(email);
+                School school = instance.getOperations().findSchoolById(email);
                 if (school != null) {
                     Gson gson = new GsonBuilder().create();
                     json = gson.toJson(school);
@@ -255,11 +254,11 @@ public class Helper {
         return json;
     }
 
-    public static void syncProfile(String schoolId, String sectionId, String studentId, String profileData) {
+    public static void syncProfile(String schoolId, String sectionId, String studentId, String profileData, String progressId) {
         FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
         Log.d(TAG, "Sync profile school:" + schoolId + " section:" + sectionId + " student:" + studentId);
         if (instance != null) {
-            instance.syncProfile(schoolId, sectionId, studentId, profileData);
+            instance.syncProfile(schoolId, sectionId, studentId, profileData, progressId);
         }
     }
 

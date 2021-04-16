@@ -103,7 +103,8 @@ export default class Start extends cc.Component {
     async onLoad() {
         const user = User.getCurrentUser()
         this.bgHolder.removeAllChildren();
-        Util.playSfx(this.bgMusic, true, true);
+       
+       cc.audioEngine.pauseMusic()
         if (!!user && !!user.currentBg) {
             this.setBackground(user.currentBg);
         } else {

@@ -7,6 +7,8 @@ import {
     SCALE,
     TouchEvents,
     Grid,
+    HALF,
+    V_MARGIN,
 } from "./grid";
 import WordBlock from "./wordblock";
 import QuestionBlock from "./questionblock";
@@ -138,7 +140,8 @@ export default class AnswerBlock extends CommonBlock {
     @catchError()
     render(renderParams: RenderParams): void {
         const x = renderParams.xPositions[renderParams.index];
-        this.originalPosition = new Vec2(x, -375);
+        const y= -renderParams.groundHeight * HALF + HALF* V_MARGIN;
+        this.originalPosition = new Vec2(x, y);
         this.originalPosition.y += (renderParams.yPositionAdj ? renderParams.yPositionAdj : 0)
         this.grid = renderParams.wordMatrix;
         this.fontSize = FONT_SIZE;

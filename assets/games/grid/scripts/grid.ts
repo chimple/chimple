@@ -39,6 +39,7 @@ export interface RenderParams {
     xPositions?: number[];
     yPositionAdj? : number;
     combinedQAndA?: string;
+    groundHeight?:number;
 }
 
 export const V_GAP: number = 18;
@@ -268,6 +269,7 @@ export class Grid extends Game {
             index,
             totalBlocks: length,
             xPositions: ch.xPositions,
+            groundHeight:this.ground.getBoundingBox().height;
           };
           answerBlockComponent.renderAnswerHolder(renderParamsAnswer);
           if (index === 0) this._helpDragNode = node;

@@ -3,8 +3,9 @@ import {AcceptTeacherRequest, ServiceApi, UpdateProgressInfo} from "./ServiceApi
 import {Queue} from "../../../queue";
 import {UpdateHomeTeacher} from "./parseApi";
 import {
+    FIREBASE_LINK_STUDENT_URL,
     FIREBASE_LIST_ASSIGNMENTS,
-    FIREBASE_SCHOOL_URL,
+    FIREBASE_SCHOOL_URL, FIREBASE_SYNC_FAILED_PROGRESS_URL,
     FIREBASE_UPDATE_HOME_TEACHER_URL, FIREBASE_UPDATE_PROGRESS_URL, LIST_ASSIGNMENTS, UPDATE_PROGRESS_URL
 } from "../domain/parseConstants";
 import {ServiceConfig} from "./ServiceConfig";
@@ -63,6 +64,27 @@ export class FirebaseApi implements ServiceApi {
         }
     }
 
+    async syncFailedProgresses(infos: UpdateProgressInfo[]): Promise<any> {
+        if (Array.isArray(infos) && infos.length > 0) {
+            let inputs = infos.map((info: UpdateProgressInfo) => {
+                return {
+                    lessonId: info.lesson,
+                    userId: info.studentId,
+                    courseName: info.courseName,
+                    score: info.assessment,
+                    assignmentId: info.assignmentId
+                }
+            })
+            const requestParams: RequestParams = {
+                url: FIREBASE_SYNC_FAILED_PROGRESS_URL,
+                body: {
+                    data: inputs
+                }
+            };
+            return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
+        }
+    }
+
     async schoolById(id: string): Promise<any> {
         let schoolId = null;
         const requestParams: RequestParams = {
@@ -94,7 +116,26 @@ export class FirebaseApi implements ServiceApi {
             url: FIREBASE_LIST_ASSIGNMENTS + studentId
         };
         let jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader()) || [];
-        console.log('assignments', jsonResult)
+        if (!!jsonResult && !Array.isArray(jsonResult) && 'link' in jsonResult && !jsonResult.link) {
+            User.getCurrentUser().isConnected = false;
+            const key = `teacher_for_student_${User.getCurrentUser().id}`;
+            let teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
+            teachersForStudent = teachersForStudent.filter(e => e !== User.getCurrentUser().sectionName);
+            cc.sys.localStorage.setItem(key, JSON.stringify(teachersForStudent));
+            User.getCurrentUser().studentId = null;
+            User.getCurrentUser().sectionId = null;
+            User.getCurrentUser().schoolId = null;
+            User.getCurrentUser().schoolName = null;
+            User.getCurrentUser().sectionName = null;
+        }
+
+        console.log('assignments query result', jsonResult)
+
+        if (!User.getCurrentUser().studentId) {
+            User.getCurrentUser().isConnected = false;
+        } else {
+            User.getCurrentUser().isConnected = true;
+        }
         this.buildAssignments(assignments, jsonResult);
         return assignments;
     }
@@ -157,4 +198,20 @@ export class FirebaseApi implements ServiceApi {
         }
         return results;
     }
+
+    async linkStudent(studentId: string, code: string): Promise<any> {
+        if (studentId && studentId.length > 0 &&
+            code && code.length > 0) {
+            let sendCode = Number(code);
+            const requestParams: RequestParams = {
+                url: FIREBASE_LINK_STUDENT_URL,
+                body: {
+                    studentId,
+                    code: sendCode
+                }
+            };
+            return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
+        }
+    }
+
 }
