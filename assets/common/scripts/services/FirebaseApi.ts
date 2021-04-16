@@ -131,10 +131,12 @@ export class FirebaseApi implements ServiceApi {
 
         console.log('assignments query result', jsonResult)
 
-        if (!User.getCurrentUser().studentId) {
-            User.getCurrentUser().isConnected = false;
-        } else {
-            User.getCurrentUser().isConnected = true;
+        if(User.getCurrentUser() != null) {
+            if (!User.getCurrentUser().studentId) {
+                User.getCurrentUser().isConnected = false;
+            } else {
+                User.getCurrentUser().isConnected = true;
+            }
         }
         this.buildAssignments(assignments, jsonResult);
         return assignments;

@@ -268,8 +268,10 @@ export default class Start extends cc.Component {
             bgPrefabInstance.y = 0
             // @ts-ignore
             bgPrefabInstance.x = 0
-            // @ts-ignore
-            this.bgHolder.addChild(bgPrefabInstance);
+            if(this.bgHolder != null) {
+                // @ts-ignore
+                this.bgHolder.addChild(bgPrefabInstance);
+            }
         });
     }
 
