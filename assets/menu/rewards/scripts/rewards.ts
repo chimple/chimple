@@ -237,6 +237,9 @@ export default class Rewards extends cc.Component {
     }
 
     onLogoutButtonClick(event) {
+        const node = event.target;
+        const button = node.getComponent(cc.Button)
+        if (button) button.interactable = false;
         User.setCurrentUser(null);
         Config.i.popAllScenes();
         if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
