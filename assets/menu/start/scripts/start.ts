@@ -735,7 +735,7 @@ export default class Start extends cc.Component {
         }
         if(this.node.active && User.getCurrentUser().isConnected){
             this.timer += Math.floor(dt * 100);
-            if(this.timer > 200){
+            if(this.timer > 300){
                 this.timer = 0;
                 this.showAssignmentPopup();
             }

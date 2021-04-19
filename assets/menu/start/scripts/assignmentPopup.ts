@@ -1,5 +1,7 @@
 import ChimpleLabel from "../../../common/scripts/chimple-label";
+import Config from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
+import ChapterLessons, { ChapterLessonType } from "./chapterLessons";
 
 const {ccclass, property} = cc._decorator;
 
@@ -17,10 +19,16 @@ export default class AssignmentPopup extends cc.Component {
 
     @property(cc.Node)
     dialog: cc.Node = null;
+
+    @property(cc.Node)
+    msg: cc.Node = null;
     
     onLoad(){
-        const chimpleLabel = this.text.getComponent(ChimpleLabel);
-        chimpleLabel.string = Util.i18NText("You Received New Assignments");
+        const chimpleText = this.text.getComponent(ChimpleLabel);
+        const chimpleMsg = this.msg.getComponent(ChimpleLabel);
+        chimpleText.string = Util.i18NText("Do you want to open now?");
+        chimpleMsg.string = Util.i18NText("New assignment has been assigned to you");
+
     }
 
     onEnable(){
@@ -28,12 +36,17 @@ export default class AssignmentPopup extends cc.Component {
         this.block.active = true;
     }
 
-    onDestroy(){
-        this.node.destroy();
-
+    onDisable(){
+        this.dialog.active = false;
+        this.block.active = false;
     }
 
-    onClickOk(){
+    onClickYes(){
+        ChapterLessons.showType = ChapterLessonType.Assignments
+        Config.i.pushScene('menu/start/scenes/chapterLessons', 'menu')
+    }
+
+    onClickNo(){
         this.dialog.active = false;
         this.block.active = false;
     }
