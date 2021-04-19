@@ -20,7 +20,7 @@ export default class AssignmentPopup extends cc.Component {
     
     onLoad(){
         const chimpleLabel = this.text.getComponent(ChimpleLabel);
-        chimpleLabel.string = Util.i18NText("You Recived New Assignments");
+        chimpleLabel.string = Util.i18NText("You Received New Assignments");
     }
 
     onEnable(){
