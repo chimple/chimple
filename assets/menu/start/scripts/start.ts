@@ -99,6 +99,9 @@ export default class Start extends cc.Component {
     featuredButton: cc.Button = null
 
     friend: cc.Node
+    timer: number = 0;
+    flag: boolean = true;
+    assignments: any;
 
     async onLoad() {
         const user = User.getCurrentUser()
@@ -157,12 +160,12 @@ export default class Start extends cc.Component {
         })
         ChapterLessons.showType = ChapterLessonType.Library;
         UtilLogger.syncFmcTokenForUsers();
-        const assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
+        this.assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
         // config.assignments = assignments.filter((ass) => {
         //     const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
         //     return !(lessonProgress && lessonProgress.date < ass.createAt)
         // })
-        config.assignments = assignments;
+        config.assignments = this.assignments;
         if (config.assignments.length > 0 || !user.isConnected) {
             if(config.assignments.length > 0 && !user.isConnected) {
                 user.isConnected = true
@@ -699,6 +702,22 @@ export default class Start extends cc.Component {
         cc.audioEngine.stopMusic();
     }
 
+    async showAssignmentPopup(){
+        if(this.flag){
+            this.flag = false;
+            const user = User.getCurrentUser();
+            this.assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
+            if(this.assignments.length > Config.i.assignments.length){
+                Config.i.assignments = this.assignments;
+                const assignmentPopupNode = this.node.getChildByName("assignment_popup");
+                if(assignmentPopupNode.active == false){
+                    assignmentPopupNode.active = true;
+                }
+            }
+            this.flag = true;
+        }
+    }
+
     protected update(dt: number) {
         if (RECEIVED_TEACHER_REQUESTS) {
             // @ts-ignore
@@ -712,6 +731,13 @@ export default class Start extends cc.Component {
                 if (data && data.length > 0) {
                     this.loadLesson(data);
                 }
+            }
+        }
+        if(this.node.active && User.getCurrentUser().isConnected){
+            this.timer += Math.floor(dt * 100);
+            if(this.timer > 200){
+                this.timer = 0;
+                this.showAssignmentPopup();
             }
         }
     }
