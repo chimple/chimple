@@ -399,6 +399,8 @@ export default class LessonController extends cc.Component {
             switch (ServiceConfig.getI().mode) {
                 case APIMode.FIREBASE:
                     let updateInfo = {
+                        lessonName: config.lesson.name,
+                        chapterName: config.chapter.name,
                         chapter: config.chapter.id,
                         lesson: config.lesson.id,
                         courseName: config.course.id,

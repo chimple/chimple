@@ -53,6 +53,9 @@ export class FirebaseApi implements ServiceApi {
             const requestParams: RequestParams = {
                 url: FIREBASE_UPDATE_PROGRESS_URL,
                 body: {
+                    chapterId: info.chapter,
+                    chapterName: info.chapterName,
+                    lessonName: info.lessonName,
                     lessonId: info.lesson,
                     userId: info.studentId,
                     courseName: info.courseName,
