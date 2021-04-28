@@ -60,7 +60,8 @@ export class FirebaseApi implements ServiceApi {
                     userId: info.studentId,
                     courseName: info.courseName,
                     score: info.assessment,
-                    assignmentId: info.assignmentId
+                    assignmentId: info.assignmentId,
+                    dateTimeStamp: info.dateTimeStamp
                 }
             };
             return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());

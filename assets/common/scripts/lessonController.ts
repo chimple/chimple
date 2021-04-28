@@ -409,7 +409,8 @@ export default class LessonController extends cc.Component {
                         assignmentId: config.lesson.assignmentId,
                         assessment: score,
                         kind: 'Progress',
-                        studentId: User.getCurrentUser().id
+                        studentId: User.getCurrentUser().id,
+                        dateTimeStamp: new Date().getTime()
                     };
 
                     Queue.getInstance().push(updateInfo);
