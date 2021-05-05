@@ -40,6 +40,6 @@ export default class PicDisplayPrefab extends cc.Component {
                 });
             }
         }
-        this.usernameNode.getComponent(cc.Label).string = currentUser.name;
+        currentUser.name.length > 10? this.usernameNode.getComponent(cc.Label).string = currentUser.name.substring(0,10)+'...' : this.usernameNode.getComponent(cc.Label).string = currentUser.name;
     }
 }
