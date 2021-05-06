@@ -1035,6 +1035,31 @@ public class ChimpleLogger {
         }
     }
 
+    public static void historyProgress(
+            String chapterId,
+            String chapterName,
+            String lessonId,
+            String lessonName,
+            String progressId,
+            String school,
+            String section,
+            String subjectCode,
+            String score
+    ) {
+        FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
+        if (instance != null) {
+            Log.d(TAG, "historyProgress:" + chapterId + " section:" + section + " lessonId:" + lessonId);
+            instance.historyProgress(chapterId,
+                    chapterName,
+                    lessonId,
+                    lessonName,
+                    progressId,
+                    school,
+                    section,
+                    subjectCode,
+                    Integer.parseInt(score));
+        }
+    }
 }
 
 

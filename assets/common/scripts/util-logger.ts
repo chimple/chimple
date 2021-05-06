@@ -74,6 +74,10 @@ const FETCH_STUDENTS_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;)L
 const SYNC_PROFILE_METHOD = "syncProfile";
 const SYNC_PROFILE_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
 
+
+const HISTORICAL_PROGRESS_METHOD = "historyProgress";
+const HISTORICAL_PROGRESS_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
+
 const USER_ID = "userId";
 const DEVICE_ID = "deviceId";
 const TIMESTAMP = "timeStamp";
@@ -552,6 +556,34 @@ export default class UtilLogger {
                     FETCH_SECTIONS_METHOD,
                     FETCH_SECTIONS_METHOD_SIGNATURE,
                     schoolId
+                );
+            }
+        } catch (e) {
+        }
+    }
+
+    public static historyProgress(chapterId: string, chapterName: string, lessonId: string,
+                                  lessonName: string, progressId: string, school: string,
+                                  section: string, subjectCode: string, score: string) {
+        cc.log(`historyProgress for: ${chapterId}-${chapterName}-${lessonId}-${progressId}`);
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID
+            ) {
+                return jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    HISTORICAL_PROGRESS_METHOD,
+                    HISTORICAL_PROGRESS_METHOD_SIGNATURE,
+                    chapterId,
+                    chapterName,
+                    lessonId,
+                    lessonName,
+                    progressId,
+                    school,
+                    section,
+                    subjectCode,
+                    score
                 );
             }
         } catch (e) {
