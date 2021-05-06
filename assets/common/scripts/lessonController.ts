@@ -412,14 +412,16 @@ export default class LessonController extends cc.Component {
                         studentId: User.getCurrentUser().id,
                         dateTimeStamp: new Date().getTime()
                     };
-
-                    UtilLogger.historyProgress(updateInfo.chapter,
-                        updateInfo.chapterName, updateInfo.lesson, updateInfo.lessonName,
-                        User.getCurrentUser().id, User.getCurrentUser().schoolId,
-                        User.getCurrentUser().sectionId,
-                        updateInfo.courseName, "" + updateInfo.assessment);
-                    
-                    // Queue.getInstance().push(updateInfo);
+                    let mode = parseInt(Profile.getValue(CURRENTMODE));
+                    if (mode === Mode.School) {
+                        UtilLogger.historyProgress(updateInfo.chapter,
+                            updateInfo.chapterName, updateInfo.lesson, updateInfo.lessonName,
+                            User.getCurrentUser().id, User.getCurrentUser().schoolId,
+                            User.getCurrentUser().sectionId,
+                            updateInfo.courseName, "" + updateInfo.assessment);
+                    } else {
+                        Queue.getInstance().push(updateInfo);
+                    }
                     break;
                 case APIMode.PARSE:
                     if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
