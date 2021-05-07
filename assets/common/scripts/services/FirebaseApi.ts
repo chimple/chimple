@@ -53,11 +53,15 @@ export class FirebaseApi implements ServiceApi {
             const requestParams: RequestParams = {
                 url: FIREBASE_UPDATE_PROGRESS_URL,
                 body: {
+                    chapterId: info.chapter,
+                    chapterName: info.chapterName,
+                    lessonName: info.lessonName,
                     lessonId: info.lesson,
                     userId: info.studentId,
                     courseName: info.courseName,
                     score: info.assessment,
-                    assignmentId: info.assignmentId
+                    assignmentId: info.assignmentId,
+                    dateTimeStamp: info.dateTimeStamp
                 }
             };
             return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
@@ -117,24 +121,28 @@ export class FirebaseApi implements ServiceApi {
         };
         let jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader()) || [];
         if (!!jsonResult && !Array.isArray(jsonResult) && 'link' in jsonResult && !jsonResult.link) {
-            User.getCurrentUser().isConnected = false;
-            const key = `teacher_for_student_${User.getCurrentUser().id}`;
-            let teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
-            teachersForStudent = teachersForStudent.filter(e => e !== User.getCurrentUser().sectionName);
-            cc.sys.localStorage.setItem(key, JSON.stringify(teachersForStudent));
-            User.getCurrentUser().studentId = null;
-            User.getCurrentUser().sectionId = null;
-            User.getCurrentUser().schoolId = null;
-            User.getCurrentUser().schoolName = null;
-            User.getCurrentUser().sectionName = null;
+            if(User.getCurrentUser() != null) {
+                User.getCurrentUser().isConnected = false;
+                const key = `teacher_for_student_${User.getCurrentUser().id}`;
+                let teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
+                teachersForStudent = teachersForStudent.filter(e => e !== User.getCurrentUser().sectionName);
+                cc.sys.localStorage.setItem(key, JSON.stringify(teachersForStudent));
+                User.getCurrentUser().studentId = null;
+                User.getCurrentUser().sectionId = null;
+                User.getCurrentUser().schoolId = null;
+                User.getCurrentUser().schoolName = null;
+                User.getCurrentUser().sectionName = null;
+            }
         }
 
         console.log('assignments query result', jsonResult)
 
-        if (!User.getCurrentUser().studentId) {
-            User.getCurrentUser().isConnected = false;
-        } else {
-            User.getCurrentUser().isConnected = true;
+        if(User.getCurrentUser() != null) {
+            if (!User.getCurrentUser().studentId) {
+                User.getCurrentUser().isConnected = false;
+            } else {
+                User.getCurrentUser().isConnected = true;
+            }
         }
         this.buildAssignments(assignments, jsonResult);
         return assignments;

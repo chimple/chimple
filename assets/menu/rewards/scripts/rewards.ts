@@ -88,16 +88,18 @@ export default class Rewards extends cc.Component {
                 // @ts-ignore
                 bgPrefab.getChildByName("backgroundnode").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
                 this.registerButton(bgPrefab, "onBgClick", bg);
-                if (User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] === 0 || User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] === undefined) {
-                    // make lock texture active
-                    bgPrefab.getComponent(cc.Button).interactable = false
-                    // make greyscale
-                    bgPrefab.getChildByName("backgroundnode").getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
-                    // bgPrefab.getChildByName("lock").active = true;
-                }
-                if (bg === User.getCurrentUser().currentBg) {
-                    // make edit button and selected show
-                    bgPrefab.getChildByName("tick").active = true
+                if(User.getCurrentUser() != null) {
+                    if (User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] === 0 || User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] === undefined) {
+                        // make lock texture active
+                        bgPrefab.getComponent(cc.Button).interactable = false
+                        // make greyscale
+                        bgPrefab.getChildByName("backgroundnode").getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
+                        // bgPrefab.getChildByName("lock").active = true;
+                    }
+                    if (bg === User.getCurrentUser().currentBg) {
+                        // make edit button and selected show
+                        bgPrefab.getChildByName("tick").active = true
+                    }
                 }
 
             });
@@ -235,6 +237,9 @@ export default class Rewards extends cc.Component {
     }
 
     onLogoutButtonClick(event) {
+        const node = event.target;
+        const button = node.getComponent(cc.Button)
+        if (button) button.interactable = false;
         User.setCurrentUser(null);
         Config.i.popAllScenes();
         if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {

@@ -42,4 +42,7 @@ export interface UpdateProgressInfo {
     assessment?: number;
     courseName?: string;
     assignmentId?: string;
+    chapterName?: string;
+    lessonName?: string;
+    dateTimeStamp?: number;
 }
