@@ -26,6 +26,8 @@ import Inventory from "../../inventory/scripts/inventory";
 import LessonButton from "./lessonButton";
 import ChapterLessons, {ChapterLessonType} from "./chapterLessons";
 import UtilLogger from "../../../common/scripts/util-logger";
+import AssignmentPopup from "./assignmentPopup";
+import ChimpleLabel from "../../../common/scripts/chimple-label";
 
 const COMPLETE_AUDIOS = [
     'congratulations',
@@ -780,11 +782,4 @@ export default class Start extends cc.Component {
     }
 }
 
-function AssignmentPopup(AssignmentPopup: any) {
-    throw new Error("Function not implemented.");
-}
-
-function ChimpleLabel(ChimpleLabel: any) {
-    throw new Error("Function not implemented.");
-}
 
