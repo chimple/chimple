@@ -982,4 +982,13 @@ export class Util {
             }
         });
     }
+
+    public static getHash(input) {
+        let hash = 0, len = input ?  input.length : 0;
+        for (let i = 0; i < len; i++) {
+            hash = ((hash << 5) - hash) + input.charCodeAt(i);
+            hash |= 0; // to 32bit integer
+        }
+        return hash;
+    }
 }
