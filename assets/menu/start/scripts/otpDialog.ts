@@ -37,6 +37,10 @@ export default class OtpDialog extends cc.Component {
         this.editBox.placeholder = Util.i18NText("Enter the 6-digit otp here...");
         this.errLabel.string = "";
         this.editBox.enabled = true;
+        const user = User.getCurrentUser();
+        if (!!user && !!user.schoolName && !!user.sectionName) {
+            this.parentLabel.string = `Connected to ${user.schoolName} ${user.sectionName}`;
+        }
     }
 
     onEditingBegan() {
@@ -66,36 +70,17 @@ export default class OtpDialog extends cc.Component {
             // send request
             try {
                 const response = await ServiceConfig.getI().handle.linkStudent(studentId, otpCode);
-                console.log(response);
                 if (response && response.ok) {
-                    const user = User.getCurrentUser();
-                    user.sectionId = response.data.sectionId;
-                    user.schoolId = response.data.schoolId;
-                    user.studentId = response.data.studentId;
-                    user.schoolName = response.data.schoolName;
-                    user.sectionName = response.data.sectionName;
-                    user.isConnected = true;
-                    user.storeUser();
-
-                    const request: AcceptTeacherRequest = {
-                        teacherId: user.schoolId,
-                        sectionId: user.sectionId,
-                        studentId: user.id,
-                        studentName: user.name,
-                        firebaseStudentId: user.studentId,
-                        otpCode: otpCode
-                    }
-                    UtilLogger.subscribeToTopic(`assignment-${user.schoolId}-${user.sectionId}`)
-                    UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, request);
-                    const s = user.schoolName ? user.schoolName : '';
-                    const sec = user.sectionName ? user.sectionName : '';
+                    UtilLogger.processLinkStudent(
+                        response.data.sectionId,
+                        response.data.schoolId,
+                        response.data.studentId,
+                        response.data.schoolName,
+                        response.data.sectionName,
+                        otpCode);
+                    const s = response.data.schoolName ? response.data.schoolName : '';
+                    const sec = response.data.sectionName ? response.data.sectionName : '';
                     this.parentLabel.string = `Connected to ${s} ${sec}`;
-
-                    const key = `teacher_for_student_${user.id}`;
-                    const teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
-                    teachersForStudent.push(user.sectionName);
-                    cc.sys.localStorage.setItem(key, JSON.stringify(teachersForStudent));
-
                     this.onOtpClose();
                 }
             } catch (e) {

@@ -10,6 +10,7 @@ import {
 } from "../domain/parseConstants";
 import {ServiceConfig} from "./ServiceConfig";
 import {LessonProgress, User} from "../lib/profile";
+import UtilLogger from "../util-logger";
 
 export class FirebaseApi implements ServiceApi {
     public static i: FirebaseApi;
@@ -121,7 +122,7 @@ export class FirebaseApi implements ServiceApi {
         };
         let jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader()) || [];
         if (!!jsonResult && !Array.isArray(jsonResult) && 'link' in jsonResult && !jsonResult.link) {
-            if(User.getCurrentUser() != null) {
+            if (User.getCurrentUser() != null) {
                 User.getCurrentUser().isConnected = false;
                 const key = `teacher_for_student_${User.getCurrentUser().id}`;
                 let teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
@@ -133,11 +134,18 @@ export class FirebaseApi implements ServiceApi {
                 User.getCurrentUser().schoolName = null;
                 User.getCurrentUser().sectionName = null;
             }
+        } else {
+            const studentId: string = jsonResult.studentId;
+            const sectionId: string = jsonResult.sectionId;
+            const schoolId: string = jsonResult.schoolId;
+            const sectionName: string = jsonResult.sectionName;
+            const schoolName: string = jsonResult.schoolName;
+            UtilLogger.processLinkStudent(sectionId, schoolId, studentId, schoolName, sectionName);
         }
 
         console.log('assignments query result', jsonResult)
 
-        if(User.getCurrentUser() != null) {
+        if (User.getCurrentUser() != null) {
             if (!User.getCurrentUser().studentId) {
                 User.getCurrentUser().isConnected = false;
             } else {
