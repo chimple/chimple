@@ -11,7 +11,7 @@ import Friend from "../../../common/scripts/friend";
 import Config, {StartAction} from "../../../common/scripts/lib/config";
 import {EXAM, MIN_PASS} from "../../../common/scripts/lib/constants";
 import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
-import Profile, {User, CourseProgress, IS_OTP_VERIFIED} from "../../../common/scripts/lib/profile";
+import Profile, {User, CourseProgress, IS_OTP_VERIFIED, LessonProgress} from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
 import {ServiceConfig} from "../../../common/scripts/services/ServiceConfig";
 import TeacherAddedDialog, {TEACHER_ADD_DIALOG_CLOSED} from "../../../common/scripts/teacherAddedDialog";
@@ -26,6 +26,8 @@ import Inventory from "../../inventory/scripts/inventory";
 import LessonButton from "./lessonButton";
 import ChapterLessons, {ChapterLessonType} from "./chapterLessons";
 import UtilLogger from "../../../common/scripts/util-logger";
+import AssignmentPopup from "./assignmentPopup";
+import ChimpleLabel from "../../../common/scripts/chimple-label";
 
 const COMPLETE_AUDIOS = [
     'congratulations',
@@ -102,6 +104,7 @@ export default class Start extends cc.Component {
     timer: number = 0;
     flag: boolean = true;
     assignments: any;
+    previousHash: number;
 
     async onLoad() {
         const user = User.getCurrentUser()
@@ -173,6 +176,27 @@ export default class Start extends cc.Component {
             }
             if (!!this.assignmentButton) {
                 this.assignmentButton.interactable = true
+            }
+        }
+
+
+        if (user.isConnected && config.assignments.length > 0) {
+            this.previousHash = Util.getHash(this.assignments[0].assignmentId);
+        }
+
+        for(let assign of config.assignments) {
+            const lesson = Config.i.allLessons.get(assign.lessonId)
+            if (!!lesson) {
+                lesson.assignmentId = assign.assignmentId;
+                const newLesson = {...lesson};
+                const lessonProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(assign.lessonId)
+                if (!lessonProgress) {
+                   this.showAssignmentPopup(true);
+                   break;
+                } else if (lessonProgress && ![].concat(lessonProgress.assignmentIds).includes(assign.assignmentId)) {
+                    this.showAssignmentPopup(true);
+                    break;
+                }
             }
         }
         // call API to get featured stories
@@ -702,17 +726,32 @@ export default class Start extends cc.Component {
         cc.audioEngine.stopMusic();
     }
 
-    async showAssignmentPopup(){
+    async showAssignmentPopup(pendingAssignment: boolean){
         if(this.flag){
             this.flag = false;
             const user = User.getCurrentUser();
             this.assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
-            if(this.assignments.length > Config.i.assignments.length){
+            if (this.assignments.length > 0 && !pendingAssignment) {
+                const currentHash = Util.getHash(this.assignments[0].assignmentId);
                 Config.i.assignments = this.assignments;
-                const assignmentPopupNode = this.node.getChildByName("assignment_popup");
-                if(assignmentPopupNode.active == false){
-                    assignmentPopupNode.active = true;
+                if(this.previousHash != currentHash) {
+                    this.previousHash = currentHash;
+                    const assignmentPopupNode = this.node.getChildByName("assignment_popup");
+                    if (assignmentPopupNode.active == false){
+                        assignmentPopupNode.getComponent(AssignmentPopup).msg.getComponent(ChimpleLabel).string = "New assignment has been assigned to you";
+                        assignmentPopupNode.active = true;
+                    }
                 }
+            }
+
+            if (pendingAssignment) {
+                try {
+                    const assignmentPopupNode = this.node.getChildByName("assignment_popup");
+                    if (assignmentPopupNode.active == false){
+                        assignmentPopupNode.getComponent(AssignmentPopup).msg.getComponent(ChimpleLabel).string = "You have pending assignments";
+                        assignmentPopupNode.active = true;
+                    }
+                } catch(e) {}
             }
             this.flag = true;
         }
@@ -737,9 +776,10 @@ export default class Start extends cc.Component {
             this.timer += Math.floor(dt * 100);
             if(this.timer > 300){
                 this.timer = 0;
-                this.showAssignmentPopup();
+                this.showAssignmentPopup(false);
             }
         }
     }
 }
+
 

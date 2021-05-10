@@ -49,5 +49,6 @@ export default class AssignmentPopup extends cc.Component {
     onClickNo(){
         this.dialog.active = false;
         this.block.active = false;
+        this.node.active = false;
     }
 }
