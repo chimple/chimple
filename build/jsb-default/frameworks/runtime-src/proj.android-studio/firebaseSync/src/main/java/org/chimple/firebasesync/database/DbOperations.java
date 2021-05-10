@@ -6,7 +6,9 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.gson.Gson;
 
 import org.chimple.firebasesync.model.School;
@@ -15,8 +17,10 @@ import org.chimple.firebasesync.model.Student;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Future;
 
+import static org.chimple.firebasesync.database.Helper.HISTORICAL_PROGRESS_COLLECTION;
 import static org.chimple.firebasesync.database.Helper.SCHOOL_COLLECTION;
 import static org.chimple.firebasesync.database.Helper.SECTION_COLLECTION;
 import static org.chimple.firebasesync.database.Helper.STUDENT_COLLECTION;
@@ -216,7 +220,7 @@ public class DbOperations {
     }
 
     public void updateSync(final Student s, final boolean sync) {
-        if(s != null) {
+        if (s != null) {
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
@@ -360,4 +364,47 @@ public class DbOperations {
         return null;
     }
 
+
+    public void createHistoricalProgress(final String chapterId,
+                                         final String chapterName,
+                                         final String lessonId,
+                                         final String lessonName,
+                                         final String progressId,
+                                         final String school,
+                                         final String section,
+                                         final String subjectCode,
+                                         final Integer score) {
+        Map<String, Object> historicalData = new HashMap<>();
+        DocumentReference schoolSection = null;
+        if (school != null && section != null) {
+            schoolSection = FirebaseOperations.getInitializedInstance().getDb().collection(SCHOOL_COLLECTION + "/" + school + "/" + SECTION_COLLECTION).document(section);
+        }
+        historicalData.put("chapterId", chapterId);
+        historicalData.put("chapterName", chapterName);
+        historicalData.put("lessonId", lessonId);
+        historicalData.put("lessonName", lessonName);
+        historicalData.put("progressId", progressId);
+        historicalData.put("section", schoolSection);
+        historicalData.put("subjectCode", subjectCode);
+        historicalData.put("score", score);
+        historicalData.put("date", FieldValue.serverTimestamp());
+
+        Log.d(TAG, "Calling history progress Collection to insert record");
+
+        CollectionReference collection = FirebaseOperations.getInitializedInstance().getDb().collection(HISTORICAL_PROGRESS_COLLECTION);
+        collection
+                .add(historicalData)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot written with ID to historical progress: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document to historical progress", e);
+                    }
+                });
+    }
 }

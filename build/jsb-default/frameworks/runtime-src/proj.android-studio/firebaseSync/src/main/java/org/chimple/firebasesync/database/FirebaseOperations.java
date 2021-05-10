@@ -421,6 +421,21 @@ public class FirebaseOperations {
         FirebaseOperations.ref.operations.updateStudentProfileToLocalDB(schoolId, sectionId, studentId, profileData, progressId);
     }
 
+    public static void historyProgress(String chapterId,
+                                       String chapterName,
+                                       String lessonId,
+                                       String lessonName,
+                                       String progressId,
+                                       String school,
+                                       String section,
+                                       String subjectCode,
+                                       Integer score) {
+        // First update to Local DB
+        FirebaseOperations.ref.operations.createHistoricalProgress(chapterId, chapterName, lessonId, lessonName, progressId,
+                school, section, subjectCode, score);
+    }
+
+
     public FirebaseFirestore getDb() {
         return db;
     }
