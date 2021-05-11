@@ -1,5 +1,7 @@
 import {ASSET_LOAD_METHOD, firebaseConfigWeb, Mode} from "./lib/constants";
 import Profile, {CURRENTMODE, User} from "./lib/profile";
+import {AcceptTeacherRequest} from "./services/ServiceApi";
+import {ACCEPT_TEACHER_REQUEST} from "../../chimple";
 
 const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
 
@@ -614,4 +616,34 @@ export default class UtilLogger {
         }
     }
 
+    public static processLinkStudent(sectionId: string, schoolId: string,
+                                     studentId: string, schoolName: string,
+                                     sectionName: string, otpCode: string = null) {
+
+        const user = User.getCurrentUser();
+        if (user != null && !!schoolId && !!sectionId && !!studentId) {
+            user.sectionId = sectionId;
+            user.schoolId = schoolId;
+            user.studentId = studentId;
+            user.schoolName = schoolName;
+            user.sectionName = sectionName;
+            user.isConnected = true;
+            user.storeUser();
+
+            const request: AcceptTeacherRequest = {
+                teacherId: user.schoolId,
+                sectionId: user.sectionId,
+                studentId: user.id,
+                studentName: user.name,
+                firebaseStudentId: user.studentId,
+                otpCode: otpCode
+            }
+            UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, request);
+            UtilLogger.subscribeToTopic(`assignment-${user.schoolId}-${user.sectionId}`)
+            const key = `teacher_for_student_${user.id}`;
+            const teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
+            teachersForStudent.push(user.sectionName);
+            cc.sys.localStorage.setItem(key, JSON.stringify(teachersForStudent));
+        }
+    }
 }
