@@ -621,7 +621,7 @@ export default class UtilLogger {
                                      sectionName: string, otpCode: string = null) {
 
         const user = User.getCurrentUser();
-        if (user != null) {
+        if (user != null && !!schoolId && !!sectionId && !!studentId) {
             user.sectionId = sectionId;
             user.schoolId = schoolId;
             user.studentId = studentId;
