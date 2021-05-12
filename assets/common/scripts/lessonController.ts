@@ -9,11 +9,12 @@ import {
     CURRENT_SECTION_ID,
     CURRENT_STUDENT_ID,
     CURRENT_SUBJECT_ID,
-    EXAM
+    EXAM,
+    Mode
 } from "./lib/constants";
 import {Lesson} from "./lib/convert";
 import {GAME_CONFIGS} from "./lib/gameConfigs";
-import Profile, {LANGUAGE, User} from "./lib/profile";
+import Profile, {CURRENTMODE, LANGUAGE, User} from "./lib/profile";
 import ProgressMonitor, {StarType} from "./progressMonitor";
 import {QUIZ_ANSWERED} from "./quiz-monitor";
 import {Util} from "./util";
