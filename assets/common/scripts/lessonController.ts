@@ -9,7 +9,8 @@ import {
     CURRENT_SECTION_ID,
     CURRENT_STUDENT_ID,
     CURRENT_SUBJECT_ID,
-    EXAM, Mode
+    EXAM,
+    Mode
 } from "./lib/constants";
 import {Lesson} from "./lib/convert";
 import {GAME_CONFIGS} from "./lib/gameConfigs";
