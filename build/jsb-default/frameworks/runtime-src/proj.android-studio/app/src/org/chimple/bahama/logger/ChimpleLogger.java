@@ -1044,11 +1044,12 @@ public class ChimpleLogger {
             String school,
             String section,
             String subjectCode,
-            String score
+            String score,
+            String assignmentId
     ) {
         FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
         if (instance != null) {
-            Log.d(TAG, "historyProgress:" + chapterId + " section:" + section + " lessonId:" + lessonId);
+            Log.d(TAG, "historyProgress:" + chapterId + " section:" + section + " lessonId:" + lessonId + "assignmentId:" + assignmentId);
             instance.historyProgress(chapterId,
                     chapterName,
                     lessonId,
@@ -1057,7 +1058,8 @@ public class ChimpleLogger {
                     school,
                     section,
                     subjectCode,
-                    Integer.parseInt(score));
+                    Integer.parseInt(score),
+                    assignmentId);
         }
     }
 }

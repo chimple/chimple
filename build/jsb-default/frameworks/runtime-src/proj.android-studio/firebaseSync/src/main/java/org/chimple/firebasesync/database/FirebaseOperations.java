@@ -429,10 +429,11 @@ public class FirebaseOperations {
                                        String school,
                                        String section,
                                        String subjectCode,
-                                       Integer score) {
+                                       Integer score,
+                                       String assignmentId) {
         // First update to Local DB
         FirebaseOperations.ref.operations.createHistoricalProgress(chapterId, chapterName, lessonId, lessonName, progressId,
-                school, section, subjectCode, score);
+                school, section, subjectCode, score, assignmentId);
     }
 
 

@@ -373,7 +373,8 @@ public class DbOperations {
                                          final String school,
                                          final String section,
                                          final String subjectCode,
-                                         final Integer score) {
+                                         final Integer score,
+                                         final String assignmentId) {
         Map<String, Object> historicalData = new HashMap<>();
         DocumentReference schoolSection = null;
         if (school != null && section != null) {
@@ -387,6 +388,7 @@ public class DbOperations {
         historicalData.put("section", schoolSection);
         historicalData.put("subjectCode", subjectCode);
         historicalData.put("score", score);
+        historicalData.put("assignmentId", assignmentId);
         historicalData.put("date", FieldValue.serverTimestamp());
 
         Log.d(TAG, "Calling history progress Collection to insert record");
@@ -397,13 +399,13 @@ public class DbOperations {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot written with ID to historical progress: " + documentReference.getId());
+                        Log.d(TAG, "DocumentSnapshot written with ID to history progress: " + documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document to historical progress", e);
+                        Log.w(TAG, "Error adding document to history progress", e);
                     }
                 });
     }
