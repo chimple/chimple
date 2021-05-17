@@ -1,9 +1,9 @@
-import {Util} from "../util";
+import { Util } from "../util";
 import UtilLogger from "../util-logger";
-import {Chapter, Course, Lesson} from "./convert";
-import Profile, {LANGUAGE, User} from "./profile";
+import { Chapter, Course, Lesson } from "./convert";
+import { GAME_CONFIGS } from "./gameConfigs";
+import Profile, { CourseProgressClass, LANGUAGE, User } from "./profile";
 import TTFFont = cc.TTFFont;
-import {GAME_CONFIGS} from "./gameConfigs";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
@@ -38,9 +38,8 @@ const RTL_COURSES = ['ur', 'ur-maths'];
 export enum Lang {
     ENGLISH = 'en',
     HINDI = 'hi',
+    MALAGASY = 'mg'
 }
-
-export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI];
 
 export class LangConfig {
     font: string;
@@ -50,8 +49,9 @@ export class LangConfig {
 }
 
 export const LANG_CONFIGS = new Map<Lang, LangConfig>([
-    [Lang.ENGLISH, {'font': 'en-main', 'displayName': 'English', 'symbol': 'A', 'colorCode': '#FFBC00'}],
-    [Lang.HINDI, {'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7'}]
+    [Lang.ENGLISH, { 'font': 'en-main', 'displayName': 'English', 'symbol': 'A', 'colorCode': '#FFBC00' }],
+    [Lang.HINDI, { 'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7' }],
+    [Lang.MALAGASY, { 'font': 'en-main', 'displayName': 'Malagasy', 'symbol': 'A', 'colorCode': '#FFBC00' }],
 ])
 
 export class World {
@@ -89,13 +89,18 @@ class SceneDef {
     }
 }
 
+export enum DeploymentType {
+    Default,
+    MathsOnlyMalagasy
+}
+
 export default class Config {
     private static instance: Config;
 
     private _scenes: Array<SceneDef> = [];
     private _textFontMap = new Map();
     private _lessonData;
-   
+
     course: Course;
     lesson: Lesson;
     chapter: Chapter;
@@ -111,10 +116,19 @@ export default class Config {
     gameLevelName: string;
     worksheet: number;
     startAction: StartAction = StartAction.Default
-    assignments: any []
-    featuredLessons: any []
+    assignments: any[]
+    featuredLessons: any[]
     static isMicroLink: boolean
 
+    // deployment specific configs
+    allLangs: Lang[] = [Lang.ENGLISH, Lang.HINDI]
+    doHotUpdate = true
+    availableCourses = new Map([
+        ['en', new CourseProgressClass()],
+        ['maths', new CourseProgressClass()],
+        ['hi', new CourseProgressClass()],
+        ['puzzle', new CourseProgressClass('puzzle00')]
+    ])
     //remove later
     flow: Flow;
 
@@ -167,7 +181,7 @@ export default class Config {
     hadLoadedTraceFont(): string {
         let traceFont: string = null;
         Array.from(this._textFontMap, ([key, value]) => {
-            if(key.indexOf("trace") !== -1) {
+            if (key.indexOf("trace") !== -1) {
                 traceFont = key;
             }
         });
@@ -320,7 +334,7 @@ export default class Config {
                 } else {
                     console.log("loading font from Config", fontName);
                     this._textFontMap.set(fontName, fontAsset);
-                    if (this.hadLoadedTraceFont() !== null)  {
+                    if (this.hadLoadedTraceFont() !== null) {
                         this.currentFontName = this.hadLoadedTraceFont();
                     } else {
                         this.currentFontName = fontName;
@@ -357,9 +371,9 @@ export default class Config {
                     cc.director.getScheduler().unschedule(checkAllLoaded, node);
                     if (maxPerLesson == 0) {
                         Util.shuffle(allLessonData)
-                        this._lessonData = {'rows': allLessonData.slice(0, Math.min(10, allLessonData.length - 1))}
+                        this._lessonData = { 'rows': allLessonData.slice(0, Math.min(10, allLessonData.length - 1)) }
                     } else {
-                        this._lessonData = {'rows': allLessonData}
+                        this._lessonData = { 'rows': allLessonData }
                     }
                     this.totalProblems = this._lessonData.rows.length;
                     this.problem = 1;
@@ -513,4 +527,26 @@ export default class Config {
         // return WORLDS[0].armature;
         return 'chimp'
     }
+
+    set deploymentType(type: DeploymentType) {
+        switch (type) {
+            case DeploymentType.Default:
+
+                break;
+
+            case DeploymentType.MathsOnlyMalagasy:
+                this.allLangs = [Lang.MALAGASY]
+                Profile.setValue(LANGUAGE, Lang.MALAGASY)
+                this.availableCourses = new Map([
+                    ['maths', new CourseProgressClass()],
+                    ['puzzle', new CourseProgressClass('puzzle00')]
+                ])
+                break
+
+            default:
+                break;
+        }
+    }
+
+
 }

@@ -1,17 +1,9 @@
-import {Queue} from "../../../queue";
+import { Queue } from "../../../queue";
 import Header from "../header";
-import {INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util} from "../util";
+import { INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES } from "../util";
 import UtilLogger from "../util-logger";
-import Config, {ALL_LANGS, StartAction, Lang} from "./config";
-import {
-    COUNTRY_CODES,
-    CURRENT_STUDENT_ID,
-    EXAM,
-    FIREBASE_SCHOOL_ID,
-    FIREBASE_SECTION_ID,
-    FIREBASE_STUDENT_ID,
-    MIN_PASS
-} from "./constants";
+import Config, { Lang, StartAction } from "./config";
+import { COUNTRY_CODES, CURRENT_STUDENT_ID, EXAM, FIREBASE_SCHOOL_ID, FIREBASE_SECTION_ID, FIREBASE_STUDENT_ID, MIN_PASS } from "./constants";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -674,12 +666,7 @@ export class User {
                     ['test-lit', new CourseProgressClass('chapter_0')],
                     ['test-maths', new CourseProgressClass('chapter_0')]
                 ])
-                : new Map([
-                    ['en', new CourseProgressClass()],
-                    ['maths', new CourseProgressClass()],
-                    ['hi', new CourseProgressClass()],
-                    ['puzzle', new CourseProgressClass('puzzle00')]
-                ]),
+                : Config.i.availableCourses,
             new Map(),
             new Map(),
             {},

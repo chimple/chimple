@@ -1,4 +1,4 @@
-import Config, {Lang, LANG_CONFIGS} from "./common/scripts/lib/config";
+import Config, {Lang, LANG_CONFIGS, DeploymentType} from "./common/scripts/lib/config";
 import Profile, {CURRENTMODE, Gender, User} from "./common/scripts/lib/profile";
 import {Mode} from "./common/scripts/lib/constants";
 import UtilLogger from "./common/scripts/util-logger";
@@ -53,8 +53,6 @@ export enum UpdateEvent {
 }
 
 export const PROJECT_MANIFEST = 'project.manifest'
-export const DO_HOT_UPDATE = true
-
 
 export let RECEIVED_TEACHER_REQUESTS: boolean = false;
 
@@ -138,6 +136,10 @@ export default class Chimple extends cc.Component {
         //         cc.assetManager.cacheManager.removeCache(key)
         //     })
         // }
+
+        // Set the deployment type
+        Config.i.deploymentType = DeploymentType.MathsOnlyMalagasy
+
         ServiceConfig.getInstance(APIMode.FIREBASE);
         cc.macro.ENABLE_MULTI_TOUCH = false
         UtilLogger.initPluginFirebase();
@@ -157,7 +159,7 @@ export default class Chimple extends cc.Component {
         }
 
 
-        if (!cc.sys.isNative || !DO_HOT_UPDATE) {
+        if (!cc.sys.isNative || !Config.i.doHotUpdate) {
             this.selectModes();
             return
         }
