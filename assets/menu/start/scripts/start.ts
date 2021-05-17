@@ -100,11 +100,15 @@ export default class Start extends cc.Component {
     @property(cc.Button)
     featuredButton: cc.Button = null
 
+    @property(cc.Node)
+    assignmentCount: cc.Node = null;
+
     friend: cc.Node
     timer: number = 0;
     flag: boolean = true;
     assignments: any;
     previousHash: number;
+    assignPopupActive: boolean = true;
 
     async onLoad() {
         const user = User.getCurrentUser()
@@ -182,23 +186,10 @@ export default class Start extends cc.Component {
 
         if (user.isConnected && config.assignments.length > 0) {
             this.previousHash = Util.getHash(this.assignments[0].assignmentId);
+            this.assignmentCount.active = true;
+            this.checkPendingAssignments();
         }
 
-        for(let assign of config.assignments) {
-            const lesson = Config.i.allLessons.get(assign.lessonId)
-            if (!!lesson) {
-                lesson.assignmentId = assign.assignmentId;
-                const newLesson = {...lesson};
-                const lessonProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(assign.lessonId)
-                if (!lessonProgress) {
-                   this.showAssignmentPopup(true);
-                   break;
-                } else if (lessonProgress && ![].concat(lessonProgress.assignmentIds).includes(assign.assignmentId)) {
-                    this.showAssignmentPopup(true);
-                    break;
-                }
-            }
-        }
         // call API to get featured stories
         // store in config.featuredLessons
         // config.featuredLessons = [
@@ -312,7 +303,6 @@ export default class Start extends cc.Component {
             }
             Util.loadDirectLessonWithLink(input, this.node)
         }
-
     }
 
     private showTeacherDialog() {
@@ -430,6 +420,31 @@ export default class Start extends cc.Component {
             return false;
         });
         return lessons;
+    }
+
+    checkPendingAssignments() {
+        let count: number = 0;
+        for(let assign of Config.i.assignments) {
+            const lesson = Config.i.allLessons.get(assign.lessonId)
+            if (!!lesson) {
+                lesson.assignmentId = assign.assignmentId;
+                const lessonProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(assign.lessonId)
+                if (!lessonProgress) {
+                    count++;
+                    if(this.assignPopupActive) {
+                        this.showAssignmentPopup(true);
+                        this.assignPopupActive = false;
+                    }
+                } else if (lessonProgress && ![].concat(lessonProgress.assignmentIds).includes(assign.assignmentId)) {
+                    count++;
+                    if(this.assignPopupActive) {
+                        this.showAssignmentPopup(true);
+                        this.assignPopupActive = false;
+                    }
+                }
+            }
+        }
+        this.assignmentCount.getChildByName("count").getComponent(cc.Label).string = count.toString();
     }
 
     displayLessonPlan() {
