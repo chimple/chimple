@@ -213,7 +213,7 @@
       "array": [
         0,
         0,
-        241.94020710440896,
+        239.88903684828952,
         0,
         0,
         0,
@@ -1943,7 +1943,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 159.79,
+      "width": 199.3,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1962,9 +1962,9 @@
         0,
         0,
         1,
-        0.714,
-        0.714,
-        1
+        0.53,
+        0.53,
+        0.745
       ]
     },
     "_eulerAngles": {
@@ -1981,7 +1981,7 @@
     "_id": "9cYkX1+4RDq7OgDHWfLdLH"
   },
   {
-    "__type__": "cc.Label",
+    "__type__": "0ddb3t+49REZ5s0SVkIuotE",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1997,23 +1997,21 @@
     "_dstBlendFactor": 771,
     "_string": "HomeWork",
     "_N$string": "HomeWork",
-    "_fontSize": 30,
+    "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "8dc1ff13-60a4-4ff8-812a-5ded4bae50a2"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
     "_underlineHeight": 0,
-    "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
+    "_N$horizontalAlign": 0,
+    "_N$verticalAlign": 0,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
     "_N$cacheMode": 0,
-    "_id": "d1gfH6V0tL54CN4RhCjiZg"
+    "_id": "abNP8swzdDjLkecawtZ/PV"
   },
   {
     "__type__": "cc.Node",
@@ -2422,7 +2420,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 133.73,
+      "width": 160.1,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -2441,9 +2439,9 @@
         0,
         0,
         1,
-        0.714,
-        0.714,
-        1
+        0.53,
+        0.53,
+        0.808
       ]
     },
     "_eulerAngles": {
@@ -2460,7 +2458,7 @@
     "_id": "88sK4slQlBNK2g0sgyYBBH"
   },
   {
-    "__type__": "cc.Label",
+    "__type__": "0ddb3t+49REZ5s0SVkIuotE",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -2476,23 +2474,21 @@
     "_dstBlendFactor": 771,
     "_string": "Featured",
     "_N$string": "Featured",
-    "_fontSize": 30,
+    "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "8dc1ff13-60a4-4ff8-812a-5ded4bae50a2"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
     "_underlineHeight": 0,
-    "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
+    "_N$horizontalAlign": 0,
+    "_N$verticalAlign": 0,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
     "_N$cacheMode": 0,
-    "_id": "dfGAljyYZDHYBmoJ92B4Be"
+    "_id": "89/Gqp7OFIvqbURr2PDV1W"
   },
   {
     "__type__": "cc.Sprite",
@@ -2706,7 +2702,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 73.67,
+      "width": 91.13,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -2725,9 +2721,9 @@
         0,
         0,
         1,
-        0.714,
-        0.714,
-        0.714
+        0.53,
+        0.53,
+        0.592
       ]
     },
     "_eulerAngles": {
@@ -2744,7 +2740,7 @@
     "_id": "fdy+Ai8PtGYLeRgdFuAt/b"
   },
   {
-    "__type__": "cc.Label",
+    "__type__": "0ddb3t+49REZ5s0SVkIuotE",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -2760,23 +2756,21 @@
     "_dstBlendFactor": 771,
     "_string": "More",
     "_N$string": "More",
-    "_fontSize": 30,
+    "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "8dc1ff13-60a4-4ff8-812a-5ded4bae50a2"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
     "_underlineHeight": 0,
-    "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
+    "_N$horizontalAlign": 0,
+    "_N$verticalAlign": 0,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
     "_N$cacheMode": 0,
-    "_id": "fdfVJ76IxPR7zPBJtSSlqQ"
+    "_id": "baqsCLUrRM0axlDYRddn2x"
   },
   {
     "__type__": "cc.Sprite",
