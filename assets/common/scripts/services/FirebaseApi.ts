@@ -121,20 +121,22 @@ export class FirebaseApi implements ServiceApi {
             url: FIREBASE_LIST_ASSIGNMENTS + studentId
         };
         let jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader()) || [];
-        if (!!jsonResult && !Array.isArray(jsonResult) && 'link' in jsonResult && !jsonResult.link) {
-            if (User.getCurrentUser() != null) {
-                User.getCurrentUser().isConnected = false;
+        if (!!jsonResult && 'link' in jsonResult && !jsonResult.link) {
+            const user = User.getCurrentUser();
+            if (user != null) {
                 const key = `teacher_for_student_${User.getCurrentUser().id}`;
                 let teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
                 teachersForStudent = teachersForStudent.filter(e => e !== User.getCurrentUser().sectionName);
                 cc.sys.localStorage.setItem(key, JSON.stringify(teachersForStudent));
-                User.getCurrentUser().studentId = null;
-                User.getCurrentUser().sectionId = null;
-                User.getCurrentUser().schoolId = null;
-                User.getCurrentUser().schoolName = null;
-                User.getCurrentUser().sectionName = null;
+                user.studentId = null;
+                user.sectionId = null;
+                user.schoolId = null;
+                user.schoolName = null;
+                user.sectionName = null;
+                user.isConnected = false;
+                user.storeUser();
             }
-        } else {
+        } else if (!!jsonResult.studentId) {
             const studentId: string = jsonResult.studentId;
             const sectionId: string = jsonResult.sectionId;
             const schoolId: string = jsonResult.schoolId;
@@ -144,15 +146,7 @@ export class FirebaseApi implements ServiceApi {
         }
 
         console.log('assignments query result', jsonResult)
-
-        if (User.getCurrentUser() != null) {
-            if (!User.getCurrentUser().studentId) {
-                User.getCurrentUser().isConnected = false;
-            } else {
-                User.getCurrentUser().isConnected = true;
-            }
-        }
-        this.buildAssignments(assignments, jsonResult);
+        this.buildAssignments(assignments, [].concat(jsonResult.results));
         return assignments;
     }
 

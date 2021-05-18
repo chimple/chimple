@@ -78,7 +78,7 @@ const SYNC_PROFILE_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljav
 
 
 const HISTORICAL_PROGRESS_METHOD = "historyProgress";
-const HISTORICAL_PROGRESS_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
+const HISTORICAL_PROGRESS_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
 
 const USER_ID = "userId";
 const DEVICE_ID = "deviceId";
@@ -458,8 +458,10 @@ export default class UtilLogger {
         const u = User.getUserIds() || [];
         const userIds: string = u.join(",");
         console.log("syncFmcTokenForUsers:" + userIds);
+        let mode = parseInt(Profile.getValue(CURRENTMODE));
         try {
-            if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
+            if (mode != Mode.School
+                && cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
                 cc.log("sync fmc userIds", userIds);
 
                 jsb.reflection.callStaticMethod(
@@ -476,7 +478,9 @@ export default class UtilLogger {
 
     public static subscribeToTopic(topicId: string) {
         try {
-            if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID && topicId && topicId.length > 0) {
+            let mode = parseInt(Profile.getValue(CURRENTMODE));
+            if (mode != Mode.School
+                && cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID && topicId && topicId.length > 0) {
                 cc.log("subscribe to topic", topicId);
 
                 jsb.reflection.callStaticMethod(
@@ -566,7 +570,7 @@ export default class UtilLogger {
 
     public static historyProgress(chapterId: string, chapterName: string, lessonId: string,
                                   lessonName: string, progressId: string, school: string,
-                                  section: string, subjectCode: string, score: string) {
+                                  section: string, subjectCode: string, score: string, assignmentId: string) {
         cc.log(`historyProgress for: ${chapterId}-${chapterName}-${lessonId}-${progressId}`);
         try {
             if (
@@ -585,7 +589,8 @@ export default class UtilLogger {
                     school,
                     section,
                     subjectCode,
-                    score
+                    score,
+                    assignmentId
                 );
             }
         } catch (e) {

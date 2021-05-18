@@ -275,8 +275,6 @@ export class ParseNetwork {
                     if ('results' in jsonResult && Array.isArray(jsonResult.results)) {
                         if ('link' in jsonResult && !jsonResult.link) {
                             jsonResult.results = null;
-                        } else {
-                            jsonResult = jsonResult.results;
                         }
                     }
                     !!cachedKey ? ParseNetwork.getInstance().storeIntoCache(cachedKey, jsonResult) : null;

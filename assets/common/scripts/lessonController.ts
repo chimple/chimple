@@ -419,7 +419,8 @@ export default class LessonController extends cc.Component {
                             updateInfo.chapterName, updateInfo.lesson, updateInfo.lessonName,
                             User.getCurrentUser().id, User.getCurrentUser().schoolId,
                             User.getCurrentUser().sectionId,
-                            updateInfo.courseName, "" + updateInfo.assessment);
+                            updateInfo.courseName, "" + updateInfo.assessment,
+                            config.lesson.assignmentId);
                     } else {
                         Queue.getInstance().push(updateInfo);
                     }
