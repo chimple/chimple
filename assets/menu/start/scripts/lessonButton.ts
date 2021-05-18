@@ -39,6 +39,9 @@ export default class LessonButton extends cc.Component {
     @property(cc.SpriteFrame)
     goldStar: cc.SpriteFrame
 
+    @property(cc.Prefab)
+    preTestPopup: cc.Prefab = null
+
     lesson: Lesson
     loading: cc.Node
     open: boolean = false
@@ -79,19 +82,32 @@ export default class LessonButton extends cc.Component {
 
     onClick() {
         const config = Config.i
-        config.course = this.lesson.chapter.course;
-        config.chapter = this.lesson.chapter;
-        config.lesson = this.lesson;
-        this.loading.getComponent(Loading).allowCancel = true;
-        this.loading.active = true;
-        LessonController.preloadLesson(this.node, (err: Error) => {
-            if (err) {
-                this.loading.getComponent(Loading).addMessage(Util.i18NText('Error downloading content. Please connect to internet and try again'), true, true);
-            } else {
-                if (this.loading && this.loading.activeInHierarchy) {
-                    config.pushScene('common/scenes/lessonController');
+        const user = User.getCurrentUser();
+        cc.log(this.lesson);
+        cc.log(this.lesson.chapter);
+        cc.log(this.lesson.chapter.course);
+        const courseProgress = user.courseProgressMap.get(config.course.id);
+        if(courseProgress.currentChapterId == null && !this.lesson.id.endsWith('_PreQuiz')) {
+            const canvas = cc.director.getScene().getChildByName("Canvas");
+            cc.log("yes Called");
+            const preTestPopup = cc.instantiate(this.preTestPopup);
+            canvas.addChild(preTestPopup);
+            preTestPopup.active = true;
+        } else {
+            config.course = this.lesson.chapter.course;
+            config.chapter = this.lesson.chapter;
+            config.lesson = this.lesson;
+            this.loading.getComponent(Loading).allowCancel = true;
+            this.loading.active = true;
+            LessonController.preloadLesson(this.node, (err: Error) => {
+                if (err) {
+                    this.loading.getComponent(Loading).addMessage(Util.i18NText('Error downloading content. Please connect to internet and try again'), true, true);
+                } else {
+                    if (this.loading && this.loading.activeInHierarchy) {
+                        config.pushScene('common/scenes/lessonController');
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }

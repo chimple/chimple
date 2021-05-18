@@ -298,15 +298,24 @@ export default class Start extends cc.Component {
 
     private loadLesson(data) {
         if (Config.isMicroLink && data && data.length > 0) {
-            this.loading.active = true;
-            const courseDetails = data.splice(data.length - 1, data.length)[0];
-            const input = {
-                courseid: courseDetails['courseid'],
-                chapterid: courseDetails['chapterid'],
-                lessonid: courseDetails['lessonid'],
-                assignmentid: courseDetails['assignmentid'] || null,
+            const user = User.getCurrentUser()
+            const courseProgress = user.courseProgressMap.get(Config.i.course.id);
+            if (!courseProgress.currentChapterId) {
+                this.loading.active = true;
+                const courseDetails = data.splice(data.length - 1, data.length)[0];
+                const input = {
+                    courseid: courseDetails['courseid'],
+                    chapterid: courseDetails['chapterid'],
+                    lessonid: courseDetails['lessonid'],
+                    assignmentid: courseDetails['assignmentid'] || null,
+                }
+                Util.loadDirectLessonWithLink(input, this.node)
+            } else {
+                const canvas = cc.director.getScene().getChildByName("Canvas");
+                const preTestPopup = cc.instantiate(this.preTestPopup);
+                canvas.addChild(preTestPopup);
+                preTestPopup.active = true;
             }
-            Util.loadDirectLessonWithLink(input, this.node)
         }
     }
 
