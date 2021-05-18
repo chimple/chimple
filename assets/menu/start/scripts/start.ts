@@ -103,6 +103,9 @@ export default class Start extends cc.Component {
     @property(cc.Node)
     assignmentCount: cc.Node = null;
 
+    @property(cc.Prefab)
+    preTestPopup: cc.Prefab = null
+
     friend: cc.Node
     timer: number = 0;
     flag: boolean = true;
@@ -186,8 +189,10 @@ export default class Start extends cc.Component {
 
         if (user.isConnected && config.assignments.length > 0) {
             this.previousHash = Util.getHash(this.assignments[0].assignmentId);
-            this.assignmentCount.active = true;
-            this.checkPendingAssignments();
+            try {
+                this.assignmentCount.active = true;
+                this.checkPendingAssignments();
+            } catch(e) {}
         }
 
         // call API to get featured stories
@@ -293,15 +298,24 @@ export default class Start extends cc.Component {
 
     private loadLesson(data) {
         if (Config.isMicroLink && data && data.length > 0) {
-            this.loading.active = true;
-            const courseDetails = data.splice(data.length - 1, data.length)[0];
-            const input = {
-                courseid: courseDetails['courseid'],
-                chapterid: courseDetails['chapterid'],
-                lessonid: courseDetails['lessonid'],
-                assignmentid: courseDetails['assignmentid'] || null,
+            const user = User.getCurrentUser()
+            const courseProgress = user.courseProgressMap.get(Config.i.course.id);
+            if (!courseProgress.currentChapterId) {
+                this.loading.active = true;
+                const courseDetails = data.splice(data.length - 1, data.length)[0];
+                const input = {
+                    courseid: courseDetails['courseid'],
+                    chapterid: courseDetails['chapterid'],
+                    lessonid: courseDetails['lessonid'],
+                    assignmentid: courseDetails['assignmentid'] || null,
+                }
+                Util.loadDirectLessonWithLink(input, this.node)
+            } else {
+                const canvas = cc.director.getScene().getChildByName("Canvas");
+                const preTestPopup = cc.instantiate(this.preTestPopup);
+                canvas.addChild(preTestPopup);
+                preTestPopup.active = true;
             }
-            Util.loadDirectLessonWithLink(input, this.node)
         }
     }
 
@@ -742,7 +756,7 @@ export default class Start extends cc.Component {
     }
 
     async showAssignmentPopup(pendingAssignment: boolean){
-        if(this.flag){
+        if (this.flag  && !Config.isMicroLink) {
             this.flag = false;
             const user = User.getCurrentUser();
             this.assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
