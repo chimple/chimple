@@ -28,6 +28,7 @@ import ChapterLessons, {ChapterLessonType} from "./chapterLessons";
 import UtilLogger from "../../../common/scripts/util-logger";
 import AssignmentPopup from "./assignmentPopup";
 import ChimpleLabel from "../../../common/scripts/chimple-label";
+import PreTestPopup from "../../../common/scripts/preTestPopup";
 
 const COMPLETE_AUDIOS = [
     'congratulations',
@@ -298,16 +299,35 @@ export default class Start extends cc.Component {
 
     private loadLesson(data) {
         if (Config.isMicroLink && data && data.length > 0) {
-            this.loading.active = true;
+            const user = User.getCurrentUser()
             const courseDetails = data.splice(data.length - 1, data.length)[0];
-            const input = {
-                courseid: courseDetails['courseid'],
-                chapterid: courseDetails['chapterid'],
-                lessonid: courseDetails['lessonid'],
-                assignmentid: courseDetails['assignmentid'] || null,
+            const course = ["en", "maths", "hi"];
+            if (course.includes(courseDetails['courseid'])) {
+                const courseProgress = user.courseProgressMap.get(courseDetails['courseid']);
+                if (courseProgress.currentChapterId == null) {
+                    const dialog = cc.instantiate(this.preTestPopup);
+                    const script: PreTestPopup = dialog.getComponent(PreTestPopup);
+                    script.courseId = courseDetails['courseid'];
+                    this.node.addChild(dialog);
+                } else {
+                    this.openDirectLesson(courseDetails);
+                }
+            } else {
+                this.openDirectLesson(courseDetails);
             }
-            Util.loadDirectLessonWithLink(input, this.node)
         }
+    }
+
+    openDirectLesson(courseDetails: any) {
+        this.loading.active = true;
+        const input = {
+            courseid: courseDetails['courseid'],
+            chapterid: courseDetails['chapterid'],
+            lessonid: courseDetails['lessonid'],
+            assignmentid: courseDetails['assignmentid'] || null,
+        }
+        Util.loadDirectLessonWithLink(input, this.node)
+
     }
 
     private showTeacherDialog() {

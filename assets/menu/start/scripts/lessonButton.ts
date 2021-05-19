@@ -6,6 +6,7 @@ import {User} from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
 import {Util} from "../../../common/scripts/util";
 import {EXAM} from "../../../common/scripts/lib/constants";
+import ChapterLessons from "./chapterLessons";
 
 const {ccclass, property} = cc._decorator;
 
@@ -78,6 +79,24 @@ export default class LessonButton extends cc.Component {
     }
 
     onClick() {
+        const user = User.getCurrentUser();
+        cc.log(this.lesson.chapter.course);
+        const clickCourseId = ["en", "maths", "hi"];
+        if (clickCourseId.includes(this.lesson.chapter.course.id)) {
+            const courseProgress = user.courseProgressMap.get(this.lesson.chapter.course.id);
+            if (courseProgress.currentChapterId == null && !this.lesson.id.endsWith('_PreQuiz')) {
+                const canvasNode = cc.director.getScene().getChildByName("Canvas");
+                canvasNode.getChildByName("preTestPopup").active = true;
+                ChapterLessons.courseId = this.lesson.chapter.course.id;
+            } else {
+                this.loadLesson();
+            }
+        } else {
+            this.loadLesson();
+        }
+    }
+
+    loadLesson() {
         const config = Config.i
         config.course = this.lesson.chapter.course;
         config.chapter = this.lesson.chapter;
