@@ -54,7 +54,7 @@ export default class ChapterLessons extends cc.Component {
     preTestPopup: cc.Node = null;
 
     static showType: ChapterLessonType = ChapterLessonType.Library
-    chapterName: any
+    chapter: any
     static courseId: any
 
     onLoad() {
@@ -118,7 +118,7 @@ export default class ChapterLessons extends cc.Component {
             case ChapterLessonType.Library:
             default:
                 this.label.string = config.chapter.name
-                this.chapterName = config.chapter
+                this.chapter = config.chapter
                 config.chapter.lessons.forEach((lesson, index) => {
                     this.createLessonButton(lesson, (index == 0
                         || lesson.open
@@ -182,8 +182,8 @@ export default class ChapterLessons extends cc.Component {
         this.loading.getComponent(Loading).allowCancel = true;
         this.loading.active = true;
         LessonController.preloadLesson(this.node, (err: Error) => {
-            if (!(ChapterLessons.showType == ChapterLessonType.Assignments)) {
-                config.course = this.chapterName;
+            if (ChapterLessons.showType != ChapterLessonType.Assignments) {
+                config.chapter = this.chapter;
             }
             if (err) {
                 this.loading.getComponent(Loading).addMessage(Util.i18NText('Error downloading content. Please connect to internet and try again'), true, true);
