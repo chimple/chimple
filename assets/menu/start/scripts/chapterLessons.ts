@@ -177,8 +177,7 @@ export default class ChapterLessons extends cc.Component {
         config.lesson = lessons[0];
         config.chapter = lessons[0].chapter;
         config.course = lessons[0].chapter.course;
-        this.preTestPopup.getChildByName("dialog_box").active = false;
-        this.preTestPopup.getChildByName("block").active = false;
+        this.preTestPopup.active = false;
         this.loading.getComponent(Loading).allowCancel = true;
         this.loading.active = true;
         LessonController.preloadLesson(this.node, (err: Error) => {
