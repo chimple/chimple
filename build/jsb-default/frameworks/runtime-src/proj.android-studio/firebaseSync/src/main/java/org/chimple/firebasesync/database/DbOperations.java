@@ -194,8 +194,6 @@ public class DbOperations {
                 @Override
                 public void run() {
                     mutable[0] = db.studentDao().loadStudentById(firebaseId);
-//                    mutable[0] = s;
-//                    Log.d(TAG, "Student loaded" + s);
                 }
             }, mutable);
 
@@ -205,9 +203,6 @@ public class DbOperations {
             e.printStackTrace();
         }
         return null;
-
-//        List[] t = result.get();
-//        return (Stu) t;
     }
 
     public void loadSectionById(final String firebaseId) {

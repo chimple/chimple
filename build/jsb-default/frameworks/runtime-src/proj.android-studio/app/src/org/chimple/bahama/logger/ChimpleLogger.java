@@ -1033,7 +1033,7 @@ public class ChimpleLogger {
             FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
             if (instance != null) {
                 Student student = instance.getOperations().loadStudentById(studentId);
-                Log.d(TAG, "fetchStudentsForSchoolAndSection got students:" + student);
+                Log.d(TAG, "fetchStudentById got student:" + student);
                 if (student != null) {
                     Gson gson = new GsonBuilder().create();
                     json = gson.toJson(student);
@@ -1042,7 +1042,7 @@ public class ChimpleLogger {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.d(TAG, "goty student json:" + json);
+        Log.d(TAG, "got student json:" + json);
         return json;
     }
 
