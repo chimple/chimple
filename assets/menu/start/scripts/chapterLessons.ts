@@ -50,8 +50,8 @@ export default class ChapterLessons extends cc.Component {
     @property(cc.Node)
     otpDialogNode: cc.Node = null
 
-    @property(cc.Node)
-    preTestPopup: cc.Node = null;
+    // @property(cc.Node)
+    // preTestPopup: cc.Node = null;
 
     static showType: ChapterLessonType = ChapterLessonType.Library
     chapter: any
@@ -169,33 +169,33 @@ export default class ChapterLessons extends cc.Component {
         cc.sys.openURL("https://wa.me/919845206203?text=" + User.getCurrentUser().id);
     }
 
-    onClickYesPreTestPop() {
-        var lessons: Lesson[];
-        const config = Config.i;
-        const course = config.curriculum.get(ChapterLessons.courseId);
-        lessons = [Start.preQuizLesson(course)];
-        config.lesson = lessons[0];
-        config.chapter = lessons[0].chapter;
-        config.course = lessons[0].chapter.course;
-        this.preTestPopup.active = false;
-        this.loading.getComponent(Loading).allowCancel = true;
-        this.loading.active = true;
-        LessonController.preloadLesson(this.node, (err: Error) => {
-            if (ChapterLessons.showType != ChapterLessonType.Assignments) {
-                config.chapter = this.chapter;
-            }
-            if (err) {
-                this.loading.getComponent(Loading).addMessage(Util.i18NText('Error downloading content. Please connect to internet and try again'), true, true);
-            } else {
-                if (this.loading && this.loading.activeInHierarchy) {
-                    config.pushScene('common/scenes/lessonController');
-                }
-            }
-        });
-    }
+    // onClickYesPreTestPop() {
+    //     var lessons: Lesson[];
+    //     const config = Config.i;
+    //     const course = config.curriculum.get(ChapterLessons.courseId);
+    //     lessons = [Start.preQuizLesson(course)];
+    //     config.lesson = lessons[0];
+    //     config.chapter = lessons[0].chapter;
+    //     config.course = lessons[0].chapter.course;
+    //     this.preTestPopup.active = false;
+    //     this.loading.getComponent(Loading).allowCancel = true;
+    //     this.loading.active = true;
+    //     LessonController.preloadLesson(this.node, (err: Error) => {
+    //         if (ChapterLessons.showType != ChapterLessonType.Assignments) {
+    //             config.chapter = this.chapter;
+    //         }
+    //         if (err) {
+    //             this.loading.getComponent(Loading).addMessage(Util.i18NText('Error downloading content. Please connect to internet and try again'), true, true);
+    //         } else {
+    //             if (this.loading && this.loading.activeInHierarchy) {
+    //                 config.pushScene('common/scenes/lessonController');
+    //             }
+    //         }
+    //     });
+    // }
 
-    onClickNoPreTestPop() {
-        this.preTestPopup.active = false;
-    }
+    // onClickNoPreTestPop() {
+    //     this.preTestPopup.active = false;
+    // }
 }
 
