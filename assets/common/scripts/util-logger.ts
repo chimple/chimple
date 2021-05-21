@@ -64,6 +64,9 @@ const INITIALIZED_MEHTOD_SIGNATURE = "()V";
 const LOGIN_METHOD = "login";
 const LOGIN_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;)V";
 
+const LOGOUT_METHOD = "logout";
+const LOGOUT_METHOD_SIGNATURE = "()V";
+
 const FIND_SCHOOL_METHOD = "findSchool";
 const FIND_SCHOOL_METHOD_SIGNATURE = "(Ljava/lang/String;)Ljava/lang/String;";
 
@@ -510,6 +513,23 @@ export default class UtilLogger {
                     LOGIN_METHOD_SIGNATURE,
                     email,
                     password
+                );
+            }
+        } catch (e) {
+        }
+    }
+
+    public static logout(): void {
+        // cc.log(`login using email: ${email} and password: ${password}`);
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID
+            ) {
+                return jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    LOGOUT_METHOD,
+                    LOGOUT_METHOD_SIGNATURE
                 );
             }
         } catch (e) {
