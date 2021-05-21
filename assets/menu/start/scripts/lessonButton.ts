@@ -6,7 +6,8 @@ import {User} from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
 import {Util} from "../../../common/scripts/util";
 import {EXAM} from "../../../common/scripts/lib/constants";
-import PreTestDialog from "../../../common/scripts/preTestDialog";
+import PreTestDialog from "./preTestDialog";
+
 
 const {ccclass, property} = cc._decorator;
 

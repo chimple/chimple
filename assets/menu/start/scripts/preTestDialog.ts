@@ -1,11 +1,10 @@
-import ChapterLessons, { ChapterLessonType } from "../../menu/start/scripts/chapterLessons";
-import Start from "../../menu/start/scripts/start";
-import LessonController from "./lessonController";
-import Config from "./lib/config";
-import { Lesson } from "./lib/convert";
-import Loading from "./loading";
-import { Util } from "./util";
-
+import LessonController from "../../../common/scripts/lessonController";
+import Config from "../../../common/scripts/lib/config";
+import { Lesson } from "../../../common/scripts/lib/convert";
+import Loading from "../../../common/scripts/loading";
+import { Util } from "../../../common/scripts/util";
+import ChapterLessons, { ChapterLessonType } from "./chapterLessons";
+import Start from "./start";
 
 const {ccclass, property} = cc._decorator;
 
