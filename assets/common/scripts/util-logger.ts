@@ -1,7 +1,7 @@
-import {ASSET_LOAD_METHOD, firebaseConfigWeb, Mode} from "./lib/constants";
-import Profile, {CURRENTMODE, User} from "./lib/profile";
-import {AcceptTeacherRequest} from "./services/ServiceApi";
-import {ACCEPT_TEACHER_REQUEST} from "../../chimple";
+import { ASSET_LOAD_METHOD, firebaseConfigWeb, Mode } from "./lib/constants";
+import Profile, { CURRENTMODE, User } from "./lib/profile";
+import { AcceptTeacherRequest } from "./services/ServiceApi";
+import { ACCEPT_TEACHER_REQUEST } from "../../chimple";
 
 const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
 
@@ -72,6 +72,9 @@ const FETCH_SECTIONS_METHOD_SIGNATURE = "(Ljava/lang/String;)Ljava/lang/String;"
 
 const FETCH_STUDENTS_METHOD = "fetchStudentsForSchoolAndSection";
 const FETCH_STUDENTS_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;";
+
+const FETCH_CURRENT_USER_METHOD = "fetchStudentById";
+const FETCH_CURRENT_USER_METHOD_SIGNATURE = "(Ljava/lang/String;)Ljava/lang/String;";
 
 const SYNC_PROFILE_METHOD = "syncProfile";
 const SYNC_PROFILE_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
@@ -532,6 +535,24 @@ export default class UtilLogger {
         }
     }
 
+    public static fetchStudentById(studentId: string): any {
+        cc.log(`fetch Students: ${studentId}`);
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID
+            ) {
+                return jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    FETCH_CURRENT_USER_METHOD,
+                    FETCH_CURRENT_USER_METHOD_SIGNATURE,
+                    studentId
+                );
+            }
+        } catch (e) {
+        }
+    }
+
     public static findSchool(email: string): any {
         cc.log(`find school using email: ${email}`);
         try {
@@ -569,8 +590,8 @@ export default class UtilLogger {
     }
 
     public static historyProgress(chapterId: string, chapterName: string, lessonId: string,
-                                  lessonName: string, progressId: string, school: string,
-                                  section: string, subjectCode: string, score: string, assignmentId: string) {
+        lessonName: string, progressId: string, school: string,
+        section: string, subjectCode: string, score: string, assignmentId: string) {
         cc.log(`historyProgress for: ${chapterId}-${chapterName}-${lessonId}-${progressId}`);
         try {
             if (
@@ -622,8 +643,8 @@ export default class UtilLogger {
     }
 
     public static processLinkStudent(sectionId: string, schoolId: string,
-                                     studentId: string, schoolName: string,
-                                     sectionName: string, otpCode: string = null) {
+        studentId: string, schoolName: string,
+        sectionName: string, otpCode: string = null) {
 
         const user = User.getCurrentUser();
         if (user != null && !!schoolId && !!sectionId && !!studentId) {
