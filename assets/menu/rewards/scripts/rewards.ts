@@ -251,14 +251,10 @@ export default class Rewards extends cc.Component {
             if (Profile.getValue(CURRENTMODE) == 3) {
 
                 if (cc.sys.localStorage.getItem("toggle") == null || cc.sys.localStorage.getItem("toggle") === "false") {
-                    console.log(" rewards1")
                     Config.loadScene(SECTION_LIST, 'private', null);
-
                 }
                 else {
-                    console.log(" rewards2")
                     Config.loadScene('private/school/scenes/currentLoggedUser', 'private', null);
-                    // Config.i.pushScene('private/school/scenes/currentLoggedInUser', 'private', null, true);
                 }
             }
             else {
