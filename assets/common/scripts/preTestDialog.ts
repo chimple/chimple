@@ -1,9 +1,11 @@
-import LessonController from "../../../common/scripts/lessonController";
-import Config from "../../../common/scripts/lib/config";
-import { Lesson } from "../../../common/scripts/lib/convert";
-import Loading from "../../../common/scripts/loading";
-import { Util } from "../../../common/scripts/util";
-import Start from "./start";
+import ChapterLessons, { ChapterLessonType } from "../../menu/start/scripts/chapterLessons";
+import Start from "../../menu/start/scripts/start";
+import LessonController from "./lessonController";
+import Config from "./lib/config";
+import { Lesson } from "./lib/convert";
+import Loading from "./loading";
+import { Util } from "./util";
+
 
 const {ccclass, property} = cc._decorator;
 
@@ -14,6 +16,7 @@ export default class PreTestDialog extends cc.Component {
     loading: cc.Node = null
 
     courseId: any
+    chapter: any
 
     onClickYes() {
         var lessons: Lesson[];
@@ -23,10 +26,14 @@ export default class PreTestDialog extends cc.Component {
         config.lesson = lessons[0];
         config.chapter = lessons[0].chapter;
         config.course = lessons[0].chapter.course;
-        this.node.active = false;
+        this.node.getChildByName("dialog_box").active = false;
+        this.node.getChildByName("block").active = false;
         this.loading.getComponent(Loading).allowCancel = true;
         this.loading.active = true;
         LessonController.preloadLesson(this.node.parent, (err: Error) => {
+            if (ChapterLessons.showType != ChapterLessonType.Assignments && !Config.isMicroLink) {
+                config.chapter = this.chapter;
+            }
             if (err) {
                 this.loading.getComponent(Loading).addMessage(Util.i18NText('Error downloading content. Please connect to internet and try again'), true, true);
             } else {

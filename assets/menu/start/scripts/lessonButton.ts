@@ -6,8 +6,7 @@ import {User} from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
 import {Util} from "../../../common/scripts/util";
 import {EXAM} from "../../../common/scripts/lib/constants";
-import ChapterLessons from "./chapterLessons";
-import PreTestDialog from "./preTestDialog";
+import PreTestDialog from "../../../common/scripts/preTestDialog";
 
 const {ccclass, property} = cc._decorator;
 
@@ -94,14 +93,10 @@ export default class LessonButton extends cc.Component {
                     const script: PreTestDialog = dialog.getComponent(PreTestDialog)
                     if (script.isValid) {
                         script.courseId = this.lesson.chapter.course.id;
+                        script.chapter = this.lesson.chapter;
                         canvasNode.addChild(dialog);
                     }
-                } catch(e) {
-                    cc.log(e)
-                }
-                // const canvasNode = cc.director.getScene().getChildByName("Canvas");
-                // canvasNode.getChildByName("preTestPopup").active = true;
-                // ChapterLessons.courseId = this.lesson.chapter.course.id;
+                } catch(e) {}
             } else {
                 this.loadLesson();
             }
