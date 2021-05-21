@@ -58,7 +58,7 @@ export default class Rewards extends cc.Component {
                         charPrefab.getChildByName("character_icon_color").color = color.fromHEX(this.characterColors[index]);
                         this.registerButton(charPrefab, "onCharacterClick", character);
                         this.registerButton(charPrefab.getChildByName("edit"), "onEditButtonClicked", character);
-                        if(User.getCurrentUser() != null) {
+                        if (User.getCurrentUser() != null) {
                             if (User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[0]}-${character}`] === 0 || User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[0]}-${character}`] === undefined) {
                                 // make greyscale
                                 charPrefab.getChildByName("character_icon_color").getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
@@ -88,7 +88,7 @@ export default class Rewards extends cc.Component {
                 // @ts-ignore
                 bgPrefab.getChildByName("backgroundnode").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
                 this.registerButton(bgPrefab, "onBgClick", bg);
-                if(User.getCurrentUser() != null) {
+                if (User.getCurrentUser() != null) {
                     if (User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] === 0 || User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] === undefined) {
                         // make lock texture active
                         bgPrefab.getComponent(cc.Button).interactable = false
@@ -248,12 +248,17 @@ export default class Rewards extends cc.Component {
             // currentSelectMode = SelectionMode.Section;
             Config.loadScene(SECTION_LIST, 'private', null);
         } else {
-            if(Profile.getValue(CURRENTMODE) == 3){
-            
-                Config.loadScene(SECTION_LIST, 'private', null);
+            if (Profile.getValue(CURRENTMODE) == 3) {
+
+                if (cc.sys.localStorage.getItem("toggle") == null || cc.sys.localStorage.getItem("toggle") === "false") {
+                    Config.loadScene(SECTION_LIST, 'private', null);
+                }
+                else {
+                    Config.loadScene('private/school/scenes/currentLoggedUser', 'private', null);
+                }
             }
-            else{
-              cc.director.loadScene("welcomePage")
+            else {
+                cc.director.loadScene("welcomePage")
             }
         }
     }
