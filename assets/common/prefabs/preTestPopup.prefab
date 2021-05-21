@@ -720,7 +720,7 @@
       "__id__": 1
     },
     "component": "",
-    "_componentId": "fb2e2rrH3tCDpnAilQG3MVL",
+    "_componentId": "2d538yFYj1BVIkN1LnaYMGi",
     "handler": "onClickNo",
     "customEventData": ""
   },
@@ -1023,7 +1023,7 @@
       "__id__": 1
     },
     "component": "",
-    "_componentId": "fb2e2rrH3tCDpnAilQG3MVL",
+    "_componentId": "2d538yFYj1BVIkN1LnaYMGi",
     "handler": "onClickYes",
     "customEventData": ""
   },
@@ -1274,14 +1274,16 @@
     "_id": ""
   },
   {
-    "__type__": "dd2cbt0P0FCDZ06BsLYZCDx",
+    "__type__": "2d538yFYj1BVIkN1LnaYMGi",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "loading": null,
+    "loading": {
+      "__id__": 31
+    },
     "_id": ""
   },
   {
