@@ -970,6 +970,10 @@ public class ChimpleLogger {
         AppActivity.app.login(email, password);
     }
 
+    public static void logout() {
+        AppActivity.app.logout();
+    }
+
     public static String findSchool(String id) {
         String json = "{}";
         try {

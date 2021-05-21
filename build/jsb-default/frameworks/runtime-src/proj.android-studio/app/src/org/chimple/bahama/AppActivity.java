@@ -872,4 +872,10 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             app.helper.auth(true);
         }
     }
+
+    public static void logout() {
+            app.helper.getSharedPreferences().edit().remove(EMAIL).apply();
+            app.helper.getSharedPreferences().edit().remove(PASSWORD).apply();
+            AppActivity.app.helper.setFirebaseUserLoggedIn(false);
+    }
 }
