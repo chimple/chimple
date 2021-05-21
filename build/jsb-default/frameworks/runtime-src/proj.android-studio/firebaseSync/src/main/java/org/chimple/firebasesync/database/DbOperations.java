@@ -187,14 +187,27 @@ public class DbOperations {
 //        });
 //    }
 
-    public void loadStudentById(final String firebaseId) {
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                Student s = db.studentDao().loadStudentById(firebaseId);
-                Log.d(TAG, "Student loaded" + s);
-            }
-        });
+    public Student loadStudentById(final String firebaseId) {
+        try {
+            final Student[] mutable = new Student[1];
+            Future<Student[]> result = AppExecutors.getInstance().diskIO().submit(new Runnable() {
+                @Override
+                public void run() {
+                    mutable[0] = db.studentDao().loadStudentById(firebaseId);
+//                    mutable[0] = s;
+//                    Log.d(TAG, "Student loaded" + s);
+                }
+            }, mutable);
+
+            Student[] student = result.get();
+            return student[0];
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+
+//        List[] t = result.get();
+//        return (Stu) t;
     }
 
     public void loadSectionById(final String firebaseId) {
