@@ -8,7 +8,7 @@ import {
     MICROLINK, RECEIVED_TEACHER_REQUESTS
 } from "../../../chimple";
 import Friend from "../../../common/scripts/friend";
-import Config, {StartAction} from "../../../common/scripts/lib/config";
+import Config, {COURSES_LANG_ID, StartAction} from "../../../common/scripts/lib/config";
 import {EXAM, MIN_PASS} from "../../../common/scripts/lib/constants";
 import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
 import Profile, {User, CourseProgress, IS_OTP_VERIFIED, LessonProgress} from "../../../common/scripts/lib/profile";
@@ -28,6 +28,7 @@ import ChapterLessons, {ChapterLessonType} from "./chapterLessons";
 import UtilLogger from "../../../common/scripts/util-logger";
 import AssignmentPopup from "./assignmentPopup";
 import ChimpleLabel from "../../../common/scripts/chimple-label";
+import PreTestDialog from "./preTestDialog";
 
 const COMPLETE_AUDIOS = [
     'congratulations',
@@ -298,16 +299,41 @@ export default class Start extends cc.Component {
 
     private loadLesson(data) {
         if (Config.isMicroLink && data && data.length > 0) {
-            this.loading.active = true;
+            const user = User.getCurrentUser()
             const courseDetails = data.splice(data.length - 1, data.length)[0];
-            const input = {
-                courseid: courseDetails['courseid'],
-                chapterid: courseDetails['chapterid'],
-                lessonid: courseDetails['lessonid'],
-                assignmentid: courseDetails['assignmentid'] || null,
+            if (cc.sys.isNative) {
+                if (COURSES_LANG_ID.includes(courseDetails['courseid'])) {
+                    const courseProgress = user.courseProgressMap.get(courseDetails['courseid']);
+                    if (courseProgress.currentChapterId == null) {
+                        try {
+                            this.loading.active = false;
+                            const dialog = cc.instantiate(this.preTestPopup);
+                            const script: PreTestDialog = dialog.getComponent(PreTestDialog)
+                            script.courseId = courseDetails['courseid'];
+                            this.node.addChild(dialog);
+                        } catch(e) {}
+                    } else {
+                        this.openDirectLesson(courseDetails);
+                    }
+                } else {
+                    this.openDirectLesson(courseDetails);
+                }
+            } else {
+                this.openDirectLesson(courseDetails);
             }
-            Util.loadDirectLessonWithLink(input, this.node)
         }
+    }
+
+    openDirectLesson(courseDetails: any) {
+        this.loading.active = true;
+        const input = {
+            courseid: courseDetails['courseid'],
+            chapterid: courseDetails['chapterid'],
+            lessonid: courseDetails['lessonid'],
+            assignmentid: courseDetails['assignmentid'] || null,
+        }
+        Util.loadDirectLessonWithLink(input, this.node)
+
     }
 
     private showTeacherDialog() {
