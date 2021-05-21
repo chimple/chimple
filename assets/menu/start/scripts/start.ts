@@ -8,7 +8,7 @@ import {
     MICROLINK, RECEIVED_TEACHER_REQUESTS
 } from "../../../chimple";
 import Friend from "../../../common/scripts/friend";
-import Config, {StartAction} from "../../../common/scripts/lib/config";
+import Config, {COURSES_LANG_ID, StartAction} from "../../../common/scripts/lib/config";
 import {EXAM, MIN_PASS} from "../../../common/scripts/lib/constants";
 import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
 import Profile, {User, CourseProgress, IS_OTP_VERIFIED, LessonProgress} from "../../../common/scripts/lib/profile";
@@ -301,17 +301,20 @@ export default class Start extends cc.Component {
         if (Config.isMicroLink && data && data.length > 0) {
             const user = User.getCurrentUser()
             const courseDetails = data.splice(data.length - 1, data.length)[0];
-            const course = ["en", "maths", "hi"];
-            if (course.includes(courseDetails['courseid'])) {
-                const courseProgress = user.courseProgressMap.get(courseDetails['courseid']);
-                if (courseProgress.currentChapterId == null) {
-                    try {
-                        this.loading.active = false;
-                        const dialog = cc.instantiate(this.preTestPopup);
-                        const script: PreTestDialog = dialog.getComponent(PreTestDialog)
-                        script.courseId = courseDetails['courseid'];
-                        this.node.addChild(dialog);
-                    } catch(e) {}
+            if (cc.sys.isNative) {
+                if (COURSES_LANG_ID.includes(courseDetails['courseid'])) {
+                    const courseProgress = user.courseProgressMap.get(courseDetails['courseid']);
+                    if (courseProgress.currentChapterId == null) {
+                        try {
+                            this.loading.active = false;
+                            const dialog = cc.instantiate(this.preTestPopup);
+                            const script: PreTestDialog = dialog.getComponent(PreTestDialog)
+                            script.courseId = courseDetails['courseid'];
+                            this.node.addChild(dialog);
+                        } catch(e) {}
+                    } else {
+                        this.openDirectLesson(courseDetails);
+                    }
                 } else {
                     this.openDirectLesson(courseDetails);
                 }

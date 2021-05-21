@@ -1,6 +1,6 @@
 import LessonController from "../../../common/scripts/lessonController";
 import LessonIcon from "../../../common/scripts/lessonIcon";
-import Config from "../../../common/scripts/lib/config";
+import Config, { COURSES_LANG_ID } from "../../../common/scripts/lib/config";
 import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
 import {User} from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
@@ -81,8 +81,7 @@ export default class LessonButton extends cc.Component {
     onClick() {
         const user = User.getCurrentUser();
         cc.log(this.lesson.chapter.course);
-        const clickCourseId = ["en", "maths", "hi"];
-        if (clickCourseId.includes(this.lesson.chapter.course.id)) {
+        if (COURSES_LANG_ID.includes(this.lesson.chapter.course.id)) {
             const courseProgress = user.courseProgressMap.get(this.lesson.chapter.course.id);
             if (courseProgress.currentChapterId == null && !this.lesson.id.endsWith('_PreQuiz')) {
                 const canvasNode = cc.director.getScene().getChildByName("Canvas");
