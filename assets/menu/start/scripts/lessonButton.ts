@@ -1,11 +1,12 @@
 import LessonController from "../../../common/scripts/lessonController";
 import LessonIcon from "../../../common/scripts/lessonIcon";
-import Config from "../../../common/scripts/lib/config";
+import Config, { COURSES_LANG_ID } from "../../../common/scripts/lib/config";
 import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
 import {User} from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
 import {Util} from "../../../common/scripts/util";
 import {EXAM} from "../../../common/scripts/lib/constants";
+import ChapterLessons from "./chapterLessons";
 
 const {ccclass, property} = cc._decorator;
 
@@ -81,6 +82,23 @@ export default class LessonButton extends cc.Component {
     }
 
     onClick() {
+        const user = User.getCurrentUser();
+        cc.log(this.lesson.chapter.course);
+        if (COURSES_LANG_ID.includes(this.lesson.chapter.course.id)) {
+            const courseProgress = user.courseProgressMap.get(this.lesson.chapter.course.id);
+            if (courseProgress.currentChapterId == null && !this.lesson.id.endsWith('_PreQuiz')) {
+                const canvasNode = cc.director.getScene().getChildByName("Canvas");
+                canvasNode.getChildByName("preTestPopup").active = true;
+                ChapterLessons.courseId = this.lesson.chapter.course.id;
+            } else {
+                this.loadLesson();
+            }
+        } else {
+            this.loadLesson();
+        }
+    }
+
+    loadLesson() {
         const config = Config.i
         const user = User.getCurrentUser();
         cc.log(this.lesson);

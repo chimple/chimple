@@ -27,7 +27,7 @@
         "__id__": 31
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 33
@@ -289,9 +289,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "72e9819c-8aba-49ca-9248-497fc649225e"
+      "__uuid__": "57630add-ad17-49c5-af20-0adc7bc97355"
     },
-    "fileId": "4c2L/Z5DlNfJKdEn+hX1hL",
+    "fileId": "69yKupxt1HuZBBpPMRVQY1",
     "sync": false
   },
   {
@@ -720,7 +720,7 @@
       "__id__": 1
     },
     "component": "",
-    "_componentId": "1d8c2xnZ9tKdq/PfuC1rcOV",
+    "_componentId": "fb2e2rrH3tCDpnAilQG3MVL",
     "handler": "onClickNo",
     "customEventData": ""
   },
@@ -1023,7 +1023,7 @@
       "__id__": 1
     },
     "component": "",
-    "_componentId": "1d8c2xnZ9tKdq/PfuC1rcOV",
+    "_componentId": "fb2e2rrH3tCDpnAilQG3MVL",
     "handler": "onClickYes",
     "customEventData": ""
   },
@@ -1077,8 +1077,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        5.512,
-        87.551,
+        -0.386,
+        90.418,
         0,
         0,
         0,
@@ -1117,8 +1117,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "Please answer the questions before starting your learning journey.",
-    "_N$string": "Please answer the questions before starting your learning journey.",
+    "_string": "Please answer the questions before starting your learning journey",
+    "_N$string": "Please answer the questions before starting your learning journey",
     "_fontSize": 32,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1197,7 +1197,7 @@
     "asset": {
       "__uuid__": "5a80075c-742a-40ce-ab81-f11382e84c18"
     },
-    "fileId": "a3Ngfh6JVMpIpdPPp40VKQ",
+    "fileId": "3fu9K0/kpCpLEM4QvKyUqm",
     "sync": false
   },
   {
@@ -1243,7 +1243,7 @@
     "asset": {
       "__uuid__": "829faaa5-750a-412f-99fe-00c90c4bf9fb"
     },
-    "fileId": "69vj76R2NIPaDGS1qkk3Pi",
+    "fileId": "3f3jKryh9Jzq3xF6bPnvHC",
     "sync": true
   },
   {
@@ -1274,22 +1274,14 @@
     "_id": ""
   },
   {
-    "__type__": "1d8c2xnZ9tKdq/PfuC1rcOV",
+    "__type__": "dd2cbt0P0FCDZ06BsLYZCDx",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "loading": {
-      "__id__": 31
-    },
-    "dialog": {
-      "__id__": 7
-    },
-    "block": {
-      "__id__": 2
-    },
+    "loading": null,
     "_id": ""
   },
   {
@@ -1298,7 +1290,7 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "72e9819c-8aba-49ca-9248-497fc649225e"
+      "__uuid__": "57630add-ad17-49c5-af20-0adc7bc97355"
     },
     "fileId": "",
     "sync": false

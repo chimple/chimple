@@ -1027,6 +1027,25 @@ public class ChimpleLogger {
         return json;
     }
 
+    public static String fetchStudentById(String studentId) {
+        String json = "{}";
+        try {
+            FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
+            if (instance != null) {
+                Student student = instance.getOperations().loadStudentById(studentId);
+                Log.d(TAG, "fetchStudentById got student:" + student);
+                if (student != null) {
+                    Gson gson = new GsonBuilder().create();
+                    json = gson.toJson(student);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "got student json:" + json);
+        return json;
+    }
+
     public static void syncProfile(String schoolId, String sectionId, String studentId, String profileData, String progressId) {
         FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
         Log.d(TAG, "Sync profile school:" + schoolId + " section:" + sectionId + " student:" + studentId);
