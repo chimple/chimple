@@ -6,7 +6,8 @@ import {User} from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
 import {Util} from "../../../common/scripts/util";
 import {EXAM} from "../../../common/scripts/lib/constants";
-import ChapterLessons from "./chapterLessons";
+import PreTestDialog from "./preTestDialog";
+
 
 const {ccclass, property} = cc._decorator;
 
@@ -39,6 +40,9 @@ export default class LessonButton extends cc.Component {
 
     @property(cc.SpriteFrame)
     goldStar: cc.SpriteFrame
+
+    @property(cc.Prefab)
+    preTestPopup: cc.Prefab = null
 
     lesson: Lesson
     loading: cc.Node
@@ -80,13 +84,20 @@ export default class LessonButton extends cc.Component {
 
     onClick() {
         const user = User.getCurrentUser();
-        cc.log(this.lesson.chapter.course);
         if (COURSES_LANG_ID.includes(this.lesson.chapter.course.id)) {
             const courseProgress = user.courseProgressMap.get(this.lesson.chapter.course.id);
             if (courseProgress.currentChapterId == null && !this.lesson.id.endsWith('_PreQuiz')) {
-                const canvasNode = cc.director.getScene().getChildByName("Canvas");
-                canvasNode.getChildByName("preTestPopup").active = true;
-                ChapterLessons.courseId = this.lesson.chapter.course.id;
+                cc.log(this.lesson.chapter.course.id)
+                try {
+                    const dialog = cc.instantiate(this.preTestPopup);
+                    const canvasNode = cc.director.getScene().getChildByName("Canvas");
+                    const script: PreTestDialog = dialog.getComponent(PreTestDialog)
+                    if (script.isValid) {
+                        script.courseId = this.lesson.chapter.course.id;
+                        script.chapter = this.lesson.chapter;
+                        canvasNode.addChild(dialog);
+                    }
+                } catch(e) {}
             } else {
                 this.loadLesson();
             }
