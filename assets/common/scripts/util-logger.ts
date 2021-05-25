@@ -686,6 +686,7 @@ export default class UtilLogger {
             }
             UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, request);
             UtilLogger.subscribeToTopic(`assignment-${user.schoolId}-${user.sectionId}`)
+            UtilLogger.subscribeToTopic(`assignment-${user.schoolId}`)
             const key = `teacher_for_student_${user.id}`;
             const teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
             teachersForStudent.push(user.sectionName);
