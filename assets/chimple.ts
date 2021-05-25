@@ -1,6 +1,6 @@
 import Config, { Lang, LANG_CONFIGS } from "./common/scripts/lib/config";
 import Profile, { CURRENTMODE, Gender, User } from "./common/scripts/lib/profile";
-import { Mode } from "./common/scripts/lib/constants";
+import { Mode ,IS_REMEMBER_TOGGLE_ON} from "./common/scripts/lib/constants";
 import UtilLogger from "./common/scripts/util-logger";
 import { Util } from "./common/scripts/util";
 import { APIMode, ServiceConfig } from "./common/scripts/services/ServiceConfig";
@@ -207,7 +207,7 @@ export default class Chimple extends cc.Component {
                 Config.i.pushScene('private/home/loginnew/scenes/welcomePage', 'private', null, true);
                 break;
             case Mode.School:
-                if (cc.sys.localStorage.getItem("toggle") == null || cc.sys.localStorage.getItem("toggle") === "false")
+                if (cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) == null || cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) === "false")
                     Config.i.pushScene('private/school/scenes/sectionList', 'private', null, true);
                 else
                     Config.i.pushScene('private/school/scenes/currentLoggedUser', 'private', null, true);
