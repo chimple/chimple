@@ -1,7 +1,7 @@
 import Config from '../../../common/scripts/lib/config'
 import Profile, { CURRENTMODE, User } from '../../../common/scripts/lib/profile';
 import { LANDING_SCENE } from "../../../chimple";
-import { CURRENT_STUDENT_ID, LOGGED_IN_USER, EXAM, MIN_PASS } from "../../../common/scripts/lib/constants";
+import { CURRENT_STUDENT_ID, LOGGED_IN_USER, EXAM, MIN_PASS, IS_REMEMBER_TOGGLE_ON } from "../../../common/scripts/lib/constants";
 import { REWARD_TYPES, REWARD_CHARACTERS, REWARD_BACKGROUNDS } from '../../../common/scripts/util';
 import { Course, Chapter, Lesson } from '../../../common/scripts/lib/convert';
 import Achievement from '../../../common/scorecard/scripts/achievement';
@@ -250,7 +250,7 @@ export default class Rewards extends cc.Component {
         } else {
             if (Profile.getValue(CURRENTMODE) == 3) {
 
-                if (cc.sys.localStorage.getItem("toggle") == null || cc.sys.localStorage.getItem("toggle") === "false") {
+                if (cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) == null || cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) === "false") {
                     Config.loadScene(SECTION_LIST, 'private', null);
                 }
                 else {
