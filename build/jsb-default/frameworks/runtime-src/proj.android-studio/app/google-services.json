@@ -68,6 +68,30 @@
           }
         },
         {
+          "client_id": "105857221433-g5e09j7igfscd90dhfel76n5c2j3h4u9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.chimple.bahama",
+            "certificate_hash": "64572737f124de7234a7d54b41c04571eb155e28"
+          }
+        },
+        {
+          "client_id": "105857221433-j7q82jhvocdh1q45rsengh2s7mduqcpl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.chimple.bahama",
+            "certificate_hash": "f7d00127dc8b97bea97eb66c639e8aa7432fe615"
+          }
+        },
+        {
+          "client_id": "105857221433-p7stfk5fct0183gbmra5qd259e8hndfs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.chimple.bahama",
+            "certificate_hash": "0bdc5da7912aa4bc5b642b7add5efd75131c7788"
+          }
+        },
+        {
           "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -134,6 +158,14 @@
           }
         },
         {
+          "client_id": "105857221433-889j0dh282ri3ab0strcothjula6at9a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.chimple.malta.malta",
+            "certificate_hash": "8ec0375f880abb6444f2fda890df03cde621844f"
+          }
+        },
+        {
           "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -159,6 +191,35 @@
         "mobilesdk_app_id": "1:105857221433:android:d80c5224a087b77970dee8",
         "android_client_info": {
           "package_name": "org.chimple.maths_fr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH82wcawju_XAiibL6QKTpq-lGXahCGx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105857221433-9ddesb1ms74e9d8jvtr07b2ajdtgtbm1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105857221433:android:df4e63aba5fac27870dee8",
+        "android_client_info": {
+          "package_name": "org.chimple.maths_malagasy"
         }
       },
       "oauth_client": [

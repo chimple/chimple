@@ -39,7 +39,7 @@ import com.google.gson.GsonBuilder;
 
 import org.apache.commons.io.FilenameUtils;
 import org.chimple.bahama.AppActivity;
-import org.chimple.bahama.R;
+import org.chimple.maths_malagasy.R;
 import org.chimple.firebasesync.database.FirebaseOperations;
 import org.chimple.firebasesync.model.School;
 import org.chimple.firebasesync.model.Section;

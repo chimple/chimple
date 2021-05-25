@@ -218,13 +218,13 @@ export default class QuestionBoard extends Game {
 
     @catchError()
     private configureSound() {
-        // Util.loadGameSound(this._currentConfig.voiceSource, (clip) => {
-        const lang = Profile.lang || Lang.ENGLISH
-        cc.assetManager.loadRemote(`${ASSET_URL}/${lang}-help-remote/questionboard/${this._currentConfig.voiceSource}`, (err, clip) => {
-            if (clip && !err) {
+        Util.loadGameSound(this._currentConfig.voiceSource, (clip) => {
+        // const lang = Profile.lang || Lang.ENGLISH
+        // cc.assetManager.loadRemote(`${ASSET_URL}/${lang}-help-remote/questionboard/${this._currentConfig.voiceSource}`, (err, clip) => {
+            // if (clip && !err) {
                 //@ts-ignore
                 this.friend.extraClip = clip
-            }
+            // }
         })
     }
 

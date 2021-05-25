@@ -16,7 +16,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 
 import org.chimple.bahama.AppActivity;
-import org.chimple.bahama.R;
+import org.chimple.maths_malagasy.R;
 
 import java.util.Map;
 

@@ -12,6 +12,7 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 import static org.chimple.bahama.AppActivity.YOUTUBE_CODE;
+import org.chimple.maths_malagasy.R;
 
 public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
 
