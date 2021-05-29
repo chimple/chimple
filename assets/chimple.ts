@@ -12,7 +12,7 @@ export const CHIMPLE_MODE = 'CHIMPLE_MODE';
 export const DEPLOY_MODE = 'DEPLOY_MODE';
 
 export const BASE: string = "BASE";
-export const HOME: string = "HOME";
+export const HOMcE: string = "HOME";
 export const SCHOOL: string = "SCHOOL";
 export const REGISTER: string = "REGISTER";
 export const NONE: string = "NONE";
