@@ -1,3 +1,4 @@
+
 /****************************************************************************
  Copyright (c) 2015-2016 Chukong Technologies Inc.
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
@@ -877,5 +878,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
             app.helper.getSharedPreferences().edit().remove(EMAIL).apply();
             app.helper.getSharedPreferences().edit().remove(PASSWORD).apply();
             AppActivity.app.helper.setFirebaseUserLoggedIn(false);
+            app.helper.signOut();
     }
 }

@@ -1,10 +1,11 @@
 import Config, { Lang, LANG_CONFIGS } from "./common/scripts/lib/config";
 import Profile, { CURRENTMODE, Gender, User } from "./common/scripts/lib/profile";
-import { Mode ,IS_REMEMBER_TOGGLE_ON} from "./common/scripts/lib/constants";
+import { Mode, IS_REMEMBER_TOGGLE_ON, REMEMBERED_USER, IS_LOGGED_OUT } from "./common/scripts/lib/constants";
 import UtilLogger from "./common/scripts/util-logger";
 import { Util } from "./common/scripts/util";
 import { APIMode, ServiceConfig } from "./common/scripts/services/ServiceConfig";
 import { AcceptTeacherRequest } from "./common/scripts/services/ServiceApi";
+// import { SCHOOL_REGISTRATION_SCENE } from './private/school/scripts/landing';
 
 const { ccclass, property } = cc._decorator;
 
@@ -207,10 +208,16 @@ export default class Chimple extends cc.Component {
                 Config.i.pushScene('private/home/loginnew/scenes/welcomePage', 'private', null, true);
                 break;
             case Mode.School:
-                if (cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) == null || cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) === "false")
-                    Config.i.pushScene('private/school/scenes/sectionList', 'private', null, true);
-                else
+
+                if (cc.sys.localStorage.getItem(REMEMBERED_USER) != null) {
                     Config.i.pushScene('private/school/scenes/currentLoggedUser', 'private', null, true);
+                }
+                else if (cc.sys.localStorage.getItem(IS_LOGGED_OUT) != null && cc.sys.localStorage.getItem(IS_LOGGED_OUT) === "true") {
+                    Config.i.pushScene("private/school/scenes/schoolRegistration", 'private', null);
+                }
+                else if (cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) == null || cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) === "false") {
+                    Config.i.pushScene('private/school/scenes/sectionList', 'private', null, true);
+                }
                 break;
             default:
                 Config.i.pushScene('private/home/loginnew/scenes/welcomeScene', 'private', null, true);

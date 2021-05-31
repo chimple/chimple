@@ -198,6 +198,11 @@ public class Helper {
         }
     }
 
+    public void signOut(){
+        sInstance.getFirebaseOperations().unRegisterListeners();
+        mAuth.signOut();
+    }
+
     public static String findSchool(String email) {
         String json = null;
         try {
