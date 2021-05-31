@@ -99,6 +99,7 @@ export const LOGGED_IN_USER = 'loggedInUser';
 
 export const REMEMBERED_USER = 'currentlyRememberedUser';
 export const IS_REMEMBER_TOGGLE_ON = 'isRememberToggleOn';
+export const IS_LOGGED_OUT = 'isLoggedOut';
 
 export const EXAM = 'exam'
 export const MIN_PASS = 70

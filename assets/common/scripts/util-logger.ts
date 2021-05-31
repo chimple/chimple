@@ -1,4 +1,4 @@
-import { ASSET_LOAD_METHOD, firebaseConfigWeb, Mode } from "./lib/constants";
+import { ASSET_LOAD_METHOD, firebaseConfigWeb, Mode, REMEMBERED_USER, IS_REMEMBER_TOGGLE_ON, IS_LOGGED_OUT } from "./lib/constants";
 import Profile, { CURRENTMODE, User } from "./lib/profile";
 import { AcceptTeacherRequest } from "./services/ServiceApi";
 import { ACCEPT_TEACHER_REQUEST } from "../../chimple";
@@ -341,6 +341,7 @@ export default class UtilLogger {
                 cc.sys.os == cc.sys.OS_ANDROID
             ) {
                 cc.log("calling init");
+
                 return jsb.reflection.callStaticMethod(
                     LOGGER_CLASS,
                     INITIALIZED,
@@ -521,6 +522,9 @@ export default class UtilLogger {
 
     public static logout(): void {
         // cc.log(`login using email: ${email} and password: ${password}`);
+        cc.sys.localStorage.removeItem(REMEMBERED_USER);
+        cc.sys.localStorage.removeItem(IS_REMEMBER_TOGGLE_ON);
+        cc.sys.localStorage.setItem(IS_LOGGED_OUT, "true")
         try {
             if (
                 cc.sys.isNative &&
