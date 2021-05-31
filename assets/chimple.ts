@@ -215,7 +215,7 @@ export default class Chimple extends cc.Component {
                 else if (cc.sys.localStorage.getItem(IS_LOGGED_OUT) != null && cc.sys.localStorage.getItem(IS_LOGGED_OUT) === "true") {
                     Config.i.pushScene("private/school/scenes/schoolRegistration", 'private', null);
                 }
-                else if (cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) == null || cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) === "false") {
+                else {
                     Config.i.pushScene('private/school/scenes/sectionList', 'private', null, true);
                 }
                 break;
