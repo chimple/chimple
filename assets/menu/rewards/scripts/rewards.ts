@@ -254,7 +254,7 @@ export default class Rewards extends cc.Component {
                     Config.loadScene(SECTION_LIST, 'private', null);
                 }
                 else {
-                    Config.loadScene('private/school/scenes/currentLoggedUser', 'private', null);
+                    Config.i.pushScene('private/school/scenes/currentLoggedUser', 'private', null);
                 }
             }
             else {
