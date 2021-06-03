@@ -251,7 +251,7 @@ export default class Rewards extends cc.Component {
             if (Profile.getValue(CURRENTMODE) == 3) {
 
                 if (cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) == null || cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) === "false") {
-                    Config.loadScene(SECTION_LIST, 'private', null);
+                    Config.i.pushScene(SECTION_LIST, 'private', null);
                 }
                 else {
                     Config.i.pushScene('private/school/scenes/currentLoggedUser', 'private', null);
