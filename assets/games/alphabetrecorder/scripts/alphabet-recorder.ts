@@ -38,7 +38,6 @@ export class AlphabetRecorder extends cc.Component {
     protected onLoad(): void {
         const fontToLoad = LANG_CONFIGS.get(Lang.KANNADA).font;
         Config.i.loadFontDynamically(fontToLoad, () => {
-            Config.getInstance().currentFontName
             this._recordingContainer = cc.instantiate(this.recordContainerPrefab);
             this._tracingContainer = cc.instantiate(this.tracingContainerPrefab);
 
