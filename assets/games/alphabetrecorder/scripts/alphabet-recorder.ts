@@ -1,7 +1,7 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
-import Config from "../../../common/scripts/lib/config";
-import { TRACING_FINISHED } from "../../../common/scripts/helper";
+import Config, {Lang, LANG_CONFIGS} from "../../../common/scripts/lib/config";
+import {SHOW_CHILD_IMAGE, TRACING_FINISHED} from "../../../common/scripts/helper";
 import TracingContainer from "../../../common/Tracing/scripts/tracing-container";
 
 interface AlphabetConfig {
@@ -36,20 +36,24 @@ export class AlphabetRecorder extends cc.Component {
     private _currentConfig: AlphabetConfig = null;
 
     protected onLoad(): void {
-        this._recordingContainer = cc.instantiate(this.recordContainerPrefab);
-        this._tracingContainer = cc.instantiate(this.tracingContainerPrefab);
+        const fontToLoad = LANG_CONFIGS.get(Lang.KANNADA).font;
+        Config.i.loadFontDynamically(fontToLoad, () => {
+            Config.getInstance().currentFontName
+            this._recordingContainer = cc.instantiate(this.recordContainerPrefab);
+            this._tracingContainer = cc.instantiate(this.tracingContainerPrefab);
 
-        this._currentConfig = this.processConfiguration(Config.getInstance().data[0]);
-        if (this._currentConfig !== null) {
-            this._letter = this._currentConfig.problem;
-            this.setAlphabetToDisplay(this._letter);
-        }
-        // this.node.parent.addChild(cc.instantiate(this.progressMonitorPrefab));
-        this.node.dispatchEvent(new cc.Event.EventCustom(TRACING_FINISHED, true));
+            this._currentConfig = this.processConfiguration(Config.getInstance().data[0]);
+            if (this._currentConfig !== null) {
+                this._letter = this._currentConfig.problem;
+                this.setAlphabetToDisplay(this._letter);
+            }
+            // this.node.parent.addChild(cc.instantiate(this.progressMonitorPrefab));
+            this.node.dispatchEvent(new cc.Event.EventCustom(TRACING_FINISHED, true));
 
-        this.node.on(TRACING_FINISHED, (event) => {
-            event.stopPropagation();
-            this.nextProblem();
+            this.node.on(TRACING_FINISHED, (event) => {
+                event.stopPropagation();
+                this.nextProblem();
+            });
         });
     }
 
