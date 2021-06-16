@@ -164,6 +164,7 @@ export class FirebaseApi implements ServiceApi {
                         b.assignmentId = a.assignmentId;
                         b.chapterId = a.chapter;
                         b.lessonId = a.lesson;
+                        b.lessonName = a.lessonName;
                         b.courseCode = a.subject.courseCode;
                         let dateString = a.createAt.toString();
                         if (!!dateString) {

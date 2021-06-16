@@ -71,6 +71,7 @@ export default class ChapterLessons extends cc.Component {
                         const lesson = Config.i.allLessons.get(ass.lessonId)
                         if (!!lesson) {
                             lesson.assignmentId = ass.assignmentId;
+                            lesson.name = !!ass.lessonName ? ass.lessonName : lesson.name;
                             const newLesson = {...lesson};
                             console.log('User.getCurrentUser().lessonProgressMap', User.getCurrentUser().lessonProgressMap);
                             const lessonProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
