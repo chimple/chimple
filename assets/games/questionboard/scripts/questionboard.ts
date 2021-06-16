@@ -173,7 +173,7 @@ export default class QuestionBoard extends Game {
         this._options.setPosition(new cc.Vec2(0, -235));
         this.node.addChild(this._options);
         this.friendPos.removeFromParent()
-        this._question.addChild(this.friendPos)
+        this.node.addChild(this.friendPos)
         this.subscribeToEvents();
         this._helpMode = true;
         this.createOptions();
