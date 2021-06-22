@@ -1,7 +1,7 @@
-import { ASSET_LOAD_METHOD, firebaseConfigWeb, Mode } from "./lib/constants";
-import Profile, { CURRENTMODE, User } from "./lib/profile";
-import { AcceptTeacherRequest } from "./services/ServiceApi";
-import { ACCEPT_TEACHER_REQUEST } from "../../chimple";
+import {ASSET_LOAD_METHOD, firebaseConfigWeb, Mode} from "./lib/constants";
+import Profile, {CURRENTMODE, User} from "./lib/profile";
+import {AcceptTeacherRequest} from "./services/ServiceApi";
+import {ACCEPT_TEACHER_REQUEST} from "../../chimple";
 
 const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
 
@@ -85,6 +85,9 @@ const SYNC_PROFILE_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljav
 
 const HISTORICAL_PROGRESS_METHOD = "historyProgress";
 const HISTORICAL_PROGRESS_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
+
+const LOG_DAILY_METHOD = "logToDailyFile";
+const LOG_DAILY_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;)V";
 
 const USER_ID = "userId";
 const DEVICE_ID = "deviceId";
@@ -610,8 +613,8 @@ export default class UtilLogger {
     }
 
     public static historyProgress(chapterId: string, chapterName: string, lessonId: string,
-        lessonName: string, progressId: string, school: string,
-        section: string, subjectCode: string, score: string, assignmentId: string) {
+                                  lessonName: string, progressId: string, school: string,
+                                  section: string, subjectCode: string, score: string, assignmentId: string) {
         cc.log(`historyProgress for: ${chapterId}-${chapterName}-${lessonId}-${progressId}`);
         try {
             if (
@@ -663,8 +666,8 @@ export default class UtilLogger {
     }
 
     public static processLinkStudent(sectionId: string, schoolId: string,
-        studentId: string, schoolName: string,
-        sectionName: string, otpCode: string = null) {
+                                     studentId: string, schoolName: string,
+                                     sectionName: string, otpCode: string = null) {
 
         const user = User.getCurrentUser();
         if (user != null && !!schoolId && !!sectionId && !!studentId) {
@@ -693,6 +696,31 @@ export default class UtilLogger {
                 teachersForStudent.push(user.sectionName);
             }
             cc.sys.localStorage.setItem(key, JSON.stringify(teachersForStudent));
+        }
+    }
+
+    public static logToDaily(event: string) {
+        const curDate = new Date();
+        const month = curDate.getMonth().toString().length == 1 ? '0' + curDate.getMonth().toString() : curDate.getMonth().toString();
+        const year = curDate.getFullYear();
+        const day = curDate.getDay();
+        const fileName = day + month + year + '.txt';
+
+        cc.log(`logToDaily for: ${event}-${fileName}`);
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID
+            ) {
+                return jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    LOG_DAILY_METHOD,
+                    LOG_DAILY_METHOD_SIGNATURE,
+                    event,
+                    fileName
+                );
+            }
+        } catch (e) {
         }
     }
 }

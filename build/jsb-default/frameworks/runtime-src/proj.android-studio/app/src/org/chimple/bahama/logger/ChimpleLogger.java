@@ -358,6 +358,34 @@ public class ChimpleLogger {
         return deviceId;
     }
 
+    public static void logToDailyFile(String eventString, String fileName) {
+        String eventDirPath = "Documents" + File.separator + "events";
+        File basePath = ChimpleLogger.createDirIfNotExistsInSD(eventDirPath);
+        File eventPath = new File(basePath + "/" + fileName);
+        Log.d(TAG, "will create directory:" + eventPath.getAbsolutePath());
+
+        if (!eventPath.exists()) {
+            try {
+                eventPath.createNewFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+                ;
+            }
+        }
+
+        try {
+            FileWriter fw = new FileWriter(eventPath.getAbsoluteFile(), true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            Log.d(TAG, "writing log info" + eventString + " to file:" + eventPath.getAbsoluteFile());
+            bw.write(eventString + "\n");
+            bw.close();
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+            ;
+        }
+
+    }
+
     public static void logEvent(String eventString) {
         String logDirPath = "Documents" + File.separator + "logs";
         File basePath = ChimpleLogger.createDirIfNotExistsInSD(logDirPath);
@@ -382,10 +410,6 @@ public class ChimpleLogger {
             Log.e(TAG, e.getMessage());
             ;
         }
-
-//        Log.d(TAG, "forcing crash.....");
-//        Crashlytics.getInstance().crash();
-
 
         long logSize = logPath.length();
         if (logSize < 400 * 1024) {
