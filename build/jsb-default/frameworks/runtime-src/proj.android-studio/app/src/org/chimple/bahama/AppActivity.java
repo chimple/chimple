@@ -174,6 +174,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         }
         // DO OTHER INITIALIZATION BELOW
         SDKWrapper.getInstance().init(this);
+        checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE);
         checkPermission(Manifest.permission.CAMERA, CAMERA_CODE);
 
         //Start listening for the Screen On, Screen Off, and Boot completed actions
