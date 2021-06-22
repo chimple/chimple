@@ -106,19 +106,20 @@ export default class LessonController extends cc.Component {
         LessonController.bundles.length = 0
         const config = Config.i;
         config.problem = 0;
-        if (config.lesson.id == config.course.id + '_PreQuiz') {
-            const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
-            if (quizChapter) {
-                LessonController.loadQuizzes(quizChapter.lessons, callback, node, 3);
-            } else {
-                const lessons: Array<Lesson> = []
-                const sample = Math.floor(config.course.chapters.length / 5)
-                for (let index = 0; index < config.course.chapters.length; index += sample) {
-                    lessons.push(config.course.chapters[index].lessons[0])
-                }
-                LessonController.loadQuizzes(lessons, callback, node, 2);
-            }
-        } else if (config.lesson.type == EXAM) {
+        // if (config.lesson.id == config.course.id + '_PreQuiz') {
+        //     const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
+        //     if (quizChapter) {
+        //         LessonController.loadQuizzes(quizChapter.lessons, callback, node, 3);
+        //     } else {
+        //         const lessons: Array<Lesson> = []
+        //         const sample = Math.floor(config.course.chapters.length / 5)
+        //         for (let index = 0; index < config.course.chapters.length; index += sample) {
+        //             lessons.push(config.course.chapters[index].lessons[0])
+        //         }
+        //         LessonController.loadQuizzes(lessons, callback, node, 2);
+        //     }
+        // } else if (config.lesson.type == EXAM) {
+        if (config.lesson.type == EXAM) {
             const lessons: Array<Lesson> = []
             var found = false
             config.chapter.lessons.forEach((les) => {
