@@ -328,7 +328,7 @@ export default class LessonController extends cc.Component {
         }
 
         const eventName: string = this.isQuiz ? "quizEnd" : "gameEnd";
-        UtilLogger.logChimpleEvent(eventName, {
+        const event = {
             lessonSessionId: this.lessonSessionId,
             gameName: config.game,
             totalGames: config.chapter.lessons.length,
@@ -347,12 +347,16 @@ export default class LessonController extends cc.Component {
             skills: config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
             game_completed: this.isGameCompleted,
             quiz_completed: this.isQuizCompleted,
-            assignmentId: config.lesson.assignmentId,
-            mlStudentId: config.lesson.mlStudentId,
-            mlClassId: config.lesson.mlClassId,
-            mlPartnerId: config.lesson.mlPartnerId,
+            assignmentId: config.lesson.assignmentId || null,
+            mlStudentId: config.lesson.mlStudentId || null,
+            mlClassId: config.lesson.mlClassId || null,
+            mlPartnerId: config.lesson.mlPartnerId || null,
+        }
+        UtilLogger.logChimpleEvent(eventName, event);
 
-        });
+        const eventCSV = Object.values(event).join(",");
+        UtilLogger.logToDaily(eventCSV);
+
 
         const starType = this.isQuiz
             ? (this.isQuizAnsweredCorrectly
