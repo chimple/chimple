@@ -474,7 +474,7 @@ export class User {
                 let qzId = 0
                 for (let index = 0; index + 2 < quizScores.length; index += 3) {
                     if (quizScores[index] + quizScores[index + 1] + quizScores[index + 2] >= 2) {
-                        currentCourse = config.course.chapters.find((c) => c.id == quizChapter.lessons[qzId].name)
+                        currentCourse = config.course.chapters.find((c) => c.id == config.course.levels[qzId])
                     } else {
                         break
                     }

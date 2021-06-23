@@ -3,6 +3,7 @@
   "name": "English",
   "lang": "en",
   "type": "literacy",
+  "levels": ["en05", "en16", "en22", "en29"],
   "chapters": [
     {
       "id": "en_quiz",
@@ -11,24 +12,9 @@
       "name": "Quiz",
       "lessons": [
         {
-          "id": "en_quiz0000",
+          "id": "en_PreQuiz",
           "image": "en0000.png",
-          "name": "en05"
-        },
-        {
-          "id": "en_quiz0001",
-          "image": "en0000.png",
-          "name": "en16"
-        },
-        {
-          "id": "en_quiz0002",
-          "image": "en0000.png",
-          "name": "en22"
-        },
-        {
-          "id": "en_quiz0003",
-          "image": "en0000.png",
-          "name": "en29"
+          "name": "Assessment"
         }
       ]
     },

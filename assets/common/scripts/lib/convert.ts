@@ -10,6 +10,7 @@ export interface Course {
     name: string;
     lang: string;
     type: string;
+    levels: string[];
 }
 
 export interface Chapter {

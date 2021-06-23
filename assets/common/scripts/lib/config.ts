@@ -372,6 +372,22 @@ export default class Config {
             const jsonFile = this.course.id + '/' + this.lesson.id + '/res/' + this.lesson.id + '.json';
             Util.load(jsonFile, (err, jsonAsset) => {
                 this._lessonData = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
+                if(this.lesson.id.endsWith('_PreQuiz')) {
+                    // get 4 chunks of data
+                    const numChunks = 4
+                    const chunkLength = Math.floor(this._lessonData.rows.length / numChunks)
+                    const subArr = []
+                    for (let index = 0; index < numChunks; index++) {
+                        const r1 = Util.randomBetween(0, chunkLength - 2)
+                        const r2 = Util.randomBetween(r1+1, chunkLength - 1)
+                        const r3 = Util.randomBetween(r2+1, chunkLength)
+                        subArr.push(this._lessonData.rows[index*chunkLength + r1])
+                        subArr.push(this._lessonData.rows[index*chunkLength + r2])
+                        subArr.push(this._lessonData.rows[index*chunkLength + r3])
+                        cc.log(r1, r2, r3)
+                    }
+                    this._lessonData.rows = subArr
+                }
                 this._lessonData.rows.forEach(el => {
                     el[2] = this.lesson.id
                 });
