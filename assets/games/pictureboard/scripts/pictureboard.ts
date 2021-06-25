@@ -42,7 +42,7 @@ export default class PictureBoard extends Game {
         cc.director.getCollisionManager().enabled = true
         Drag.letDrag = false
         const [level, worksheet, problem, name, bgImage, num, y1, sound] = config.data[0]
-        this.text = name
+        this.text = Util.i18NText(name)
         this.numPieces = parseInt(num)
 
         Util.loadTexture(bgImage, (texture) => {

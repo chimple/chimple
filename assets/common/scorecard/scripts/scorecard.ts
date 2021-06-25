@@ -99,6 +99,6 @@ export default class Scorecard extends cc.Component {
     }
 
     onDownloadClick(){
-        cc.sys.openURL("https://play.google.com/store/apps/details?id=org.chimple.bahama&hl=en_IN");
+        cc.sys.openURL("https://play.google.com/store/apps/details?id=org.chimple.maths_malagasy&hl=en_IN");
     }
 }

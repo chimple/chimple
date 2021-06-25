@@ -10,7 +10,7 @@ android {
         applicationId "org.chimple.maths_malagasy"
         minSdkVersion PROP_MIN_SDK_VERSION
         targetSdkVersion PROP_TARGET_SDK_VERSION
-        versionCode 40
+        versionCode 41
         versionName "2.0"
         multiDexEnabled true
 
