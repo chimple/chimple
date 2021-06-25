@@ -1,6 +1,19 @@
 {
   "chapters": [
     {
+      "id": "hi_quiz",
+      "image": "hi_quiz.png",
+      "type": "exam",
+      "name": "प्रश्नोत्तरी",
+      "lessons": [
+        {
+          "id": "hi_PreQuiz",
+          "image": "hi_quiz.png",
+          "name": "मूल्यांकन"
+        }
+      ]
+    },
+    {
       "id": "hi00",
       "image": "hi00.png",
       "color":"#FC8E83",
@@ -1887,5 +1900,6 @@
   "id": "hi",
   "lang": "hi",
   "name": "हिंदी",
-  "type": "literacy"
+  "type": "literacy",
+  "levels": ["hi00", "hi01", "hi02", "hi03"]
 }
