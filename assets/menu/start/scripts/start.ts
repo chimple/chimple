@@ -497,10 +497,6 @@ export default class Start extends cc.Component {
         this.ctx.stroke()
         const courseProgressMap = user.courseProgressMap.get(Config.i.course.id);
         courseProgressMap.lessonPlan.forEach((lessonId, index, lessons) => {
-            if(lessonId.endsWith('_PreQuiz')){
-                const dialog = cc.instantiate(this.preTestPopup);
-                this.node.addChild(dialog);
-            }
             const node: cc.Node = Start.createLessonButton(
                 lessonId.endsWith('_PreQuiz')
                     ? Start.preQuizLesson(Config.i.curriculum.get(lessonId.split('_')[0]))
