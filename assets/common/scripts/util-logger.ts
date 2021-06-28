@@ -667,7 +667,9 @@ export default class UtilLogger {
 
     public static processLinkStudent(sectionId: string, schoolId: string,
                                      studentId: string, schoolName: string,
-                                     sectionName: string, otpCode: string = null) {
+                                     sectionName: string,
+                                     progressId: string,
+                                     otpCode: string = null) {
 
         const user = User.getCurrentUser();
         if (user != null && !!schoolId && !!sectionId && !!studentId) {
@@ -677,6 +679,7 @@ export default class UtilLogger {
             user.schoolName = schoolName;
             user.sectionName = sectionName;
             user.isConnected = true;
+            user.id = !!progressId ? progressId : user.id;
             user.storeUser();
 
             const request: AcceptTeacherRequest = {

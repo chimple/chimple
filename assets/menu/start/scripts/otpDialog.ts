@@ -77,6 +77,7 @@ export default class OtpDialog extends cc.Component {
                         response.data.studentId,
                         response.data.schoolName,
                         response.data.sectionName,
+                        response.data.progressId,
                         otpCode);
                     const s = response.data.schoolName ? response.data.schoolName : '';
                     const sec = response.data.sectionName ? response.data.sectionName : '';

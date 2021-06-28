@@ -150,6 +150,8 @@ export class WriteLetter extends Game {
             this._tracingContainer.setPosition(new cc.Vec2(-256, -350));
         } else if (Config.dir === 'hi/') {
             this._tracingContainer.setPosition(new cc.Vec2(-256, -450));
+        } else {
+            this._tracingContainer.setPosition(new cc.Vec2(-256, -350));
         }
 
         this.node.scale = LETTER_TRACING_SCALE;

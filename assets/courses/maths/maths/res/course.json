@@ -3,30 +3,15 @@
     {
       "id": "maths_quiz",
       "image": "maths_quiz.png",
-      "type": "quiz",
+      "type": "exam",
       "lessons": [
         {
-          "id": "maths_quiz00",
-          "image": "maths_quiz00.png",
-          "name": "maths05"
-        },
-        {
-          "id": "maths_quiz01",
-          "image": "maths_quiz01.png",
-          "name": "maths09"
-        },
-        {
-          "id": "maths_quiz02",
-          "image": "maths_quiz02.png",
-          "name": "maths16"
-        },
-        {
-          "id": "maths_quiz03",
-          "image": "maths_quiz03.png",
-          "name": "maths24"
+          "id": "maths_PreQuiz",
+          "image": "maths_quiz.png",
+          "name": "Assessment"
         }
       ],
-      "name": "quiz"
+      "name": "Quiz"
     },
     {
       "id": "maths00",
@@ -2791,5 +2776,6 @@
   "id": "maths",
   "lang": "en",
   "name": "Maths",
-  "type": "maths"
+  "type": "maths",
+  "levels": ["maths05", "maths09", "maths16", "maths24"]
 }

@@ -59,6 +59,11 @@ cp -R build/jsb-default/assets hot-update
 cp -R build/jsb-default/src hot-update
 cp -R hot-update ../lang/bahama-ta-stage/public/v2
 
+For malagasy production hot update:
+node scripts/version_generator.js -v 1 -u https://bahama-ta-stage.web.app/mg/hot-update/ -s build/jsb-default -d hot-update/
+cp -R build/jsb-default/assets hot-update
+cp -R build/jsb-default/src hot-update
+cp -R hot-update ../lang/bahama-ta-stage/public/mg
 
 To run debug and test hot update:
 adb reverse tcp:8901 tcp:8901
