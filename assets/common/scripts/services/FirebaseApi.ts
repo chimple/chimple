@@ -218,7 +218,8 @@ export class FirebaseApi implements ServiceApi {
                 url: FIREBASE_LINK_STUDENT_URL,
                 body: {
                     studentId,
-                    code: sendCode
+                    code: sendCode,
+                    version: 2
                 }
             };
             return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
