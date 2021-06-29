@@ -991,4 +991,14 @@ export class Util {
         }
         return hash;
     }
+
+    public static resizeSprite(sprite: cc.Sprite, width: number, height: number) {
+        const size = sprite.spriteFrame.getOriginalSize();
+        const xScale = width / size.width;
+        const yScale = height / size.height;
+        const scale = Math.min(xScale, yScale);
+        sprite.node.width = scale * size.width;
+        sprite.node.height = scale * size.height;
+
+    }
 }

@@ -110,8 +110,9 @@ export default class Card extends cc.Component {
                 if (this.cardType == 'rotate') {
                     spriteNode.angle = 90;
                 }
-                spriteNode.scale = 0.9;
+                // spriteNode.scale = 0.9;
                 this.node.addChild(spriteNode);
+                Util.resizeSprite(sprite, 120, 120)
             });
         } else if (this.cardType == 'dice') {
             cc.resources.load('items/' + this.cardContent, cc.SpriteFrame, (err, spriteFrame) => {

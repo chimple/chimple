@@ -25,6 +25,7 @@ export default class WhatIsThisChoice extends cc.Component {
             Util.loadTexture(this.data.pic, (texture) => {
                 if (texture != null) {
                     this.image.spriteFrame = new cc.SpriteFrame(texture)
+                    Util.resizeSprite(this.image, 260, 206)
                 }
             })
         }

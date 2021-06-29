@@ -40,7 +40,9 @@ export class LetterTracingBackCard extends cc.Component {
         if (!!imageName) {
             Util.loadTexture(imageName, (texture) => {
                 if (!!texture) {
-                    this._image.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+                    const sprite = this._image.getComponent(cc.Sprite);
+                    sprite.spriteFrame = new cc.SpriteFrame(texture);
+                    Util.resizeSprite(sprite, 400, 333)
                 }
             });
         }

@@ -91,6 +91,7 @@ export default class SpellDoor extends Game {
             this.anim.once('finished', () => {
                 this.scheduleOnce(() => {
                     this.sprite.spriteFrame = new cc.SpriteFrame(texture)
+                    Util.resizeSprite(this.sprite, 370, 273)
                     Util.loadGameSound(sound, (clip) => {
                         if (clip != null) {
                             this.friend.extraClip = clip

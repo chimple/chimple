@@ -299,8 +299,10 @@ export default class WriteWord extends Game {
     loadImage(imageName: string) {
         this._imageName = imageName;
         if (!!this._texture) {
-            this._image.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(this._texture);
+            const sprite = this._image.getComponent(cc.Sprite);
+            sprite.spriteFrame = new cc.SpriteFrame(this._texture);
             this.node.addChild(this._image);
+            Util.resizeSprite(sprite, 193, 153);
             this._image.opacity = 0;
             this._image.scale = 0;
             this.hideLayoutAndShowImage();

@@ -336,7 +336,9 @@ export default class OpenWindow extends Game {
 
     @catchError()
     showImage(node, texture) {
-        node.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+        const sprite = node.getComponent(cc.Sprite);
+        sprite.spriteFrame = new cc.SpriteFrame(texture);
+        Util.resizeSprite(sprite, 193, 153)
     }
 
     private processConfiguration(data: any[] = []): OpenWindowConfig | null {
