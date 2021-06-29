@@ -87,7 +87,7 @@ const HISTORICAL_PROGRESS_METHOD = "historyProgress";
 const HISTORICAL_PROGRESS_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
 
 const LOG_DAILY_METHOD = "logToDailyFile";
-const LOG_DAILY_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;)V";
+const LOG_DAILY_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
 
 const USER_ID = "userId";
 const DEVICE_ID = "deviceId";
@@ -702,12 +702,12 @@ export default class UtilLogger {
         }
     }
 
-    public static logToDaily(event: string) {
+    public static logToDaily(deviceId: string, header: string, event: string) {
         const curDate = new Date();
         const month = curDate.getMonth().toString().length == 1 ? '0' + curDate.getMonth().toString() : curDate.getMonth().toString();
         const year = curDate.getFullYear();
         const day = curDate.getDay().toString().length == 1 ? '0' + curDate.getDay() : curDate.getDay().toString();
-        const fileName = day + month + year + "-" + User.createUUID() +'.txt';
+        const fileName = deviceId + "-" + day + month + year + "-" + User.createUUID() +'.txt';
 
         cc.log(`logToDaily for: ${event}-${fileName}`);
         try {
@@ -719,6 +719,7 @@ export default class UtilLogger {
                     LOGGER_CLASS,
                     LOG_DAILY_METHOD,
                     LOG_DAILY_METHOD_SIGNATURE,
+                    header,
                     event,
                     fileName
                 );
