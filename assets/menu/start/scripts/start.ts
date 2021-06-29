@@ -108,6 +108,7 @@ export default class Start extends cc.Component {
     @property(cc.Prefab)
     preTestPopup: cc.Prefab = null
 
+    beginQuiz: cc.Node
     friend: cc.Node
     timer: number = 0;
     flag: boolean = true;
@@ -495,6 +496,7 @@ export default class Start extends cc.Component {
         this.ctx.moveTo(x1, y1)
         this.ctx.bezierCurveTo(x2, y2, x3, y3, x4, y4)
         this.ctx.stroke()
+        
         const courseProgressMap = user.courseProgressMap.get(Config.i.course.id);
         courseProgressMap.lessonPlan.forEach((lessonId, index, lessons) => {
             const node: cc.Node = Start.createLessonButton(
@@ -504,7 +506,10 @@ export default class Start extends cc.Component {
                 this.lessonButtonPrefab,
                 this.loading,
                 index <= courseProgressMap.lessonPlanIndex)
-
+                if(lessonId.endsWith('_PreQuiz')){
+                    this.beginQuiz = node
+                   this.node.getChildByName('beginQuizPopup').active=true
+                }
             const t = index / lessons.length
             node.x = Math.pow(1 - t, 3) * x1 + 3 * Math.pow(1 - t, 2) * t * x2 + 3 * (1 - t) * Math.pow(t, 2) * x3 + Math.pow(t, 3) * x4
             node.y = Math.pow(1 - t, 3) * y1 + 3 * Math.pow(1 - t, 2) * t * y2 + 3 * (1 - t) * Math.pow(t, 2) * y3 + Math.pow(t, 3) * y4
@@ -525,6 +530,7 @@ export default class Start extends cc.Component {
                     clButton.node.on('touchend', (event: cc.Event) => {
                         if (lessonButton.button.interactable) {
                             animationCmp.stop("level_play_button")
+                            this.node.getChildByName('beginQuizPopup').active=false
                             lessonButton.onClick()
                         }
                     })
@@ -551,8 +557,16 @@ export default class Start extends cc.Component {
         }
         Config.i.startAction = StartAction.Default
     }
-
+   onBeginQuizCancelClick(){
+    this.node.getChildByName('beginQuizPopup').active=false
+   }
+    onBeginQuizButtonClicked(){
+        const lessonButton = this.beginQuiz.getComponent(LessonButton)
+        lessonButton.onClick()
+        this.loading.active = true;
+    }
     private giveReward(node: cc.Node, user: User) {
+        this.node.getChildByName('beginQuizPopup').active=false
         new cc.Tween().target(node)
             .to(0.5, {position: cc.Vec3.ZERO}, null)
             .call(() => {
