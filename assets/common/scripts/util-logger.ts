@@ -704,9 +704,9 @@ export default class UtilLogger {
 
     public static logToDaily(deviceId: string, header: string, event: string) {
         const curDate = new Date();
-        const month = curDate.getMonth().toString().length == 1 ? '0' + curDate.getMonth().toString() : curDate.getMonth().toString();
+        const month = curDate.getMonth().toString().length == 1 ? '0' + (curDate.getMonth() + 1).toString() : (curDate.getMonth() + 1).toString();
         const year = curDate.getFullYear();
-        const day = curDate.getDay().toString().length == 1 ? '0' + curDate.getDay() : curDate.getDay().toString();
+        const day = curDate.getDate().toString().length == 1 ? '0' + curDate.getDate() : curDate.getDate().toString();
         const fileName = deviceId + "-" + day + month + year + '.txt';
 
         cc.log(`logToDaily for: ${event}-${fileName}`);
