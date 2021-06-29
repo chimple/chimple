@@ -355,7 +355,23 @@ export default class LessonController extends cc.Component {
         }
         UtilLogger.logChimpleEvent(eventName, event);
 
-        const eventCSV = Object.values(event).join(",");
+        const logEventForIxo = {
+            lessonSessionId: this.lessonSessionId,
+            gameName: config.game,
+            totalGames: config.chapter.lessons.length,
+            currentGameNumber: config.chapter.lessons.findIndex(l => l.id === config.lesson.id),
+            problemSessionId: this.problemSessionId,
+            chapterName: config.chapter.name,
+            chapterId: config.chapter.id,
+            lessonName: config.lesson.name,
+            lessonId: config.lesson.id,
+            courseName: config.course.id,
+            problemNo: config.problem,
+            timeSpent: Math.abs(timeSpent),
+            userId: User.getCurrentUser().id,
+        }
+
+        const eventCSV = Object.values(logEventForIxo).join(",");
         UtilLogger.logToDaily(eventCSV);
 
 
