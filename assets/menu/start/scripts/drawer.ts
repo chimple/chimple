@@ -10,7 +10,7 @@ const DRAWER_ICON_COLORS = {
     'en': '#FFBC00',
     'maths': '#42C0FF',
     'hi': '#009158',
-    'ka': '#BD1f32',
+    'kn': '#BD1F32',
     'puzzle': '#FF5500',
     'test-lit': '#FFBC00',
     'test-maths': '#42C0FF'
