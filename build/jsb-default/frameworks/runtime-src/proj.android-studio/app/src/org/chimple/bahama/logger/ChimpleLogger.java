@@ -358,16 +358,17 @@ public class ChimpleLogger {
         return deviceId;
     }
 
-    public static void logToDailyFile(String eventString, String fileName) {
+    public static void logToDailyFile(String headerString, String eventString, String fileName) {
         Log.d(TAG, "Called logToDailyFile ....");
-        String eventDirPath = "Documents" + File.separator + "events";
+        String eventDirPath = "Download" + File.separator + "events";
         File basePath = ChimpleLogger.createDirIfNotExistsInSD(eventDirPath);
         File eventPath = new File(basePath + "/" + fileName);
         Log.d(TAG, "will create directory for Event:" + eventPath.getAbsolutePath());
-
+        boolean isFileCreated = false;
         if (!eventPath.exists()) {
             try {
                 eventPath.createNewFile();
+                isFileCreated = true;
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -376,6 +377,10 @@ public class ChimpleLogger {
         try {
             FileWriter fw = new FileWriter(eventPath.getAbsoluteFile(), true);
             BufferedWriter bw = new BufferedWriter(fw);
+            if (isFileCreated) {
+                Log.d(TAG, "writing header info" + eventString + " to file:" + eventPath.getAbsoluteFile());
+                bw.write(headerString + "\n");
+            }
             Log.d(TAG, "writing event info" + eventString + " to file:" + eventPath.getAbsoluteFile());
             bw.write(eventString + "\n");
             bw.close();
