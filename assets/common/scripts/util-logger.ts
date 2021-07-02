@@ -707,7 +707,7 @@ export default class UtilLogger {
         const month = curDate.getMonth().toString().length == 1 ? '0' + (curDate.getMonth() + 1).toString() : (curDate.getMonth() + 1).toString();
         const year = curDate.getFullYear();
         const day = curDate.getDate().toString().length == 1 ? '0' + curDate.getDate() : curDate.getDate().toString();
-        const fileName = deviceId + "-" + day + month + year + '.png';
+        const fileName = deviceId + "-" + day + month + year + '.txt';
 
         cc.log(`logToDaily for: ${event}-${fileName}`);
         try {
