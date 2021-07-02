@@ -164,6 +164,9 @@ public class ChimpleLogger {
     private static File createDirIfNotExistsInSD(String path) {
         File basePath = new File(Environment.getExternalStorageDirectory() + File.separator + path);
         if (!basePath.exists()) {
+            basePath.setExecutable(true);
+            basePath.setWritable(true);
+            basePath.setReadable(true);
             basePath.mkdirs();
         }
         Log.d(TAG, "exposed base path" + basePath.getAbsolutePath());
@@ -360,7 +363,7 @@ public class ChimpleLogger {
 
     public static void logToDailyFile(String headerString, String eventString, String fileName) {
         Log.d(TAG, "Called logToDailyFile ....");
-        String eventDirPath = "Download" + File.separator + "events";
+        String eventDirPath = "Documents" + File.separator + "events";
         File basePath = ChimpleLogger.createDirIfNotExistsInSD(eventDirPath);
         File eventPath = new File(basePath + "/" + fileName);
         Log.d(TAG, "will create directory for Event:" + eventPath.getAbsolutePath());
@@ -368,6 +371,9 @@ public class ChimpleLogger {
         if (!eventPath.exists()) {
             try {
                 eventPath.createNewFile();
+                eventPath.setExecutable(true);
+                eventPath.setReadable(true);
+                eventPath.setWritable(true);
                 isFileCreated = true;
             } catch (Exception e) {
                 e.printStackTrace();
