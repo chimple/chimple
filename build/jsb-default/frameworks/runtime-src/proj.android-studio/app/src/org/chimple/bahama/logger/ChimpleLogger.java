@@ -161,6 +161,15 @@ public class ChimpleLogger {
         return basePath;
     }
 
+    public boolean isFileExistsInPublicDirectory(String path) {
+            File basePath = new File(Environment.getExternalStorageDirectory() + File.separator + path);
+            if (basePath.exists()) {
+                return true;
+            }
+            return false;
+
+    }
+
     private static File createDirIfNotExistsInSD(String path) {
         File basePath = new File(Environment.getExternalStorageDirectory() + File.separator + path);
         if (!basePath.exists()) {

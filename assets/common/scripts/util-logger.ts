@@ -1,7 +1,7 @@
-import {ASSET_LOAD_METHOD, firebaseConfigWeb, Mode} from "./lib/constants";
-import Profile, {CURRENTMODE, User} from "./lib/profile";
-import {AcceptTeacherRequest} from "./services/ServiceApi";
-import {ACCEPT_TEACHER_REQUEST} from "../../chimple";
+import { ASSET_LOAD_METHOD, firebaseConfigWeb, Mode } from "./lib/constants";
+import Profile, { CURRENTMODE, User } from "./lib/profile";
+import { AcceptTeacherRequest } from "./services/ServiceApi";
+import { ACCEPT_TEACHER_REQUEST } from "../../chimple";
 
 const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
 
@@ -20,6 +20,9 @@ const PROFILE_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;)V";
 const DOWNLOAD_FILE_METHOD = "downloadFile";
 const DOWNLOAD_FILE_METHOD_SIGNATURE =
     "(Ljava/lang/String;Ljava/lang/String;)V";
+
+const FILE_EXISTS_IN_PUBLIC_DIRECTORY_METHOD = "isFileExistsInPublicDirectory";
+const FILE_EXISTS_IN_PUBLIC_DIRECTORY_METHOD_SIGNATURE = "(Ljava/lang/String;)Z";
 
 const FILE_EXISTS_METHOD = "isFileExists";
 const FILE_EXISTS_METHOD_SIGNATURE = "(Ljava/lang/String;)Z";
@@ -81,7 +84,6 @@ const FETCH_CURRENT_USER_METHOD_SIGNATURE = "(Ljava/lang/String;)Ljava/lang/Stri
 
 const SYNC_PROFILE_METHOD = "syncProfile";
 const SYNC_PROFILE_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
-
 
 const HISTORICAL_PROGRESS_METHOD = "historyProgress";
 const HISTORICAL_PROGRESS_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
@@ -314,6 +316,25 @@ export default class UtilLogger {
                     downloadDirectory
                 );
             }
+        } catch (e) {
+        }
+    }
+
+    public static isFileExistsInPublicDirectory(file: string): boolean {
+        try {
+            if (
+                cc.sys.isNative &&
+                cc.sys.os == cc.sys.OS_ANDROID &&
+                ASSET_LOAD_METHOD === "file"
+            ) {
+                return jsb.reflection.callStaticMethod(
+                    LOGGER_CLASS,
+                    FILE_EXISTS_IN_PUBLIC_DIRECTORY_METHOD,
+                    FILE_EXISTS_IN_PUBLIC_DIRECTORY_METHOD_SIGNATURE,
+                    file
+                );
+            }
+            return false;
         } catch (e) {
         }
     }
@@ -683,16 +704,16 @@ export default class UtilLogger {
             user.storeUser();
 
             const request: AcceptTeacherRequest = {
-                teacherId: user.schoolId,
-                sectionId: user.sectionId,
-                studentId: user.id,
-                studentName: user.name,
+                teacherId        : user.schoolId,
+                sectionId        : user.sectionId,
+                studentId        : user.id,
+                studentName      : user.name,
                 firebaseStudentId: user.studentId,
-                otpCode: otpCode
-            }
+                otpCode          : otpCode
+            };
             UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, request);
-            UtilLogger.subscribeToTopic(`assignment-${user.schoolId}-${user.sectionId}`)
-            UtilLogger.subscribeToTopic(`assignment-${user.schoolId}`)
+            UtilLogger.subscribeToTopic(`assignment-${user.schoolId}-${user.sectionId}`);
+            UtilLogger.subscribeToTopic(`assignment-${user.schoolId}`);
             const key = `teacher_for_student_${user.id}`;
             let teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
             if (teachersForStudent.indexOf(user.sectionName) == -1) {
@@ -707,7 +728,16 @@ export default class UtilLogger {
         const month = curDate.getMonth().toString().length == 1 ? '0' + (curDate.getMonth() + 1).toString() : (curDate.getMonth() + 1).toString();
         const year = curDate.getFullYear();
         const day = curDate.getDate().toString().length == 1 ? '0' + curDate.getDate() : curDate.getDate().toString();
-        const fileName = deviceId + "-" + day + month + year + '.txt';
+
+        const lastFileGeneratedName = cc.sys.localStorage.getItem("lastFileGeneratedName") || null;
+        let fileName = lastFileGeneratedName == null ? deviceId + "#" + User.createUUID() + "-" + day + month + year + '.txt' : lastFileGeneratedName;
+        cc.sys.localStorage.setItem("lastFileGeneratedName", fileName);
+
+        if (UtilLogger.isFileExistsInPublicDirectory("Documents" + "/" + "events" + "/" + "processed" + "/" + fileName)) {
+            fileName = deviceId + "#" + User.createUUID() + "-" + day + month + year + '.txt';
+            cc.sys.localStorage.setItem("lastFileGeneratedName", fileName);
+            cc.log(`Generating new file ${fileName}`);
+        }
 
         cc.log(`logToDaily for: ${event}-${fileName}`);
         try {
@@ -721,8 +751,7 @@ export default class UtilLogger {
                     LOG_DAILY_METHOD_SIGNATURE,
                     header,
                     event,
-                    fileName
-                );
+                    fileName);
             }
         } catch (e) {
         }
