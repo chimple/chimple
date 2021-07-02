@@ -161,8 +161,10 @@ public class ChimpleLogger {
         return basePath;
     }
 
-    public boolean isFileExistsInPublicDirectory(String path) {
+    public static boolean isFileExistsInPublicDirectory(final String path) {
+            Log.d(TAG, "isFileExistsInPublicDirectory : " + path);
             File basePath = new File(Environment.getExternalStorageDirectory() + File.separator + path);
+            Log.d(TAG, "Checking for basePath for public directory:" +basePath );
             if (basePath.exists()) {
                 return true;
             }
@@ -637,7 +639,7 @@ public class ChimpleLogger {
     }
 
     public static boolean isFileExists(final String path) {
-        File basePath = new File(ChimpleLogger.getStorageDirectory() + File.separator + "bahama" + File.separator + path);
+        File basePath = new File(Environment.getStorageDirectory() + File.separator + "bahama" + File.separator + path);
         if (basePath.exists()) {
             return true;
         }
