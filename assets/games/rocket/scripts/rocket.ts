@@ -166,9 +166,11 @@ export default class Rocket extends Game {
     @catchError()
     showImage(texture) {
         const image = this._wordNoteBoard.getChildByName('imageNode');
-        image.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
-        this.checkRTLAndScaleX(image, 0.25);
-        image.scaleY = 0.25;
+        const sprite = image.getComponent(cc.Sprite);
+        sprite.spriteFrame = new cc.SpriteFrame(texture);
+        // this.checkRTLAndScaleX(image, 0.25);
+        // image.scaleY = 0.25;
+        Util.resizeSprite(sprite, 160, 160)
           }
 
     @catchError()
