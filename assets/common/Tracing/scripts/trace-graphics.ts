@@ -1,13 +1,13 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import Color = cc.Color;
-import TracingContainer, {TracePoint} from "./tracing-container";
+import TracingContainer, { TracePoint } from "./tracing-container";
 import TracingNode from "./tracing-node";
 import IndicatorNode from "./indicator-node";
 import ArrowNode from "./arrow-node";
 import Config from "../../scripts/lib/config";
 import catchError from "../../scripts/lib/error-handler";
-import {Util, TouchEvents} from "../../scripts/util";
+import { Util, TouchEvents } from "../../scripts/util";
 import {
     TRACING_CORRECT,
     SHOW_CHILD_IMAGE,
@@ -15,6 +15,7 @@ import {
     RESET_TRACING_ALLOWED,
     RESET_TRACING_NOT_ALLOWED
 } from "../../scripts/helper";
+import Vec2 = cc.Vec2;
 
 const BOUNDARY_CHECK_LIMIT = 20;
 
@@ -132,8 +133,9 @@ export default class TraceGraphics extends cc.Component {
         // manager.enabledDebugDraw = true;
         // manager.enabledDrawBoundingBox = true;
         this.node.opacity = 0;
-        this.node.width = cc.winSize.width;
+        this.node.width = cc.winSize.width + cc.winSize.width / 4;
         this.node.height = cc.winSize.height;
+        this.node.setPosition(new Vec2(this.node.x - cc.winSize.width / 4, this.node.y));
         this._graphics = this.getComponent(cc.Graphics);
         this._graphics.node.opacity = 0;
         this._graphics.lineJoin = cc.Graphics.LineJoin.ROUND;
@@ -289,7 +291,7 @@ export default class TraceGraphics extends cc.Component {
                     this._activeStarsTillIndex = i;
                     return {
                         oIndex: i,
-                        node: n
+                        node  : n
                     };
                 }
             }
