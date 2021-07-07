@@ -137,7 +137,7 @@ export default class TraceGraphics extends cc.Component {
         this.node.height = cc.winSize.height;
         this.node.setPosition(new Vec2(this.node.x - cc.winSize.width / 4, this.node.y));
         this._graphics = this.getComponent(cc.Graphics);
-        this._graphics.node.opacity = 0;
+        this._graphics.node.opacity = 1;
         this._graphics.lineJoin = cc.Graphics.LineJoin.ROUND;
         this._graphics.lineCap = cc.Graphics.LineCap.ROUND;
         this._graphics.strokeColor = this.strokeColor;
