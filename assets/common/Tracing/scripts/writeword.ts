@@ -129,7 +129,7 @@ export default class WriteWord extends Game {
     @catchError()
     scrollToLeft(index: number, child: cc.Node) {
         if (child.position.x - Math.abs(this._wordLayout.node.position.x / 2) + child.width * 1.0 > cc.winSize.width) {
-            const scrollToLeft = child.width * 0.7;
+            const scrollToLeft = child.width * 0.65;
             const newPos = new cc.Vec2(this._wordLayout.node.position.x - scrollToLeft, this._wordLayout.node.position.y);
             new cc.Tween().target(this._wordLayout.node)
                 .to(0.5, {position: newPos}, {progress: null, easing: 'sineOut'})
