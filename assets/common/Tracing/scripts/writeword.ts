@@ -1,8 +1,8 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
-import Config, {Direction} from "../../../common/scripts/lib/config";
-import {LETTER_SCALE, SingleLetterTracing} from "./singlelettertracing";
-import {Util} from "../../../common/scripts/util";
+import Config, { Direction } from "../../../common/scripts/lib/config";
+import { LETTER_SCALE, SingleLetterTracing } from "./singlelettertracing";
+import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
 import {
     MOVE_TO_NEXT_LETTER_EVENT,
@@ -78,8 +78,8 @@ export default class WriteWord extends Game {
             this.node.emit(CONFIG_LOADED);
             this.loadSounds(this._currentConfig.sound);
             this.node.on(SOUND_LOADED_EVENT, () => {
-                this.friend.extraClip = this._sound
-                Util.showHelp(null, null)
+                this.friend.extraClip = this._sound;
+                Util.showHelp(null, null);
             });
 
             this.emitLetterEnabledEvent(
@@ -129,7 +129,7 @@ export default class WriteWord extends Game {
     @catchError()
     scrollToLeft(index: number, child: cc.Node) {
         if (child.position.x - Math.abs(this._wordLayout.node.position.x / 2) + child.width * 1.0 > cc.winSize.width) {
-            const scrollToLeft = child.width;
+            const scrollToLeft = child.width * 0.7;
             const newPos = new cc.Vec2(this._wordLayout.node.position.x - scrollToLeft, this._wordLayout.node.position.y);
             new cc.Tween().target(this._wordLayout.node)
                 .to(0.5, {position: newPos}, {progress: null, easing: 'sineOut'})
@@ -247,7 +247,7 @@ export default class WriteWord extends Game {
 
         this.node.on(RESET_TRACING, (event) => {
             event.stopPropagation();
-            console.log("RESET_TRACING.....")
+            console.log("RESET_TRACING.....");
             const child = this._wordLayout.node.getChildByName(this._originalLetterName + this._currentLetterIndex);
             if (!!child) {
                 const singleLetterComponent: SingleLetterTracing = child.getComponent(SingleLetterTracing);
@@ -260,16 +260,16 @@ export default class WriteWord extends Game {
         this.node.on(RESET_TRACING_ALLOWED, () => {
             if (this.node.getChildByName('reeetTracingButton') !== null)
                 this.node.getChildByName('reeetTracingButton').opacity = 255;
-        })
+        });
 
         this.node.on(RESET_TRACING_NOT_ALLOWED, () => {
             if (this.node.getChildByName('reeetTracingButton') !== null)
-                this.node.getChildByName('reeetTracingButton').opacity = 0
+                this.node.getChildByName('reeetTracingButton').opacity = 0;
 
-        })
+        });
 
         if (this.node.getChildByName('reeetTracingButton') !== null)
-            this.node.getChildByName('reeetTracingButton').opacity = 0
+            this.node.getChildByName('reeetTracingButton').opacity = 0;
 
     }
 
@@ -277,7 +277,6 @@ export default class WriteWord extends Game {
     private emitLetterEnabledEvent(fNode: cc.Node, index: number) {
         fNode.emit('letterEnabledEvent', index);
     }
-
 
     private processConfiguration(data: any[] = []): WriteWordConfig | null {
         const configurations: any[] = [].concat(...data);
@@ -352,7 +351,7 @@ export default class WriteWord extends Game {
             this.scheduleOnce(() => {
                 // if (!!this._sound)
                 //     this._soundID = Util.play(this._sound, false);
-                this.friend.speak(this._sound)
+                this.friend.speak(this._sound);
             }, 1.5);
         }
     }
