@@ -332,8 +332,8 @@ export default class LessonController extends cc.Component {
         const event = {
             lessonSessionId  : this.lessonSessionId,
             gameName         : config.game,
-            totalGames       : config.chapter.lessons.length,
-            currentGameNumber: config.chapter.lessons.findIndex(l => l.id === config.lesson.id),
+            totalGames       : config.totalProblems,
+            currentGameNumber: config.problem,
             problemSessionId : this.problemSessionId,
             chapterName      : config.chapter.name,
             chapterId        : config.chapter.id,
@@ -358,8 +358,8 @@ export default class LessonController extends cc.Component {
         const logEventForIxo = {
             lessonSessionId  : this.lessonSessionId,
             gameName         : config.game,
-            totalGames       : config.chapter.lessons.length,
-            currentGameNumber: config.chapter.lessons.findIndex(l => l.id === config.lesson.id),
+            totalGames       : config.totalProblems,
+            currentGameNumber: config.problem,
             problemSessionId : this.problemSessionId,
             chapterName      : config.chapter.name,
             chapterId        : config.chapter.id,
@@ -548,8 +548,8 @@ export default class LessonController extends cc.Component {
             const config = Config.i;
             UtilLogger.logChimpleEvent(eventName, {
                 gameName         : config.game,
-                totalGames       : config.chapter.lessons.length,
-                currentGameNumber: config.chapter.lessons.findIndex(l => l.id === config.lesson.id),
+                totalGames       : config.totalProblems,
+                currentGameNumber: config.problem,
                 lessonSessionId  : this.lessonSessionId,
                 problemSessionId : this.problemSessionId,
                 chapterName      : config.chapter.name,
