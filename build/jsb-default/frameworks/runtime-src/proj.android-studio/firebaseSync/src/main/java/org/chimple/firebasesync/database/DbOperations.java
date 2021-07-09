@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
+import static org.chimple.firebasesync.database.Helper.NEW_USER;
 import static org.chimple.firebasesync.database.Helper.HISTORICAL_PROGRESS_COLLECTION;
 import static org.chimple.firebasesync.database.Helper.SCHOOL_COLLECTION;
 import static org.chimple.firebasesync.database.Helper.SECTION_COLLECTION;
@@ -373,6 +374,20 @@ public class DbOperations {
     }
 
 
+public void createNewUserData(final String phoneNumber) {
+        Map<String, Object> newUser = new HashMap<>();
+        DocumentReference schoolSection = null;
+        newUser.put("user", phoneNumber);
+        CollectionReference collection = FirebaseOperations.getInitializedInstance().getDb().collection(NEW_USER);
+        collection
+                .add(newUser)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                   Log.d('$$$$$$$$$$')
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                Log.d('%%%%%%%%')
+                });
+    }
     public void createHistoricalProgress(final String chapterId,
                                          final String chapterName,
                                          final String lessonId,

@@ -55,6 +55,9 @@ const REQUEST_OTP_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
 const VERIFY_OTP_METHOD = "verifyOtp";
 const VERIFY_OTP_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
 
+const ADD_NEW_USER = "addNewUser";
+const ADD_NEW_USER_SIGNATURE = "(Ljava/lang/String;)V";
+
 const SYNC_FMC_METHOD = "syncFmcForUsers";
 const SYNC_FMC_METHOD_SIGNATURE = "(Ljava/lang/String;)V";
 
@@ -452,8 +455,8 @@ export default class UtilLogger {
 
     public static requestOtp(requestOtpText: string) {
         try {
-            if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
-                cc.log("Request Otp event", requestOtpText);
+            // if (cc.sys.isNative && cc.sys.os == cc.sys.OS_ANDROID) {
+            //     cc.log("Request Otp event", requestOtpText);
 
                 jsb.reflection.callStaticMethod(
                     LOGGER_CLASS,
@@ -462,7 +465,7 @@ export default class UtilLogger {
                     requestOtpText
                 );
 
-            }
+          //  }
         } catch (e) {
         }
     }
@@ -631,6 +634,14 @@ export default class UtilLogger {
             }
         } catch (e) {
         }
+    }
+    public static newUser(phoneNumber: string){
+        return jsb.reflection.callStaticMethod(
+            LOGGER_CLASS,
+            ADD_NEW_USER,
+            ADD_NEW_USER_SIGNATURE,
+           phoneNumber
+        );
     }
 
     public static historyProgress(chapterId: string, chapterName: string, lessonId: string,

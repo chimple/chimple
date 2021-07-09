@@ -435,6 +435,11 @@ public class FirebaseOperations {
         FirebaseOperations.ref.operations.createHistoricalProgress(chapterId, chapterName, lessonId, lessonName, progressId,
                 school, section, subjectCode, score, assignmentId);
     }
+    public static void addNewUser(String phoneNumber) {
+        // First update to Local DB
+        Log.d('##########')
+        FirebaseOperations.ref.operations.createNewUserData(phoneNumber);
+    }
 
 
     public FirebaseFirestore getDb() {

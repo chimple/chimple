@@ -2,6 +2,7 @@ import Config from "../../../common/scripts/lib/config";
 import { REWARD_TYPES, Util } from "../../scripts/util";
 import Achievement from "./achievement";
 import Friend from "../../scripts/friend";
+import UtilLogger from "../../scripts/util-logger";
 
 const { ccclass, property } = cc._decorator;
 
@@ -44,6 +45,8 @@ export default class Scorecard extends cc.Component {
     downloadButton: cc.Node
 
     reward: [string, string]
+
+    number:string
 
     onLoad() {
         if(!cc.sys.isNative && Config.isMicroLink){
@@ -88,6 +91,10 @@ export default class Scorecard extends cc.Component {
             }
         }
     }
+    onNumberBlockClick(e,data){
+        let value = e.node.getChildByName("text").getComponent(cc.Label).string;
+        this.number='+91'+value
+    }
 
     onContinueClick() {
         if(cc.sys.isNative && Config.isMicroLink){
@@ -100,5 +107,11 @@ export default class Scorecard extends cc.Component {
 
     onDownloadClick(){
         cc.sys.openURL("https://play.google.com/store/apps/details?id=org.chimple.bahama&hl=en_IN");
+    }
+    verifyPhoneNumber(){
+        UtilLogger.newUser(this.number)
+        this.node.getChildByName('otpDialog').active = true
+        console.log('#####'+this.number)
+        
     }
 }

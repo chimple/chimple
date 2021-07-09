@@ -1103,6 +1103,9 @@ public class ChimpleLogger {
             instance.syncProfile(schoolId, sectionId, studentId, profileData, progressId);
         }
     }
+    public static void addNewUser(String phoneNumber){
+         FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
+    } 
 
     public static void historyProgress(
             String chapterId,
