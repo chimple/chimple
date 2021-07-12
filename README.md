@@ -29,6 +29,7 @@ http-server -p 8901
 Some common operations:
 for i in *.jpg; do echo "${i}"; sips -s format png "${i}" --out "${i%jpg}png"; done
 for i in *.png; do echo "${i}"; sips --resampleHeight 273  "${i}"; done
+for i in *.png; do echo "${i}"; sips -Z 800  "${i}"; done
 for i in *.png; do echo "${i}"; sips --cropToHeightWidth 273 370  "${i}"; done
 for i in en/*/res/*.json; do echo $i; sed 's/^[[:space:]]*\[//g' $i | sed 's/[[:space:]]*\],*$//g' > ~/Downloads/bahama-xx/`basename $i`; done
 for i in *.json; do mv $i "${i%json}csv"; done
