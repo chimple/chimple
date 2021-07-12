@@ -1,13 +1,15 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import {Util} from "../../../common/scripts/util";
-import {User} from "../../../common/scripts/lib/profile";
+import {LessonProgressClass, User} from "../../../common/scripts/lib/profile";
 import {ServiceConfig} from "../../../common/scripts/services/ServiceConfig";
 import {AcceptTeacherRequest} from "../../../common/scripts/services/ServiceApi";
 import UtilLogger from "../../../common/scripts/util-logger";
 import {ACCEPT_TEACHER_REQUEST} from "../../../chimple";
 
-
+const SCORE = "score";
+const COURSE = "course";
+const ASSIGNMENTIDS = 'assignmentIds'
 @ccclass
 export default class OtpDialog extends cc.Component {
     @property(cc.EditBox)
@@ -70,7 +72,14 @@ export default class OtpDialog extends cc.Component {
             // send request
             try {
                 const response = await ServiceConfig.getI().handle.linkStudent(studentId, otpCode);
+                var user=User.getCurrentUser();
                 if (response && response.ok) {
+                    for (let key in response.data.profile.lessonProgressMap) { 
+                        var _course = response.data.profile.lessonProgressMap[key][COURSE] 
+                        var _score = response.data.profile.lessonProgressMap[key][SCORE]
+                        var _assignments = response.data.profile.lessonProgressMap[key][ASSIGNMENTIDS]
+                        user.lessonProgressMap.set(key, new LessonProgressClass(_score,1,_course,_assignments[_assignments.length-1]));            
+                    }
                     UtilLogger.processLinkStudent(
                         response.data.sectionId,
                         response.data.schoolId,
