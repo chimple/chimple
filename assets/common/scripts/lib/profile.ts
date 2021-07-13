@@ -102,13 +102,13 @@ export class LessonProgressClass implements LessonProgress {
     score: number;
     attempts: number;
     course: string;
-    date: Date;
+    date: Date = null;
     assignmentIds: string[] = [];
 
-    constructor(score: number, attempts: number = 0, course: string = Config.i.course.id, assignmentId: string = null) {
+    constructor(score: number, attempts: number = 0, course: string = Config.i.course.id, assignmentId: string = null,date: Date = null) {
         this.score = score;
         this.attempts = attempts;
-        this.date = new Date();
+        !!date ? this.date=date : new Date();
         this.course = course;
         !!assignmentId ? this.assignmentIds.push(assignmentId) : '';
     }
@@ -319,6 +319,7 @@ export class User {
 
     set lessonProgressMap(lessonProgressMap: Map<string, LessonProgress>) {
         this._lessonProgressMap = lessonProgressMap;
+        this.storeUser();
     }
 
     get lessonProgressMap(): Map<string, LessonProgress> {

@@ -10,6 +10,7 @@ import {ACCEPT_TEACHER_REQUEST} from "../../../chimple";
 const SCORE = "score";
 const COURSE = "course";
 const ASSIGNMENTIDS = 'assignmentIds'
+const DATE = 'date'
 @ccclass
 export default class OtpDialog extends cc.Component {
     @property(cc.EditBox)
@@ -30,6 +31,7 @@ export default class OtpDialog extends cc.Component {
     @property(cc.Label)
     parentLabel: cc.Label = null;
 
+    score: number;
 
     protected onLoad() {
         this.title.string = Util.i18NText("We sent an OTP to verify your number.");
@@ -76,9 +78,21 @@ export default class OtpDialog extends cc.Component {
                 if (response && response.ok) {
                     for (let key in response.data.profile.lessonProgressMap) { 
                         var _course = response.data.profile.lessonProgressMap[key][COURSE] 
-                        var _score = response.data.profile.lessonProgressMap[key][SCORE]
+                        if(user.lessonProgressMap.has(key)){
+                           if(user.lessonProgressMap.get(key).score > response.data.profile.lessonProgressMap[key][SCORE]) {
+                               this.score = user.lessonProgressMap.get(key).score
+                           }
+                           else{
+                               this.score =  response.data.profile.lessonProgressMap[key][SCORE]
+                           }
+                        }
+                       else{
+                         this.score = response.data.profile.lessonProgressMap[key][SCORE]
+                       }
                         var _assignments = response.data.profile.lessonProgressMap[key][ASSIGNMENTIDS]
-                        user.lessonProgressMap.set(key, new LessonProgressClass(_score,1,_course,_assignments[_assignments.length-1]));            
+                        var _date = response.data.profile.lessonProgressMap[key][DATE]
+                        user.lessonProgressMap.set(key, new LessonProgressClass(this.score,1,_course,_assignments[_assignments.length-1],_date));
+                        console.log('########'+user.lessonProgressMap.get(key).date)            
                     }
                     UtilLogger.processLinkStudent(
                         response.data.sectionId,
