@@ -22,6 +22,7 @@ import android.util.Log;
 import android.telephony.TelephonyManager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
@@ -639,7 +640,7 @@ public class ChimpleLogger {
     }
 
     public static boolean isFileExists(final String path) {
-        File basePath = new File(Environment.getStorageDirectory() + File.separator + "bahama" + File.separator + path);
+        File basePath = new File(ChimpleLogger.getStorageDirectory()  + File.separator + "bahama" + File.separator + path);
         if (basePath.exists()) {
             return true;
         }
