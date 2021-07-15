@@ -1,14 +1,14 @@
 import Config from "../../../common/scripts/lib/config";
 import Drag from "../../../common/scripts/drag";
 import SpellingDrag from "./spellingDrag";
-import {Util} from "../../../common/scripts/util";
+import { Util } from "../../../common/scripts/util";
 import catchError from "../../../common/scripts/lib/error-handler";
-import {AlphabetUtil, LetterType} from "../../../common/scripts/Utility";
+import { AlphabetUtil, LetterType } from "../../../common/scripts/Utility";
 import Game from "../../../common/scripts/game";
-import {SpellingDrop} from "./spellingDrop";
+import { SpellingDrop } from "./spellingDrop";
 import Drop from "../../../common/scripts/drop";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class SpellDoor extends Game {
@@ -42,12 +42,10 @@ export default class SpellDoor extends Game {
         // const positions = missingPos.split('')
         var firstDrag: cc.Node = null
         var firstDrop: cc.Node = null
-        //@ts-ignore
-        var splitter = new GraphemeSplitter()
-        const positions = splitter.splitGraphemes(missingPos)
+        const positions = this.splitWord(missingPos)
         var numConsonants = parseInt(totalConsonants)
         var numVowels = parseInt(totalVowels)
-        splitter.splitGraphemes(word).forEach((val, index, arr) => {
+        this.splitWord(word).forEach((val, index, arr) => {
             if (AlphabetUtil.isConsonantOrVowel(val) == LetterType.Consonant) {
                 numConsonants--
             } else {
@@ -55,7 +53,7 @@ export default class SpellDoor extends Game {
             }
             const drop = cc.instantiate(this.spellingDrop)
             const dropC: Drop = drop.getComponent(Drop);
-            if(dropC) {
+            if (dropC) {
                 dropC.allowDrop = false;
             }
             drop.name = val
@@ -75,7 +73,7 @@ export default class SpellDoor extends Game {
                 }
                 new cc.Tween().target(drag)
                     .delay(3)
-                    .to(0.5, {y: -cc.winSize.height}, null)
+                    .to(0.5, { y: -cc.winSize.height }, null)
                     .start()
             } else {
                 drag.getComponent(SpellingDrag).allowDrag = false
@@ -108,7 +106,7 @@ export default class SpellDoor extends Game {
         })
         const choiceY = this.choiceLayout.y
         new cc.Tween().target(this.choiceLayout)
-            .set({y: -cc.winSize.height})
+            .set({ y: -cc.winSize.height })
             .delay(5)
             .call(() => {
                 Util.shuffle(this.choices)
@@ -125,12 +123,18 @@ export default class SpellDoor extends Game {
                     this.choiceLayout.addChild(temp)
                 })
             })
-            .to(0.5, {y: choiceY}, null)
+            .to(0.5, { y: choiceY }, null)
             .call(() => {
                 Util.showHelp(firstDrag, firstDrop)
                 Drag.letDrag = true
             })
             .start()
+    }
+
+    private splitWord(word: string): [string] {
+        //@ts-ignore
+        var splitter = new GraphemeSplitter()
+        return word.indexOf(',') != -1 ? word.split(',') : splitter.splitGraphemes(word)
     }
 
     private createDrag(val: string) {
@@ -161,7 +165,7 @@ export default class SpellDoor extends Game {
                     .call(() => {
                         if (this.friend != null) this.friend.playAnimation('jumping', 1);
                     })
-                    .to(1, {x: 0}, null)
+                    .to(1, { x: 0 }, null)
                     .delay(1)
                     .call(() => {
                         this.node.emit('nextProblem');
