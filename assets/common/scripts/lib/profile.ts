@@ -110,7 +110,15 @@ export class LessonProgressClass implements LessonProgress {
         this.attempts = attempts;
         !!date ? this.date=date : new Date();
         this.course = course;
-        !!assignmentId ? this.assignmentIds.push(assignmentId) : '';
+        let assignment_ids =  !!assignmentId ?assignmentId.split(','):[]
+        if(assignment_ids.length>0){
+            assignment_ids.forEach((value)=>{
+                this.assignmentIds.push(value)
+            })
+        }
+        else{
+            !!assignmentId ? this.assignmentIds.push(assignmentId) : '';
+        }
     }
 }
 
