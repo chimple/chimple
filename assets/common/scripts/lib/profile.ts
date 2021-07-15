@@ -468,6 +468,27 @@ export class User {
     updateLessonProgress(lessonId: string, score: number, quizScores: number[], assignmentId: string = null): [string, string] {
         var reward: [string, string]
         const config = Config.i
+        if (this._lessonProgressMap.has(lessonId)) {
+            const lessonProgress = this._lessonProgressMap.get(lessonId)
+            lessonProgress.assignmentIds.push(Config.i.lesson.assignmentId);
+            lessonProgress.attempts++
+            lessonProgress.date = new Date()
+            if (score > lessonProgress.score) {
+                lessonProgress.score = score;
+                if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
+                    reward = [REWARD_TYPES[2], Config.i.lesson.image]
+                }
+            }
+            if (Config.i.lesson.type == EXAM && score < MIN_PASS) {
+                // attempted challenge twice but did not pass
+
+            }
+        } else {
+            if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
+                reward = [REWARD_TYPES[2], Config.i.lesson.image]
+            }
+            this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1, Config.i.course.id, Config.i.lesson.assignmentId));
+        }
         if (lessonId == config.course.id + '_PreQuiz') {
             const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
             if (quizChapter) {
@@ -496,28 +517,6 @@ export class User {
                 cpm.updateChapterId(chapters[Math.floor((chapters.length - 1) * total)].id);
             }
         } else {
-            if (this._lessonProgressMap.has(lessonId)) {
-                const lessonProgress = this._lessonProgressMap.get(lessonId)
-                lessonProgress.assignmentIds.push(Config.i.lesson.assignmentId);
-                lessonProgress.attempts++
-                lessonProgress.date = new Date()
-                if (score > lessonProgress.score) {
-                    lessonProgress.score = score;
-                    if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
-                        reward = [REWARD_TYPES[2], Config.i.lesson.image]
-                    }
-                }
-                if (Config.i.lesson.type == EXAM && score < MIN_PASS) {
-                    // attempted challenge twice but did not pass
-
-                }
-            } else {
-                if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
-                    reward = [REWARD_TYPES[2], Config.i.lesson.image]
-                }
-                this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1, Config.i.course.id, Config.i.lesson.assignmentId));
-            }
-
             if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
                 // open the next lesson
                 const lessons = Config.i.chapter.lessons
