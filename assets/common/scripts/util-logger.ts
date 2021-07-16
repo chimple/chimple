@@ -531,6 +531,8 @@ export default class UtilLogger {
                 cc.sys.isNative &&
                 cc.sys.os == cc.sys.OS_ANDROID
             ) {
+                if (email.indexOf("@") === -1) email += '@gmail.com';
+
                 return jsb.reflection.callStaticMethod(
                     LOGGER_CLASS,
                     LOGIN_METHOD,
