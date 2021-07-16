@@ -91,8 +91,8 @@ export default class OtpDialog extends cc.Component {
                        }
                         var _assignments = response.data.profile.lessonProgressMap[key][ASSIGNMENTIDS]
                         var _date = response.data.profile.lessonProgressMap[key][DATE]
-                        user.lessonProgressMap.set(key, new LessonProgressClass(this.score,1,_course,_assignments[_assignments.length-1],_date));
-                        console.log('########'+user.lessonProgressMap.get(key).date)            
+                        user.lessonProgressMap.set(key, new LessonProgressClass(this.score,1,_course,_assignments.toString(),_date));
+                     
                     }
                     UtilLogger.processLinkStudent(
                         response.data.sectionId,
