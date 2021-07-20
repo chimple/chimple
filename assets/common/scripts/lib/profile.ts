@@ -327,7 +327,6 @@ export class User {
 
     set lessonProgressMap(lessonProgressMap: Map<string, LessonProgress>) {
         this._lessonProgressMap = lessonProgressMap;
-        this.storeUser();
     }
 
     get lessonProgressMap(): Map<string, LessonProgress> {
@@ -867,6 +866,15 @@ export class User {
         const userIds = User.getUserIds();
         let index = userIds.indexOf(id);
         userIds.splice(index, 1);
+        cc.sys.localStorage.setItem(USER_ID, JSON.stringify(userIds));
+    }
+    static replaceUserID(oldId: string,newId: string)
+    {
+        cc.sys.localStorage.removeItem(oldId);
+        const userIds = User.getUserIds();
+        let index = userIds.indexOf(oldId);
+        userIds.splice(index, 1);
+        userIds.push(newId);
         cc.sys.localStorage.setItem(USER_ID, JSON.stringify(userIds));
     }
 

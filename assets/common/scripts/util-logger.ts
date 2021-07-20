@@ -1,5 +1,5 @@
 import { ASSET_LOAD_METHOD, firebaseConfigWeb, Mode } from "./lib/constants";
-import Profile, { CURRENTMODE, User } from "./lib/profile";
+import Profile, { CURRENTMODE, LessonProgressClass, User } from "./lib/profile";
 import { AcceptTeacherRequest } from "./services/ServiceApi";
 import { ACCEPT_TEACHER_REQUEST } from "../../chimple";
 
@@ -94,6 +94,10 @@ const LOG_DAILY_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/l
 const USER_ID = "userId";
 const DEVICE_ID = "deviceId";
 const TIMESTAMP = "timeStamp";
+const SCORE = "score";
+const COURSE = "course";
+const ASSIGNMENTIDS = 'assignmentIds'
+const DATE = 'date'
 
 export default class UtilLogger {
     private static _storageDirectory = null;
@@ -101,6 +105,7 @@ export default class UtilLogger {
     private static _currentDeviceId = null;
     private static _isfireBaseInitialized: boolean = false;
     private static firebase: any;
+    private static score: number;
 
     public static logEvent(eventInfo: object) {
         try {
@@ -692,9 +697,29 @@ export default class UtilLogger {
                                      studentId: string, schoolName: string,
                                      sectionName: string,
                                      progressId: string,
-                                     otpCode: string = null) {
+                                     otpCode: string = null,
+                                     profile: any = null) {
 
         const user = User.getCurrentUser();
+        if(user != null && !!profile){
+            for (let key in profile.lessonProgressMap) { 
+                var _course = profile.lessonProgressMap[key][COURSE] 
+                if(user.lessonProgressMap.has(key)){
+                   if(user.lessonProgressMap.get(key).score > profile.lessonProgressMap[key][SCORE]) {
+                       this.score = user.lessonProgressMap.get(key).score
+                   }
+                   else{
+                       this.score = profile.lessonProgressMap[key][SCORE]
+                   }
+                }
+               else{
+                 this.score = profile.lessonProgressMap[key][SCORE]
+               }
+                var _assignments = profile.lessonProgressMap[key][ASSIGNMENTIDS]
+                var _date = profile.lessonProgressMap[key][DATE]
+                user.lessonProgressMap.set(key, new LessonProgressClass(this.score,1,_course,_assignments.toString(),_date));                    
+            }
+        }
         if (user != null && !!schoolId && !!sectionId && !!studentId) {
             user.sectionId = sectionId;
             user.schoolId = schoolId;
@@ -702,6 +727,7 @@ export default class UtilLogger {
             user.schoolName = schoolName;
             user.sectionName = sectionName;
             user.isConnected = true;
+            !!progressId ? User.replaceUserID(user.id,progressId) : '';
             user.id = !!progressId ? progressId : user.id;
             user.storeUser();
 
