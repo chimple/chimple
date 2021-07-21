@@ -1,6 +1,19 @@
 {
   "chapters": [
     {
+      "id": "kn_quiz",
+      "image": "kn_quiz.png",
+      "type": "exam",
+      "lessons": [
+        {
+          "id": "kn_PreQuiz",
+          "image": "kn_quiz.png",
+          "name": "ಮೌಲ್ಯಮಾಪನ"
+        }
+      ],
+      "name": "ಪ್ರಶ್ನೆಗಳು"
+    },
+    {
       "id": "kn00",
       "image": "kn00.png",
       "lessons": [
