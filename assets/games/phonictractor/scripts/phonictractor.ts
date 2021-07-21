@@ -157,7 +157,7 @@ export default class PhonicTractor extends Game {
     this.node
       .getChildByName("board")
       .getChildByName("answer_label")
-      .getComponent(cc.Label).string = this.answer;
+      .getComponent(cc.Label).string = Config.wide ? ' ' +  this.answer + ' ' : this.answer;
   }
 
   // @catchError()

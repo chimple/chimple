@@ -146,6 +146,10 @@ export default class Config {
         return Config.getInstance().course.id + '/';
     }
 
+    static get wide(): boolean {
+        return Config.getInstance().course.id == 'kn'
+    }
+
     clear() {
         this.course = null
         this.chapter = null

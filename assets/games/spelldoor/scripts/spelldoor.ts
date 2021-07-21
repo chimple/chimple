@@ -45,6 +45,10 @@ export default class SpellDoor extends Game {
         const positions = this.splitWord(missingPos)
         var numConsonants = parseInt(totalConsonants)
         var numVowels = parseInt(totalVowels)
+        if (Config.wide) {
+            this.dropLayout.getComponent(cc.Layout).spacingX += 30
+            this.choiceLayout.getComponent(cc.Layout).spacingX += 30
+        }
         this.splitWord(word).forEach((val, index, arr) => {
             if (AlphabetUtil.isConsonantOrVowel(val) == LetterType.Consonant) {
                 numConsonants--

@@ -686,7 +686,7 @@ export class User {
                     ['en', new CourseProgressClass()],
                     ['maths', new CourseProgressClass()],
                     ['hi', new CourseProgressClass()],
-                    ['kn', new CourseProgressClass('kn00')],
+                    ['kn', new CourseProgressClass()],
                     ['puzzle', new CourseProgressClass('puzzle00')]
                 ]),
             new Map(),

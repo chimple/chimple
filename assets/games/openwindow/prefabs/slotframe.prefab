@@ -173,7 +173,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 80.04,
-      "height": 151.2
+      "height": 189
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -222,16 +222,19 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
-    "_useOriginalSize": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_string": "A",
     "_N$string": "A",
     "_fontSize": 120,
-    "_lineHeight": 120,
+    "_lineHeight": 150,
     "_enableWrapText": true,
     "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -331,7 +334,7 @@
     "asset": {
       "__uuid__": "837be577-efab-45a6-bea5-869cd987c3ed"
     },
-    "fileId": "faAL0cS3xBUKfbIOY2JuCq",
+    "fileId": "",
     "sync": false
   }
 ]

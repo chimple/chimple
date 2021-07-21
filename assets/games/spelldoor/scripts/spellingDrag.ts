@@ -1,6 +1,7 @@
 import Drag from "../../../common/scripts/drag";
 import { Util } from "../../../common/scripts/util";
 import LessonController from "../../../common/scripts/lessonController";
+import Config from "../../../common/scripts/lib/config";
 
 const { ccclass, property } = cc._decorator;
 
@@ -10,10 +11,14 @@ export default class SpellingDrag extends Drag {
 
     onLoad() {
         super.onLoad()
-        this.label.string = this.node.name
+        this.label.string = Config.wide ? ' ' + this.node.name + ' ' : this.node.name
         Util.loadsPhonicsOrLetter(this.node.name.toLowerCase(), (clip) => {
             this._soundClip = clip
         })
+    }
+
+    start() {
+        this.label.node.width = this.label.node.width * 2
     }
 
     onTouchStart(touch: cc.Touch) {

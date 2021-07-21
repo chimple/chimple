@@ -164,6 +164,7 @@ export default class OpenWindow extends Game {
             slotWindow.scale = 1.25;
             layoutComponent.resizeMode = cc.Layout.ResizeMode.CONTAINER;
         }
+        if (Config.wide) layoutComponent.spacingX = 45
         this.addFrames(slotLayout, words);
         this.node.addChild(slotWindow);
         this._slots = this._slots.reverse();
@@ -175,6 +176,8 @@ export default class OpenWindow extends Game {
         const scrollableWindow = cc.instantiate(this.scrollWindow);
         const contentSlot = scrollableWindow.getChildByName('contentNode');
         this.addContent(contentSlot, word);
+        const curtainNode = scrollableWindow.getChildByName('curtain_node');
+        if (Config.wide) curtainNode.scale = 1.4
         parent.addChild(scrollableWindow);
         this._slots.push(scrollableWindow);
         this._words.push(word);
@@ -294,7 +297,7 @@ export default class OpenWindow extends Game {
         const labelNode = slotItem.getChildByName('label');
         labelNode.color = color;
         const label = labelNode.getComponent(cc.Label);
-        label.string = w;
+        label.string = Config.wide ? ' ' + w + ' ' : w;
         const outLine = labelNode.addComponent(cc.LabelOutline);
         outLine.width = 2;
 
