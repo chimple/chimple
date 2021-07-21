@@ -7,10 +7,6 @@ import {AcceptTeacherRequest} from "../../../common/scripts/services/ServiceApi"
 import UtilLogger from "../../../common/scripts/util-logger";
 import {ACCEPT_TEACHER_REQUEST} from "../../../chimple";
 
-const SCORE = "score";
-const COURSE = "course";
-const ASSIGNMENTIDS = 'assignmentIds'
-const DATE = 'date'
 @ccclass
 export default class OtpDialog extends cc.Component {
     @property(cc.EditBox)
@@ -30,8 +26,6 @@ export default class OtpDialog extends cc.Component {
 
     @property(cc.Label)
     parentLabel: cc.Label = null;
-
-    score: number;
 
     protected onLoad() {
         this.title.string = Util.i18NText("We sent an OTP to verify your number.");
@@ -74,26 +68,7 @@ export default class OtpDialog extends cc.Component {
             // send request
             try {
                 const response = await ServiceConfig.getI().handle.linkStudent(studentId, otpCode);
-                var user=User.getCurrentUser();
                 if (response && response.ok) {
-                    for (let key in response.data.profile.lessonProgressMap) { 
-                        var _course = response.data.profile.lessonProgressMap[key][COURSE] 
-                        if(user.lessonProgressMap.has(key)){
-                           if(user.lessonProgressMap.get(key).score > response.data.profile.lessonProgressMap[key][SCORE]) {
-                               this.score = user.lessonProgressMap.get(key).score
-                           }
-                           else{
-                               this.score =  response.data.profile.lessonProgressMap[key][SCORE]
-                           }
-                        }
-                       else{
-                         this.score = response.data.profile.lessonProgressMap[key][SCORE]
-                       }
-                        var _assignments = response.data.profile.lessonProgressMap[key][ASSIGNMENTIDS]
-                        var _date = response.data.profile.lessonProgressMap[key][DATE]
-                        user.lessonProgressMap.set(key, new LessonProgressClass(this.score,1,_course,_assignments.toString(),_date));
-                     
-                    }
                     UtilLogger.processLinkStudent(
                         response.data.sectionId,
                         response.data.schoolId,
@@ -101,7 +76,8 @@ export default class OtpDialog extends cc.Component {
                         response.data.schoolName,
                         response.data.sectionName,
                         response.data.progressId,
-                        otpCode);
+                        otpCode,
+                        response.data.profile);
                     const s = response.data.schoolName ? response.data.schoolName : '';
                     const sec = response.data.sectionName ? response.data.sectionName : '';
                     this.parentLabel.string = `Connected to ${s} ${sec}`;
