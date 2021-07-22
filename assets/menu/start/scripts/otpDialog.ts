@@ -1,7 +1,7 @@
 import ccclass = cc._decorator.ccclass;
 import property = cc._decorator.property;
 import {Util} from "../../../common/scripts/util";
-import {LessonProgressClass, User} from "../../../common/scripts/lib/profile";
+import Profile, {CONTACT, DIALING_CODE, User} from "../../../common/scripts/lib/profile";
 import {ServiceConfig} from "../../../common/scripts/services/ServiceConfig";
 import {AcceptTeacherRequest} from "../../../common/scripts/services/ServiceApi";
 import UtilLogger from "../../../common/scripts/util-logger";
@@ -61,13 +61,17 @@ export default class OtpDialog extends cc.Component {
     async onSendLinkStudentRequest() {
         const studentId: string = User.getCurrentUser().id;
         const otpCode: string = this.editBox.string;
+        const user = User.getCurrentUser();
+        const phoneNumber = !!Profile.getValue(CONTACT) ? Profile.getValue(CONTACT): '';
+        const dial_code = !!Profile.getValue(DIALING_CODE) ? Profile.getValue(DIALING_CODE): '';
+
         if (!!studentId && !!otpCode) {
             this.confirmBtn.interactable = false;
             this.errLabel.string = "";
 
             // send request
             try {
-                const response = await ServiceConfig.getI().handle.linkStudent(studentId, otpCode);
+                const response = await ServiceConfig.getI().handle.linkStudent(studentId, otpCode,phoneNumber,user.age,user.name,dial_code);
                 if (response && response.ok) {
                     UtilLogger.processLinkStudent(
                         response.data.sectionId,

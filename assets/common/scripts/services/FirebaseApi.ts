@@ -210,7 +210,7 @@ export class FirebaseApi implements ServiceApi {
         return results;
     }
 
-    async linkStudent(studentId: string, code: string): Promise<any> {
+    async linkStudent(studentId: string, code: string,phoneNumber: string = null,age: number = null,name: string = null,countryCode:string = null): Promise<any> {
         if (studentId && studentId.length > 0 &&
             code && code.length > 0) {
             let sendCode = Number(code);
@@ -219,7 +219,11 @@ export class FirebaseApi implements ServiceApi {
                 body: {
                     studentId,
                     code: sendCode,
-                    version: 2
+                    version: 2,
+                    phoneNumber: phoneNumber,
+                    age: age,
+                    name: name,
+                    countryCode: countryCode
                 }
             };
             return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
