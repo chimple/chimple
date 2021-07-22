@@ -62,9 +62,8 @@ export default class OtpDialog extends cc.Component {
         const studentId: string = User.getCurrentUser().id;
         const otpCode: string = this.editBox.string;
         const user = User.getCurrentUser();
-        const phoneNumber = !!Profile.getValue(CONTACT) ? Profile.getValue(CONTACT): '';
         const dial_code = !!Profile.getValue(DIALING_CODE) ? Profile.getValue(DIALING_CODE): '';
-
+        const phoneNumber = !!Profile.getValue(CONTACT) ? Profile.getValue(CONTACT).substring(dial_code.length): '';
         if (!!studentId && !!otpCode) {
             this.confirmBtn.interactable = false;
             this.errLabel.string = "";
