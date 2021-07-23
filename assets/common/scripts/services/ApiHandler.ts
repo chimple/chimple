@@ -39,8 +39,8 @@ export class ApiHandler {
         return await this.s.listAssignments(studentId, limit);
     }
 
-    public async linkStudent(studentId: string, code: string) {
-        return await this.s.linkStudent(studentId, code);
+    public async linkStudent(studentId: string, code: string,phoneNumber: string = null,age: number = null,name: string = null,countryCode:string = null) {
+        return await this.s.linkStudent(studentId, code,phoneNumber,age,name,countryCode);
     }
 
     public async syncFailedProgresses(infos: UpdateProgressInfo[]): Promise<any> {

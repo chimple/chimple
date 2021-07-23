@@ -14,7 +14,7 @@ export interface ServiceApi {
 
     listAssignments(studentId: string, limit: number): Promise<any>;
 
-    linkStudent(studentId: string, code: string): Promise<any>;
+    linkStudent(studentId: string, code: string,phoneNumber: string,age: number ,name: string ,countryCode:string): Promise<any>;
 
     syncFailedProgresses(infos: UpdateProgressInfo[]): Promise<any>;
 }
