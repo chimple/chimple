@@ -138,6 +138,7 @@ export default class Chimple extends cc.Component {
         //         cc.assetManager.cacheManager.removeCache(key)
         //     })
         // }
+        cc.debug.setDisplayStats(false);
         ServiceConfig.getInstance(APIMode.FIREBASE);
         cc.macro.ENABLE_MULTI_TOUCH = false
         UtilLogger.initPluginFirebase();
