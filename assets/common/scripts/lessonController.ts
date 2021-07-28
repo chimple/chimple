@@ -580,4 +580,9 @@ export default class LessonController extends cc.Component {
         return LessonController.friend;
     }
 
+    onClickHelpVideoButton() {
+        UtilLogger.launchYoutube('Ez9oouE2pOE')
+    }
+
+
 }

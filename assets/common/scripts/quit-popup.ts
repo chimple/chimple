@@ -1,6 +1,7 @@
 import LessonController from "./lessonController";
 import Config from "./lib/config";
 import { Util } from "./util";
+import UtilLogger from "./util-logger";
 
 const { ccclass, property } = cc._decorator;
 
@@ -13,10 +14,15 @@ export default class QuitPopup extends cc.Component {
     @property(cc.Label)
     exitLabel: cc.Label = null;
 
+    @property(cc.Label)
+    videoLabel: cc.Label = null;
+
+
     onLoad() {
         this.inputEventBlocker.zIndex = 2
         this.node.zIndex = 3
-        this.exitLabel.string = Util.i18NText('EXIT ?');
+        this.exitLabel.string = Util.i18NText('Exit Game');
+        this.videoLabel.string = Util.i18NText('Watch Help Video');
     }
 
     onClickYesButton() {
