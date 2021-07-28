@@ -572,16 +572,12 @@ export default class LessonController extends cc.Component {
         }
 
     }
- 
+
     public static getFriend(): Friend {
         // const lessonNode = cc.Canvas.instance.node
         // const lessonComp = lessonNode.getComponent(LessonController)
         // return lessonComp.friend
         return LessonController.friend;
-    }
-    
-    onClickHelp() {
-        UtilLogger.launchYoutube('Ez9oouE2pOE')
     }
 
 }
