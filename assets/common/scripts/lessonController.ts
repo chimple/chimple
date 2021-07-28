@@ -21,6 +21,7 @@ import { Util } from "./util";
 import UtilLogger from "./util-logger";
 import Scorecard from "../scorecard/scripts/scorecard";
 import { APIMode, ServiceConfig } from "./services/ServiceConfig";
+import { YOUTUBE_LINKS } from "./lib/youtubeLinks";
 
 const {ccclass, property} = cc._decorator;
 
@@ -581,7 +582,7 @@ export default class LessonController extends cc.Component {
     }
 
     onClickHelpVideoButton() {
-        UtilLogger.launchYoutube('Ez9oouE2pOE')
+        UtilLogger.launchYoutube(YOUTUBE_LINKS[Config.i.game])
     }
 
 
