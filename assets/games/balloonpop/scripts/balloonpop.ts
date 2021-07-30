@@ -1,5 +1,7 @@
 import Game from "../../../common/scripts/game";
+import LessonController from "../../../common/scripts/lessonController";
 import Config from "../../../common/scripts/lib/config";
+import { Util } from "../../../common/scripts/util";
 import BalloonBurst from "./balloon-burst";
 
 
@@ -60,6 +62,7 @@ export default class Balloonpop extends Game {
 
         cc.tween(display)
         .to(1, { scale: 0.5}, {easing: "quintInOut"}).call(()=>{
+            this.playAudio()
             display.runAction(
                 cc.sequence(
                     cc.spawn(
@@ -92,16 +95,37 @@ export default class Balloonpop extends Game {
         }
     }
 
-    createSingleBallon(xPos:number){            
-        let ballon = cc.instantiate(this.balloon);
-        this.node.addChild(ballon);
-        ballon.getComponentInChildren(cc.Label).string = this.currentConfig.options[Math.floor(0 + Math.random() * (this.currentConfig.options.length - 0))]
-        ballon.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8))+((ballon.width)) * Math.floor((1 + Math.random() * (this.maxBalloon -1))), -550);
-        let currentColor = cc.color(Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255))
-        ballon.getChildByName("balloon_texture").color = currentColor;
-        ballon.addComponent(cc.RigidBody).gravityScale = -0.5 + Math.random() * (-0.1 - (-0.5));
-        ballon.getChildByName("burst_node").color = currentColor;
-   
+    createSingleBallon(xPos:number){
+        if (this.node.children.length < 20) {
+            let ballon = cc.instantiate(this.balloon);
+            this.node.addChild(ballon);
+            ballon.getComponentInChildren(cc.Label).string = this.currentConfig.options[Math.floor(0 + Math.random() * (this.currentConfig.options.length - 0))]
+            ballon.setPosition((-(cc.winSize.width/2)+(cc.winSize.height/8))+((ballon.width)) * Math.floor((1 + Math.random() * (this.maxBalloon -1))), -550);
+            let currentColor = cc.color(Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255),Math.round((Math.random() * (255 - 50) + 50)%255))
+            ballon.getChildByName("balloon_texture").color = currentColor;
+            if (BalloonBurst.letterBursted < 0.3) {
+                ballon.addComponent(cc.RigidBody).gravityScale =-0.2 + Math.random() * (-0.1 - (-0.2));
+            } else {
+                ballon.addComponent(cc.RigidBody).gravityScale =-0.6+ Math.random() * (-0.1 - (-0.6))
+            }
+            ballon.getChildByName("burst_node").color = currentColor;
+        }        
+    }
+
+    playAudio() {
+        if((this.currentConfig.answer >= "1" && this.currentConfig.answer <= "99")){
+            Util.loadNumericSound(this.currentConfig.answer, (clip) => {
+                if(clip != null){
+                    LessonController.getFriend().speak(clip);
+                }
+            });
+        } else {
+            Util.loadsLetter(this.currentConfig.answer.toLowerCase(), (clip) =>{
+                if(clip != null){
+                    LessonController.getFriend().speak(clip);
+                }
+            });
+        }
     }
 
     displayProgressBar(){
