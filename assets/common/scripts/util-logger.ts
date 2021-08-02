@@ -2,6 +2,7 @@ import { ASSET_LOAD_METHOD, firebaseConfigWeb, Mode } from "./lib/constants";
 import Profile, { CURRENTMODE, LessonProgressClass, User } from "./lib/profile";
 import { AcceptTeacherRequest } from "./services/ServiceApi";
 import { ACCEPT_TEACHER_REQUEST } from "../../chimple";
+import Config from "./lib/config";
 
 const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
 
@@ -717,6 +718,11 @@ export default class UtilLogger {
                }
                 var _assignments = profile.lessonProgressMap[key][ASSIGNMENTIDS]
                 var _date = profile.lessonProgressMap[key][DATE]
+                if(key == _course + '_PreQuiz'){
+                    const cpm = user.courseProgressMap.get(_course)
+                    cpm.updateChapterId(_course+'00');
+                    user.courseProgressMap.get(_course).lessonPlanIndex++
+                }
                 user.lessonProgressMap.set(key, new LessonProgressClass(this.score,1,_course,_assignments.toString(),_date));                    
             }
         }
