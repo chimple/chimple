@@ -2,7 +2,6 @@ import { ASSET_LOAD_METHOD, firebaseConfigWeb, Mode } from "./lib/constants";
 import Profile, { CURRENTMODE, LessonProgressClass, User } from "./lib/profile";
 import { AcceptTeacherRequest } from "./services/ServiceApi";
 import { ACCEPT_TEACHER_REQUEST } from "../../chimple";
-import Config from "./lib/config";
 
 const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
 
