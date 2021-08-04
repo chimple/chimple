@@ -400,7 +400,38 @@ public class FirebaseOperations {
     }
 
     private Student createStudent(String schoolId, String sectionId, QueryDocumentSnapshot s, boolean isNew) {
-        Student student = s.toObject(Student.class);
+        Student student = new Student();
+        if(s.getData().get("countryCode")!=null){
+            student.setCountryCode(s.getData().get("countryCode").toString());
+        }
+        if(s.getData().get("gender")!=null){
+            student.setGender(s.getData().get("gender").toString());
+        }
+        if(s.getData().get("image")!=null){
+            student.setImage(s.getData().get("image").toString());
+        }
+        if(s.getData().get("link")!=null){
+            student.setLink((Boolean)s.getData().get("link"));
+        }
+       if(s.getData().get("name")!=null){
+           student.setName(s.getData().get("name").toString());
+       }
+        if(s.getData().get("password")!=null){
+            student.setPassword(s.getData().get("password").toString());
+        }
+        if(s.getData().get("phoneNumber")!=null){
+            student.setPhoneNumber(s.getData().get("phoneNumber").toString());
+        }
+        if(s.getData().get("progressId")!=null){
+            student.setProgressId(s.getData().get("progressId").toString());
+        }
+        if(s.getData().get("age") == null){
+            student.setAge(0);
+        }
+        else {
+            Log.d(TAG, "created student: " +s.getData().get("age") );
+            student.setAge(Integer.parseInt(s.getData().get("age").toString()));
+        }
         HashMap profile = (HashMap) s.get("profile");
         if (profile != null && !profile.isEmpty()) {
             String profileInfo = new Gson().toJson(profile);
