@@ -1,0 +1,42 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "icon_highlight",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.65,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "props": {
+      "scale": [
+        {
+          "frame": 0,
+          "value": {
+            "__type__": "cc.Vec2",
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "frame": 0.31666666666666665,
+          "value": {
+            "__type__": "cc.Vec2",
+            "x": 1.5,
+            "y": 1.5
+          },
+          "curve": "cubicIn"
+        },
+        {
+          "frame": 0.65,
+          "value": {
+            "__type__": "cc.Vec2",
+            "x": 1,
+            "y": 1
+          }
+        }
+      ]
+    }
+  },
+  "events": []
+}
