@@ -702,8 +702,8 @@ export default class UtilLogger {
 
         const user = User.getCurrentUser();
         if(user != null && !!profile){
-            for (let key in profile.lessonProgressMap) { 
-                var _course = profile.lessonProgressMap[key][COURSE] 
+            for (let key in profile.lessonProgressMap) {
+                var _course = profile.lessonProgressMap[key][COURSE]
                 if(user.lessonProgressMap.has(key)){
                    if(user.lessonProgressMap.get(key).score > profile.lessonProgressMap[key][SCORE]) {
                        this.score = user.lessonProgressMap.get(key).score
@@ -722,10 +722,10 @@ export default class UtilLogger {
                     cpm.updateChapterId(_course+'00');
                     user.courseProgressMap.get(_course).lessonPlanIndex++
                 }
-                user.lessonProgressMap.set(key, new LessonProgressClass(this.score,1,_course,_assignments.toString(),_date));                    
+                user.lessonProgressMap.set(key, new LessonProgressClass(this.score,1,_course,_assignments.toString(),_date));
             }
         }
-        if (user != null && !!schoolId && !!sectionId && !!studentId) {
+        if (user != null && !!schoolId && !!sectionId && !!studentId && !user.isConnected) {
             user.sectionId = sectionId;
             user.schoolId = schoolId;
             user.studentId = studentId;

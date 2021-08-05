@@ -142,7 +142,7 @@ export class FirebaseApi implements ServiceApi {
             const schoolId: string = jsonResult.schoolId;
             const sectionName: string = jsonResult.sectionName;
             const schoolName: string = jsonResult.schoolName;
-            UtilLogger.processLinkStudent(sectionId, schoolId, studentId, schoolName, sectionName);
+            UtilLogger.processLinkStudent(sectionId, schoolId, studentId, schoolName, sectionName, null);
         }
 
         console.log('assignments query result', jsonResult)
