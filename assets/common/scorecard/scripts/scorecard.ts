@@ -40,15 +40,17 @@ export default class Scorecard extends cc.Component {
     @property(cc.Node)
     continueButton: cc.Node
 
-    @property(cc.Node)
-    downloadButton: cc.Node
-
     reward: [string, string]
 
     onLoad() {
-        if(!cc.sys.isNative && Config.isMicroLink){
-            this.downloadButton.active = true;
-        }
+       if(!cc.sys.isNative && Config.isMicroLink){
+            cc.resources.load(`items/playstore`, (err, sp) => {
+                // @ts-ignore
+                this.continueButton.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
+                });
+            this.continueButton.getChildByName('Label').active=false
+            this.continueButton.parent.getChildByName('playstore_label').active=true
+     }
         this.label.string = Util.i18NText(this.text);
         if (this.score > 25) this.star1.spriteFrame = this.active
         if (this.score > 50) this.star2.spriteFrame = this.active
@@ -93,12 +95,11 @@ export default class Scorecard extends cc.Component {
         if(cc.sys.isNative && Config.isMicroLink){
             Config.isMicroLink = false;
             Config.i.pushScene('menu/start/scenes/start', 'menu', null, true);
-        }else{
+        }else if(!cc.sys.isNative && Config.isMicroLink){
+            cc.sys.openURL("https://play.google.com/store/apps/details?id=org.chimple.bahama&hl=en_IN");
+        }
+        else{
             Config.i.popScene()
         } 
-    }
-
-    onDownloadClick(){
-        cc.sys.openURL("https://play.google.com/store/apps/details?id=org.chimple.bahama&hl=en_IN");
     }
 }

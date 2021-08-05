@@ -2,7 +2,7 @@ export const GAME_CONFIGS = {
     "letterpair": {
         "bundle": "letterpair",
         "prefab": "prefabs/letterpair",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "fDwymtxwy9s",
     },
     "balloonpop": {
         "bundle": "balloonpop",
@@ -17,7 +17,7 @@ export const GAME_CONFIGS = {
     "bubbletype": {
         "bundle": "bubbletype",
         "prefab": "prefabs/bubbletype",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "MjFTkxrMbdc",
     },
     "spelldoor": {
         "bundle": "spelldoor",
@@ -43,7 +43,7 @@ export const GAME_CONFIGS = {
     "grid": {
         "bundle": "grid",
         "prefab": "prefabs/grid",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "pDsB_CZxX5E",
     },
     "tag": {
         "bundle": "tag",
@@ -125,7 +125,7 @@ export const GAME_CONFIGS = {
         "bundle": "storyquiz",
         "prefab": "prefabs/storyquiz",
         "fontName": "en-main",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "JOPV3cMwE_A",
     },
     "youtube": {
         "bundle": "youtube",
@@ -136,7 +136,7 @@ export const GAME_CONFIGS = {
     "monster": {
         "bundle": "monster",
         "prefab": "prefabs/monster",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "YzzfbTQ61I4",
     },
     "calculator": {
         "bundle": "calculator",
@@ -146,7 +146,7 @@ export const GAME_CONFIGS = {
     "rowblocks": {
         "bundle": "rowblocks",
         "prefab": "prefabs/rowblocks",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "3b-Eqm31ITA",
     },
     "matchbox": {
         "bundle": "matchbox",
@@ -161,7 +161,7 @@ export const GAME_CONFIGS = {
     "groupsum": {
         "bundle": "groupsum",
         "prefab": "prefab/groupsum",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "cuBJc_OfYSo",
     },
     "nimbletable": {
         "bundle": "nimbletable",
@@ -171,7 +171,7 @@ export const GAME_CONFIGS = {
     "foodjar": {
         "bundle": "foodjar",
         "prefab": "prefabs/foodjar",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "G8xRZoGMtt8",
     },
     "writenumber": {
         "bundle": "writenumber",
@@ -183,7 +183,7 @@ export const GAME_CONFIGS = {
         "bundle": "writeset",
         "prefab": "prefabs/writeset",
         "fontName": "en-main",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "HVBzuMqbLLw",
     },
     "numberboard": {
         "bundle": "board",
@@ -218,7 +218,7 @@ export const GAME_CONFIGS = {
     "blender": {
         "bundle": "blender",
         "prefab": "prefabs/blender",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "uYHbJ191884",
     },
     "sequencebox": {
         "bundle": "sequencebox",
@@ -233,7 +233,7 @@ export const GAME_CONFIGS = {
     "taprise": {
         "bundle": "taprise",
         "prefab": "prefabs/taprise",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "-7dYda3w1Rg",
     },
     "total": {
         "bundle": "total",
@@ -243,7 +243,7 @@ export const GAME_CONFIGS = {
     "checkerblocks": {
         "bundle": "checkerblocks",
         "prefab": "prefabs/checkerblocks",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "SzV4lhawfPY",
     },
     "ordertractor": {
         "bundle": "ordertractor",
@@ -253,7 +253,7 @@ export const GAME_CONFIGS = {
     "balancing": {
         "bundle": "balancing",
         "prefab": "prefabs/balancing",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "H2nLW8CyfOw",
     },
     "shapetractor": {
         "bundle": "shapetractor",
@@ -268,71 +268,71 @@ export const GAME_CONFIGS = {
     "quizliteracy": {
         "bundle": "quiz",
         "prefab": "quizliteracy/prefabs/quizliteracy",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "rNyr6GPVjH4",
     },
     "quizmaths": {
         "bundle": "quiz",
         "prefab": "quizmaths/prefabs/quizmaths",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "WF90chix1jU",
     },
     "arrangeletters": {
         "bundle": "arrangeletters",
         "prefab": "prefabs/arrangeletters",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "bcLLqULE5_0",
     },
     "dragthealphabet": {
         "bundle": "dragthealphabet",
         "prefab": "prefabs/dragthealphabet",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "2mU3FDZMgoY",
     },
     "jungle": {
         "bundle": "platform",
         "prefab": "prefabs/assemble/Platform",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "Fxbmzp7rvkE",
     },
     "beach": {
         "bundle": "platform",
         "prefab": "prefabs/beach/Platform",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "Fxbmzp7rvkE",
     },
     "city": {
         "bundle": "platform",
         "prefab": "prefabs/city/Platform",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "Fxbmzp7rvkE",
     },
     "desert": {
         "bundle": "platform",
         "prefab": "prefabs/desert/Platform",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "Fxbmzp7rvkE",
     },
     "farm": {
         "bundle": "platform",
         "prefab": "prefabs/farm/Platform",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "Fxbmzp7rvkE",
     },
     "garden": {
         "bundle": "platform",
         "prefab": "prefabs/garden/Platform",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "Fxbmzp7rvkE",
     },
     "playground": {
         "bundle": "platform",
         "prefab": "prefabs/playground/Platform",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "Fxbmzp7rvkE",
     },
     "sea": {
         "bundle": "platform",
         "prefab": "prefabs/sea/Platform",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "Fxbmzp7rvkE",
     },
     "sky": {
         "bundle": "platform",
         "prefab": "prefabs/sky/Platform",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "Fxbmzp7rvkE",
     },
     "snow": {
         "bundle": "platform",
         "prefab": "prefabs/snow/Platform",
-        "youtube": "Ez9oouE2pOE",
+        "youtube": "Fxbmzp7rvkE",
     }
 }
