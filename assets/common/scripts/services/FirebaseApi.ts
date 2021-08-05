@@ -9,8 +9,9 @@ import {
     FIREBASE_UPDATE_HOME_TEACHER_URL, FIREBASE_UPDATE_PROGRESS_URL, LIST_ASSIGNMENTS, UPDATE_PROGRESS_URL
 } from "../domain/parseConstants";
 import {ServiceConfig} from "./ServiceConfig";
-import {LessonProgress, User} from "../lib/profile";
+import Profile, {CURRENTMODE, LessonProgress, User} from "../lib/profile";
 import UtilLogger from "../util-logger";
+import {Mode} from "../lib/constants";
 
 export class FirebaseApi implements ServiceApi {
     public static i: FirebaseApi;
@@ -120,6 +121,7 @@ export class FirebaseApi implements ServiceApi {
         const requestParams: RequestParams = {
             url: FIREBASE_LIST_ASSIGNMENTS + studentId
         };
+        let mode = parseInt(Profile.getValue(CURRENTMODE));
         let jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader()) || [];
         if (!!jsonResult && 'link' in jsonResult && !jsonResult.link) {
             const user = User.getCurrentUser();
@@ -136,7 +138,7 @@ export class FirebaseApi implements ServiceApi {
                 user.isConnected = false;
                 user.storeUser();
             }
-        } else if (!!jsonResult.studentId) {
+        } else if (!!jsonResult.studentId && mode != Mode.School) {
             const studentId: string = jsonResult.studentId;
             const sectionId: string = jsonResult.sectionId;
             const schoolId: string = jsonResult.schoolId;
