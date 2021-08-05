@@ -47,10 +47,10 @@ export default class Scorecard extends cc.Component {
 
     onLoad() {
            if(!cc.sys.isNative && Config.isMicroLink){
-            this.continueButton.active = false
-            this.downloadButton.active = true;
-            this.downloadButton.parent.getChildByName('web_scorecard_bg').active = true;
-            this.downloadButton.parent.getChildByName('playstore_label').active = true;
+                this.continueButton.active = false
+                this.downloadButton.active = true;
+                this.downloadButton.parent.getChildByName('web_scorecard_bg').active = true;
+                this.downloadButton.parent.getChildByName('playstore_label').active = true;
              }
         this.label.string = Util.i18NText(this.text);
         if (this.score > 25) this.star1.spriteFrame = this.active
