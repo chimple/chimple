@@ -74,6 +74,7 @@ export default class LessonController extends cc.Component {
     gameTime: number = 0;
     quizTime: number = 0;
     quizScores: number[] = [];
+    tempWrongMoves: number = 0;
 
     static bundles: cc.AssetManager.Bundle[] = [];
     static friend: Friend = null;
@@ -510,6 +511,7 @@ export default class LessonController extends cc.Component {
     }
 
     private setupEventHandlers() {
+        const iconHighlightAnimation = this.backButton.getComponent(cc.Animation);
         this.gameNode.on('nextProblem', (replaceScene: boolean = true) => {
             this.problemEnd(replaceScene, true);
         });
@@ -518,16 +520,22 @@ export default class LessonController extends cc.Component {
         });
         this.gameNode.on('correct', () => {
             this.rightMoves++;
+            this.tempWrongMoves = 0;
+            iconHighlightAnimation.stop('icon_highlight');
             LessonController.friend.speak(this.correctAudio, null, true, 'happy');
             // Util.playSfx(this.correctAudio);
             // LessonController.friend.playHappyAnimation(1)
         });
         this.gameNode.on('wrong', () => {
             this.wrongMoves++;
+            this.tempWrongMoves++;
+            if (this.tempWrongMoves > 1) {
+            iconHighlightAnimation.play('icon_highlight');
+            }
             LessonController.friend.speak(this.wrongAudio, null, true, 'sad');
             // Util.playSfx(this.wrongAudio);
             // LessonController.friend.playSadAnimation(1)
-
+    
         });
         this.gameNode.on(QUIZ_ANSWERED, (isAnsweredCorrectly: boolean) => {
             if (isAnsweredCorrectly) {
