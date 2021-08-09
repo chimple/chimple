@@ -12,7 +12,7 @@ export default class PhonicTractorDrag extends Drag {
 
     onLoad() {
         this.label.string = Config.wide ? ' ' + this.node.name + ' ' : this.node.name
-        Util.loadGameSound(this.node.name.toLowerCase(), (clip) => {
+        Util.loadGameAudioOrPhonics(this.node.name.toLowerCase(), (clip) => {
             if (clip != null) {
                 this._soundClip = clip
             }

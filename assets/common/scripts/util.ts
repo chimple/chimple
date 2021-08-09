@@ -339,6 +339,25 @@ export class Util {
         );
     }
 
+    public static loadGameAudioOrPhonics(audio: string, callback: Function) {
+        audio = audio.replace(".m4a", "");
+        audio = !audio.endsWith(".mp3") ? audio + ".mp3" : audio;
+        const phonicsLoc = Config.dir + PHONIC_VOICE + audio;
+        Util.load(
+            phonicsLoc,
+            (err, clip) => {
+                if (err != null && clip == null) {
+                    this.playGameSound(audio, callback);
+                } else if (!err && clip != null) {
+                    callback(clip)
+                } else {
+                    this.loadGameSound(audio, callback);
+                }
+            },
+            true
+        );
+    }
+
     public static loadTexture(
         path: string,
         callBack: Function,
