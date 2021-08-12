@@ -119,7 +119,7 @@ export default class Start extends cc.Component {
     async onLoad() {
         const user = User.getCurrentUser()
         this.bgHolder.removeAllChildren();
-       
+
        cc.audioEngine.pauseMusic()
         if (!!user && !!user.currentBg) {
             this.setBackground(user.currentBg);
@@ -496,7 +496,7 @@ export default class Start extends cc.Component {
         this.ctx.moveTo(x1, y1)
         this.ctx.bezierCurveTo(x2, y2, x3, y3, x4, y4)
         this.ctx.stroke()
-        
+
         const courseProgressMap = user.courseProgressMap.get(Config.i.course.id);
         courseProgressMap.lessonPlan.forEach((lessonId, index, lessons) => {
             const node: cc.Node = Start.createLessonButton(
@@ -833,13 +833,13 @@ export default class Start extends cc.Component {
                 }
             }
         }
-        if(this.node.active && User.getCurrentUser().isConnected){
-            this.timer += Math.floor(dt * 100);
-            if(this.timer > 300){
-                this.timer = 0;
-                this.showAssignmentPopup(false);
-            }
-        }
+        // if(this.node.active && User.getCurrentUser().isConnected){
+        //     this.timer += Math.floor(dt * 100);
+        //     if(this.timer > 300){
+        //         this.timer = 0;
+        //         this.showAssignmentPopup(false);
+        //     }
+        // }
     }
 }
 
