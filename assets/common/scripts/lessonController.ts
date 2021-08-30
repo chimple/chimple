@@ -81,6 +81,7 @@ export default class LessonController extends cc.Component {
     static gamePrefab: cc.Prefab;
 
     onLoad() {
+        console.log("1111111111111111111111")
         this.loading.width = cc.winSize.width;
         this.loading.zIndex = 10;
         this.progressMonitorNode = cc.instantiate(this.progressMonitor);
