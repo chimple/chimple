@@ -54,7 +54,7 @@ export default class ChapterLessons extends cc.Component {
     static showType: ChapterLessonType = ChapterLessonType.Library
 
     onLoad() {
-            console.log('$$$$$$$$$44')
+
         this.bgHolder.removeAllChildren();
         if (!!User.getCurrentUser().currentBg) {
             this.setBackground(User.getCurrentUser().currentBg);
