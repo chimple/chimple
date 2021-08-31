@@ -129,9 +129,6 @@ export default class ChapterLessons extends cc.Component {
         this.layout.parent.height = this.layout.height
         const color = HEADER_COLORS[config.course.id]
         if (color) this.header.color = new cc.Color().fromHEX(color)
-        setTimeout(() => {
-            this.node.getChildByName('block').active = false
-        },500);
     }
 
     private createLessonButton(lesson: Lesson, open: boolean) {
@@ -166,6 +163,9 @@ export default class ChapterLessons extends cc.Component {
 
     onWhatsappClick() {
         cc.sys.openURL("https://wa.me/919845206203?text=" + User.getCurrentUser().id);
+    }
+    start() {
+        this.node.getChildByName('block').active = false
     }
 }
 
