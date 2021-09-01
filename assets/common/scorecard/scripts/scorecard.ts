@@ -93,6 +93,7 @@ export default class Scorecard extends cc.Component {
     }
  
     onContinueClick() {
+        this.continueButton.getComponent(cc.Button).interactable = false
         if(cc.sys.isNative && Config.isMicroLink){
             Config.isMicroLink = false;
             Config.i.pushScene('menu/start/scenes/start', 'menu', null, true);
