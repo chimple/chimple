@@ -29,14 +29,17 @@ export default class LessonIcon extends cc.Component {
 
     onLoad() {
         const defaultSpriteFrame = this.sprite.spriteFrame
-        this.sprite.spriteFrame = null
-        Util.load(this.lesson.chapter.course.id + '/course/res/icons/' + this.lesson.image, (err, texture) => {
-            if (!err) {
-                this.sprite.spriteFrame = new cc.SpriteFrame(texture);
-            } else {
-                this.sprite.spriteFrame = defaultSpriteFrame
+        this.sprite.spriteFrame = new cc.SpriteFrame();
+            Util.load(this.lesson.chapter.course.id + '/course/res/icons/' + this.lesson.image, (err, texture) => {
+             if(!!this.sprite){
+                if (!err) {
+                    this.sprite.spriteFrame = new cc.SpriteFrame(texture);
+                } else {
+                    this.sprite.spriteFrame = defaultSpriteFrame
+                }
             }
-        })
+            })
+
         if (this.open) {
             const currentLesson = User.getCurrentUser().lessonProgressMap.get(this.lesson.id)
             if (User.getCurrentUser().debug != true) {
