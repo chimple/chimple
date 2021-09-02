@@ -39,6 +39,7 @@ export default class CourseChapters extends cc.Component {
     header: cc.Node = null;
 
     onLoad() {
+        this.node.getChildByName('block').active = true;
         this.setBackground()
         const config = Config.i
         this.title.string = Util.i18NText(config.course.name);
@@ -57,7 +58,11 @@ export default class CourseChapters extends cc.Component {
         const color = HEADER_COLORS[config.course.id]
         if(color) this.header.color = new cc.Color().fromHEX(color)
     }
-
+    
+    start() {
+        this.node.getChildByName('block').active = false
+    }
+    
     private setBackground() {
         this.bgHolder.removeAllChildren();
         const bgprefabName = !!User.getCurrentUser().currentBg ? User.getCurrentUser().currentBg : 'camp'

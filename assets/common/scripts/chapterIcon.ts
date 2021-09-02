@@ -20,13 +20,15 @@ export default class ChapterIcon extends cc.Component {
 
     onLoad() {
         const defaultSpriteFrame = this.sprite.spriteFrame
-        this.sprite.spriteFrame = null
+        this.sprite.spriteFrame = new cc.SpriteFrame();
         Util.load(this.chapter.course.id + '/course/res/icons/' + this.chapter.image, (err, texture) => {
+         if(!!this.sprite){
             if (!err) {
                 this.sprite.spriteFrame = new cc.SpriteFrame(texture);
             } else {
                 this.sprite.spriteFrame = defaultSpriteFrame
             }
+        }
         })
         if (this.open) {
             this.bg.color = new cc.Color().fromHEX(
