@@ -633,7 +633,6 @@ export default class Start extends cc.Component {
                                     friendComp.playAnimation('happy', 1)
                                     const friendPos = cc.v3(this.friend.position)
                                     new cc.Tween().target(this.friend)
-                                        .to(1, {position: cc.v3(0, -200, 0)}, null)
                                         .call(() => {
                                             const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2]);
                                             Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2]);
