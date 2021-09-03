@@ -26,6 +26,7 @@ export default class QuitPopup extends cc.Component {
     }
 
     onClickYesButton() {
+        this.node.getChildByName('quit_bg').getChildByName('exit_game').getComponent(cc.Button).interactable = false;
         Config.isMicroLink = false;
         Config.i.popScene();
         LessonController.getFriend().stopAudio();
@@ -37,6 +38,7 @@ export default class QuitPopup extends cc.Component {
     }
 
     onClickHelpButton() {
+        this.node.getChildByName('quit_bg').getChildByName('help_video').getComponent(cc.Button).interactable = false;
         cc.sys.openURL("https://wa.me/917019270679");
         this.node.active = false;
         this.inputEventBlocker.active = false;
