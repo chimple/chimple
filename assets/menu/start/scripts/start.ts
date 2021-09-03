@@ -399,6 +399,7 @@ export default class Start extends cc.Component {
     }
 
     onLibraryClick() {
+        this.node.getChildByName('library_button').getComponent(cc.Button).interactable = false
         Config.i.pushScene('menu/start/scenes/courseChapters', 'menu')
     }
 
@@ -554,7 +555,7 @@ export default class Start extends cc.Component {
         const gift = cc.instantiate(this.giftBoxPrefab)
         gift.x = Math.pow(1 - 1, 3) * x1 + 3 * Math.pow(1 - 1, 2) * 1 * x2 + 3 * (1 - 1) * Math.pow(1, 2) * x3 + Math.pow(1, 3) * x4
         gift.y = Math.pow(1 - 1, 3) * y1 + 3 * Math.pow(1 - 1, 2) * 1 * y2 + 3 * (1 - 1) * Math.pow(1, 2) * y3 + Math.pow(1, 3) * y4
-        this.content.addChild(gift)
+        this.node.getChildByName('giftBox').addChild(gift)
         if (courseProgressMap.lessonPlanIndex == courseProgressMap.lessonPlan.length) {
             this.giveReward(gift, user)
         }
@@ -569,15 +570,21 @@ export default class Start extends cc.Component {
         this.loading.active = true;
     }
     private giveReward(node: cc.Node, user: User) {
-        this.node.getChildByName('beginQuizPopup').active = false
+        var seq =cc.repeat(
+            cc.sequence(
+                cc.scaleTo(0.3,1.2,1.2), 
+                cc.scaleTo(0.3,1,1)
+            ),100);
+        node.runAction(seq);
+        this.node.getChildByName('beginQuizPopup').active=false
+        this.node.getChildByName('block').active = true
         new cc.Tween().target(node)
-            .to(0.5, { position: cc.Vec3.ZERO }, null)
-            .call(() => {
+            .to(0.5, {position: cc.Vec3.ZERO}, null).start()
+            this.node.getChildByName('giftBox').once('touchend', () => {
+              new cc.Tween().target(node).call(()=>{
                 const anim = node.getComponent(cc.Animation);
                 anim.play();
-            })
-            .delay(2)
-            .call(() => {
+                }).delay(2).call(()=>{
                 const rewardItem = Util.unlockNextReward();
                 // user.pushNewLessonPlaceholder();
                 if (rewardItem) {
@@ -616,11 +623,11 @@ export default class Start extends cc.Component {
                         const friendComp = this.friend.getComponent(Friend)
                         friendComp.playAnimation('dance', 1)
                         new cc.Tween().target(rewardIcon)
-                            .to(0.5, { scale: 1, y: 200 }, null)
-                            .delay(2)
-                            .to(0.5, {
+                            .to(0.5, {scale: 1, y: 200}, null)
+                            .delay(1)
+                            .to(1, {
                                 scale: 0.1,
-                                position: node.parent.convertToNodeSpaceAR(cc.v3(cc.winSize.width - 64, cc.winSize.height - 32))
+                                position: this.friend.position
                             }, null)
                             .delay(0.5)
                             .call(() => {
@@ -629,7 +636,6 @@ export default class Start extends cc.Component {
                                     friendComp.playAnimation('happy', 1)
                                     const friendPos = cc.v3(this.friend.position)
                                     new cc.Tween().target(this.friend)
-                                        .to(1, { position: cc.v3(0, -200, 0) }, null)
                                         .call(() => {
                                             const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2]);
                                             Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2]);
@@ -643,6 +649,8 @@ export default class Start extends cc.Component {
                             .delay(1)
                             .call(() => {
                                 this.afterRewardLessonPlan()
+                                this.node.getChildByName('block').active = false
+                                this.node.getChildByName('giftBox').removeAllChildren()
                             })
                             .start();
                     });
@@ -651,8 +659,9 @@ export default class Start extends cc.Component {
                         this.afterRewardLessonPlan()
                     }, 4);
                 }
+              })
+               .start()
             })
-            .start()
     }
 
 
@@ -737,6 +746,7 @@ export default class Start extends cc.Component {
         } else {
             return lastOpenLesson
         }
+        
     }
 
     public static createPreQuizButton(course: Course, lessonButtonPrefab: cc.Prefab, loading: cc.Node, open: boolean): cc.Node {

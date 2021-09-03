@@ -54,7 +54,7 @@ export default class ChapterLessons extends cc.Component {
     static showType: ChapterLessonType = ChapterLessonType.Library
 
     onLoad() {
-
+        this.node.getChildByName('block').active = true;
         this.bgHolder.removeAllChildren();
         if (!!User.getCurrentUser().currentBg) {
             this.setBackground(User.getCurrentUser().currentBg);
@@ -163,6 +163,9 @@ export default class ChapterLessons extends cc.Component {
 
     onWhatsappClick() {
         cc.sys.openURL("https://wa.me/919845206203?text=" + User.getCurrentUser().id);
+    }
+    start() {
+        this.node.getChildByName('block').active = false
     }
 }
 

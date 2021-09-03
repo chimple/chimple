@@ -42,14 +42,16 @@ export default class HelpChimp extends cc.Component {
 
     private loadAndPlay(bundle) {
         bundle.load(this.helpKey, cc.AudioClip, (err, clip) => {
-            if (!err) {
-                this.clip = clip;
-                if (!spoken.has(this.helpKey)) {
-                    spoken.set(this.helpKey, 1);
-                    this.speak();
-                }
-                else {
-                    this.node.getComponent(cc.Button).interactable = true;
+            if (this.node != null) {
+                if (!err) {
+                    this.clip = clip;
+                    if (!spoken.has(this.helpKey)) {
+                        spoken.set(this.helpKey, 1);
+                        this.speak();
+                    }
+                    else {
+                        this.node.getComponent(cc.Button).interactable = true;
+                    }
                 }
             }
         })
@@ -61,7 +63,7 @@ export default class HelpChimp extends cc.Component {
             if (this.helpAudioId != -1) {
                 this.chimp.armature().animation.stop('idle')
                 this.chimp.playAnimation('talking', 0)
-                this.getComponent(cc.Button).interactable = false
+                this.node.getComponent(cc.Button).interactable = false
                 cc.audioEngine.setFinishCallback(this.helpAudioId, () => {
                     this.chimp.armature().animation.stop('talking')
                     this.chimp.playAnimation('idle', 0);
