@@ -67,10 +67,10 @@ cp -R build/jsb-default/src hot-update
 cp -R hot-update ../lang/bahama-ta-stage/public/mg
 
 For alphadib production hot update:
-node scripts/version_generator.js -v 45 -u https://bahama-ta-stage.web.app/kn/hot-update/ -s build/jsb-default -d hot-update/
+node scripts/version_generator.js -v 47 -u https://bahama-stage.web.app/hot-update/ -s build/jsb-default -d hot-update/
 cp -R build/jsb-default/assets hot-update
 cp -R build/jsb-default/src hot-update
-cp -R hot-update ../lang/bahama-ta-stage/public/kn
+cp -R hot-update ../lang/bahama-stage/public/
 
 To run debug and test hot update:
 adb reverse tcp:8901 tcp:8901

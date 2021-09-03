@@ -8,13 +8,13 @@ import {
     MICROLINK, RECEIVED_TEACHER_REQUESTS
 } from "../../../chimple";
 import Friend from "../../../common/scripts/friend";
-import Config, {COURSES_LANG_ID, StartAction} from "../../../common/scripts/lib/config";
-import {EXAM, MIN_PASS} from "../../../common/scripts/lib/constants";
-import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
-import Profile, {User, CourseProgress, IS_OTP_VERIFIED, LessonProgress} from "../../../common/scripts/lib/profile";
+import Config, { COURSES_LANG_ID, StartAction } from "../../../common/scripts/lib/config";
+import { EXAM, MIN_PASS, MODE, Mode } from "../../../common/scripts/lib/constants";
+import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
+import Profile, { User, CourseProgress, IS_OTP_VERIFIED, LessonProgress, CURRENTMODE } from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
-import {ServiceConfig} from "../../../common/scripts/services/ServiceConfig";
-import TeacherAddedDialog, {TEACHER_ADD_DIALOG_CLOSED} from "../../../common/scripts/teacherAddedDialog";
+import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
+import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
 import {
     INVENTORY_ANIMATIONS,
     INVENTORY_ICONS,
@@ -24,7 +24,7 @@ import {
 } from "../../../common/scripts/util";
 import Inventory from "../../inventory/scripts/inventory";
 import LessonButton from "./lessonButton";
-import ChapterLessons, {ChapterLessonType} from "./chapterLessons";
+import ChapterLessons, { ChapterLessonType } from "./chapterLessons";
 import UtilLogger from "../../../common/scripts/util-logger";
 import AssignmentPopup from "./assignmentPopup";
 import ChimpleLabel from "../../../common/scripts/chimple-label";
@@ -47,7 +47,7 @@ const DEFAULT_AUDIOS = [
     'my_name_is_chimple'
 ]
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class Start extends cc.Component {
@@ -120,7 +120,7 @@ export default class Start extends cc.Component {
         const user = User.getCurrentUser()
         this.bgHolder.removeAllChildren();
 
-       cc.audioEngine.pauseMusic()
+        cc.audioEngine.pauseMusic()
         if (!!user && !!user.currentBg) {
             this.setBackground(user.currentBg);
         } else {
@@ -173,67 +173,70 @@ export default class Start extends cc.Component {
         })
         ChapterLessons.showType = ChapterLessonType.Library;
         UtilLogger.syncFmcTokenForUsers();
-        this.assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
-        // config.assignments = assignments.filter((ass) => {
-        //     const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
-        //     return !(lessonProgress && lessonProgress.date < ass.createAt)
-        // })
-        config.assignments = this.assignments;
-        if (config.assignments.length > 0 || !user.isConnected) {
-            if(config.assignments.length > 0 && !user.isConnected) {
-                user.isConnected = true
-                user.storeUser()
-            }
-            if (!!this.assignmentButton) {
-                this.assignmentButton.interactable = true
-            }
-        }
-
-
-        if (user.isConnected && config.assignments.length > 0) {
-            this.previousHash = Util.getHash(this.assignments[0].assignmentId);
-            try {
-                this.assignmentCount.active = true;
-                this.checkPendingAssignments();
-            } catch(e) {}
-        }
-
-        // call API to get featured stories
-        // store in config.featuredLessons
-        // config.featuredLessons = [
-        //     {
-        //         "id": "drawshape0010",
-        //         "image": "puzzle0010.png",
-        //         "name": "Watermelon",
-        //         "color": "#D48FF9",
-        //         "course": "puzzle"
-        //     },
-        //     {
-        //         "id": "hi1902",
-        //         "image": "hi1902.png",
-        //         "name": "पढ़ने के सुधार",
-        //         "color": "#B8D855",
-        //         "course": "hi"
-        //     },
-        //     {
-        //         "id": "entest",
-        //         "image": "en0805.png",
-        //         "name": "New Story",
-        //         "color": "#D48FF9",
-        //         "course": "en"
-        //     }
-        // ]
-        const featuredLessonsUrl = 'https://raw.githubusercontent.com/chimple/chimple/master/featured_lessons.json'
-        cc.assetManager.loadRemote(featuredLessonsUrl, (err, jsonAsset) => {
-            // @ts-ignore
-            if (!err && jsonAsset && jsonAsset.json) {
-                // @ts-ignore
-                config.featuredLessons = jsonAsset.json
-                if (config.featuredLessons.length > 0 && this.featuredButton) {
-                    this.featuredButton.interactable = true
+        const mode = parseInt(Profile.getValue(CURRENTMODE))
+        if (mode != Mode.School) {
+            this.assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
+            // config.assignments = assignments.filter((ass) => {
+            //     const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
+            //     return !(lessonProgress && lessonProgress.date < ass.createAt)
+            // })
+            config.assignments = this.assignments;
+            if (config.assignments.length > 0 || !user.isConnected) {
+                if (config.assignments.length > 0 && !user.isConnected) {
+                    user.isConnected = true
+                    user.storeUser()
+                }
+                if (!!this.assignmentButton) {
+                    this.assignmentButton.interactable = true
                 }
             }
-        })
+
+
+            if (user.isConnected && config.assignments.length > 0) {
+                this.previousHash = Util.getHash(this.assignments[0].assignmentId);
+                try {
+                    this.assignmentCount.active = true;
+                    this.checkPendingAssignments();
+                } catch (e) { }
+            }
+
+            // call API to get featured stories
+            // store in config.featuredLessons
+            // config.featuredLessons = [
+            //     {
+            //         "id": "drawshape0010",
+            //         "image": "puzzle0010.png",
+            //         "name": "Watermelon",
+            //         "color": "#D48FF9",
+            //         "course": "puzzle"
+            //     },
+            //     {
+            //         "id": "hi1902",
+            //         "image": "hi1902.png",
+            //         "name": "पढ़ने के सुधार",
+            //         "color": "#B8D855",
+            //         "course": "hi"
+            //     },
+            //     {
+            //         "id": "entest",
+            //         "image": "en0805.png",
+            //         "name": "New Story",
+            //         "color": "#D48FF9",
+            //         "course": "en"
+            //     }
+            // ]
+            const featuredLessonsUrl = 'https://raw.githubusercontent.com/chimple/chimple/master/featured_lessons.json'
+            cc.assetManager.loadRemote(featuredLessonsUrl, (err, jsonAsset) => {
+                // @ts-ignore
+                if (!err && jsonAsset && jsonAsset.json) {
+                    // @ts-ignore
+                    config.featuredLessons = jsonAsset.json
+                    if (config.featuredLessons.length > 0 && this.featuredButton) {
+                        this.featuredButton.interactable = true
+                    }
+                }
+            })
+        }
 
         // Sample Code for offline sync
         // const school = UtilLogger.findSchool("prakash@sutara.org");
@@ -313,7 +316,7 @@ export default class Start extends cc.Component {
                             const script: PreTestDialog = dialog.getComponent(PreTestDialog)
                             script.courseId = courseDetails['courseid'];
                             this.node.addChild(dialog);
-                        } catch(e) {}
+                        } catch (e) { }
                     } else {
                         this.openDirectLesson(courseDetails);
                     }
@@ -457,20 +460,20 @@ export default class Start extends cc.Component {
 
     checkPendingAssignments() {
         let count: number = 0;
-        for(let assign of Config.i.assignments) {
+        for (let assign of Config.i.assignments) {
             const lesson = Config.i.allLessons.get(assign.lessonId)
             if (!!lesson) {
                 lesson.assignmentId = assign.assignmentId;
                 const lessonProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(assign.lessonId)
                 if (!lessonProgress) {
                     count++;
-                    if(this.assignPopupActive) {
+                    if (this.assignPopupActive) {
                         this.showAssignmentPopup(true);
                         this.assignPopupActive = false;
                     }
                 } else if (lessonProgress && ![].concat(lessonProgress.assignmentIds).includes(assign.assignmentId)) {
                     count++;
-                    if(this.assignPopupActive) {
+                    if (this.assignPopupActive) {
                         this.showAssignmentPopup(true);
                         this.assignPopupActive = false;
                     }
@@ -506,10 +509,10 @@ export default class Start extends cc.Component {
                 this.lessonButtonPrefab,
                 this.loading,
                 index <= courseProgressMap.lessonPlanIndex)
-                if(lessonId.endsWith('_PreQuiz')){
-                    this.beginQuiz = node
-                   this.node.getChildByName('beginQuizPopup').active=true
-                }
+            if (lessonId.endsWith('_PreQuiz')) {
+                this.beginQuiz = node
+                this.node.getChildByName('beginQuizPopup').active = true
+            }
             const t = index / lessons.length
             node.x = Math.pow(1 - t, 3) * x1 + 3 * Math.pow(1 - t, 2) * t * x2 + 3 * (1 - t) * Math.pow(t, 2) * x3 + Math.pow(t, 3) * x4
             node.y = Math.pow(1 - t, 3) * y1 + 3 * Math.pow(1 - t, 2) * t * y2 + 3 * (1 - t) * Math.pow(t, 2) * y3 + Math.pow(t, 3) * y4
@@ -530,7 +533,7 @@ export default class Start extends cc.Component {
                     clButton.node.on('touchend', (event: cc.Event) => {
                         if (lessonButton.button.interactable) {
                             animationCmp.stop("level_play_button")
-                            this.node.getChildByName('beginQuizPopup').active=false
+                            this.node.getChildByName('beginQuizPopup').active = false
                             lessonButton.onClick()
                         }
                     })
@@ -557,18 +560,18 @@ export default class Start extends cc.Component {
         }
         Config.i.startAction = StartAction.Default
     }
-   onBeginQuizCancelClick(){
-    this.node.getChildByName('beginQuizPopup').active=false
-   }
-    onBeginQuizButtonClicked(){
+    onBeginQuizCancelClick() {
+        this.node.getChildByName('beginQuizPopup').active = false
+    }
+    onBeginQuizButtonClicked() {
         const lessonButton = this.beginQuiz.getComponent(LessonButton)
         lessonButton.onClick()
         this.loading.active = true;
     }
     private giveReward(node: cc.Node, user: User) {
-        this.node.getChildByName('beginQuizPopup').active=false
+        this.node.getChildByName('beginQuizPopup').active = false
         new cc.Tween().target(node)
-            .to(0.5, {position: cc.Vec3.ZERO}, null)
+            .to(0.5, { position: cc.Vec3.ZERO }, null)
             .call(() => {
                 const anim = node.getComponent(cc.Animation);
                 anim.play();
@@ -613,7 +616,7 @@ export default class Start extends cc.Component {
                         const friendComp = this.friend.getComponent(Friend)
                         friendComp.playAnimation('dance', 1)
                         new cc.Tween().target(rewardIcon)
-                            .to(0.5, {scale: 1, y: 200}, null)
+                            .to(0.5, { scale: 1, y: 200 }, null)
                             .delay(2)
                             .to(0.5, {
                                 scale: 0.1,
@@ -626,13 +629,13 @@ export default class Start extends cc.Component {
                                     friendComp.playAnimation('happy', 1)
                                     const friendPos = cc.v3(this.friend.position)
                                     new cc.Tween().target(this.friend)
-                                        .to(1, {position: cc.v3(0, -200, 0)}, null)
+                                        .to(1, { position: cc.v3(0, -200, 0) }, null)
                                         .call(() => {
                                             const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2]);
                                             Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2]);
                                         })
                                         .delay(2)
-                                        .to(0.5, {position: friendPos}, null)
+                                        .to(0.5, { position: friendPos }, null)
                                         .start()
                                 }
                                 rewardIcon.opacity = 0;
@@ -787,18 +790,18 @@ export default class Start extends cc.Component {
         cc.audioEngine.stopMusic();
     }
 
-    async showAssignmentPopup(pendingAssignment: boolean){
-        if (this.flag  && !Config.isMicroLink) {
+    async showAssignmentPopup(pendingAssignment: boolean) {
+        if (this.flag && !Config.isMicroLink) {
             this.flag = false;
             const user = User.getCurrentUser();
             this.assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
             if (this.assignments.length > 0 && !pendingAssignment) {
                 const currentHash = Util.getHash(this.assignments[0].assignmentId);
                 Config.i.assignments = this.assignments;
-                if(this.previousHash != currentHash) {
+                if (this.previousHash != currentHash) {
                     this.previousHash = currentHash;
                     const assignmentPopupNode = this.node.getChildByName("assignment_popup");
-                    if (assignmentPopupNode.active == false){
+                    if (assignmentPopupNode.active == false) {
                         assignmentPopupNode.getComponent(AssignmentPopup).msg.getComponent(ChimpleLabel).string = "New assignment has been assigned to you";
                         assignmentPopupNode.active = true;
                     }
@@ -808,11 +811,11 @@ export default class Start extends cc.Component {
             if (pendingAssignment) {
                 try {
                     const assignmentPopupNode = this.node.getChildByName("assignment_popup");
-                    if (assignmentPopupNode.active == false){
+                    if (assignmentPopupNode.active == false) {
                         assignmentPopupNode.getComponent(AssignmentPopup).msg.getComponent(ChimpleLabel).string = "You have pending assignments";
                         assignmentPopupNode.active = true;
                     }
-                } catch(e) {}
+                } catch (e) { }
             }
             this.flag = true;
         }
