@@ -42,18 +42,18 @@ export default class HelpChimp extends cc.Component {
 
     private loadAndPlay(bundle) {
         bundle.load(this.helpKey, cc.AudioClip, (err, clip) => {
-            if(this.node != null){
-            if (!err) {
-                this.clip = clip;
-                if (!spoken.has(this.helpKey)) {
-                    spoken.set(this.helpKey, 1);
-                    this.speak();
-                }
-                else {
-                    this.node.getComponent(cc.Button).interactable = true;
+            if (this.node != null) {
+                if (!err) {
+                    this.clip = clip;
+                    if (!spoken.has(this.helpKey)) {
+                        spoken.set(this.helpKey, 1);
+                        this.speak();
+                    }
+                    else {
+                        this.node.getComponent(cc.Button).interactable = true;
+                    }
                 }
             }
-        }
         })
     }
 

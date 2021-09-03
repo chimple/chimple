@@ -396,6 +396,7 @@ export default class Start extends cc.Component {
     }
 
     onLibraryClick() {
+        this.node.getChildByName('library_button').getComponent(cc.Button).interactable = false
         Config.i.pushScene('menu/start/scenes/courseChapters', 'menu')
     }
 
