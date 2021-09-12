@@ -668,8 +668,8 @@ export class Util {
         const config = Config.i
         config.loadSingleCourseJson(data.courseid, () => {
             config.course = config.curriculum.get(data.courseid)
-            config.chapter = config.course.chapters.find((c) => c.name == data.chapterid)
-            config.lesson = config.chapter.lessons.find((l) => l.name == data.lessonid)
+            config.chapter = config.course.chapters.find((c) => c.id == data.chapterid)
+            config.lesson = config.chapter.lessons.find((l) => l.id == data.lessonid)
             config.lesson.assignmentId = data.assignmentid || null;
             config.lesson.mlPartnerId = data.mlpartnerid || null;
             config.lesson.mlClassId = data.mlclassid || null;
