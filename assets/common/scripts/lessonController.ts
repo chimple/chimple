@@ -95,6 +95,10 @@ export default class LessonController extends cc.Component {
         } else {
             this.backButton.on('touchend', () => {
                 this.node.getChildByName("quit").active = true;
+               if(parseInt(Profile.getValue(CURRENTMODE)) == Mode.School){
+                this.node.getChildByName("quit").getChildByName('quit_bg').getChildByName('exit_game').y = this.node.getChildByName("quit").getPosition().y
+                this.node.getChildByName("quit").getChildByName('quit_bg').getChildByName('help_video').active = false;
+               }
             });
         }
     }
