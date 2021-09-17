@@ -355,26 +355,28 @@ export default class LessonController extends cc.Component {
             mlPartnerId      : config.lesson.mlPartnerId || null
         };
         UtilLogger.logChimpleEvent(eventName, event);
-        const deviceId = UtilLogger.currentDeviceId();
-        const logEventForIxo = {
-            lessonSessionId  : this.lessonSessionId,
-            gameName         : config.game,
-            totalGames       : config.totalProblems,
-            currentGameNumber: config.problem,
-            problemSessionId : this.problemSessionId,
-            chapterName      : config.chapter.name,
-            chapterId        : config.chapter.id,
-            lessonName       : config.lesson.name,
-            lessonId         : config.lesson.id,
-            courseName       : config.course.id,
-            problemNo        : config.problem,
-            timeSpent        : Math.abs(timeSpent),
-            userId           : User.getCurrentUser().id,
-            deviceId         : deviceId
-        };
-        const headerCSV = Object.keys(logEventForIxo).join(",");
-        const eventCSV = Object.values(logEventForIxo).join(",");
-        UtilLogger.logToDaily(deviceId, headerCSV, eventCSV);
+        if(!Config.isMicroLink) {
+            const deviceId = UtilLogger.currentDeviceId();
+            const logEventForIxo = {
+                lessonSessionId  : this.lessonSessionId,
+                gameName         : config.game,
+                totalGames       : config.totalProblems,
+                currentGameNumber: config.problem,
+                problemSessionId : this.problemSessionId,
+                chapterName      : config.chapter.name,
+                chapterId        : config.chapter.id,
+                lessonName       : config.lesson.name,
+                lessonId         : config.lesson.id,
+                courseName       : config.course.id,
+                problemNo        : config.problem,
+                timeSpent        : Math.abs(timeSpent),
+                userId           : User.getCurrentUser().id,
+                deviceId         : deviceId
+            };
+            const headerCSV = Object.keys(logEventForIxo).join(",");
+            const eventCSV = Object.values(logEventForIxo).join(",");
+            UtilLogger.logToDaily(deviceId, headerCSV, eventCSV);    
+        }
 
         const starType = this.isQuiz
             ? (this.isQuizAnsweredCorrectly
