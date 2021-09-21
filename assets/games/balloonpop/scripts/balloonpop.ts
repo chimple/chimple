@@ -97,7 +97,6 @@ export default class Balloonpop extends Game {
 
     createSingleBallon(xPos:number){
         if (this.node.children.length < 20) {
-            console.log(BalloonBurst.letterBursted)
             let ballon = cc.instantiate(this.balloon);
             this.node.addChild(ballon);
             ballon.getComponentInChildren(cc.Label).string = this.currentConfig.options[Math.floor(0 + Math.random() * (this.currentConfig.options.length - 0))]
