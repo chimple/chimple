@@ -103,6 +103,8 @@ export const IS_REMEMBER_TOGGLE_ON = 'isRememberToggleOn';
 export const EXAM = 'exam'
 export const MIN_PASS = 70
 
+export const MICROLINK_END_BLANK = 'blank'
+
 export const COUNTRY_CODES: object[] = [
     { "name": "Afghanistan", "dial_code": "+93", "code": "AF" },
     { "name": "Aland Islands", "dial_code": "+358", "code": "AX" },

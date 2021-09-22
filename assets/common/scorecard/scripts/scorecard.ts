@@ -2,6 +2,7 @@ import Config from "../../../common/scripts/lib/config";
 import { REWARD_TYPES, Util } from "../../scripts/util";
 import Achievement from "./achievement";
 import Friend from "../../scripts/friend";
+import { MICROLINK_END_BLANK } from "../../scripts/lib/constants";
 
 const { ccclass, property } = cc._decorator;
 
@@ -48,9 +49,11 @@ export default class Scorecard extends cc.Component {
     onLoad() {
            if(!cc.sys.isNative && Config.isMicroLink){
                 this.continueButton.active = false
-                this.downloadButton.active = true;
-                this.downloadButton.parent.getChildByName('web_scorecard_bg').active = true;
-                this.downloadButton.parent.getChildByName('playstore_label').active = true;
+                if(Config.i.microLinkData.end != MICROLINK_END_BLANK) {
+                    this.downloadButton.active = true;
+                    this.downloadButton.parent.getChildByName('web_scorecard_bg').active = true;
+                    this.downloadButton.parent.getChildByName('playstore_label').active = true;    
+                }
              }
         this.label.string = Util.i18NText(this.text);
         if (this.score > 25) this.star1.spriteFrame = this.active

@@ -1,9 +1,9 @@
-import {Util} from "../util";
+import { Util, MicroLink } from "../util";
 import UtilLogger from "../util-logger";
-import {Chapter, Course, Lesson} from "./convert";
-import Profile, {LANGUAGE, User} from "./profile";
+import { Chapter, Course, Lesson } from "./convert";
+import Profile, { LANGUAGE, User } from "./profile";
 import TTFFont = cc.TTFFont;
-import {GAME_CONFIGS} from "./gameConfigs";
+import { GAME_CONFIGS } from "./gameConfigs";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
@@ -42,7 +42,7 @@ export enum Lang {
     KANNADA = 'kn',
 }
 
-export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI,Lang.KANNADA];
+export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI, Lang.KANNADA];
 
 export class LangConfig {
     font: string;
@@ -52,9 +52,9 @@ export class LangConfig {
 }
 
 export const LANG_CONFIGS = new Map<Lang, LangConfig>([
-    [Lang.ENGLISH, {'font': 'en-main', 'displayName': 'English', 'symbol': 'A', 'colorCode': '#FFBC00'}],
-    [Lang.HINDI, {'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7'}],
-    [Lang.KANNADA, {'font': 'kn-main', 'displayName': 'ಕನ್ನಡ', 'symbol': 'ಕ', 'colorCode': '#6E4596'}]
+    [Lang.ENGLISH, { 'font': 'en-main', 'displayName': 'English', 'symbol': 'A', 'colorCode': '#FFBC00' }],
+    [Lang.HINDI, { 'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7' }],
+    [Lang.KANNADA, { 'font': 'kn-main', 'displayName': 'ಕನ್ನಡ', 'symbol': 'ಕ', 'colorCode': '#6E4596' }]
 ])
 
 export class World {
@@ -98,7 +98,7 @@ export default class Config {
     private _scenes: Array<SceneDef> = [];
     private _textFontMap = new Map();
     private _lessonData;
-   
+
     course: Course;
     lesson: Lesson;
     chapter: Chapter;
@@ -114,9 +114,10 @@ export default class Config {
     gameLevelName: string;
     worksheet: number;
     startAction: StartAction = StartAction.Default
-    assignments: any []
-    featuredLessons: any []
+    assignments: any[]
+    featuredLessons: any[]
     static isMicroLink: boolean
+    microLinkData: MicroLink
 
     //remove later
     flow: Flow;
@@ -161,6 +162,10 @@ export default class Config {
         return Direction.LTR
     }
 
+    hasTracing(): boolean {
+        return this._lessonData.rows.some((arr) => arr[0].startsWith('write'))
+    }
+
     addTextFont(fontName: string, newVal: cc.Font) {
         this._textFontMap.set(fontName, newVal);
     }
@@ -174,7 +179,7 @@ export default class Config {
     hadLoadedTraceFont(): string {
         let traceFont: string = null;
         Array.from(this._textFontMap, ([key, value]) => {
-            if(key.indexOf("trace") !== -1) {
+            if (key.indexOf("trace") !== -1) {
                 traceFont = key;
             }
         });
@@ -200,8 +205,16 @@ export default class Config {
     static loadScene(scene: string, bundle: string = null, callback: Function = null) {
         Util.freeResources();
 
-        const lang = Profile.lang || Lang.ENGLISH
+        // const lang = Config.i.course.type == 'literacy' ? Config.i.course.lang as Lang : (Profile.lang || Lang.ENGLISH)
+        const lang = scene == 'common/scenes/lessonController'
+            ? (Config.i.course.id == 'maths'
+                ? (Config.i.hasTracing
+                    ? Lang.ENGLISH
+                    : Profile.lang)
+                : Config.i.course.lang as Lang)
+            : (Profile.lang || Lang.ENGLISH)
         const langConfig = LANG_CONFIGS.get(lang)
+        Config.i.currentFontName = langConfig.font
         if (!Config.i.hasLoadedTextFont(langConfig.font)) {
             Config.i.loadFontDynamically(langConfig.font, () => {
                 cc.log("Loading font ....", langConfig.font)
@@ -327,7 +340,7 @@ export default class Config {
                 } else {
                     console.log("loading font from Config", fontName);
                     this._textFontMap.set(fontName, fontAsset);
-                    if (this.hadLoadedTraceFont() !== null)  {
+                    if (this.hadLoadedTraceFont() !== null) {
                         this.currentFontName = this.hadLoadedTraceFont();
                     } else {
                         this.currentFontName = fontName;
@@ -364,9 +377,9 @@ export default class Config {
                     cc.director.getScheduler().unschedule(checkAllLoaded, node);
                     if (maxPerLesson == 0) {
                         Util.shuffle(allLessonData)
-                        this._lessonData = {'rows': allLessonData.slice(0, Math.min(10, allLessonData.length - 1))}
+                        this._lessonData = { 'rows': allLessonData.slice(0, Math.min(10, allLessonData.length - 1)) }
                     } else {
-                        this._lessonData = {'rows': allLessonData}
+                        this._lessonData = { 'rows': allLessonData }
                     }
                     this.totalProblems = this._lessonData.rows.length;
                     this.problem = 1;
@@ -378,18 +391,18 @@ export default class Config {
             const jsonFile = this.course.id + '/' + this.lesson.id + '/res/' + this.lesson.id + '.json';
             Util.load(jsonFile, (err, jsonAsset) => {
                 this._lessonData = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
-                if(this.lesson.id.endsWith('_PreQuiz')) {
+                if (this.lesson.id.endsWith('_PreQuiz')) {
                     // get 4 chunks of data
                     const numChunks = 4
                     const chunkLength = Math.floor(this._lessonData.rows.length / numChunks)
                     const subArr = []
                     for (let index = 0; index < numChunks; index++) {
                         const r1 = Util.randomBetween(0, chunkLength - 2)
-                        const r2 = Util.randomBetween(r1+1, chunkLength - 1)
-                        const r3 = Util.randomBetween(r2+1, chunkLength)
-                        subArr.push(this._lessonData.rows[index*chunkLength + r1])
-                        subArr.push(this._lessonData.rows[index*chunkLength + r2])
-                        subArr.push(this._lessonData.rows[index*chunkLength + r3])
+                        const r2 = Util.randomBetween(r1 + 1, chunkLength - 1)
+                        const r3 = Util.randomBetween(r2 + 1, chunkLength)
+                        subArr.push(this._lessonData.rows[index * chunkLength + r1])
+                        subArr.push(this._lessonData.rows[index * chunkLength + r2])
+                        subArr.push(this._lessonData.rows[index * chunkLength + r3])
                         cc.log(r1, r2, r3)
                     }
                     this._lessonData.rows = subArr
