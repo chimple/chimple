@@ -8,6 +8,7 @@ const {ccclass, property} = cc._decorator;
 export default class BalloonBurst extends Drag {
 
     static letterBursted:number=0;
+    static wrongMoves:number = 0;
     
     onEnable() {
         this.enableTouch();
@@ -40,6 +41,7 @@ export default class BalloonBurst extends Drag {
             if(this.node.getComponentInChildren(cc.Label).string===Balloonpop.correctLetter){                            
                 BalloonBurst.letterBursted= BalloonBurst.letterBursted+(1/Balloonpop.letterNo);
                 this.node.parent.getComponent("balloonpop").letterProgress();
+                BalloonBurst.wrongMoves = 0
                 this.node.parent.emit("correct")
             } else {
                 if(BalloonBurst.letterBursted > 0) {
@@ -47,6 +49,7 @@ export default class BalloonBurst extends Drag {
                     this.node.parent.getComponent("balloonpop").letterProgress();
                 }
                 this.node.parent.emit("wrong");
+                BalloonBurst.wrongMoves++;
             }
         }
     }
