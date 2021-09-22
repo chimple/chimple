@@ -55,7 +55,7 @@ cp -R build/jsb-default/src hot-update
 cp -R hot-update ../lang/chimple-stage/public
 
 For production hot update:
-node scripts/version_generator.js -v 46 -u https://bahama-ta-stage.web.app/v2/hot-update/ -s build/jsb-default -d hot-update/
+node scripts/version_generator.js -v 47 -u https://bahama-ta-stage.web.app/v2/hot-update/ -s build/jsb-default -d hot-update/
 cp -R build/jsb-default/assets hot-update
 cp -R build/jsb-default/src hot-update
 cp -R hot-update ../lang/bahama-ta-stage/public/v2
@@ -67,7 +67,7 @@ cp -R build/jsb-default/src hot-update
 cp -R hot-update ../lang/bahama-ta-stage/public/mg
 
 For alphadib production hot update:
-node scripts/version_generator.js -v 47 -u https://bahama-stage.web.app/hot-update/ -s build/jsb-default -d hot-update/
+node scripts/version_generator.js -v 48 -u https://bahama-stage.web.app/hot-update/ -s build/jsb-default -d hot-update/
 cp -R build/jsb-default/assets hot-update
 cp -R build/jsb-default/src hot-update
 cp -R hot-update ../lang/bahama-stage/public/

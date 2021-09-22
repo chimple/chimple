@@ -61,9 +61,9 @@ export let RECEIVED_TEACHER_REQUESTS: boolean = false;
 //@ts-ignore
 cc.deep_link = function (url) {
     cc.log("deep link called with url:" + url);
-    if (url !== null && url.includes("http://chimple.github.io/")) {
+    if (url !== null && url.includes("://chimple.cc/")) {
         let messageType: string = null;
-        let splits = url.split("://chimple.github.io/");
+        let splits = url.split("://chimple.cc/");
         if (splits !== null && splits.length === 2) {
             let elements = splits[1].split('?');
             if (elements && elements.length === 2) {
