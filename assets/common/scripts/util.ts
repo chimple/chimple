@@ -41,6 +41,7 @@ export interface MicroLink {
     mlpartnerid?: string;
     mlclassid?: string;
     mlstudentid?: string;
+    end?: string;
 }
 
 export const REWARD_TYPES = ["character", "background", "achievement", "inventory"]
@@ -674,6 +675,7 @@ export class Util {
             config.lesson.mlPartnerId = data.mlpartnerid || null;
             config.lesson.mlClassId = data.mlclassid || null;
             config.lesson.mlStudentId = data.mlstudentid || null;
+            config.microLinkData = data
             LessonController.preloadLesson(node, (err: Error) => {
                 if (err) {
                     console.log(err)
