@@ -2166,15 +2166,62 @@
         {
           "id": "en3401",
           "image": "en3401.png",
-          "name": "O'Clock"
+          "name": "Night and Day"
         },
         {
           "id": "en3402",
           "image": "en3402.png",
-          "name": "Exercises"
+          "name": "Reading Time"
+        },
+        {
+          "id": "en3403",
+          "image": "en3403.png",
+          "name": "Match Time"
+        },
+        {
+          "id": "en3404",
+          "image": "en3404.png",
+          "name": "Practice"
+        },
+        {
+          "id": "en3405",
+          "image": "en3405.png",
+          "name": "More Practice"
         }
       ],
       "name": "Time"
+    },
+    {
+      "id": "en35",
+      "image": "en35.png",
+      "lessons": [
+        {
+          "id": "en3500",
+          "image": "en3500.png",
+          "name": "Indian Currency 1"
+        },
+        {
+          "id": "en3501",
+          "image": "en3501.png",
+          "name": "Indian Currency 2"
+        },
+        {
+          "id": "en3502",
+          "image": "en3502.png",
+          "name": "Indian Currency 3"
+        },
+        {
+          "id": "en3503",
+          "image": "en3503.png",
+          "name": "Indian Currency 4"
+        },
+        {
+          "id": "en3504",
+          "image": "en3504.png",
+          "name": "Indian Currency 5"
+        }
+      ],
+      "name": "Money"
     }
   ]
 }
