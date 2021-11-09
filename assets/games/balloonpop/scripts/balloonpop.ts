@@ -138,7 +138,7 @@ export default class Balloonpop extends Game {
         disp.getChildByName('frontFace').active=false;
         disp.getChildByName('shadowFace').active=false;
         disp.getChildByName('label').color=cc.Color.WHITE;
-        disp.getChildByName('label').getComponent(cc.Label).fontSize=1000;
+       // disp.getChildByName('label').getComponent(cc.Label).fontSize=1000;
     }
 
     letterProgress(){
