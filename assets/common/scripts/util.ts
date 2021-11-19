@@ -309,7 +309,7 @@ export class Util {
                 if (!err && clip != null) {
                     callback(clip);
                 } else if (err != null) {
-                    callback(null);
+                    this.loadGameSound(audio, callback);
                 }
             },
             true
