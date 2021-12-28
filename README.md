@@ -67,7 +67,7 @@ cp -R build/jsb-default/src hot-update
 cp -R hot-update ../lang/bahama-ta-stage/public/mg
 
 For alphadib production hot update:
-node scripts/version_generator.js -v 48 -u https://bahama-stage.web.app/hot-update/ -s build/jsb-default -d hot-update/
+node scripts/version_generator.js -v 49 -u https://bahama-stage.web.app/hot-update/ -s build/jsb-default -d hot-update/
 cp -R build/jsb-default/assets hot-update
 cp -R build/jsb-default/src hot-update
 cp -R hot-update ../lang/bahama-stage/public/

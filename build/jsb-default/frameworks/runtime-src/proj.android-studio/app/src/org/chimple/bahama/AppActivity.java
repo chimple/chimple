@@ -277,7 +277,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                                     String subject, String assignmentId) {
         if (chapter != null && lesson != null && subject != null && assignmentId != null) {
             Log.d(TAG, "received data for chapter:" + chapter + " lesson:" + lesson + " assignmentId: " + assignmentId + " subject: " + subject);
-            String uri = "http://chimple.github.io/microlink?courseid=" + subject + "&chapterid=" + chapter + "&lessonid=" + lesson + "&assignmentid=" + assignmentId;
+            String uri = "https://chimple.cc/microlink?courseid=" + subject + "&chapterid=" + chapter + "&lessonid=" + lesson + "&assignmentid=" + assignmentId;
             Log.d(TAG, "assignment deep link uri:" + uri);
             if (uri != null) {
                 this.processDeepLinkAction(uri.toString());
