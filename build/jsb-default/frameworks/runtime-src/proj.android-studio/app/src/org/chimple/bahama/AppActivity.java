@@ -353,13 +353,13 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.i(TAG, e.getLocalizedMessage());
+                    // Log.i(TAG, e.getLocalizedMessage());
                 } catch (GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
-                    Log.i(TAG, e.getLocalizedMessage());
+                    // Log.i(TAG, e.getLocalizedMessage());
                 } catch (GooglePlayServicesRepairableException e) {
                     e.printStackTrace();
-                    Log.i(TAG, e.getLocalizedMessage());
+                    // Log.i(TAG, e.getLocalizedMessage());
                 }
                 final String aId = advertisingId;
                 ChimpleLogger.storeInSharedPreference(AppActivity.this, ADVERTISING_ID, advertisingId);
@@ -629,7 +629,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                             referrerClient.endConnection();
                         } catch (RemoteException e) {
                             e.printStackTrace();
-                            Log.i(TAG, e.getLocalizedMessage());
+                            // Log.i(TAG, e.getLocalizedMessage());
                             referrerClient.endConnection();
                             return;
                         }
@@ -648,13 +648,13 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                                     }
                                 } catch (IOException e) {
                                     e.printStackTrace();
-                                    Log.i(TAG, e.getLocalizedMessage());
+                                    // Log.i(TAG, e.getLocalizedMessage());
                                 } catch (GooglePlayServicesNotAvailableException e) {
                                     e.printStackTrace();
-                                    Log.i(TAG, e.getLocalizedMessage());
+                                    // Log.i(TAG, e.getLocalizedMessage());
                                 } catch (GooglePlayServicesRepairableException e) {
                                     e.printStackTrace();
-                                    Log.i(TAG, e.getLocalizedMessage());
+                                    // Log.i(TAG, e.getLocalizedMessage());
                                 }
 
                                 if (advertisingId != null) {

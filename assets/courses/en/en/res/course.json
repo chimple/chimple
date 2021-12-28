@@ -292,6 +292,11 @@
       "color":"#F98AC9",
       "lessons": [
         {
+          "id": "en0409",
+          "image": "en0409.png",
+          "name": "Pop Letters A-F"
+        },
+        {
           "id": "en0400",
           "image": "en0400.png",
           "color":"#FC8E83",
@@ -302,6 +307,11 @@
           "image": "en0401.png",
           "color":"#F98AC9",
           "name": "Revision A - F"
+        },
+        {
+          "id": "en0410",
+          "image": "en0410.png",
+          "name": "Pop Letters G-L"
         },
         {
           "id": "en0402",
@@ -323,6 +333,11 @@
           "name": "Revision G - L"
         },
         {
+          "id": "en0411",
+          "image": "en0411.png",
+          "name": "Pop Letters M - S"
+        },
+        {
           "id": "en0404",
           "image": "en0404.png",
           "color":"#FC8E83",
@@ -340,6 +355,11 @@
           "color":"#D48FF9",
           "type": "exam",
           "name": "Challenge M-S"
+        },
+        {
+          "id": "en0412",
+          "image": "en0412.png",
+          "name": "Pop Letters T - Z"
         },
         {
           "id": "en0406",
@@ -439,6 +459,16 @@
           "name": "Vowel Sounds"
         },
         {
+          "id": "en0503",
+          "image": "en0503.png",
+          "name": "Pop Vowels"
+        },
+        {
+          "id": "en0504",
+          "image": "en0504.png",
+          "name": "Pop More Vowels"
+        },
+        {
           "id": "en0501",
           "image": "en0501.png",
           "color":"#F98AC9",
@@ -472,6 +502,11 @@
           "name": "Ending 'a'"
         },
         {
+          "id": "en0708",
+          "image": "en0708.png",
+          "name": "Pop Sounds 1"
+        },
+        {
           "id": "en0701",
           "image": "en0701.png",
           "color":"#F98AC9",
@@ -484,10 +519,20 @@
           "name": "Ending 'i'"
         },
         {
+          "id": "en0709",
+          "image": "en0709.png",
+          "name": "Pop Sounds 2"
+        },
+        {
           "id": "en0703",
           "image": "en0703.png",
           "color":"#B8D855",
           "name": "Ending 'o'"
+        },
+        {
+          "id": "en0710",
+          "image": "en0710.png",
+          "name": "Pop Sounds 3"
         },
         {
           "id": "balloon7",
@@ -501,6 +546,11 @@
           "image": "en0704.png",
           "color":"#B8D855",
           "name": "Ending 'u'"
+        },
+        {
+          "id": "en0711",
+          "image": "en0711.png",
+          "name": "Pop Sounds 4"
         },
         {
           "id": "en0705",
@@ -2222,6 +2272,38 @@
         }
       ],
       "name": "Money"
+    },
+    {
+      "id": "en36",
+      "image": "en36.png",
+      "lessons": [
+        {
+          "id": "en3600",
+          "image": "en3600.png",
+          "name": "Basics"
+        },
+        {
+          "id": "en3601",
+          "image": "en3601.png",
+          "name": "Comparison"
+        },
+        {
+          "id": "en3602",
+          "image": "en3602.png",
+          "name": "More Comparisons"
+        },
+        {
+          "id": "en3603",
+          "image": "en3603.png",
+          "name": "Units of Measurement"
+        },
+        {
+          "id": "en3604",
+          "image": "en3604.png",
+          "name": "Parts & Whole"
+        }
+      ],
+      "name": "Measurement"
     }
   ]
 }
