@@ -21,6 +21,9 @@ import { Util } from "./util";
 import UtilLogger from "./util-logger";
 import Scorecard from "../scorecard/scripts/scorecard";
 import { APIMode, ServiceConfig } from "./services/ServiceConfig";
+import { ParseNetwork, RequestParams } from "./services/ParseNetwork";
+import { WEBCLASS_HISTORICAL_PROGRESS_URL } from "./domain/parseConstants";
+import { FirebaseApi } from "./services/FirebaseApi";
 
 const {ccclass, property} = cc._decorator;
 
@@ -399,7 +402,7 @@ export default class LessonController extends cc.Component {
         });
     }
 
-    private lessonEnd() {
+    private async lessonEnd() {
         Util.playSfx(this.startAudio);
         const config = Config.getInstance();
         const timeSpent = Math.ceil((new Date().getTime() - this.lessonStartTime) / 1000);
@@ -492,6 +495,22 @@ export default class LessonController extends cc.Component {
             mlClassId      : config.lesson.mlClassId,
             mlPartnerId    : config.lesson.mlPartnerId
         });
+
+        if (config.microLinkData.webclass === "true" && config.lesson.assignmentId != null) {
+            const requestParams: RequestParams = {
+                url: WEBCLASS_HISTORICAL_PROGRESS_URL,
+                body: {
+                    "lessonId": config.lesson.id,
+                    "chapterId": config.chapter.id,
+                    "lessonName": config.lesson.name,
+                    "chapterName": config.chapter.name,
+                    "assignmentId": config.lesson.assignmentId,
+                    "score": score,
+                    "sectionId": config.lesson.mlClassId
+                }
+            };
+            return await ParseNetwork.getInstance().post(requestParams, FirebaseApi.getInstance().getAuthHeader());
+        }
 
         const block = cc.instantiate(this.blockPrefab);
         this.node.addChild(block);

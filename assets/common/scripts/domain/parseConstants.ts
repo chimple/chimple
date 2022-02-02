@@ -87,3 +87,5 @@ export const FIREBASE_LIST_ASSIGNMENTS = 'https://us-central1-bahama-stage.cloud
 export const FIREBASE_UPDATE_PROGRESS_URL = 'https://us-central1-bahama-stage.cloudfunctions.net/chimple/updateProgressOnHttp';
 export const FIREBASE_SYNC_FAILED_PROGRESS_URL = 'https://us-central1-bahama-stage.cloudfunctions.net/chimple/syncProgressOnHttp';
 export const FIREBASE_LINK_STUDENT_URL = 'https://us-central1-bahama-stage.cloudfunctions.net/chimple/LinkStudent';
+
+export const WEBCLASS_HISTORICAL_PROGRESS_URL = 'https://cvjgnzup21.execute-api.ap-south-1.amazonaws.com/webclasshistoricaldata-dev';
