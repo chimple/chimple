@@ -509,7 +509,7 @@ export default class LessonController extends cc.Component {
                     "sectionId": config.lesson.mlClassId
                 }
             };
-            return await ParseNetwork.getInstance().post(requestParams, FirebaseApi.getInstance().getAuthHeader());
+            await ParseNetwork.getInstance().post(requestParams, FirebaseApi.getInstance().getAuthHeader());
         }
 
         const block = cc.instantiate(this.blockPrefab);
