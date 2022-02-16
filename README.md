@@ -161,3 +161,11 @@ to='questionboard'
 mv common/res/icons/${from}.png common/res/icons/${to}.png
 mv ${from}/res/${from}.json ${from}/res/${to}.json
 mv ${from} ${to}
+
+
+### Translating to a new language
+- In Cocos Creator, Copy resources/lang/en to resources/lang/xx
+- Translate resources/lang/xx/i18n.json to local language
+- In Cocos Creator, Copy assets/help/en-help to assets/help/xx-help. Make it a bundle by clicking on isBundle
+- For each mp3, copy the xx language file with the same name by pasting in Cocos Creator. Make use of cocos_courses/scripts/tts.py to generate
+- 
