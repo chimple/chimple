@@ -42,6 +42,7 @@ export interface MicroLink {
     mlclassid?: string;
     mlstudentid?: string;
     webclass?: string;
+    isprod?: string;
     end?: string;
 }
 

@@ -22,7 +22,7 @@ import UtilLogger from "./util-logger";
 import Scorecard from "../scorecard/scripts/scorecard";
 import { APIMode, ServiceConfig } from "./services/ServiceConfig";
 import { ParseNetwork, RequestParams } from "./services/ParseNetwork";
-import { WEBCLASS_HISTORICAL_PROGRESS_URL } from "./domain/parseConstants";
+import { WEBCLASS_HISTORICAL_PROGRESS_URL_PROD, WEBCLASS_HISTORICAL_PROGRESS_URL_DEV } from "./domain/parseConstants";
 import { FirebaseApi } from "./services/FirebaseApi";
 
 const {ccclass, property} = cc._decorator;
@@ -496,20 +496,25 @@ export default class LessonController extends cc.Component {
             mlPartnerId    : config.lesson.mlPartnerId
         });
 
-        if (config.microLinkData.webclass === "true" && config.lesson.assignmentId != null) {
-            const requestParams: RequestParams = {
-                url: WEBCLASS_HISTORICAL_PROGRESS_URL,
-                body: {
-                    "lessonId": config.lesson.id,
-                    "chapterId": config.chapter.id,
-                    "lessonName": config.lesson.name,
-                    "chapterName": config.chapter.name,
-                    "assignmentId": config.lesson.assignmentId,
-                    "score": score,
-                    "sectionId": config.lesson.mlClassId
-                }
-            };
-            await ParseNetwork.getInstance().post(requestParams, FirebaseApi.getInstance().getAuthHeader());
+        try {
+            if (config.microLinkData.webclass === "true" && config.lesson.assignmentId != null) {
+                const requestParams: RequestParams = {
+                    url: config.microLinkData.isprod ? WEBCLASS_HISTORICAL_PROGRESS_URL_PROD : WEBCLASS_HISTORICAL_PROGRESS_URL_DEV,
+                    body: {
+                        "lessonId": config.lesson.id,
+                        "chapterId": config.chapter.id,
+                        "lessonName": config.lesson.name,
+                        "chapterName": config.chapter.name,
+                        "assignmentId": config.lesson.assignmentId,
+                        "score": score,
+                        "sectionId": config.lesson.mlClassId,
+                        "subjectCode": config.course.id
+                    }
+                };
+                await ParseNetwork.getInstance().post(requestParams, FirebaseApi.getInstance().getAuthHeader());
+            }
+        } catch (error) {
+            cc.log('WEBCLASS_HISTORICAL_PROGRESS_URL Lamda function failed to call:', error);
         }
 
         const block = cc.instantiate(this.blockPrefab);

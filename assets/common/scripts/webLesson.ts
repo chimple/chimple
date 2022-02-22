@@ -25,6 +25,7 @@ export default class WebLesson extends cc.Component {
             lessonid: params.get('lessonid'),
             assignmentid: params.get('assignmentid'),
             webclass: params.get('webclass'),
+            isprod: params.get('isprod'),
             mlpartnerid: params.get('mlPartnerId'),
             mlclassid: params.get('mlClassId'),
             mlstudentid: params.get('mlStudentId'),
