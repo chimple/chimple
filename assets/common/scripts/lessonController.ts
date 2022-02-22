@@ -22,7 +22,7 @@ import UtilLogger from "./util-logger";
 import Scorecard from "../scorecard/scripts/scorecard";
 import { APIMode, ServiceConfig } from "./services/ServiceConfig";
 import { ParseNetwork, RequestParams } from "./services/ParseNetwork";
-import { WEBCLASS_HISTORICAL_PROGRESS_URL_PROD, WEBCLASS_HISTORICAL_PROGRESS_URL_DEV } from "./domain/parseConstants";
+import { WEBCLASS_HISTORICAL_PROGRESS_URL_PROD, WEBCLASS_HISTORICAL_PROGRESS_URL_TEST } from "./domain/parseConstants";
 import { FirebaseApi } from "./services/FirebaseApi";
 
 const {ccclass, property} = cc._decorator;
@@ -498,8 +498,10 @@ export default class LessonController extends cc.Component {
 
         try {
             if (config.microLinkData.webclass === "true" && config.lesson.assignmentId != null) {
+                cc.log('config.microLinkData.isprod ', config.microLinkData.test);
+                cc.log('config.microLinkData.isprod ', config.microLinkData);
                 const requestParams: RequestParams = {
-                    url: config.microLinkData.isprod ? WEBCLASS_HISTORICAL_PROGRESS_URL_PROD : WEBCLASS_HISTORICAL_PROGRESS_URL_DEV,
+                    url: config.microLinkData.test == 'true' ? WEBCLASS_HISTORICAL_PROGRESS_URL_TEST : WEBCLASS_HISTORICAL_PROGRESS_URL_PROD,
                     body: {
                         "lessonId": config.lesson.id,
                         "chapterId": config.chapter.id,
