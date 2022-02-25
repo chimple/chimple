@@ -14,6 +14,7 @@
         {
           "id": "en_PreQuiz",
           "image": "en0000.png",
+          "outcome": "The quiz evaluates the previous learning of the student and places them accordingly in the progressive lesson path. ",
           "name": "Assessment"
         }
       ]
@@ -49,7 +50,7 @@
           "image": "ambulance.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked. ",
           "name": "Challenge a-c"
         },
         {
@@ -85,7 +86,7 @@
           "image": "anchor.png",
           "color": "#72DDD3",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge a-f"
         }
       ],
@@ -129,7 +130,7 @@
           "image": "auto.png",
           "color": "#72DDD3",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge g-j"
         },
         {
@@ -150,7 +151,7 @@
           "id": "en0106",
           "image": "en0106.png",
           "color": "#F98AC9",
-          "outcome": "",
+          "outcome": "Two different puzzles that reinforce the learning of alphabet a-l",
           "name": "Revision a - l"
         },
         {
@@ -158,7 +159,7 @@
           "image": "pram.png",
           "color": "#FC8E83",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge a-l"
         }
       ],
@@ -195,7 +196,7 @@
           "image": "bag.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge m-o"
         },
         {
@@ -230,7 +231,7 @@
           "id": "en0207",
           "image": "en0207.png",
           "color": "#FC8E83",
-          "outcome": "",
+          "outcome": "Two different puzzles that reinforce the learning of alphabet a - s",
           "name": "Revision a - s"
         },
         {
@@ -238,7 +239,7 @@
           "image": "ball.png",
           "color": "#F98AC9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge p-s"
         }
       ],
@@ -282,7 +283,7 @@
           "image": "van_rewards.png",
           "color": "#72DDD3",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge t-w"
         },
         {
@@ -310,7 +311,7 @@
           "id": "en0307",
           "image": "en0307.png",
           "color": "#FC8E83",
-          "outcome": "",
+          "outcome": "Two different puzzles that reinforce the learning of alphabet a - z",
           "name": "Revision  a - z"
         },
         {
@@ -318,7 +319,7 @@
           "image": "bell.png",
           "color": "#F98AC9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge x-z"
         }
       ],
@@ -332,27 +333,27 @@
         {
           "id": "en0409",
           "image": "en0409.png",
-          "outcome": "",
+          "outcome": "In this fun gamified learning, children pop the balloons with the letter specified from A - F",
           "name": "Pop Letters A-F"
         },
         {
           "id": "en0400",
           "image": "en0400.png",
           "color": "#FC8E83",
-          "outcome": "",
+          "outcome": "Read and write uppercase alphabet A - F and the words associated with it. ",
           "name": "Alphabet A - F"
         },
         {
           "id": "en0401",
           "image": "en0401.png",
           "color": "#F98AC9",
-          "outcome": "",
+          "outcome": "Revise uppercase letters A-F",
           "name": "Revision A - F"
         },
         {
           "id": "en0410",
           "image": "en0410.png",
-          "outcome": "",
+          "outcome": "In this fun gamified learning, children pop the balloons with the letter specified from G - L",
           "name": "Pop Letters G-L"
         },
         {
@@ -366,7 +367,7 @@
           "id": "balloon1",
           "image": "vanilla_rewards.png",
           "color": "#B8D855",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "type": "exam",
           "name": "Challenge A-L"
         },
@@ -380,7 +381,7 @@
         {
           "id": "en0411",
           "image": "en0411.png",
-          "outcome": "",
+          "outcome": "In this fun gamified learning, children pop the balloons with the letter specified from M - S",
           "name": "Pop Letters M - S"
         },
         {
@@ -394,7 +395,7 @@
           "id": "en0405",
           "image": "en0405.png",
           "color": "#F98AC9",
-          "outcome": "",
+          "outcome": "Revise uppercase letters M -S ",
           "name": "Revision M - S"
         },
         {
@@ -402,20 +403,20 @@
           "image": "voilin_rewards.png",
           "color": "#D48FF9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge M-S"
         },
         {
           "id": "en0412",
           "image": "en0412.png",
-          "outcome": "",
+          "outcome": "In this fun gamified learning, children pop the balloons with the letter specified from T - Z",
           "name": "Pop Letters T - Z"
         },
         {
           "id": "en0406",
           "image": "en0406.png",
           "color": "#B8D855",
-          "outcome": "",
+          "outcome": "The lesson helps children read and write uppercase letters T-Z",
           "name": "Alphabet T - Z"
         },
         {
@@ -437,7 +438,7 @@
           "image": "wafers_rewards.png",
           "color": "#D48FF9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge A-Z"
         }
       ],
@@ -452,21 +453,21 @@
           "id": "en0600",
           "image": "en0600.png",
           "color": "#FC8E83",
-          "outcome": "",
+          "outcome": "Learn phonic sounds of alphabet - A -E",
           "name": "A-E"
         },
         {
           "id": "en0601",
           "image": "en0601.png",
           "color": "#F98AC9",
-          "outcome": "",
+          "outcome": "Learn phonic sounds of alphabet - F-J",
           "name": "F-J"
         },
         {
           "id": "en0602",
           "image": "en0602.png",
           "color": "#D48FF9",
-          "outcome": "",
+          "outcome": "Learn phonic sounds of alphabet - K- O",
           "name": "K- O"
         },
         {
@@ -474,21 +475,21 @@
           "image": "wallet_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge A-O"
         },
         {
           "id": "en0603",
           "image": "en0603.png",
           "color": "#72DDD3",
-          "outcome": "",
+          "outcome": "Learn phonic sounds of alphabet - P - T",
           "name": "P - T"
         },
         {
           "id": "en0604",
           "image": "en0604.png",
           "color": "#B8D855",
-          "outcome": "",
+          "outcome": "Learn phonic sounds of alphabet - U - Z",
           "name": "U - Z"
         },
         {
@@ -503,7 +504,7 @@
           "image": "rat_rewards.png",
           "color": "#F98AC9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Phonic Challenge"
         }
       ],
@@ -518,33 +519,33 @@
           "id": "en0500",
           "image": "en0500.png",
           "color": "#FC8E83",
-          "outcome": "",
+          "outcome": "The lesson concentrates on phonic sounds of the vowels, a,e,i,o,u. ",
           "name": "Vowel Sounds"
         },
         {
           "id": "en0503",
           "image": "en0503.png",
-          "outcome": "",
+          "outcome": "Children pop bubbles containing vowels and learn that begin with vowels a, e, i, o and u. ",
           "name": "Pop Vowels"
         },
         {
           "id": "en0504",
           "image": "en0504.png",
-          "outcome": "",
+          "outcome": "Children pop bubbles containing vowels and learn that begin with vowels a, e, i, o and u. ",
           "name": "Pop More Vowels"
         },
         {
           "id": "en0501",
           "image": "en0501.png",
           "color": "#F98AC9",
-          "outcome": "",
+          "outcome": "Children will trace and learn the pattern of writing vowels a,e,i,o,u",
           "name": "Write Vowels"
         },
         {
           "id": "en0502",
           "image": "en0502.png",
           "color": "#D48FF9",
-          "outcome": "",
+          "outcome": "Children will write the vowels and read the words assoicated with them like ant, egg, ice, owl, under etc",
           "name": "Vowel words"
         },
         {
@@ -552,7 +553,7 @@
           "image": "ribbom_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Vowel Challenge"
         }
       ],
@@ -573,7 +574,7 @@
         {
           "id": "en0708",
           "image": "en0708.png",
-          "outcome": "",
+          "outcome": "In this fun gamified learning, children listen to the sound of a letter and pop ballon with the letter. They have visual clue as well.",
           "name": "Pop Sounds 1"
         },
         {
@@ -593,7 +594,7 @@
         {
           "id": "en0709",
           "image": "en0709.png",
-          "outcome": "",
+          "outcome": "In this fun gamified learning, children listen to the sound of a letter and pop ballon with the letter. They have visual clue as well.",
           "name": "Pop Sounds 2"
         },
         {
@@ -606,7 +607,7 @@
         {
           "id": "en0710",
           "image": "en0710.png",
-          "outcome": "",
+          "outcome": "In this fun gamified learning, children listen to the sound of a letter and pop ballon with the letter. They have visual clue as well.",
           "name": "Pop Sounds 3"
         },
         {
@@ -614,7 +615,7 @@
           "image": "rings_rewards.png",
           "color": "#72DDD3",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Sounds Challenge 1"
         },
         {
@@ -627,7 +628,7 @@
         {
           "id": "en0711",
           "image": "en0711.png",
-          "outcome": "",
+          "outcome": "In this fun gamified learning, children listen to the sound of a letter and pop ballon with the letter. They have visual clue as well.",
           "name": "Pop Sounds 4"
         },
         {
@@ -656,7 +657,7 @@
           "image": "robot_rewards.png",
           "color": "#F98AC9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Sounds Challenge 2"
         }
       ],
@@ -700,7 +701,7 @@
           "image": "rope_rewards.png",
           "color": "#72DDD3",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge Phonics 1"
         },
         {
@@ -736,7 +737,7 @@
           "image": "rose_rewards.png",
           "color": "#F98AC9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": " Challenge Phonics 2"
         }
       ],
@@ -751,21 +752,21 @@
           "id": "en0900",
           "image": "en0900.png",
           "color": "#FC8E83",
-          "outcome": "",
+          "outcome": "The lesson isolates each sound of the word so that the child can understand the sound independently as well as when it is merged with other sounds to form a word. These lessons are crucial in building independent reading skills in a child.",
           "name": "Word Sounds -1"
         },
         {
           "id": "en0901",
           "image": "en0901.png",
           "color": "#F98AC9",
-          "outcome": "",
+          "outcome": "The lesson isolates each sound of the word so that the child can understand the sound independently as well as when it is merged with other sounds to form a word. These lessons are crucial in building independent reading skills in a child.",
           "name": "Word Sounds - 2"
         },
         {
           "id": "en0902",
           "image": "en0902.png",
           "color": "#D48FF9",
-          "outcome": "",
+          "outcome": "The lesson isolates each sound of the word so that the child can understand the sound independently as well as when it is merged with other sounds to form a word. These lessons are crucial in building independent reading skills in a child.",
           "name": "Word sounds - 3"
         },
         {
@@ -773,35 +774,35 @@
           "image": "sandwich_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Word Challenge"
         },
         {
           "id": "en0903",
           "image": "en0903.png",
           "color": "#72DDD3",
-          "outcome": "",
+          "outcome": "The lesson isolates each sound of the word so that the child can understand the sound independently as well as when it is merged with other sounds to form a word. These lessons are crucial in building independent reading skills in a child.",
           "name": "Word Sounds - 4"
         },
         {
           "id": "en0904",
           "image": "en0904.png",
           "color": "#B8D855",
-          "outcome": "",
+          "outcome": "The lesson isolates each sound of the word so that the child can understand the sound independently as well as when it is merged with other sounds to form a word. These lessons are crucial in building independent reading skills in a child.",
           "name": "Word Sounds - 5"
         },
         {
           "id": "en0905",
           "image": "en0905.png",
           "color": "#D48FF9",
-          "outcome": "",
+          "outcome": "The lesson isolates each sound of the word so that the child can understand the sound independently as well as when it is merged with other sounds to form a word. These lessons are crucial in building independent reading skills in a child.",
           "name": "Word Sounds - 6"
         },
         {
           "id": "en0906",
           "image": "en0906.png",
           "color": "#F98AC9",
-          "outcome": "",
+          "outcome": "The lesson isolates each sound of the word so that the child can understand the sound independently as well as when it is merged with other sounds to form a word. These lessons are crucial in building independent reading skills in a child.",
           "name": "Word Sounds - 7"
         },
         {
@@ -809,35 +810,35 @@
           "image": "scale_rewards.png",
           "color": "#FC8E83",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Word Challenge 1"
         },
         {
           "id": "en0907",
           "image": "en0907.png",
           "color": "#F98AC9",
-          "outcome": "",
+          "outcome": "The lesson isolates each sound of the word so that the child can understand the sound independently as well as when it is merged with other sounds to form a word. These lessons are crucial in building independent reading skills in a child.",
           "name": "Word Sounds - 8"
         },
         {
           "id": "en0908",
           "image": "en0908.png",
           "color": "#D48FF9",
-          "outcome": "",
+          "outcome": "The lesson isolates each sound of the word so that the child can understand the sound independently as well as when it is merged with other sounds to form a word. These lessons are crucial in building independent reading skills in a child.",
           "name": "Word Sounds - 9"
         },
         {
           "id": "en0909",
           "image": "en0909.png",
           "color": "#B8D855",
-          "outcome": "",
+          "outcome": "The lesson isolates each sound of the word so that the child can understand the sound independently as well as when it is merged with other sounds to form a word. These lessons are crucial in building independent reading skills in a child.",
           "name": "Word Sounds - 10"
         },
         {
           "id": "en0910",
           "image": "en0910.png",
           "color": "#72DDD3",
-          "outcome": "",
+          "outcome": "The lesson isolates each sound of the word so that the child can understand the sound independently as well as when it is merged with other sounds to form a word. These lessons are crucial in building independent reading skills in a child.",
           "name": "Word Sounds - 11 "
         },
         {
@@ -845,7 +846,7 @@
           "image": "scissors_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Word Challenge 2"
         }
       ],
@@ -882,7 +883,7 @@
           "image": "scooter_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge a-1"
         },
         {
@@ -911,14 +912,14 @@
           "image": "shell_rewards.png",
           "color": "#F98AC9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge a-2"
         },
         {
           "id": "en1100",
           "image": "en1100.png",
           "color": "#FC8E83",
-          "outcome": "",
+          "outcome": "Children learn the words that end in 'ain' like train, rain, chain etc",
           "name": "ain"
         },
         {
@@ -947,14 +948,14 @@
           "image": "shirt_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge a-3"
         },
         {
           "id": "en1104",
           "image": "en1104.png",
           "color": "#72DDD3",
-          "outcome": "",
+          "outcome": "Word family of ‘a’ includes sounds of 'ale', 'ate' and 'ade' in this lesson, which reinforces learning through repetition of these letters in different words. Word family chapters will improve the speed of reading in children.",
           "name": "ale, ate, ade"
         },
         {
@@ -983,7 +984,7 @@
           "image": "shoes_rewards.png",
           "color": "#FC8E83",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge a-4"
         }
       ],
@@ -1027,7 +1028,7 @@
           "image": "spade_rewards.png",
           "color": "#72DDD3",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge e"
         }
       ],
@@ -1071,7 +1072,7 @@
           "image": "spoon_rewards.png",
           "color": "#72DDD3",
           "type": "exam",
-          "outcome": "",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
           "name": "Challenge i-1"
         },
         {
@@ -1092,7 +1093,7 @@
           "id": "en1306",
           "image": "en1306.png",
           "color": "#F98AC9",
-          "outcome": "",
+          "outcome": "Read the rhyming words and end with the same letters. Since it is predictable,They enjoy repeating words, which also helps to improve them Their speed of reading at the same time.",
           "name": "ie, ick, ill, ime"
         },
         {
@@ -1107,7 +1108,7 @@
           "image": "stamp_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons. ",
           "name": "Challenge i-2"
         }
       ],
@@ -1122,7 +1123,7 @@
           "id": "en1400",
           "image": "en1400.png",
           "color": "#FC8E83",
-          "outcome": "",
+          "outcome": "Read words which rhyme and end with same letters. Since it is predictable, they enjoy repeating the words, which also helps them improve their speed of reading at the same time.",
           "name": "og, ox"
         },
         {
@@ -1136,7 +1137,7 @@
           "id": "en1402",
           "image": "en1402.png",
           "color": "#D48FF9",
-          "outcome": "",
+          "outcome": "Read words which rhyme and end with same letters. Since it is predictable, they enjoy repeating the words, which also helps them improve their speed of reading at the same time.",
           "name": "op"
         },
         {
@@ -1144,7 +1145,7 @@
           "image": "star_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons. ",
           "name": "Challenge o-1"
         },
         {
@@ -1173,7 +1174,7 @@
           "image": "stones_rewards.png",
           "color": "#F98AC9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge o-2"
         }
       ],
@@ -1210,7 +1211,7 @@
           "image": "sun_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge u-1"
         },
         {
@@ -1231,7 +1232,7 @@
           "id": "en1505",
           "image": "en1505.png",
           "color": "#D48FF9",
-          "outcome": "",
+          "outcome": "The lesson focuses on the word family of the letter ‘u’ and the chunk formed by combining the alphabet ‘u’ with other letters to form words ending in 'um' 'ume' and 'ule'.",
           "name": "um, ume, ule"
         },
         {
@@ -1239,7 +1240,7 @@
           "image": "teacup_rewards.png",
           "color": "#F98AC9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge u-2"
         }
       ],
@@ -1276,7 +1277,7 @@
           "image": "teddy_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Blend 1"
         },
         {
@@ -1334,7 +1335,7 @@
           "image": "television_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Blend 3"
         },
         {
@@ -1363,7 +1364,7 @@
           "image": "tent_rewards.png",
           "color": "#F98AC9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Blend 4"
         },
         {
@@ -1392,7 +1393,7 @@
           "image": "tie_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Blend 5"
         }
       ],
@@ -1429,7 +1430,7 @@
           "image": "token_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Blend 6"
         },
         {
@@ -1458,7 +1459,7 @@
           "image": "tooth_rewards.png",
           "color": "#F98AC9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Blend 7"
         },
         {
@@ -1472,7 +1473,7 @@
           "id": "en1800",
           "image": "en1800.png",
           "color": "#F98AC9",
-          "outcome": "",
+          "outcome": "Learn how the two letter 'b' and 'l' blend together to form words like Blow, blouse, black etc",
           "name": "Blend - bl"
         },
         {
@@ -1487,7 +1488,7 @@
           "image": "toy_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge blend 8"
         },
         {
@@ -1516,7 +1517,7 @@
           "image": "truck_rewards.png",
           "color": "#F98AC9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Blend 9"
         },
         {
@@ -1545,7 +1546,7 @@
           "image": "umbrella_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Blend 10"
         }
       ],
@@ -1560,7 +1561,7 @@
           "id": "en1900",
           "image": "en1900.png",
           "color": "#FC8E83",
-          "outcome": "",
+          "outcome": "The lesson aims to develop students' vocabulary by encouraging curiosity about the meaning and use of unfamiliar words and promoting the use of strategies that will help students find the names of animals through images of Ball and Dog, Bird, Bugs, Cat and Butterfly etc. The puzzles are very engaging. ",
           "name": "Animal Names -1"
         },
         {
@@ -1574,7 +1575,7 @@
           "id": "en1902",
           "image": "en1902.png",
           "color": "#D48FF9",
-          "outcome": "",
+          "outcome": "The lesson teaches children not only about animals but also about the animal body parts unique to them, like trunk of an elephant, whiskers of cat etc. It has images of cats, lion, rat, bee, elephant, sea animals, wild animals and farm animals",
           "name": "Animals"
         },
         {
@@ -1582,7 +1583,7 @@
           "image": "unicon.png",
           "color": "#72DDD3",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge SD 1"
         },
         {
@@ -1611,7 +1612,7 @@
           "image": "unicycle_rewards.png",
           "color": "#FC8E83",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge SD 2"
         },
         {
@@ -1647,7 +1648,7 @@
           "image": "watch_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge SD 3"
         },
         {
@@ -1683,7 +1684,7 @@
           "image": "zylophone_rewards.png",
           "color": "#D48FF9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge SD 4"
         }
       ],
@@ -1698,21 +1699,21 @@
           "id": "en2000",
           "image": "en2000.png",
           "color": "#FC8E83",
-          "outcome": "",
+          "outcome": "Improves counting skills with sentences like - Three cars,  Two pails, One boy, etc",
           "name": "Count "
         },
         {
           "id": "en2001",
           "image": "en2001.png",
           "color": "#F98AC9",
-          "outcome": "",
+          "outcome": "Children learn sentences with adjectives that describe person, place or a thing. Eg -Two lions, A tall boy, A little cat, She is happy etc",
           "name": "Describe"
         },
         {
           "id": "en2002",
           "image": "en2002.png",
           "color": "#D48FF9",
-          "outcome": "",
+          "outcome": "Children learn about colours through simple sentences like An orange hat, A red ball, A green book etc. ",
           "name": "Colours"
         },
         {
@@ -1720,7 +1721,7 @@
           "image": "ap_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge VB 1"
         },
         {
@@ -1734,21 +1735,21 @@
           "id": "en2004",
           "image": "en2004.png",
           "color": "#B8D855",
-          "outcome": "",
+          "outcome": "Children learn words associated activities like painting, fishing andf washing with the help of clues through given through images. ",
           "name": "Activities"
         },
         {
           "id": "en2005",
           "image": "en2005.png",
           "color": "#D48FF9",
-          "outcome": "",
+          "outcome": "Children learn to create simple sentences with the help of the image. The basic sentences are like - He can't jump high, He is a cook, He is eating salad, He is swimming etc. ",
           "name": "Simple Sentences"
         },
         {
           "id": "en2006",
           "image": "en2006.png",
           "color": "#F98AC9",
-          "outcome": "",
+          "outcome": "Children learn to create simple sentences with the help of the image. The basic sentences are like - He can't jump high, He is a cook, He is eating salad, He is swimming etc. ",
           "name": "Simple sentences = 2"
         },
         {
@@ -1756,7 +1757,7 @@
           "image": "coffeejar_rewards.png",
           "color": "#FC8E83",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge VB 2"
         }
       ],
@@ -1771,28 +1772,28 @@
           "id": "en2100",
           "image": "en2100.png",
           "color": "#FC8E83",
-          "outcome": "",
+          "outcome": "The Chapter ensures that children get enough practice of tracing words. Students practice scribbling small words formed with 3 letters.",
           "name": "3 Letters"
         },
         {
           "id": "en2101",
           "image": "en2101.png",
           "color": "#F98AC9",
-          "outcome": "",
+          "outcome": "The lesson ensures that children get enough practice of tracing 4 letter words. It reinforces learning of words which has happened in the previous chapters by helping the child to identify letters in a word besides identifying the name of each letter.",
           "name": "4 letters"
         },
         {
           "id": "en2102",
           "image": "en2102.png",
           "color": "#D48FF9",
-          "outcome": "",
+          "outcome": "The lesson teaches children a sense of directionality in writing. They trace and decode short, familiar meaningful 5 letter words with gradually increasing accuracy. ",
           "name": "5 letters"
         },
         {
           "id": "en2103",
           "image": "en2103.png",
           "color": "#B8D855",
-          "outcome": "",
+          "outcome": "The lesson teaches children a sense of directionality in writing. They trace and decode short, familiar meaningful 6 letter words with gradually increasing accuracy. ",
           "name": "6 letters"
         },
         {
@@ -1800,7 +1801,7 @@
           "image": "dinosaur_rewards.png",
           "color": "#72DDD3",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Write Challenge"
         }
       ],
@@ -1830,7 +1831,7 @@
           "image": "drynuts_rewards.png",
           "color": "#D48FF9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Typist Challenge"
         }
       ],
@@ -1860,7 +1861,7 @@
           "image": "jacks_rewards.png",
           "color": "#D48FF9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Tiny words Challenge"
         },
         {
@@ -1889,7 +1890,7 @@
           "image": "jam_rewards.png",
           "color": "#FC8E83",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Big words Challenge"
         }
       ],
@@ -1904,7 +1905,7 @@
           "id": "en3200",
           "image": "en3200.png",
           "color": "#FC8E83",
-          "outcome": "",
+          "outcome": "The lesson teaches basic sentences to children. Though the sentences are short, they are well-formed sentences with correct grammar which is necessary for children to learn about the rules of their language. Here the sentences are of 2 words like 'Ram eats', 'Birds fly', 'Salma walks', etc which are complete in itself. ",
           "name": "Simple sentence - 2 words "
         },
         {
@@ -1926,7 +1927,7 @@
           "image": "joker_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge SS 1"
         },
         {
@@ -1955,7 +1956,7 @@
           "image": "keyboard_rewards.png",
           "color": "#F98AC9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge SS 2"
         }
       ],
@@ -1977,21 +1978,21 @@
           "id": "en2401",
           "image": "en2401.png",
           "color": "#F98AC9",
-          "outcome": "",
+          "outcome": "A combined learning of body parts and also that the names of our body parts are nouns. ",
           "name": "Nouns- My Body"
         },
         {
           "id": "en2402",
           "image": "en2402.png",
           "color": "#D48FF9",
-          "outcome": "",
+          "outcome": "This gives importance to teaching word families, also called phonograms or “chunks,” which are groups of words that have a predictable pattern or “chunk.” Since word families have a common feature or pattern in the end and they all rhyme, it makes reading them easy for our early readers. They have the same letter combinations which create similar sounds. They are wonderful tools for those new to reading and for learning spellings.",
           "name": "Noun - Person"
         },
         {
           "id": "en2403",
           "image": "en2403.png",
           "color": "#B8D855",
-          "outcome": "",
+          "outcome": "Children learn the nouns as the name of places like city, park, hospital etc",
           "name": "Noun - Place"
         },
         {
@@ -1999,7 +2000,7 @@
           "image": "kiwi_rewards.png",
           "color": "#72DDD3",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Noun Challenge"
         },
         {
@@ -2035,7 +2036,7 @@
           "image": "ladder_rewards.png",
           "color": "#F98AC9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Nouns"
         }
       ],
@@ -2072,7 +2073,7 @@
           "image": "ladybug_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Pronoun 1"
         },
         {
@@ -2101,7 +2102,7 @@
           "image": "lime_rewards.png",
           "color": "#F98AC9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Pronoun 2"
         },
         {
@@ -2130,7 +2131,7 @@
           "image": "mermaid_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Pronoun 3"
         }
       ],
@@ -2145,7 +2146,7 @@
           "id": "en2600",
           "image": "en2600.png",
           "color": "#FC8E83",
-          "outcome": "",
+          "outcome": "Children learn about verbs with help of images. They learn about simple actions like , walk, jump, cry etc",
           "name": "Action Words - 1"
         },
         {
@@ -2166,7 +2167,7 @@
           "id": "balloon52",
           "image": "necklace_rewards.png",
           "color": "#B8D855",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "type": "exam",
           "name": "Challenge Verb 1"
         },
@@ -2203,7 +2204,7 @@
           "image": "nightlamp_rewards.png",
           "color": "#FC8E83",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Verb 2"
         }
       ],
@@ -2233,7 +2234,7 @@
           "image": "nurse_rewards.png",
           "color": "#D48FF9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Articles 1"
         },
         {
@@ -2255,7 +2256,7 @@
           "image": "omlette_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Articles 2"
         }
       ],
@@ -2299,7 +2300,7 @@
           "image": "pennib_rewards.png",
           "color": "#72DDD3",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Grammar 1"
         },
         {
@@ -2335,7 +2336,7 @@
           "image": "table_rewards.png",
           "color": "#72DDD3",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Grammar 2"
         }
       ],
@@ -2365,7 +2366,7 @@
           "image": "tablevase_rewards.png",
           "color": "#D48FF9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Punctuation 1"
         },
         {
@@ -2394,7 +2395,7 @@
           "image": "urn_rewards.png",
           "color": "#72DDD3",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Punctuation 2"
         }
       ],
@@ -2416,7 +2417,7 @@
           "id": "en3101",
           "image": "en3101.png",
           "color": "#F98AC9",
-          "outcome": "",
+          "outcome": "Children learn adjectives that describe feelings, taste and colours. ",
           "name": "Tag Adjectives"
         },
         {
@@ -2438,7 +2439,7 @@
           "image": "teddybear_rewards.png",
           "color": "#72DDD3",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Adjectives Challenge"
         }
       ],
@@ -2475,14 +2476,14 @@
           "image": "tree_rewards.png",
           "color": "#B8D855",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Sentence Challenge"
         },
         {
           "id": "en3303",
           "image": "en3303.png",
           "color": "#72DDD3",
-          "outcome": "",
+          "outcome": "Students create larger sentences like 'They are making a castle out of sand.' and 'The old man is painting the desk white.'",
           "name": "Large Sentences"
         },
         {
@@ -2511,7 +2512,7 @@
           "image": "unicorn_rewards.png",
           "color": "#D48FF9",
           "type": "exam",
-          "outcome": "",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Sentences"
         }
       ],
@@ -2524,37 +2525,37 @@
         {
           "id": "en3400",
           "image": "en3400.png",
-          "outcome": "",
+          "outcome": "Students learn about the activities they perform during day or night. ",
           "name": "Day and Night"
         },
         {
           "id": "en3401",
           "image": "en3401.png",
-          "outcome": "",
+          "outcome": "Students learn about the activities that place during day and night. For example - The sun rises in the morning.  ",
           "name": "Night and Day"
         },
         {
           "id": "en3402",
           "image": "en3402.png",
-          "outcome": "",
+          "outcome": "Students learn to read time with help of picture puzzle.",
           "name": "Reading Time"
         },
         {
           "id": "en3403",
           "image": "en3403.png",
-          "outcome": "",
+          "outcome": "Children match the time with the specific clock hands in the simple gamified version of match the following. ",
           "name": "Match Time"
         },
         {
           "id": "en3404",
           "image": "en3404.png",
-          "outcome": "",
+          "outcome": "Children fill in the blanks with answers regarding hours, minutes, seconds, days etc",
           "name": "Practice"
         },
         {
           "id": "en3405",
           "image": "en3405.png",
-          "outcome": "",
+          "outcome": "Children fill in the blanks with answers regarding months,  hours, minutes, seconds, days etc",
           "name": "More Practice"
         }
       ],
@@ -2567,31 +2568,31 @@
         {
           "id": "en3500",
           "image": "en3500.png",
-          "outcome": "",
+          "outcome": "Students learn about different denominations of Indian currency and become familiar with money. ",
           "name": "Indian Currency 1"
         },
         {
           "id": "en3501",
           "image": "en3501.png",
-          "outcome": "",
+          "outcome": "Students learn about different denominations of Indian currency and become familiar with money. ",
           "name": "Indian Currency 2"
         },
         {
           "id": "en3502",
           "image": "en3502.png",
-          "outcome": "",
+          "outcome": "Students learn about different denominations of Indian currency and become familiar with money. ",
           "name": "Indian Currency 3"
         },
         {
           "id": "en3503",
           "image": "en3503.png",
-          "outcome": "",
+          "outcome": "Students learn about different denominations of Indian currency and become familiar with money. ",
           "name": "Indian Currency 4"
         },
         {
           "id": "en3504",
           "image": "en3504.png",
-          "outcome": "",
+          "outcome": "Students learn about different denominations of Indian currency and become familiar with money. ",
           "name": "Indian Currency 5"
         }
       ],
@@ -2604,31 +2605,31 @@
         {
           "id": "en3600",
           "image": "en3600.png",
-          "outcome": "",
+          "outcome": "The visual images help children identify different lines and units of measurements like litre, kg etc",
           "name": "Basics"
         },
         {
           "id": "en3601",
           "image": "en3601.png",
-          "outcome": "",
+          "outcome": "Children learn about the concept of big/small, fat/thin, tall/short etc",
           "name": "Comparison"
         },
         {
           "id": "en3602",
           "image": "en3602.png",
-          "outcome": "",
+          "outcome": "More comparisons of sizes are learned. ",
           "name": "More Comparisons"
         },
         {
           "id": "en3603",
           "image": "en3603.png",
-          "outcome": "",
+          "outcome": "Students are introduced to basic units of measurements.",
           "name": "Units of Measurement"
         },
         {
           "id": "en3604",
           "image": "en3604.png",
-          "outcome": "",
+          "outcome": "Students are introduced to parts of an whole object like half, quarter etc",
           "name": "Parts & Whole"
         }
       ],
