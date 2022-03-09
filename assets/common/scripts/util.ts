@@ -1,18 +1,18 @@
 import ChimpleLabel from "./chimple-label";
 import Help from "./help";
-import {DEFAULT_FONT_COLOR, LETTER_VOICE, NUMBER_VOICE, PHONIC_VOICE} from "./helper";
+import { DEFAULT_FONT_COLOR, LETTER_VOICE, NUMBER_VOICE, PHONIC_VOICE } from "./helper";
 import LessonController from "./lessonController";
-import Config, {StartAction} from "./lib/config";
-import {ASSET_LOAD_METHOD, COURSES_URL} from "./lib/constants";
-import Profile, {LANGUAGE, SFX_OFF, User} from "./lib/profile";
+import Config, { StartAction } from "./lib/config";
+import { ASSET_LOAD_METHOD, COURSES_URL } from "./lib/constants";
+import Profile, { LANGUAGE, SFX_OFF, User } from "./lib/profile";
 import UtilLogger from "./util-logger";
 import Friend from "./friend";
 import Overflow = cc.Label.Overflow;
 import HorizontalAlign = cc.Label.HorizontalAlign;
 import VerticalAlign = cc.Label.VerticalAlign;
-import {AssignHomeWorkInfo} from "./services/parseApi";
+import { AssignHomeWorkInfo } from "./services/parseApi";
 import Loading from "./loading";
-import {ParseImageDownloader} from "./services/ParseImageDownloader";
+import { ParseImageDownloader } from "./services/ParseImageDownloader";
 
 export const INVENTORY_DATA = [
     ["hat1-hat1", "hat1-hat2", "hat1-hat3", "hat1-hat4", "hat1-hat5", "hat1-hat6", "hat1-hat7", "hat1-hat8", "hat1-hat9", "hat1-hat10"],
@@ -96,7 +96,7 @@ export class Util {
 
     public static shuffleByMapSortMap<T>(unshuffled): T[] {
         return unshuffled
-            .map((a) => ({sort: Math.random(), value: a}))
+            .map((a) => ({ sort: Math.random(), value: a }))
             .sort((a, b) => a.sort - b.sort)
             .map((a) => a.value);
     }
@@ -611,6 +611,12 @@ export class Util {
         callback: Function,
         needsRelease: boolean = true
     ) {
+        //loading if Profile.lang-help is not loaded
+        if (!Util.bundles.get(Profile.lang + '-help')) {
+            cc.assetManager.loadBundle(Profile.lang + '-help', (err, bundle) => {
+                Util.bundles.set(Profile.lang + '-help', bundle)
+            })
+        }
         const resArray = res.split("/");
         const courseName = resArray[0];
         const lessonName = resArray[1];
@@ -754,7 +760,7 @@ export class Util {
         cc.log(`${append} -> computeTimeDiff in milliseconds ${diff}`);
     }
 
-    public static* shuffleGenerator(array) {
+    public static * shuffleGenerator(array) {
         let i = array.length;
         while (i--) {
             yield array.splice(Math.floor(Math.random() * (i + 1)), 1)[0];
@@ -901,8 +907,8 @@ export class Util {
     }
 
     public static assignHomework(chapterId: string, lessonId: string,
-                                 schoolId: string, sectionId: string,
-                                 subjectId: string, studentId: string = null) {
+        schoolId: string, sectionId: string,
+        subjectId: string, studentId: string = null) {
 
         let updateInfo: AssignHomeWorkInfo = {
             chapterId: chapterId,
@@ -1007,7 +1013,7 @@ export class Util {
     }
 
     public static getHash(input) {
-        let hash = 0, len = input ?  input.length : 0;
+        let hash = 0, len = input ? input.length : 0;
         for (let i = 0; i < len; i++) {
             hash = ((hash << 5) - hash) + input.charCodeAt(i);
             hash |= 0; // to 32bit integer
