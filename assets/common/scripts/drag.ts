@@ -101,7 +101,7 @@ export default class Drag extends cc.Component {
         }
     }
 
-    onTouchEnd(touch: cc.Touch) {
+    onTouchEnd(touch: cc.Touch, isGoBackOnNoMatch = true) {
         if (this.allowDrag && this.isDragging) {
             const diff: cc.Vec2 = this.node.getPosition().sub(this.touchStartOriginPos);
             this.isMoved = diff.magSqr() >= MIN_MOVED_DELTA;
@@ -118,6 +118,12 @@ export default class Drag extends cc.Component {
                     .start();
             } else if (this.returnBackOnNoMatch) {
                 this.disableTouch()
+
+                //returns without changing position of node
+                if (!isGoBackOnNoMatch) {
+                    this.onReturnBackOnNoMatch();
+                    return;
+                }
                 new cc.Tween().target(this.node)
                     .to(0.35, { position: this.returnBackOnNoMatchPos() }, { progress: null, easing: 'sineOut' })
                     .call(() => {
