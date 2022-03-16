@@ -143,6 +143,11 @@ export const GAME_CONFIGS = {
         "prefab": "prefabs/monster",
         "youtube": "YzzfbTQ61I4",
     },
+    "stickerbook": {
+        "bundle": "stickerbook",
+        "prefab": "prefabs/stickerbook",
+        "youtube": "",
+    },
     "calculator": {
         "bundle": "calculator",
         "prefab": "prefabs/calculator",
