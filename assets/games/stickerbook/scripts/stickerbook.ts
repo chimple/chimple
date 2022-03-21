@@ -10,8 +10,6 @@ const MIN_STICKERS_FOR_CAMERA = 5
 
 @ccclass
 export default class StickerBook extends Game {
-    @property(cc.Node)
-    background: cc.Node = null
 
     @property(cc.Node)
     label: cc.Node = null
@@ -21,9 +19,6 @@ export default class StickerBook extends Game {
 
     @property(cc.Mask)
     mask: cc.Mask = null
-
-    @property(cc.Node)
-    wallpaper: cc.Node = null
 
     @property(cc.Graphics)
     graphics: cc.Graphics = null
@@ -35,28 +30,31 @@ export default class StickerBook extends Game {
     bottomPaint: cc.Node = null
 
     @property(cc.Prefab)
-    pictureDrag: cc.Prefab = null
+    stickerDrag: cc.Prefab = null
 
     @property(cc.Prefab)
-    pictureDrop: cc.Prefab = null
+    stickerDrop: cc.Prefab = null
+
+    @property(cc.Prefab)
+    stickerPrefab: cc.Prefab = null
 
     currentTool: cc.Node = null
     numHeightAdjust: number = 0
     numYAdjust: number = -100
     numStickers: number = -50
-    numPieces: number = 0;
+    static numPieces: number = 0;
     text: string = null
     audio: cc.AudioClip = null
 
     onLoad() {
-        console.log('Monster Copy Game playing')
+        console.log('stickerbook Copy Game playing')
         const config = Config.getInstance();
         cc.director.getCollisionManager().enabled = true
         this.node.on('touchstart', () => {
 
         })
         this.node.on('touchmove', this.onTouchMove, this)
-        // this.node.on('monsterMatch', () => {
+        // this.node.on('stickerbookMatch', () => {
         //     // if(++this.numStickers >= MIN_STICKERS_FOR_CAMERA) this.cameraButton.interactable = true
         //     this.node.emit('correct')
         // })
@@ -70,7 +68,7 @@ export default class StickerBook extends Game {
         // if (labelComp != null) labelComp.string = letter
 
         this.text = name
-        this.numPieces = parseInt(num)
+        StickerBook.numPieces = parseInt(num)
         Util.loadTexture(bgImage, (texture) => {
             if (texture != null) {
                 this.bg.spriteFrame = new cc.SpriteFrame(texture)
@@ -101,62 +99,83 @@ export default class StickerBook extends Game {
         var firstDrag: cc.Node = null
         var firstDrop: cc.Node = null
 
-        for (let index = 0; index < this.numPieces; index++) {
+        for (let index = 0; index < StickerBook.numPieces; index++) {
             const image = config.data[0][7 + index * 7];
             const correctPositionX = config.data[0][8 + index * 7];
             const correctPositionY = config.data[0][9 + index * 7];
             const randomPostionX = config.data[0][10 + index * 7];
             const randomPositionY = config.data[0][11 + index * 7];
-            const isUnlock = config.data[0][12 + index * 7];
-            const isFinished = config.data[0][13 + index * 7];
+            const isUnlock = config.data[0][12 + index * 7] == 'true' ? true : false;
+            const isFinished = config.data[0][13 + index * 7] == 'true' ? true : false;
 
-            console.log('isUnlock ', isUnlock, ' isFinished ', isFinished)
+            // const drag = cc.instantiate(this.stickerDrag)
+            // drag.name = index.toString()
+            // drag.position = new cc.Vec2(parseInt(correctPositionX), parseInt(correctPositionY))
+            // // console.log('Config.i.direction', Config.i.direction);
+            // // console.log('Direction.RTL', Direction.RTL);
+            // // console.log('Config.i.direction === Direction.RTL', Config.i.direction === Direction.RTL);
+            // // if (Config.i.direction === Direction.RTL)
+            // //     drag.getComponent(Drag).isReverseXNeeded = true;
+            // drag.on('stickerbookMatch', this.onMatch.bind(this))
+            // drag.on('stickerbookNoMatch', () => {
+            //     // this.node.emit('wrong')
+            //     console.log('this.node.emit wrong')
+            // })
+            // this.bg.node.addChild(drag)
 
-            const drag = cc.instantiate(this.pictureDrag)
-            drag.name = index.toString()
-            drag.position = new cc.Vec2(parseInt(correctPositionX), parseInt(correctPositionY))
-            // console.log('Config.i.direction', Config.i.direction);
-            // console.log('Direction.RTL', Direction.RTL);
-            // console.log('Config.i.direction === Direction.RTL', Config.i.direction === Direction.RTL);
-            // if (Config.i.direction === Direction.RTL)
-            //     drag.getComponent(Drag).isReverseXNeeded = true;
-            drag.on('monsterMatch', this.onMatch.bind(this))
-            drag.on('monsterNoMatch', () => {
-                // this.node.emit('wrong')
-                console.log('this.node.emit wrong')
-            })
-            this.bg.node.addChild(drag)
-            // this.bg.addComponent(cc.Graphics)
+
+            const sticker = cc.instantiate(this.stickerPrefab)
+
             //@ts-ignore
-            Util.loadTexture(image, (texture) => {
+            Util.loadTexture(image, (texture: Texture2D) => {
                 if (texture != null) {
-                    const pictureNode = drag.children[1]
+                    this.node.addChild(sticker)
+                    sticker.name = index.toString()
                     const spriteFrame = new cc.SpriteFrame(texture)
-                    pictureNode.getComponent(cc.Sprite).spriteFrame = spriteFrame
-                    const shadowNode = drag.children[0]
-                    shadowNode.getComponent(cc.Sprite).spriteFrame = spriteFrame
-                    shadowNode.active = false
-                    drag.height = pictureNode.height
-                    drag.width = pictureNode.width
-                    console.log('randomPositionX, randomPositionY', randomPostionX, randomPositionY);
-                    drag.position = new cc.Vec2(parseInt(randomPostionX), parseInt(randomPositionY));
-                    drag.getComponent(Drag).allowDrag = true
-                    if (index + 1 == config.data.length) {
-                        Drag.letDrag = true
-                        Util.showHelp(firstDrag, firstDrop)
-                    }
-                    const drop = cc.instantiate(this.pictureDrop)
-                    drop.name = index.toString()
-                    console.log('correctPositionX, correctPositionY', correctPositionX, correctPositionY);
-                    drop.position = new cc.Vec2(parseInt(correctPositionX), parseInt(correctPositionY))
-                    drop.height = drag.height
-                    drop.width = drag.width
-                    this.bg.node.addChild(drop)
-                    if (index == 1) {
-                        firstDrag = drag
-                        firstDrop = drop
+                    console.log('before spriteFrame size', spriteFrame.getOriginalSize())
+                    spriteFrame.setOriginalSize(cc.size(140, 140))
+                    console.log('after spriteFrame size', spriteFrame.getOriginalSize())
+                    sticker.getChildByName('photo').getChildByName('mask').getChildByName('picture').getComponent(cc.Sprite).spriteFrame = spriteFrame
+                    // sticker.getChildByName('photo').getChildByName('mask').getChildByName('picture').getComponent(cc.Sprite).spriteFrame.setOriginalSize(cc.size(140, 140))
+                    console.log('picture size', sticker.getChildByName('photo').getChildByName('mask').getChildByName('picture').getComponent(cc.Sprite).spriteFrame.getOriginalSize())
+                    console.log('picture size', sticker.getChildByName('photo').getChildByName('mask').getChildByName('picture').getComponent(cc.Sprite))
+                    sticker.position = new cc.Vec2(parseInt(randomPostionX), parseInt(randomPositionY));
+                    console.log('isUnlock ', isUnlock, ' isFinished ', isFinished);
+                    sticker.getComponent(cc.Button).interactable = isUnlock
+                    if (!isUnlock) {
+                        sticker.getComponent(cc.Button).disabledColor
+                        sticker.getChildByName('lock').active = !isUnlock
                     }
                 }
+                // if (texture != null) {
+                //     const pictureNode = drag.getChildByName('photo').getChildByName('mask').getChildByName('picture')
+                //     const spriteFrame = new cc.SpriteFrame(texture)
+                //     console.log('pictureNode.getChildByName(photo).getChildByName(mask)', pictureNode)
+                //     pictureNode.getComponent(cc.Sprite).spriteFrame = spriteFrame
+                //     const shadowNode = drag.children[0]
+                //     shadowNode.getComponent(cc.Sprite).spriteFrame = spriteFrame
+                //     shadowNode.active = false
+                //     drag.height = pictureNode.height
+                //     drag.width = pictureNode.width
+                //     console.log('randomPositionX, randomPositionY', randomPostionX, randomPositionY);
+                //     drag.position = new cc.Vec2(parseInt(randomPostionX), parseInt(randomPositionY));
+                //     drag.getComponent(Drag).allowDrag = true
+                //     if (index + 1 == config.data.length) {
+                //         Drag.letDrag = true
+                //         Util.showHelp(firstDrag, firstDrop)
+                //     }
+                //     const drop = cc.instantiate(this.stickerDrop)
+                //     drop.name = index.toString()
+                //     console.log('correctPositionX, correctPositionY', correctPositionX, correctPositionY);
+                //     drop.position = new cc.Vec2(parseInt(correctPositionX), parseInt(correctPositionY))
+                //     drop.height = drag.height
+                //     drop.width = drag.width
+                //     this.bg.node.addChild(drop)
+                //     if (index == 1) {
+                //         firstDrag = drag
+                //         firstDrop = drop
+                //     }
+                // }
             })
 
         }
@@ -182,24 +201,24 @@ export default class StickerBook extends Game {
     //     // this.label.scale = 1.1
     // }
 
-    onMatch() {
-        this.node.emit('correct')
-        console.log('Answer Correct', this.numPieces);
-        if (--this.numPieces <= 0) {
-            console.log('Entered onMatch if', this.numPieces);
-            Drag.letDrag = false
-            this.scheduleOnce(() => {
-                // console.log('Config.i.direction', Config.i.direction)
-                // console.log('Direction.RTL', Direction.RTL);
-                // console.log('Config.i.direction === Direction.RTL', Config.i.direction === Direction.RTL);
-                // if (Config.i.direction === Direction.RTL)
-                Util.speakClip(this.audio, () => {
-                    this.node.emit('nextProblem')
-                    console.log('nextProblem emited');
-                })
-            }, 1)
-        }
-    }
+    // onMatch() {
+    //     this.node.emit('correct')
+    //     console.log('Answer Correct', this.numPieces);
+    //     if (--this.numPieces <= 0) {
+    //         console.log('Entered onMatch if', this.numPieces);
+    //         Drag.letDrag = false
+    //         this.scheduleOnce(() => {
+    //             // console.log('Config.i.direction', Config.i.direction)
+    //             // console.log('Direction.RTL', Direction.RTL);
+    //             // console.log('Config.i.direction === Direction.RTL', Config.i.direction === Direction.RTL);
+    //             // if (Config.i.direction === Direction.RTL)
+    //             Util.speakClip(this.audio, () => {
+    //                 this.node.emit('nextProblem')
+    //                 console.log('nextProblem emited');
+    //             })
+    //         }, 1)
+    //     }
+    // }
 
     onToolClick(event: cc.Event, customEventData: string) {
         let newTool: cc.Node = this[customEventData]
@@ -279,5 +298,10 @@ export default class StickerBook extends Game {
     clearDrawing() {
         if (this.graphics != undefined)
             this.graphics.clear();
+    }
+
+    @catchError()
+    onstickerIconClick() {
+        console.log('onstickerIconClick called');
     }
 }

@@ -6600,7 +6600,6 @@
     "friendPos": {
       "__id__": 175
     },
-    "background": null,
     "label": {
       "__id__": 84
     },
@@ -6610,7 +6609,6 @@
     "mask": {
       "__id__": 80
     },
-    "wallpaper": null,
     "graphics": {
       "__id__": 78
     },
@@ -6620,11 +6618,14 @@
     "bottomPaint": {
       "__id__": 116
     },
-    "pictureDrag": {
+    "stickerDrag": {
       "__uuid__": "f87c101e-bd94-4eae-a2f9-12ce8fcd007a"
     },
-    "pictureDrop": {
+    "stickerDrop": {
       "__uuid__": "6f00d9c8-4d65-4fc5-bfb8-d5b518d735f1"
+    },
+    "stickerPrefab": {
+      "__uuid__": "11f95d3f-8a09-48a2-a7ff-71e8fd177d70"
     },
     "_id": ""
   },

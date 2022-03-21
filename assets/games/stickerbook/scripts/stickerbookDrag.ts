@@ -80,29 +80,12 @@ export default class StickerBookDrag extends Drag {
         console.log('onTouchEnd')
         if (this.match) {
             this.node.children[0].active = false
-            this.node.emit('monsterMatch', this)
-            console.log('onTouchEnd monsterMatch')
+            this.node.emit('stickericonMatch', this)
+            console.log('onTouchEnd stickerbookMatch')
         } else {
-            console.log('onTouchEnd monsterNoMatch')
-            this.node.emit('monsterNoMatch')
+            console.log('onTouchEnd stickerbookNoMatch')
+            this.node.emit('stickericonNoMatch')
             
-            // const pic = this.node.children[1]
-            // const worldPos = this.node.convertToWorldSpaceAR(cc.Vec2.ZERO)
-            // const newPos = this.node.getPosition();
-            // console.log('const newPos', newPos)
-            // console.log('const worldPos', worldPos)
-            // const location = touch.getLocation();
-            // const nodeSpaceLocation = this.node.getParent().convertToNodeSpaceAR(location);
-            // console.log('nodeSpaceLocation', nodeSpaceLocation.x, nodeSpaceLocation.y)
-            // // newPos.x = nodeSpaceLocation.x //- this.adjustCords.x
-            // // newPos.y = nodeSpaceLocation.y //- this.adjustCords.y
-            // // this.node.x = newPos.x
-            // // this.node.y = newPos.y
-            // pic.position = new cc.Vec2(nodeSpaceLocation.x, nodeSpaceLocation.y)
-            // console.log('this.node', pic.x, pic.y)
-
-            // this.node.emit('monsterNoMatch', newPos)
-            // console.log('this.node.emit(monsterNoMatch, this)')
         }
     }
 
