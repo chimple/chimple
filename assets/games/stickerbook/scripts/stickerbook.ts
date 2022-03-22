@@ -38,32 +38,174 @@ export default class StickerBook extends Game {
     @property(cc.Prefab)
     stickerPrefab: cc.Prefab = null
 
+    @property(cc.Node)
+    stickerIconScrollView: cc.Node = null
+
     currentTool: cc.Node = null
-    numHeightAdjust: number = 0
-    numYAdjust: number = -100
     numStickers: number = -50
     static numPieces: number = 0;
     text: string = null
     audio: cc.AudioClip = null
 
     onLoad() {
+        if (cc.sys.localStorage.getItem('stickerbook') == null) {
+            const stickerBookJson = {
+                'currentStickerBookLevel': 0,
+                'data': [
+                    [
+                        "stickerbook",
+                        "1",
+                        "Description",
+                        "Cat and Butterfly",
+                        "ap2_puzzle7_background.jpg",
+                        "2",
+                        "cat_and_butterfly.mp3",
+                        "ap2_puzzle7_butterfly_puzzle.png",
+                        "321",
+                        "174",
+                        "700",
+                        "-100",
+                        "true",
+                        "false",
+                        "ap2_puzzle7_cat_puzzle.png",
+                        "18",
+                        "13",
+                        "700",
+                        "80",
+                        "true",
+                        "false"
+                    ],
+                    [
+                        "stickerbook",
+                        "1",
+                        "Description",
+                        "Cacti and Camels",
+                        "ap_puzzle10_background.jpg",
+                        "5",
+                        "cacti_and_camels.mp3",
+                        "ap_puzzle10_bush1_puzzle.png",
+                        "8",
+                        "101",
+                        "810",
+                        "0",
+                        "true",
+                        "false",
+                        "ap_puzzle10_bush2_puzzle.png",
+                        "118",
+                        "229",
+                        "1000",
+                        "0",
+                        "true",
+                        "false",
+                        "ap_puzzle10_bush3_puzzle.png",
+                        "566",
+                        "10",
+                        "800",
+                        "100",
+                        "true",
+                        "false",
+                        "ap_puzzle10_camel1_puzzle.png",
+                        "183",
+                        "55",
+                        "980",
+                        "310",
+                        "true",
+                        "false",
+                        "ap_puzzle10_camel2_puzzle.png",
+                        "411",
+                        "97",
+                        "890",
+                        "65",
+                        "true",
+                        "false"
+                    ],
+                    [
+                        "stickerbook",
+                        "1",
+                        "Description",
+                        "Cacti and Camels",
+                        "ap_puzzle10_background.jpg",
+                        "9",
+                        "cacti_and_camels.mp3",
+                        "ap_puzzle10_bush1_puzzle.png",
+                        "8",
+                        "101",
+                        "810",
+                        "0",
+                        "true",
+                        "false",
+                        "ap_puzzle10_bush2_puzzle.png",
+                        "118",
+                        "229",
+                        "1000",
+                        "0",
+                        "false",
+                        "false",
+                        "ap_puzzle10_bush3_puzzle.png",
+                        "566",
+                        "10",
+                        "800",
+                        "100",
+                        "false",
+                        "false",
+                        "ap_puzzle10_camel1_puzzle.png",
+                        "183",
+                        "55",
+                        "980",
+                        "310",
+                        "true",
+                        "false",
+                        "ap_puzzle10_camel2_puzzle.png",
+                        "411",
+                        "97",
+                        "890",
+                        "65",
+                        "false",
+                        "false",
+                        "ap_puzzle10_bush2_puzzle.png",
+                        "118",
+                        "229",
+                        "1000",
+                        "0",
+                        "false",
+                        "false",
+                        "ap_puzzle10_bush3_puzzle.png",
+                        "566",
+                        "10",
+                        "800",
+                        "100",
+                        "true",
+                        "false",
+                        "ap_puzzle10_camel1_puzzle.png",
+                        "183",
+                        "55",
+                        "980",
+                        "310",
+                        "false",
+                        "false",
+                        "ap_puzzle10_camel2_puzzle.png",
+                        "411",
+                        "97",
+                        "890",
+                        "65",
+                        "false",
+                        "false"
+                    ]
+                ]
+            }
+            cc.sys.localStorage.setItem('stickerbook', JSON.stringify(stickerBookJson));
+        }
+        let stickerbookData: JSON = JSON.parse(cc.sys.localStorage.getItem('stickerbook') || '{}');
+        console.log('stickerbook Data ', stickerbookData)
         console.log('stickerbook Copy Game playing')
         const config = Config.getInstance();
         cc.director.getCollisionManager().enabled = true
-        this.node.on('touchstart', () => {
-
-        })
+        this.node.on('touchstart', () => { })
         this.node.on('touchmove', this.onTouchMove, this)
-        // this.node.on('stickerbookMatch', () => {
-        //     // if(++this.numStickers >= MIN_STICKERS_FOR_CAMERA) this.cameraButton.interactable = true
-        //     this.node.emit('correct')
-        // })
-        // this.cameraButton.interactable = false
         const [level, worksheet, problem, name, bgImage, num, sound] = config.data[0]
         console.log('Config.getInstance().data[0]', Config.getInstance().data[0])
         console.log('level, worksheet, problem, name, bgImage, num, x1, y1, sound', level, worksheet, problem, name, bgImage, num, sound)
-        // this.numHeightAdjust = Number(heightAdjust)
-        // this.numYAdjust = Number(yAdjust)
+
         // const labelComp = this.label.getComponent(cc.Label)
         // if (labelComp != null) labelComp.string = letter
 
@@ -96,9 +238,6 @@ export default class StickerBook extends Game {
             this.audio = audioClip
         })
 
-        var firstDrag: cc.Node = null
-        var firstDrop: cc.Node = null
-
         for (let index = 0; index < StickerBook.numPieces; index++) {
             const image = config.data[0][7 + index * 7];
             const correctPositionX = config.data[0][8 + index * 7];
@@ -108,117 +247,35 @@ export default class StickerBook extends Game {
             const isUnlock = config.data[0][12 + index * 7] == 'true' ? true : false;
             const isFinished = config.data[0][13 + index * 7] == 'true' ? true : false;
 
-            // const drag = cc.instantiate(this.stickerDrag)
-            // drag.name = index.toString()
-            // drag.position = new cc.Vec2(parseInt(correctPositionX), parseInt(correctPositionY))
-            // // console.log('Config.i.direction', Config.i.direction);
-            // // console.log('Direction.RTL', Direction.RTL);
-            // // console.log('Config.i.direction === Direction.RTL', Config.i.direction === Direction.RTL);
-            // // if (Config.i.direction === Direction.RTL)
-            // //     drag.getComponent(Drag).isReverseXNeeded = true;
-            // drag.on('stickerbookMatch', this.onMatch.bind(this))
-            // drag.on('stickerbookNoMatch', () => {
-            //     // this.node.emit('wrong')
-            //     console.log('this.node.emit wrong')
-            // })
-            // this.bg.node.addChild(drag)
-
-
             const sticker = cc.instantiate(this.stickerPrefab)
 
             //@ts-ignore
             Util.loadTexture(image, (texture: Texture2D) => {
                 if (texture != null) {
-                    this.node.addChild(sticker)
+                    this.stickerIconScrollView.addChild(sticker) //this.node.addChild(sticker)
+                    this.stickerIconScrollView.width = 400
+                    this.stickerIconScrollView.parent.width = this.stickerIconScrollView.width
+                    this.stickerIconScrollView.parent.parent.width = this.stickerIconScrollView.width
+                    this.stickerIconScrollView.getComponent(cc.Layout).updateLayout()
+                    this.stickerIconScrollView.parent.height = this.stickerIconScrollView.height
+
                     sticker.name = index.toString()
                     const spriteFrame = new cc.SpriteFrame(texture)
-                    console.log('before spriteFrame size', spriteFrame.getOriginalSize())
-                    spriteFrame.setOriginalSize(cc.size(140, 140))
-                    console.log('after spriteFrame size', spriteFrame.getOriginalSize())
                     sticker.getChildByName('photo').getChildByName('mask').getChildByName('picture').getComponent(cc.Sprite).spriteFrame = spriteFrame
-                    // sticker.getChildByName('photo').getChildByName('mask').getChildByName('picture').getComponent(cc.Sprite).spriteFrame.setOriginalSize(cc.size(140, 140))
-                    console.log('picture size', sticker.getChildByName('photo').getChildByName('mask').getChildByName('picture').getComponent(cc.Sprite).spriteFrame.getOriginalSize())
-                    console.log('picture size', sticker.getChildByName('photo').getChildByName('mask').getChildByName('picture').getComponent(cc.Sprite))
+                    sticker.getChildByName('photo').getChildByName('mask').getChildByName('picture').setContentSize(130, 130)
+                    console.log('picture size', sticker.getChildByName('photo').getChildByName('mask').getChildByName('picture').getContentSize())
                     sticker.position = new cc.Vec2(parseInt(randomPostionX), parseInt(randomPositionY));
                     console.log('isUnlock ', isUnlock, ' isFinished ', isFinished);
                     sticker.getComponent(cc.Button).interactable = isUnlock
                     if (!isUnlock) {
                         sticker.getComponent(cc.Button).disabledColor
                         sticker.getChildByName('lock').active = !isUnlock
+                        this.node.getChildByName('right').active = isUnlock
                     }
                 }
-                // if (texture != null) {
-                //     const pictureNode = drag.getChildByName('photo').getChildByName('mask').getChildByName('picture')
-                //     const spriteFrame = new cc.SpriteFrame(texture)
-                //     console.log('pictureNode.getChildByName(photo).getChildByName(mask)', pictureNode)
-                //     pictureNode.getComponent(cc.Sprite).spriteFrame = spriteFrame
-                //     const shadowNode = drag.children[0]
-                //     shadowNode.getComponent(cc.Sprite).spriteFrame = spriteFrame
-                //     shadowNode.active = false
-                //     drag.height = pictureNode.height
-                //     drag.width = pictureNode.width
-                //     console.log('randomPositionX, randomPositionY', randomPostionX, randomPositionY);
-                //     drag.position = new cc.Vec2(parseInt(randomPostionX), parseInt(randomPositionY));
-                //     drag.getComponent(Drag).allowDrag = true
-                //     if (index + 1 == config.data.length) {
-                //         Drag.letDrag = true
-                //         Util.showHelp(firstDrag, firstDrop)
-                //     }
-                //     const drop = cc.instantiate(this.stickerDrop)
-                //     drop.name = index.toString()
-                //     console.log('correctPositionX, correctPositionY', correctPositionX, correctPositionY);
-                //     drop.position = new cc.Vec2(parseInt(correctPositionX), parseInt(correctPositionY))
-                //     drop.height = drag.height
-                //     drop.width = drag.width
-                //     this.bg.node.addChild(drop)
-                //     if (index == 1) {
-                //         firstDrag = drag
-                //         firstDrop = drop
-                //     }
-                // }
             })
-
         }
     }
-
-    // start() {
-    //     //@ts-ignore
-    //     // console.log('texture.getBoundingBox().getX()', this.bg.node.getContentSize())
-    //     // console.log('texture.getBoundingBox().getX()', this.mask.spriteFrame)
-    //     // this.mask.node.width = this.bg.node.getContentSize().width
-    //     // this.mask.node.height = this.bg.node.getContentSize().height
-    //     // this.background.width = this.bg.node.getContentSize().width
-    //     // this.background.height = this.bg.node.getContentSize().height + this.numHeightAdjust
-    //     // this.background.y += this.numHeightAdjust / 2
-    //     // this.board.size.width = this.bg.node.getContentSize().width
-    //     // this.board.size.height = this.bg.node.getContentSize().height + Number(this.numHeightAdjust)
-    //     // this.board.offset.y += this.numHeightAdjust / 2
-    //     // this.bg.node.y += Number(this.numYAdjust)
-    //     // // this.graphics.node.y += Number(this.numYAdjust)
-    //     // this.mask.node.y += Number(this.numYAdjust)
-    //     // const outline = this.label.addComponent(cc.LabelOutline)
-    //     // outline.width = 10
-    //     // this.label.scale = 1.1
-    // }
-
-    // onMatch() {
-    //     this.node.emit('correct')
-    //     console.log('Answer Correct', this.numPieces);
-    //     if (--this.numPieces <= 0) {
-    //         console.log('Entered onMatch if', this.numPieces);
-    //         Drag.letDrag = false
-    //         this.scheduleOnce(() => {
-    //             // console.log('Config.i.direction', Config.i.direction)
-    //             // console.log('Direction.RTL', Direction.RTL);
-    //             // console.log('Config.i.direction === Direction.RTL', Config.i.direction === Direction.RTL);
-    //             // if (Config.i.direction === Direction.RTL)
-    //             Util.speakClip(this.audio, () => {
-    //                 this.node.emit('nextProblem')
-    //                 console.log('nextProblem emited');
-    //             })
-    //         }, 1)
-    //     }
-    // }
 
     onToolClick(event: cc.Event, customEventData: string) {
         let newTool: cc.Node = this[customEventData]
@@ -264,43 +321,42 @@ export default class StickerBook extends Game {
             this.graphics.lineTo(to.x, to.y)
             this.graphics.stroke()
         }
-        // if (touch.getID() == 0 && this.currentTool == this.bottomPaint) {
-        //     const location = touch.getLocation();
-        //     const nodeSpaceLocation = this.node.getParent().convertToNodeSpaceAR(location);
-        //     // console.log('nodeSpaceLocation', nodeSpaceLocation)
-        //     let tempCordX = nodeSpaceLocation.x //- this.adjustCords.x
-        //     let tempCordY = nodeSpaceLocation.y //- this.adjustCords.y
-        //     // let tempCordX = this.bg.node.getContentSize().width/2
-        //     // let tempCordY = this.bg.node.getContentSize().height/2
-        //     console.log('this.bg.node.getPosition()', this.bg.node.getPosition())
-        //     console.log('this.bg.node.getContentSize()', this.bg.node.getContentSize())
-        //     cc.log("on movetempCordX " + tempCordX, this.bg.node.getContentSize().width);
-        //     cc.log("on movetempCordY " + tempCordY, this.bg.node.getContentSize().height);
-        //     if (tempCordX > -this.bg.node.getContentSize().width / 2 && tempCordX < this.bg.node.getContentSize().width / 2 && tempCordY > -this.bg.node.getContentSize().height / 2 && tempCordY < this.bg.node.getContentSize().height / 2) {
-        //         // if (this.calculateMagnitute(nodeSpaceLocation, this.last_location) > 10 && nodeSpaceLocation.x < (-40) && nodeSpaceLocation.x > -472 / 1 && nodeSpaceLocation.y > -512 / 2 && nodeSpaceLocation.y < 512 / 2) {
-        //         console.log("Prefab Spawned!!!")
-        //         // this.drawing = this.node.getChildByName("canvas").getChildByName("graphicsNode").getComponent(cc.Graphics);
-        //         const from = this.label.convertToNodeSpaceAR(touch.getPreviousLocation())
-        //         const to = this.label.convertToNodeSpaceAR(touch.getLocation())
-        //         this.graphics.moveTo(from.x, from.y)
-        //         this.graphics.lineTo(to.x, to.y)
-        //         this.graphics.stroke()
-
-
-        //         // this.last_location = nodeSpaceLocation;
-        //         // this.startLocation.x = nodeSpaceLocation.x - this.adjustCords.x;
-        //         // this.startLocation.y = nodeSpaceLocation.y - this.adjustCords.y;
-        //     }
-        // }
     }
+    // if (touch.getID() == 0 && this.currentTool == this.bottomPaint) {
+    //     const location = touch.getLocation();
+    //     const nodeSpaceLocation = this.node.getParent().convertToNodeSpaceAR(location);
+    //     // console.log('nodeSpaceLocation', nodeSpaceLocation)
+    //     let tempCordX = nodeSpaceLocation.x //- this.adjustCords.x
+    //     let tempCordY = nodeSpaceLocation.y //- this.adjustCords.y
+    //     // let tempCordX = this.bg.node.getContentSize().width/2
+    //     // let tempCordY = this.bg.node.getContentSize().height/2
+    //     console.log('this.bg.node.getPosition()', this.bg.node.getPosition())
+    //     console.log('this.bg.node.getContentSize()', this.bg.node.getContentSize())
+    //     cc.log("on movetempCordX " + tempCordX, this.bg.node.getContentSize().width);
+    //     cc.log("on movetempCordY " + tempCordY, this.bg.node.getContentSize().height);
+    //     if (tempCordX > -this.bg.node.getContentSize().width / 2 && tempCordX < this.bg.node.getContentSize().width / 2 && tempCordY > -this.bg.node.getContentSize().height / 2 && tempCordY < this.bg.node.getContentSize().height / 2) {
+    //         // if (this.calculateMagnitute(nodeSpaceLocation, this.last_location) > 10 && nodeSpaceLocation.x < (-40) && nodeSpaceLocation.x > -472 / 1 && nodeSpaceLocation.y > -512 / 2 && nodeSpaceLocation.y < 512 / 2) {
+    //         console.log("Prefab Spawned!!!")
+    //         // this.drawing = this.node.getChildByName("canvas").getChildByName("graphicsNode").getComponent(cc.Graphics);
+    //         const from = this.label.convertToNodeSpaceAR(touch.getPreviousLocation())
+    //         const to = this.label.convertToNodeSpaceAR(touch.getLocation())
+    //         this.graphics.moveTo(from.x, from.y)
+    //         this.graphics.lineTo(to.x, to.y)
+    //         this.graphics.stroke()
 
-    @catchError()
+
+    //         // this.last_location = nodeSpaceLocation;
+    //         // this.startLocation.x = nodeSpaceLocation.x - this.adjustCords.x;
+    //         // this.startLocation.y = nodeSpaceLocation.y - this.adjustCords.y;
+    //     }
+    // }
+    // }
+
     clearDrawing() {
         if (this.graphics != undefined)
             this.graphics.clear();
     }
 
-    @catchError()
     onstickerIconClick() {
         console.log('onstickerIconClick called');
     }

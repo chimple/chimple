@@ -17,9 +17,16 @@ export default class StickerIcon extends cc.Component {
     @property(cc.Prefab)
     stickerDrop: cc.Prefab = null
 
+    @property(cc.Material)
+    grayMaterial: cc.Material
+
+    // @property(cc.Prefab)
+    // stickerBook: cc.Prefab = null
+
     // numPieces;
     audio: cc.AudioClip = null;
     bg: cc.Node = null
+    stickerBook: cc.Node = null;
 
     onLoad() {
 
@@ -28,7 +35,7 @@ export default class StickerIcon extends cc.Component {
     // start() {
     // }
 
-    @catchError()
+    // @catchError()
     onstickerIconClick() {
         console.log('onstickerIconClick called');
         const config = Config.getInstance();
@@ -42,8 +49,13 @@ export default class StickerIcon extends cc.Component {
             this.audio = audioClip
         })
 
-        console.log('bg node', this.node.getParent().getChildByName('New Node').getChildByName('bg').name)
-        this.bg = this.node.getParent().getChildByName('New Node').getChildByName('bg')
+        this.stickerBook = this.node.getParent().getParent().getParent().getParent().getParent();
+        console.log('this.stickerBook', this.stickerBook.name)
+        this.bg = this.stickerBook.getChildByName('New Node').getChildByName('bg')
+        // const stickerBook = cc.instantiate(this.stickerBook)
+        // console.log('stickerBook', stickerBook.name)
+        // console.log('stickerBook', stickerBook.getChildByName('New Node').getChildByName('bg').name)
+        // this.bg = stickerBook.getChildByName('New Node').getChildByName('bg')
         console.log('bg node', this.bg.name)
 
         const index = parseInt(this.node.name);
@@ -66,6 +78,8 @@ export default class StickerIcon extends cc.Component {
             // this.node.emit('wrong')
             console.log('this.node.emit wrong')
         })
+
+        console.log('is drag null', drag)
         this.bg.addChild(drag)
 
         //@ts-ignore
@@ -73,15 +87,23 @@ export default class StickerIcon extends cc.Component {
             if (texture != null) {
                 const pictureNode = drag.children[1]
                 const spriteFrame = new cc.SpriteFrame(texture)
-                console.log('pictureNode.getChildByName(photo).getChildByName(mask)', pictureNode)
+                console.log('pictureNode.getChildByName(photo).getChildByName(mask)', pictureNode.children[1])
                 pictureNode.getComponent(cc.Sprite).spriteFrame = spriteFrame
                 const shadowNode = drag.children[0]
+                console.log('pictureNode.getChildByName(photo).getChildByName(mask)', pictureNode.children[0])
                 shadowNode.getComponent(cc.Sprite).spriteFrame = spriteFrame
                 shadowNode.active = false
                 drag.height = pictureNode.height
                 drag.width = pictureNode.width
-                console.log('randomPositionX, randomPositionY', this.node.position)//randomPostionX, randomPositionY);
-                drag.position = this.node.position //new cc.Vec2(parseInt(randomPostionX), parseInt(randomPositionY));
+                console.log('randomPositionX, randomPositionY', this.stickerBook.position)//randomPostionX, randomPositionY);
+                drag.position = new cc.Vec2(500, 180); //this.stickerBook.position 
+                // this.node.on('touchmove', function (event) {
+                //     // const to = this.label.convertToNodeSpaceAR(event.touch.getLocation())
+                //     console.log('touchmove to', event.touch.getLocationX(), event.touch.getLocationY())
+                //     this.stickerBook.x = event.touch.getLocationX()
+                //     this.stickerBook.y = event.touch.getLocationY()
+
+                // }, this)
                 drag.getComponent(Drag).allowDrag = true
                 if (index + 1 == config.data.length) {
                     Drag.letDrag = true
@@ -95,7 +117,8 @@ export default class StickerIcon extends cc.Component {
                 drop.width = drag.width
                 this.bg.addChild(drop)
                 this.node.getComponent(cc.Button).interactable = false
-                this.node.getComponent(cc.Button).disabledColor
+                this.node.getChildByName('photo').getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
+                this.node.getChildByName('photo').getChildByName('mask').getChildByName('picture').getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
                 if (index == 1) {
                     firstDrag = drag
                     firstDrop = drop
@@ -105,18 +128,14 @@ export default class StickerIcon extends cc.Component {
     }
 
     onMatch() {
-        this.node.getParent().emit('correct')
+        this.stickerBook.emit('correct')
         console.log('Answer Correct', StickerBook.numPieces);
         if (--StickerBook.numPieces <= 0) {
             console.log('Entered onMatch if', StickerBook.numPieces);
             Drag.letDrag = false
             this.scheduleOnce(() => {
-                // console.log('Config.i.direction', Config.i.direction)
-                // console.log('Direction.RTL', Direction.RTL);
-                // console.log('Config.i.direction === Direction.RTL', Config.i.direction === Direction.RTL);
-                // if (Config.i.direction === Direction.RTL)
                 Util.speakClip(this.audio, () => {
-                    this.node.getParent().emit('nextProblem')
+                    this.stickerBook.emit('nextProblem')
                     console.log('nextProblem emited');
                 })
             }, 1)
