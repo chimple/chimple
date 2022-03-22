@@ -46,6 +46,8 @@ export default class StickerBook extends Game {
     static numPieces: number = 0;
     text: string = null
     audio: cc.AudioClip = null
+    static stickerbookData;
+    static data;
 
     onLoad() {
         if (cc.sys.localStorage.getItem('stickerbook') == null) {
@@ -191,20 +193,22 @@ export default class StickerBook extends Game {
                         "false",
                         "false"
                     ]
-                ]
+                ],
+                'paintStokes': []
             }
             cc.sys.localStorage.setItem('stickerbook', JSON.stringify(stickerBookJson));
         }
-        let stickerbookData: JSON = JSON.parse(cc.sys.localStorage.getItem('stickerbook') || '{}');
-        console.log('stickerbook Data ', stickerbookData)
+        StickerBook.stickerbookData = JSON.parse(cc.sys.localStorage.getItem('stickerbook') || '{}');
+        console.log('stickerbook Data ', StickerBook.stickerbookData)
         console.log('stickerbook Copy Game playing')
-        const config = Config.getInstance();
         cc.director.getCollisionManager().enabled = true
-        this.node.on('touchstart', () => { })
+        StickerBook.data = StickerBook.stickerbookData.data[StickerBook.stickerbookData.currentStickerBookLevel] //Config.getInstance();
         this.node.on('touchmove', this.onTouchMove, this)
-        const [level, worksheet, problem, name, bgImage, num, sound] = config.data[0]
-        console.log('Config.getInstance().data[0]', Config.getInstance().data[0])
+        const [level, worksheet, problem, name, bgImage, num, sound] = StickerBook.data
         console.log('level, worksheet, problem, name, bgImage, num, x1, y1, sound', level, worksheet, problem, name, bgImage, num, sound)
+        // if (StickerBook.stickerbookData.paintStokes[StickerBook.stickerbookData.currentStickerBookLevel] != null) {
+        //     this.graphics = StickerBook.stickerbookData.paintStokes[StickerBook.stickerbookData.currentStickerBookLevel]
+        // }
 
         // const labelComp = this.label.getComponent(cc.Label)
         // if (labelComp != null) labelComp.string = letter
@@ -220,10 +224,10 @@ export default class StickerBook extends Game {
                 console.log('this.bg.node.y', this.bg.node.y)
                 console.log('this.bg.node.width', this.bg.node.width)
                 console.log('this.bg.node.height', this.bg.node.height)
-                this.bg.node.position = new cc.Vec2(-this.bg.node.width / 2, -this.bg.node.height / 2)
+                this.bg.node.position = new cc.Vec3(-this.bg.node.width / 2, -this.bg.node.height / 2)
 
 
-                this.mask.node.position = new cc.Vec2(this.bg.node.width / 2, this.bg.node.height / 2)
+                this.mask.node.position = new cc.Vec3(this.bg.node.width / 2, this.bg.node.height / 2)
                 this.mask.node.setContentSize(this.bg.node.width, this.bg.node.height)
                 console.log('this.mask.node.position', -this.bg.node.width / 2, -this.bg.node.height / 2)
                 console.log('this.mask.node.position.X', this.mask.node.position.x)
@@ -239,19 +243,19 @@ export default class StickerBook extends Game {
         })
 
         for (let index = 0; index < StickerBook.numPieces; index++) {
-            const image = config.data[0][7 + index * 7];
-            const correctPositionX = config.data[0][8 + index * 7];
-            const correctPositionY = config.data[0][9 + index * 7];
-            const randomPostionX = config.data[0][10 + index * 7];
-            const randomPositionY = config.data[0][11 + index * 7];
-            const isUnlock = config.data[0][12 + index * 7] == 'true' ? true : false;
-            const isFinished = config.data[0][13 + index * 7] == 'true' ? true : false;
+            const image = StickerBook.data[7 + index * 7];
+            const correctPositionX = StickerBook.data[8 + index * 7];
+            const correctPositionY = StickerBook.data[9 + index * 7];
+            const randomPostionX = StickerBook.data[10 + index * 7];
+            const randomPositionY = StickerBook.data[11 + index * 7];
+            const isUnlock = StickerBook.data[12 + index * 7] == 'true' ? true : false;
+            const isFinished = StickerBook.data[13 + index * 7] == 'true' ? true : false;
 
             const sticker = cc.instantiate(this.stickerPrefab)
 
             //@ts-ignore
             Util.loadTexture(image, (texture: Texture2D) => {
-                if (texture != null) {
+                if (texture != null && !isFinished) {
                     this.stickerIconScrollView.addChild(sticker) //this.node.addChild(sticker)
                     this.stickerIconScrollView.width = 400
                     this.stickerIconScrollView.parent.width = this.stickerIconScrollView.width
@@ -264,7 +268,7 @@ export default class StickerBook extends Game {
                     sticker.getChildByName('photo').getChildByName('mask').getChildByName('picture').getComponent(cc.Sprite).spriteFrame = spriteFrame
                     sticker.getChildByName('photo').getChildByName('mask').getChildByName('picture').setContentSize(130, 130)
                     console.log('picture size', sticker.getChildByName('photo').getChildByName('mask').getChildByName('picture').getContentSize())
-                    sticker.position = new cc.Vec2(parseInt(randomPostionX), parseInt(randomPositionY));
+                    sticker.position = new cc.Vec3(parseInt(randomPostionX), parseInt(randomPositionY));
                     console.log('isUnlock ', isUnlock, ' isFinished ', isFinished);
                     sticker.getComponent(cc.Button).interactable = isUnlock
                     if (!isUnlock) {
@@ -272,6 +276,28 @@ export default class StickerBook extends Game {
                         sticker.getChildByName('lock').active = !isUnlock
                         this.node.getChildByName('right').active = isUnlock
                     }
+                } else if (isFinished) {
+                    const drag = cc.instantiate(this.stickerDrag)
+                    drag.name = index.toString()
+                    const pictureNode = drag.children[1]
+                    const spriteFrame = new cc.SpriteFrame(texture)
+                    console.log('pictureNode.getChildByName(photo).getChildByName(mask)', pictureNode.children[1])
+                    pictureNode.getComponent(cc.Sprite).spriteFrame = spriteFrame
+                    const shadowNode = drag.children[0]
+                    console.log('pictureNode.getChildByName(photo).getChildByName(mask)', pictureNode.children[0])
+                    shadowNode.getComponent(cc.Sprite).spriteFrame = spriteFrame
+                    shadowNode.active = false
+                    drag.height = pictureNode.height
+                    drag.width = pictureNode.width
+                    if (correctPositionX == '' && correctPositionY == '')
+                        drag.position = new cc.Vec3(parseInt(randomPostionX), parseInt(randomPositionY))
+
+                    else
+                        drag.position = new cc.Vec3(parseInt(correctPositionX), parseInt(correctPositionY))
+                    drag.getComponent(Drag).allowDrag = false
+                    this.node.getChildByName('New Node').getChildByName('bg').addChild(drag)
+                    StickerBook.numPieces--
+                    console.log('StickerBook.numPieces--', StickerBook.numPieces)
                 }
             })
         }
@@ -309,10 +335,6 @@ export default class StickerBook extends Game {
         this.graphics.strokeColor = new cc.Color().fromHEX(customEventData)
     }
 
-    // startLocation: cc.Vec2 = cc.v2(0, 0);
-    // adjustCords: cc.Vec2 = cc.v2(0, 0);
-    // last_location = new cc.Vec2(0, 0);
-
     onTouchMove(touch: cc.Touch) {
         if (this.currentTool == this.bottomPaint) {
             const from = this.label.convertToNodeSpaceAR(touch.getPreviousLocation())
@@ -320,44 +342,12 @@ export default class StickerBook extends Game {
             this.graphics.moveTo(from.x, from.y)
             this.graphics.lineTo(to.x, to.y)
             this.graphics.stroke()
+            // StickerBook.stickerbookData.paintStokes[StickerBook.stickerbookData.currentStickerBookLevel] = this.graphics
         }
     }
-    // if (touch.getID() == 0 && this.currentTool == this.bottomPaint) {
-    //     const location = touch.getLocation();
-    //     const nodeSpaceLocation = this.node.getParent().convertToNodeSpaceAR(location);
-    //     // console.log('nodeSpaceLocation', nodeSpaceLocation)
-    //     let tempCordX = nodeSpaceLocation.x //- this.adjustCords.x
-    //     let tempCordY = nodeSpaceLocation.y //- this.adjustCords.y
-    //     // let tempCordX = this.bg.node.getContentSize().width/2
-    //     // let tempCordY = this.bg.node.getContentSize().height/2
-    //     console.log('this.bg.node.getPosition()', this.bg.node.getPosition())
-    //     console.log('this.bg.node.getContentSize()', this.bg.node.getContentSize())
-    //     cc.log("on movetempCordX " + tempCordX, this.bg.node.getContentSize().width);
-    //     cc.log("on movetempCordY " + tempCordY, this.bg.node.getContentSize().height);
-    //     if (tempCordX > -this.bg.node.getContentSize().width / 2 && tempCordX < this.bg.node.getContentSize().width / 2 && tempCordY > -this.bg.node.getContentSize().height / 2 && tempCordY < this.bg.node.getContentSize().height / 2) {
-    //         // if (this.calculateMagnitute(nodeSpaceLocation, this.last_location) > 10 && nodeSpaceLocation.x < (-40) && nodeSpaceLocation.x > -472 / 1 && nodeSpaceLocation.y > -512 / 2 && nodeSpaceLocation.y < 512 / 2) {
-    //         console.log("Prefab Spawned!!!")
-    //         // this.drawing = this.node.getChildByName("canvas").getChildByName("graphicsNode").getComponent(cc.Graphics);
-    //         const from = this.label.convertToNodeSpaceAR(touch.getPreviousLocation())
-    //         const to = this.label.convertToNodeSpaceAR(touch.getLocation())
-    //         this.graphics.moveTo(from.x, from.y)
-    //         this.graphics.lineTo(to.x, to.y)
-    //         this.graphics.stroke()
-
-
-    //         // this.last_location = nodeSpaceLocation;
-    //         // this.startLocation.x = nodeSpaceLocation.x - this.adjustCords.x;
-    //         // this.startLocation.y = nodeSpaceLocation.y - this.adjustCords.y;
-    //     }
-    // }
-    // }
 
     clearDrawing() {
         if (this.graphics != undefined)
             this.graphics.clear();
-    }
-
-    onstickerIconClick() {
-        console.log('onstickerIconClick called');
     }
 }

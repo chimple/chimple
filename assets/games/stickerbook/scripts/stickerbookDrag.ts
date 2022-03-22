@@ -55,6 +55,7 @@ export default class StickerBookDrag extends Drag {
     //         this.mirror = touch.getLocationX() > cc.winSize.width / 2 ? -1 : 1
     //         this.node.scaleX = this.mirror * 1.1
     //     }
+    //     console.log('stickerbookDrag ontouchmove called')
     // }
 
     // collisionEnterCondition(self, other) {
@@ -84,6 +85,14 @@ export default class StickerBookDrag extends Drag {
             console.log('onTouchEnd stickerbookMatch')
         } else {
             console.log('onTouchEnd stickerbookNoMatch')
+            const index = parseInt(this.node.name)
+            const correctPositionX = StickerBook.data[8 + index * 7] == '' ?? null;
+            const correctPositionY = StickerBook.data[9 + index * 7] == '' ?? null;
+            if (correctPositionX == null && correctPositionY == null) {
+                StickerBook.data[10 + index * 7] = touch.getLocationX();
+                StickerBook.data[11 + index * 7] = touch.getLocationY();
+                StickerBook.data[13 + parseInt(this.node.name) * 7] = 'true';
+            }
             this.node.emit('stickericonNoMatch')
             
         }
