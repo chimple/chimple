@@ -1,19 +1,15 @@
 /****************************************************************************
  Copyright (c) 2015-2016 Chukong Technologies Inc.
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
-
  http://www.cocos2d-x.org
-
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
-
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
-
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -105,8 +101,8 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     protected ChimpleLogger logger;
     protected LockScreenReceiver lockScreenReceiver;
     private static final String TAG = AppActivity.class.getSimpleName();
-    StringBuilder stringBuilder;
     private static FirebaseAnalytics firebaseAnalytics = null;
+    StringBuilder stringBuilder;
     private final String PREFERENCE_FILE_KEY = "bahamaPreferences";
     private final String KEY_REFERRER_EXISTS = "referrer_exists";
     private final Executor backgroundExecutor = Executors.newSingleThreadExecutor();
@@ -137,30 +133,12 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         helper = Helper.getInstance(this, new AuthCallBack() {
             @Override
             public void loginSucceed(final String schoolInfo, final boolean shouldCallBack) {
-                if (shouldCallBack) {
-                    app.runOnGLThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            String javaScriptVariable = "cc.loginSucceeded($schoolInfo)";
-                            javaScriptVariable = javaScriptVariable.replace("$schoolInfo", "'" + schoolInfo + "'");
-                            Log.d(TAG, "calling loginSucceed with: " + javaScriptVariable);
-                            Cocos2dxJavascriptJavaBridge.evalString(javaScriptVariable);
-                        }
-                    });
-                }
+               
             }
 
             @Override
             public void loginFailed(final String reason) {
-                app.runOnGLThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        String javaScriptVariable = "cc.loginFailed($reason)";
-                        javaScriptVariable = javaScriptVariable.replace("$reason", "'" + reason + "'");
-                        Log.d(TAG, "calling loginFailed with: " + javaScriptVariable);
-                        Cocos2dxJavascriptJavaBridge.evalString(javaScriptVariable);
-                    }
-                });
+                
             }
         });
         // Workaround in
@@ -185,7 +163,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         registerReceiver(lockScreenReceiver, filter);
 
         stringBuilder = new StringBuilder();
-        this.checkInstallReferrer(this);
 
 
         String installedTime = ChimpleLogger.getStringFromSharedPreference(this, ChimpleLogger.APP_INSTALLED_TIME);
@@ -197,7 +174,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         ChimpleLogger.storeInSharedPreference(this, ChimpleLogger.DAILY_REMINDER_SHOWED_TIME, null);
         ChimpleLogger.storeInSharedPreference(this, ChimpleLogger.THREE_DAY_REMINDER_SHOWED_TIME, null);
         ChimpleLogger.storeInSharedPreference(this, ChimpleLogger.WEEKLY_REMINDER_SHOWED_TIME, null);
-        initFirebaseMessageClient();
         ChimpleLogger.configureAlarms(this, false);
 
         ChimpleLogger.loadJSON(this, NotificationData.messages_en, ChimpleLogger.EN_LANG);
@@ -221,17 +197,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         }.start();
 
         this.processDeepLink();
-        // OTP integration
-        initFireBaseAuthLoginUsingOTP();
-
-        String school = ChimpleLogger.findSchool("prakash@sutara.org");
-        Log.d(TAG, "school:" + school);
-
-        String sections = ChimpleLogger.fetchSectionsForSchool("mYLtsjfVuFD6NGLLIVHG");
-        Log.d(TAG, "sections:" + sections);
-
-        String students = ChimpleLogger.fetchStudentsForSchoolAndSection("mYLtsjfVuFD6NGLLIVHG", "D7qVA373VEKXtPeg7BEc");
-        Log.d(TAG, "students:" + students);
     }
 
     public void processDeepLink() {
@@ -312,96 +277,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         });
     }
 
-    public void initFireBaseAuthLoginUsingOTP() {
-        mAuth = FirebaseAuth.getInstance();
-        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-            @Override
-            public void onVerificationFailed(FirebaseException e) {
-                //    Toast.makeText(AppActivity.this, "verification failed", Toast.LENGTH_SHORT).show();
-                Log.d("FirebaseException", e.toString());
-            }
-
-            @Override
-            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                // Toast.makeText(AppActivity.this, "verification completed", Toast.LENGTH_SHORT)
-                //     .show();
-            }
-
-            @Override
-            public void onCodeSent(String verificationId,
-                                   PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                super.onCodeSent(verificationId, forceResendingToken);
-                //  Toast.makeText(AppActivity.this, "Code Sent", Toast.LENGTH_SHORT).show();
-                mVerificationId = verificationId; //Add this line to save //verification Id
-                mResendToken = forceResendingToken;
-            }
-        };
-    }
-
-    public void initFirebaseMessageClient() {
-        advertisingApiBackgroundExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                AdvertisingIdClient.Info adInfo = null;
-                String advertisingId = null;
-
-                try {
-                    adInfo = AdvertisingIdClient.getAdvertisingIdInfo(AppActivity.this.getApplicationContext());
-                    if (adInfo != null) {
-                        advertisingId = adInfo.getId();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    // Log.i(TAG, e.getLocalizedMessage());
-                } catch (GooglePlayServicesNotAvailableException e) {
-                    e.printStackTrace();
-                    // Log.i(TAG, e.getLocalizedMessage());
-                } catch (GooglePlayServicesRepairableException e) {
-                    e.printStackTrace();
-                    // Log.i(TAG, e.getLocalizedMessage());
-                }
-                final String aId = advertisingId;
-                ChimpleLogger.storeInSharedPreference(AppActivity.this, ADVERTISING_ID, advertisingId);
-                FirebaseInstanceId.getInstance().getInstanceId()
-                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                            @SuppressLint("InvalidAnalyticsName")
-                            @Override
-                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                                if (!task.isSuccessful()) {
-                                    Log.i(TAG, "Firebase Message Token: failed");
-
-                                    return;
-                                }
-
-                                String token = task.getResult().getToken();
-                                ChimpleLogger.storeInSharedPreference(AppActivity.this, FIREBASE_MESSAGE_TOKEN, token);
-                                Log.i(TAG, "Firebase Message Token:" + token);
-//                                AppActivity.this.syncFcm();
-//                                ChimpleLogger.logEventToFireBase("fcm_token_generated", "token", token);
-                            }
-                        });
-            }
-        });
-    }
-
-    void checkInstallReferrer(Context context) {
-        try {
-            if (getPreferences(MODE_PRIVATE).getBoolean(KEY_REFERRER_EXISTS, false)) {
-                Log.i(TAG, "referrer url already referred");
-                return;
-            }
-
-            final InstallReferrerClient referrerClient = InstallReferrerClient.newBuilder(this).build();
-            backgroundExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    getInstallReferrerFromClient(referrerClient);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+   
 
     public String toUrlEncode(Map<String, String> params) {
         StringBuilder queryString = new StringBuilder();
@@ -532,7 +408,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     protected void onStop() {
         Log.d(TAG, "updating STOP_TIME:" + new Date().getTime());
         ChimpleLogger.storeInSharedPreference(this, APP_LAST_PLAYED_TIME, String.valueOf(new Date().getTime()));
-//        this.syncFcm();
         if (app.repeatHandShakeTimer != null) {
             app.repeatHandShakeTimer.cancel();
         }
@@ -572,7 +447,6 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         ChimpleLogger.storeInSharedPreference(this, ChimpleLogger.DAILY_REMINDER_SHOWED_TIME, null);
         ChimpleLogger.storeInSharedPreference(this, ChimpleLogger.THREE_DAY_REMINDER_SHOWED_TIME, null);
         ChimpleLogger.storeInSharedPreference(this, ChimpleLogger.WEEKLY_REMINDER_SHOWED_TIME, null);
-//        this.syncFcm();
         if (app.repeatHandShakeTimer != null) {
             app.repeatHandShakeTimer.cancel();
             app.repeatHandShakeTimer.start();
@@ -615,125 +489,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     }
 
 
-    void getInstallReferrerFromClient(final InstallReferrerClient referrerClient) {
-
-        referrerClient.startConnection(new InstallReferrerStateListener() {
-            @Override
-            public void onInstallReferrerSetupFinished(int responseCode) {
-                switch (responseCode) {
-                    case InstallReferrerClient.InstallReferrerResponse.OK:
-                        ReferrerDetails response = null;
-                        try {
-                            response = referrerClient.getInstallReferrer();
-                            referrerClient.endConnection();
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-                            // Log.i(TAG, e.getLocalizedMessage());
-                            referrerClient.endConnection();
-                            return;
-                        }
-                        final String referrerUrl = response.getInstallReferrer();
-
-                        advertisingApiBackgroundExecutor.execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                AdvertisingIdClient.Info adInfo = null;
-                                String advertisingId = "";
-
-                                try {
-                                    adInfo = AdvertisingIdClient.getAdvertisingIdInfo(AppActivity.this.getApplicationContext());
-                                    if (adInfo != null) {
-                                        advertisingId = adInfo.getId();
-                                    }
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                    // Log.i(TAG, e.getLocalizedMessage());
-                                } catch (GooglePlayServicesNotAvailableException e) {
-                                    e.printStackTrace();
-                                    // Log.i(TAG, e.getLocalizedMessage());
-                                } catch (GooglePlayServicesRepairableException e) {
-                                    e.printStackTrace();
-                                    // Log.i(TAG, e.getLocalizedMessage());
-                                }
-
-                                if (advertisingId != null) {
-                                    Log.i(TAG, "referrerUrl:" + referrerUrl);
-                                    Log.i(TAG, "advertisingId:" + advertisingId);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("referrer_url", referrerUrl);
-                                    bundle.putString("advertising_id", advertisingId);
-                                    Log.i(TAG, "bundle" + bundle.toString());
-                                    firebaseAnalytics.logEvent("referral_info", bundle);
-                                    getPreferences(MODE_PRIVATE).edit().putBoolean(KEY_REFERRER_EXISTS, true).commit();
-                                }
-                            }
-                        });
-
-                        break;
-                    case InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED:
-                        // API not available on the current Play Store app.
-                        break;
-                    case InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE:
-                        // Connection couldn't be established.
-                        break;
-                }
-
-            }
-
-            @Override
-            public void onInstallReferrerServiceDisconnected() {
-                // Try to restart the connection on the next request to
-                // Google Play by calling the startConnection() method.
-                stringBuilder.append("\nonInstallReferrerServiceDisconnected.");
-                stringBuilder.append("\nisReady == " + referrerClient.isReady());
-
-                stringBuilder.append("\nonInstallReferrerServiceDisconnected. endConnection");
-                stringBuilder.append("\nisReady == " + referrerClient.isReady());
-                referrerClient.endConnection();
-                stringBuilder.append("\nendConnection");
-                stringBuilder.append("\nisReady == " + referrerClient.isReady());
-                Log.i(TAG, stringBuilder.toString());
-            }
-        });
-    }
-
-    private void syncFcm() {
-        String fmcToken = ChimpleLogger.getStringFromSharedPreference(this, FIREBASE_MESSAGE_TOKEN);
-        String advertisingId = ChimpleLogger.getStringFromSharedPreference(this, ADVERTISING_ID);
-        if (fmcToken != null && advertisingId != null) {
-            String lastPlayedTime = ChimpleLogger.getStringFromSharedPreference(this, ChimpleLogger.APP_LAST_PLAYED_TIME);
-            Log.i(TAG, "Sync fmcToken:" + fmcToken + " adId:" + advertisingId);
-            final Map<String, Object> fmcMap = new HashMap<String, Object>();
-            fmcMap.put(FIREBASE_MESSAGE_TOKEN.toLowerCase(), fmcToken);
-            fmcMap.put(ADVERTISING_ID.toLowerCase(), advertisingId);
-            fmcMap.put(APP_LAST_PLAYED_TIME.toLowerCase(), Long.parseLong(lastPlayedTime));
-            Date currentDate = new Date();
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            String strDate = formatter.format(currentDate);
-            fmcMap.put("current_date", strDate);
-
-            String installedTime = ChimpleLogger.getStringFromSharedPreference(this, ChimpleLogger.APP_INSTALLED_TIME);
-            fmcMap.put(APP_INSTALLED_TIME.toLowerCase(), Long.parseLong(installedTime));
-
-            mDatabase.collection(FIREBASE_MESSAGES_SYNC.toLowerCase())
-                    .document(advertisingId).set(fmcMap)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.i(TAG, "Successfully updated cms:" + fmcMap);
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "Failed to update fmcs:" + e.toString());
-                        }
-                    });
-        }
-    }
-
     /*
-
      */
 
     private void processDeepLinkAction(final String url) {
