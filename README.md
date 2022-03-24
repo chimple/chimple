@@ -168,4 +168,6 @@ mv ${from} ${to}
 - Translate resources/lang/xx/i18n.json to local language
 - In Cocos Creator, Copy assets/help/en-help to assets/help/xx-help. Make it a bundle by clicking on isBundle
 - For each mp3, copy the xx language file with the same name by pasting in Cocos Creator. Make use of cocos_courses/scripts/tts.py to generate
-- 
+- In the code, in config.ts, add a new lang to enum Lang
+- Search for Lang.HINDI and add reference to new lang wherever Lang.HINDI is present
+- Open help-audio repo (which will be opened through cocos_courses Cocos Creator project). Copy en-help-remote to xx-help-remote
