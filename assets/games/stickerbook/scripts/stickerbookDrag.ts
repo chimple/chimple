@@ -50,13 +50,22 @@ export default class StickerBookDrag extends Drag {
 
 
     // onTouchMove(touch: cc.Touch) {
-    //     super.onTouchMove(touch)
-    //     if (this.allowDrag && this.isDragging) {
-    //         this.mirror = touch.getLocationX() > cc.winSize.width / 2 ? -1 : 1
-    //         this.node.scaleX = this.mirror * 1.1
-    //     }
+    //     // super.onTouchMove(touch)
+    //     // if (this.allowDrag && this.isDragging) {
+    //     //     this.mirror = touch.getLocationX() > cc.winSize.width / 2 ? -1 : 1
+    //     //     this.node.scaleX = this.mirror * 1.1
+    //     // }
+    //     // if (this.allowDrag && this.isDragging) {
+    //     //     if (this.isReverseXNeeded)
+    //     // this.node.setPosition(this.node.position.x + touch.getDelta().x, this.node.position.y + touch.getDelta().y);
+    //     //     else { // @ts-ignore
+    //     //         this.node.setPosition(this.node.position.add(touch.getDelta()));
+    //     //     }
+    //     // }
+    //     this.node.children[1].active = true
     //     console.log('stickerbookDrag ontouchmove called')
     // }
+
 
     // collisionEnterCondition(self, other) {
     //     return other.node.name === 'a'
@@ -76,15 +85,39 @@ export default class StickerBookDrag extends Drag {
         this.node.zIndex = 0
     }
 
+    onTouchStart(touch: cc.Touch): void {
+        super.onTouchStart(touch)
+        this.node.children[1].active = true
+        this.node.children[1].setContentSize(StickerBook.pictureSizes.get(this.node.name))
+        console.log('stickerbookDrag ontouchstart called')
+    }
+
     onTouchEnd(touch: cc.Touch) {
         super.onTouchEnd(touch, false)
         console.log('onTouchEnd')
         if (this.match) {
             this.node.children[0].active = false
             this.node.emit('stickericonMatch', this)
+            StickerBook.data[13 + parseInt(this.node.name) * 7] = 'true';
+            console.log('Answer Correct this.node.name', this.node.name, StickerBook.data[13 + parseInt(this.node.name) * 7]);
+            cc.sys.localStorage.setItem('stickerbook', JSON.stringify(StickerBook.stickerbookData));
             console.log('onTouchEnd stickerbookMatch')
         } else {
-            console.log('onTouchEnd stickerbookNoMatch')
+            console.log('onTouchEnd stickerbookNoMatch', this.node.getParent().getParent().getParent())
+            console.log('this.node.convertToWorldSpace(StickerBook.stickerIconPostion[index])', this.node.convertToWorldSpace(StickerBook.stickerIconPostion[parseInt(this.node.name)]))
+            // drag.x = this.node.convertToWorldSpace(StickerBook.stickerIconPostion[index]).x + 6 - 0.1065088757397;
+            // drag.y = this.node.convertToWorldSpace(StickerBook.stickerIconPostion[index]).y + 60;
+            new cc.Tween().target(this.node)
+                .to(0.25, {
+                    // position: StickerBook.stickerIconPostion[parseInt(this.node.name)],
+                    x: this.node.getParent().getParent().getParent().convertToWorldSpace(StickerBook.stickerIconPostion[parseInt(this.node.name)]).x + 6 - 0.1065088757397,
+                    y: this.node.getParent().getParent().getParent().convertToWorldSpace(StickerBook.stickerIconPostion[parseInt(this.node.name)]).y + 60
+                }, { progress: null, easing: 'sineOut' })
+                .start()
+            // this.node.setPosition(new cc.Vec3(730 + parseInt(this.node.name) * 180, 180));
+
+            this.node.children[1].setContentSize(130, 130)
+            this.node.children[1].active = true
             const index = parseInt(this.node.name)
             const correctPositionX = StickerBook.data[8 + index * 7] == '' ?? null;
             const correctPositionY = StickerBook.data[9 + index * 7] == '' ?? null;
@@ -94,7 +127,7 @@ export default class StickerBookDrag extends Drag {
                 StickerBook.data[13 + parseInt(this.node.name) * 7] = 'true';
             }
             this.node.emit('stickericonNoMatch')
-            
+
         }
     }
 

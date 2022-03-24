@@ -29,7 +29,7 @@ export default class StickerIcon extends cc.Component {
     stickerBook: cc.Node = null;
 
     onLoad() {
-
+        this.node.on('touchmove', this.onTouchMove, this)
     }
 
     // start() {
@@ -96,18 +96,19 @@ export default class StickerIcon extends cc.Component {
                     drag.width = pictureNode.width
                     console.log('randomPositionX, randomPositionY', randomPostionX, randomPositionY);
                     // drag.position = new cc.Vec3(parseInt(randomPostionX), parseInt(randomPositionY));
-                    drag.position = new cc.Vec3(500, 180); //this.stickerBook.position 
-                    // console.log('touchmove touch', touch.getLocationX(), touch.getLocationY())
-                    // drag.x = touch.getLocationX()
-                    // drag.y = touch.getLocationY()
+                    // drag.position = new cc.Vec3(500, 180); //this.stickerBook.position 
+                    const to = this.bg.convertToNodeSpaceAR(touch.getLocation())
+                    console.log('touchmove touch', to.x, to.y)
+                    drag.x = to.x
+                    drag.y = to.y
 
-                    this.node.on('touchmove', function (event) {
-                        // const to = this.label.convertToNodeSpaceAR(event.touch.getLocation())
-                        console.log('touchmove to', event.touch.getLocationX(), event.touch.getLocationY())
-                        this.stickerBook.x = event.touch.getLocationX()
-                        this.stickerBook.y = event.touch.getLocationY()
+                    // this.node.on('touchmove', function (event) {
+                    //     // const to = this.label.convertToNodeSpaceAR(event.touch.getLocation())
+                    //     console.log('touchmove to', event.touch.getLocationX(), event.touch.getLocationY())
+                    //     this.stickerBook.x = event.touch.getLocationX()
+                    //     this.stickerBook.y = event.touch.getLocationY()
 
-                    }, this)
+                    // }, this)
                     drag.getComponent(Drag).allowDrag = true
                     if (index + 1 == StickerBook.data.length) {
                         Drag.letDrag = true
@@ -120,7 +121,7 @@ export default class StickerIcon extends cc.Component {
                     drop.height = drag.height
                     drop.width = drag.width
                     this.bg.addChild(drop)
-                    this.node.getComponent(cc.Button).interactable = false
+                    // this.node.getComponent(cc.Button).interactable = false
                     this.node.getChildByName('photo').getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
                     this.node.getChildByName('photo').getChildByName('mask').getChildByName('picture').getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
                     if (index == 1) {
@@ -132,15 +133,15 @@ export default class StickerIcon extends cc.Component {
         }
     }
 
-    // bool = true;
-    // onTouchMove(touch: cc.Touch) {
-    //     console.log('stickericon ontouchmove called')
-    //     if (this.bool) {
-    //         console.log('stickericon ontouchmove if called')
-    //         this.onstickerIconClick(touch);
-    //         this.bool = false
-    //     }
-    // }
+    bool = true;
+    onTouchMove(touch: cc.Touch) {
+        console.log('stickericon ontouchmove called')
+        if (this.bool) {
+            console.log('stickericon ontouchmove if called')
+            this.onstickerIconClick(touch);
+            this.bool = false
+        }
+    }
 
     onMatch() {
         this.stickerBook.emit('correct')
