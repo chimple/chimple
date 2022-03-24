@@ -75,13 +75,16 @@ export class FirebaseApi implements ServiceApi {
 
     async syncFailedProgresses(infos: UpdateProgressInfo[]): Promise<any> {
         if (Array.isArray(infos) && infos.length > 0) {
+            const user = User.getCurrentUser();
             let inputs = infos.map((info: UpdateProgressInfo) => {
                 return {
                     lessonId: info.lesson,
                     userId: info.studentId,
                     courseName: info.courseName,
                     score: info.assessment,
-                    assignmentId: info.assignmentId
+                    assignmentId: info.assignmentId,
+                    timeSpent: info.timespent,
+                    name: user.name
                 }
             })
             const requestParams: RequestParams = {
