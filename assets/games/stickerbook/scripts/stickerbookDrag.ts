@@ -5,7 +5,7 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class StickerBookDrag extends Drag {
-    
+
     touchStartAnimation() {
         super.touchStartAnimation()
         this.node.zIndex = 1
@@ -49,6 +49,7 @@ export default class StickerBookDrag extends Drag {
                     }, { progress: null, easing: 'sineOut' })
                     .start()
                 this.node.children[1].setContentSize(130, 130)
+                this.node.emit('stickericonNoMatch')
             }
             // this.node.setPosition(new cc.Vec3(730 + parseInt(this.node.name) * 180, 180));
 
@@ -57,9 +58,10 @@ export default class StickerBookDrag extends Drag {
                 StickerBook.data[10 + index * 7] = this.node.getParent().getParent().getParent().convertToWorldSpace(touch.getLocation()).x;
                 StickerBook.data[11 + index * 7] = this.node.getParent().getParent().getParent().convertToWorldSpace(touch.getLocation()).y;
                 StickerBook.data[13 + parseInt(this.node.name) * 7] = 'true';
+                StickerBook.numPieces--;
                 cc.sys.localStorage.setItem('stickerbook', JSON.stringify(StickerBook.stickerbookDataJson));
+                this.node.emit('stickericonMatch', this)
             }
-            this.node.emit('stickericonNoMatch')
 
         }
     }
