@@ -73,7 +73,7 @@ export default class StickerBook extends Game {
                         "Description",
                         "Cacti and Camels",
                         "ap_puzzle10_background.jpg",
-                        "5",
+                        "6",
                         "cacti_and_camels.mp3",
                         "ap_puzzle10_bush1_puzzle.png",
                         "8",
@@ -108,6 +108,36 @@ export default class StickerBook extends Game {
                         "97",
                         "890",
                         "65",
+                        "true",
+                        "false",
+                        "ap2_puzzle7_butterfly_puzzle.png",
+                        "",
+                        "",
+                        "700",
+                        "-100",
+                        "true",
+                        "false"
+                    ],
+                    [
+                        "stickerbook",
+                        "1",
+                        "Description",
+                        "Cat and Butterfly",
+                        "ap2_puzzle7_background.jpg",
+                        "2",
+                        "cat_and_butterfly.mp3",
+                        "ap2_puzzle7_butterfly_puzzle.png",
+                        "321",
+                        "174",
+                        "700",
+                        "-100",
+                        "true",
+                        "false",
+                        "ap2_puzzle7_cat_puzzle.png",
+                        "18",
+                        "13",
+                        "700",
+                        "80",
                         "true",
                         "false"
                     ],
@@ -161,7 +191,7 @@ export default class StickerBook extends Game {
             cc.sys.localStorage.setItem('stickerbook', JSON.stringify(stickerBookJson));
         }
         StickerBook.stickerbookData = JSON.parse(cc.sys.localStorage.getItem('stickerbook') || '{}');
-        console.log('stickerbook Data ', StickerBook.stickerbookData)
+        console.log('stickerbook Data ', StickerBook.stickerbookData);
         // this.graphics = cc.sys.localStorage.getItem('graphics')
         // console.log('stickerbook Data this.graphics', this.graphics)
         if (StickerBook.pictureSizes.size > 0) StickerBook.pictureSizes.clear()
@@ -209,10 +239,10 @@ export default class StickerBook extends Game {
 
         for (let index = 0; index < StickerBook.numPieces; index++) {
             const image = StickerBook.data[7 + index * 7];
-            const correctPositionX = StickerBook.data[8 + index * 7];
-            const correctPositionY = StickerBook.data[9 + index * 7];
-            const randomPostionX = StickerBook.data[10 + index * 7];
-            const randomPositionY = StickerBook.data[11 + index * 7];
+            const correctPositionX = parseInt(StickerBook.data[8 + index * 7]) || null;
+            const correctPositionY = parseInt(StickerBook.data[9 + index * 7]) || null;
+            const randomPostionX = parseInt(StickerBook.data[10 + index * 7]) || null;
+            const randomPositionY = parseInt(StickerBook.data[11 + index * 7]) || null;
             const isUnlock = StickerBook.data[12 + index * 7] == 'true' ? true : false;
             const isFinished = StickerBook.data[13 + index * 7] == 'true' ? true : false;
 
@@ -257,6 +287,8 @@ export default class StickerBook extends Game {
                         sticker.getChildByName('photo').getChildByName('mask').getChildByName('picture').setContentSize(130, 130)
                         console.log('picture size', sticker.getChildByName('photo').getChildByName('mask').getChildByName('picture').getContentSize())
                         sticker.position = StickerBook.stickerIconPostion[index];
+                        // sticker.x = this.node.convertToWorldSpace(StickerBook.stickerIconPostion[index]).x + 6 - 0.1065088757397;
+                        // sticker.y = this.node.convertToWorldSpace(StickerBook.stickerIconPostion[index]).y + 60;
                         if (!isUnlock) {
                             sticker.getChildByName('lock').active = !isUnlock
                             this.node.getChildByName('right').active = isUnlock
@@ -309,7 +341,7 @@ export default class StickerBook extends Game {
                             const drop = cc.instantiate(this.stickerDrop)
                             drop.name = index.toString()
                             console.log('correctPositionX, correctPositionY', correctPositionX, correctPositionY);
-                            drop.position = new cc.Vec3(parseInt(correctPositionX), parseInt(correctPositionY))
+                            drop.position = new cc.Vec3(correctPositionX, correctPositionY)
                             drop.height = drag.height
                             drop.width = drag.width
                             bg.addChild(drop)
@@ -345,10 +377,11 @@ export default class StickerBook extends Game {
                     shadowNode.active = false
                     drag.height = pictureNode.height
                     drag.width = pictureNode.width
-                    if (correctPositionX == '' && correctPositionY == '')
-                        drag.position = new cc.Vec3(parseInt(randomPostionX), parseInt(randomPositionY))
+                    if (correctPositionX == null && correctPositionY == null)
+                    
+                        drag.position = new cc.Vec3(randomPostionX, randomPositionY)
                     else
-                        drag.position = new cc.Vec3(parseInt(correctPositionX), parseInt(correctPositionY))
+                        drag.position = new cc.Vec3(correctPositionX, correctPositionY)
                     drag.getComponent(Drag).allowDrag = false
                     this.node.getChildByName('New Node').getChildByName('bg').addChild(drag)
                     StickerBook.numPieces--
