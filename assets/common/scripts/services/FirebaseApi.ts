@@ -52,6 +52,7 @@ export class FirebaseApi implements ServiceApi {
 
     async updateProgress(info: UpdateProgressInfo): Promise<any> {
         if (info.studentId && info.studentId.length > 0) {
+            const user = User.getCurrentUser();
             const requestParams: RequestParams = {
                 url: FIREBASE_UPDATE_PROGRESS_URL,
                 body: {
@@ -63,7 +64,9 @@ export class FirebaseApi implements ServiceApi {
                     courseName: info.courseName,
                     score: info.assessment,
                     assignmentId: info.assignmentId,
-                    dateTimeStamp: info.dateTimeStamp
+                    dateTimeStamp: info.dateTimeStamp,
+                    timeSpent: info.timespent,
+                    name: user.name
                 }
             };
             return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
@@ -72,13 +75,16 @@ export class FirebaseApi implements ServiceApi {
 
     async syncFailedProgresses(infos: UpdateProgressInfo[]): Promise<any> {
         if (Array.isArray(infos) && infos.length > 0) {
+            const user = User.getCurrentUser();
             let inputs = infos.map((info: UpdateProgressInfo) => {
                 return {
                     lessonId: info.lesson,
                     userId: info.studentId,
                     courseName: info.courseName,
                     score: info.assessment,
-                    assignmentId: info.assignmentId
+                    assignmentId: info.assignmentId,
+                    timeSpent: info.timespent,
+                    name: user.name
                 }
             })
             const requestParams: RequestParams = {
