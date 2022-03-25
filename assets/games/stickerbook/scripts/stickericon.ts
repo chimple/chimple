@@ -150,11 +150,11 @@ export default class StickerIcon extends cc.Component {
         StickerBook.data[13 + parseInt(this.node.name) * 7] = 'true';
         if (--StickerBook.numPieces <= 0) {
             console.log('Entered onMatch if', StickerBook.numPieces);
-            StickerBook.stickerbookData.currentStickerBookLevel++
-            if (StickerBook.stickerbookData.currentStickerBookLevel >= Config.getInstance().totalProblems) {
-                StickerBook.stickerbookData.currentStickerBookLevel = 0
+            StickerBook.stickerbookDataJson.currentStickerBookLevel++
+            if (StickerBook.stickerbookDataJson.currentStickerBookLevel >= Config.getInstance().totalProblems) {
+                StickerBook.stickerbookDataJson.currentStickerBookLevel = 0
             }
-            cc.sys.localStorage.setItem('stickerbook', JSON.stringify(StickerBook.stickerbookData));
+            cc.sys.localStorage.setItem('stickerbook', JSON.stringify(StickerBook.stickerbookDataJson));
             Drag.letDrag = false
             this.scheduleOnce(() => {
                 Util.speakClip(this.audio, () => {
