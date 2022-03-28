@@ -46,4 +46,8 @@ export class ApiHandler {
     public async syncFailedProgresses(infos: UpdateProgressInfo[]): Promise<any> {
         return await this.s.syncFailedProgresses(infos);
     }
+
+    public async getLeaderboard(studentId: string, sectionId: string, schoolId: string): Promise<any> {
+        return await this.s.getLeaderboard(studentId, sectionId, schoolId);
+    }
 }

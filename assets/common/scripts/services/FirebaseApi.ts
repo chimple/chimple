@@ -1,17 +1,18 @@
-import {AuthHeader, ParseNetwork, RequestParams} from "./ParseNetwork";
-import {AcceptTeacherRequest, ServiceApi, UpdateProgressInfo} from "./ServiceApi";
-import {Queue} from "../../../queue";
-import {UpdateHomeTeacher} from "./parseApi";
+import { AuthHeader, ParseNetwork, RequestParams } from "./ParseNetwork";
+import { AcceptTeacherRequest, ServiceApi, UpdateProgressInfo } from "./ServiceApi";
+import { Queue } from "../../../queue";
+import { UpdateHomeTeacher } from "./parseApi";
 import {
+    FIREBASE_GET_LEADERBOARD_URL,
     FIREBASE_LINK_STUDENT_URL,
     FIREBASE_LIST_ASSIGNMENTS,
     FIREBASE_SCHOOL_URL, FIREBASE_SYNC_FAILED_PROGRESS_URL,
     FIREBASE_UPDATE_HOME_TEACHER_URL, FIREBASE_UPDATE_PROGRESS_URL, LIST_ASSIGNMENTS, UPDATE_PROGRESS_URL
 } from "../domain/parseConstants";
-import {ServiceConfig} from "./ServiceConfig";
-import Profile, {CURRENTMODE, LessonProgress, User} from "../lib/profile";
+import { ServiceConfig } from "./ServiceConfig";
+import Profile, { CURRENTMODE, LessonProgress, User } from "../lib/profile";
 import UtilLogger from "../util-logger";
-import {Mode} from "../lib/constants";
+import { Mode } from "../lib/constants";
 
 export class FirebaseApi implements ServiceApi {
     public static i: FirebaseApi;
@@ -218,7 +219,7 @@ export class FirebaseApi implements ServiceApi {
         return results;
     }
 
-    async linkStudent(studentId: string, code: string,phoneNumber: string = null,age: number = null,name: string = null,countryCode:string = null): Promise<any> {
+    async linkStudent(studentId: string, code: string, phoneNumber: string = null, age: number = null, name: string = null, countryCode: string = null): Promise<any> {
         if (studentId && studentId.length > 0 &&
             code && code.length > 0) {
             let sendCode = Number(code);
@@ -236,6 +237,65 @@ export class FirebaseApi implements ServiceApi {
             };
             return await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader());
         }
+    }
+
+    async getLeaderboard(studentId: string, sectionId: string, schoolId: string): Promise<any> {
+        const requestParams: RequestParams = {
+            url: FIREBASE_GET_LEADERBOARD_URL + "?progressId=" + studentId + "&sectionId=" + sectionId + "&schoolId=" + schoolId
+        };
+        const jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader()) || {};
+        let json =
+        {
+            weekly: [],
+            allTime: [],
+            weeklyIndex: null,
+            allTimeIndex: null
+        }
+        if (!Object.keys(jsonResult).length) {
+            return json;
+        }
+        else {
+            const weekly: any = []
+            const allTime: any = []
+            for (const i of Object.keys(jsonResult)) {
+                weekly.push(
+                    {
+                        name: jsonResult[i].n,
+                        score: jsonResult[i].w.s,
+                        timeSpent: jsonResult[i].w.t,
+                        lessonsPlayed: jsonResult[i].w.l,
+                        progressId: i
+                    }
+                )
+                allTime.push(
+                    {
+                        name: jsonResult[i].n,
+                        score: jsonResult[i].a.s,
+                        timeSpent: jsonResult[i].a.t,
+                        lessonsPlayed: jsonResult[i].a.l,
+                        progressId: i
+
+                    }
+                )
+            }
+            const sortLeaderboard = (arr: Array<any>) =>
+                arr.sort((a, b) =>
+                    b.lessonsPlayed - a.lessonsPlayed || a.timeSpent - b.timeSpent || b.score - a.score);
+
+            sortLeaderboard(weekly)
+            sortLeaderboard(allTime)
+            const weeklyIndex = weekly.map((v: any) => v.progressId).indexOf(studentId)
+            const allTimeIndex = allTime.map((v: any) => v.progressId).indexOf(studentId)
+            json = {
+                weekly: weekly,
+                allTime: allTime,
+                weeklyIndex: weeklyIndex,
+                allTimeIndex: allTimeIndex
+            }
+
+            return json;
+        }
+
     }
 
 }

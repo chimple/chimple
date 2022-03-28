@@ -1002,4 +1002,8 @@ export class ParseApi implements ServiceApi {
     async syncFailedProgresses(infos: UpdateProgressInfo[]): Promise<any> {
         return null;
     }
+
+    async getLeaderboard(studentId: string, sectionId: string, schoolId: string): Promise<any> {
+        return null;
+    }
 }
