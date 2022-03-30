@@ -244,8 +244,7 @@ export class FirebaseApi implements ServiceApi {
             url: FIREBASE_GET_LEADERBOARD_URL + "?progressId=" + studentId + "&sectionId=" + sectionId + "&schoolId=" + schoolId
         };
         const jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader()) || {};
-        let json =
-        {
+        let json = {
             weekly: [],
             allTime: [],
             weeklyIndex: null,
@@ -258,30 +257,22 @@ export class FirebaseApi implements ServiceApi {
             const weekly: any = []
             const allTime: any = []
             for (const i of Object.keys(jsonResult)) {
-                weekly.push(
-                    {
-                        name: jsonResult[i].n,
-                        score: jsonResult[i].w.s,
-                        timeSpent: jsonResult[i].w.t,
-                        lessonsPlayed: jsonResult[i].w.l,
-                        progressId: i
-                    }
-                )
-                allTime.push(
-                    {
-                        name: jsonResult[i].n,
-                        score: jsonResult[i].a.s,
-                        timeSpent: jsonResult[i].a.t,
-                        lessonsPlayed: jsonResult[i].a.l,
-                        progressId: i
-
-                    }
-                )
+                weekly.push({
+                    name: jsonResult[i].n,
+                    score: jsonResult[i].w.s,
+                    timeSpent: jsonResult[i].w.t,
+                    lessonsPlayed: jsonResult[i].w.l,
+                    progressId: i
+                })
+                allTime.push({
+                    name: jsonResult[i].n,
+                    score: jsonResult[i].a.s,
+                    timeSpent: jsonResult[i].a.t,
+                    lessonsPlayed: jsonResult[i].a.l,
+                    progressId: i
+                })
             }
-            const sortLeaderboard = (arr: Array<any>) =>
-                arr.sort((a, b) =>
-                    b.lessonsPlayed - a.lessonsPlayed || a.timeSpent - b.timeSpent || b.score - a.score);
-
+            const sortLeaderboard = (arr: Array<any>) => arr.sort((a, b) => b.lessonsPlayed - a.lessonsPlayed || a.timeSpent - b.timeSpent || b.score - a.score);
             sortLeaderboard(weekly)
             sortLeaderboard(allTime)
             const weeklyIndex = weekly.map((v: any) => v.progressId).indexOf(studentId)
@@ -292,10 +283,7 @@ export class FirebaseApi implements ServiceApi {
                 weeklyIndex: weeklyIndex,
                 allTimeIndex: allTimeIndex
             }
-
             return json;
         }
-
     }
-
 }
