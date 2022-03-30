@@ -247,8 +247,6 @@ export class FirebaseApi implements ServiceApi {
         let json = {
             weekly: [],
             allTime: [],
-            weeklyIndex: null,
-            allTimeIndex: null
         }
         if (!Object.keys(jsonResult).length) {
             return json;
@@ -262,26 +260,22 @@ export class FirebaseApi implements ServiceApi {
                     score: jsonResult[i].w.s,
                     timeSpent: jsonResult[i].w.t,
                     lessonsPlayed: jsonResult[i].w.l,
-                    progressId: i
+                    userId: i
                 })
                 allTime.push({
                     name: jsonResult[i].n,
                     score: jsonResult[i].a.s,
                     timeSpent: jsonResult[i].a.t,
                     lessonsPlayed: jsonResult[i].a.l,
-                    progressId: i
+                    userId: i
                 })
             }
             const sortLeaderboard = (arr: Array<any>) => arr.sort((a, b) => b.lessonsPlayed - a.lessonsPlayed || a.timeSpent - b.timeSpent || b.score - a.score);
             sortLeaderboard(weekly)
             sortLeaderboard(allTime)
-            const weeklyIndex = weekly.map((v: any) => v.progressId).indexOf(studentId)
-            const allTimeIndex = allTime.map((v: any) => v.progressId).indexOf(studentId)
             json = {
                 weekly: weekly,
                 allTime: allTime,
-                weeklyIndex: weeklyIndex,
-                allTimeIndex: allTimeIndex
             }
             return json;
         }
