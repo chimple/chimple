@@ -1,5 +1,5 @@
 import { AuthHeader, ParseNetwork, RequestParams } from "./ParseNetwork";
-import { AcceptTeacherRequest, ServiceApi, UpdateProgressInfo } from "./ServiceApi";
+import { AcceptTeacherRequest, LeaderboardInfo, ServiceApi, StudentLeaderboardInfo, UpdateProgressInfo } from "./ServiceApi";
 import { Queue } from "../../../queue";
 import { UpdateHomeTeacher } from "./parseApi";
 import {
@@ -239,28 +239,28 @@ export class FirebaseApi implements ServiceApi {
         }
     }
 
-    async getLeaderboard(studentId: string, sectionId: string, schoolId: string): Promise<any> {
+    async getLeaderboard(studentId: string, sectionId: string, schoolId: string): Promise<LeaderboardInfo> {
         const requestParams: RequestParams = {
             url: FIREBASE_GET_LEADERBOARD_URL + "?progressId=" + studentId + "&sectionId=" + sectionId + "&schoolId=" + schoolId
         };
         const jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader()) || {};
-        let json = {
+        let result: LeaderboardInfo = {
             weekly: [],
             allTime: [],
         }
         if (!Object.keys(jsonResult).length) {
-            return json;
+            return result;
         }
         else {
-            const weekly: any = []
-            const allTime: any = []
+            const weekly: StudentLeaderboardInfo[] = []
+            const allTime: StudentLeaderboardInfo[] = []
             for (const i of Object.keys(jsonResult)) {
                 weekly.push({
                     name: jsonResult[i].n,
                     score: jsonResult[i].w.s,
                     timeSpent: jsonResult[i].w.t,
                     lessonsPlayed: jsonResult[i].w.l,
-                    userId: i
+                    userId: i,
                 })
                 allTime.push({
                     name: jsonResult[i].n,
@@ -273,11 +273,11 @@ export class FirebaseApi implements ServiceApi {
             const sortLeaderboard = (arr: Array<any>) => arr.sort((a, b) => b.lessonsPlayed - a.lessonsPlayed || a.timeSpent - b.timeSpent || b.score - a.score);
             sortLeaderboard(weekly)
             sortLeaderboard(allTime)
-            json = {
+            result = {
                 weekly: weekly,
                 allTime: allTime,
             }
-            return json;
+            return result;
         }
     }
 }

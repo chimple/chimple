@@ -66,7 +66,7 @@ import {ParseAssignmentForChapter} from "../domain/parseAssignmentForChapter";
 import {ParseTeachersForStudent} from "../domain/parseTeachersForStudent";
 import {ParseChapterProgress} from "../domain/parseChapterProgress";
 import {ParseAssignment, Result} from "../domain/parseAssignment";
-import {AcceptTeacherRequest, ServiceApi, UpdateProgressInfo} from "./ServiceApi";
+import {AcceptTeacherRequest, LeaderboardInfo, ServiceApi, UpdateProgressInfo} from "./ServiceApi";
 import {Queue} from "../../../queue";
 
 export const enum SelectionMode {
@@ -1003,7 +1003,7 @@ export class ParseApi implements ServiceApi {
         return null;
     }
 
-    async getLeaderboard(studentId: string, sectionId: string, schoolId: string): Promise<any> {
+    async getLeaderboard(studentId: string, sectionId: string, schoolId: string): Promise<LeaderboardInfo> {
         return null;
     }
 }
