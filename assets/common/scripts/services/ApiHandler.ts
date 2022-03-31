@@ -1,4 +1,4 @@
-import {AcceptTeacherRequest, ServiceApi, UpdateProgressInfo} from "./ServiceApi";
+import {AcceptTeacherRequest, LeaderboardInfo, ServiceApi, UpdateProgressInfo} from "./ServiceApi";
 import {UpdateHomeTeacher} from "./parseApi";
 
 export class ApiHandler {
@@ -45,5 +45,9 @@ export class ApiHandler {
 
     public async syncFailedProgresses(infos: UpdateProgressInfo[]): Promise<any> {
         return await this.s.syncFailedProgresses(infos);
+    }
+
+    public async getLeaderboard(studentId: string, sectionId: string, schoolId: string): Promise<LeaderboardInfo> {
+        return await this.s.getLeaderboard(studentId, sectionId, schoolId);
     }
 }

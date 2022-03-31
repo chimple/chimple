@@ -1,5 +1,5 @@
-import {ParseSchool} from "../domain/parseSchool";
-import {UpdateHomeTeacher} from "./parseApi";
+import { ParseSchool } from "../domain/parseSchool";
+import { UpdateHomeTeacher } from "./parseApi";
 
 export interface ServiceApi {
     teacherRequestAccepted(request: AcceptTeacherRequest): Promise<any>;
@@ -14,9 +14,11 @@ export interface ServiceApi {
 
     listAssignments(studentId: string, limit: number): Promise<any>;
 
-    linkStudent(studentId: string, code: string,phoneNumber: string,age: number ,name: string ,countryCode:string): Promise<any>;
+    linkStudent(studentId: string, code: string, phoneNumber: string, age: number, name: string, countryCode: string): Promise<any>;
 
     syncFailedProgresses(infos: UpdateProgressInfo[]): Promise<any>;
+
+    getLeaderboard(studentId: string, sectionId: string, schoolId: string): Promise<LeaderboardInfo>;
 }
 
 export interface AcceptTeacherRequest {
@@ -45,4 +47,17 @@ export interface UpdateProgressInfo {
     chapterName?: string;
     lessonName?: string;
     dateTimeStamp?: number;
+}
+
+export interface LeaderboardInfo {
+    weekly: StudentLeaderboardInfo[],
+    allTime: StudentLeaderboardInfo[]
+}
+
+export interface StudentLeaderboardInfo {
+    name: string,
+    score: number,
+    timeSpent: number,
+    lessonsPlayed: number,
+    userId: string
 }
