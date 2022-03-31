@@ -29,6 +29,7 @@ import UtilLogger from "../../../common/scripts/util-logger";
 import AssignmentPopup from "./assignmentPopup";
 import ChimpleLabel from "../../../common/scripts/chimple-label";
 import PreTestDialog from "./preTestDialog";
+import StartHeader from "./startHeader";
 
 
 const COMPLETE_AUDIOS = [
@@ -108,6 +109,12 @@ export default class Start extends cc.Component {
     @property(cc.Prefab)
     preTestPopup: cc.Prefab = null
 
+    @property(cc.Prefab)
+    headerPrefab: cc.Prefab = null
+
+    @property(cc.Node)
+    header: cc.Node = null
+
     beginQuiz: cc.Node
     friend: cc.Node
     timer: number = 0;
@@ -129,9 +136,9 @@ export default class Start extends cc.Component {
         const loadingComp = this.loading.getComponent(Loading)
         loadingComp.allowCancel = false
 
-        this.homeButton.on('touchend', () => {
-            this.drawer.active = true
-        })
+        // this.homeButton.on('touchend', () => {
+        //     this.drawer.active = true
+        // })
         const config = Config.i
         if (!config.course) {
             config.course = this.getNextCourse()
@@ -255,19 +262,31 @@ export default class Start extends cc.Component {
     private initPage() {
         const user = User.getCurrentUser()
         const config = Config.i
-        const courseProgressMap = user.courseProgressMap.get(config.course.id)
-        if (courseProgressMap.lessonPlan
-            && courseProgressMap.lessonPlan.length > 0
-            && courseProgressMap.lessonPlanIndex <= courseProgressMap.lessonPlan.length) {
-            this.displayLessonPlan()
-        } else {
-            this.createLessonPlan(config.course.id)
-            this.displayLessonPlan()
-        }
+        this.createAndDisplayLessonPlan();
         if (!Config.isMicroLink) {
             this.loading.active = false;
         }
         this.registerTeacherDialogCloseEvent();
+        const headerNode = cc.instantiate(this.headerPrefab)
+        const headerComp = headerNode.getComponent(StartHeader)
+        headerComp.user = user
+        headerComp.onCourseClick = this.onCourseClick.bind(this)
+        this.header.addChild(headerNode)
+        
+    }
+
+    private createAndDisplayLessonPlan() {
+        const user = User.getCurrentUser()
+        const config = Config.i
+        const courseProgressMap = user.courseProgressMap.get(config.course.id);
+        if (courseProgressMap.lessonPlan
+            && courseProgressMap.lessonPlan.length > 0
+            && courseProgressMap.lessonPlanIndex <= courseProgressMap.lessonPlan.length) {
+            this.displayLessonPlan();
+        } else {
+            this.createLessonPlan(config.course.id);
+            this.displayLessonPlan();
+        }
     }
 
     private getNextCourse() {
@@ -401,6 +420,11 @@ export default class Start extends cc.Component {
     onLibraryClick() {
         this.node.getChildByName('library_button').getComponent(cc.Button).interactable = false
         Config.i.pushScene('menu/start/scenes/courseChapters', 'menu')
+    }
+
+    onCourseClick() {
+        this.ctx.clear(true)
+        this.createAndDisplayLessonPlan()
     }
 
     createLessonPlan(courseId: string): Lesson[] {
