@@ -409,7 +409,8 @@ export default class Start extends cc.Component {
 
     onAssignmentsClick() {
         ChapterLessons.showType = ChapterLessonType.Assignments
-        Config.i.pushScene('menu/start/scenes/chapterLessons', 'menu')
+        // Config.i.pushScene('menu/start/scenes/chapterLessons', 'menu')
+        Config.i.pushScene('menu/Profile/scene/profile', 'menu')
     }
 
     onFeaturedClick() {
