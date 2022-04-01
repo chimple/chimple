@@ -6,7 +6,7 @@ import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class Profile extends cc.Component {
+export default class LeaderboardProfile extends cc.Component {
 
     @property(cc.Prefab)
     maleUserPrefab: cc.Prefab = null;
@@ -41,6 +41,12 @@ export default class Profile extends cc.Component {
     @property(cc.Node)
     allTimeRank: cc.Node = null;
 
+    @property(cc.Node)
+    otpDialog: cc.Node = null;
+
+    @property(cc.Button)
+    connectButton: cc.Button = null;
+
     private loading: cc.Node = null;
     private leaderboardJson: LeaderboardInfo = null;
     private weeklyIndex: number;
@@ -56,18 +62,18 @@ export default class Profile extends cc.Component {
         this.showLoading()
         const user = User.getCurrentUser();
         this.loadUserImageOrAvatar(user, this.userNode);
+        if (user.isConnected) {
+            this.connectButton.interactable = false;
+            this.connectButton.getComponentInChildren(cc.Label).string = "Connected"
+        }
         this.userNode.getComponentInChildren(cc.Label).string = user.name;
         this.leaderboardJson = await ServiceConfig.getI().handle.getLeaderboard(user.id, user.sectionId, user.schoolId,);
         this.weeklyIndex = this.leaderboardJson.weekly.map((v: StudentLeaderboardInfo) => v.userId).indexOf(user.id);
         this.allTimeIndex = this.leaderboardJson.allTime.map((v: StudentLeaderboardInfo) => v.userId).indexOf(user.id);
-        console.log("this.weeklyIndex,this.allTimeIndex", this.weeklyIndex, this.allTimeIndex);
         if (this.weeklyIndex >= 0) {
-            console.log("in weekly if")
             this.weeklyRank.getComponent(cc.Label).string = "This week rank: " + (this.weeklyIndex + 1).toString();
         }
         if (this.allTimeIndex >= 0) {
-            console.log("in alltime if")
-
             this.allTimeRank.getComponent(cc.Label).string = "All time rank: " + (this.allTimeIndex + 1).toString();
         }
         console.log("this leaderboard", this.leaderboardJson)
@@ -132,6 +138,9 @@ export default class Profile extends cc.Component {
     private onSignoutClick() {
         this.node.getChildByName('signout').getComponent(cc.Button).interactable = false;
         Config.loadScene('private/home/loginnew/scenes/welcomePage', 'private', null);
+    }
+    private onConnectClick() {
+        this.otpDialog.active = true;
     }
 
     loadUserImageOrAvatar(user: User, userNode: cc.Node) {
