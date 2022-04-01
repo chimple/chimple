@@ -6,7 +6,7 @@ import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class Profile extends cc.Component {
+export default class LeaderboardProfile extends cc.Component {
 
     @property(cc.Prefab)
     maleUserPrefab: cc.Prefab = null;
