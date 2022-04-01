@@ -62,7 +62,7 @@ export default class Profile extends cc.Component {
         this.showLoading()
         const user = User.getCurrentUser();
         this.loadUserImageOrAvatar(user, this.userNode);
-        if (!!user && !!user.schoolName && !!user.sectionName) {
+        if (user.isConnected) {
             this.connectButton.interactable = false;
             this.connectButton.getComponentInChildren(cc.Label).string = "Connected"
         }
