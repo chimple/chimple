@@ -272,7 +272,7 @@ export default class Start extends cc.Component {
         headerComp.user = user
         headerComp.onCourseClick = this.onCourseClick.bind(this)
         this.header.addChild(headerNode)
-        
+
     }
 
     private createAndDisplayLessonPlan() {
@@ -405,6 +405,13 @@ export default class Start extends cc.Component {
         const button = node.getComponent(cc.Button)
         if (button) button.interactable = false
         Config.i.pushScene('menu/rewards/scenes/rewards', 'menu')
+    }
+
+    onDairyRewardClick(event, customEventData) {
+        const node = event.target
+        const button = node.getComponent(cc.Button)
+        if (button) button.interactable = false
+        Config.i.pushScene('menu/rewards/scenes/dairyrewards', 'menu')
     }
 
     onAssignmentsClick() {
@@ -595,21 +602,21 @@ export default class Start extends cc.Component {
         this.loading.active = true;
     }
     private giveReward(node: cc.Node, user: User) {
-        var seq =cc.repeat(
+        var seq = cc.repeat(
             cc.sequence(
-                cc.scaleTo(0.3,1.2,1.2), 
-                cc.scaleTo(0.3,1,1)
-            ),100);
+                cc.scaleTo(0.3, 1.2, 1.2),
+                cc.scaleTo(0.3, 1, 1)
+            ), 100);
         node.runAction(seq);
-        this.node.getChildByName('beginQuizPopup').active=false
+        this.node.getChildByName('beginQuizPopup').active = false
         this.node.getChildByName('block').active = true
         new cc.Tween().target(node)
-            .to(0.5, {position: cc.Vec3.ZERO}, null).start()
-            this.node.getChildByName('giftBox').once('touchend', () => {
-              new cc.Tween().target(node).call(()=>{
+            .to(0.5, { position: cc.Vec3.ZERO }, null).start()
+        this.node.getChildByName('giftBox').once('touchend', () => {
+            new cc.Tween().target(node).call(() => {
                 const anim = node.getComponent(cc.Animation);
                 anim.play();
-                }).delay(2).call(()=>{
+            }).delay(2).call(() => {
                 const rewardItem = Util.unlockNextReward();
                 // user.pushNewLessonPlaceholder();
                 if (rewardItem) {
@@ -648,7 +655,7 @@ export default class Start extends cc.Component {
                         const friendComp = this.friend.getComponent(Friend)
                         friendComp.playAnimation('dance', 1)
                         new cc.Tween().target(rewardIcon)
-                            .to(0.5, {scale: 1, y: 200}, null)
+                            .to(0.5, { scale: 1, y: 200 }, null)
                             .delay(1)
                             .to(1, {
                                 scale: 0.1,
@@ -684,9 +691,9 @@ export default class Start extends cc.Component {
                         this.afterRewardLessonPlan()
                     }, 4);
                 }
-              })
-               .start()
             })
+                .start()
+        })
     }
 
 
@@ -771,7 +778,7 @@ export default class Start extends cc.Component {
         } else {
             return lastOpenLesson
         }
-        
+
     }
 
     public static createPreQuizButton(course: Course, lessonButtonPrefab: cc.Prefab, loading: cc.Node, open: boolean): cc.Node {
