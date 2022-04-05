@@ -8,7 +8,7 @@ import { GAME_CONFIGS } from "./gameConfigs";
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
 export const COURSES = ['en', 'en-maths', 'hi', 'hi-maths', 'ur', 'ur-maths'];
-export const COURSES_LANG_ID = ['en', 'hi', 'maths','kn'];
+export const COURSES_LANG_ID = ['en', 'hi', 'maths', 'kn'];
 
 export enum Flow {
     Default,
@@ -118,6 +118,7 @@ export default class Config {
     startAction: StartAction = StartAction.Default
     assignments: any[]
     featuredLessons: any[]
+    stickerBook: any[]
     static isMicroLink: boolean
     microLinkData: MicroLink
 
