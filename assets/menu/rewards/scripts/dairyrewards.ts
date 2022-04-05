@@ -28,6 +28,16 @@ export default class DairyRewards extends cc.Component {
 
     private onStickerPaintingClick() {
         this.node.getChildByName('stickerPaintingBG').getComponent(cc.Button).interactable = false;
+
+        const stickerBookUrl = 'https://raw.githubusercontent.com/chimple/chimple/master/stickerbook.json'
+        cc.assetManager.loadRemote(stickerBookUrl, (err, jsonAsset) => {
+            // @ts-ignore
+            if (!err && jsonAsset && jsonAsset.json) {
+                // @ts-ignore
+                config.i.stickerBook = jsonAsset.json
+            }
+        })
+        
         Config.i.pushScene('menu/rewards/scenes/stickerBookList', 'menu')
     }
 

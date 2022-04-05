@@ -13,9 +13,11 @@ export default class StickerBookList extends cc.Component {
     @property(cc.Node)
     stickerBookIconScrollView: cc.Node = null
 
+    config = config.i
+
     onLoad() {
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < this.config.stickerBook.length; i++) {
             const stickerBookIcon = cc.instantiate(this.stickerIconPrefab)
             stickerBookIcon.name = i.toString()
             this.stickerBookIconScrollView.addChild(stickerBookIcon)
