@@ -143,10 +143,10 @@ export default class Start extends cc.Component {
         if (!config.course) {
             config.course = this.getNextCourse()
         }
-        this.library.string = config.course.name
-        Util.load(config.course.id + '/course/res/icons/' + config.course.id + '.png', (err: Error, texture) => {
-            this.librarySprite.spriteFrame = err ? null : new cc.SpriteFrame(texture);
-        })
+        // this.library.string = config.course.name
+        // Util.load(config.course.id + '/course/res/icons/' + config.course.id + '.png', (err: Error, texture) => {
+        //     this.librarySprite.spriteFrame = err ? null : new cc.SpriteFrame(texture);
+        // })
 
         const startAction = config.startAction
         user.curriculumLoaded
@@ -203,7 +203,7 @@ export default class Start extends cc.Component {
                 this.previousHash = Util.getHash(this.assignments[0].assignmentId);
                 try {
                     this.assignmentCount.active = true;
-                    this.checkPendingAssignments();
+                    // this.checkPendingAssignments();
                 } catch (e) { }
             }
 
@@ -328,17 +328,17 @@ export default class Start extends cc.Component {
             if (cc.sys.isNative) {
                 if (COURSES_LANG_ID.includes(courseDetails['courseid'])) {
                     const courseProgress = user.courseProgressMap.get(courseDetails['courseid']);
-                    if (courseProgress.currentChapterId == null) {
-                        try {
-                            this.loading.active = false;
-                            const dialog = cc.instantiate(this.preTestPopup);
-                            const script: PreTestDialog = dialog.getComponent(PreTestDialog)
-                            script.courseId = courseDetails['courseid'];
-                            this.node.addChild(dialog);
-                        } catch (e) { }
-                    } else {
+                    // if (courseProgress.currentChapterId == null) {
+                    //     try {
+                    //         this.loading.active = false;
+                    //         const dialog = cc.instantiate(this.preTestPopup);
+                    //         const script: PreTestDialog = dialog.getComponent(PreTestDialog)
+                    //         script.courseId = courseDetails['courseid'];
+                    //         this.node.addChild(dialog);
+                    //     } catch (e) { }
+                    // } else {
                         this.openDirectLesson(courseDetails);
-                    }
+                    // }
                 } else {
                     this.openDirectLesson(courseDetails);
                 }
@@ -542,10 +542,10 @@ export default class Start extends cc.Component {
                 this.lessonButtonPrefab,
                 this.loading,
                 index <= courseProgressMap.lessonPlanIndex)
-            if (lessonId.endsWith('_PreQuiz')) {
-                this.beginQuiz = node
-                this.node.getChildByName('beginQuizPopup').active = true
-            }
+            // if (lessonId.endsWith('_PreQuiz')) {
+            //     this.beginQuiz = node
+            //     this.node.getChildByName('beginQuizPopup').active = true
+            // }
             const t = index / lessons.length
             node.x = Math.pow(1 - t, 3) * x1 + 3 * Math.pow(1 - t, 2) * t * x2 + 3 * (1 - t) * Math.pow(t, 2) * x3 + Math.pow(t, 3) * x4
             node.y = Math.pow(1 - t, 3) * y1 + 3 * Math.pow(1 - t, 2) * t * y2 + 3 * (1 - t) * Math.pow(t, 2) * y3 + Math.pow(t, 3) * y4

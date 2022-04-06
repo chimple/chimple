@@ -16,5 +16,4 @@ export default class HeaderButton extends cc.Component {
 
     @property(cc.SpriteFrame)
     homeSprite: cc.SpriteFrame
-
 }

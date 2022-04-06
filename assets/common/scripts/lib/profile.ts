@@ -676,8 +676,8 @@ export class User {
                 ? new Map([
                     ['en', new CourseProgressClass('en00')],
                     ['maths', new CourseProgressClass('maths00')],
-                    ['hi', new CourseProgressClass('hi00')],
-                    ['kn', new CourseProgressClass('kn00')],
+                    // ['hi', new CourseProgressClass('hi00')],
+                    // ['kn', new CourseProgressClass('kn00')],
                     ['puzzle', new CourseProgressClass('puzzle00')],
                     ['test-lit', new CourseProgressClass('chapter_0')],
                     ['test-maths', new CourseProgressClass('chapter_0')]
@@ -685,8 +685,8 @@ export class User {
                 : new Map([
                     ['en', new CourseProgressClass()],
                     ['maths', new CourseProgressClass()],
-                    ['hi', new CourseProgressClass()],
-                    ['kn', new CourseProgressClass()],
+                    // ['hi', new CourseProgressClass()],
+                    // ['kn', new CourseProgressClass()],
                     ['puzzle', new CourseProgressClass('puzzle00')]
                 ]),
             new Map(),

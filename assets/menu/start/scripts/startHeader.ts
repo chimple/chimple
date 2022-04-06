@@ -65,9 +65,11 @@ export default class StartHeader extends cc.Component {
         if (this.selectedHeaderButton != null) {
             this.selectedHeaderButton.selected.node.active = false
             this.selectedHeaderButton.button.enabled = true
+            this.selectedHeaderButton.moreButton.node.active = false
         }
         newButton.selected.node.active = true
         newButton.button.enabled = false
+        newButton.moreButton.node.active = true
         this.selectedHeaderButton = newButton
     }
 
