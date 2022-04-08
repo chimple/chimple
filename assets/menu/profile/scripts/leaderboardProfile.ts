@@ -105,6 +105,8 @@ export default class LeaderboardProfile extends cc.Component {
                 this.leaderboardlayout.addChild(student)
             }
         }
+        this.leaderboardlayout.getComponent(cc.Layout).updateLayout()
+        this.leaderboardlayout.parent.height = this.leaderboardlayout.height
     }
 
     // onTabClick(event)
