@@ -31,10 +31,13 @@ export default class StartHeader extends cc.Component {
             const headerButtonComp = headerButton.getComponent(StartHeaderButton)
             headerButtonComp.selected.node.active = false
             this.courseLayout.addChild(headerButton)
-            if(this.firstSelected)
-            {
+            // if(this.firstSelected)
+            // {
+            //     this.selectHeaderButton(headerButtonComp)
+            //     this.firstSelected=false
+            // }
+            if (courseId == config.course.id) {
                 this.selectHeaderButton(headerButtonComp)
-                this.firstSelected=false
             }
             const course = config.curriculum.get(courseId)
             headerButtonComp.label.string = Util.i18NText(course.name);

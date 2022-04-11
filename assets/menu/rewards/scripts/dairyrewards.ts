@@ -29,15 +29,13 @@ export default class DairyRewards extends cc.Component {
     private onStickerPaintingClick() {
         this.node.getChildByName('stickerPaintingBG').getComponent(cc.Button).interactable = false;
 
-        config.i.course = config.i.curriculum.get('reward')
-        config.i.chapter = config.i.course.chapters.find((c) => c.id == 'sticker')
+        Config.i.setRewardChapter('sticker')
         config.i.pushScene('menu/start/scenes/chapterLessons', 'menu')
     }
 
     private onFunGameActivityClick() {
         this.node.getChildByName('funGameActivityBG').getComponent(cc.Button).interactable = false;
-        config.i.course = config.i.curriculum.get('reward')
-        config.i.chapter = config.i.course.chapters.find((c) => c.id == 'platformer')
+        Config.i.setRewardChapter('platformer')
         config.i.pushScene('menu/start/scenes/chapterLessons', 'menu')
     }
 

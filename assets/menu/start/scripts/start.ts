@@ -142,6 +142,8 @@ export default class Start extends cc.Component {
         const config = Config.i
         if (!config.course) {
             config.course = this.getNextCourse()
+        } else {
+            config.unsetRewardChapter()
         }
         // this.library.string = config.course.name
         // Util.load(config.course.id + '/course/res/icons/' + config.course.id + '.png', (err: Error, texture) => {

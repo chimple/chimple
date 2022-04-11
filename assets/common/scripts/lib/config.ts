@@ -121,6 +121,8 @@ export default class Config {
     stickerBook: any[]
     static isMicroLink: boolean
     microLinkData: MicroLink
+    prevCourse: Course
+    prevChapter: Chapter
 
     //remove later
     flow: Flow;
@@ -163,6 +165,22 @@ export default class Config {
     get direction(): Direction {
         // return this.course == null ? Direction.RTL : RTL_COURSES.indexOf(this.course.id) != -1 ? Direction.RTL : Direction.LTR;
         return Direction.LTR
+    }
+
+    setRewardChapter(chapterName: String) {
+        if (this.course.id != 'reward') {
+            this.prevCourse = this.course
+            this.prevChapter = this.chapter
+        }
+        this.course = this.curriculum.get('reward')
+        this.chapter = this.course.chapters.find((c) => c.id == chapterName)
+    }
+
+    unsetRewardChapter() {
+        if (this.course.id == 'reward') {
+            this.course = this.prevCourse
+            this.chapter = this.prevChapter
+        }
     }
 
     hasTracing(): boolean {

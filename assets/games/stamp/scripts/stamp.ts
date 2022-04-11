@@ -6,11 +6,7 @@ import StickerHolder from "./stickerHolder";
 import { StampReward } from "../../../common/scripts/lib/convert";
 import StampDrag from "./stampDrag";
 
-
 const { ccclass, property } = cc._decorator;
-
-const bgHeight = 432
-const bgWidth = 802
 
 @ccclass
 export default class Stamp extends Game {
@@ -72,11 +68,8 @@ export default class Stamp extends Game {
         Util.loadTexture(bgImage, (texture) => {
             if (texture != null) {
                 this.bg.spriteFrame = new cc.SpriteFrame(texture)
-                // this.graphics.node.width = this.bg.spriteFrame.getOriginalSize().width
-                // this.graphics.node.height = this.bg.spriteFrame.getOriginalSize().height
                 this.graphics.node.setContentSize(this.bg.spriteFrame.getOriginalSize())
                 this.mask.setContentSize(this.bg.spriteFrame.getOriginalSize())
-                // this.bg.node.position = new cc.Vec3(this.bg.node.x - this.bg.node.width / 2, this.bg.node.y - this.bg.node.height / 2)
             }
         })
 
@@ -121,7 +114,6 @@ export default class Stamp extends Game {
                     const { scale, size } = Util.minScale(stickerHolder.icon, 96, 96)
 
                     if (this.stampReward.stickers[index].unlocked) {
-                        // drag.position = new cc.Vec3(parseInt(x) / 3, parseInt(y) / 3)
                         if (Config.i.direction === Direction.RTL)
                             drag.getComponent(Drag).isReverseXNeeded = true;
                         drag.on('stampMatch', () => {
@@ -155,8 +147,6 @@ export default class Stamp extends Game {
                                 drag.position = new cc.Vec3(-stickerHolder.icon.node.width / 2, -stickerHolder.icon.node.height / 2, 0)
                                 drag.height = spriteFrame.getOriginalSize().height 
                                 drag.width = spriteFrame.getOriginalSize().width         
-                                // drag.height = stickerHolder.icon.node.height
-                                // drag.width = stickerHolder.icon.node.width        
                             }
                             drag.getComponent(Drag).allowDrag = true
                             if (index + 1 == config.data.length) {
@@ -216,11 +206,6 @@ export default class Stamp extends Game {
             this.isPainting = false
             Drag.letDrag = true
             this.bottomPaint.active = false
-            // const y = this.bottomPaint.y
-            // new cc.Tween().target(this.bottomPaint)
-            //     .set({ y: -cc.winSize.height / 2 })
-            //     .to(0.25, { y: y }, { progress: null, easing: 'elasticOut' })
-            //     .start()
         } else {
             this.isPainting = true
             Drag.letDrag = false
