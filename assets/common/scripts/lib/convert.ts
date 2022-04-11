@@ -37,6 +37,20 @@ export interface Lesson {
     mlStudentId?: string;
 }
 
+export interface StampReward {
+    done: boolean;
+    stickers: StickerReward[]
+}
+
+export interface StickerReward {
+    id: string;
+    unlocked: boolean;
+    fixed: boolean;
+    peeled: boolean;
+    x?: number;
+    y?: number;
+}
+
 // Converts JSON strings to/from your types
 export class Convert {
     public static toCourse(json: string): Course {

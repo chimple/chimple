@@ -1021,13 +1021,18 @@ export class Util {
         return hash;
     }
 
-    public static resizeSprite(sprite: cc.Sprite, width: number, height: number) {
-        const size = sprite.spriteFrame.getOriginalSize();
-        const xScale = width / size.width;
-        const yScale = height / size.height;
-        const scale = Math.min(xScale, yScale);
+    public static resizeSprite(sprite: cc.Sprite, width: number, height: number, max: number = 1) {
+        const { scale, size } = Util.minScale(sprite, width, height, max);
         sprite.node.width = scale * size.width;
         sprite.node.height = scale * size.height;
 
+    }
+
+    public static minScale(sprite: cc.Sprite, width: number, height: number, max: number = 1) {
+        const size = sprite.spriteFrame.getOriginalSize();
+        const xScale = width / size.width;
+        const yScale = height / size.height;
+        const scale = Math.min(xScale, yScale, max);
+        return { scale, size };
     }
 }

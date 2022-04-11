@@ -508,6 +508,8 @@ export default class Config {
                 numCourses--;
             });
         });
+        numCourses++
+        this.loadSingleCourseJson('reward', () => numCourses--)
 
         const checkAllLoaded = () => {
             if (numCourses <= 0) {
