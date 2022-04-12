@@ -4,7 +4,7 @@ import Config, { COURSES_LANG_ID } from "../../../common/scripts/lib/config";
 import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
 import {User} from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
-import {Util} from "../../../common/scripts/util";
+import {REWARD_TYPES, Util} from "../../../common/scripts/util";
 import {EXAM} from "../../../common/scripts/lib/constants";
 import PreTestDialog from "./preTestDialog";
 
@@ -62,7 +62,7 @@ export default class LessonButton extends cc.Component {
                     this.onClick();
                 }
             })
-            this.button.interactable = this.open
+            this.button.interactable = this.open || this.lesson.chapter.course.id == 'reward'
             const lessonProgress = User.getCurrentUser().lessonProgressMap.get(this.lesson.id)
             if (this.lesson.assignmentId !== null && this.lesson.assignmentId !== undefined) {
                 if (this.open && lessonProgress && lessonProgress.assignmentIds.includes(this.lesson.assignmentId)
@@ -83,6 +83,15 @@ export default class LessonButton extends cc.Component {
     }
 
     onClick() {
+        if(!this.open && this.lesson.chapter.course.id == 'reward') {
+            User.getCurrentUser().currentReward = [
+                REWARD_TYPES[4],
+                this.lesson.chapter.id,
+                this.lesson.id
+            ]
+            Config.i.popAllScenes()
+            Config.i.pushScene('menu/start/scenes/start', 'menu', null, true);    
+        }
         const user = User.getCurrentUser();
         if (COURSES_LANG_ID.includes(this.lesson.chapter.course.id)) {
             const courseProgress = user.courseProgressMap.get(this.lesson.chapter.course.id);

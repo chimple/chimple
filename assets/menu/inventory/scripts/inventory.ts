@@ -127,15 +127,26 @@ export default class Inventory extends cc.Component {
                 itemComp.isLocked = true;
             }
 
-            itemComp.onClickCallback = (name) => {
+            itemComp.onClickCallback = (name, isLocked) => {
                 let [slot_name, armature_name] = name.split("-");
+                if(isLocked) {
+                    User.getCurrentUser().currentReward = [
+                        REWARD_TYPES[3],
+                        this.characterName,
+                        slot_name,
+                        armature_name
+                    ]
+                    Config.i.popAllScenes()
+                    Config.i.pushScene('menu/start/scenes/start', 'menu', null, true);
+                } else {
 
-                // update the armature
-                Inventory.updateCharacter(this.node.getChildByName(`${this.characterName}_dragon`).children[0].getComponent(dragonBones.ArmatureDisplay), INVENTORY_ANIMATIONS[this.lastSelectedButton], armature_name, slot_name);
-
-                // save to profile
-                let characterAndSlot = this.characterName.concat("-", slot_name)
-                User.getCurrentUser().updateInventory(characterAndSlot, armature_name);
+                    // update the armature
+                    Inventory.updateCharacter(this.node.getChildByName(`${this.characterName}_dragon`).children[0].getComponent(dragonBones.ArmatureDisplay), INVENTORY_ANIMATIONS[this.lastSelectedButton], armature_name, slot_name);
+    
+                    // save to profile
+                    let characterAndSlot = this.characterName.concat("-", slot_name)
+                    User.getCurrentUser().updateInventory(characterAndSlot, armature_name);    
+                }
             }
             item.getChildByName("New Button").getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = element
             item.getChildByName("New Button").name = element

@@ -145,7 +145,7 @@ export default class LessonController extends cc.Component {
             });
             LessonController.loadQuizzes(lessons, callback, node);
         } else {
-            this.loadBundle(config.lesson.id, (bundle) => {
+            Config.loadBundle(config.lesson.id, (bundle) => {
                     LessonController.preloadAndFirst(bundle, callback);
                 },
                 callback);
@@ -174,26 +174,10 @@ export default class LessonController extends cc.Component {
         }, node, lessons, maxPerLesson);
     }
 
-    private static loadBundle(lessonId: string, callback: Function, errCallback: Function) {
-        cc.assetManager.loadBundle(lessonId, (err, bundle) => {
-            if (err) {
-                cc.assetManager.loadBundle(BUNDLE_URL + lessonId, (err2, bundle2) => {
-                    if (err2) {
-                        errCallback(err2);
-                    } else {
-                        callback(bundle2);
-                    }
-                });
-            } else {
-                callback(bundle);
-            }
-        });
-    }
-
     private static loadQuizzes(lessons: Lesson[], callback: Function, node: cc.Node, maxPerLesson: number = 0) {
         let numLessons = lessons.length;
         lessons.forEach((les) => {
-            this.loadBundle(les.id, (bundle) => {
+            Config.loadBundle(les.id, (bundle) => {
                     bundle.preloadDir('res', null, null, (err: Error, items) => {
                         Util.bundles.set(les.id, bundle);
                         LessonController.bundles.push(bundle);

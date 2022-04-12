@@ -46,7 +46,7 @@ export interface MicroLink {
     end?: string;
 }
 
-export const REWARD_TYPES = ["character", "background", "achievement", "inventory"]
+export const REWARD_TYPES = ["character", "background", "achievement", "inventory", "lesson"]
 export const REWARD_CHARACTERS = ['chimp', 'bear', 'camel', 'cat', 'dog', 'duck', 'hippo', 'horse', 'koala', 'rabbit', 'tiger']
 export const REWARD_BACKGROUNDS = ['camp', 'underwater', 'beach', 'forest', 'city', 'desert', 'fair', 'garden', 'mountain', 'snow', 'village']
 export const NUMBER_NAME = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];

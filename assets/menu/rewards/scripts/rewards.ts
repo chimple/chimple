@@ -56,15 +56,17 @@ export default class Rewards extends cc.Component {
                         charPrefab.getChildByName("characternode").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
                         let color = cc.Color.BLACK;
                         charPrefab.getChildByName("character_icon_color").color = color.fromHEX(this.characterColors[index]);
-                        this.registerButton(charPrefab, "onCharacterClick", character);
-                        this.registerButton(charPrefab.getChildByName("edit"), "onEditButtonClicked", character);
                         if (User.getCurrentUser() != null) {
                             if (User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[0]}-${character}`] === 0 || User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[0]}-${character}`] === undefined) {
                                 // make greyscale
                                 charPrefab.getChildByName("character_icon_color").getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
                                 charPrefab.getChildByName("character_icon_bg").getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
                                 charPrefab.getChildByName("characternode").getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
-                                charPrefab.getComponent(cc.Button).interactable = false
+                                // charPrefab.getComponent(cc.Button).interactable = false
+                                this.registerButton(charPrefab, "onInactiveCharacterClick", character);
+                            } else {
+                                this.registerButton(charPrefab, "onCharacterClick", character);
+                                this.registerButton(charPrefab.getChildByName("edit"), "onEditButtonClicked", character);
                             }
                             if (character === User.getCurrentUser().currentCharacter) {
                                 // make edit button and selected show
@@ -87,14 +89,16 @@ export default class Rewards extends cc.Component {
                 bgPrefab.name = bg;
                 // @ts-ignore
                 bgPrefab.getChildByName("backgroundnode").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
-                this.registerButton(bgPrefab, "onBgClick", bg);
                 if (User.getCurrentUser() != null) {
                     if (User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] === 0 || User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] === undefined) {
                         // make lock texture active
-                        bgPrefab.getComponent(cc.Button).interactable = false
+                        // bgPrefab.getComponent(cc.Button).interactable = false
                         // make greyscale
                         bgPrefab.getChildByName("backgroundnode").getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
                         // bgPrefab.getChildByName("lock").active = true;
+                        this.registerButton(bgPrefab, "onInactiveBgClick", bg);
+                    } else {
+                        this.registerButton(bgPrefab, "onBgClick", bg);
                     }
                     if (bg === User.getCurrentUser().currentBg) {
                         // make edit button and selected show
@@ -214,6 +218,15 @@ export default class Rewards extends cc.Component {
         Config.getInstance().pushScene("menu/inventory/scenes/inventory", "menu");
     }
 
+    onInactiveCharacterClick(event, customEventData) {
+        User.getCurrentUser().currentReward = [
+            REWARD_TYPES[0],
+            customEventData.toString().trim()
+        ]
+        Config.i.popAllScenes()
+        Config.i.pushScene('menu/start/scenes/start', 'menu', null, true);
+    }
+
     onBgClick(event, customEventData) {
         let nodeName = ("bg_button_prefab" + this.lastSelectedButton.toString())
         // reset last selected first
@@ -234,6 +247,15 @@ export default class Rewards extends cc.Component {
         }
         // add current selected
         event.currentTarget.getChildByName("tick").active = true
+    }
+
+    onInactiveBgClick(event, customEventData) {
+        User.getCurrentUser().currentReward = [
+            REWARD_TYPES[1],
+            customEventData.toString().trim()
+        ]
+        Config.i.popAllScenes()
+        Config.i.pushScene('menu/start/scenes/start', 'menu', null, true);
     }
 
     onLogoutButtonClick(event) {

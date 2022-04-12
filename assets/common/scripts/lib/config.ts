@@ -4,6 +4,7 @@ import { Chapter, Course, Lesson } from "./convert";
 import Profile, { LANGUAGE, User } from "./profile";
 import TTFFont = cc.TTFFont;
 import { GAME_CONFIGS } from "./gameConfigs";
+import { BUNDLE_URL } from "./constants";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
@@ -567,6 +568,23 @@ export default class Config {
             });
         });
     }
+
+    public static loadBundle(lessonId: string, callback: Function, errCallback: Function) {
+        cc.assetManager.loadBundle(lessonId, (err, bundle) => {
+            if (err) {
+                cc.assetManager.loadBundle(BUNDLE_URL + lessonId, (err2, bundle2) => {
+                    if (err2) {
+                        errCallback(err2);
+                    } else {
+                        callback(bundle2);
+                    }
+                });
+            } else {
+                callback(bundle);
+            }
+        });
+    }
+
 
     get friend(): string {
         // return WORLDS[0].armature;

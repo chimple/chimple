@@ -2,7 +2,7 @@ import Config from "../../../common/scripts/lib/config";
 import LessonButton from "./lessonButton";
 import {LessonProgress, User} from "../../../common/scripts/lib/profile";
 import {Lesson} from "../../../common/scripts/lib/convert";
-import {Util} from "../../../common/scripts/util";
+import {REWARD_TYPES, Util} from "../../../common/scripts/util";
 import Start from "./start";
 import Loading from "../../../common/scripts/loading";
 import LessonController from "../../../common/scripts/lessonController";
@@ -116,7 +116,9 @@ export default class ChapterLessons extends cc.Component {
             default:
                 this.label.string = config.chapter.name
                 config.chapter.lessons.forEach((lesson, index) => {
-                    this.createLessonButton(lesson, (index == 0
+                    this.createLessonButton(lesson, lesson.chapter.course.id == 'reward' ? 
+                        User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[4]}-${lesson.id}`] == 1
+                        : (index == 0
                         || lesson.open
                         || User.getCurrentUser().lessonProgressMap.has(lesson.id)));
                 })

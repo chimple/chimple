@@ -115,6 +115,9 @@ export default class Start extends cc.Component {
     @property(cc.Node)
     header: cc.Node = null
 
+    @property(cc.Node)
+    rewardBg: cc.Node = null
+
     beginQuiz: cc.Node
     friend: cc.Node
     timer: number = 0;
@@ -122,6 +125,7 @@ export default class Start extends cc.Component {
     assignments: any;
     previousHash: number;
     assignPopupActive: boolean = true;
+    gift: cc.Node
 
     async onLoad() {
         const user = User.getCurrentUser()
@@ -265,6 +269,10 @@ export default class Start extends cc.Component {
         const user = User.getCurrentUser()
         const config = Config.i
         this.createAndDisplayLessonPlan();
+        if (user.currentReward == null || user.currentReward.length == 0) {
+            user.currentReward = this.getNextReward()
+        }
+        this.displayCurrentReward()
         if (!Config.isMicroLink) {
             this.loading.active = false;
         }
@@ -339,7 +347,7 @@ export default class Start extends cc.Component {
                     //         this.node.addChild(dialog);
                     //     } catch (e) { }
                     // } else {
-                        this.openDirectLesson(courseDetails);
+                    this.openDirectLesson(courseDetails);
                     // }
                 } else {
                     this.openDirectLesson(courseDetails);
@@ -586,12 +594,12 @@ export default class Start extends cc.Component {
                 }
             }
         })
-        const gift = cc.instantiate(this.giftBoxPrefab)
-        gift.x = Math.pow(1 - 1, 3) * x1 + 3 * Math.pow(1 - 1, 2) * 1 * x2 + 3 * (1 - 1) * Math.pow(1, 2) * x3 + Math.pow(1, 3) * x4
-        gift.y = Math.pow(1 - 1, 3) * y1 + 3 * Math.pow(1 - 1, 2) * 1 * y2 + 3 * (1 - 1) * Math.pow(1, 2) * y3 + Math.pow(1, 3) * y4
-        this.node.getChildByName('giftBox').addChild(gift)
+        this.gift = cc.instantiate(this.giftBoxPrefab)
+        this.gift.x = Math.pow(1 - 1, 3) * x1 + 3 * Math.pow(1 - 1, 2) * 1 * x2 + 3 * (1 - 1) * Math.pow(1, 2) * x3 + Math.pow(1, 3) * x4
+        this.gift.y = Math.pow(1 - 1, 3) * y1 + 3 * Math.pow(1 - 1, 2) * 1 * y2 + 3 * (1 - 1) * Math.pow(1, 2) * y3 + Math.pow(1, 3) * y4
+        this.node.getChildByName('giftBox').addChild(this.gift)
         if (courseProgressMap.lessonPlanIndex == courseProgressMap.lessonPlan.length) {
-            this.giveReward(gift, user)
+            this.giveReward(this.gift, user)
         }
         Config.i.startAction = StartAction.Default
     }
@@ -862,6 +870,98 @@ export default class Start extends cc.Component {
                 } catch (e) { }
             }
             this.flag = true;
+        }
+    }
+
+    private getNextReward(): string[] {
+        const course = Config.i.curriculum.get('reward')
+        for (const chapter of course.chapters) {
+            for (const lesson of chapter.lessons) {
+                for (const single of lesson.skills) {
+                    if (!User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[4]}-${chapter.id}-${lesson.id}-${single}`])
+                        return [REWARD_TYPES[4], chapter.id, lesson.id, single]
+                }
+            }
+        }
+        return []
+    }
+
+    private displayCurrentReward() {
+        const currentReward = User.getCurrentUser().currentReward;
+        switch (currentReward[0]) {
+            case REWARD_TYPES[0]: //character
+                cc.resources.load(`char_icons/${currentReward[1]}_icon`, (err, sp) => {
+                    const image = new cc.Node()
+                    const imageComp = image.addComponent(cc.Sprite)
+                    // @ts-ignore
+                    imageComp.spriteFrame = new cc.SpriteFrame(sp)
+                    this.gift.addChild(image)
+                })
+                break;
+            case REWARD_TYPES[1]: //background
+                cc.resources.load(`backgrounds/textures/bg_icons/background-${currentReward[1]}`, (err, sp) => {
+                    const image = new cc.Node()
+                    const imageComp = image.addComponent(cc.Sprite)
+                    // @ts-ignore
+                    imageComp.spriteFrame = new cc.SpriteFrame(sp)
+                    this.gift.addChild(image)
+                })
+                break;
+            case REWARD_TYPES[2]: //achievement
+                // NA
+                break;
+            case REWARD_TYPES[3]: //inventory
+                cc.resources.load(INVENTORY_ICONS[currentReward[2]] + currentReward[3], (err, sp) => {
+                    const image = new cc.Node()
+                    const imageComp = image.addComponent(cc.Sprite)
+                    // @ts-ignore
+                    imageComp.spriteFrame = new cc.SpriteFrame(sp)
+                    this.gift.addChild(image)
+                })
+
+                break;
+            case REWARD_TYPES[4]: //lesson
+                if (currentReward[1] == 'sticker') {
+                    Config.loadBundle(currentReward[2], (bundle) => {
+                        bundle.load(`res/${currentReward[1]}-${currentReward[2]}`, cc.Texture2D, (err, asset) => {
+                            if (err) {
+                                cc.log(JSON.stringify(err))
+                            } else {
+                                const image = new cc.Node()
+                                const imageComp = image.addComponent(cc.Sprite)
+                                imageComp.spriteFrame = new cc.SpriteFrame(asset)
+                                this.rewardBg.addChild(image)
+                            }
+                        })
+                        bundle.load(`res/${currentReward[3]}`, cc.Texture2D, (err, asset) => {
+                            if (err) {
+                                cc.log(JSON.stringify(err))
+                            } else {
+                                const image = new cc.Node()
+                                const imageComp = image.addComponent(cc.Sprite)
+                                imageComp.spriteFrame = new cc.SpriteFrame(asset)
+                                this.gift.addChild(image)
+                            }
+                        })
+                    },
+                        (err) => {
+                            if (err) cc.log(JSON.stringify(err))
+                        })
+                } else {
+                    const image = new cc.Node()
+                    const imageComp = image.addComponent(cc.Sprite)
+                    imageComp.spriteFrame = new cc.SpriteFrame();
+                    const lesson = Config.i.allLessons.get(currentReward[2])
+                    Util.load('reward/course/res/icons/' + lesson.image, (err, texture) => {
+                        if (!err) {
+                            imageComp.spriteFrame = new cc.SpriteFrame(texture);
+                            this.gift.addChild(image)
+                        }
+                    })
+                }
+                break;
+            default:
+                break;
         }
     }
 

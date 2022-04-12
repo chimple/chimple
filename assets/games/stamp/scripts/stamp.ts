@@ -1,10 +1,11 @@
 import Drag from "../../../common/scripts/drag";
-import { Util } from "../../../common/scripts/util";
+import { REWARD_TYPES, Util } from "../../../common/scripts/util";
 import Config, { Direction } from "../../../common/scripts/lib/config";
 import Game from "../../../common/scripts/game";
 import StickerHolder from "./stickerHolder";
 import { StampReward } from "../../../common/scripts/lib/convert";
 import StampDrag from "./stampDrag";
+import { User } from "../../../common/scripts/lib/profile";
 
 const { ccclass, property } = cc._decorator;
 
@@ -54,7 +55,7 @@ export default class Stamp extends Game {
 
         })
         this.graphics.node.on('touchmove', this.onTouchMove, this)
-        Drag.letDrag = false
+        // Drag.letDrag = false
         const [level, worksheet, problem, name, bgImage, num, fixed, sound] = config.data[0]
         this.text = name
         this.numPieces = parseInt(num)
@@ -87,7 +88,6 @@ export default class Stamp extends Game {
             if (this.stampReward.stickers.length <= index) {
                 this.stampReward.stickers.push({
                     "id": image,
-                    "unlocked": true,
                     "fixed": false,
                     "peeled": false,
                     "x": 0,
@@ -103,17 +103,21 @@ export default class Stamp extends Game {
             const drag = cc.instantiate(this.stampDrag)
             drag.name = index.toString()
             drag.position = cc.Vec3.ZERO
-            stickerHolder.icon.node.addChild(drag)
+            stickerHolder.icon.addChild(drag)
             this.drags.push(drag)
+            const rewardName = `${REWARD_TYPES[4]}-${Config.i.lesson.id}-${image}`
+            stickerHolder.rewardArray = [REWARD_TYPES[4], Config.i.chapter.id, Config.i.lesson.id,image]
             //@ts-ignore
             Util.loadTexture(image, (texture) => {
                 if (texture != null) {
                     const spriteFrame = new cc.SpriteFrame(texture)
-                    stickerHolder.icon.spriteFrame = spriteFrame
-                    Util.resizeSprite(stickerHolder.icon, 96, 96)
-                    const { scale, size } = Util.minScale(stickerHolder.icon, 96, 96)
-
-                    if (this.stampReward.stickers[index].unlocked) {
+                    const stickerHolderSprite = stickerHolder.icon.getComponent(cc.Sprite)
+                    stickerHolderSprite.spriteFrame = spriteFrame
+                    Util.resizeSprite(stickerHolderSprite, 96, 96)
+                    const { scale, size } = Util.minScale(stickerHolderSprite, 96, 96)
+                    if (User.getCurrentUser().unlockedRewards[rewardName] == 1) {
+                        const stickerButton = stickerHolder.icon.getComponent(cc.Button)
+                        stickerButton.interactable = false
                         if (Config.i.direction === Direction.RTL)
                             drag.getComponent(Drag).isReverseXNeeded = true;
                         drag.on('stampMatch', () => {
@@ -144,15 +148,15 @@ export default class Stamp extends Game {
                                 drag.width = spriteFrame.getOriginalSize().width         
                             } else {
                                 drag.scale = scale
-                                drag.position = new cc.Vec3(-stickerHolder.icon.node.width / 2, -stickerHolder.icon.node.height / 2, 0)
+                                drag.position = new cc.Vec3(-stickerHolder.icon.width / 2, -stickerHolder.icon.height / 2, 0)
                                 drag.height = spriteFrame.getOriginalSize().height 
                                 drag.width = spriteFrame.getOriginalSize().width         
                             }
                             drag.getComponent(Drag).allowDrag = true
-                            if (index + 1 == config.data.length) {
-                                Drag.letDrag = true
-                                Util.showHelp(firstDrag, firstDrop)
-                            }
+                            // if (index + 1 == config.data.length) {
+                            //     Drag.letDrag = true
+                            //     Util.showHelp(firstDrag, firstDrop)
+                            // }
                         }
 
                         if(fixed.toLowerCase() == 'true') {
@@ -174,7 +178,7 @@ export default class Stamp extends Game {
     }
 
     private getItemName(config: Config) {
-        return config.course.id + '_' + config.chapter.id + '_' + config.lesson.id + '_' + config.problem;
+        return User.getCurrentUser().id + '_' + config.course.id + '_' + config.chapter.id + '_' + config.lesson.id + '_' + config.problem;
     }
 
     saveItem() {

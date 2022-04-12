@@ -44,7 +44,6 @@ export interface StampReward {
 
 export interface StickerReward {
     id: string;
-    unlocked: boolean;
     fixed: boolean;
     peeled: boolean;
     x?: number;
