@@ -105,7 +105,7 @@ export default class Stamp extends Game {
             drag.position = cc.Vec3.ZERO
             stickerHolder.icon.addChild(drag)
             this.drags.push(drag)
-            const rewardName = `${REWARD_TYPES[4]}-${Config.i.lesson.id}-${image}`
+            const rewardName = `${REWARD_TYPES[4]}-${Config.i.chapter.id}-${Config.i.lesson.id}-${image}`
             stickerHolder.rewardArray = [REWARD_TYPES[4], Config.i.chapter.id, Config.i.lesson.id,image]
             //@ts-ignore
             Util.loadTexture(image, (texture) => {

@@ -117,7 +117,7 @@ export default class ChapterLessons extends cc.Component {
                 this.label.string = config.chapter.name
                 config.chapter.lessons.forEach((lesson, index) => {
                     this.createLessonButton(lesson, lesson.chapter.course.id == 'reward' ? 
-                        User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[4]}-${lesson.id}`] == 1
+                        User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[4]}-${config.chapter.id}-${lesson.id}`] == 1
                         : (index == 0
                         || lesson.open
                         || User.getCurrentUser().lessonProgressMap.has(lesson.id)));

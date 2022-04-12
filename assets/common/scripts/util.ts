@@ -13,6 +13,7 @@ import VerticalAlign = cc.Label.VerticalAlign;
 import { AssignHomeWorkInfo } from "./services/parseApi";
 import Loading from "./loading";
 import { ParseImageDownloader } from "./services/ParseImageDownloader";
+import { Lesson } from "./lib/convert";
 
 export const INVENTORY_DATA = [
     ["hat1-hat1", "hat1-hat2", "hat1-hat3", "hat1-hat4", "hat1-hat5", "hat1-hat6", "hat1-hat7", "hat1-hat8", "hat1-hat9", "hat1-hat10"],
@@ -692,6 +693,24 @@ export class Util {
                 }
             })
         })
+    }
+
+    public static loadLesson(lesson: Lesson, loading: cc.Node, thisNode: cc.Node) {
+        const config = Config.i
+        config.course = lesson.chapter.course;
+        config.chapter = lesson.chapter;
+        config.lesson = lesson;
+        loading.getComponent(Loading).allowCancel = true;
+        loading.active = true;
+        LessonController.preloadLesson(thisNode, (err: Error) => {
+            if (err) {
+                loading.getComponent(Loading).addMessage(Util.i18NText('Error downloading content. Please connect to internet and try again'), true, true);
+            } else {
+                if (loading && loading.activeInHierarchy) {
+                    config.pushScene('common/scenes/lessonController');
+                }
+            }
+        });
     }
 
     public static i18NText(key: string) {

@@ -116,20 +116,6 @@ export default class LessonButton extends cc.Component {
     }
 
     loadLesson() {
-        const config = Config.i
-        config.course = this.lesson.chapter.course;
-        config.chapter = this.lesson.chapter;
-        config.lesson = this.lesson;
-        this.loading.getComponent(Loading).allowCancel = true;
-        this.loading.active = true;
-        LessonController.preloadLesson(this.node, (err: Error) => {
-            if (err) {
-                this.loading.getComponent(Loading).addMessage(Util.i18NText('Error downloading content. Please connect to internet and try again'), true, true);
-            } else {
-                if (this.loading && this.loading.activeInHierarchy) {
-                    config.pushScene('common/scenes/lessonController');
-                }
-            }
-        });
+        Util.loadLesson(this.lesson, this.loading, this.node)
     }
 }

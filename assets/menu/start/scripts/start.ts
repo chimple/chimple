@@ -627,80 +627,80 @@ export default class Start extends cc.Component {
                 const anim = node.getComponent(cc.Animation);
                 anim.play();
             }).delay(2).call(() => {
-                const rewardItem = Util.unlockNextReward();
-                // user.pushNewLessonPlaceholder();
-                if (rewardItem) {
-                    const splitItems = rewardItem.split('-');
-                    if (splitItems[0] == REWARD_TYPES[0]) {
-                        user.currentCharacter = splitItems[1];
-                    } else if (splitItems[0] == REWARD_TYPES[1]) {
-                        user.currentBg = splitItems[1];
-                    } else if (splitItems[0] == REWARD_TYPES[2]) {
-                    } else if (splitItems[0] == REWARD_TYPES[3]) {
-                        user.updateInventory(`${splitItems[1]}-${splitItems[2]}`, splitItems[3]);
-                    }
-                    const courseProgress = user.courseProgressMap.get(Config.i.course.id)
-                    if (courseProgress) {
-                        courseProgress.lessonPlan = null
-                        courseProgress.lessonPlanDate = null
-                        courseProgress.lessonPlanIndex = 0
-                    }
-                    var rewardSpriteFrame = '';
-                    if (splitItems[0] == REWARD_TYPES[0]) {
-                        rewardSpriteFrame = 'char_icons/' + splitItems[1] + '_icon';
-                    } else if (splitItems[0] == REWARD_TYPES[1]) {
-                        rewardSpriteFrame = 'backgrounds/textures/bg_icons/background-' + splitItems[1];
-                    } else if (splitItems[0] == REWARD_TYPES[2]) {
-                    } else if (splitItems[0] == REWARD_TYPES[3]) {
-                        rewardSpriteFrame = INVENTORY_ICONS[splitItems[2]] + splitItems[3];
-                    }
-                    cc.resources.load(rewardSpriteFrame, cc.SpriteFrame, (err, spriteFrame) => {
-                        const rewardIcon = new cc.Node();
-                        rewardIcon.y = 100;
-                        rewardIcon.scale = 0;
-                        const sprite = rewardIcon.addComponent(cc.Sprite);
-                        // @ts-ignore
-                        sprite.spriteFrame = spriteFrame;
-                        node.addChild(rewardIcon);
-                        const friendComp = this.friend.getComponent(Friend)
-                        friendComp.playAnimation('dance', 1)
-                        new cc.Tween().target(rewardIcon)
-                            .to(0.5, { scale: 1, y: 200 }, null)
-                            .delay(1)
-                            .to(1, {
-                                scale: 0.1,
-                                position: this.friend.position
-                            }, null)
-                            .delay(0.5)
-                            .call(() => {
-                                if (splitItems[0] == REWARD_TYPES[3]) {
-                                    const friendComp = this.friend.getComponent(Friend)
-                                    friendComp.playAnimation('happy', 1)
-                                    const friendPos = cc.v3(this.friend.position)
-                                    new cc.Tween().target(this.friend)
-                                        .call(() => {
-                                            const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2]);
-                                            Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2]);
-                                        })
-                                        .delay(2)
-                                        .to(0.5, { position: friendPos }, null)
-                                        .start()
-                                }
-                                rewardIcon.opacity = 0;
-                            })
-                            .delay(1)
-                            .call(() => {
-                                this.afterRewardLessonPlan()
-                                this.node.getChildByName('block').active = false
-                                this.node.getChildByName('giftBox').removeAllChildren()
-                            })
-                            .start();
-                    });
-                } else {
-                    this.scheduleOnce(() => {
-                        this.afterRewardLessonPlan()
-                    }, 4);
-                }
+                this.unlockCurrentReward()
+                // const rewardItem = Util.unlockNextReward();
+                // if (rewardItem) {
+                //     const splitItems = rewardItem.split('-');
+                //     if (splitItems[0] == REWARD_TYPES[0]) {
+                //         user.currentCharacter = splitItems[1];
+                //     } else if (splitItems[0] == REWARD_TYPES[1]) {
+                //         user.currentBg = splitItems[1];
+                //     } else if (splitItems[0] == REWARD_TYPES[2]) {
+                //     } else if (splitItems[0] == REWARD_TYPES[3]) {
+                //         user.updateInventory(`${splitItems[1]}-${splitItems[2]}`, splitItems[3]);
+                //     }
+                //     const courseProgress = user.courseProgressMap.get(Config.i.course.id)
+                //     if (courseProgress) {
+                //         courseProgress.lessonPlan = null
+                //         courseProgress.lessonPlanDate = null
+                //         courseProgress.lessonPlanIndex = 0
+                //     }
+                //     var rewardSpriteFrame = '';
+                //     if (splitItems[0] == REWARD_TYPES[0]) {
+                //         rewardSpriteFrame = 'char_icons/' + splitItems[1] + '_icon';
+                //     } else if (splitItems[0] == REWARD_TYPES[1]) {
+                //         rewardSpriteFrame = 'backgrounds/textures/bg_icons/background-' + splitItems[1];
+                //     } else if (splitItems[0] == REWARD_TYPES[2]) {
+                //     } else if (splitItems[0] == REWARD_TYPES[3]) {
+                //         rewardSpriteFrame = INVENTORY_ICONS[splitItems[2]] + splitItems[3];
+                //     }
+                //     cc.resources.load(rewardSpriteFrame, cc.SpriteFrame, (err, spriteFrame) => {
+                //         const rewardIcon = new cc.Node();
+                //         rewardIcon.y = 100;
+                //         rewardIcon.scale = 0;
+                //         const sprite = rewardIcon.addComponent(cc.Sprite);
+                //         // @ts-ignore
+                //         sprite.spriteFrame = spriteFrame;
+                //         node.addChild(rewardIcon);
+                //         const friendComp = this.friend.getComponent(Friend)
+                //         friendComp.playAnimation('dance', 1)
+                //         new cc.Tween().target(rewardIcon)
+                //             .to(0.5, { scale: 1, y: 200 }, null)
+                //             .delay(1)
+                //             .to(1, {
+                //                 scale: 0.1,
+                //                 position: this.friend.position
+                //             }, null)
+                //             .delay(0.5)
+                //             .call(() => {
+                //                 if (splitItems[0] == REWARD_TYPES[3]) {
+                //                     const friendComp = this.friend.getComponent(Friend)
+                //                     friendComp.playAnimation('happy', 1)
+                //                     const friendPos = cc.v3(this.friend.position)
+                //                     new cc.Tween().target(this.friend)
+                //                         .call(() => {
+                //                             const animIndex = INVENTORY_SAVE_CONSTANTS.indexOf(splitItems[2]);
+                //                             Inventory.updateCharacter(this.friend.getComponent(Friend).db, INVENTORY_ANIMATIONS[animIndex], splitItems[3], splitItems[2]);
+                //                         })
+                //                         .delay(2)
+                //                         .to(0.5, { position: friendPos }, null)
+                //                         .start()
+                //                 }
+                //                 rewardIcon.opacity = 0;
+                //             })
+                //             .delay(1)
+                //             .call(() => {
+                //                 this.afterRewardLessonPlan()
+                //                 this.node.getChildByName('block').active = false
+                //                 this.node.getChildByName('giftBox').removeAllChildren()
+                //             })
+                //             .start();
+                //     });
+                // } else {
+                //     this.scheduleOnce(() => {
+                //         this.afterRewardLessonPlan()
+                //     }, 4);
+                // }
             })
                 .start()
         })
@@ -874,9 +874,12 @@ export default class Start extends cc.Component {
     }
 
     private getNextReward(): string[] {
+        //TODO Make this more general for other rewards also
         const course = Config.i.curriculum.get('reward')
         for (const chapter of course.chapters) {
             for (const lesson of chapter.lessons) {
+                if (!User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[4]}-${chapter.id}-${lesson.id}`])
+                    return [REWARD_TYPES[4], chapter.id, lesson.id]
                 for (const single of lesson.skills) {
                     if (!User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[4]}-${chapter.id}-${lesson.id}-${single}`])
                         return [REWARD_TYPES[4], chapter.id, lesson.id, single]
@@ -896,6 +899,7 @@ export default class Start extends cc.Component {
                     // @ts-ignore
                     imageComp.spriteFrame = new cc.SpriteFrame(sp)
                     this.gift.addChild(image)
+                    Util.resizeSprite(imageComp, 64, 64)
                 })
                 break;
             case REWARD_TYPES[1]: //background
@@ -905,6 +909,7 @@ export default class Start extends cc.Component {
                     // @ts-ignore
                     imageComp.spriteFrame = new cc.SpriteFrame(sp)
                     this.gift.addChild(image)
+                    Util.resizeSprite(imageComp, 64, 64)
                 })
                 break;
             case REWARD_TYPES[2]: //achievement
@@ -917,6 +922,7 @@ export default class Start extends cc.Component {
                     // @ts-ignore
                     imageComp.spriteFrame = new cc.SpriteFrame(sp)
                     this.gift.addChild(image)
+                    Util.resizeSprite(imageComp, 64, 64)
                 })
 
                 break;
@@ -941,6 +947,7 @@ export default class Start extends cc.Component {
                                 const imageComp = image.addComponent(cc.Sprite)
                                 imageComp.spriteFrame = new cc.SpriteFrame(asset)
                                 this.gift.addChild(image)
+                                Util.resizeSprite(imageComp, 64, 64)
                             }
                         })
                     },
@@ -956,6 +963,7 @@ export default class Start extends cc.Component {
                         if (!err) {
                             imageComp.spriteFrame = new cc.SpriteFrame(texture);
                             this.gift.addChild(image)
+                            Util.resizeSprite(imageComp, 64, 64)
                         }
                     })
                 }
@@ -963,6 +971,39 @@ export default class Start extends cc.Component {
             default:
                 break;
         }
+        //TODO just for testing
+        // this.gift.once('touchend', () => this.unlockCurrentReward())
+    }
+
+    private unlockCurrentReward() {
+        const currentReward = User.getCurrentUser().currentReward;
+        User.getCurrentUser().unlockRewardsForItem(currentReward.join('-'), 1)
+        const cpm = User.getCurrentUser().courseProgressMap.get(Config.i.course.id)
+        cpm.lessonPlan = []
+        cpm.lessonPlanIndex = 0
+        User.getCurrentUser().currentReward = null
+
+        switch (currentReward[0]) {
+            case REWARD_TYPES[0]: //character
+                Config.i.pushScene('menu/rewards/scenes/rewards', 'menu')
+                break;
+            case REWARD_TYPES[1]: //background
+                Config.i.pushScene('menu/rewards/scenes/rewards', 'menu')
+                break;
+            case REWARD_TYPES[2]: //achievement
+                // NA
+                break;
+            case REWARD_TYPES[3]: //inventory
+                Config.getInstance().pushScene("menu/inventory/scenes/inventory", "menu");
+                break;
+            case REWARD_TYPES[4]: //lesson
+                Config.i.setRewardChapter(currentReward[1])
+                Util.loadLesson(Config.i.allLessons.get(currentReward[2]), this.loading, this.node)
+                break;
+            default:
+                break;
+        }
+
     }
 
     protected update(dt: number) {
