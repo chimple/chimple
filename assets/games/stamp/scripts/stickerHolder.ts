@@ -13,6 +13,9 @@ export default class StickerHolder extends cc.Component {
     @property(cc.Node)
     bg: cc.Node = null;
 
+    @property(cc.Node)
+    lock: cc.Node = null;
+
     rewardArray: string[]
 
     // LIFE-CYCLE CALLBACKS:

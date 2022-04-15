@@ -1,15 +1,15 @@
 import LessonController from "../../../common/scripts/lessonController";
 import LessonIcon from "../../../common/scripts/lessonIcon";
 import Config, { COURSES_LANG_ID } from "../../../common/scripts/lib/config";
-import {Chapter, Course, Lesson} from "../../../common/scripts/lib/convert";
-import {User} from "../../../common/scripts/lib/profile";
+import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
+import { User } from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
-import {REWARD_TYPES, Util} from "../../../common/scripts/util";
-import {EXAM} from "../../../common/scripts/lib/constants";
+import { REWARD_TYPES, Util } from "../../../common/scripts/util";
+import { EXAM } from "../../../common/scripts/lib/constants";
 import PreTestDialog from "./preTestDialog";
 
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class LessonButton extends cc.Component {
@@ -43,6 +43,9 @@ export default class LessonButton extends cc.Component {
 
     @property(cc.Prefab)
     preTestPopup: cc.Prefab = null
+
+    @property(cc.Node)
+    lockIcon: cc.Node = null
 
     lesson: Lesson
     loading: cc.Node
@@ -78,19 +81,19 @@ export default class LessonButton extends cc.Component {
                     this.star3.spriteFrame = lessonProgress.score > 75 ? this.goldStar : this.grayStar
                 }
             }
-
+            this.lockIcon.active = (!this.open && this.lesson.chapter.course.id == 'reward')
         }
     }
 
     onClick() {
-        if(!this.open && this.lesson.chapter.course.id == 'reward') {
+        if (!this.open && this.lesson.chapter.course.id == 'reward') {
             User.getCurrentUser().currentReward = [
                 REWARD_TYPES[4],
                 this.lesson.chapter.id,
                 this.lesson.id
             ]
             Config.i.popAllScenes()
-            Config.i.pushScene('menu/start/scenes/start', 'menu', null, true);    
+            Config.i.pushScene('menu/start/scenes/start', 'menu', null, true);
         }
         const user = User.getCurrentUser();
         if (COURSES_LANG_ID.includes(this.lesson.chapter.course.id)) {
@@ -106,7 +109,7 @@ export default class LessonButton extends cc.Component {
                         script.chapter = this.lesson.chapter;
                         canvasNode.addChild(dialog);
                     }
-                } catch(e) {}
+                } catch (e) { }
             } else {
                 this.loadLesson();
             }

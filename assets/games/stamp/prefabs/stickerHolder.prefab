@@ -491,7 +491,7 @@
       "__id__": 1
     },
     "_children": [],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 14
@@ -563,7 +563,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "aa393105-ba9f-4d9f-b1eb-e549d4babf6d"
+      "__uuid__": "cbb3fc8c-520f-4dd6-b483-15768aa9623a"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -621,6 +621,9 @@
       "__id__": 4
     },
     "bg": null,
+    "lock": {
+      "__id__": 13
+    },
     "_id": ""
   },
   {

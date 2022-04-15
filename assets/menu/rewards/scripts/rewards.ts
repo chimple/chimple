@@ -62,6 +62,8 @@ export default class Rewards extends cc.Component {
                                 charPrefab.getChildByName("character_icon_color").getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
                                 charPrefab.getChildByName("character_icon_bg").getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
                                 charPrefab.getChildByName("characternode").getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
+                                charPrefab.getChildByName("characternode").getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
+                                charPrefab.getChildByName("lock").active = true;
                                 // charPrefab.getComponent(cc.Button).interactable = false
                                 this.registerButton(charPrefab, "onInactiveCharacterClick", character);
                             } else {
@@ -95,7 +97,7 @@ export default class Rewards extends cc.Component {
                         // bgPrefab.getComponent(cc.Button).interactable = false
                         // make greyscale
                         bgPrefab.getChildByName("backgroundnode").getComponent(cc.Sprite).setMaterial(0, this.grayMaterial)
-                        // bgPrefab.getChildByName("lock").active = true;
+                        bgPrefab.getChildByName("lock").active = true;
                         this.registerButton(bgPrefab, "onInactiveBgClick", bg);
                     } else {
                         this.registerButton(bgPrefab, "onBgClick", bg);

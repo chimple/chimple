@@ -55,6 +55,7 @@ export default class Stamp extends Game {
 
         })
         this.graphics.node.on('touchmove', this.onTouchMove, this)
+        this.graphics.node.on('touchend', this.onTouchEnd, this)
         // Drag.letDrag = false
         const [level, worksheet, problem, name, bgImage, num, fixed, sound] = config.data[0]
         this.text = name
@@ -69,8 +70,8 @@ export default class Stamp extends Game {
         Util.loadTexture(bgImage, (texture) => {
             if (texture != null) {
                 this.bg.spriteFrame = new cc.SpriteFrame(texture)
-                this.graphics.node.setContentSize(this.bg.spriteFrame.getOriginalSize())
-                this.mask.setContentSize(this.bg.spriteFrame.getOriginalSize())
+                // this.graphics.node.setContentSize(this.bg.spriteFrame.getOriginalSize())
+                // this.mask.setContentSize(this.bg.spriteFrame.getOriginalSize())
             }
         })
 
@@ -116,6 +117,7 @@ export default class Stamp extends Game {
                     Util.resizeSprite(stickerHolderSprite, 96, 96)
                     const { scale, size } = Util.minScale(stickerHolderSprite, 96, 96)
                     if (User.getCurrentUser().unlockedRewards[rewardName] == 1) {
+                        stickerHolder.lock.active = false
                         const stickerButton = stickerHolder.icon.getComponent(cc.Button)
                         stickerButton.interactable = false
                         if (Config.i.direction === Direction.RTL)
@@ -193,6 +195,8 @@ export default class Stamp extends Game {
 
     onPaintClick(event: cc.Event, customEventData: string) {
         this.graphics.strokeColor = new cc.Color().fromHEX(customEventData)
+        this.isPainting = true
+        Drag.letDrag = false
     }
 
     onTouchMove(touch: cc.Touch) {
@@ -202,6 +206,13 @@ export default class Stamp extends Game {
             this.graphics.moveTo(from.x, from.y)
             this.graphics.lineTo(to.x, to.y)
             this.graphics.stroke()
+        }
+    }
+
+    onTouchEnd(touch: cc.Touch) {
+        if(this.isPainting) {
+            this.isPainting = false
+            Drag.letDrag = true
         }
     }
 
