@@ -29,6 +29,7 @@ export const BG_NAME = 'bgRoot';
 export const BRIDGE_NAME = 'bridge';
 export const QUIZ_LITERACY = 'quizliteracy';
 export const QUIZ_MATHS = 'quizmaths';
+export const ASSIGNMENT_COURSE_ID = 'assignment'
 
 export enum Direction {
     LTR,
@@ -124,6 +125,7 @@ export default class Config {
     microLinkData: MicroLink
     prevCourse: Course
     prevChapter: Chapter
+    startCourse: Course
 
     //remove later
     flow: Flow;
@@ -169,19 +171,19 @@ export default class Config {
     }
 
     setRewardChapter(chapterName: String) {
-        if (this.course.id != 'reward') {
-            this.prevCourse = this.course
-            this.prevChapter = this.chapter
-        }
+        // if (this.course.id != 'reward') {
+        //     this.prevCourse = this.course
+        //     this.prevChapter = this.chapter
+        // }
         this.course = this.curriculum.get('reward')
         this.chapter = this.course.chapters.find((c) => c.id == chapterName)
     }
 
     unsetRewardChapter() {
-        if (this.course.id == 'reward') {
-            this.course = this.prevCourse
-            this.chapter = this.prevChapter
-        }
+        // if (this.course.id == 'reward') {
+        //     this.course = this.prevCourse
+        //     this.chapter = this.prevChapter
+        // }
     }
 
     hasTracing(): boolean {

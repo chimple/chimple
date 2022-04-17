@@ -2,7 +2,7 @@ import { Queue } from "../../../queue";
 import Header from "../header";
 import { INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util } from "../util";
 import UtilLogger from "../util-logger";
-import Config, { ALL_LANGS, StartAction, Lang } from "./config";
+import Config, { ALL_LANGS, StartAction, Lang, ASSIGNMENT_COURSE_ID } from "./config";
 import {
     COUNTRY_CODES,
     CURRENT_STUDENT_ID,
@@ -579,36 +579,48 @@ export class User {
                     cpm.lessonPlanIndex = 0
                 }
             }
-            if (this.assignments) {
-                const index = this.assignments.indexOf(config.lesson.id)
-                if (index > -1) {
-                    this.assignments.splice(index, 1)
-                }
-            }
-
-            // check if all lessons for current chapter are finished
-            const courseProgress = this.courseProgressMap.get(Config.i.course.id);
-            if (!!courseProgress) {
-                courseProgress.date = new Date()
-                this._chapterFinishedMap = !this._chapterFinishedMap ? new Map() : this._chapterFinishedMap;
-                const currentChapter = config.curriculum.get(config.course.id).chapters.find(c => c.id === courseProgress.currentChapterId);
-                if (!!currentChapter && !this._chapterFinishedMap.has(currentChapter.id)) {
-                    const allLessonIds = currentChapter.lessons.map(l => l.id);
-                    const userFinishedLessonIds = Array.from(this._lessonProgressMap.keys());
-                    const isAllLessonsFinished = allLessonIds.filter(arr1Item => !userFinishedLessonIds.includes(arr1Item)).length === 0;
-                    if (isAllLessonsFinished) {
-                        this._chapterFinishedMap.set(currentChapter.id, true);
-
-                        UtilLogger.logChimpleEvent("chapterEnd", {
-                            chapterName: config.chapter.name,
-                            chapterId: config.chapter.id,
-                            courseName: config.course.id
-                        });
-                    }
-                }
-            }
-            this.storeUser();
         }
+
+        if (config.startCourse.id == ASSIGNMENT_COURSE_ID) {
+            const startCourseProgressMap = this.courseProgressMap.get(config.startCourse.id)
+            const lessonPlan = startCourseProgressMap.lessonPlan
+            if (lessonPlan && lessonPlan[startCourseProgressMap.lessonPlanIndex] == config.lesson.id) {
+                Config.i.startAction = StartAction.MoveLessonPlan;
+                startCourseProgressMap.lessonPlanIndex++
+            }
+        }
+
+
+
+        if (this.assignments) {
+            const index = this.assignments.indexOf(config.lesson.id)
+            if (index > -1) {
+                this.assignments.splice(index, 1)
+            }
+        }
+
+        // check if all lessons for current chapter are finished
+        const courseProgress = this.courseProgressMap.get(Config.i.course.id);
+        if (!!courseProgress) {
+            courseProgress.date = new Date()
+            this._chapterFinishedMap = !this._chapterFinishedMap ? new Map() : this._chapterFinishedMap;
+            const currentChapter = config.curriculum.get(config.course.id).chapters.find(c => c.id === courseProgress.currentChapterId);
+            if (!!currentChapter && !this._chapterFinishedMap.has(currentChapter.id)) {
+                const allLessonIds = currentChapter.lessons.map(l => l.id);
+                const userFinishedLessonIds = Array.from(this._lessonProgressMap.keys());
+                const isAllLessonsFinished = allLessonIds.filter(arr1Item => !userFinishedLessonIds.includes(arr1Item)).length === 0;
+                if (isAllLessonsFinished) {
+                    this._chapterFinishedMap.set(currentChapter.id, true);
+
+                    UtilLogger.logChimpleEvent("chapterEnd", {
+                        chapterName: config.chapter.name,
+                        chapterId: config.chapter.id,
+                        courseName: config.course.id
+                    });
+                }
+            }
+        }
+        this.storeUser();
         return reward
     }
 
@@ -684,6 +696,7 @@ export class User {
             "chimp",
             debug
                 ? new Map([
+                    ['assignment', new CourseProgressClass()],
                     ['en', new CourseProgressClass('en00')],
                     ['maths', new CourseProgressClass('maths00')],
                     // ['hi', new CourseProgressClass('hi00')],
@@ -693,6 +706,7 @@ export class User {
                     ['test-maths', new CourseProgressClass('chapter_0')]
                 ])
                 : new Map([
+                    ['assignment', new CourseProgressClass()],
                     ['en', new CourseProgressClass()],
                     ['maths', new CourseProgressClass()],
                     // ['hi', new CourseProgressClass()],

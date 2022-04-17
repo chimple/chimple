@@ -8,7 +8,7 @@ import {
     MICROLINK, RECEIVED_TEACHER_REQUESTS
 } from "../../../chimple";
 import Friend from "../../../common/scripts/friend";
-import Config, { COURSES_LANG_ID, StartAction } from "../../../common/scripts/lib/config";
+import Config, { ASSIGNMENT_COURSE_ID, COURSES_LANG_ID, StartAction } from "../../../common/scripts/lib/config";
 import { EXAM, MIN_PASS, MODE, Mode } from "../../../common/scripts/lib/constants";
 import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
 import Profile, { User, CourseProgress, IS_OTP_VERIFIED, LessonProgress, CURRENTMODE } from "../../../common/scripts/lib/profile";
@@ -143,8 +143,10 @@ export default class Start extends cc.Component {
         const config = Config.i
         if (!config.course) {
             config.course = this.getNextCourse()
+            config.startCourse = config.course
         } else {
             config.unsetRewardChapter()
+            config.course = config.startCourse
         }
         // this.library.string = config.course.name
         // Util.load(config.course.id + '/course/res/icons/' + config.course.id + '.png', (err: Error, texture) => {
@@ -279,7 +281,6 @@ export default class Start extends cc.Component {
         headerComp.user = user
         headerComp.onCourseClick = this.onCourseClick.bind(this)
         this.header.addChild(headerNode)
-
     }
 
     private createAndDisplayLessonPlan() {
@@ -442,41 +443,51 @@ export default class Start extends cc.Component {
         this.createAndDisplayLessonPlan()
     }
 
-    createLessonPlan(courseId: string): Lesson[] {
+    private createLessonPlan(courseId: string) {
         const user = User.getCurrentUser()
         const courseProgress = user.courseProgressMap.get(courseId)
         const course = Config.i.curriculum.get(courseId)
-        const currentChapter = course.chapters.find((chapter: Chapter) => chapter.id == courseProgress.currentChapterId)
-        if (currentChapter &&
-            (!courseProgress.currentLessonId
-                || !currentChapter.lessons.find(l => l.id == courseProgress.currentLessonId))) {
-            courseProgress.currentLessonId = currentChapter.lessons[0].id
-        }
-        var lessons: Lesson[]
-        if (course.id == 'puzzle') {
-            lessons = []
-            course.chapters.forEach((ch) => {
-                const puzLes = ch.lessons.find((l, i, ls) =>
-                    !user.lessonProgressMap.has(l.id) || (i + 1 == ls.length)
-                )
-                if (puzLes) lessons.push(puzLes)
-            })
+        if (courseId == ASSIGNMENT_COURSE_ID) {
+            // const arr = Array.from(Config.i.allLessons.values())
+            // courseProgress.lessonPlan = Util.randomElements(arr.filter(l=>l.chapter.id != 'reward'), 5).map((l) => l.id)
+            if (Config.i.assignments != null && Config.i.assignments.length > 0) {
+                courseProgress.lessonPlan = Config.i.assignments.slice(0, Math.min(5, Config.i.assignments.length)).map((ass) => ass.lessonId)
+                courseProgress.lessonPlanIndex = 0
+                courseProgress.lessonPlanDate = new Date()
+                user.storeUser()
+            }
         } else {
-            if (!courseProgress.currentChapterId) {
-                lessons = [Start.preQuizLesson(course)]
+            const currentChapter = course.chapters.find((chapter: Chapter) => chapter.id == courseProgress.currentChapterId)
+            if (currentChapter &&
+                (!courseProgress.currentLessonId
+                    || !currentChapter.lessons.find(l => l.id == courseProgress.currentLessonId))) {
+                courseProgress.currentLessonId = currentChapter.lessons[0].id
+            }
+            var lessons: Lesson[]
+            if (course.id == 'puzzle') {
+                lessons = []
+                course.chapters.forEach((ch) => {
+                    const puzLes = ch.lessons.find((l, i, ls) =>
+                        !user.lessonProgressMap.has(l.id) || (i + 1 == ls.length)
+                    )
+                    if (puzLes) lessons.push(puzLes)
+                })
             } else {
-                lessons = this.getLessonsForPlan(currentChapter, courseProgress.currentLessonId);
-                if (!lessons || lessons.length == 0) {
-                    courseProgress.currentLessonId = currentChapter.lessons[0].id
+                if (!courseProgress.currentChapterId) {
+                    lessons = [Start.preQuizLesson(course)]
+                } else {
                     lessons = this.getLessonsForPlan(currentChapter, courseProgress.currentLessonId);
+                    if (!lessons || lessons.length == 0) {
+                        courseProgress.currentLessonId = currentChapter.lessons[0].id
+                        lessons = this.getLessonsForPlan(currentChapter, courseProgress.currentLessonId);
+                    }
                 }
             }
+            courseProgress.lessonPlan = lessons.map((l) => l.id)
+            courseProgress.lessonPlanIndex = 0
+            courseProgress.lessonPlanDate = new Date()
+            user.storeUser()
         }
-        courseProgress.lessonPlan = lessons.map((l) => l.id)
-        courseProgress.lessonPlanIndex = 0
-        courseProgress.lessonPlanDate = new Date()
-        user.storeUser()
-        return lessons
     }
 
     private getLessonsForPlan(currentChapter: Chapter, currentLessonId: string) {
@@ -525,84 +536,93 @@ export default class Start extends cc.Component {
 
     displayLessonPlan() {
         const user = User.getCurrentUser()
-        const planWidth = cc.winSize.width - 128
-        const x1 = -planWidth / 2
-        const y1 = -172
-        const x2 = planWidth / 4
-        const y2 = -172
-        const x3 = -planWidth / 4
-        const y3 = 172
-        const x4 = planWidth / 2
-        const y4 = 172
-
-        this.content.removeAllChildren()
-        this.ctx.moveTo(x1, y1)
-        this.ctx.bezierCurveTo(x2, y2, x3, y3, x4, y4)
-        this.ctx.stroke()
-
         const courseProgressMap = user.courseProgressMap.get(Config.i.course.id);
-        courseProgressMap.lessonPlan.forEach((lessonId, index, lessons) => {
-            const node: cc.Node = Start.createLessonButton(
-                lessonId.endsWith('_PreQuiz')
-                    ? Start.preQuizLesson(Config.i.curriculum.get(lessonId.split('_')[0]))
-                    : Config.i.allLessons.get(lessonId),
-                this.lessonButtonPrefab,
-                this.loading,
-                index <= courseProgressMap.lessonPlanIndex)
-            // if (lessonId.endsWith('_PreQuiz')) {
-            //     this.beginQuiz = node
-            //     this.node.getChildByName('beginQuizPopup').active = true
-            // }
-            const t = index / lessons.length
-            node.x = Math.pow(1 - t, 3) * x1 + 3 * Math.pow(1 - t, 2) * t * x2 + 3 * (1 - t) * Math.pow(t, 2) * x3 + Math.pow(t, 3) * x4
-            node.y = Math.pow(1 - t, 3) * y1 + 3 * Math.pow(1 - t, 2) * t * y2 + 3 * (1 - t) * Math.pow(t, 2) * y3 + Math.pow(t, 3) * y4
-            node.scale = 0.75
-            this.content.addChild(node)
-            if (index == courseProgressMap.lessonPlanIndex) {
-                const currentLessonNode = cc.instantiate(this.currentLessonButton)
-                var animationCmp = currentLessonNode.getComponent(cc.Animation);
-                animationCmp.play("level_play_button").repeatCount = 20
+        if (courseProgressMap.lessonPlan != null && courseProgressMap.lessonPlan.length > 0) {
+            const planWidth = cc.winSize.width - 128
+            const x1 = -planWidth / 2
+            const y1 = -172
+            const x2 = planWidth / 4
+            const y2 = -172
+            const x3 = -planWidth / 4
+            const y3 = 172
+            const x4 = planWidth / 2
+            const y4 = 172
 
-                currentLessonNode.y = 80
-                currentLessonNode.scale = 1
-                const lessonButton = node.getComponent(LessonButton)
-                if (lessonButton) {
-                    const clsprite = currentLessonNode.getChildByName('play button')
-                    const clButton = clsprite.addComponent(cc.Button)
-                    clButton.transition = cc.Button.Transition.SCALE
-                    clButton.node.on('touchend', (event: cc.Event) => {
-                        if (lessonButton.button.interactable) {
-                            animationCmp.stop("level_play_button")
-                            this.node.getChildByName('beginQuizPopup').active = false
-                            lessonButton.onClick()
-                        }
-                    })
+            this.content.removeAllChildren()
+            this.ctx.moveTo(x1, y1)
+            this.ctx.bezierCurveTo(x2, y2, x3, y3, x4, y4)
+            this.ctx.stroke()
+
+            courseProgressMap.lessonPlan.forEach((lessonId, index, lessons) => {
+                const node: cc.Node = Start.createLessonButton(
+                    lessonId.endsWith('_PreQuiz')
+                        ? Start.preQuizLesson(Config.i.curriculum.get(lessonId.split('_')[0]))
+                        : Config.i.allLessons.get(lessonId),
+                    this.lessonButtonPrefab,
+                    this.loading,
+                    index <= courseProgressMap.lessonPlanIndex)
+                // if (lessonId.endsWith('_PreQuiz')) {
+                //     this.beginQuiz = node
+                //     this.node.getChildByName('beginQuizPopup').active = true
+                // }
+                const t = index / lessons.length
+                node.x = Math.pow(1 - t, 3) * x1 + 3 * Math.pow(1 - t, 2) * t * x2 + 3 * (1 - t) * Math.pow(t, 2) * x3 + Math.pow(t, 3) * x4
+                node.y = Math.pow(1 - t, 3) * y1 + 3 * Math.pow(1 - t, 2) * t * y2 + 3 * (1 - t) * Math.pow(t, 2) * y3 + Math.pow(t, 3) * y4
+                node.scale = 0.75
+                this.content.addChild(node)
+                if (index == courseProgressMap.lessonPlanIndex) {
+                    const currentLessonNode = cc.instantiate(this.currentLessonButton)
+                    var animationCmp = currentLessonNode.getComponent(cc.Animation);
+                    animationCmp.play("level_play_button").repeatCount = 20
+
+                    currentLessonNode.y = 80
+                    currentLessonNode.scale = 1
+                    const lessonButton = node.getComponent(LessonButton)
+                    if (lessonButton) {
+                        const clsprite = currentLessonNode.getChildByName('play button')
+                        const clButton = clsprite.addComponent(cc.Button)
+                        clButton.transition = cc.Button.Transition.SCALE
+                        clButton.node.on('touchend', (event: cc.Event) => {
+                            if (lessonButton.button.interactable) {
+                                animationCmp.stop("level_play_button")
+                                this.node.getChildByName('beginQuizPopup').active = false
+                                lessonButton.onClick()
+                            }
+                        })
+                    }
+                    node.addChild(currentLessonNode)
+                    if (Config.i.startAction == StartAction.MoveLessonPlan && index > 0) {
+                        const prevNode = this.content.children[index - 1]
+                        const currentPos = currentLessonNode.position.clone()
+                        currentLessonNode.position = node.convertToNodeSpaceAR(prevNode.convertToWorldSpaceAR(cc.v3(0, 300, 0)))
+                        currentLessonNode.runAction(cc.bezierTo(1, [
+                            cc.v2(currentLessonNode.position.x, currentPos.y + 200),
+                            cc.v2(currentPos.x, currentPos.y + 100),
+                            cc.v2(currentPos)
+                        ]))
+                    }
                 }
-                node.addChild(currentLessonNode)
-                if (Config.i.startAction == StartAction.MoveLessonPlan && index > 0) {
-                    const prevNode = this.content.children[index - 1]
-                    const currentPos = currentLessonNode.position.clone()
-                    currentLessonNode.position = node.convertToNodeSpaceAR(prevNode.convertToWorldSpaceAR(cc.v3(0, 300, 0)))
-                    currentLessonNode.runAction(cc.bezierTo(1, [
-                        cc.v2(currentLessonNode.position.x, currentPos.y + 200),
-                        cc.v2(currentPos.x, currentPos.y + 100),
-                        cc.v2(currentPos)
-                    ]))
-                }
+            })
+            this.gift = cc.instantiate(this.giftBoxPrefab)
+            this.gift.x = Math.pow(1 - 1, 3) * x1 + 3 * Math.pow(1 - 1, 2) * 1 * x2 + 3 * (1 - 1) * Math.pow(1, 2) * x3 + Math.pow(1, 3) * x4
+            this.gift.y = Math.pow(1 - 1, 3) * y1 + 3 * Math.pow(1 - 1, 2) * 1 * y2 + 3 * (1 - 1) * Math.pow(1, 2) * y3 + Math.pow(1, 3) * y4
+            this.node.getChildByName('giftBox').addChild(this.gift)
+            if (courseProgressMap.lessonPlanIndex == courseProgressMap.lessonPlan.length) {
+                this.giveReward(this.gift, user)
             }
-        })
-        this.gift = cc.instantiate(this.giftBoxPrefab)
-        this.gift.x = Math.pow(1 - 1, 3) * x1 + 3 * Math.pow(1 - 1, 2) * 1 * x2 + 3 * (1 - 1) * Math.pow(1, 2) * x3 + Math.pow(1, 3) * x4
-        this.gift.y = Math.pow(1 - 1, 3) * y1 + 3 * Math.pow(1 - 1, 2) * 1 * y2 + 3 * (1 - 1) * Math.pow(1, 2) * y3 + Math.pow(1, 3) * y4
-        this.node.getChildByName('giftBox').addChild(this.gift)
-        if (courseProgressMap.lessonPlanIndex == courseProgressMap.lessonPlan.length) {
-            this.giveReward(this.gift, user)
+            Config.i.startAction = StartAction.Default
+        } else {
+            const label = new cc.Node()
+            const chimpleLabel = label.addComponent(ChimpleLabel)
+            chimpleLabel.string = 'No lessons found. Try another subject'
+            this.content.addChild(label)
         }
-        Config.i.startAction = StartAction.Default
     }
+
     onBeginQuizCancelClick() {
         this.node.getChildByName('beginQuizPopup').active = false
     }
+
     onBeginQuizButtonClicked() {
         const lessonButton = this.beginQuiz.getComponent(LessonButton)
         lessonButton.onClick()
@@ -729,90 +749,88 @@ export default class Start extends cc.Component {
     }
 
     private displayCurrentReward() {
-        const currentReward = User.getCurrentUser().currentReward;
-        switch (currentReward[0]) {
-            case REWARD_TYPES[0]: //character
-                cc.resources.load(`char_icons/${currentReward[1]}_icon`, (err, sp) => {
-                    const image = new cc.Node()
-                    const imageComp = image.addComponent(cc.Sprite)
-                    // @ts-ignore
-                    imageComp.spriteFrame = new cc.SpriteFrame(sp)
-                    cc.log('Gift children: '+this.gift.childrenCount)
-                    this.gift.addChild(image)
-                    Util.resizeSprite(imageComp, 64, 64)
-                })
-                break;
-            case REWARD_TYPES[1]: //background
-                cc.resources.load(`backgrounds/textures/bg_icons/background-${currentReward[1]}`, (err, sp) => {
-                    const image = new cc.Node()
-                    const imageComp = image.addComponent(cc.Sprite)
-                    // @ts-ignore
-                    imageComp.spriteFrame = new cc.SpriteFrame(sp)
-                    cc.log('Gift children: '+this.gift.childrenCount)
-                    this.gift.addChild(image)
-                    Util.resizeSprite(imageComp, 64, 64)
-                })
-                break;
-            case REWARD_TYPES[2]: //achievement
-                // NA
-                break;
-            case REWARD_TYPES[3]: //inventory
-                cc.resources.load(INVENTORY_ICONS[currentReward[2]] + currentReward[3], (err, sp) => {
-                    const image = new cc.Node()
-                    const imageComp = image.addComponent(cc.Sprite)
-                    // @ts-ignore
-                    imageComp.spriteFrame = new cc.SpriteFrame(sp)
-                    cc.log('Gift children: '+this.gift.childrenCount)
-                    this.gift.addChild(image)
-                    Util.resizeSprite(imageComp, 64, 64)
-                })
+        if (this.gift) {
+            const currentReward = User.getCurrentUser().currentReward;
+            switch (currentReward[0]) {
+                case REWARD_TYPES[0]: //character
+                    cc.resources.load(`char_icons/${currentReward[1]}_icon`, (err, sp) => {
+                        const image = new cc.Node()
+                        const imageComp = image.addComponent(cc.Sprite)
+                        // @ts-ignore
+                        imageComp.spriteFrame = new cc.SpriteFrame(sp)
+                        this.gift.addChild(image)
+                        Util.resizeSprite(imageComp, 64, 64)
+                    })
+                    break;
+                case REWARD_TYPES[1]: //background
+                    cc.resources.load(`backgrounds/textures/bg_icons/background-${currentReward[1]}`, (err, sp) => {
+                        const image = new cc.Node()
+                        const imageComp = image.addComponent(cc.Sprite)
+                        // @ts-ignore
+                        imageComp.spriteFrame = new cc.SpriteFrame(sp)
+                        this.gift.addChild(image)
+                        Util.resizeSprite(imageComp, 64, 64)
+                    })
+                    break;
+                case REWARD_TYPES[2]: //achievement
+                    // NA
+                    break;
+                case REWARD_TYPES[3]: //inventory
+                    cc.resources.load(INVENTORY_ICONS[currentReward[2]] + currentReward[3], (err, sp) => {
+                        const image = new cc.Node()
+                        const imageComp = image.addComponent(cc.Sprite)
+                        // @ts-ignore
+                        imageComp.spriteFrame = new cc.SpriteFrame(sp)
+                        this.gift.addChild(image)
+                        Util.resizeSprite(imageComp, 64, 64)
+                    })
 
-                break;
-            case REWARD_TYPES[4]: //lesson
-                if (currentReward[1] == 'sticker') {
-                    Config.loadBundle(currentReward[2], (bundle) => {
-                        bundle.load(`res/${currentReward[1]}-${currentReward[2]}`, cc.Texture2D, (err, asset) => {
-                            if (err) {
-                                cc.log(JSON.stringify(err))
-                            } else {
-                                const image = new cc.Node()
-                                const imageComp = image.addComponent(cc.Sprite)
-                                imageComp.spriteFrame = new cc.SpriteFrame(asset)
-                                this.rewardBg.addChild(image)
-                            }
-                        })
-                        bundle.load(`res/${currentReward[3]}`, cc.Texture2D, (err, asset) => {
-                            if (err) {
-                                cc.log(JSON.stringify(err))
-                            } else {
-                                const image = new cc.Node()
-                                const imageComp = image.addComponent(cc.Sprite)
-                                imageComp.spriteFrame = new cc.SpriteFrame(asset)
-                                cc.log('Gift children: '+this.gift.childrenCount)
+                    break;
+                case REWARD_TYPES[4]: //lesson
+                    if (currentReward[1] == 'sticker') {
+                        Config.loadBundle(currentReward[2], (bundle) => {
+                            bundle.load(`res/${currentReward[1]}-${currentReward[2]}`, cc.Texture2D, (err, asset) => {
+                                if (err) {
+                                    cc.log(JSON.stringify(err))
+                                } else {
+                                    const image = new cc.Node()
+                                    const imageComp = image.addComponent(cc.Sprite)
+                                    imageComp.spriteFrame = new cc.SpriteFrame(asset)
+                                    this.rewardBg.addChild(image)
+                                }
+                            })
+                            bundle.load(`res/${currentReward[3]}`, cc.Texture2D, (err, asset) => {
+                                if (err) {
+                                    cc.log(JSON.stringify(err))
+                                } else {
+                                    const image = new cc.Node()
+                                    const imageComp = image.addComponent(cc.Sprite)
+                                    imageComp.spriteFrame = new cc.SpriteFrame(asset)
+                                    this.gift.addChild(image)
+                                    Util.resizeSprite(imageComp, 64, 64)
+                                }
+                            })
+                        },
+                            (err) => {
+                                if (err) cc.log(JSON.stringify(err))
+                            })
+                    } else {
+                        const image = new cc.Node()
+                        const imageComp = image.addComponent(cc.Sprite)
+                        imageComp.spriteFrame = new cc.SpriteFrame();
+                        const lesson = Config.i.allLessons.get(currentReward[2])
+                        Util.load('reward/course/res/icons/' + lesson.image, (err, texture) => {
+                            if (!err) {
+                                imageComp.spriteFrame = new cc.SpriteFrame(texture);
                                 this.gift.addChild(image)
                                 Util.resizeSprite(imageComp, 64, 64)
                             }
                         })
-                    },
-                        (err) => {
-                            if (err) cc.log(JSON.stringify(err))
-                        })
-                } else {
-                    const image = new cc.Node()
-                    const imageComp = image.addComponent(cc.Sprite)
-                    imageComp.spriteFrame = new cc.SpriteFrame();
-                    const lesson = Config.i.allLessons.get(currentReward[2])
-                    Util.load('reward/course/res/icons/' + lesson.image, (err, texture) => {
-                        if (!err) {
-                            imageComp.spriteFrame = new cc.SpriteFrame(texture);
-                            this.gift.addChild(image)
-                            Util.resizeSprite(imageComp, 64, 64)
-                        }
-                    })
-                }
-                break;
-            default:
-                break;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
         //TODO just for testing
         // this.gift.once('touchend', () => this.unlockCurrentReward())
