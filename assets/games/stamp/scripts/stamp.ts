@@ -6,6 +6,7 @@ import StickerHolder from "./stickerHolder";
 import { StampReward } from "../../../common/scripts/lib/convert";
 import StampDrag from "./stampDrag";
 import { User } from "../../../common/scripts/lib/profile";
+import LessonController from "../../../common/scripts/lessonController";
 
 const { ccclass, property } = cc._decorator;
 
@@ -47,8 +48,14 @@ export default class Stamp extends Game {
     stampReward: StampReward = null
     drags: cc.Node[] = []
     isPainting: boolean = false
+    static stickerbookDataJson: any;
+    currentColor: string;
+    currentLessonId = Config.i.lesson.id;
+    currentUserId = User.getCurrentUser().id
 
     onLoad() {
+
+        this.toDrawSaveddrawing()
         const config = Config.getInstance();
         cc.director.getCollisionManager().enabled = true
         this.graphics.node.on('touchstart', () => {
@@ -64,7 +71,7 @@ export default class Stamp extends Game {
         const itemName = this.getItemName(config);
         this.stampReward = JSON.parse(cc.sys.localStorage.getItem(itemName))
         if (this.stampReward == null) {
-            this.stampReward = {"done": false, "stickers": []}
+            this.stampReward = { "done": false, "stickers": [] }
         }
 
         Util.loadTexture(bgImage, (texture) => {
@@ -107,7 +114,7 @@ export default class Stamp extends Game {
             stickerHolder.icon.addChild(drag)
             this.drags.push(drag)
             const rewardName = `${REWARD_TYPES[4]}-${Config.i.chapter.id}-${Config.i.lesson.id}-${image}`
-            stickerHolder.rewardArray = [REWARD_TYPES[4], Config.i.chapter.id, Config.i.lesson.id,image]
+            stickerHolder.rewardArray = [REWARD_TYPES[4], Config.i.chapter.id, Config.i.lesson.id, image]
             //@ts-ignore
             Util.loadTexture(image, (texture) => {
                 if (texture != null) {
@@ -132,7 +139,7 @@ export default class Stamp extends Game {
                         stampNode.getComponent(cc.Sprite).spriteFrame = spriteFrame
                         const shadowNode = drag.children[0]
                         shadowNode.getComponent(cc.Sprite).spriteFrame = spriteFrame
-                        shadowNode.active = true
+                        shadowNode.active = false
                         const dragComp = drag.getComponent(StampDrag)
                         dragComp.imageIndex = index
                         if (this.stampReward.stickers[index].fixed) {
@@ -146,13 +153,13 @@ export default class Stamp extends Game {
                                 drag.position = new cc.Vec3(this.stampReward.stickers[index].x, this.stampReward.stickers[index].y, 0)
                                 dragComp.inStickerPack = false
                                 drag.parent = drag.parent.parent.parent
-                                drag.height = spriteFrame.getOriginalSize().height 
-                                drag.width = spriteFrame.getOriginalSize().width         
+                                drag.height = spriteFrame.getOriginalSize().height
+                                drag.width = spriteFrame.getOriginalSize().width
                             } else {
                                 drag.scale = scale
                                 drag.position = new cc.Vec3(-stickerHolder.icon.width / 2, -stickerHolder.icon.height / 2, 0)
-                                drag.height = spriteFrame.getOriginalSize().height 
-                                drag.width = spriteFrame.getOriginalSize().width         
+                                drag.height = spriteFrame.getOriginalSize().height
+                                drag.width = spriteFrame.getOriginalSize().width
                             }
                             drag.getComponent(Drag).allowDrag = true
                             // if (index + 1 == config.data.length) {
@@ -161,7 +168,7 @@ export default class Stamp extends Game {
                             // }
                         }
 
-                        if(fixed.toLowerCase() == 'true') {
+                        if (fixed.toLowerCase() == 'true') {
                             const drop = cc.instantiate(this.stampDrop)
                             drop.name = index.toString()
                             drop.position = new cc.Vec3(parseInt(x) / 3, parseInt(y) / 3)
@@ -171,7 +178,7 @@ export default class Stamp extends Game {
                             if (index == 1) {
                                 firstDrag = drag
                                 firstDrop = drop
-                            }    
+                            }
                         }
                     }
                 }
@@ -197,6 +204,7 @@ export default class Stamp extends Game {
         this.graphics.strokeColor = new cc.Color().fromHEX(customEventData)
         this.isPainting = true
         Drag.letDrag = false
+        this.currentColor = customEventData
     }
 
     onTouchMove(touch: cc.Touch) {
@@ -206,18 +214,21 @@ export default class Stamp extends Game {
             this.graphics.moveTo(from.x, from.y)
             this.graphics.lineTo(to.x, to.y)
             this.graphics.stroke()
+            Stamp.stickerbookDataJson[this.currentUserId].paintData[this.currentLessonId].push([this.currentColor, from.x, from.y, to.x, to.y])
         }
     }
 
     onTouchEnd(touch: cc.Touch) {
-        if(this.isPainting) {
-            this.isPainting = false
+        if (this.isPainting) {
+            // this.isPainting = false
             Drag.letDrag = true
+            console.log('Stamp.stickerbookDataJson.paintData[0]', Stamp.stickerbookDataJson[this.currentUserId].paintData[this.currentLessonId])
+            cc.sys.localStorage.setItem('stickerbook-paint', JSON.stringify(Stamp.stickerbookDataJson));
         }
     }
 
     onToolClick(event: cc.Event, customEventData: string) {
-        if(this.isPainting) {
+        if (this.isPainting) {
             this.isPainting = false
             Drag.letDrag = true
             this.bottomPaint.active = false
@@ -225,6 +236,33 @@ export default class Stamp extends Game {
             this.isPainting = true
             Drag.letDrag = false
             this.bottomPaint.active = true
+        }
+    }
+
+    toDrawSaveddrawing() {
+        console.log('toDrawSaveddrawing() called', this.currentLessonId)
+
+        if (cc.sys.localStorage.getItem('stickerbook-paint') == null) {
+            const stickerBookJson = {}
+            cc.sys.localStorage.setItem('stickerbook-paint', JSON.stringify(stickerBookJson));
+        }
+        Stamp.stickerbookDataJson = JSON.parse(cc.sys.localStorage.getItem('stickerbook-paint') || '{}');
+        console.log('Stamp.stickerbookDataJson ', Stamp.stickerbookDataJson);
+        if (Stamp.stickerbookDataJson[this.currentUserId] == undefined) {
+            Stamp.stickerbookDataJson[this.currentUserId] = { "paintData": {} }
+        }
+        console.log('Stamp.stickerbookDataJson[this.currentUserId]', Stamp.stickerbookDataJson[this.currentUserId]);
+
+        if (Stamp.stickerbookDataJson[this.currentUserId].paintData[this.currentLessonId] == undefined) {
+            Stamp.stickerbookDataJson[this.currentUserId].paintData[this.currentLessonId] = []
+        }
+        console.log('this.paintDataJson', Stamp.stickerbookDataJson[this.currentUserId].paintData[this.currentLessonId]);
+        const paintData = Stamp.stickerbookDataJson[this.currentUserId].paintData[this.currentLessonId]
+        for (let i = 0; i < paintData.length; i++) {
+            this.graphics.strokeColor = new cc.Color().fromHEX(paintData[i][0]);
+            this.graphics.moveTo(paintData[i][1], paintData[i][2])
+            this.graphics.lineTo(paintData[i][3], paintData[i][4])
+            this.graphics.stroke()
         }
     }
 }

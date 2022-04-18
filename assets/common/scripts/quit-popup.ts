@@ -21,7 +21,7 @@ export default class QuitPopup extends cc.Component {
     onLoad() {
         this.inputEventBlocker.zIndex = 2
         this.node.zIndex = 3
-        this.exitLabel.string = Util.i18NText('Exit Game');
+        this.exitLabel.string = Util.i18NText('Exit');
         this.videoLabel.string = Util.i18NText('Watch Help Video');
     }
 
