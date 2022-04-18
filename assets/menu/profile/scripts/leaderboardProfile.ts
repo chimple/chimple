@@ -112,13 +112,16 @@ export default class LeaderboardProfile extends cc.Component {
             else {
                 const student = cc.instantiate(isCurrentUser ? this.selfUserPrefab : (Math.random() < 0.5 ? this.maleUserPrefab : this.femaleUserPrefab))
                 const labelComponent = student.getChildByName('user').getComponentInChildren(cc.Label);
-                if (isCurrentUser) {
-                    student.getChildByName('name').getComponent(cc.Label).string = (name.length > 5 ? name.substring(0, 5) + '..' : name)
+                let maskedName = studentList[i].name;
 
+                if (!isCurrentUser ) {
+                    const mask = maskedName.substring(1, maskedName.length - 1).replace(/./gi, "*") || "*";
+                    maskedName = maskedName[0] + mask.substring(0, 4) + maskedName[maskedName.length - 1]
                 }
-                else {
-                    student.getChildByName('name').getComponent(cc.Label).string = name[0] + "***" + name[name.length - 1];
+                if (maskedName.length > 6) {    
+                    maskedName = maskedName.substring(0, 5) + '..'
                 }
+                student.getChildByName('name').getComponent(cc.Label).string = maskedName;
                 labelComponent.string = (i + 1).toString();
                 this.leaderboardlayout.addChild(student)
             }
