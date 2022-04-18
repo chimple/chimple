@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "maleuser",
+    "_name": "selfuser",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -40,7 +40,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 201,
-      "height": 64
+      "height": 80
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -110,8 +110,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 45,
-      "height": 45
+      "width": 60,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -187,7 +187,7 @@
       "ctor": "Float64Array",
       "array": [
         13.941,
-        16.963,
+        27.963,
         0,
         0,
         0,
@@ -294,7 +294,7 @@
       "ctor": "Float64Array",
       "array": [
         13.941,
-        16.963,
+        27.963,
         0,
         0,
         0,
@@ -381,7 +381,7 @@
       "__uuid__": "cd63c2cc-2f8d-42f3-a5e4-0cd55065a1da"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
