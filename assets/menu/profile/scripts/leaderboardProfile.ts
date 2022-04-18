@@ -39,6 +39,13 @@ export default class LeaderboardProfile extends cc.Component {
     weeklyRank: cc.Node = null;
 
     @property(cc.Node)
+    schoolName: cc.Node = null;
+
+    @property(cc.Node)
+    className: cc.Node = null;
+
+
+    @property(cc.Node)
     allTimeRank: cc.Node = null;
 
     @property(cc.Node)
@@ -65,6 +72,12 @@ export default class LeaderboardProfile extends cc.Component {
         if (user.isConnected) {
             this.connectButton.interactable = false;
             this.connectButton.getComponentInChildren(cc.Label).string = "Connected"
+        }
+        if (user.schoolName) {
+            this.schoolName.getComponent(cc.Label).string = "School: " + user.schoolName
+        }
+        if (user.sectionName) {
+            this.className.getComponent(cc.Label).string = "Class: " + user.sectionName
         }
         this.userNode.getComponentInChildren(cc.Label).string = user.name;
         this.leaderboardJson = await ServiceConfig.getI().handle.getLeaderboard(user.id, user.sectionId, user.schoolId,);
@@ -99,8 +112,13 @@ export default class LeaderboardProfile extends cc.Component {
             else {
                 const student = cc.instantiate(isCurrentUser ? this.selfUserPrefab : (Math.random() < 0.5 ? this.maleUserPrefab : this.femaleUserPrefab))
                 const labelComponent = student.getChildByName('user').getComponentInChildren(cc.Label);
-                if (isCurrentUser)
-                    student.getChildByName('name').getComponent(cc.Label).string = name;
+                if (isCurrentUser) {
+                    student.getChildByName('name').getComponent(cc.Label).string = (name.length > 5 ? name.substring(0, 5) + '..' : name)
+
+                }
+                else {
+                    student.getChildByName('name').getComponent(cc.Label).string = name[0] + "***" + name[name.length - 1];
+                }
                 labelComponent.string = (i + 1).toString();
                 this.leaderboardlayout.addChild(student)
             }
