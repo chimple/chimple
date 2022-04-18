@@ -123,6 +123,10 @@ export default class LeaderboardProfile extends cc.Component {
                 this.leaderboardlayout.addChild(student)
             }
         }
+        const availableWidth = cc.winSize.width - this.weeklyRank.parent.width;
+        this.leaderboardlayout.width = availableWidth
+        this.leaderboardlayout.parent.width = availableWidth
+        this.leaderboardlayout.parent.parent.width = availableWidth
         this.leaderboardlayout.getComponent(cc.Layout).updateLayout()
         this.leaderboardlayout.parent.height = this.leaderboardlayout.height
     }

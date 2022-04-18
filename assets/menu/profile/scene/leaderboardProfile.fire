@@ -1015,7 +1015,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 109.2,
+      "width": 0,
       "height": 25.2
     },
     "_anchorPoint": {
@@ -1067,8 +1067,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "This week rank: ",
-    "_N$string": "This week rank: ",
+    "_string": "",
+    "_N$string": "",
     "_fontSize": 15,
     "_lineHeight": 20,
     "_enableWrapText": true,
@@ -1110,7 +1110,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 90.86,
+      "width": 0,
       "height": 25.2
     },
     "_anchorPoint": {
@@ -1162,8 +1162,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "All time rank: ",
-    "_N$string": "All time rank: ",
+    "_string": "",
+    "_N$string": "",
     "_fontSize": 15,
     "_lineHeight": 20,
     "_enableWrapText": true,
@@ -1205,7 +1205,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 45.84,
+      "width": 0,
       "height": 25.2
     },
     "_anchorPoint": {
@@ -1300,7 +1300,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 45.86,
+      "width": 0,
       "height": 25.2
     },
     "_anchorPoint": {
@@ -4365,7 +4365,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        134.235,
+        116.839,
         -133.415,
         0,
         0,
