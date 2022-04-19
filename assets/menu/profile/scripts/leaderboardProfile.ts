@@ -109,18 +109,23 @@ export default class LeaderboardProfile extends cc.Component {
                 if (isCurrentUser) {
                     this.firstStudent.getChildByName('name').color = currentUserColor;
                 }
+                this.firstStudent.getChildByName('starscore').getComponentInChildren(cc.Label).string = studentList[i].score.toString()
             }
             else if (i === 1) {
                 this.secondStudent.getChildByName('name').getComponent(cc.Label).string = maskedName
                 if (isCurrentUser) {
                     this.secondStudent.getChildByName('name').color = currentUserColor;
                 }
+                this.secondStudent.getChildByName('starscore').getComponentInChildren(cc.Label).string = studentList[i].score.toString()
+
             }
             else if (i === 2) {
                 this.thirdStudent.getChildByName('name').getComponent(cc.Label).string = maskedName
                 if (isCurrentUser) {
                     this.thirdStudent.getChildByName('name').color = currentUserColor;
                 }
+                this.thirdStudent.getChildByName('starscore').getComponentInChildren(cc.Label).string = studentList[i].score.toString()
+
             }
             else {
                 const student = cc.instantiate(this.userPrefab)
@@ -130,6 +135,7 @@ export default class LeaderboardProfile extends cc.Component {
                     student.getChildByName('name').color = currentUserColor;
                 }
                 this.loadRandomAvatar(student.getChildByName('user'), isCurrentUser);
+                student.getChildByName('starscore').getComponentInChildren(cc.Label).string = studentList[i].score.toString()
                 labelComponent.string = (i + 1).toString();
                 this.leaderboardlayout.addChild(student)
             }
