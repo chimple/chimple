@@ -58,7 +58,7 @@ export default class Stamp extends Game {
         })
         this.graphics.node.on('touchmove', this.onTouchMove, this)
         this.graphics.node.on('touchend', this.onTouchEnd, this)
-        Drag.letDrag = true
+        // Drag.letDrag = false
         const [level, worksheet, problem, name, bgImage, num, fixed, sound] = config.data[0]
         this.text = name
         this.numPieces = parseInt(num)
