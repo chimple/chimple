@@ -47,23 +47,18 @@ export default class Stamp extends Game {
     stampReward: StampReward = null
     drags: cc.Node[] = []
     isPainting: boolean = false
-    static stickerbookDataJson: any;
     currentColor: string;
-    static currentLessonId;
-    static currentUserId;
 
     onLoad() {
-        Stamp.currentLessonId = Config.i.lesson.id;
-        Stamp.currentUserId = User.getCurrentUser().id
-        this.toDrawSaveddrawing()
+
         const config = Config.getInstance();
         cc.director.getCollisionManager().enabled = true
         this.graphics.node.on('touchstart', () => {
 
         })
         this.graphics.node.on('touchmove', this.onTouchMove, this)
-        // this.graphics.node.on('touchend', this.onTouchEnd, this)
-        // Drag.letDrag = false
+        this.graphics.node.on('touchend', this.onTouchEnd, this)
+        Drag.letDrag = true
         const [level, worksheet, problem, name, bgImage, num, fixed, sound] = config.data[0]
         this.text = name
         this.numPieces = parseInt(num)
@@ -71,8 +66,10 @@ export default class Stamp extends Game {
         const itemName = this.getItemName(config);
         this.stampReward = JSON.parse(cc.sys.localStorage.getItem(itemName))
         if (this.stampReward == null) {
-            this.stampReward = { "done": false, "stickers": [] }
+            this.stampReward = { "done": false, "stickers": [], 'drawStokes': [] }
         }
+
+        this.toDrawSavedDrawing()
 
         Util.loadTexture(bgImage, (texture) => {
             if (texture != null) {
@@ -214,16 +211,17 @@ export default class Stamp extends Game {
             this.graphics.moveTo(from.x, from.y)
             this.graphics.lineTo(to.x, to.y)
             this.graphics.stroke()
-            Stamp.stickerbookDataJson[Stamp.currentUserId].paintData[Stamp.currentLessonId].push([this.currentColor, from.x, from.y, to.x, to.y])
+            this.stampReward.drawStokes.push([this.currentColor, from.x, from.y, to.x, to.y])
         }
     }
 
-    // onTouchEnd(touch: cc.Touch) {
-    //     if (this.isPainting) {
-    //         this.isPainting = false
-    //         Drag.letDrag = true
-    //     }
-    // }
+    onTouchEnd(touch: cc.Touch) {
+        if (this.isPainting) {
+            this.isPainting = false
+            Drag.letDrag = true
+            this.saveItem()
+        }
+    }
 
     onToolClick(event: cc.Event, customEventData: string) {
         if (this.isPainting) {
@@ -237,38 +235,17 @@ export default class Stamp extends Game {
         }
     }
 
-    onSaveClick() {
-        if (this.isPainting) {
-            this.isPainting = false
-            Drag.letDrag = true
-            console.log('Stamp.stickerbookDataJson.paintData[0]', Stamp.stickerbookDataJson[Stamp.currentUserId].paintData[Stamp.currentLessonId])
-            cc.sys.localStorage.setItem('stickerbook-paint', JSON.stringify(Stamp.stickerbookDataJson));
+    toDrawSavedDrawing() {
+        console.log('const drawstrokes', this.stampReward)
+        if (this.stampReward.drawStokes == undefined) {
+            this.stampReward.drawStokes = []
         }
-    }
+        const drawstrokes = this.stampReward.drawStokes
 
-    toDrawSaveddrawing() {
-        console.log('toDrawSaveddrawing() called', Stamp.currentLessonId)
-
-        if (cc.sys.localStorage.getItem('stickerbook-paint') == null) {
-            const stickerBookJson = {}
-            cc.sys.localStorage.setItem('stickerbook-paint', JSON.stringify(stickerBookJson));
-        }
-        Stamp.stickerbookDataJson = JSON.parse(cc.sys.localStorage.getItem('stickerbook-paint') || '{}');
-        console.log('Stamp.stickerbookDataJson ', Stamp.stickerbookDataJson);
-        if (Stamp.stickerbookDataJson[Stamp.currentUserId] == undefined) {
-            Stamp.stickerbookDataJson[Stamp.currentUserId] = { "paintData": {} }
-        }
-        console.log('Stamp.stickerbookDataJson[Stamp.currentUserId]', Stamp.stickerbookDataJson[Stamp.currentUserId]);
-
-        if (Stamp.stickerbookDataJson[Stamp.currentUserId].paintData[Stamp.currentLessonId] == undefined) {
-            Stamp.stickerbookDataJson[Stamp.currentUserId].paintData[Stamp.currentLessonId] = []
-        }
-        console.log('this.paintDataJson', Stamp.stickerbookDataJson[Stamp.currentUserId].paintData[Stamp.currentLessonId]);
-        const paintData = Stamp.stickerbookDataJson[Stamp.currentUserId].paintData[Stamp.currentLessonId]
-        for (let i = 0; i < paintData.length; i++) {
-            this.graphics.strokeColor = new cc.Color().fromHEX(paintData[i][0]);
-            this.graphics.moveTo(paintData[i][1], paintData[i][2])
-            this.graphics.lineTo(paintData[i][3], paintData[i][4])
+        for (let i = 0; i < drawstrokes.length; i++) {
+            this.graphics.strokeColor = new cc.Color().fromHEX(drawstrokes[i][0]);
+            this.graphics.moveTo(drawstrokes[i][1], drawstrokes[i][2])
+            this.graphics.lineTo(drawstrokes[i][3], drawstrokes[i][4])
             this.graphics.stroke()
         }
     }
