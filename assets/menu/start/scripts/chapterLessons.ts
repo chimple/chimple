@@ -1,13 +1,13 @@
 import Config from "../../../common/scripts/lib/config";
 import LessonButton from "./lessonButton";
-import {LessonProgress, User} from "../../../common/scripts/lib/profile";
-import {Lesson} from "../../../common/scripts/lib/convert";
-import {REWARD_TYPES, Util} from "../../../common/scripts/util";
+import { LessonProgress, User } from "../../../common/scripts/lib/profile";
+import { Lesson } from "../../../common/scripts/lib/convert";
+import { REWARD_TYPES, Util } from "../../../common/scripts/util";
 import Start from "./start";
 import Loading from "../../../common/scripts/loading";
 import LessonController from "../../../common/scripts/lessonController";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 const HEADER_COLORS = {
     'en': '#FFBC00',
@@ -67,20 +67,8 @@ export default class ChapterLessons extends cc.Component {
             case ChapterLessonType.Assignments:
                 if (User.getCurrentUser().isConnected) {
                     this.label.string = 'Assignments'
-                    config.assignments.forEach((ass) => {
-                        const lesson = Config.i.allLessons.get(ass.lessonId)
-                        if (!!lesson) {
-                            lesson.assignmentId = ass.assignmentId;
-                            lesson.name = !!ass.lessonName ? ass.lessonName : lesson.name;
-                            const newLesson = {...lesson};
-                            console.log('User.getCurrentUser().lessonProgressMap', User.getCurrentUser().lessonProgressMap);
-                            const lessonProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
-                            if (!lessonProgress) {
-                                this.createLessonButton(newLesson, true)
-                            } else if (lessonProgress && ![].concat(lessonProgress.assignmentIds).includes(ass.assignmentId)) {
-                                this.createLessonButton(newLesson, true)
-                            }
-                        }
+                    config.getAssignmentLessonsTodo().forEach((les) => {
+                        this.createLessonButton(les, true)
                     })
                 } else {
                     this.label.string = 'Connect To Class'
@@ -116,11 +104,11 @@ export default class ChapterLessons extends cc.Component {
             default:
                 this.label.string = config.chapter.name
                 config.chapter.lessons.forEach((lesson, index) => {
-                    this.createLessonButton(lesson, lesson.chapter.course.id == 'reward' ? 
+                    this.createLessonButton(lesson, lesson.chapter.course.id == 'reward' ?
                         User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[4]}-${config.chapter.id}-${lesson.id}`] == 1
                         : (index == 0
-                        || lesson.open
-                        || User.getCurrentUser().lessonProgressMap.has(lesson.id)));
+                            || lesson.open
+                            || User.getCurrentUser().lessonProgressMap.has(lesson.id)));
                 })
                 break;
         }

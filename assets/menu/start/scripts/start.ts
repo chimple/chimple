@@ -188,10 +188,6 @@ export default class Start extends cc.Component {
         const mode = parseInt(Profile.getValue(CURRENTMODE))
         if (mode != Mode.School) {
             this.assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
-            // config.assignments = assignments.filter((ass) => {
-            //     const lessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
-            //     return !(lessonProgress && lessonProgress.date < ass.createAt)
-            // })
             config.assignments = this.assignments;
             if (config.assignments.length > 0 || !user.isConnected) {
                 if (config.assignments.length > 0 && !user.isConnected) {
@@ -208,7 +204,7 @@ export default class Start extends cc.Component {
                 this.previousHash = Util.getHash(this.assignments[0].assignmentId);
                 try {
                     this.assignmentCount.active = true;
-                    // this.checkPendingAssignments();
+                    this.checkPendingAssignments();
                 } catch (e) { }
             }
 
@@ -448,10 +444,9 @@ export default class Start extends cc.Component {
         const courseProgress = user.courseProgressMap.get(courseId)
         const course = Config.i.curriculum.get(courseId)
         if (courseId == ASSIGNMENT_COURSE_ID) {
-            // const arr = Array.from(Config.i.allLessons.values())
-            // courseProgress.lessonPlan = Util.randomElements(arr.filter(l=>l.chapter.id != 'reward'), 5).map((l) => l.id)
-            if (Config.i.assignments != null && Config.i.assignments.length > 0) {
-                courseProgress.lessonPlan = Config.i.assignments.slice(0, Math.min(5, Config.i.assignments.length)).map((ass) => ass.lessonId)
+            const lessonPlan = Config.i.getAssignmentLessonsTodo()
+            if (lessonPlan != null && lessonPlan.length > 0) {
+                courseProgress.lessonPlan = lessonPlan.slice(0, Math.min(5, lessonPlan.length)).map((les) => les.id)
                 courseProgress.lessonPlanIndex = 0
                 courseProgress.lessonPlanDate = new Date()
                 user.storeUser()
@@ -518,16 +513,16 @@ export default class Start extends cc.Component {
                 const lessonProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(assign.lessonId)
                 if (!lessonProgress) {
                     count++;
-                    if (this.assignPopupActive) {
-                        this.showAssignmentPopup(true);
-                        this.assignPopupActive = false;
-                    }
+                    // if (this.assignPopupActive) {
+                    //     this.showAssignmentPopup(true);
+                    //     this.assignPopupActive = false;
+                    // }
                 } else if (lessonProgress && ![].concat(lessonProgress.assignmentIds).includes(assign.assignmentId)) {
                     count++;
-                    if (this.assignPopupActive) {
-                        this.showAssignmentPopup(true);
-                        this.assignPopupActive = false;
-                    }
+                    // if (this.assignPopupActive) {
+                    //     this.showAssignmentPopup(true);
+                    //     this.assignPopupActive = false;
+                    // }
                 }
             }
         }
@@ -537,6 +532,7 @@ export default class Start extends cc.Component {
     displayLessonPlan() {
         const user = User.getCurrentUser()
         const courseProgressMap = user.courseProgressMap.get(Config.i.course.id);
+        this.content.removeAllChildren()
         if (courseProgressMap.lessonPlan != null && courseProgressMap.lessonPlan.length > 0) {
             const planWidth = cc.winSize.width - 128
             const x1 = -planWidth / 2
@@ -548,7 +544,6 @@ export default class Start extends cc.Component {
             const x4 = planWidth / 2
             const y4 = 172
 
-            this.content.removeAllChildren()
             this.ctx.moveTo(x1, y1)
             this.ctx.bezierCurveTo(x2, y2, x3, y3, x4, y4)
             this.ctx.stroke()

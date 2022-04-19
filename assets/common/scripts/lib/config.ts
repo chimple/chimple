@@ -1,7 +1,7 @@
 import { Util, MicroLink } from "../util";
 import UtilLogger from "../util-logger";
 import { Chapter, Course, Lesson } from "./convert";
-import Profile, { LANGUAGE, User } from "./profile";
+import Profile, { LANGUAGE, LessonProgress, User } from "./profile";
 import TTFFont = cc.TTFFont;
 import { GAME_CONFIGS } from "./gameConfigs";
 import { BUNDLE_URL } from "./constants";
@@ -218,6 +218,20 @@ export default class Config {
 
     get textFontMap() {
         return this._textFontMap;
+    }
+
+    getAssignmentLessonsTodo(): Lesson[] {
+        return !!this.assignments ? this.assignments.filter((ass) => {
+            const lesson = Config.i.allLessons.get(ass.lessonId)
+            const lessonProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
+            return (!!lesson && (!lessonProgress || ![].concat(lessonProgress.assignmentIds).includes(ass.assignmentId)))
+        }).map((ass) => {
+            const lesson = Config.i.allLessons.get(ass.lessonId)
+            const newLesson = { ...lesson };
+            newLesson.assignmentId = ass.assignmentId;
+            newLesson.name = !!ass.lessonName ? ass.lessonName : lesson.name;
+            return newLesson
+        }) : []
     }
 
     static preloadScene(scene: string, callback: Function) {

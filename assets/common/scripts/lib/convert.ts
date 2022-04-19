@@ -40,6 +40,7 @@ export interface Lesson {
 export interface StampReward {
     done: boolean;
     stickers: StickerReward[]
+    drawStokes: any
 }
 
 export interface StickerReward {
