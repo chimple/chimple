@@ -25,6 +25,12 @@ export default class ProfileOtpDialog extends cc.Component {
     @property(cc.Button)
     parentNode: cc.Button = null;
 
+    @property(cc.Node)
+    schoolName: cc.Node = null;
+
+    @property(cc.Node)
+    className: cc.Node = null;
+
     protected onLoad() {
         this.title.string = Util.i18NText("We sent an OTP to verify your number.");
         this.editBox.string = "";
@@ -56,8 +62,8 @@ export default class ProfileOtpDialog extends cc.Component {
         const studentId: string = User.getCurrentUser().id;
         const otpCode: string = this.editBox.string;
         const user = User.getCurrentUser();
-        const dial_code = !!Profile.getValue(DIALING_CODE) ? Profile.getValue(DIALING_CODE) : '';
-        const phoneNumber = !!Profile.getValue(CONTACT) ? Profile.getValue(CONTACT).substring(dial_code.length) : '';
+        const dial_code = !!Profile.getValue(DIALING_CODE) ? Profile.getValue(DIALING_CODE) : null;
+        const phoneNumber = !!Profile.getValue(CONTACT) ? Profile.getValue(CONTACT).substring(dial_code.length) : null;
         if (!!studentId && !!otpCode) {
             this.confirmBtn.interactable = false;
             this.errLabel.string = "";
@@ -78,6 +84,12 @@ export default class ProfileOtpDialog extends cc.Component {
                     const s = response.data.schoolName ? response.data.schoolName : '';
                     const sec = response.data.sectionName ? response.data.sectionName : '';
                     this.parentNode.getComponentInChildren(cc.Label).string = "Connected";
+                    if (s) {
+                        this.schoolName.getComponent(cc.Label).string = "School: " + s
+                    }
+                    if (sec) {
+                        this.className.getComponent(cc.Label).string = "Class: " + sec
+                    }
                     this.parentNode.interactable = false;
                     this.onOtpClose();
                 }
