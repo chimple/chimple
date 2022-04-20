@@ -601,14 +601,16 @@ export default class Start extends cc.Component {
                     }
                 }
             })
-            // this.gift = cc.instantiate(this.giftBoxPrefab)
+            this.gift = cc.instantiate(this.giftBoxPrefab)
             this.gift.x = Math.pow(1 - 1, 3) * x1 + 3 * Math.pow(1 - 1, 2) * 1 * x2 + 3 * (1 - 1) * Math.pow(1, 2) * x3 + Math.pow(1, 3) * x4
             this.gift.y = Math.pow(1 - 1, 3) * y1 + 3 * Math.pow(1 - 1, 2) * 1 * y2 + 3 * (1 - 1) * Math.pow(1, 2) * y3 + Math.pow(1, 3) * y4
             // this.node.getChildByName('giftBox').addChild(this.gift)
             if (this.node.getChildByName('giftBox').getChildByName(this.gift.name) == undefined) {
                 this.node.getChildByName('giftBox').addChild(this.gift)
             }
-            this.node.getChildByName('giftBox').children[0].getChildByName('New Node').setContentSize(64, 64);
+            if (this.node.getChildByName('giftBox').children[0].getChildByName('New Node') != undefined) {
+                this.node.getChildByName('giftBox').children[0].getChildByName('New Node').setContentSize(64, 64);
+            }
             if (courseProgressMap.lessonPlanIndex == courseProgressMap.lessonPlan.length) {
                 this.giveReward(this.gift, user)
             }
