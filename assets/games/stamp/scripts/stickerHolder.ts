@@ -2,7 +2,7 @@ import Config from "../../../common/scripts/lib/config";
 import { User } from "../../../common/scripts/lib/profile";
 import { REWARD_TYPES } from "../../../common/scripts/util";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class StickerHolder extends cc.Component {
@@ -22,16 +22,17 @@ export default class StickerHolder extends cc.Component {
 
     // onLoad () {}
 
-    start () {
+    start() {
 
     }
 
     onClick(event: cc.Event, customEventData: string) {
+        this.icon.getComponent(cc.Button).interactable = false;
         User.getCurrentUser().currentReward = this.rewardArray
         Config.i.popAllScenes()
-        Config.i.pushScene('menu/start/scenes/start', 'menu', null, true);        
+        Config.i.pushScene('menu/start/scenes/start', 'menu', null, true);
     }
-    
+
 
     // update (dt) {}
 }
