@@ -53,6 +53,7 @@ export default class LeaderboardProfile extends cc.Component {
     private leaderboardJson: LeaderboardInfo = null;
     private weeklyIndex: number;
     private allTimeIndex: number;
+    private user: User;
 
 
     onLoad() {
@@ -62,28 +63,29 @@ export default class LeaderboardProfile extends cc.Component {
 
     async showLeaderoard() {
         this.showLoading()
-        const user = User.getCurrentUser();
-        this.loadUserImageOrAvatar(user, this.userNode);
+        this.user = User.getCurrentUser();
+        this.loadUserImageOrAvatar(this.user, this.userNode);
         // console.log(AVATARS)
-        if (user.isConnected) {
+        if (this.user.isConnected) {
             this.connectButton.interactable = false;
-            this.connectButton.getComponentInChildren(cc.Label).string = "Connected"
+            this.connectButton.getComponentInChildren(cc.Label).string = "Connected";
+            this.connectButton.node.color = new cc.Color(240, 88, 34);
         }
-        if (user.schoolName) {
-            this.schoolName.getComponent(cc.Label).string = "School: " + user.schoolName
+        if (this.user.schoolName) {
+            this.schoolName.getComponent(cc.Label).string = "School: " + this.user.schoolName
         }
-        if (user.sectionName) {
-            this.className.getComponent(cc.Label).string = "Class: " + user.sectionName
+        if (this.user.sectionName) {
+            this.className.getComponent(cc.Label).string = "Class: " + this.user.sectionName
         }
-        this.userNode.getComponentInChildren(cc.Label).string = user.name;
-        this.leaderboardJson = await ServiceConfig.getI().handle.getLeaderboard(user.id, user.sectionId, user.schoolId,);
-        this.weeklyIndex = this.leaderboardJson.weekly.map((v: StudentLeaderboardInfo) => v.userId).indexOf(user.id);
-        this.allTimeIndex = this.leaderboardJson.allTime.map((v: StudentLeaderboardInfo) => v.userId).indexOf(user.id);
+        this.userNode.getComponentInChildren(cc.Label).string = this.user.name;
+        this.leaderboardJson = await ServiceConfig.getI().handle.getLeaderboard(this.user.id, this.user.sectionId, this.user.schoolId,);
+        this.weeklyIndex = this.leaderboardJson.weekly.map((v: StudentLeaderboardInfo) => v.userId).indexOf(this.user.id);
+        this.allTimeIndex = this.leaderboardJson.allTime.map((v: StudentLeaderboardInfo) => v.userId).indexOf(this.user.id);
         if (this.weeklyIndex >= 0) {
-            this.weeklyRank.getComponent(cc.Label).string = "This week rank: " + (this.weeklyIndex + 1).toString();
+            this.weeklyRank.getComponent(cc.Label).string = "This week rank: " + (this.weeklyIndex + 1).toString() + " ";
         }
         if (this.allTimeIndex >= 0) {
-            this.allTimeRank.getComponent(cc.Label).string = "All time rank: " + (this.allTimeIndex + 1).toString();
+            this.allTimeRank.getComponent(cc.Label).string = "All time rank: " + (this.allTimeIndex + 1).toString() + " ";
         }
         console.log("this leaderboard", this.leaderboardJson)
         this.loadUi(true)
@@ -93,13 +95,17 @@ export default class LeaderboardProfile extends cc.Component {
         this.hideLoading()
         this.leaderboardlayout.removeAllChildren();
         const studentList: StudentLeaderboardInfo[] = thisweek ? this.leaderboardJson.weekly : this.leaderboardJson.allTime;
-        const currentUserColor = new cc.Color(255, 85, 0)
+        const currentUserColor = new cc.Color(255, 85, 0);
+
         for (let i = 0; i < studentList.length; i++) {
             const isCurrentUser = thisweek ? (this.weeklyIndex === i) : (this.allTimeIndex === i);
+            const totalScore = studentList[i].lessonsPlayed.toString();
             let maskedName = studentList[i].name;
             if (!isCurrentUser) {
                 const mask = maskedName.substring(1, maskedName.length - 1).replace(/./gi, "*") || "***";
                 maskedName = maskedName[0] + mask.substring(0, 4) + maskedName[maskedName.length - 1]
+            } else {
+                this.userNode.getChildByName('starscore').getComponentInChildren(cc.Label).string = totalScore;
             }
             if (maskedName.length > 6) {
                 maskedName = maskedName.substring(0, 5) + '..'
@@ -109,14 +115,14 @@ export default class LeaderboardProfile extends cc.Component {
                 if (isCurrentUser) {
                     this.firstStudent.getChildByName('name').color = currentUserColor;
                 }
-                this.firstStudent.getChildByName('starscore').getComponentInChildren(cc.Label).string = studentList[i].lessonsPlayed.toString()
+                this.firstStudent.getChildByName('starscore').getComponentInChildren(cc.Label).string = totalScore;
             }
             else if (i === 1) {
                 this.secondStudent.getChildByName('name').getComponent(cc.Label).string = maskedName
                 if (isCurrentUser) {
                     this.secondStudent.getChildByName('name').color = currentUserColor;
                 }
-                this.secondStudent.getChildByName('starscore').getComponentInChildren(cc.Label).string = studentList[i].lessonsPlayed.toString()
+                this.secondStudent.getChildByName('starscore').getComponentInChildren(cc.Label).string = totalScore;
 
             }
             else if (i === 2) {
@@ -124,7 +130,7 @@ export default class LeaderboardProfile extends cc.Component {
                 if (isCurrentUser) {
                     this.thirdStudent.getChildByName('name').color = currentUserColor;
                 }
-                this.thirdStudent.getChildByName('starscore').getComponentInChildren(cc.Label).string = studentList[i].lessonsPlayed.toString()
+                this.thirdStudent.getChildByName('starscore').getComponentInChildren(cc.Label).string = totalScore;
 
             }
             else {
@@ -135,7 +141,7 @@ export default class LeaderboardProfile extends cc.Component {
                     student.getChildByName('name').color = currentUserColor;
                 }
                 this.loadRandomAvatar(student.getChildByName('user'), isCurrentUser);
-                student.getChildByName('starscore').getComponentInChildren(cc.Label).string = studentList[i].lessonsPlayed.toString()
+                student.getChildByName('starscore').getComponentInChildren(cc.Label).string = totalScore;
                 labelComponent.string = (i + 1).toString();
                 this.leaderboardlayout.addChild(student)
             }

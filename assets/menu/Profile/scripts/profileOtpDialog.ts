@@ -84,6 +84,8 @@ export default class ProfileOtpDialog extends cc.Component {
                     const s = response.data.schoolName ? response.data.schoolName : '';
                     const sec = response.data.sectionName ? response.data.sectionName : '';
                     this.parentNode.getComponentInChildren(cc.Label).string = "Connected";
+                    this.parentNode.node.color = new cc.Color(240, 88, 34);
+
                     if (s) {
                         this.schoolName.getComponent(cc.Label).string = "School: " + s
                     }

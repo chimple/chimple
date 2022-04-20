@@ -42,8 +42,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 201,
-      "height": 80
+      "width": 260,
+      "height": 150
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -428,14 +428,14 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 10,
+      "g": 54,
+      "b": 85,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 84.45,
+      "width": 88.95,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -447,7 +447,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -18.015,
+        -20.694,
         15,
         0,
         0,
@@ -496,7 +496,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 1,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
