@@ -101,13 +101,15 @@ export default class Stamp extends Game {
             }
 
             // this.bg.node.addChild(drag)
-            const sticker = cc.instantiate(this.stickerPrefab)
+            const sticker = cc.instantiate(this.stickerPrefab);
             const stickerHolder = sticker.getComponent(StickerHolder)
             stickerHolder.bg = this.stickerLayer
             this.stickerPack.addChild(sticker)
             const drag = cc.instantiate(this.stampDrag)
             drag.name = index.toString()
+            console.log('drag.position', drag.position)
             drag.position = cc.Vec3.ZERO
+            console.log('drag.position', drag.position)
             stickerHolder.icon.addChild(drag)
             this.drags.push(drag)
             const rewardName = `${REWARD_TYPES[4]}-${Config.i.chapter.id}-${Config.i.lesson.id}-${image}`
@@ -125,11 +127,25 @@ export default class Stamp extends Game {
                         const stickerButton = stickerHolder.icon.getComponent(cc.Button)
                         stickerButton.interactable = false
                         if (Config.i.direction === Direction.RTL)
-                            drag.getComponent(Drag).isReverseXNeeded = true;
-                        drag.on('stampMatch', () => {
+                            drag.getComponent(Drag).isReverseXNeeded = true
+                        drag.on('stampMatch', (th, drag) => {
+                            console.log('this.stampReward.stickers', this.stampReward.stickers)
+                            console.log('drag', drag)
+                            this.stampReward.stickers[drag.name].fixed = true
+                            this.stampReward.stickers[drag.name].peeled = true
+                            this.stampReward.stickers[drag.name].x = 0
+                            this.stampReward.stickers[drag.name].y = 0
+                            console.log('this.stampReward.stickers', this.stampReward.stickers)
                             this.saveItem()
                         })
-                        drag.on('stampNoMatch', () => {
+                        drag.on('stampNoMatch', (th, drag) => {
+                            console.log('this.stampReward.stickers', this.stampReward.stickers)
+                            console.log('drag', drag)
+                            this.stampReward.stickers[drag.name].fixed = false
+                            this.stampReward.stickers[drag.name].peeled = true
+                            this.stampReward.stickers[drag.name].x = drag.x
+                            this.stampReward.stickers[drag.name].y = drag.y
+                            console.log('this.stampReward.stickers', this.stampReward.stickers)
                             this.saveItem()
                         })
                         const stampNode = drag.children[1]
@@ -142,8 +158,8 @@ export default class Stamp extends Game {
                         if (this.stampReward.stickers[index].fixed) {
                             drag.parent = this.stickerLayer
                             dragComp.allowDrag = false
-                            drag.position = new cc.Vec3(parseInt(x) / 3, parseInt(y) / 3)
-                            shadowNode.active = false
+                            drag.position = new cc.Vec3(parseInt(x), parseInt(y))
+                            shadowNode.active = false;
                             dragComp.inStickerPack = false
                         } else {
                             if (this.stampReward.stickers[index].peeled) {
@@ -165,21 +181,22 @@ export default class Stamp extends Game {
                             // }
                         }
 
-                        if (fixed.toLowerCase() == 'true') {
-                            const drop = cc.instantiate(this.stampDrop)
-                            drop.name = index.toString()
-                            drop.position = new cc.Vec3(parseInt(x) / 3, parseInt(y) / 3)
-                            drop.height = drag.height
-                            drop.width = drag.width
-                            this.stickerLayer.addChild(drop)
-                            if (index == 1) {
-                                firstDrag = drag
-                                firstDrop = drop
-                            }
+                        // if (fixed.toLowerCase() == 'true') {
+                        const drop = cc.instantiate(this.stampDrop)
+                        drop.name = index.toString()
+                        drop.position = new cc.Vec3(parseInt(x), parseInt(y))
+                        drop.height = drag.height
+                        drop.width = drag.width
+                        this.stickerLayer.addChild(drop)
+                        if (index == 1) {
+                            firstDrag = drag
+                            firstDrop = drop
                         }
+                        // }
                     }
                 }
             })
+            console.log('this.stampReward in onload before change', this.stampReward)
         }
     }
 
@@ -188,13 +205,15 @@ export default class Stamp extends Game {
     }
 
     saveItem() {
-        this.drags.forEach((drag, index) => {
-            this.stampReward.stickers[index].x = drag.x
-            this.stampReward.stickers[index].y = drag.y
-            this.stampReward.stickers[index].fixed = !drag.children[0].active
-            this.stampReward.stickers[index].peeled = !drag.getComponent(StampDrag).inStickerPack
-        })
+        // this.drags.forEach((drag, index) => {
+        //     console.log('enterd if (drag.getComponent(StampDrag).inStickerPack)')
+        //     this.stampReward.stickers[index].x = drag.x
+        //     this.stampReward.stickers[index].y = drag.y
+        //     this.stampReward.stickers[index].fixed = !drag.children[0].active
+        //     this.stampReward.stickers[index].peeled = !drag.getComponent(StampDrag).inStickerPack
+        // })
         cc.sys.localStorage.setItem(this.getItemName(Config.i), JSON.stringify(this.stampReward));
+        console.log('this.stampReward in saveItem', this.stampReward)
     }
 
     onPaintClick(event: cc.Event, customEventData: string) {

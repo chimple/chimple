@@ -34,7 +34,7 @@ export default class StampDrag extends Drag {
         super.onTouchEnd(touch)
         if (this.match) {
             this.node.children[0].active = false
-            this.node.emit('stampMatch', this)
+            this.node.emit('stampMatch', this, this.node)
         } else {
             const pic = this.node.children[1]
             const worldPos = this.node.convertToWorldSpaceAR(cc.Vec2.ZERO)
@@ -59,7 +59,11 @@ export default class StampDrag extends Drag {
                     .to(0.25, { position: newPos }, { progress: null, easing: 'sineOut' })
                     .start()
             }
-            this.node.emit('stampNoMatch', this)
+            const temp = this.node.parent.convertToWorldSpaceAR(touch.getLocation())
+            this.node.position.x = temp.x
+            this.node.position.y = temp.y
+            console.log('this.node.position ', this.node.position)
+            this.node.emit('stampNoMatch', this, this.node)
         }
     }
 }
