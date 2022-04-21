@@ -537,6 +537,11 @@ export default class Start extends cc.Component {
         const courseProgressMap = user.courseProgressMap.get(Config.i.course.id);
         this.content.removeAllChildren()
         if (courseProgressMap.lessonPlan != null && courseProgressMap.lessonPlan.length > 0) {
+
+            //if courseId != ASSIGNMENT_COURSE_ID Enabling giftBox and rewardBg 
+            this.node.getChildByName('rewardBg').active = true
+            this.node.getChildByName('giftBox').active = true
+
             const planWidth = cc.winSize.width - 128
             const x1 = -planWidth / 2
             const y1 = -172
@@ -616,6 +621,9 @@ export default class Start extends cc.Component {
             }
             Config.i.startAction = StartAction.Default
         } else {
+            //if courseId == ASSIGNMENT_COURSE_ID Disabling giftBox and rewardBg 
+            this.node.getChildByName('rewardBg').active = false
+            this.node.getChildByName('giftBox').active = false
             const label = new cc.Node()
             const chimpleLabel = label.addComponent(ChimpleLabel)
             chimpleLabel.string = 'No lessons found. Try another subject'
@@ -764,6 +772,7 @@ export default class Start extends cc.Component {
                         imageComp.spriteFrame = new cc.SpriteFrame(sp)
                         this.gift.addChild(image)
                         Util.resizeSprite(imageComp, 64, 64)
+                        this.toAddGiftBoxNode(image, sp)
                     })
                     break;
                 case REWARD_TYPES[1]: //background
@@ -774,6 +783,7 @@ export default class Start extends cc.Component {
                         imageComp.spriteFrame = new cc.SpriteFrame(sp)
                         this.gift.addChild(image)
                         Util.resizeSprite(imageComp, 64, 64)
+                        this.toAddGiftBoxNode(image, sp)
                     })
                     break;
                 case REWARD_TYPES[2]: //achievement
@@ -781,12 +791,17 @@ export default class Start extends cc.Component {
                     break;
                 case REWARD_TYPES[3]: //inventory
                     cc.resources.load(INVENTORY_ICONS[currentReward[2]] + currentReward[3], (err, sp) => {
-                        const image = new cc.Node()
-                        const imageComp = image.addComponent(cc.Sprite)
-                        // @ts-ignore
-                        imageComp.spriteFrame = new cc.SpriteFrame(sp)
-                        this.gift.addChild(image)
-                        Util.resizeSprite(imageComp, 64, 64)
+                        if (err) {
+                            cc.log(JSON.stringify(err))
+                        } else {
+                            const image = new cc.Node()
+                            const imageComp = image.addComponent(cc.Sprite)
+                            // @ts-ignore
+                            imageComp.spriteFrame = new cc.SpriteFrame(sp)
+                            this.gift.addChild(image)
+                            Util.resizeSprite(imageComp, 64, 64)
+                            this.toAddGiftBoxNode(image, sp)
+                        }
                     })
 
                     break;
@@ -812,6 +827,7 @@ export default class Start extends cc.Component {
                                     imageComp.spriteFrame = new cc.SpriteFrame(asset)
                                     this.gift.addChild(image)
                                     Util.resizeSprite(imageComp, 64, 64)
+                                    this.toAddGiftBoxNode(image, asset)
                                 }
                             })
                         },
@@ -828,6 +844,7 @@ export default class Start extends cc.Component {
                                 imageComp.spriteFrame = new cc.SpriteFrame(texture);
                                 this.gift.addChild(image)
                                 Util.resizeSprite(imageComp, 64, 64)
+                                this.toAddGiftBoxNode(image, texture)
                             }
                         })
                     }
@@ -838,6 +855,31 @@ export default class Start extends cc.Component {
         }
         //TODO just for testing
         // this.gift.once('touchend', () => this.unlockCurrentReward())
+    }
+
+    toAddGiftBoxNode(image, type) {
+        if (this.node.getChildByName('giftBox').getChildByName(this.gift.name) == undefined) {
+            this.node.getChildByName('giftBox').addChild(this.gift)
+            const planWidth = cc.winSize.width - 128
+            const x1 = -planWidth / 2
+            const y1 = -172
+            const x2 = planWidth / 4
+            const y2 = -172
+            const x3 = -planWidth / 4
+            const y3 = 172
+            const x4 = planWidth / 2
+            const y4 = 172
+            this.gift.x = Math.pow(1 - 1, 3) * x1 + 3 * Math.pow(1 - 1, 2) * 1 * x2 + 3 * (1 - 1) * Math.pow(1, 2) * x3 + Math.pow(1, 3) * x4
+            this.gift.y = Math.pow(1 - 1, 3) * y1 + 3 * Math.pow(1 - 1, 2) * 1 * y2 + 3 * (1 - 1) * Math.pow(1, 2) * y3 + Math.pow(1, 3) * y4
+            this.node.getChildByName('giftBox').children[0].getChildByName(image.name).setContentSize(64, 64);
+        } else {
+
+            if (this.node.getChildByName('giftBox').children[0].getChildByName(image.name) != undefined) {
+                // @ts-ignore
+                this.node.getChildByName('giftBox').children[0].getChildByName(image.name).getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(type)
+                this.node.getChildByName('giftBox').children[0].getChildByName(image.name).setContentSize(64, 64);
+            }
+        }
     }
 
     private unlockCurrentReward() {
