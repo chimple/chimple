@@ -538,7 +538,7 @@ export default class Start extends cc.Component {
         this.content.removeAllChildren()
         if (courseProgressMap.lessonPlan != null && courseProgressMap.lessonPlan.length > 0) {
 
-            //if courseId != ASSIGNMENT_COURSE_ID Displaying giftBox and rewardBg 
+            //if courseId != ASSIGNMENT_COURSE_ID Enabling giftBox and rewardBg 
             this.node.getChildByName('rewardBg').active = true
             this.node.getChildByName('giftBox').active = true
 
@@ -621,7 +621,7 @@ export default class Start extends cc.Component {
             }
             Config.i.startAction = StartAction.Default
         } else {
-            //if courseId == ASSIGNMENT_COURSE_ID Displaying giftBox and rewardBg 
+            //if courseId == ASSIGNMENT_COURSE_ID Disabling giftBox and rewardBg 
             this.node.getChildByName('rewardBg').active = false
             this.node.getChildByName('giftBox').active = false
             const label = new cc.Node()
