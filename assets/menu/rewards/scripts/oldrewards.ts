@@ -6,12 +6,11 @@ import { REWARD_TYPES, REWARD_CHARACTERS, REWARD_BACKGROUNDS } from '../../../co
 import { Course, Chapter, Lesson } from '../../../common/scripts/lib/convert';
 import Achievement from '../../../common/scorecard/scripts/achievement';
 import { SECTION_LIST } from '../../../private/school/scripts/landing';
-import { Reward } from '../../../games/platform/scripts/reward';
 const { ccclass, property } = cc._decorator;
 
 
 @ccclass
-export default class Rewards extends cc.Component {
+export default class OldRewards extends cc.Component {
 
     @property(cc.Node)
     layoutHolder: cc.Node = null;
@@ -32,42 +31,19 @@ export default class Rewards extends cc.Component {
     lastSelectedButton: number = -1;
     leftSideNormalSprite: cc.SpriteFrame = null;
 
-    static contentDecisionFlag;
-
     @property(cc.Node)
     sideLayoutNode: cc.Node = null;
     characterColors: string[] = ['#F7D7BA', '#F9E5C5', '#FDD8B4', '#8CC757', '#A5E6F5', '#C0AACF', '#44FFFD', '#F3B866', '#3AC7D0', '#EDB957', '#B2DBCC']
 
     onLoad() {
         for (let i = 0; i < 3; i++) {
-            this.layoutHolder.children[i].width = cc.winSize.width - 80
-            this.layoutHolder.children[i].children[0].width = cc.winSize.width - 80
-            this.layoutHolder.children[i].children[0].children[0].children[0].width = cc.winSize.width - 80
+            this.layoutHolder.children[i].width = cc.winSize.width - 290
+            this.layoutHolder.children[i].children[0].width = cc.winSize.width - 290
+            this.layoutHolder.children[i].children[0].children[0].children[0].width = cc.winSize.width - 290
         }
         this.loadCharacters();
         this.loadBgs();
         this.checkAchievementsLockStatus();
-
-        if (Rewards.contentDecisionFlag) {
-            console.log('this.node.getChildByName(rewards)', this.node.name)
-            console.log('this.node.getChildByName(rewards)', this.node.getChildByName('Rewards label').name)
-            switch (Rewards.contentDecisionFlag) {
-                case '0':
-                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = 'Character Collection'
-                    break;
-                case '1':
-                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = 'Background Collection'
-                    break;
-                case '2':
-                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = 'Achievement Collection'
-                    break;
-
-                default:
-                    break;
-            }
-            this.onContentClick(null, Rewards.contentDecisionFlag);
-            Rewards.contentDecisionFlag = null;
-        }
     }
 
     loadCharacters() {
