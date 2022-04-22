@@ -46,10 +46,13 @@
     "_components": [
       {
         "__id__": 101
+      },
+      {
+        "__id__": 102
       }
     ],
     "_prefab": {
-      "__id__": 102
+      "__id__": 103
     },
     "_opacity": 255,
     "_color": {
@@ -75,7 +78,7 @@
       "array": [
         0,
         0,
-        0,
+        222.56852877260076,
         0,
         0,
         0,
@@ -253,7 +256,7 @@
       "array": [
         0,
         0,
-        0,
+        222.56852877260076,
         0,
         0,
         0,
@@ -3839,8 +3842,8 @@
     },
     "component": "",
     "_componentId": "e42a8U9jAVJ+aTaNF1tBayg",
-    "handler": "onSaveClick",
-    "customEventData": "#FF0000"
+    "handler": "capturingScreenshot",
+    "customEventData": ""
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -3892,6 +3895,45 @@
     "mask": {
       "__id__": 6
     },
+    "camera": {
+      "__id__": 1
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.Camera",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_cullingMask": 4294967295,
+    "_clearFlags": 0,
+    "_backgroundColor": {
+      "__type__": "cc.Color",
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 255
+    },
+    "_depth": -1,
+    "_zoomRatio": 1,
+    "_targetTexture": null,
+    "_fov": 60,
+    "_orthoSize": 10,
+    "_nearClip": 1,
+    "_farClip": 4096,
+    "_ortho": true,
+    "_rect": {
+      "__type__": "cc.Rect",
+      "x": 0,
+      "y": 0,
+      "width": 1,
+      "height": 1
+    },
+    "_renderStages": 1,
+    "_alignWithScreen": true,
     "_id": ""
   },
   {
