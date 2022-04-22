@@ -177,7 +177,7 @@
       "array": [
         0,
         0,
-        222.56852877260076,
+        468.51345425408977,
         0,
         0,
         0,
@@ -600,7 +600,7 @@
       "__id__": 6
     },
     "_children": [],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 12
@@ -761,7 +761,7 @@
       "__id__": 6
     },
     "_children": [],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 16
@@ -1502,7 +1502,7 @@
         "__id__": 49
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 59
@@ -1631,7 +1631,7 @@
   {
     "__type__": "cc.Node",
     "_name": "Background",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "_parent": {
       "__id__": 33
     },
@@ -2016,7 +2016,7 @@
   {
     "__type__": "cc.Node",
     "_name": "Background",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "_parent": {
       "__id__": 41
     },
@@ -2401,7 +2401,7 @@
   {
     "__type__": "cc.Node",
     "_name": "Background",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "_parent": {
       "__id__": 49
     },
@@ -2938,7 +2938,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        80,
+        152.752,
         -43.436,
         0,
         0,
@@ -4214,7 +4214,7 @@
         "__id__": 94
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 99
