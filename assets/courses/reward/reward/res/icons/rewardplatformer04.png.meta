@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "dead92d2-b916-45af-a127-436ce5705c01",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 128,
+  "height": 128,
+  "platformSettings": {},
+  "subMetas": {
+    "rewardplatformer04": {
+      "ver": "1.0.4",
+      "uuid": "8e31482f-5a98-42a1-8ff3-b165d7dd0b47",
+      "rawTextureUuid": "dead92d2-b916-45af-a127-436ce5705c01",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": -3.5,
+      "trimX": 16,
+      "trimY": 47,
+      "width": 96,
+      "height": 41,
+      "rawWidth": 128,
+      "rawHeight": 128,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

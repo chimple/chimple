@@ -23,7 +23,7 @@ export default class StickerBookDrag extends Drag {
     onTouchStart(touch: cc.Touch): void {
         super.onTouchStart(touch)
         this.node.children[1].active = true
-        this.node.children[1].setContentSize(StickerBook.pictureSizes.get(this.node.name))
+        // this.node.children[1].setContentSize(StickerBook.pictureSizes.get(this.node.name))
     }
 
     onTouchEnd(touch: cc.Touch) {

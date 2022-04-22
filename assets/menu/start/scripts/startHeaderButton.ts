@@ -1,6 +1,7 @@
-import Config from "../../../common/scripts/lib/config";
+import Config, { ASSIGNMENT_COURSE_ID } from "../../../common/scripts/lib/config";
+import ChapterLessons, { ChapterLessonType } from "./chapterLessons";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class StartHeaderButton extends cc.Component {
@@ -20,7 +21,12 @@ export default class StartHeaderButton extends cc.Component {
     moreButton: cc.Button
 
     onMoreClick() {
-        Config.i.pushScene('menu/start/scenes/courseChapters', 'menu')
+        if (Config.i.course.id == ASSIGNMENT_COURSE_ID) {
+            ChapterLessons.showType = ChapterLessonType.Assignments
+            Config.i.pushScene('menu/start/scenes/chapterLessons', 'menu')
+        } else {
+            Config.i.pushScene('menu/start/scenes/courseChapters', 'menu')
+        }
     }
 
 }

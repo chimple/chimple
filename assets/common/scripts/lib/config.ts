@@ -1,9 +1,10 @@
 import { Util, MicroLink } from "../util";
 import UtilLogger from "../util-logger";
 import { Chapter, Course, Lesson } from "./convert";
-import Profile, { LANGUAGE, User } from "./profile";
+import Profile, { LANGUAGE, LessonProgress, User } from "./profile";
 import TTFFont = cc.TTFFont;
 import { GAME_CONFIGS } from "./gameConfigs";
+import { BUNDLE_URL } from "./constants";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
@@ -28,6 +29,7 @@ export const BG_NAME = 'bgRoot';
 export const BRIDGE_NAME = 'bridge';
 export const QUIZ_LITERACY = 'quizliteracy';
 export const QUIZ_MATHS = 'quizmaths';
+export const ASSIGNMENT_COURSE_ID = 'assignment'
 
 export enum Direction {
     LTR,
@@ -121,6 +123,9 @@ export default class Config {
     stickerBook: any[]
     static isMicroLink: boolean
     microLinkData: MicroLink
+    prevCourse: Course
+    prevChapter: Chapter
+    startCourse: Course
 
     //remove later
     flow: Flow;
@@ -165,6 +170,22 @@ export default class Config {
         return Direction.LTR
     }
 
+    setRewardChapter(chapterName: String) {
+        // if (this.course.id != 'reward') {
+        //     this.prevCourse = this.course
+        //     this.prevChapter = this.chapter
+        // }
+        this.course = this.curriculum.get('reward')
+        this.chapter = this.course.chapters.find((c) => c.id == chapterName)
+    }
+
+    unsetRewardChapter() {
+        // if (this.course.id == 'reward') {
+        //     this.course = this.prevCourse
+        //     this.chapter = this.prevChapter
+        // }
+    }
+
     hasTracing(): boolean {
         return this._lessonData.rows.some((arr) => arr[0].startsWith('write'))
     }
@@ -197,6 +218,20 @@ export default class Config {
 
     get textFontMap() {
         return this._textFontMap;
+    }
+
+    getAssignmentLessonsTodo(): Lesson[] {
+        return !!this.assignments ? this.assignments.filter((ass) => {
+            const lesson = Config.i.allLessons.get(ass.lessonId)
+            const lessonProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(ass.lessonId)
+            return (!!lesson && (!lessonProgress || ![].concat(lessonProgress.assignmentIds).includes(ass.assignmentId)))
+        }).map((ass) => {
+            const lesson = Config.i.allLessons.get(ass.lessonId)
+            const newLesson = { ...lesson };
+            newLesson.assignmentId = ass.assignmentId;
+            newLesson.name = !!ass.lessonName ? ass.lessonName : lesson.name;
+            return newLesson
+        }) : []
     }
 
     static preloadScene(scene: string, callback: Function) {
@@ -508,6 +543,8 @@ export default class Config {
                 numCourses--;
             });
         });
+        numCourses++
+        this.loadSingleCourseJson('reward', () => numCourses--)
 
         const checkAllLoaded = () => {
             if (numCourses <= 0) {
@@ -547,6 +584,23 @@ export default class Config {
             });
         });
     }
+
+    public static loadBundle(lessonId: string, callback: Function, errCallback: Function) {
+        cc.assetManager.loadBundle(lessonId, (err, bundle) => {
+            if (err) {
+                cc.assetManager.loadBundle(BUNDLE_URL + lessonId, (err2, bundle2) => {
+                    if (err2) {
+                        errCallback(err2);
+                    } else {
+                        callback(bundle2);
+                    }
+                });
+            } else {
+                callback(bundle);
+            }
+        });
+    }
+
 
     get friend(): string {
         // return WORLDS[0].armature;

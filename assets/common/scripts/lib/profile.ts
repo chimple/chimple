@@ -1,8 +1,8 @@
-import {Queue} from "../../../queue";
+import { Queue } from "../../../queue";
 import Header from "../header";
-import {INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, Util} from "../util";
+import { INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, STICKER_BOOK, STICKER_REWARD, Util } from "../util";
 import UtilLogger from "../util-logger";
-import Config, {ALL_LANGS, StartAction, Lang} from "./config";
+import Config, { ALL_LANGS, StartAction, Lang, ASSIGNMENT_COURSE_ID } from "./config";
 import {
     COUNTRY_CODES,
     CURRENT_STUDENT_ID,
@@ -105,18 +105,18 @@ export class LessonProgressClass implements LessonProgress {
     date: Date = null;
     assignmentIds: string[] = [];
 
-    constructor(score: number, attempts: number = 0, course: string = Config.i.course.id, assignmentId: string = null,date: Date = null) {
+    constructor(score: number, attempts: number = 0, course: string = Config.i.course.id, assignmentId: string = null, date: Date = null) {
         this.score = score;
         this.attempts = attempts;
-        !!date ? this.date=date : new Date();
+        !!date ? this.date = date : new Date();
         this.course = course;
-        let assignment_ids =  !!assignmentId ?assignmentId.split(','):[]
-        if(assignment_ids.length > 0){
-            assignment_ids.forEach((value)=>{
+        let assignment_ids = !!assignmentId ? assignmentId.split(',') : []
+        if (assignment_ids.length > 0) {
+            assignment_ids.forEach((value) => {
                 this.assignmentIds.push(value)
             })
         }
-        else{
+        else {
             !!assignmentId ? this.assignmentIds.push(assignmentId) : '';
         }
     }
@@ -143,6 +143,7 @@ export class User {
     private _level: number;
     private _assignments: string[]
     private _currentCourseId: string
+    private _currentReward: string[]
     isConnected: boolean = false
     private _schoolId: string;
     private _sectionId: string;
@@ -175,7 +176,8 @@ export class User {
         sectionId: string = '',
         studentId: string = '',
         schoolName: string = '',
-        sectionName: string = ''
+        sectionName: string = '',
+        currentReward: string[] = []
     ) {
         this._id = id;
         this._name = name;
@@ -199,6 +201,7 @@ export class User {
         this.debug = debug
         this._serverId = serverId
         this._assignments = []
+        this._currentReward = currentReward
         this._schoolId = schoolId;
         this._sectionId = sectionId;
         this._studentId = studentId;
@@ -374,6 +377,14 @@ export class User {
         return this._currentCourseId;
     }
 
+    set currentReward(currentReward: string[]) {
+        this._currentReward = currentReward;
+        this.storeUser();
+    }
+
+    get currentReward(): string[] {
+        return this._currentReward;
+    }
 
     get schoolId(): string {
         return this._schoolId;
@@ -444,6 +455,16 @@ export class User {
         REWARD_BACKGROUNDS.forEach((bg) => {
             this._unlockedRewards[`${REWARD_TYPES[1]}-${bg}`] = 1
         })
+
+        //unlocking Sticker Book Rewards
+        STICKER_REWARD.forEach((arr) => {
+            STICKER_BOOK.forEach((lessonId) => {
+                this._unlockedRewards[`${REWARD_TYPES[4]}-sticker-${lessonId}`] = 1
+                arr.forEach((sticker) => {
+                    this._unlockedRewards[`${REWARD_TYPES[4]}-sticker-${lessonId}-${sticker}`] = 1
+                })
+            })
+        })
         this.storeUser()
     }
 
@@ -475,101 +496,112 @@ export class User {
     updateLessonProgress(lessonId: string, score: number, quizScores: number[], assignmentId: string = null): [string, string] {
         var reward: [string, string]
         const config = Config.i
-        if (this._lessonProgressMap.has(lessonId)) {
-            const lessonProgress = this._lessonProgressMap.get(lessonId)
-            lessonProgress.assignmentIds.push(Config.i.lesson.assignmentId);
-            lessonProgress.attempts++
-            lessonProgress.date = new Date()
-            if (score > lessonProgress.score) {
-                lessonProgress.score = score;
+        const cpm = this.courseProgressMap.get(config.course.id)
+        if (cpm) {
+            if (this._lessonProgressMap.has(lessonId)) {
+                const lessonProgress = this._lessonProgressMap.get(lessonId)
+                lessonProgress.assignmentIds.push(Config.i.lesson.assignmentId);
+                lessonProgress.attempts++
+                lessonProgress.date = new Date()
+                if (score > lessonProgress.score) {
+                    lessonProgress.score = score;
+                    if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
+                        reward = [REWARD_TYPES[2], Config.i.lesson.image]
+                    }
+                }
+                if (Config.i.lesson.type == EXAM && score < MIN_PASS) {
+                    // attempted challenge twice but did not pass
+
+                }
+            } else {
                 if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
                     reward = [REWARD_TYPES[2], Config.i.lesson.image]
                 }
+                this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1, Config.i.course.id, Config.i.lesson.assignmentId));
             }
-            if (Config.i.lesson.type == EXAM && score < MIN_PASS) {
-                // attempted challenge twice but did not pass
+            if (lessonId == config.course.id + '_PreQuiz') {
+                const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
+                if (quizChapter) {
+                    let currentCourse = config.course.chapters.find((c) => c.id != config.course.id + '_quiz')
+                    let qzId = 0
+                    for (let index = 0; index + 2 < quizScores.length; index += 3) {
+                        if (quizScores[index] + quizScores[index + 1] + quizScores[index + 2] >= 2) {
+                            currentCourse = config.course.chapters.find((c) => c.id == config.course.levels[qzId])
+                        } else {
+                            break
+                        }
+                        qzId++
+                    }
+                    cpm.updateChapterId(currentCourse.id);
+                } else {
+                    const formulaScore = quizScores.reduce((acc, cur, i, arr): number => {
+                        const mul = Math.floor(arr.length / 2) - Math.floor(i / 2)
+                        const neg = cur == 0 ? -0.5 : cur
+                        return acc + neg * mul
+                    }, 0)
+                    const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
+                    const total = Math.max(0, formulaScore / max)
+                    const chapters = config.curriculum.get(config.course.id).chapters
+                    cpm.updateChapterId(chapters[Math.floor((chapters.length - 1) * total)].id);
+                }
+            } else {
+                if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
+                    // open the next lesson
+                    const lessons = Config.i.chapter.lessons
+                    const lessonIndex = lessons.findIndex((les) => {
+                        return les.id == lessonId
+                    })
+                    if (lessons.length > lessonIndex + 1) {
+                        const nextLesson = lessons[lessonIndex + 1]
+                        if (!this._lessonProgressMap.has(nextLesson.id)) {
+                            this._lessonProgressMap.set(nextLesson.id, new LessonProgressClass(-1));
+                        }
+                    }
+                }
+            }
+            const lessonPlan = cpm.lessonPlan
+            if (lessonPlan && lessonPlan[cpm.lessonPlanIndex] == config.lesson.id) {
+                Config.i.startAction = StartAction.MoveLessonPlan;
+                if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
+                    // if passed challenge in reco
+                    cpm.lessonPlanIndex++
+                    const lessons = Config.i.chapter.lessons
+                    const lessonIndex = lessons.findIndex((les) => {
+                        return les.id == lessonId
+                    })
+                    if (lessons.length > lessonIndex + 1) {
+                        const nextLesson = lessons[lessonIndex + 1]
+                        cpm.currentLessonId = nextLesson.id
+                    } else if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == Config.i.chapter.id) {
+                        var found = false
+                        const nextChapter = Config.i.course.chapters
+                            .find((c) => {
+                                if (found) return true
+                                found = c.id == this.courseProgressMap.get(Config.i.course.id).currentChapterId
+                                return false
+                            })
+                        if (nextChapter) {
+                            cpm.currentLessonId = null
+                            cpm.updateChapterId(nextChapter.id)
+                        }
+                    }
+                } else {
+                    cpm.lessonPlanIndex = 0
+                }
+            }
+        }
 
-            }
-        } else {
-            if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
-                reward = [REWARD_TYPES[2], Config.i.lesson.image]
-            }
-            this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1, Config.i.course.id, Config.i.lesson.assignmentId));
-        }
-        if (lessonId == config.course.id + '_PreQuiz') {
-            const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
-            if (quizChapter) {
-                let currentCourse = config.course.chapters.find((c) => c.id != config.course.id + '_quiz')
-                let qzId = 0
-                for (let index = 0; index + 2 < quizScores.length; index += 3) {
-                    if (quizScores[index] + quizScores[index + 1] + quizScores[index + 2] >= 2) {
-                        currentCourse = config.course.chapters.find((c) => c.id == config.course.levels[qzId])
-                    } else {
-                        break
-                    }
-                    qzId++
-                }
-                const cpm = this.courseProgressMap.get(config.course.id)
-                cpm.updateChapterId(currentCourse.id);
-            } else {
-                const formulaScore = quizScores.reduce((acc, cur, i, arr): number => {
-                    const mul = Math.floor(arr.length / 2) - Math.floor(i / 2)
-                    const neg = cur == 0 ? -0.5 : cur
-                    return acc + neg * mul
-                }, 0)
-                const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
-                const total = Math.max(0, formulaScore / max)
-                const chapters = config.curriculum.get(config.course.id).chapters
-                const cpm = this.courseProgressMap.get(config.course.id)
-                cpm.updateChapterId(chapters[Math.floor((chapters.length - 1) * total)].id);
-            }
-        } else {
-            if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
-                // open the next lesson
-                const lessons = Config.i.chapter.lessons
-                const lessonIndex = lessons.findIndex((les) => {
-                    return les.id == lessonId
-                })
-                if (lessons.length > lessonIndex + 1) {
-                    const nextLesson = lessons[lessonIndex + 1]
-                    if (!this._lessonProgressMap.has(nextLesson.id)) {
-                        this._lessonProgressMap.set(nextLesson.id, new LessonProgressClass(-1));
-                    }
-                }
+        if (config.startCourse.id == ASSIGNMENT_COURSE_ID) {
+            const startCourseProgressMap = this.courseProgressMap.get(config.startCourse.id)
+            const lessonPlan = startCourseProgressMap.lessonPlan
+            if (lessonPlan && lessonPlan[startCourseProgressMap.lessonPlanIndex] == config.lesson.id) {
+                Config.i.startAction = StartAction.MoveLessonPlan;
+                startCourseProgressMap.lessonPlanIndex++
             }
         }
-        const lessonPlan = this.courseProgressMap.get(config.course.id).lessonPlan
-        if (lessonPlan && lessonPlan[this.courseProgressMap.get(config.course.id).lessonPlanIndex] == config.lesson.id) {
-            Config.i.startAction = StartAction.MoveLessonPlan;
-            if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
-                // if passed challenge in reco
-                this.courseProgressMap.get(config.course.id).lessonPlanIndex++
-                const lessons = Config.i.chapter.lessons
-                const lessonIndex = lessons.findIndex((les) => {
-                    return les.id == lessonId
-                })
-                if (lessons.length > lessonIndex + 1) {
-                    const nextLesson = lessons[lessonIndex + 1]
-                    const cpm = this.courseProgressMap.get(config.course.id)
-                    cpm.currentLessonId = nextLesson.id
-                } else if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == Config.i.chapter.id) {
-                    var found = false
-                    const nextChapter = Config.i.course.chapters
-                        .find((c) => {
-                            if (found) return true
-                            found = c.id == this.courseProgressMap.get(Config.i.course.id).currentChapterId
-                            return false
-                        })
-                    if (nextChapter) {
-                        const cpm = this.courseProgressMap.get(config.course.id)
-                        cpm.currentLessonId = null
-                        cpm.updateChapterId(nextChapter.id)
-                    }
-                }
-            } else {
-                this.courseProgressMap.get(config.course.id).lessonPlanIndex = 0
-            }
-        }
+
+
+
         if (this.assignments) {
             const index = this.assignments.indexOf(config.lesson.id)
             if (index > -1) {
@@ -634,7 +666,7 @@ export class User {
 
     static syncProfile() {
         const user = User._currentUser;
-        if(cc.sys.isNative && !!user && !!user.schoolId && !!user.sectionId && !!user.studentId && !!user.id) {
+        if (cc.sys.isNative && !!user && !!user.schoolId && !!user.sectionId && !!user.studentId && !!user.id) {
             UtilLogger.syncProfile(user.schoolId, user.sectionId, user.studentId, User.toJson(user), user.id)
         }
     }
@@ -674,18 +706,20 @@ export class User {
             "chimp",
             debug
                 ? new Map([
+                    ['assignment', new CourseProgressClass()],
                     ['en', new CourseProgressClass('en00')],
                     ['maths', new CourseProgressClass('maths00')],
-                    // ['hi', new CourseProgressClass('hi00')],
+                    ['hi', new CourseProgressClass('hi00')],
                     // ['kn', new CourseProgressClass('kn00')],
                     ['puzzle', new CourseProgressClass('puzzle00')],
                     ['test-lit', new CourseProgressClass('chapter_0')],
                     ['test-maths', new CourseProgressClass('chapter_0')]
                 ])
                 : new Map([
+                    ['assignment', new CourseProgressClass()],
                     ['en', new CourseProgressClass()],
                     ['maths', new CourseProgressClass()],
-                    // ['hi', new CourseProgressClass()],
+                    ['hi', new CourseProgressClass()],
                     // ['kn', new CourseProgressClass()],
                     ['puzzle', new CourseProgressClass('puzzle00')]
                 ]),
@@ -794,7 +828,8 @@ export class User {
             data.sectionId,
             data.studentId,
             data.schoolName,
-            data.sectionName
+            data.sectionName,
+            data.currentReward
         );
         user.isConnected = data.isConnected
         // user._lessonPlanDate = new Date(data.lessonPlanDate)
@@ -843,7 +878,8 @@ export class User {
             'sectionId': user.sectionId,
             'studentId': user.studentId,
             'schoolName': user.schoolName,
-            'sectionName': user.sectionName
+            'sectionName': user.sectionName,
+            'currentReward': user.currentReward
         });
     }
 
@@ -868,8 +904,7 @@ export class User {
         userIds.splice(index, 1);
         cc.sys.localStorage.setItem(USER_ID, JSON.stringify(userIds));
     }
-    static replaceUserID(oldId: string,newId: string)
-    {
+    static replaceUserID(oldId: string, newId: string) {
         cc.sys.localStorage.removeItem(oldId);
         const userIds = User.getUserIds();
         let index = userIds.indexOf(oldId);
@@ -1003,7 +1038,7 @@ export default class Profile {
     }
 
     static async teacherPostLoginActivity(objectId: string) {
-        const currentUser: User = User.createUserOrFindExistingUser({id: objectId});
+        const currentUser: User = User.createUserOrFindExistingUser({ id: objectId });
         User.setCurrentUser(currentUser);
         return currentUser;
     }

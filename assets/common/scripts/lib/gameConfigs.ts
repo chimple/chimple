@@ -89,6 +89,11 @@ export const GAME_CONFIGS = {
         "prefab": "prefabs/pictureboard",
         "youtube": "fOoNh8HJ6u4",
     },
+    "stamp": {
+        "bundle": "stamp",
+        "prefab": "prefabs/stamp",
+        "youtube": "fOoNh8HJ6u4",
+    },
     "imagerecorder": {
         "bundle": "imagerecorder",
         "prefab": "prefabs/imagerecorder",

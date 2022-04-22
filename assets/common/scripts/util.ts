@@ -13,6 +13,7 @@ import VerticalAlign = cc.Label.VerticalAlign;
 import { AssignHomeWorkInfo } from "./services/parseApi";
 import Loading from "./loading";
 import { ParseImageDownloader } from "./services/ParseImageDownloader";
+import { Lesson } from "./lib/convert";
 
 export const INVENTORY_DATA = [
     ["hat1-hat1", "hat1-hat2", "hat1-hat3", "hat1-hat4", "hat1-hat5", "hat1-hat6", "hat1-hat7", "hat1-hat8", "hat1-hat9", "hat1-hat10"],
@@ -46,10 +47,15 @@ export interface MicroLink {
     end?: string;
 }
 
-export const REWARD_TYPES = ["character", "background", "achievement", "inventory"]
+export const REWARD_TYPES = ["character", "background", "achievement", "inventory", "lesson"]
 export const REWARD_CHARACTERS = ['chimp', 'bear', 'camel', 'cat', 'dog', 'duck', 'hippo', 'horse', 'koala', 'rabbit', 'tiger']
 export const REWARD_BACKGROUNDS = ['camp', 'underwater', 'beach', 'forest', 'city', 'desert', 'fair', 'garden', 'mountain', 'snow', 'village']
 export const NUMBER_NAME = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+export const STICKER_BOOK = ['rewardsticker0000', "rewardsticker0001"]
+export const STICKER_REWARD = [
+    ['ap_puzzle10_bush1_puzzle', 'ap_puzzle10_bush2_puzzle', 'ap_puzzle10_bush3_puzzle', 'ap_puzzle10_camel1_puzzle', 'ap_puzzle10_camel2_puzzle'],
+    ["bulldozer_part1", "bulldozer_part2", "bulldozer_part3", "bulldozer_part4", "bulldozer_part5"]
+];
 
 
 export const SUBPACKAGES = 'subpackages'
@@ -694,6 +700,24 @@ export class Util {
         })
     }
 
+    public static loadLesson(lesson: Lesson, loading: cc.Node, thisNode: cc.Node) {
+        const config = Config.i
+        config.course = lesson.chapter.course;
+        config.chapter = lesson.chapter;
+        config.lesson = lesson;
+        loading.getComponent(Loading).allowCancel = true;
+        loading.active = true;
+        LessonController.preloadLesson(thisNode, (err: Error) => {
+            if (err) {
+                loading.getComponent(Loading).addMessage(Util.i18NText('Error downloading content. Please connect to internet and try again'), true, true);
+            } else {
+                if (loading && loading.activeInHierarchy) {
+                    config.pushScene('common/scenes/lessonController');
+                }
+            }
+        });
+    }
+
     public static i18NText(key: string) {
         if (typeof key === 'string') {
             return Util._i18NMap.has(key.toLowerCase()) ? this._i18NMap.get(key.toLowerCase()) : key;
@@ -1021,13 +1045,18 @@ export class Util {
         return hash;
     }
 
-    public static resizeSprite(sprite: cc.Sprite, width: number, height: number) {
-        const size = sprite.spriteFrame.getOriginalSize();
-        const xScale = width / size.width;
-        const yScale = height / size.height;
-        const scale = Math.min(xScale, yScale);
+    public static resizeSprite(sprite: cc.Sprite, width: number, height: number, max: number = 1) {
+        const { scale, size } = Util.minScale(sprite, width, height, max);
         sprite.node.width = scale * size.width;
         sprite.node.height = scale * size.height;
 
+    }
+
+    public static minScale(sprite: cc.Sprite, width: number, height: number, max: number = 1) {
+        const size = sprite.spriteFrame.getOriginalSize();
+        const xScale = width / size.width;
+        const yScale = height / size.height;
+        const scale = Math.min(xScale, yScale, max);
+        return { scale, size };
     }
 }
