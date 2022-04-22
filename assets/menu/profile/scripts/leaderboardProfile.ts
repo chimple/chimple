@@ -96,7 +96,10 @@ export default class LeaderboardProfile extends cc.Component {
         this.leaderboardlayout.removeAllChildren();
         const studentList: StudentLeaderboardInfo[] = thisweek ? this.leaderboardJson.weekly : this.leaderboardJson.allTime;
         const currentUserColor = new cc.Color(255, 85, 0);
-
+        const availableWidth = cc.winSize.width - this.weeklyRank.parent.width;
+        const student = cc.instantiate(this.userPrefab)
+        const noOfColums: number = (((student.width * 3) <= availableWidth) ? 3 : (((student.width * 2) <= availableWidth) ? 2 : 1));
+        const studentWidth = availableWidth / noOfColums;
         for (let i = 0; i < studentList.length; i++) {
             const isCurrentUser = thisweek ? (this.weeklyIndex === i) : (this.allTimeIndex === i);
             const totalScore = studentList[i].lessonsPlayed.toString();
@@ -140,13 +143,13 @@ export default class LeaderboardProfile extends cc.Component {
                 if (isCurrentUser) {
                     student.getChildByName('name').color = currentUserColor;
                 }
+                student.width = studentWidth;
                 this.loadRandomAvatar(student.getChildByName('user'), isCurrentUser);
                 student.getChildByName('starscore').getComponentInChildren(cc.Label).string = totalScore;
                 labelComponent.string = (i + 1).toString();
                 this.leaderboardlayout.addChild(student)
             }
         }
-        const availableWidth = cc.winSize.width - this.weeklyRank.parent.width;
         this.leaderboardlayout.width = availableWidth
         this.leaderboardlayout.parent.width = availableWidth
         this.leaderboardlayout.parent.parent.width = availableWidth
