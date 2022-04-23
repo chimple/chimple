@@ -2,7 +2,9 @@ import Config from "../../../common/scripts/lib/config";
 import { User } from "../../../common/scripts/lib/profile";
 import { LeaderboardInfo, StudentLeaderboardInfo } from "../../../common/scripts/services/ServiceApi";
 import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
+import { Util } from "../../../common/scripts/util";
 import { AVATARS } from "../../../private/home/loginnew/scripts/cameraScene";
+
 
 const { ccclass, property } = cc._decorator;
 
@@ -72,20 +74,20 @@ export default class LeaderboardProfile extends cc.Component {
             this.connectButton.node.color = new cc.Color(240, 88, 34);
         }
         if (this.user.schoolName) {
-            this.schoolName.getComponent(cc.Label).string = "School: " + this.user.schoolName
+            this.schoolName.getComponent(cc.Label).string = Util.i18NText("School") + " : " + this.user.schoolName
         }
         if (this.user.sectionName) {
-            this.className.getComponent(cc.Label).string = "Class: " + this.user.sectionName
+            this.className.getComponent(cc.Label).string = Util.i18NText("Class  :") + " " + this.user.sectionName
         }
         this.userNode.getComponentInChildren(cc.Label).string = this.user.name;
         this.leaderboardJson = await ServiceConfig.getI().handle.getLeaderboard(this.user.id, this.user.sectionId, this.user.schoolId,);
         this.weeklyIndex = this.leaderboardJson.weekly.map((v: StudentLeaderboardInfo) => v.userId).indexOf(this.user.id);
         this.allTimeIndex = this.leaderboardJson.allTime.map((v: StudentLeaderboardInfo) => v.userId).indexOf(this.user.id);
         if (this.weeklyIndex >= 0) {
-            this.weeklyRank.getComponent(cc.Label).string = "This week rank: " + (this.weeklyIndex + 1).toString() + " ";
+            this.weeklyRank.getComponent(cc.Label).string = Util?.i18NText("This week rank") + " : " + (this.weeklyIndex + 1).toString() + " ";
         }
         if (this.allTimeIndex >= 0) {
-            this.allTimeRank.getComponent(cc.Label).string = "All time rank: " + (this.allTimeIndex + 1).toString() + " ";
+            this.allTimeRank.getComponent(cc.Label).string = Util.i18NText("All time rank")+ " : " + (this.allTimeIndex + 1).toString() + " ";
         }
         console.log("this leaderboard", this.leaderboardJson)
         this.loadUi(true)

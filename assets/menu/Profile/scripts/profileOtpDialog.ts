@@ -83,14 +83,13 @@ export default class ProfileOtpDialog extends cc.Component {
                         response.data.profile);
                     const s = response.data.schoolName ? response.data.schoolName : '';
                     const sec = response.data.sectionName ? response.data.sectionName : '';
-                    this.parentNode.getComponentInChildren(cc.Label).string = "Connected";
+                    this.parentNode.getComponentInChildren(cc.Label).string = Util.i18NText("Connected");
                     this.parentNode.node.color = new cc.Color(240, 88, 34);
-
                     if (s) {
-                        this.schoolName.getComponent(cc.Label).string = "School: " + s
+                        this.schoolName.getComponent(cc.Label).string = Util.i18NText("School") + " : " + s
                     }
                     if (sec) {
-                        this.className.getComponent(cc.Label).string = "Class: " + sec
+                        this.className.getComponent(cc.Label).string = Util.i18NText("Class  :") + " " + sec
                     }
                     this.parentNode.interactable = false;
                     this.onOtpClose();
