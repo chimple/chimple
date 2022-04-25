@@ -32,7 +32,7 @@ export default class ProfileOtpDialog extends cc.Component {
     className: cc.Node = null;
 
     protected onLoad() {
-        this.title.string = Util.i18NText("We sent an OTP to verify your number.");
+        this.title.string = Util.i18NText("Ask your teacher for the class code and enter it there");
         this.editBox.string = "";
         this.confirmBtn.interactable = false;
         this.btnLabel.string = Util.i18NText("Confirm");
@@ -83,14 +83,13 @@ export default class ProfileOtpDialog extends cc.Component {
                         response.data.profile);
                     const s = response.data.schoolName ? response.data.schoolName : '';
                     const sec = response.data.sectionName ? response.data.sectionName : '';
-                    this.parentNode.getComponentInChildren(cc.Label).string = "Connected";
+                    this.parentNode.getComponentInChildren(cc.Label).string = Util.i18NText("Connected");
                     this.parentNode.node.color = new cc.Color(240, 88, 34);
-
                     if (s) {
-                        this.schoolName.getComponent(cc.Label).string = "School: " + s
+                        this.schoolName.getComponent(cc.Label).string = Util.i18NText("School") + " : " + s
                     }
                     if (sec) {
-                        this.className.getComponent(cc.Label).string = "Class: " + sec
+                        this.className.getComponent(cc.Label).string = Util.i18NText("Class  :") + " " + sec
                     }
                     this.parentNode.interactable = false;
                     this.onOtpClose();
