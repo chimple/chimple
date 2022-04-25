@@ -32,7 +32,7 @@ export default class ProfileOtpDialog extends cc.Component {
     className: cc.Node = null;
 
     protected onLoad() {
-        this.title.string = Util.i18NText("We sent an OTP to verify your number.");
+        this.title.string = Util.i18NText("Ask your teacher for the class code and enter it there");
         this.editBox.string = "";
         this.confirmBtn.interactable = false;
         this.btnLabel.string = Util.i18NText("Confirm");
