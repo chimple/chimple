@@ -51,10 +51,14 @@ export const REWARD_TYPES = ["character", "background", "achievement", "inventor
 export const REWARD_CHARACTERS = ['chimp', 'bear', 'camel', 'cat', 'dog', 'duck', 'hippo', 'horse', 'koala', 'rabbit', 'tiger']
 export const REWARD_BACKGROUNDS = ['camp', 'underwater', 'beach', 'forest', 'city', 'desert', 'fair', 'garden', 'mountain', 'snow', 'village']
 export const NUMBER_NAME = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-export const STICKER_BOOK = ['rewardsticker0000', "rewardsticker0001"]
+export const STICKER_BOOK = ['rewardsticker0000', "rewardsticker0001", "rewardsticker0002", "rewardsticker0003", "rewardsticker0004", "rewardsticker0005"]
 export const STICKER_REWARD = [
     ['ap_puzzle10_bush1_puzzle', 'ap_puzzle10_bush2_puzzle', 'ap_puzzle10_bush3_puzzle', 'ap_puzzle10_camel1_puzzle', 'ap_puzzle10_camel2_puzzle'],
-    ["bulldozer_part1", "bulldozer_part2", "bulldozer_part3", "bulldozer_part4", "bulldozer_part5"]
+    ["bulldozer_part1", "bulldozer_part2", "bulldozer_part3", "bulldozer_part4", "bulldozer_part5", "bulldozer_part6"],
+    ["astronaut_part1", "astronaut_part2", "astronaut_part3", "astronaut_part4", "astronaut_part5", "astronaut_part6"],
+    ["house_part1", "house_part2", "house_part3", "house_part4", "house_part5", "house_part6"],
+    ["rocket_part1", "rocket_part2", "rocket_part3", "rocket_part4", "rocket_part5", "rocket_part6"],
+    ["taxi_part1", "taxi_part2", "taxi_part3", "taxi_part4", "taxi_part5", "taxi_part6"]
 ];
 
 
@@ -1058,5 +1062,17 @@ export class Util {
         const yScale = height / size.height;
         const scale = Math.min(xScale, yScale, max);
         return { scale, size };
+    }
+
+    public static setBackground(bgprefabName: string, node: cc.Node) {
+        cc.resources.load(`backgrounds/prefabs/${bgprefabName}`, (err, sp) => {
+            let bgPrefabInstance = cc.instantiate(sp);
+            // @ts-ignore
+            bgPrefabInstance.y = 0
+            // @ts-ignore
+            bgPrefabInstance.x = 0
+            // @ts-ignore
+            node.addChild(bgPrefabInstance);
+        });
     }
 }

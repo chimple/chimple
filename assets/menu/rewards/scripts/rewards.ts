@@ -2,7 +2,7 @@ import Config from '../../../common/scripts/lib/config'
 import Profile, { CURRENTMODE, User } from '../../../common/scripts/lib/profile';
 import { LANDING_SCENE } from "../../../chimple";
 import { CURRENT_STUDENT_ID, LOGGED_IN_USER, EXAM, MIN_PASS, IS_REMEMBER_TOGGLE_ON } from "../../../common/scripts/lib/constants";
-import { REWARD_TYPES, REWARD_CHARACTERS, REWARD_BACKGROUNDS } from '../../../common/scripts/util';
+import { REWARD_TYPES, REWARD_CHARACTERS, REWARD_BACKGROUNDS, Util } from '../../../common/scripts/util';
 import { Course, Chapter, Lesson } from '../../../common/scripts/lib/convert';
 import Achievement from '../../../common/scorecard/scripts/achievement';
 import { SECTION_LIST } from '../../../private/school/scripts/landing';
@@ -28,6 +28,9 @@ export default class Rewards extends cc.Component {
     @property(cc.Material)
     grayMaterial: cc.Material
 
+    @property(cc.Node)
+    bgHolder: cc.Node
+
     normalSprite: cc.SpriteFrame = null;
     lastSelectedButton: number = -1;
     leftSideNormalSprite: cc.SpriteFrame = null;
@@ -40,26 +43,36 @@ export default class Rewards extends cc.Component {
 
     onLoad() {
         for (let i = 0; i < 3; i++) {
-            this.layoutHolder.children[i].width = cc.winSize.width - 80
-            this.layoutHolder.children[i].children[0].width = cc.winSize.width - 80
-            this.layoutHolder.children[i].children[0].children[0].children[0].width = cc.winSize.width - 80
+            this.layoutHolder.children[i].width = cc.winSize.width - 40
+            this.layoutHolder.children[i].children[0].width = cc.winSize.width - 40
+            this.layoutHolder.children[i].children[0].children[0].children[0].width = cc.winSize.width - 40
         }
         this.loadCharacters();
         this.loadBgs();
         this.checkAchievementsLockStatus();
+
+        const user = User.getCurrentUser()
+        this.bgHolder.removeAllChildren();
+
+        cc.audioEngine.pauseMusic()
+        if (!!user && !!user.currentBg) {
+            Util.setBackground(user.currentBg, this.bgHolder);
+        } else {
+            Util.setBackground("camp", this.bgHolder);
+        }
 
         if (Rewards.contentDecisionFlag) {
             console.log('this.node.getChildByName(rewards)', this.node.name)
             console.log('this.node.getChildByName(rewards)', this.node.getChildByName('Rewards label').name)
             switch (Rewards.contentDecisionFlag) {
                 case '0':
-                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = 'Character Collection'
+                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = Util.i18NText("Character Modification");
                     break;
                 case '1':
-                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = 'Background Collection'
+                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = Util.i18NText("Background Collection");
                     break;
                 case '2':
-                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = 'Achievement Collection'
+                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = Util.i18NText("Badges Collection")
                     break;
 
                 default:
@@ -264,6 +277,9 @@ export default class Rewards extends cc.Component {
 
         // save to profile
         User.getCurrentUser().currentBg = customEventData.toString().trim();
+
+        //To Change current selected Bg
+        Util.setBackground(customEventData.toString().trim(), this.bgHolder);
 
         /// remove already selected 
         let numberOfChildren = this.layoutHolder.children[1].children[0].children[0].children[0].childrenCount

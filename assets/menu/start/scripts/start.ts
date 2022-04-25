@@ -130,9 +130,9 @@ export default class Start extends cc.Component {
 
         cc.audioEngine.pauseMusic()
         if (!!user && !!user.currentBg) {
-            this.setBackground(user.currentBg);
+            Util.setBackground(user.currentBg, this.bgHolder);
         } else {
-            this.setBackground("camp");
+            Util.setBackground("camp", this.bgHolder);
         }
         const loadingComp = this.loading.getComponent(Loading)
         loadingComp.allowCancel = false
@@ -304,7 +304,11 @@ export default class Start extends cc.Component {
         } catch (error) {
             cc.log(error)
         }
-        return Config.i.curriculum.get(ar[0])
+        if (User.getCurrentUser().isConnected) {
+            return Config.i.curriculum.get(ar[0]);
+        } else {
+            return Config.i.curriculum.get(ar[1]);
+        }
     }
 
     private registerTeacherDialogCloseEvent() {
@@ -313,18 +317,6 @@ export default class Start extends cc.Component {
             this.scheduleOnce(() => {
                 this.showTeacherDialog();
             }, 1)
-        });
-    }
-
-    private setBackground(bgprefabName: string) {
-        cc.resources.load(`backgrounds/prefabs/${bgprefabName}`, (err, sp) => {
-            let bgPrefabInstance = cc.instantiate(sp);
-            // @ts-ignore
-            bgPrefabInstance.y = 0
-            // @ts-ignore
-            bgPrefabInstance.x = 0
-            // @ts-ignore
-            this.bgHolder.addChild(bgPrefabInstance);
         });
     }
 
@@ -613,9 +605,6 @@ export default class Start extends cc.Component {
             if (this.node.getChildByName('giftBox').getChildByName(this.gift.name) == undefined) {
                 this.node.getChildByName('giftBox').addChild(this.gift)
             }
-            if (this.node.getChildByName('giftBox').children[0].getChildByName('New Node') != undefined) {
-                this.node.getChildByName('giftBox').children[0].getChildByName('New Node').setContentSize(64, 64);
-            }
             if (courseProgressMap.lessonPlanIndex == courseProgressMap.lessonPlan.length) {
                 this.giveReward(this.gift, user)
             }
@@ -858,28 +847,30 @@ export default class Start extends cc.Component {
     }
 
     toAddGiftBoxNode(image, type) {
-        if (this.node.getChildByName('giftBox').getChildByName(this.gift.name) == undefined) {
-            this.node.getChildByName('giftBox').addChild(this.gift)
-            const planWidth = cc.winSize.width - 128
-            const x1 = -planWidth / 2
-            const y1 = -172
-            const x2 = planWidth / 4
-            const y2 = -172
-            const x3 = -planWidth / 4
-            const y3 = 172
-            const x4 = planWidth / 2
-            const y4 = 172
-            this.gift.x = Math.pow(1 - 1, 3) * x1 + 3 * Math.pow(1 - 1, 2) * 1 * x2 + 3 * (1 - 1) * Math.pow(1, 2) * x3 + Math.pow(1, 3) * x4
-            this.gift.y = Math.pow(1 - 1, 3) * y1 + 3 * Math.pow(1 - 1, 2) * 1 * y2 + 3 * (1 - 1) * Math.pow(1, 2) * y3 + Math.pow(1, 3) * y4
-            this.node.getChildByName('giftBox').children[0].getChildByName(image.name).setContentSize(64, 64);
-        } else {
+        const imageComp = new cc.Node().addComponent(cc.Sprite)
+        imageComp.spriteFrame = new cc.SpriteFrame(type);
 
-            if (this.node.getChildByName('giftBox').children[0].getChildByName(image.name) != undefined) {
-                // @ts-ignore
-                this.node.getChildByName('giftBox').children[0].getChildByName(image.name).getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(type)
-                this.node.getChildByName('giftBox').children[0].getChildByName(image.name).setContentSize(64, 64);
-            }
-        }
+        let sprite: cc.SpriteFrame = new cc.SpriteFrame(type), width: number = 64, height: number = 64, max: number = 1
+        const { scale, size } = Util.minScale(imageComp, width, height, max);
+        console.log('const size = sprite.getOriginalSize();', imageComp.spriteFrame.getOriginalSize(), size, 'scale', scale)
+        console.log('scale * size.width, scale * size.height', scale * size.width, scale * size.height)
+
+        this.node.getChildByName('giftBox').removeAllChildren()
+        this.node.getChildByName('giftBox').addChild(this.gift)
+        const planWidth = cc.winSize.width - 128
+        const x1 = -planWidth / 2
+        const y1 = -172
+        const x2 = planWidth / 4
+        const y2 = -172
+        const x3 = -planWidth / 4
+        const y3 = 172
+        const x4 = planWidth / 2
+        const y4 = 172
+        this.gift.x = Math.pow(1 - 1, 3) * x1 + 3 * Math.pow(1 - 1, 2) * 1 * x2 + 3 * (1 - 1) * Math.pow(1, 2) * x3 + Math.pow(1, 3) * x4
+        this.gift.y = Math.pow(1 - 1, 3) * y1 + 3 * Math.pow(1 - 1, 2) * 1 * y2 + 3 * (1 - 1) * Math.pow(1, 2) * y3 + Math.pow(1, 3) * y4
+
+        this.node.getChildByName('giftBox').children[0].getChildByName(image.name).width = scale * size.width;
+        this.node.getChildByName('giftBox').children[0].getChildByName(image.name).height = scale * size.height;
     }
 
     private unlockCurrentReward() {
