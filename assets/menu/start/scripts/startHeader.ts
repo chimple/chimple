@@ -33,7 +33,10 @@ export default class StartHeader extends cc.Component {
         // this.addButton(ASSIGNMENT_COURSE_ID, assignmentPresent)
 
         this.user.courseProgressMap.forEach((val: CourseProgress, courseId: string) => {
-            this.addButton(courseId, courseId == config.course.id);
+            if (courseId == 'assignment' && !User.getCurrentUser().isConnected) {
+                return;
+            }
+            this.addButton(courseId, courseId == config.course.id)
         })
         this.node.width = cc.winSize.width
         const spacing = Math.max(0, (this.courseLayout.width - (this.courseLayout.childrenCount * this.courseLayout.children[0].width)) / (this.courseLayout.childrenCount + 1))
