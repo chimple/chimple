@@ -62,8 +62,6 @@ export default class Rewards extends cc.Component {
         }
 
         if (Rewards.contentDecisionFlag) {
-            console.log('this.node.getChildByName(rewards)', this.node.name)
-            console.log('this.node.getChildByName(rewards)', this.node.getChildByName('Rewards label').name)
             switch (Rewards.contentDecisionFlag) {
                 case '0':
                     this.node.getChildByName('Rewards label').getComponent(cc.Label).string = Util.i18NText("Character Modification");
@@ -72,7 +70,7 @@ export default class Rewards extends cc.Component {
                     this.node.getChildByName('Rewards label').getComponent(cc.Label).string = Util.i18NText("Background Collection");
                     break;
                 case '2':
-                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = Util.i18NText("Badges Collection")
+                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = Util.i18NText("Badges Collection");
                     break;
 
                 default:
