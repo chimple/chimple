@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "488dc226-7f0c-4544-b3ca-3308d5c6ee7a",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "tracing-3_image_card-small_shadow": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "02d044a9-cd1c-4405-ab79-1826c05947cc",
+      "importer": "sprite-frame",
       "rawTextureUuid": "488dc226-7f0c-4544-b3ca-3308d5c6ee7a",
       "trimType": "auto",
       "trimThreshold": 1,

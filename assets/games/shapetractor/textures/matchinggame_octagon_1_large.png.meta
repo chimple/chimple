@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "6374098a-ae5c-4d44-bf8f-265cdfac666e",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "matchinggame_octagon_1_large": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "9d5763a8-11de-43cd-8a4b-4c372c860a33",
+      "importer": "sprite-frame",
       "rawTextureUuid": "6374098a-ae5c-4d44-bf8f-265cdfac666e",
       "trimType": "auto",
       "trimThreshold": 1,

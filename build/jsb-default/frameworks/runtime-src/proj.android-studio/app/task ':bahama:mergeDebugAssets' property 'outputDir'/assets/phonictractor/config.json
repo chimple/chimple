@@ -1,0 +1,176 @@
+{
+    "paths": {
+        "24rWSVMglEsLPHQH6brHIK": [
+            "prefabs/box_answer",
+            "cc.Prefab"
+        ],
+        "0eaSe3qo5I0LS+IucnIozM": [
+            "prefabs/phonictractor",
+            "cc.Prefab"
+        ],
+        "f15J0q8IBCtZdgg2j7JqJg": [
+            "prefabs/phonictractor_bg",
+            "cc.Prefab"
+        ],
+        "9elutufTlI2YeDNzL7/ncu": [
+            "prefabs/trolly_drop_soundtrain ",
+            "cc.Prefab"
+        ],
+        "08yjAZxjVBhaTAmk13RenH": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "96MqpacuVDfKAj8Z+Y12Hw": [
+            "textures/board",
+            "cc.SpriteFrame",
+            1
+        ],
+        "5bXILqZkpFh4zrIiJl6vRO": [
+            "textures/box_answer_soundtrain",
+            "cc.SpriteFrame",
+            1
+        ],
+        "ee4pn6YldB4KHqhpEtw5Vd": [
+            "textures/phonictractor_moon",
+            "cc.SpriteFrame",
+            1
+        ],
+        "3c+a5K4ctFO6bhxJPTe231": [
+            "textures/phonictractor_mountain1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a2yDeCURBDbL8m1T4fGkm6": [
+            "textures/phonictractor_mountain2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "50hBYwP0xON7Uri4gvSIuz": [
+            "textures/phonictractor_mountain3",
+            "cc.SpriteFrame",
+            1
+        ],
+        "01zCEy4JxMHpJoXO5lPjnl": [
+            "textures/phonictractor_shadow1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "76N1ysebxIYJBS+mARkQ04": [
+            "textures/phonictractor_shadow2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a3qkEUi7VFg5pyDdN1SGAm": [
+            "textures/phonictractor_shadow3",
+            "cc.SpriteFrame",
+            1
+        ],
+        "7f1jjfBnBHJ6iOTblrzixP": [
+            "textures/phonictractor_tracks",
+            "cc.SpriteFrame",
+            1
+        ],
+        "95UXJwhhVLz5C73s5oVtKu": [
+            "textures/phonictractor_tractor_connect",
+            "cc.SpriteFrame",
+            1
+        ],
+        "1bBLxMRYFBsZ7w2zfMombk": [
+            "textures/phonictractor_tractor_head",
+            "cc.SpriteFrame",
+            1
+        ],
+        "8cgIwFhH1HxoUo9D2uRgDC": [
+            "textures/phonictractor_tractor_holder",
+            "cc.SpriteFrame",
+            1
+        ],
+        "b0POMACsBBxrizSjzU0C4K": [
+            "textures/speaker_button_workkicker",
+            "cc.SpriteFrame",
+            1
+        ],
+        "17L7N8bXxLd6OLljAHgk/b": [
+            "textures/truck_bg_soundtrain",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "01zCEy4JxMHpJoXO5lPjnl",
+        "08OOcgWF1GSKOdO5zYCffN",
+        "08yjAZxjVBhaTAmk13RenH",
+        "0eaSe3qo5I0LS+IucnIozM",
+        "16bBEsIb9LQJIHaANRMo2T",
+        "17L7N8bXxLd6OLljAHgk/b",
+        "18cffe2ed",
+        "1bBLxMRYFBsZ7w2zfMombk",
+        "24rWSVMglEsLPHQH6brHIK",
+        "2fFCqlr75CZ6aMzCVP0ea3",
+        "3c+a5K4ctFO6bhxJPTe231",
+        "50hBYwP0xON7Uri4gvSIuz",
+        "5bXILqZkpFh4zrIiJl6vRO",
+        "76N1ysebxIYJBS+mARkQ04",
+        "7f1jjfBnBHJ6iOTblrzixP",
+        "8cgIwFhH1HxoUo9D2uRgDC",
+        "95UXJwhhVLz5C73s5oVtKu",
+        "96MqpacuVDfKAj8Z+Y12Hw",
+        "9elutufTlI2YeDNzL7/ncu",
+        "a1lDuG9cdM2pGPPqgZBQHP",
+        "a2yDeCURBDbL8m1T4fGkm6",
+        "a3qkEUi7VFg5pyDdN1SGAm",
+        "b0POMACsBBxrizSjzU0C4K",
+        "ddeAxL4PZAsqyVqqmaj/kc",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "ee4pn6YldB4KHqhpEtw5Vd",
+        "f15J0q8IBCtZdgg2j7JqJg"
+    ],
+    "scenes": {
+        "db://assets/games/phonictractor/scene/phonictractor.fire": "ddeAxL4PZAsqyVqqmaj/kc"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "02299535b": [
+            "01zCEy4JxMHpJoXO5lPjnl",
+            "08yjAZxjVBhaTAmk13RenH",
+            "0eaSe3qo5I0LS+IucnIozM",
+            "16bBEsIb9LQJIHaANRMo2T",
+            "17L7N8bXxLd6OLljAHgk/b",
+            "18cffe2ed",
+            "1bBLxMRYFBsZ7w2zfMombk",
+            "24rWSVMglEsLPHQH6brHIK",
+            "2fFCqlr75CZ6aMzCVP0ea3",
+            "3c+a5K4ctFO6bhxJPTe231",
+            "50hBYwP0xON7Uri4gvSIuz",
+            "5bXILqZkpFh4zrIiJl6vRO",
+            "76N1ysebxIYJBS+mARkQ04",
+            "7f1jjfBnBHJ6iOTblrzixP",
+            "8cgIwFhH1HxoUo9D2uRgDC",
+            "95UXJwhhVLz5C73s5oVtKu",
+            "96MqpacuVDfKAj8Z+Y12Hw",
+            "9elutufTlI2YeDNzL7/ncu",
+            "a1lDuG9cdM2pGPPqgZBQHP",
+            "a2yDeCURBDbL8m1T4fGkm6",
+            "a3qkEUi7VFg5pyDdN1SGAm",
+            "b0POMACsBBxrizSjzU0C4K",
+            "ddeAxL4PZAsqyVqqmaj/kc",
+            "ee4pn6YldB4KHqhpEtw5Vd",
+            "f15J0q8IBCtZdgg2j7JqJg"
+        ]
+    },
+    "name": "phonictractor",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

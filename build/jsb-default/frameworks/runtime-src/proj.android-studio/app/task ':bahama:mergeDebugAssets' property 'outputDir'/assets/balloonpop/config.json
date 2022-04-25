@@ -1,0 +1,263 @@
+{
+    "paths": {
+        "ddgLoMYDRNJZ6LSGA1AThQ": [
+            "animations/balloon_burst",
+            "cc.AnimationClip"
+        ],
+        "73UDRzcW1FXI2UlAU1IwOR": [
+            "prefabs/background_platform",
+            "cc.Prefab"
+        ],
+        "15oclEXuFHA6GQeO/VipzW": [
+            "prefabs/balloon",
+            "cc.Prefab"
+        ],
+        "19+f0Rj39AQaSRL/8+oXu9": [
+            "prefabs/balloonpop",
+            "cc.Prefab"
+        ],
+        "b1a4UsgydEXIPxfOQ/wvfd": [
+            "prefabs/displayCard",
+            "cc.Prefab"
+        ],
+        "f4vDVtg19GMr6mRT2LvNOP": [
+            "prefabs/progressbar_balloonpop",
+            "cc.Prefab"
+        ],
+        "557S5ye05LV7J2j3VHzOKQ": [
+            "textures/balloon",
+            "cc.SpriteFrame",
+            1
+        ],
+        "5f56JzElpO4rHkqUH5N+Th": [
+            "textures/balloon",
+            "cc.Texture2D"
+        ],
+        "1dUJ6elIlNDpQSeEblzUlC": [
+            "textures/balloonpop_bar_base",
+            "cc.Texture2D"
+        ],
+        "f1L5wrE8VP4IYg5QjXRaaT": [
+            "textures/balloonpop_bar_base",
+            "cc.SpriteFrame",
+            1
+        ],
+        "1aaTnD2I9G+oZ1A+EXEKkX": [
+            "textures/balloonpop_bar_border",
+            "cc.Texture2D"
+        ],
+        "56xiVnmfVAaok1wS3uyeQ2": [
+            "textures/balloonpop_bar_border",
+            "cc.SpriteFrame",
+            1
+        ],
+        "89yaGjHQVOD7TPTwOotyBq": [
+            "textures/balloonpop_bar_fill",
+            "cc.Texture2D"
+        ],
+        "e5cYaTl+RFBbYoL7Ti1Zxc": [
+            "textures/balloonpop_bar_fill",
+            "cc.SpriteFrame",
+            1
+        ],
+        "17KGHZb3FF36ejnufRZjxw": [
+            "textures/balloonpop_buildings",
+            "cc.SpriteFrame",
+            1
+        ],
+        "ceVF4R7FFEE6eB2+Y/HsA5": [
+            "textures/balloonpop_buildings",
+            "cc.Texture2D"
+        ],
+        "333kbvE3NMB5CD1MJSvBre": [
+            "textures/balloonpop_burst1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "88MtEmqnlJC5aJBudO46GY": [
+            "textures/balloonpop_burst1",
+            "cc.Texture2D"
+        ],
+        "14d+E8jBNHzIjwJLAS72AN": [
+            "textures/balloonpop_burst2",
+            "cc.Texture2D"
+        ],
+        "41LmRnQ3xP7ItWhgknI1rq": [
+            "textures/balloonpop_burst2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "79N1/dt5tLQ6HwlWm+JKqo": [
+            "textures/balloonpop_burst3",
+            "cc.SpriteFrame",
+            1
+        ],
+        "e5OOFy5mBFC5asNF9jT2ze": [
+            "textures/balloonpop_burst3",
+            "cc.Texture2D"
+        ],
+        "3cd6yd1yVBdIpGgNTbrl3y": [
+            "textures/balloonpop_burst4",
+            "cc.SpriteFrame",
+            1
+        ],
+        "68nKZsWz5Nb61ezcoCchBS": [
+            "textures/balloonpop_burst4",
+            "cc.Texture2D"
+        ],
+        "6d439zs19AKoJax3QaddLM": [
+            "textures/balloonpop_burst5",
+            "cc.Texture2D"
+        ],
+        "cfeSWqpzxJH5kv+GRCr8TJ": [
+            "textures/balloonpop_burst5",
+            "cc.SpriteFrame",
+            1
+        ],
+        "0epU6JpXZJGq6JNphpRzwU": [
+            "textures/balloonpop_burst6",
+            "cc.Texture2D"
+        ],
+        "f7xy9bqRVHkrEqMMe6fhLd": [
+            "textures/balloonpop_burst6",
+            "cc.SpriteFrame",
+            1
+        ],
+        "21eZRRyCdOn4ZEqupmEjtX": [
+            "textures/balloonpop_burst7",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f9VE54+FhE15bO/XuXqjCJ": [
+            "textures/balloonpop_burst7",
+            "cc.Texture2D"
+        ],
+        "33MTX1LvBP1IgEhqSqxlio": [
+            "textures/balloonpop_burst_star",
+            "cc.Texture2D"
+        ],
+        "8eG/poAmFIM7coQBcFcpV4": [
+            "textures/balloonpop_burst_star",
+            "cc.SpriteFrame",
+            1
+        ],
+        "82NQV8kWFKt7KyYgfp802V": [
+            "textures/balloonpop_card",
+            "cc.Texture2D"
+        ],
+        "cbWt9odlpHQZj/xstdp+5f": [
+            "textures/balloonpop_card",
+            "cc.SpriteFrame",
+            1
+        ],
+        "4bC8YPT3dKdLrAC1WBjkJZ": [
+            "textures/balloonpop_ref_base",
+            "cc.SpriteFrame",
+            1
+        ],
+        "ffbDmy7u9OialUcnTM/cBW": [
+            "textures/balloonpop_ref_base",
+            "cc.Texture2D"
+        ],
+        "0e+IoV0xBEcJcLgEi2b/KR": [
+            "textures/balloonpop_ref_border",
+            "cc.SpriteFrame",
+            1
+        ],
+        "82Ao2CX81LqZyb+tlqaZAB": [
+            "textures/balloonpop_ref_border",
+            "cc.Texture2D"
+        ],
+        "86AVIyfwtBFbbxdq6x4RY5": [
+            "textures/balloonpop_roof",
+            "cc.SpriteFrame",
+            1
+        ],
+        "92ygdwtMNIPbWBcealXLXt": [
+            "textures/balloonpop_roof",
+            "cc.Texture2D"
+        ],
+        "2553pJxKJEEJkpJB149/3n": [
+            "textures/bg",
+            "cc.SpriteFrame",
+            1
+        ],
+        "adWEUe0NlPWaXztPBWKFO9": [
+            "textures/bg",
+            "cc.Texture2D"
+        ]
+    },
+    "uuids": [
+        "020ESpzRxEBat5GCbAWUfM",
+        "08OOcgWF1GSKOdO5zYCffN",
+        "0epU6JpXZJGq6JNphpRzwU",
+        "0e+IoV0xBEcJcLgEi2b/KR",
+        "14d+E8jBNHzIjwJLAS72AN",
+        "15oclEXuFHA6GQeO/VipzW",
+        "17KGHZb3FF36ejnufRZjxw",
+        "19+f0Rj39AQaSRL/8+oXu9",
+        "1aaTnD2I9G+oZ1A+EXEKkX",
+        "1dUJ6elIlNDpQSeEblzUlC",
+        "1ea2a4b44",
+        "21eZRRyCdOn4ZEqupmEjtX",
+        "2553pJxKJEEJkpJB149/3n",
+        "30GPa1cbdDbbOz3je2JesT",
+        "33MTX1LvBP1IgEhqSqxlio",
+        "333kbvE3NMB5CD1MJSvBre",
+        "3cd6yd1yVBdIpGgNTbrl3y",
+        "41LmRnQ3xP7ItWhgknI1rq",
+        "4bC8YPT3dKdLrAC1WBjkJZ",
+        "557S5ye05LV7J2j3VHzOKQ",
+        "56xiVnmfVAaok1wS3uyeQ2",
+        "5f56JzElpO4rHkqUH5N+Th",
+        "68nKZsWz5Nb61ezcoCchBS",
+        "6d439zs19AKoJax3QaddLM",
+        "73UDRzcW1FXI2UlAU1IwOR",
+        "79N1/dt5tLQ6HwlWm+JKqo",
+        "82Ao2CX81LqZyb+tlqaZAB",
+        "82NQV8kWFKt7KyYgfp802V",
+        "86AVIyfwtBFbbxdq6x4RY5",
+        "88MtEmqnlJC5aJBudO46GY",
+        "89yaGjHQVOD7TPTwOotyBq",
+        "8eG/poAmFIM7coQBcFcpV4",
+        "92ygdwtMNIPbWBcealXLXt",
+        "adWEUe0NlPWaXztPBWKFO9",
+        "b1a4UsgydEXIPxfOQ/wvfd",
+        "b48jSF0zhAJrVlOsF7B2mz",
+        "cbWt9odlpHQZj/xstdp+5f",
+        "ceVF4R7FFEE6eB2+Y/HsA5",
+        "cfeSWqpzxJH5kv+GRCr8TJ",
+        "ddgLoMYDRNJZ6LSGA1AThQ",
+        "e5OOFy5mBFC5asNF9jT2ze",
+        "e5cYaTl+RFBbYoL7Ti1Zxc",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "f1L5wrE8VP4IYg5QjXRaaT",
+        "f4vDVtg19GMr6mRT2LvNOP",
+        "f7xy9bqRVHkrEqMMe6fhLd",
+        "f9VE54+FhE15bO/XuXqjCJ",
+        "ffbDmy7u9OialUcnTM/cBW"
+    ],
+    "scenes": {
+        "db://assets/games/balloonpop/scenes/balloonpop.fire": "30GPa1cbdDbbOz3je2JesT"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "b48jSF0zhAJrVlOsF7B2mz",
+        1,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        2
+    ],
+    "deps": [
+        "resources",
+        "main",
+        "internal"
+    ],
+    "packs": {},
+    "name": "balloonpop",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

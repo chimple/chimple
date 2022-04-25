@@ -1,0 +1,168 @@
+{
+    "paths": {
+        "14cPqSDEVJbqRL1pTu0B6N": [
+            "prefabs/spelldoor",
+            "cc.Prefab"
+        ],
+        "d3eMs8wEFNf4q8XgRD/b5t": [
+            "prefabs/spelldoor_bg",
+            "cc.Prefab"
+        ],
+        "36mTob9mJHi7y0wQ+zaaeJ": [
+            "prefabs/spellingDrag",
+            "cc.Prefab"
+        ],
+        "e9v7GdwsFLgZTEEPLhrBrL": [
+            "prefabs/spellingDrop",
+            "cc.Prefab"
+        ],
+        "97ICatMFNJFrmoE2Bw0XPz": [
+            "scenes/shutter_spelling",
+            "cc.AnimationClip"
+        ],
+        "62ggH/plJAWbsCE/XQXHvi": [
+            "textures/Artboard 1",
+            "cc.Texture2D"
+        ],
+        "a0K8Cn/nlFE69UXr8RRxrU": [
+            "textures/Artboard 1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f8ZGDXGwZJxJoFz8zKLgEO": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "ddOCd2oCtCd6g2yzxKF5gm": [
+            "textures/box_alphabet_spelling",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a1wGfn+CBPzqy7cIXNyWh7": [
+            "textures/hole_dropbox_spelling",
+            "cc.SpriteFrame",
+            1
+        ],
+        "6f6cirpmZK/bx7wQDKMhfP": [
+            "textures/hut1_image_spelling",
+            "cc.SpriteFrame",
+            1
+        ],
+        "43LZFJyrJMQ7MRzgb3PzOM": [
+            "textures/shutter1_image_spelling",
+            "cc.SpriteFrame",
+            1
+        ],
+        "4561Us2IxNirZAPRGoTh6P": [
+            "textures/shutter2_image_spelling",
+            "cc.SpriteFrame",
+            1
+        ],
+        "67RH16GkZBJomXLCDxAU2D": [
+            "textures/spelldoor_building1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "39Hv8tI8FIn4mibxTf0YFp": [
+            "textures/spelldoor_building2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "882hVQGHFLOo2+UJfXbfWf": [
+            "textures/spelldoor_bush1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "d9HkpCPQdDfbHVGnP2RVGj": [
+            "textures/spelldoor_bush2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "caRypiwdtCKaxXN4uWcX6u": [
+            "textures/spelldoor_crate",
+            "cc.SpriteFrame",
+            1
+        ],
+        "72PYU5Xy5BLL9CUJVcRdVN": [
+            "textures/spelldoor_mountain",
+            "cc.SpriteFrame",
+            1
+        ],
+        "4aoyaDBilJWJBR9oshvfvG": [
+            "textures/spelldoor_shadow",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        "14cPqSDEVJbqRL1pTu0B6N",
+        "1c3d9d065",
+        "36mTob9mJHi7y0wQ+zaaeJ",
+        "39Hv8tI8FIn4mibxTf0YFp",
+        "43LZFJyrJMQ7MRzgb3PzOM",
+        "4561Us2IxNirZAPRGoTh6P",
+        "4aoyaDBilJWJBR9oshvfvG",
+        "4fkys+ydJGHoI9RO/pcL+L",
+        "62ggH/plJAWbsCE/XQXHvi",
+        "67RH16GkZBJomXLCDxAU2D",
+        "6f6cirpmZK/bx7wQDKMhfP",
+        "72PYU5Xy5BLL9CUJVcRdVN",
+        "882hVQGHFLOo2+UJfXbfWf",
+        "97ICatMFNJFrmoE2Bw0XPz",
+        "a0K8Cn/nlFE69UXr8RRxrU",
+        "a1wGfn+CBPzqy7cIXNyWh7",
+        "caRypiwdtCKaxXN4uWcX6u",
+        "d3eMs8wEFNf4q8XgRD/b5t",
+        "d9HkpCPQdDfbHVGnP2RVGj",
+        "ddOCd2oCtCd6g2yzxKF5gm",
+        "e9v7GdwsFLgZTEEPLhrBrL",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "f8ZGDXGwZJxJoFz8zKLgEO"
+    ],
+    "scenes": {
+        "db://assets/games/spelldoor/scenes/spelldoor.fire": "4fkys+ydJGHoI9RO/pcL+L"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "0e6f8dca0": [
+            "14cPqSDEVJbqRL1pTu0B6N",
+            "1c3d9d065",
+            "36mTob9mJHi7y0wQ+zaaeJ",
+            "39Hv8tI8FIn4mibxTf0YFp",
+            "43LZFJyrJMQ7MRzgb3PzOM",
+            "4561Us2IxNirZAPRGoTh6P",
+            "4aoyaDBilJWJBR9oshvfvG",
+            "4fkys+ydJGHoI9RO/pcL+L",
+            "62ggH/plJAWbsCE/XQXHvi",
+            "67RH16GkZBJomXLCDxAU2D",
+            "6f6cirpmZK/bx7wQDKMhfP",
+            "72PYU5Xy5BLL9CUJVcRdVN",
+            "882hVQGHFLOo2+UJfXbfWf",
+            "97ICatMFNJFrmoE2Bw0XPz",
+            "a0K8Cn/nlFE69UXr8RRxrU",
+            "a1wGfn+CBPzqy7cIXNyWh7",
+            "caRypiwdtCKaxXN4uWcX6u",
+            "d3eMs8wEFNf4q8XgRD/b5t",
+            "d9HkpCPQdDfbHVGnP2RVGj",
+            "ddOCd2oCtCd6g2yzxKF5gm",
+            "e9v7GdwsFLgZTEEPLhrBrL",
+            "f8ZGDXGwZJxJoFz8zKLgEO"
+        ]
+    },
+    "name": "spelldoor",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

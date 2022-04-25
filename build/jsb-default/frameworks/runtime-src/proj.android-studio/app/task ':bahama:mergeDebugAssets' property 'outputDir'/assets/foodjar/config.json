@@ -1,0 +1,197 @@
+{
+    "paths": {
+        "558ydZULBAeKdm4dEVZnSt": [
+            "prefabs/equationChoice",
+            "cc.Prefab"
+        ],
+        "8eD5GD4ZZOxqT1VEZ29Nv5": [
+            "prefabs/equationDrop",
+            "cc.Prefab"
+        ],
+        "4enuogTyBLZblXlW0MbgRY": [
+            "prefabs/equationLabel",
+            "cc.Prefab"
+        ],
+        "eej2XhR/xI8oPEdmfAIcsz": [
+            "prefabs/foodjar",
+            "cc.Prefab"
+        ],
+        "93rNAUm9hBGJ5A+YJUBa6/": [
+            "prefabs/multChoice",
+            "cc.Prefab"
+        ],
+        "37XYYoofBEGIxalYnBjx7K": [
+            "prefabs/multDrop",
+            "cc.Prefab"
+        ],
+        "cbCwqzevFERIuQtbgBMKkO": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "a8BdnLcNRN65HWpA/CTHOo": [
+            "textures/bigjar_equation",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f1ta4oIj1E8adu3eFQSDfB": [
+            "textures/bigjargrey_equation",
+            "cc.SpriteFrame",
+            1
+        ],
+        "9blYz+zctBeZ5UpRDNAmp3": [
+            "textures/block_01",
+            "cc.SpriteFrame",
+            1
+        ],
+        "30zlOjuZdA8Ydq9LIHYkBp": [
+            "textures/block_02",
+            "cc.SpriteFrame",
+            1
+        ],
+        "9fJGOji/tEz5TJuHoB/8Aq": [
+            "textures/foodjar_cupboard",
+            "cc.SpriteFrame",
+            1
+        ],
+        "06Ykjebq5EGL16US7gou8v": [
+            "textures/foodjar_fridge",
+            "cc.SpriteFrame",
+            1
+        ],
+        "7c2TNx9hNC/6oaoJBCKkav": [
+            "textures/foodjar_oven",
+            "cc.SpriteFrame",
+            1
+        ],
+        "44/MGwhslI5rBv7srq6Rmb": [
+            "textures/foodjar_tiles",
+            "cc.SpriteFrame",
+            1
+        ],
+        "ddog9CSbNHtYtffIi32tcU": [
+            "textures/smalljar_equation",
+            "cc.SpriteFrame",
+            1
+        ],
+        "98CHkmm/VFc4OCIjvArfvO": [
+            "textures/smalljargrey_equation",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "06Ykjebq5EGL16US7gou8v",
+        "08OOcgWF1GSKOdO5zYCffN",
+        "14KwpS24dKbKUoB23jeGUm",
+        "1b834544f",
+        "2e+9XB91FNE7lcj1QX/o1+",
+        "30zlOjuZdA8Ydq9LIHYkBp",
+        "34hMFuVHpEQqcn8injzMX5",
+        "37XYYoofBEGIxalYnBjx7K",
+        "40GaVVbPxGNYhFL38qNlN0",
+        "44/MGwhslI5rBv7srq6Rmb",
+        "45bk4jap9A9pnIF9diavwp",
+        "46cjH9KYRM0bAPZpqqQCeu",
+        "4enuogTyBLZblXlW0MbgRY",
+        "558ydZULBAeKdm4dEVZnSt",
+        "70Tl7PiRFM6YlKoexysEqW",
+        "7c2TNx9hNC/6oaoJBCKkav",
+        "7dkK3Wy6ZI/JL05y2irnkD",
+        "7dzgqn9bdIOqW1pSs31oGH",
+        "81pl8mT+9P1Y3UPeKtLQ/M",
+        "87p944wz5Pe5Y5lxJibtDH",
+        "89MGZIY/FCm4Wm8YBevcdX",
+        "8eD5GD4ZZOxqT1VEZ29Nv5",
+        "93rNAUm9hBGJ5A+YJUBa6/",
+        "96vzZLo4RPNbnuUaITanQy",
+        "98CHkmm/VFc4OCIjvArfvO",
+        "9ak/Mk5ztPB6YxchQmON+d",
+        "9blYz+zctBeZ5UpRDNAmp3",
+        "9bvaMerUlDyary99mJa6xp",
+        "9fJGOji/tEz5TJuHoB/8Aq",
+        "a8BdnLcNRN65HWpA/CTHOo",
+        "a89gwQKLpIvoFsdge0XuUf",
+        "b7ZyCCSIBLkLvEQ8V8GyQ5",
+        "cbCwqzevFERIuQtbgBMKkO",
+        "ddog9CSbNHtYtffIi32tcU",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "eej2XhR/xI8oPEdmfAIcsz",
+        "f1ta4oIj1E8adu3eFQSDfB",
+        "fbO643bHBP1ITGDcPnEYLi"
+    ],
+    "scenes": {
+        "db://assets/games/foodjar/scenes/foodjar.fire": "87p944wz5Pe5Y5lxJibtDH"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "14KwpS24dKbKUoB23jeGUm",
+        0,
+        "2e+9XB91FNE7lcj1QX/o1+",
+        0,
+        "34hMFuVHpEQqcn8injzMX5",
+        0,
+        "45bk4jap9A9pnIF9diavwp",
+        0,
+        "46cjH9KYRM0bAPZpqqQCeu",
+        0,
+        "70Tl7PiRFM6YlKoexysEqW",
+        0,
+        "7dkK3Wy6ZI/JL05y2irnkD",
+        0,
+        "7dzgqn9bdIOqW1pSs31oGH",
+        0,
+        "81pl8mT+9P1Y3UPeKtLQ/M",
+        0,
+        "89MGZIY/FCm4Wm8YBevcdX",
+        0,
+        "96vzZLo4RPNbnuUaITanQy",
+        0,
+        "9ak/Mk5ztPB6YxchQmON+d",
+        0,
+        "9bvaMerUlDyary99mJa6xp",
+        0,
+        "a89gwQKLpIvoFsdge0XuUf",
+        0,
+        "b7ZyCCSIBLkLvEQ8V8GyQ5",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1,
+        "fbO643bHBP1ITGDcPnEYLi",
+        0
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "040724ddd": [
+            "06Ykjebq5EGL16US7gou8v",
+            "1b834544f",
+            "30zlOjuZdA8Ydq9LIHYkBp",
+            "37XYYoofBEGIxalYnBjx7K",
+            "40GaVVbPxGNYhFL38qNlN0",
+            "44/MGwhslI5rBv7srq6Rmb",
+            "4enuogTyBLZblXlW0MbgRY",
+            "558ydZULBAeKdm4dEVZnSt",
+            "7c2TNx9hNC/6oaoJBCKkav",
+            "87p944wz5Pe5Y5lxJibtDH",
+            "8eD5GD4ZZOxqT1VEZ29Nv5",
+            "93rNAUm9hBGJ5A+YJUBa6/",
+            "98CHkmm/VFc4OCIjvArfvO",
+            "9blYz+zctBeZ5UpRDNAmp3",
+            "9fJGOji/tEz5TJuHoB/8Aq",
+            "a8BdnLcNRN65HWpA/CTHOo",
+            "cbCwqzevFERIuQtbgBMKkO",
+            "ddog9CSbNHtYtffIi32tcU",
+            "eej2XhR/xI8oPEdmfAIcsz",
+            "f1ta4oIj1E8adu3eFQSDfB"
+        ]
+    },
+    "name": "foodjar",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

@@ -1,0 +1,136 @@
+{
+    "paths": {
+        "47JYooEmhKX5AIEZ1kctmi": [
+            "animations/flyboard",
+            "cc.AnimationClip"
+        ],
+        "1cJGSqJ1hNHZXSPMtLPMo4": [
+            "prefabs/objb",
+            "cc.Prefab"
+        ],
+        "4e2KyMDdtGYLg8tFVMVqS+": [
+            "prefabs/taprise",
+            "cc.Prefab"
+        ],
+        "e9gEy8nIpFIqk0E5Xbintn": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "95dDORrKdAL79UDna7+kr8": [
+            "textures/fire-01",
+            "cc.SpriteFrame",
+            1
+        ],
+        "5eervJQ9VLwriEbbDS3P/h": [
+            "textures/fire-02",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a4y3V7OWxN4oUc5kRvA0dd": [
+            "textures/fire-03",
+            "cc.SpriteFrame",
+            1
+        ],
+        "092HNadU1LeZRv2sglh/Wq": [
+            "textures/flyboard",
+            "cc.SpriteFrame",
+            1
+        ],
+        "5fcRQTkrFEw5yJIL6HTUlU": [
+            "textures/taprise_cloud1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "1fIdR216tOboLlW3/BAEZc": [
+            "textures/taprise_ground",
+            "cc.Texture2D"
+        ],
+        "73oTeW0/pGDLvdbWafmcta": [
+            "textures/taprise_ground",
+            "cc.SpriteFrame",
+            1
+        ],
+        "1bsJ7L/TJP2bmHR5P+bqM7": [
+            "textures/taprise_moon",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f2zVAfox1LWa6vUtY7lJiy": [
+            "textures/taprise_mountain",
+            "cc.SpriteFrame",
+            1
+        ],
+        "b7p9oKeeZJ0LKAWrqpHsTF": [
+            "textures/taprise_snow",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        "092HNadU1LeZRv2sglh/Wq",
+        "12b751928",
+        "17da34db0",
+        "1bsJ7L/TJP2bmHR5P+bqM7",
+        "1cJGSqJ1hNHZXSPMtLPMo4",
+        "1fIdR216tOboLlW3/BAEZc",
+        "47JYooEmhKX5AIEZ1kctmi",
+        "47LfXTNedBhJ5sf0G+5l7j",
+        "4e2KyMDdtGYLg8tFVMVqS+",
+        "5eervJQ9VLwriEbbDS3P/h",
+        "5fcRQTkrFEw5yJIL6HTUlU",
+        "73oTeW0/pGDLvdbWafmcta",
+        "95dDORrKdAL79UDna7+kr8",
+        "a1MrFy6ihKd6CPsBX6Jd5x",
+        "a4y3V7OWxN4oUc5kRvA0dd",
+        "b2aHrECZ5APKGS/0d2hvT1",
+        "b7p9oKeeZJ0LKAWrqpHsTF",
+        "d0qC05vt5GxLaYyB/w3t//",
+        "e9gEy8nIpFIqk0E5Xbintn",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "f18BHgkPBKsbo19cqK3NVM",
+        "f2zVAfox1LWa6vUtY7lJiy"
+    ],
+    "scenes": {},
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "0fecf6954": [
+            "092HNadU1LeZRv2sglh/Wq",
+            "12b751928",
+            "17da34db0",
+            "1bsJ7L/TJP2bmHR5P+bqM7",
+            "1cJGSqJ1hNHZXSPMtLPMo4",
+            "1fIdR216tOboLlW3/BAEZc",
+            "47JYooEmhKX5AIEZ1kctmi",
+            "47LfXTNedBhJ5sf0G+5l7j",
+            "4e2KyMDdtGYLg8tFVMVqS+",
+            "5eervJQ9VLwriEbbDS3P/h",
+            "5fcRQTkrFEw5yJIL6HTUlU",
+            "73oTeW0/pGDLvdbWafmcta",
+            "95dDORrKdAL79UDna7+kr8",
+            "a1MrFy6ihKd6CPsBX6Jd5x",
+            "a4y3V7OWxN4oUc5kRvA0dd",
+            "b2aHrECZ5APKGS/0d2hvT1",
+            "b7p9oKeeZJ0LKAWrqpHsTF",
+            "d0qC05vt5GxLaYyB/w3t//",
+            "e9gEy8nIpFIqk0E5Xbintn",
+            "f18BHgkPBKsbo19cqK3NVM",
+            "f2zVAfox1LWa6vUtY7lJiy"
+        ]
+    },
+    "name": "taprise",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

@@ -1,0 +1,264 @@
+{
+  "buildFiles": [
+    "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Android.mk",
+    "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Application.mk"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+      "NDK_PROJECT_PATH\u003dnull",
+      "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Android.mk",
+      "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Application.mk",
+      "APP_ABI\u003darmeabi-v7a",
+      "NDK_ALL_ABIS\u003darmeabi-v7a",
+      "NDK_DEBUG\u003d1",
+      "APP_PLATFORM\u003dandroid-16",
+      "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj",
+      "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/lib",
+      "NDK_TOOLCHAIN_VERSION\u003dclang",
+      "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+      "NDK_DEBUG\u003d1",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+    "NDK_PROJECT_PATH\u003dnull",
+    "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Android.mk",
+    "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Application.mk",
+    "APP_ABI\u003darmeabi-v7a",
+    "NDK_ALL_ABIS\u003darmeabi-v7a",
+    "NDK_DEBUG\u003d1",
+    "APP_PLATFORM\u003dandroid-16",
+    "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj",
+    "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/lib",
+    "NDK_TOOLCHAIN_VERSION\u003dclang",
+    "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+    "-j16",
+    "NDK_DEBUG\u003d1",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "cocos2dandroid-debug-armeabi-v7a": {
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Application.mk",
+        "APP_ABI\u003darmeabi-v7a",
+        "NDK_ALL_ABIS\u003darmeabi-v7a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-16",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libcocos2dandroid.a"
+      ],
+      "toolchain": "toolchain-armeabi-v7a",
+      "abi": "armeabi-v7a",
+      "artifactName": "cocos2dandroid",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libcocos2dandroid.a"
+    },
+    "editorsupport-debug-armeabi-v7a": {
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Application.mk",
+        "APP_ABI\u003darmeabi-v7a",
+        "NDK_ALL_ABIS\u003darmeabi-v7a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-16",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libeditorsupport.a"
+      ],
+      "toolchain": "toolchain-armeabi-v7a",
+      "abi": "armeabi-v7a",
+      "artifactName": "editorsupport",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libeditorsupport.a"
+    },
+    "cocos2d-debug-armeabi-v7a": {
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Application.mk",
+        "APP_ABI\u003darmeabi-v7a",
+        "NDK_ALL_ABIS\u003darmeabi-v7a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-16",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libcocos2d.a"
+      ],
+      "toolchain": "toolchain-armeabi-v7a",
+      "abi": "armeabi-v7a",
+      "artifactName": "cocos2d",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libcocos2d.a"
+    },
+    "cocos2djs-debug-armeabi-v7a": {
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Application.mk",
+        "APP_ABI\u003darmeabi-v7a",
+        "NDK_ALL_ABIS\u003darmeabi-v7a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-16",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libcocos2djs.so"
+      ],
+      "toolchain": "toolchain-armeabi-v7a",
+      "abi": "armeabi-v7a",
+      "artifactName": "cocos2djs",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libcocos2djs.so"
+    },
+    "pvmp3dec-debug-armeabi-v7a": {
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Application.mk",
+        "APP_ABI\u003darmeabi-v7a",
+        "NDK_ALL_ABIS\u003darmeabi-v7a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-16",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libpvmp3dec.a"
+      ],
+      "toolchain": "toolchain-armeabi-v7a",
+      "abi": "armeabi-v7a",
+      "artifactName": "pvmp3dec",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libpvmp3dec.a"
+    },
+    "extension-debug-armeabi-v7a": {
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Application.mk",
+        "APP_ABI\u003darmeabi-v7a",
+        "NDK_ALL_ABIS\u003darmeabi-v7a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-16",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libextension.a"
+      ],
+      "toolchain": "toolchain-armeabi-v7a",
+      "abi": "armeabi-v7a",
+      "artifactName": "extension",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libextension.a"
+    },
+    "vorbisidec-debug-armeabi-v7a": {
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Application.mk",
+        "APP_ABI\u003darmeabi-v7a",
+        "NDK_ALL_ABIS\u003darmeabi-v7a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-16",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libvorbisidec.a"
+      ],
+      "toolchain": "toolchain-armeabi-v7a",
+      "abi": "armeabi-v7a",
+      "artifactName": "vorbisidec",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libvorbisidec.a"
+    },
+    "audioengine-debug-armeabi-v7a": {
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Application.mk",
+        "APP_ABI\u003darmeabi-v7a",
+        "NDK_ALL_ABIS\u003darmeabi-v7a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-16",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libaudioengine.a"
+      ],
+      "toolchain": "toolchain-armeabi-v7a",
+      "abi": "armeabi-v7a",
+      "artifactName": "audioengine",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libaudioengine.a"
+    },
+    "cpufeatures-debug-armeabi-v7a": {
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/jni/Application.mk",
+        "APP_ABI\u003darmeabi-v7a",
+        "NDK_ALL_ABIS\u003darmeabi-v7a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-16",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libcpufeatures.a"
+      ],
+      "toolchain": "toolchain-armeabi-v7a",
+      "abi": "armeabi-v7a",
+      "artifactName": "cpufeatures",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/build/intermediates/ndkBuild/debug/obj/local/armeabi-v7a/libcpufeatures.a"
+    }
+  },
+  "toolchains": {
+    "toolchain-armeabi-v7a": {
+      "cCompilerExecutable": "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang",
+      "cppCompilerExecutable": "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
+    }
+  },
+  "cFileExtensions": [
+    "c",
+    "s"
+  ],
+  "cppFileExtensions": [
+    "cc",
+    "cpp"
+  ]
+}

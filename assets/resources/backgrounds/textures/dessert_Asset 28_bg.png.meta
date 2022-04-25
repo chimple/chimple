@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "28df5c19-4fb5-4e17-a91d-3567d31f30eb",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "dessert_Asset 28_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "10d41f22-755d-41f4-8c3d-53b72f2e88cc",
+      "importer": "sprite-frame",
       "rawTextureUuid": "28df5c19-4fb5-4e17-a91d-3567d31f30eb",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,0 +1,190 @@
+{
+    "paths": {
+        "4aZksXzrtEUKDEOkeddVD5": [
+            "prefabs/calculator",
+            "cc.Prefab"
+        ],
+        "cd4N/yELFGKLNDPTTBB0O7": [
+            "prefabs/canvas",
+            "cc.Prefab"
+        ],
+        "46K7M5mnxC/pmipCtCaW6B": [
+            "prefabs/drawingArea",
+            "cc.Prefab"
+        ],
+        "74wlwmhj5FUrk0AUaCuzBj": [
+            "prefabs/labelPrefab",
+            "cc.Prefab"
+        ],
+        "d6NB/ZLHBGK504p9jEmnle": [
+            "prefabs/layout",
+            "cc.Prefab"
+        ],
+        "40Xov6aCNF2Keogimousm6": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "17ONbV4FhIf5rTae54WWtJ": [
+            "textures/clear",
+            "cc.SpriteFrame",
+            1
+        ],
+        "bcVsvJkIZOpbyMvSVL4Cpi": [
+            "textures/doubledigit_cup",
+            "cc.SpriteFrame",
+            1
+        ],
+        "d4cNmtAixFYqFtBY68F0Ba": [
+            "textures/doubledigit_notepad",
+            "cc.SpriteFrame",
+            1
+        ],
+        "127pZJ16VAX4I1ZGaPat1f": [
+            "textures/doubledigit_pattern1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "13xKWD5Q9EvbI+J9gOIP7n": [
+            "textures/doubledigit_pattern1",
+            "cc.Texture2D"
+        ],
+        "4fXKSzhclCJqO4eX9vKK4v": [
+            "textures/doubledigit_pattern2",
+            "cc.Texture2D"
+        ],
+        "e6pxgOrlNLoIc1FKQiHfMi": [
+            "textures/doubledigit_pattern2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "97aQcTPnxDNaxqefRa2GAt": [
+            "textures/doubledigit_pencil",
+            "cc.SpriteFrame",
+            1
+        ],
+        "31NTJD2LhIDphwcR7CroxT": [
+            "textures/doubledigit_sheet",
+            "cc.SpriteFrame",
+            1
+        ],
+        "41YxxJar5APZOQFh9MRans": [
+            "textures/multidigit_notepad",
+            "cc.Texture2D"
+        ],
+        "f4CzWsEMFMt4sbFgMuFFgT": [
+            "textures/multidigit_notepad",
+            "cc.SpriteFrame",
+            1
+        ],
+        "30cRMl2iZGbK/iwTq6hqa9": [
+            "textures/multidigit_trashcan_normal",
+            "cc.SpriteFrame",
+            1
+        ],
+        "fcpXKaQztPNJ3AVvnm9lmt": [
+            "textures/multidigit_trashcan_touch",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "02delMVqdBD70a/HSD99FK",
+        "06c5W53blLqLOGr5GzsOVg",
+        "08OOcgWF1GSKOdO5zYCffN",
+        "0flfD1YkdO6a+SuWM/8DME",
+        "12dcb5179",
+        "127pZJ16VAX4I1ZGaPat1f",
+        "13xKWD5Q9EvbI+J9gOIP7n",
+        "17ONbV4FhIf5rTae54WWtJ",
+        "1a35f124b",
+        "2df4EOxUtLrZhtp94sm1jv",
+        "30cRMl2iZGbK/iwTq6hqa9",
+        "31NTJD2LhIDphwcR7CroxT",
+        "40Xov6aCNF2Keogimousm6",
+        "41YxxJar5APZOQFh9MRans",
+        "46K7M5mnxC/pmipCtCaW6B",
+        "4aZksXzrtEUKDEOkeddVD5",
+        "4fXKSzhclCJqO4eX9vKK4v",
+        "60LDUZAkxIa7Dsbr6bYFHp",
+        "6fgBCSDDdPMInvyNlggls2",
+        "72NyVs3JhHXZu+3NK3bcXs",
+        "74wlwmhj5FUrk0AUaCuzBj",
+        "97aQcTPnxDNaxqefRa2GAt",
+        "9bvaMerUlDyary99mJa6xp",
+        "a2MjXRFdtLlYQ5ouAFv/+R",
+        "aaUeVsVGtBH5yPplemplcT",
+        "abC0fBGuVNtKm8F6/fB50j",
+        "b9d4kcq5RDio6UL0rIqbzY",
+        "bcH/JqK6xNx6YTCe5XaOW5",
+        "bcVsvJkIZOpbyMvSVL4Cpi",
+        "cd4N/yELFGKLNDPTTBB0O7",
+        "d4cNmtAixFYqFtBY68F0Ba",
+        "d6NB/ZLHBGK504p9jEmnle",
+        "e6pxgOrlNLoIc1FKQiHfMi",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "f2ZYld2ZZBPIzC3npRv5kM",
+        "f4CzWsEMFMt4sbFgMuFFgT",
+        "fcpXKaQztPNJ3AVvnm9lmt"
+    ],
+    "scenes": {
+        "db://assets/games/calculator/scenes/calculator.fire": "aaUeVsVGtBH5yPplemplcT"
+    },
+    "redirect": [
+        "02delMVqdBD70a/HSD99FK",
+        0,
+        "08OOcgWF1GSKOdO5zYCffN",
+        1,
+        "6fgBCSDDdPMInvyNlggls2",
+        0,
+        "9bvaMerUlDyary99mJa6xp",
+        1,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        0
+    ],
+    "deps": [
+        "internal",
+        "resources"
+    ],
+    "packs": {
+        "09900f195": [
+            "06c5W53blLqLOGr5GzsOVg",
+            "0flfD1YkdO6a+SuWM/8DME",
+            "12dcb5179",
+            "127pZJ16VAX4I1ZGaPat1f",
+            "13xKWD5Q9EvbI+J9gOIP7n",
+            "17ONbV4FhIf5rTae54WWtJ",
+            "1a35f124b",
+            "2df4EOxUtLrZhtp94sm1jv",
+            "30cRMl2iZGbK/iwTq6hqa9",
+            "31NTJD2LhIDphwcR7CroxT",
+            "40Xov6aCNF2Keogimousm6",
+            "41YxxJar5APZOQFh9MRans",
+            "46K7M5mnxC/pmipCtCaW6B",
+            "4aZksXzrtEUKDEOkeddVD5",
+            "4fXKSzhclCJqO4eX9vKK4v",
+            "60LDUZAkxIa7Dsbr6bYFHp",
+            "72NyVs3JhHXZu+3NK3bcXs",
+            "74wlwmhj5FUrk0AUaCuzBj",
+            "97aQcTPnxDNaxqefRa2GAt",
+            "a2MjXRFdtLlYQ5ouAFv/+R",
+            "aaUeVsVGtBH5yPplemplcT",
+            "abC0fBGuVNtKm8F6/fB50j",
+            "b9d4kcq5RDio6UL0rIqbzY",
+            "bcH/JqK6xNx6YTCe5XaOW5",
+            "bcVsvJkIZOpbyMvSVL4Cpi",
+            "cd4N/yELFGKLNDPTTBB0O7",
+            "d4cNmtAixFYqFtBY68F0Ba",
+            "d6NB/ZLHBGK504p9jEmnle",
+            "e6pxgOrlNLoIc1FKQiHfMi",
+            "f2ZYld2ZZBPIzC3npRv5kM",
+            "f4CzWsEMFMt4sbFgMuFFgT",
+            "fcpXKaQztPNJ3AVvnm9lmt"
+        ]
+    },
+    "name": "calculator",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

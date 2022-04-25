@@ -1,0 +1,132 @@
+{
+    "paths": {
+        "14ibhwsgNP14tsT5aW1G0G": [
+            "prefabs/arrangeletters",
+            "cc.Prefab"
+        ],
+        "4bdyNgY1JCZL0OyXaKnQFi": [
+            "prefabs/ball",
+            "cc.Prefab"
+        ],
+        "169NVZorJMjrXZUUVVmL43": [
+            "prefabs/ball2",
+            "cc.Prefab"
+        ],
+        "f4lKmgmstMwZ0QTyJ/mhyb": [
+            "prefabs/imageArea",
+            "cc.Prefab"
+        ],
+        "0bnirw8gpMo4ARglE3QG4Y": [
+            "prefabs/playground",
+            "cc.Prefab"
+        ],
+        "0eEN13wLpMfKm92SNmpBOw": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "c8i0s83SxO+qEoR1ysF3MI": [
+            "textures/exchange_ball",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a1ZfbF0tpOJJMpMNPMTGNV": [
+            "textures/exchange_bush",
+            "cc.SpriteFrame",
+            1
+        ],
+        "153wVE5NpCxr1OlqQMylM2": [
+            "textures/exchange_chair",
+            "cc.SpriteFrame",
+            1
+        ],
+        "c8POJpBQ5NJ69+R+fms6fD": [
+            "textures/exchange_lamp1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "cbtTC6AU5NNrOub0Owyr8M": [
+            "textures/exchange_mud1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "0bnzT96VRL7J8xP20DcF+X": [
+            "textures/exchange_mud2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "75wWUypDZCJYuGXeG89xZR": [
+            "textures/exchange_play1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "060+J7XI1Hd72NLI8X5GA3": [
+            "textures/exchange_play2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "03pFn2qrpJJpSljrO1zpcl": [
+            "textures/exchange_tree1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "6f684w38xHf4wXRuSTLBrY": [
+            "textures/exchange_tree2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "83jEWiNNZI3LhT5y8AKpAj": [
+            "textures/pattern_linematching",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a6MfDmV2ZO+r3M8CzkX53o": [
+            "textures/playground_bush",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "03pFn2qrpJJpSljrO1zpcl",
+        "060+J7XI1Hd72NLI8X5GA3",
+        "08OOcgWF1GSKOdO5zYCffN",
+        "0bnirw8gpMo4ARglE3QG4Y",
+        "0bnzT96VRL7J8xP20DcF+X",
+        "0eEN13wLpMfKm92SNmpBOw",
+        "14ibhwsgNP14tsT5aW1G0G",
+        "153wVE5NpCxr1OlqQMylM2",
+        "169NVZorJMjrXZUUVVmL43",
+        "1d47e8ae7",
+        "4bdyNgY1JCZL0OyXaKnQFi",
+        "56JtUzeNhP7rQ1+zufWD+m",
+        "6f684w38xHf4wXRuSTLBrY",
+        "75wWUypDZCJYuGXeG89xZR",
+        "83jEWiNNZI3LhT5y8AKpAj",
+        "a1ZfbF0tpOJJMpMNPMTGNV",
+        "a6MfDmV2ZO+r3M8CzkX53o",
+        "c8POJpBQ5NJ69+R+fms6fD",
+        "c8i0s83SxO+qEoR1ysF3MI",
+        "cbtTC6AU5NNrOub0Owyr8M",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "f4lKmgmstMwZ0QTyJ/mhyb"
+    ],
+    "scenes": {
+        "db://assets/games/arrangeletters/scenes/arrangeletters.fire": "56JtUzeNhP7rQ1+zufWD+m"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {},
+    "name": "arrangeletters",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

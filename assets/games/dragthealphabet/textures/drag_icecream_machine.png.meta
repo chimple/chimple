@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "1ccc9ce9-f575-44d2-a624-77a806b4992c",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "drag_icecream_machine": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "7a374cc0-45dd-4c42-8570-fe0d928c6209",
+      "importer": "sprite-frame",
       "rawTextureUuid": "1ccc9ce9-f575-44d2-a624-77a806b4992c",
       "trimType": "auto",
       "trimThreshold": 1,

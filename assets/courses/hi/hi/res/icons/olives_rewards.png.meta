@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "ffa41b58-ea23-48f9-a7b1-8ae70f223243",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "olives_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "721f09a8-c72e-4c5f-90c1-2877e686c4a9",
+      "importer": "sprite-frame",
       "rawTextureUuid": "ffa41b58-ea23-48f9-a7b1-8ae70f223243",
       "trimType": "auto",
       "trimThreshold": 1,

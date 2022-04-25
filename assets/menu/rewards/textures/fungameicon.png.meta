@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "111894ac-614f-43b7-aba0-53e8d063611e",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "fungameicon": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "7f61e701-a9b6-4d2c-b884-6e0bfe871aea",
+      "importer": "sprite-frame",
       "rawTextureUuid": "111894ac-614f-43b7-aba0-53e8d063611e",
       "trimType": "auto",
       "trimThreshold": 1,

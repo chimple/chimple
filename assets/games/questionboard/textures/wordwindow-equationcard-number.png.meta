@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "7e240c27-a5bb-423d-b204-b6d07082a23f",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "wordwindow-equationcard-number": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "f38855ab-627f-49dd-9f7e-ef3bd4b000c1",
+      "importer": "sprite-frame",
       "rawTextureUuid": "7e240c27-a5bb-423d-b204-b6d07082a23f",
       "trimType": "auto",
       "trimThreshold": 1,

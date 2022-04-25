@@ -1,0 +1,170 @@
+{
+    "paths": {
+        "7eE82Yls9OeKHVAp5IdSzB": [
+            "prefabs/singleCard",
+            "cc.Prefab"
+        ],
+        "84CRT6uVRCnIVc+GRqzL2z": [
+            "prefabs/singleDrop",
+            "cc.Prefab"
+        ],
+        "a6cMIepptNDKrvCx2QZ8Oj": [
+            "prefabs/subDrop",
+            "cc.Prefab"
+        ],
+        "c4w3Eb8X5J3JVOKrrOG65V": [
+            "prefabs/tenbox",
+            "cc.Prefab"
+        ],
+        "2cTzqHYfhHLKrGmP4EIDxM": [
+            "prefabs/tenboxDrag",
+            "cc.Prefab"
+        ],
+        "5cDy5cWjpFSqkN+ppiTA+1": [
+            "prefabs/tenboxDrop",
+            "cc.Prefab"
+        ],
+        "adNaudmL9L+I/JStQfrJ3T": [
+            "prefabs/tenboxSub",
+            "cc.Prefab"
+        ],
+        "8ck1HYSblBKYo03aDEJmgI": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "3ebUSDG9RAeoGvfMlssXxg": [
+            "textures/mango-shop_image_box_horizontal",
+            "cc.SpriteFrame",
+            1
+        ],
+        "1dzya9rUxOQKXqI6OVTmUJ": [
+            "textures/mango-shop_image_box_horizontal-cover",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f4KO5qgchBWqw5XoF3A7ES": [
+            "textures/mango-shop_image_box_horizontal-cover-number",
+            "cc.SpriteFrame",
+            1
+        ],
+        "d3qRawEOdD97IRSeImXHBU": [
+            "textures/mango-shop_image_mango_horizontal_guide",
+            "cc.SpriteFrame",
+            1
+        ],
+        "d986ihKvxAno0Cwhf9eiF1": [
+            "textures/mangoshop_box1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "37X7Y3Z0BEgpEsqlOjP9+h": [
+            "textures/mangoshop_box2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "62PDvlsVRBpZw4UCOQuZ+V": [
+            "textures/mangoshop_pattern1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "74R5Mj+B9JrIx7zye8Eqng": [
+            "textures/mangoshop_pattern1",
+            "cc.Texture2D"
+        ],
+        "96u6IhoqRCJopNbVhi/pEd": [
+            "textures/mangoshop_pattern2",
+            "cc.Texture2D"
+        ],
+        "ddLqmZFHJIErc7DGzndj8f": [
+            "textures/mangoshop_pattern2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "dbQxZJCbNMtZ6spw0d/Ame": [
+            "textures/mangoshop_veggie1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "7bulmHX1NAgJ1h7o+8b2Rh": [
+            "textures/mangoshop_veggie2",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        "1a2835161",
+        "1dbffb300",
+        "1dzya9rUxOQKXqI6OVTmUJ",
+        "2cTzqHYfhHLKrGmP4EIDxM",
+        "37X7Y3Z0BEgpEsqlOjP9+h",
+        "3ebUSDG9RAeoGvfMlssXxg",
+        "3fSF4Bhz9De5Arw/R+VtYg",
+        "5cDy5cWjpFSqkN+ppiTA+1",
+        "62PDvlsVRBpZw4UCOQuZ+V",
+        "74R5Mj+B9JrIx7zye8Eqng",
+        "767XfuA8lJWq0Lv9EnNqp7",
+        "7bulmHX1NAgJ1h7o+8b2Rh",
+        "7eE82Yls9OeKHVAp5IdSzB",
+        "84CRT6uVRCnIVc+GRqzL2z",
+        "8ck1HYSblBKYo03aDEJmgI",
+        "96u6IhoqRCJopNbVhi/pEd",
+        "a6cMIepptNDKrvCx2QZ8Oj",
+        "adNaudmL9L+I/JStQfrJ3T",
+        "c4w3Eb8X5J3JVOKrrOG65V",
+        "d3qRawEOdD97IRSeImXHBU",
+        "d986ihKvxAno0Cwhf9eiF1",
+        "dbQxZJCbNMtZ6spw0d/Ame",
+        "ddLqmZFHJIErc7DGzndj8f",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "f4KO5qgchBWqw5XoF3A7ES",
+        "f4svhUSLxLdb7TX2Yc7nty"
+    ],
+    "scenes": {},
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "3fSF4Bhz9De5Arw/R+VtYg",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "0d6897ec0": [
+            "1a2835161",
+            "1dbffb300",
+            "1dzya9rUxOQKXqI6OVTmUJ",
+            "2cTzqHYfhHLKrGmP4EIDxM",
+            "37X7Y3Z0BEgpEsqlOjP9+h",
+            "3ebUSDG9RAeoGvfMlssXxg",
+            "5cDy5cWjpFSqkN+ppiTA+1",
+            "62PDvlsVRBpZw4UCOQuZ+V",
+            "74R5Mj+B9JrIx7zye8Eqng",
+            "767XfuA8lJWq0Lv9EnNqp7",
+            "7bulmHX1NAgJ1h7o+8b2Rh",
+            "7eE82Yls9OeKHVAp5IdSzB",
+            "84CRT6uVRCnIVc+GRqzL2z",
+            "8ck1HYSblBKYo03aDEJmgI",
+            "96u6IhoqRCJopNbVhi/pEd",
+            "a6cMIepptNDKrvCx2QZ8Oj",
+            "adNaudmL9L+I/JStQfrJ3T",
+            "c4w3Eb8X5J3JVOKrrOG65V",
+            "d3qRawEOdD97IRSeImXHBU",
+            "d986ihKvxAno0Cwhf9eiF1",
+            "dbQxZJCbNMtZ6spw0d/Ame",
+            "ddLqmZFHJIErc7DGzndj8f",
+            "f4KO5qgchBWqw5XoF3A7ES",
+            "f4svhUSLxLdb7TX2Yc7nty"
+        ]
+    },
+    "name": "tenbox",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

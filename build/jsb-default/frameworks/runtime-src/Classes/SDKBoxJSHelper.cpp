@@ -4,9 +4,11 @@
 // #include <sstream>
 #include "sdkbox/Sdkbox.h"
 
-#include "cocos2d.h"
-#include "base/CCScheduler.h"
-#include "platform/CCApplication.h"
+#ifdef SDKBOX_JSBINDING_CC3
+namespace cocos2d {
+    const char* cocos2dVersion() { return ""; }
+}
+#endif
 
 namespace sdkbox {
 
@@ -43,7 +45,7 @@ namespace sdkbox {
             }
         }
 
-        cocos2d::Application::getInstance()->getScheduler()->performFunctionInCocosThread([funName, params, this](){
+        AppNS::getInstance()->getScheduler()->performFunctionInCocosThread([funName, params, this]() {
             this->invokeJSFunNow(funName, params);
         });
     }

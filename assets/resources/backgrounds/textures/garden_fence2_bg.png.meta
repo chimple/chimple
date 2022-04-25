@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "3c7f403e-4aff-4aee-8761-6c538878353b",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "garden_fence2_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "2834c7c7-fb15-4e14-a361-b2248a05f86d",
+      "importer": "sprite-frame",
       "rawTextureUuid": "3c7f403e-4aff-4aee-8761-6c538878353b",
       "trimType": "auto",
       "trimThreshold": 1,

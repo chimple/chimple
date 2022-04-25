@@ -1,0 +1,222 @@
+{
+    "paths": {
+        "ebYtMZhC1Po5eeIymnaOtr": [
+            "prefabs/Box",
+            "cc.Prefab"
+        ],
+        "1egHbha59FaIp+pPBGfQXq": [
+            "prefabs/Box Empty",
+            "cc.Prefab"
+        ],
+        "0eyDGTknlE47ih6HPR01oy": [
+            "prefabs/Capsule",
+            "cc.Prefab"
+        ],
+        "8cn4uYRrFJi6DzksYQy5uD": [
+            "prefabs/Capsule Empty",
+            "cc.Prefab"
+        ],
+        "44o/+6c3dCOI2gNiHq2t3Z": [
+            "prefabs/bridge",
+            "cc.Prefab"
+        ],
+        "7euDISwsFBm63NuGtzNT/i": [
+            "prefabs/jumpsentence",
+            "cc.Prefab"
+        ],
+        "eaTdWSZs1H1YvVX6ho8zsE": [
+            "prefabs/label",
+            "cc.Prefab"
+        ],
+        "7fxVZgY0JKeqwGYVV4V2UG": [
+            "prefabs/word_box",
+            "cc.Prefab"
+        ],
+        "79DdMvaWJFAaPrAJm3VJCq": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "31T2wWP9hBf64QRmmOkGYW": [
+            "textures/box_alpha_sentencebridge",
+            "cc.SpriteFrame",
+            1
+        ],
+        "b6d0sShg9LpL3HrmzT0Irc": [
+            "textures/box_glow_sentencebridge",
+            "cc.SpriteFrame",
+            1
+        ],
+        "beL8v9XC5DdoABQghNIn62": [
+            "textures/lowercase_switch",
+            "cc.SpriteFrame",
+            1
+        ],
+        "3cytEETjhClbk1I6qXmMwS": [
+            "textures/new/box",
+            "cc.SpriteFrame",
+            1
+        ],
+        "b8v9UNcQNCEq7Rab8+YALr": [
+            "textures/new/box_alpha_sentencebridge",
+            "cc.SpriteFrame",
+            1
+        ],
+        "eatfiB0SVCfYOszCu1Dbws": [
+            "textures/new/box_disabled_sentencebridge",
+            "cc.SpriteFrame",
+            1
+        ],
+        "15eybFWAxMzIXyVt2dZP/7": [
+            "textures/new/box_empty_sentencebridge",
+            "cc.SpriteFrame",
+            1
+        ],
+        "84J/u6Q7dOJ5JheaSfWReu": [
+            "textures/new/lowercase_switch",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a1hYrmfx1NabNyKb5jvOb1": [
+            "textures/new/uppercase_switch",
+            "cc.SpriteFrame",
+            1
+        ],
+        "7eItlVTVBAs5Ko6pVZtSds": [
+            "textures/round_alpha_sentencebridge",
+            "cc.SpriteFrame",
+            1
+        ],
+        "2a/gGYjWFEooiFc68E2OCp": [
+            "textures/sentencebride_box",
+            "cc.SpriteFrame",
+            1
+        ],
+        "da+sPQEC9KoJjP3uBxhsHZ": [
+            "textures/sentencebride_bush1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "2avzZDsKxHEKYHGGDavcP8": [
+            "textures/sentencebride_bush2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "40nJ94EZhFDKYkvrO00oJf": [
+            "textures/sentencebride_cloud",
+            "cc.SpriteFrame",
+            1
+        ],
+        "9fXPt2zDhCDJTXjfpUvW/a": [
+            "textures/sentencebride_moon",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f1v6LYXgFMkrO4U7kIo8IH": [
+            "textures/sentencebride_mountain",
+            "cc.SpriteFrame",
+            1
+        ],
+        "bcSLYHb8dB5qLRI9CR6oXo": [
+            "textures/sentencebride_pattern1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a8XzRA0fNN15JdTJKeKfq5": [
+            "textures/sentencebride_pattern2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "c4k4z/wu9J7o4uNp46Yoxy": [
+            "textures/uppercase_switch",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        "0eyDGTknlE47ih6HPR01oy",
+        "11714aaa1",
+        "15eybFWAxMzIXyVt2dZP/7",
+        "1egHbha59FaIp+pPBGfQXq",
+        "2avzZDsKxHEKYHGGDavcP8",
+        "2a/gGYjWFEooiFc68E2OCp",
+        "31T2wWP9hBf64QRmmOkGYW",
+        "34Sn6gN4xMD4e25SxHh7cS",
+        "3cytEETjhClbk1I6qXmMwS",
+        "40nJ94EZhFDKYkvrO00oJf",
+        "44o/+6c3dCOI2gNiHq2t3Z",
+        "79DdMvaWJFAaPrAJm3VJCq",
+        "7eItlVTVBAs5Ko6pVZtSds",
+        "7euDISwsFBm63NuGtzNT/i",
+        "7fxVZgY0JKeqwGYVV4V2UG",
+        "84J/u6Q7dOJ5JheaSfWReu",
+        "8cn4uYRrFJi6DzksYQy5uD",
+        "9fXPt2zDhCDJTXjfpUvW/a",
+        "a1hYrmfx1NabNyKb5jvOb1",
+        "a8XzRA0fNN15JdTJKeKfq5",
+        "b6d0sShg9LpL3HrmzT0Irc",
+        "b8v9UNcQNCEq7Rab8+YALr",
+        "bcSLYHb8dB5qLRI9CR6oXo",
+        "beL8v9XC5DdoABQghNIn62",
+        "c4k4z/wu9J7o4uNp46Yoxy",
+        "da+sPQEC9KoJjP3uBxhsHZ",
+        "eaTdWSZs1H1YvVX6ho8zsE",
+        "eatfiB0SVCfYOszCu1Dbws",
+        "ebYtMZhC1Po5eeIymnaOtr",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "f1v6LYXgFMkrO4U7kIo8IH"
+    ],
+    "scenes": {
+        "db://assets/games/jumpsentence/scenes/jumpsentence.fire": "34Sn6gN4xMD4e25SxHh7cS"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "04ebd7157": [
+            "0eyDGTknlE47ih6HPR01oy",
+            "11714aaa1",
+            "15eybFWAxMzIXyVt2dZP/7",
+            "1egHbha59FaIp+pPBGfQXq",
+            "2avzZDsKxHEKYHGGDavcP8",
+            "2a/gGYjWFEooiFc68E2OCp",
+            "31T2wWP9hBf64QRmmOkGYW",
+            "34Sn6gN4xMD4e25SxHh7cS",
+            "3cytEETjhClbk1I6qXmMwS",
+            "40nJ94EZhFDKYkvrO00oJf",
+            "44o/+6c3dCOI2gNiHq2t3Z",
+            "79DdMvaWJFAaPrAJm3VJCq",
+            "7eItlVTVBAs5Ko6pVZtSds",
+            "7euDISwsFBm63NuGtzNT/i",
+            "7fxVZgY0JKeqwGYVV4V2UG",
+            "84J/u6Q7dOJ5JheaSfWReu",
+            "8cn4uYRrFJi6DzksYQy5uD",
+            "9fXPt2zDhCDJTXjfpUvW/a",
+            "a1hYrmfx1NabNyKb5jvOb1",
+            "a8XzRA0fNN15JdTJKeKfq5",
+            "b6d0sShg9LpL3HrmzT0Irc",
+            "b8v9UNcQNCEq7Rab8+YALr",
+            "bcSLYHb8dB5qLRI9CR6oXo",
+            "beL8v9XC5DdoABQghNIn62",
+            "c4k4z/wu9J7o4uNp46Yoxy",
+            "da+sPQEC9KoJjP3uBxhsHZ",
+            "eaTdWSZs1H1YvVX6ho8zsE",
+            "eatfiB0SVCfYOszCu1Dbws",
+            "ebYtMZhC1Po5eeIymnaOtr",
+            "f1v6LYXgFMkrO4U7kIo8IH"
+        ]
+    },
+    "name": "jumpsentence",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

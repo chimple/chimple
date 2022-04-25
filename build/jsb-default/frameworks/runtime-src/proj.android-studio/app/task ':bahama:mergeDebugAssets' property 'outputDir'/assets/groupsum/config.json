@@ -1,0 +1,159 @@
+{
+    "paths": {
+        "26ektL4xhIo5qeNBhDovR0": [
+            "prefab/ball",
+            "cc.Prefab"
+        ],
+        "f3pihJxkNJ56EaUFay4fkj": [
+            "prefab/box",
+            "cc.Prefab"
+        ],
+        "f5Ftl5rfBBo7YrAa2Z9lIa": [
+            "prefab/groupsum",
+            "cc.Prefab"
+        ],
+        "2e6hj2oRZEQJuAlIKJPpQ/": [
+            "prefab/help_label",
+            "cc.Prefab"
+        ],
+        "e0r7PWBKlLA6tPnkpqk7wk": [
+            "prefab/tub",
+            "cc.Prefab"
+        ],
+        "3aGNyOIPxFOphaV5LCAtT1": [
+            "texture/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "08Xx1rQn1CWqgXCdFdkyRH": [
+            "texture/answerboard_quickfacts",
+            "cc.SpriteFrame",
+            1
+        ],
+        "8bWX5zMpJP1aPMOskf5wgS": [
+            "texture/ball_fishtank",
+            "cc.SpriteFrame",
+            1
+        ],
+        "946ofiuvtLNoPoqQ6HzGCJ": [
+            "texture/fishtank_bush1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "7cCb5xbwhCuLvz9cye9CVN": [
+            "texture/fishtank_bush2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "4d+CLAvGJG6IFV0r1KPTDw": [
+            "texture/fishtank_fence",
+            "cc.SpriteFrame",
+            1
+        ],
+        "20ooLULAhHVLzcDDF6+z9X": [
+            "texture/fishtank_grass1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "2bWiyQc6JNtYhDTvLogJZs": [
+            "texture/fishtank_grass2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "3dLBKQ8/9Lx6o4oFLGAuof": [
+            "texture/fishtank_grass3",
+            "cc.SpriteFrame",
+            1
+        ],
+        "8c1/b4xqZCn6fqO/V4jfnf": [
+            "texture/fishtank_grass4",
+            "cc.SpriteFrame",
+            1
+        ],
+        "287M5KzrpOP54MA7dMyGAe": [
+            "texture/fishtank_shadow1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "baXh+j1mhJnJVoi3R1bGp6": [
+            "texture/fishtank_shadow2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a68T3e3QVPA4qCcEJcJ9do": [
+            "texture/tub_fishtank",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        "08Xx1rQn1CWqgXCdFdkyRH",
+        "1f5d955d8",
+        "20ooLULAhHVLzcDDF6+z9X",
+        "26ektL4xhIo5qeNBhDovR0",
+        "28droKngxLEKLoRbc+M9cM",
+        "287M5KzrpOP54MA7dMyGAe",
+        "2bWiyQc6JNtYhDTvLogJZs",
+        "2e6hj2oRZEQJuAlIKJPpQ/",
+        "3aGNyOIPxFOphaV5LCAtT1",
+        "3dLBKQ8/9Lx6o4oFLGAuof",
+        "4d+CLAvGJG6IFV0r1KPTDw",
+        "5aEAfyfTdCOZb2bKBjcKFy",
+        "7cCb5xbwhCuLvz9cye9CVN",
+        "8bWX5zMpJP1aPMOskf5wgS",
+        "8c1/b4xqZCn6fqO/V4jfnf",
+        "946ofiuvtLNoPoqQ6HzGCJ",
+        "a5k5yPYSdOcoTjY5mgT1VS",
+        "a68T3e3QVPA4qCcEJcJ9do",
+        "baXh+j1mhJnJVoi3R1bGp6",
+        "e0r7PWBKlLA6tPnkpqk7wk",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "f3pihJxkNJ56EaUFay4fkj",
+        "f5Ftl5rfBBo7YrAa2Z9lIa"
+    ],
+    "scenes": {
+        "db://assets/games/groupsum/scenes/groupsum.fire": "28droKngxLEKLoRbc+M9cM"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "0c23725b6": [
+            "08Xx1rQn1CWqgXCdFdkyRH",
+            "1f5d955d8",
+            "20ooLULAhHVLzcDDF6+z9X",
+            "26ektL4xhIo5qeNBhDovR0",
+            "28droKngxLEKLoRbc+M9cM",
+            "287M5KzrpOP54MA7dMyGAe",
+            "2bWiyQc6JNtYhDTvLogJZs",
+            "2e6hj2oRZEQJuAlIKJPpQ/",
+            "3aGNyOIPxFOphaV5LCAtT1",
+            "3dLBKQ8/9Lx6o4oFLGAuof",
+            "4d+CLAvGJG6IFV0r1KPTDw",
+            "5aEAfyfTdCOZb2bKBjcKFy",
+            "7cCb5xbwhCuLvz9cye9CVN",
+            "8bWX5zMpJP1aPMOskf5wgS",
+            "8c1/b4xqZCn6fqO/V4jfnf",
+            "946ofiuvtLNoPoqQ6HzGCJ",
+            "a5k5yPYSdOcoTjY5mgT1VS",
+            "a68T3e3QVPA4qCcEJcJ9do",
+            "baXh+j1mhJnJVoi3R1bGp6",
+            "e0r7PWBKlLA6tPnkpqk7wk",
+            "f3pihJxkNJ56EaUFay4fkj",
+            "f5Ftl5rfBBo7YrAa2Z9lIa"
+        ]
+    },
+    "name": "groupsum",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

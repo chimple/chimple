@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "ee6b2516-6572-4eef-a85a-213df47e38de",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "worldover_city1": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "440e381f-4052-4124-b6cb-a21f95866dd8",
+      "importer": "sprite-frame",
       "rawTextureUuid": "ee6b2516-6572-4eef-a85a-213df47e38de",
       "trimType": "auto",
       "trimThreshold": 1,

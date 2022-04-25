@@ -1,0 +1,543 @@
+{
+    "paths": {
+        "477vHRJVpJ6pllix6k/8m+": [
+            "quizliteracy/prefabs/New Label",
+            "cc.Prefab"
+        ],
+        "3dU2maXhpHTpxiKuFRVwZ6": [
+            "quizliteracy/prefabs/arrow",
+            "cc.Prefab"
+        ],
+        "abIxTj8pZPZad9gE2W8hsa": [
+            "quizliteracy/prefabs/fill",
+            "cc.Prefab"
+        ],
+        "2dw61xYu1D96gLKEY8DHip": [
+            "quizliteracy/prefabs/image",
+            "cc.Prefab"
+        ],
+        "49ZwvkgzdLhqHSEzTvTmt3": [
+            "quizliteracy/prefabs/image_sentence",
+            "cc.Prefab"
+        ],
+        "7fGZ8IpSFItqRFMibV6KKC": [
+            "quizliteracy/prefabs/image_word",
+            "cc.Prefab"
+        ],
+        "51ZruC2JJO1bPffVmjW/Dl": [
+            "quizliteracy/prefabs/imageseq_image",
+            "cc.Prefab"
+        ],
+        "1auR9r8t5OEb0swHAn15wJ": [
+            "quizliteracy/prefabs/imageseq_sentence",
+            "cc.Prefab"
+        ],
+        "10ZzCTQqhPyJuEAwG50zyl": [
+            "quizliteracy/prefabs/label",
+            "cc.Prefab"
+        ],
+        "6dvCM92JVKQJ2BvIlbeaQs": [
+            "quizliteracy/prefabs/listening_com_sequence",
+            "cc.Prefab"
+        ],
+        "19PxlEQ9RK8JWg2FAe8/Y6": [
+            "quizliteracy/prefabs/orderDropBox",
+            "cc.Prefab"
+        ],
+        "25SUK9D5FAL7cm0DfnwzGW": [
+            "quizliteracy/prefabs/orderingDrag",
+            "cc.Prefab"
+        ],
+        "293ZDP2+xDw5Wff/7qJEy1": [
+            "quizliteracy/prefabs/orderingDrop",
+            "cc.Prefab"
+        ],
+        "7duKkdkHhIe7t5885X0Ezb": [
+            "quizliteracy/prefabs/ordering_sequence",
+            "cc.Prefab"
+        ],
+        "0cJROuoTtHAonFHI+8rQNj": [
+            "quizliteracy/prefabs/paragraph_sequence",
+            "cc.Prefab"
+        ],
+        "56ebPAPyRL1ZUNrOqZJATY": [
+            "quizliteracy/prefabs/quizImageChoiceButton",
+            "cc.Prefab"
+        ],
+        "c7hkVpxNBM/bTUXaUX+iOp": [
+            "quizliteracy/prefabs/quizTextChoiceButton",
+            "cc.Prefab"
+        ],
+        "e8FoeY0PlC/Z1BcH2kXq7i": [
+            "quizliteracy/prefabs/quizliteracy",
+            "cc.Prefab"
+        ],
+        "aaBOiKnZ1DKakJgvBPrt4Y": [
+            "quizliteracy/prefabs/sentence_sentence",
+            "cc.Prefab"
+        ],
+        "09QrHgjjJCHK6fMRYgn8Bg": [
+            "quizliteracy/prefabs/sentence_word",
+            "cc.Prefab"
+        ],
+        "92f2+yEqVD8YhXQQQouX1y": [
+            "quizliteracy/prefabs/soundonly_image",
+            "cc.Prefab"
+        ],
+        "8cmWtQ0l9Hw4/465uEI51a": [
+            "quizliteracy/prefabs/soundonly_sentence",
+            "cc.Prefab"
+        ],
+        "a0SeoUD51Kt4ab7C1rtO52": [
+            "quizliteracy/prefabs/soundonly_word",
+            "cc.Prefab"
+        ],
+        "d8RBWBISNI073QV0Q/qp/w": [
+            "quizliteracy/prefabs/word_image",
+            "cc.Prefab"
+        ],
+        "373N8cRPVDDZaDxRpcql0O": [
+            "quizliteracy/prefabs/word_word",
+            "cc.Prefab"
+        ],
+        "40/rJZ++RJ6olzMKAsD+kl": [
+            "quizliteracy/textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "2f/eeccANHN5CigU1OlFWs": [
+            "quizliteracy/textures/answer_drop_sentencemaker",
+            "cc.SpriteFrame",
+            1
+        ],
+        "666RQnpL9P45TpG9DTyyc0": [
+            "quizliteracy/textures/image_choice_button",
+            "cc.SpriteFrame",
+            1
+        ],
+        "edE6GicqJFgbVnO5NIBX4G": [
+            "quizliteracy/textures/pretest-speaker-active",
+            "cc.SpriteFrame",
+            1
+        ],
+        "01AIjw+4ZAw4Kk2ha4ghgO": [
+            "quizliteracy/textures/pretest-speaker-normal",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f7f0IwqDpGaJvsaBRA++SL": [
+            "quizliteracy/textures/pretest_arrow",
+            "cc.SpriteFrame",
+            1
+        ],
+        "dah3PtvFtICpLt1//I8rwk": [
+            "quizliteracy/textures/pretest_english_filltheblank",
+            "cc.SpriteFrame",
+            1
+        ],
+        "da+TuT029Id4axCoOzFY2/": [
+            "quizliteracy/textures/pretest_english_format1a_answer_normal",
+            "cc.SpriteFrame",
+            1
+        ],
+        "95oEnJMgVMWJjGoEFXmpjt": [
+            "quizliteracy/textures/sentence_drop_sentencemaker",
+            "cc.SpriteFrame",
+            1
+        ],
+        "61AIoN5ktCCJNbxQd8VENW": [
+            "quizmaths/prefabs/biggerOrSmaller",
+            "cc.Prefab"
+        ],
+        "eaC9dvTDVF9bQ3W6mOQPW4": [
+            "quizmaths/prefabs/c1",
+            "cc.Prefab"
+        ],
+        "bd6HQR4jFCi4VM9iiDxJGC": [
+            "quizmaths/prefabs/compare_number_magnitudes",
+            "cc.Prefab"
+        ],
+        "1fvM4m8+BGBrFSX0T9Qxc3": [
+            "quizmaths/prefabs/countingAnswer",
+            "cc.Prefab"
+        ],
+        "2dHwPG8stH17Dr74ciojEP": [
+            "quizmaths/prefabs/digit_number_image",
+            "cc.Prefab"
+        ],
+        "00l/YDyyhP5IMXDTbW62Kq": [
+            "quizmaths/prefabs/digit_numbers",
+            "cc.Prefab"
+        ],
+        "5aP2i+lXxIx4OHBEssv5h6": [
+            "quizmaths/prefabs/dropPanel",
+            "cc.Prefab"
+        ],
+        "1c0S1zSGJPnosnXI5FUiIw": [
+            "quizmaths/prefabs/label",
+            "cc.Prefab"
+        ],
+        "9eZK36lHpPerQVHkqKVzJq": [
+            "quizmaths/prefabs/labelWithBg",
+            "cc.Prefab"
+        ],
+        "01aPJs171FfZ7c3VRNH7xd": [
+            "quizmaths/prefabs/left",
+            "cc.Prefab"
+        ],
+        "03TbD/TwVOL5BDUSmt32nS": [
+            "quizmaths/prefabs/mathDrag",
+            "cc.Prefab"
+        ],
+        "3bv8RozSZLMoQPSX8adKex": [
+            "quizmaths/prefabs/mathDrop",
+            "cc.Prefab"
+        ],
+        "540ampa7JDx4AyQKsqqZ5w": [
+            "quizmaths/prefabs/missingPanel",
+            "cc.Prefab"
+        ],
+        "46OKZieLpMgLI7yY0+LcWS": [
+            "quizmaths/prefabs/missing_number",
+            "cc.Prefab"
+        ],
+        "56cg8rrXtC7YJQ3kaVtVWa": [
+            "quizmaths/prefabs/number_identification",
+            "cc.Prefab"
+        ],
+        "9c1O5T6U5JQJrcdBgn1zyK": [
+            "quizmaths/prefabs/operations_drag",
+            "cc.Prefab"
+        ],
+        "b39sYUb/tJZKsoXRuInpHe": [
+            "quizmaths/prefabs/operations_with_objects",
+            "cc.Prefab"
+        ],
+        "014rTIlQFFwJPjKhwydWBk": [
+            "quizmaths/prefabs/quizImageChoiceButton",
+            "cc.Prefab"
+        ],
+        "e22su8Y5VJW7YSZi+YN3tl": [
+            "quizmaths/prefabs/quizImageChoiceButtonGrid",
+            "cc.Prefab"
+        ],
+        "50ztKQlxFB4ZjFi5wLpK4N": [
+            "quizmaths/prefabs/quizTextChoiceButton",
+            "cc.Prefab"
+        ],
+        "a1/B4DLidLUYwZouC65fHR": [
+            "quizmaths/prefabs/quizmaths",
+            "cc.Prefab"
+        ],
+        "24kc//xCNBYowx4P0zsRrT": [
+            "quizmaths/prefabs/recognize_number",
+            "cc.Prefab"
+        ],
+        "18IUCSgftOzoeQ9YYV/++F": [
+            "quizmaths/prefabs/shapes",
+            "cc.Prefab"
+        ],
+        "51DFyOt7NIg7z6dUsoU8EF": [
+            "quizmaths/prefabs/word_problem",
+            "cc.Prefab"
+        ],
+        "9f55B17RZKta6M9vmXYcRh": [
+            "quizmaths/textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "f8n1CMId1LHaISbG9eRC7p": [
+            "quizmaths/textures/answer_drop_sentencemaker",
+            "cc.SpriteFrame",
+            1
+        ],
+        "20snqXwo1Pgbkzm5EcZ6DB": [
+            "quizmaths/textures/ball",
+            "cc.SpriteFrame",
+            1
+        ],
+        "7aYcujhENAMaSkm1rYZyvJ": [
+            "quizmaths/textures/counting_image_numberpad_bg",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a8a/+kqvxIha6ndJz+nhmd": [
+            "quizmaths/textures/image_choice_button",
+            "cc.SpriteFrame",
+            1
+        ],
+        "8brjxOLBFN8oWB78jd/XTD": [
+            "quizmaths/textures/pretest-speaker-active",
+            "cc.SpriteFrame",
+            1
+        ],
+        "58hX95l75BvJjF7BQFpkFO": [
+            "quizmaths/textures/pretest-speaker-normal",
+            "cc.SpriteFrame",
+            1
+        ],
+        "ee2MMht7dF3aLehPvGPa5P": [
+            "quizmaths/textures/pretest_arrow",
+            "cc.SpriteFrame",
+            1
+        ],
+        "14vHn+LmJDm62J9iCTvIid": [
+            "quizmaths/textures/pretest_english_filltheblank",
+            "cc.SpriteFrame",
+            1
+        ],
+        "6cxNeXNbRFapblbhdISF3/": [
+            "quizmaths/textures/pretest_english_format1a_answer_active",
+            "cc.SpriteFrame",
+            1
+        ],
+        "62py6Zqf1FFrKLWHtFQJXh": [
+            "quizmaths/textures/pretest_english_format1a_answer_normal",
+            "cc.SpriteFrame",
+            1
+        ],
+        "12EM7nn/ZLrZF4sjMUqSOp": [
+            "quizmaths/textures/pretest_layout_bg",
+            "cc.SpriteFrame",
+            1
+        ],
+        "40dpTxwZpIPJ4vYsaX9Vi6": [
+            "quizmaths/textures/pretest_layout_bg",
+            "cc.Texture2D"
+        ],
+        "5a+nvfjMRK4YACYsBG8I6h": [
+            "quizmaths/textures/pretest_math_dot_blue",
+            "cc.SpriteFrame",
+            1
+        ],
+        "17lO49lsNHRoI2haCz5aXk": [
+            "quizmaths/textures/pretest_math_dot_yellow",
+            "cc.SpriteFrame",
+            1
+        ],
+        "b5SJT8LsRItZAwcWEtYDi2": [
+            "quizmaths/textures/pretest_math_dot_yellow_empty",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a9LWupTc9L2raRoUZxjxnn": [
+            "quizmaths/textures/quiz_paper_pattern",
+            "cc.SpriteFrame",
+            1
+        ],
+        "71RVgBCQ1K46RpaVxxVPRy": [
+            "quizmaths/textures/sentence_drop_sentencemaker",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "00l/YDyyhP5IMXDTbW62Kq",
+        "01AIjw+4ZAw4Kk2ha4ghgO",
+        "01aPJs171FfZ7c3VRNH7xd",
+        "014rTIlQFFwJPjKhwydWBk",
+        "02delMVqdBD70a/HSD99FK",
+        "03TbD/TwVOL5BDUSmt32nS",
+        "06c5W53blLqLOGr5GzsOVg",
+        "09QrHgjjJCHK6fMRYgn8Bg",
+        "0cJROuoTtHAonFHI+8rQNj",
+        "10ZzCTQqhPyJuEAwG50zyl",
+        "12EM7nn/ZLrZF4sjMUqSOp",
+        "1414f2ae4",
+        "14vHn+LmJDm62J9iCTvIid",
+        "154xwaBmRILY2DWi3hYz4X",
+        "1785352fe",
+        "17lO49lsNHRoI2haCz5aXk",
+        "18IUCSgftOzoeQ9YYV/++F",
+        "18ba40932",
+        "19PxlEQ9RK8JWg2FAe8/Y6",
+        "1auR9r8t5OEb0swHAn15wJ",
+        "1c0S1zSGJPnosnXI5FUiIw",
+        "1d3c97425",
+        "1d541ecbd",
+        "1fvM4m8+BGBrFSX0T9Qxc3",
+        "20snqXwo1Pgbkzm5EcZ6DB",
+        "24kc//xCNBYowx4P0zsRrT",
+        "25SUK9D5FAL7cm0DfnwzGW",
+        "293ZDP2+xDw5Wff/7qJEy1",
+        "2dHwPG8stH17Dr74ciojEP",
+        "2df4EOxUtLrZhtp94sm1jv",
+        "2dw61xYu1D96gLKEY8DHip",
+        "2f/eeccANHN5CigU1OlFWs",
+        "373N8cRPVDDZaDxRpcql0O",
+        "3bv8RozSZLMoQPSX8adKex",
+        "3dU2maXhpHTpxiKuFRVwZ6",
+        "40dpTxwZpIPJ4vYsaX9Vi6",
+        "40/rJZ++RJ6olzMKAsD+kl",
+        "46OKZieLpMgLI7yY0+LcWS",
+        "477vHRJVpJ6pllix6k/8m+",
+        "49ZwvkgzdLhqHSEzTvTmt3",
+        "4dm1QlPHJCrZ3+UXZmiES8",
+        "50ztKQlxFB4ZjFi5wLpK4N",
+        "51DFyOt7NIg7z6dUsoU8EF",
+        "51ZruC2JJO1bPffVmjW/Dl",
+        "540ampa7JDx4AyQKsqqZ5w",
+        "56cg8rrXtC7YJQ3kaVtVWa",
+        "56ebPAPyRL1ZUNrOqZJATY",
+        "58hX95l75BvJjF7BQFpkFO",
+        "5aP2i+lXxIx4OHBEssv5h6",
+        "5a+nvfjMRK4YACYsBG8I6h",
+        "61AIoN5ktCCJNbxQd8VENW",
+        "62py6Zqf1FFrKLWHtFQJXh",
+        "666RQnpL9P45TpG9DTyyc0",
+        "6cxNeXNbRFapblbhdISF3/",
+        "6dvCM92JVKQJ2BvIlbeaQs",
+        "71RVgBCQ1K46RpaVxxVPRy",
+        "72NyVs3JhHXZu+3NK3bcXs",
+        "7aYcujhENAMaSkm1rYZyvJ",
+        "7duKkdkHhIe7t5885X0Ezb",
+        "7fGZ8IpSFItqRFMibV6KKC",
+        "8brjxOLBFN8oWB78jd/XTD",
+        "8cmWtQ0l9Hw4/465uEI51a",
+        "92f2+yEqVD8YhXQQQouX1y",
+        "95oEnJMgVMWJjGoEFXmpjt",
+        "9bvaMerUlDyary99mJa6xp",
+        "9c1O5T6U5JQJrcdBgn1zyK",
+        "9eZK36lHpPerQVHkqKVzJq",
+        "9f55B17RZKta6M9vmXYcRh",
+        "a0SeoUD51Kt4ab7C1rtO52",
+        "a1/B4DLidLUYwZouC65fHR",
+        "a2MjXRFdtLlYQ5ouAFv/+R",
+        "a8a/+kqvxIha6ndJz+nhmd",
+        "a9LWupTc9L2raRoUZxjxnn",
+        "aaBOiKnZ1DKakJgvBPrt4Y",
+        "abC0fBGuVNtKm8F6/fB50j",
+        "abIxTj8pZPZad9gE2W8hsa",
+        "b39sYUb/tJZKsoXRuInpHe",
+        "b5SJT8LsRItZAwcWEtYDi2",
+        "baLCcRcMpDoIfl1BMw1Dr/",
+        "bd6HQR4jFCi4VM9iiDxJGC",
+        "c7hkVpxNBM/bTUXaUX+iOp",
+        "d8RBWBISNI073QV0Q/qp/w",
+        "dah3PtvFtICpLt1//I8rwk",
+        "da+TuT029Id4axCoOzFY2/",
+        "e22su8Y5VJW7YSZi+YN3tl",
+        "e8FoeY0PlC/Z1BcH2kXq7i",
+        "eaC9dvTDVF9bQ3W6mOQPW4",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "edE6GicqJFgbVnO5NIBX4G",
+        "ee2MMht7dF3aLehPvGPa5P",
+        "f2ZYld2ZZBPIzC3npRv5kM",
+        "f7f0IwqDpGaJvsaBRA++SL",
+        "f8n1CMId1LHaISbG9eRC7p"
+    ],
+    "scenes": {
+        "db://assets/games/quiz/quizliteracy/scenes/quizliteracy.fire": "baLCcRcMpDoIfl1BMw1Dr/",
+        "db://assets/games/quiz/quizmaths/scenes/quizmaths.fire": "154xwaBmRILY2DWi3hYz4X"
+    },
+    "redirect": [
+        "02delMVqdBD70a/HSD99FK",
+        0,
+        "9bvaMerUlDyary99mJa6xp",
+        1,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        0
+    ],
+    "deps": [
+        "internal",
+        "resources"
+    ],
+    "packs": {
+        "0567455cd": [
+            "00l/YDyyhP5IMXDTbW62Kq",
+            "01AIjw+4ZAw4Kk2ha4ghgO",
+            "01aPJs171FfZ7c3VRNH7xd",
+            "014rTIlQFFwJPjKhwydWBk",
+            "03TbD/TwVOL5BDUSmt32nS",
+            "06c5W53blLqLOGr5GzsOVg",
+            "09QrHgjjJCHK6fMRYgn8Bg",
+            "0cJROuoTtHAonFHI+8rQNj",
+            "10ZzCTQqhPyJuEAwG50zyl",
+            "12EM7nn/ZLrZF4sjMUqSOp",
+            "1414f2ae4",
+            "14vHn+LmJDm62J9iCTvIid",
+            "154xwaBmRILY2DWi3hYz4X",
+            "1785352fe",
+            "17lO49lsNHRoI2haCz5aXk",
+            "18IUCSgftOzoeQ9YYV/++F",
+            "18ba40932",
+            "19PxlEQ9RK8JWg2FAe8/Y6",
+            "1auR9r8t5OEb0swHAn15wJ",
+            "1c0S1zSGJPnosnXI5FUiIw",
+            "1d3c97425",
+            "1d541ecbd",
+            "1fvM4m8+BGBrFSX0T9Qxc3",
+            "20snqXwo1Pgbkzm5EcZ6DB",
+            "24kc//xCNBYowx4P0zsRrT",
+            "25SUK9D5FAL7cm0DfnwzGW",
+            "293ZDP2+xDw5Wff/7qJEy1",
+            "2dHwPG8stH17Dr74ciojEP",
+            "2df4EOxUtLrZhtp94sm1jv",
+            "2dw61xYu1D96gLKEY8DHip",
+            "2f/eeccANHN5CigU1OlFWs",
+            "373N8cRPVDDZaDxRpcql0O",
+            "3bv8RozSZLMoQPSX8adKex",
+            "3dU2maXhpHTpxiKuFRVwZ6",
+            "40dpTxwZpIPJ4vYsaX9Vi6",
+            "40/rJZ++RJ6olzMKAsD+kl",
+            "46OKZieLpMgLI7yY0+LcWS",
+            "477vHRJVpJ6pllix6k/8m+",
+            "49ZwvkgzdLhqHSEzTvTmt3",
+            "4dm1QlPHJCrZ3+UXZmiES8",
+            "50ztKQlxFB4ZjFi5wLpK4N",
+            "51DFyOt7NIg7z6dUsoU8EF",
+            "51ZruC2JJO1bPffVmjW/Dl",
+            "540ampa7JDx4AyQKsqqZ5w",
+            "56cg8rrXtC7YJQ3kaVtVWa",
+            "56ebPAPyRL1ZUNrOqZJATY",
+            "58hX95l75BvJjF7BQFpkFO",
+            "5aP2i+lXxIx4OHBEssv5h6",
+            "5a+nvfjMRK4YACYsBG8I6h",
+            "61AIoN5ktCCJNbxQd8VENW",
+            "62py6Zqf1FFrKLWHtFQJXh",
+            "666RQnpL9P45TpG9DTyyc0",
+            "6cxNeXNbRFapblbhdISF3/",
+            "6dvCM92JVKQJ2BvIlbeaQs",
+            "71RVgBCQ1K46RpaVxxVPRy",
+            "72NyVs3JhHXZu+3NK3bcXs",
+            "7aYcujhENAMaSkm1rYZyvJ",
+            "7duKkdkHhIe7t5885X0Ezb",
+            "7fGZ8IpSFItqRFMibV6KKC",
+            "8brjxOLBFN8oWB78jd/XTD",
+            "8cmWtQ0l9Hw4/465uEI51a",
+            "92f2+yEqVD8YhXQQQouX1y",
+            "95oEnJMgVMWJjGoEFXmpjt",
+            "9c1O5T6U5JQJrcdBgn1zyK",
+            "9eZK36lHpPerQVHkqKVzJq",
+            "9f55B17RZKta6M9vmXYcRh",
+            "a0SeoUD51Kt4ab7C1rtO52",
+            "a1/B4DLidLUYwZouC65fHR",
+            "a2MjXRFdtLlYQ5ouAFv/+R",
+            "a8a/+kqvxIha6ndJz+nhmd",
+            "a9LWupTc9L2raRoUZxjxnn",
+            "aaBOiKnZ1DKakJgvBPrt4Y",
+            "abC0fBGuVNtKm8F6/fB50j",
+            "abIxTj8pZPZad9gE2W8hsa",
+            "b39sYUb/tJZKsoXRuInpHe",
+            "b5SJT8LsRItZAwcWEtYDi2",
+            "baLCcRcMpDoIfl1BMw1Dr/",
+            "bd6HQR4jFCi4VM9iiDxJGC",
+            "c7hkVpxNBM/bTUXaUX+iOp",
+            "d8RBWBISNI073QV0Q/qp/w",
+            "dah3PtvFtICpLt1//I8rwk",
+            "da+TuT029Id4axCoOzFY2/",
+            "e22su8Y5VJW7YSZi+YN3tl",
+            "e8FoeY0PlC/Z1BcH2kXq7i",
+            "eaC9dvTDVF9bQ3W6mOQPW4",
+            "edE6GicqJFgbVnO5NIBX4G",
+            "ee2MMht7dF3aLehPvGPa5P",
+            "f2ZYld2ZZBPIzC3npRv5kM",
+            "f7f0IwqDpGaJvsaBRA++SL",
+            "f8n1CMId1LHaISbG9eRC7p"
+        ]
+    },
+    "name": "quiz",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

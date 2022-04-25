@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "b10dc778-d945-499a-a4aa-38ac34f2d089",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "rhino": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "23cd29c2-f18f-4980-bc3f-3b622b869e75",
+      "importer": "sprite-frame",
       "rawTextureUuid": "b10dc778-d945-499a-a4aa-38ac34f2d089",
       "trimType": "auto",
       "trimThreshold": 1,

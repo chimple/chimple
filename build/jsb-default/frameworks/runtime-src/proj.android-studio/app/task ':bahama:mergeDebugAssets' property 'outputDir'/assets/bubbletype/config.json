@@ -1,0 +1,192 @@
+{
+    "paths": {
+        "db1YXEEwFBwY5UK7grjMmx": [
+            "prefabs/bubblePref",
+            "cc.Prefab"
+        ],
+        "d2FLaRWolK5InNWRFsHd55": [
+            "prefabs/bubbletype",
+            "cc.Prefab"
+        ],
+        "c6KoARSt1HSKREdIsme6VN": [
+            "prefabs/buttonPrefab",
+            "cc.Prefab"
+        ],
+        "0bWEyVcrZIFrO/EEX1aSsI": [
+            "scenes/bublepop",
+            "cc.AnimationClip"
+        ],
+        "ab1qiGzzxJ47KdaJqCJyLL": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "f9F5GhDaxGsaz+ZL0zncDS": [
+            "textures/alphabet",
+            "cc.SpriteFrame",
+            1
+        ],
+        "978AaWRNpMbKUE2bQop7bU": [
+            "textures/box",
+            "cc.SpriteFrame",
+            1
+        ],
+        "feiAb4EORG3JVMqG0/F7AL": [
+            "textures/box_bg_starfall",
+            "cc.SpriteFrame",
+            1
+        ],
+        "d66aPDFvRLEp3Vg7zVq1B1": [
+            "textures/bubble",
+            "cc.SpriteFrame",
+            1
+        ],
+        "6bZ54a4sJDyLapLVkDA84T": [
+            "textures/disabled",
+            "cc.SpriteFrame",
+            1
+        ],
+        "20S75I/TdJLIO4UqvEE3OG": [
+            "textures/keyboard",
+            "cc.SpriteFrame",
+            1
+        ],
+        "eeGDcwidpMEKEiw7dzzV/y": [
+            "textures/keyboard",
+            "cc.Texture2D"
+        ],
+        "daQ7gDrYlGZoRIRMdqxoP2": [
+            "textures/line",
+            "cc.SpriteFrame",
+            1
+        ],
+        "31yDljf8lIgaGTgIm768/3": [
+            "textures/plant1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "8epwMI/LRFtLF2eEIp1s5J": [
+            "textures/plant2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "e6pQTK6bxJOYdLYgmf1nFY": [
+            "textures/plant4",
+            "cc.SpriteFrame",
+            1
+        ],
+        "82xNLZLZhDOZiOH07YJ8J7": [
+            "textures/plant6",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a3U1EQEqdBS55812mkj46R": [
+            "textures/plant8",
+            "cc.SpriteFrame",
+            1
+        ],
+        "e9c50nmHpN1a6pAQJD+19A": [
+            "textures/pressed",
+            "cc.SpriteFrame",
+            1
+        ],
+        "5de+ybhf9LlIT6SV+EIr8T": [
+            "textures/stone",
+            "cc.SpriteFrame",
+            1
+        ],
+        "4fm6CKxh5LRYSErcRhcxhO": [
+            "textures/water",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        "0bWEyVcrZIFrO/EEX1aSsI",
+        "142d9fa48",
+        "20S75I/TdJLIO4UqvEE3OG",
+        "29FYIk+N1GYaeWH/q1NxQO",
+        "31yDljf8lIgaGTgIm768/3",
+        "4fm6CKxh5LRYSErcRhcxhO",
+        "5de+ybhf9LlIT6SV+EIr8T",
+        "6bZ54a4sJDyLapLVkDA84T",
+        "82xNLZLZhDOZiOH07YJ8J7",
+        "8epwMI/LRFtLF2eEIp1s5J",
+        "978AaWRNpMbKUE2bQop7bU",
+        "a3U1EQEqdBS55812mkj46R",
+        "abVggtLPlJJ6yhsMp7aWM/",
+        "ab1qiGzzxJ47KdaJqCJyLL",
+        "c6KoARSt1HSKREdIsme6VN",
+        "d2FLaRWolK5InNWRFsHd55",
+        "d66aPDFvRLEp3Vg7zVq1B1",
+        "daQ7gDrYlGZoRIRMdqxoP2",
+        "db1YXEEwFBwY5UK7grjMmx",
+        "e1r5BRlk9Gn6YWrP9y/tiq",
+        "e6pQTK6bxJOYdLYgmf1nFY",
+        "e9c50nmHpN1a6pAQJD+19A",
+        "e97GVMl6JHh5Ml5qEDdSGa",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "eeGDcwidpMEKEiw7dzzV/y",
+        "f0BIwQ8D5Ml7nTNQbh1YlS",
+        "f3t0ZBR3lKxJPoHPHIl/uw",
+        "f9F5GhDaxGsaz+ZL0zncDS",
+        "fdllvHNXdHxafooyrjTxZL",
+        "feiAb4EORG3JVMqG0/F7AL"
+    ],
+    "scenes": {
+        "db://assets/games/bubbletype/scenes/bubbletype.fire": "fdllvHNXdHxafooyrjTxZL"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "29FYIk+N1GYaeWH/q1NxQO",
+        1,
+        "e97GVMl6JHh5Ml5qEDdSGa",
+        1,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        2,
+        "f0BIwQ8D5Ml7nTNQbh1YlS",
+        1
+    ],
+    "deps": [
+        "resources",
+        "main",
+        "internal"
+    ],
+    "packs": {
+        "0ecffaa7e": [
+            "0bWEyVcrZIFrO/EEX1aSsI",
+            "142d9fa48",
+            "20S75I/TdJLIO4UqvEE3OG",
+            "31yDljf8lIgaGTgIm768/3",
+            "4fm6CKxh5LRYSErcRhcxhO",
+            "5de+ybhf9LlIT6SV+EIr8T",
+            "6bZ54a4sJDyLapLVkDA84T",
+            "82xNLZLZhDOZiOH07YJ8J7",
+            "8epwMI/LRFtLF2eEIp1s5J",
+            "978AaWRNpMbKUE2bQop7bU",
+            "a3U1EQEqdBS55812mkj46R",
+            "abVggtLPlJJ6yhsMp7aWM/",
+            "ab1qiGzzxJ47KdaJqCJyLL",
+            "c6KoARSt1HSKREdIsme6VN",
+            "d2FLaRWolK5InNWRFsHd55",
+            "d66aPDFvRLEp3Vg7zVq1B1",
+            "daQ7gDrYlGZoRIRMdqxoP2",
+            "db1YXEEwFBwY5UK7grjMmx",
+            "e1r5BRlk9Gn6YWrP9y/tiq",
+            "e6pQTK6bxJOYdLYgmf1nFY",
+            "e9c50nmHpN1a6pAQJD+19A",
+            "eeGDcwidpMEKEiw7dzzV/y",
+            "f3t0ZBR3lKxJPoHPHIl/uw",
+            "f9F5GhDaxGsaz+ZL0zncDS",
+            "fdllvHNXdHxafooyrjTxZL",
+            "feiAb4EORG3JVMqG0/F7AL"
+        ]
+    },
+    "name": "bubbletype",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

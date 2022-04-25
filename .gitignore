@@ -91,5 +91,9 @@ assets/courses/puzzle/course-puzzle.meta
 assets/courses/hi/course-hi/
 assets/courses/hi/course-hi.meta
 
+build/jsb-default-old
+build/jsb-default-2.4.8
+*.hprof
+
 scripts/python/venv/
 scripts/python/serviceAccountKey.json

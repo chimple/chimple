@@ -1,0 +1,97 @@
+{
+    "paths": {
+        "88l8XSK8hAUrNHrcBSPPk0": [
+            "prefabs/createsentence",
+            "cc.Prefab"
+        ],
+        "b5/pq2MkJAIauaEHBb9ZgN": [
+            "prefabs/sentencemakerDrag",
+            "cc.Prefab"
+        ],
+        "8bXwbxafxJe4FCv4gNsf9g": [
+            "prefabs/sentencemakerDrop",
+            "cc.Prefab"
+        ],
+        "ec0jR8x6lDzbgiFfwHdvuP": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "d4ePoZ3ZxDi4yjtSW9kzpk": [
+            "textures/answer_drop_sentencemaker",
+            "cc.SpriteFrame",
+            1
+        ],
+        "33wzdbhkNHzYr+1vYLBz+5": [
+            "textures/createsentence_building",
+            "cc.SpriteFrame",
+            1
+        ],
+        "92x9qQyi5A2Z7TqxaY2d9v": [
+            "textures/createsentence_tree",
+            "cc.SpriteFrame",
+            1
+        ],
+        "3cJraQMrpCZ7+FUjT8MUgD": [
+            "textures/sentence_drop_sentencemaker",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        "13fcbfcc5",
+        "1a9ef80f1",
+        "1eD9ygHzBIVqqLRXcmxJXa",
+        "33wzdbhkNHzYr+1vYLBz+5",
+        "39JMefsAROp67H2EDLf5Jg",
+        "3cJraQMrpCZ7+FUjT8MUgD",
+        "58jBXCD8JAt5tOMi5vYFtR",
+        "5dob//cZhGibWNsI2+uQiI",
+        "88l8XSK8hAUrNHrcBSPPk0",
+        "8bXwbxafxJe4FCv4gNsf9g",
+        "92x9qQyi5A2Z7TqxaY2d9v",
+        "b5/pq2MkJAIauaEHBb9ZgN",
+        "d4ePoZ3ZxDi4yjtSW9kzpk",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "ec0jR8x6lDzbgiFfwHdvuP",
+        "fdVt62fIZOOJ4afejD6VxC"
+    ],
+    "scenes": {
+        "db://assets/games/createsentence/scene/createsentence.fire": "58jBXCD8JAt5tOMi5vYFtR"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "05e86f2a9": [
+            "13fcbfcc5",
+            "1a9ef80f1",
+            "1eD9ygHzBIVqqLRXcmxJXa",
+            "33wzdbhkNHzYr+1vYLBz+5",
+            "39JMefsAROp67H2EDLf5Jg",
+            "3cJraQMrpCZ7+FUjT8MUgD",
+            "58jBXCD8JAt5tOMi5vYFtR",
+            "5dob//cZhGibWNsI2+uQiI",
+            "88l8XSK8hAUrNHrcBSPPk0",
+            "8bXwbxafxJe4FCv4gNsf9g",
+            "92x9qQyi5A2Z7TqxaY2d9v",
+            "b5/pq2MkJAIauaEHBb9ZgN",
+            "d4ePoZ3ZxDi4yjtSW9kzpk",
+            "ec0jR8x6lDzbgiFfwHdvuP",
+            "fdVt62fIZOOJ4afejD6VxC"
+        ]
+    },
+    "name": "createsentence",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

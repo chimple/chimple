@@ -1,0 +1,82 @@
+In file included from /Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/ScriptEngine.cpp:47:
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/env.h:528:5: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+    that->Set(context(), name_string, function);
+    ^~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+In file included from /Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/env.cc:1:
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/env.h:528:5: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+    that->Set(context(), name_string, function);
+    ^~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+In file included from /Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/inspector_agent.cc:6:
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/env.h:528:5: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+    that->Set(context(), name_string, function);
+    ^~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/inspector_io.cc:5:
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/env.h:528:5: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+    that->Set(context(), name_string, function);
+    ^~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/node.cc:6:
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/env.h:528:5: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+    that->Set(context(), name_string, function);
+    ^~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/node.cc:406:9: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+        obj->Set(env->context(), env->path_string(), path_string);
+        ^~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/node.cc:410:9: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+        obj->Set(env->context(), env->syscall_string(), OneByteString(env->isolate(), syscall));
+        ^~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/node.cc:402:5: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+    obj->Set(env->context(), env->errno_string(), Integer::New(env->isolate(), errorno));
+    ^~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/node.cc:403:5: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+    obj->Set(env->context(), env->code_string(), estring);
+    ^~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/node.cc:484:9: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+        e->Set(env->context(), env->path_string(), js_path);
+        ^~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/node.cc:486:9: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+        e->Set(env->context(), env->dest_string(), js_dest);
+        ^~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/node.cc:480:5: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+    e->Set(env->context(), env->errno_string(), Integer::New(isolate, errorno));
+    ^~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/node.cc:481:5: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+    e->Set(env->context(), env->code_string(), js_code);
+    ^~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/node.cc:482:5: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+    e->Set(env->context(), env->syscall_string(), js_syscall);
+    ^~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/node.cc:911:9: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+        arguments->Set(env->context(), i, String::NewFromUtf8(env->isolate(), argv[i], v8::NewStringType::kNormal).ToLocalChecked());
+        ^~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/node.cc:918:9: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+        exec_arguments->Set(env->context(), i, String::NewFromUtf8(env->isolate(), exec_argv[i], v8::NewStringType::kNormal).ToLocalChecked());
+        ^~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/node.cc:913:5: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+    process->Set(env->context(), FIXED_ONE_BYTE_STRING(env->isolate(), "argv"), arguments);
+    ^~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/node.cc:920:5: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+    process->Set(env->context(), FIXED_ONE_BYTE_STRING(env->isolate(), "execArgv"),
+    ^~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/node.cc:1130:5: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+    process->Set(env->context(),env->events_string(), events_obj);
+    ^~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+15 warnings generated.
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/scripting/js-bindings/jswrapper/v8/debugger/inspector_agent.cc:675:3: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
+  message->Set(parent_env_->context(), FIXED_ONE_BYTE_STRING(isolate, "cmd"),
+  ^~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+1 warning generated.
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/editor-support/dragonbones/parser/JSONDataParser.cpp:498:13: warning: enumeration value 'Path' not handled in switch [-Wswitch]
+    switch (type)
+            ^
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external/sources/tremolo/Tremolo/floor0.c:61:13: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
+  if(a<(-140<<12)) return 0;
+        ~~~~^
+1 warning generated.
+/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos/platform/android/jni/JniImp.cpp:313:5: warning: control reaches end of non-void function [-Wreturn-type]
+    }
+    ^
+1 warning generated.
+1 warning generated.

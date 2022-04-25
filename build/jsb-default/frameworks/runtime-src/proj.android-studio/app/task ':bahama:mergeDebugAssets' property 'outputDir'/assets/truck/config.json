@@ -1,0 +1,56 @@
+{
+    "paths": {
+        "72fCOs/k5JD7f3jTrBVIt9": [
+            "prefabs/truck",
+            "cc.Prefab"
+        ],
+        "1eD9ygHzBIVqqLRXcmxJXa": [
+            "scenes/truck",
+            "cc.AnimationClip"
+        ],
+        "92UUBxViBNWKKoJQ2xXTIe": [
+            "textures/semi_circle",
+            "cc.Texture2D"
+        ],
+        "9aiFJG/TNCQItwNCRmBkT0": [
+            "textures/semi_circle",
+            "cc.SpriteFrame",
+            1
+        ],
+        "39JMefsAROp67H2EDLf5Jg": [
+            "textures/truck",
+            "cc.SpriteFrame",
+            1
+        ],
+        "5dob//cZhGibWNsI2+uQiI": [
+            "textures/truck",
+            "cc.Texture2D"
+        ]
+    },
+    "uuids": [
+        "13fcbfcc5",
+        "1eD9ygHzBIVqqLRXcmxJXa",
+        "39JMefsAROp67H2EDLf5Jg",
+        "5dob//cZhGibWNsI2+uQiI",
+        "72fCOs/k5JD7f3jTrBVIt9",
+        "92UUBxViBNWKKoJQ2xXTIe",
+        "9aiFJG/TNCQItwNCRmBkT0",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "fdVt62fIZOOJ4afejD6VxC"
+    ],
+    "scenes": {},
+    "redirect": [
+        "ecpdLyjvZBwrvm+cedCcQy",
+        0
+    ],
+    "deps": [
+        "internal"
+    ],
+    "packs": {},
+    "name": "truck",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

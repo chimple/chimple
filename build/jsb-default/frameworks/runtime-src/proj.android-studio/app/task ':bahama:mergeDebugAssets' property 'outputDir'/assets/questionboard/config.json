@@ -1,0 +1,280 @@
+{
+    "paths": {
+        "6eqphEEZpGwajISXGJNCBi": [
+            "prefabs/answerEquationLayout",
+            "cc.Prefab"
+        ],
+        "8fsGuHmglGzrMef7PhTm0E": [
+            "prefabs/answerLayout",
+            "cc.Prefab"
+        ],
+        "27hrCnvjFLS4gePCyTlYJC": [
+            "prefabs/equalSign",
+            "cc.Prefab"
+        ],
+        "b8lWHxW/xBjIjGQ0g4KoU8": [
+            "prefabs/equationText",
+            "cc.Prefab"
+        ],
+        "6dVtbSu3xFu7Eo1MTSJrpt": [
+            "prefabs/greenCard",
+            "cc.Prefab"
+        ],
+        "58kOcnBslGL6BcRI6u+Ceb": [
+            "prefabs/hLayout",
+            "cc.Prefab"
+        ],
+        "7e5CxEgFVMGI6Nig2C+k71": [
+            "prefabs/minusSign",
+            "cc.Prefab"
+        ],
+        "8agimJU/RB4ZphhSNUqn/1": [
+            "prefabs/optionItem",
+            "cc.Prefab"
+        ],
+        "a9X0mVHoxAX6/Banj3Jp35": [
+            "prefabs/optionsLayout",
+            "cc.Prefab"
+        ],
+        "3bdGhcAsRGqaeihmIQzr9c": [
+            "prefabs/plusSign",
+            "cc.Prefab"
+        ],
+        "38XWwEDo5FxozxLIKnc3bq": [
+            "prefabs/questionLayout",
+            "cc.Prefab"
+        ],
+        "39Bd8WRUtGlp5Z77gV4OED": [
+            "prefabs/questionSign",
+            "cc.Prefab"
+        ],
+        "abYlRRHxVBN47ekDuFJRfZ": [
+            "prefabs/questionboard",
+            "cc.Prefab"
+        ],
+        "dcBux3W7BGvKMIlbJsSMZI": [
+            "prefabs/shadowNode",
+            "cc.Prefab"
+        ],
+        "b8y9nKM4VKkI7yfV0MVPFX": [
+            "prefabs/whiteCard",
+            "cc.Prefab"
+        ],
+        "ffY0EsGgtLGYTfj6gDlGNv": [
+            "prefabs/yellowCard",
+            "cc.Prefab"
+        ],
+        "bbjOjP16BM6bEYTB03IWDU": [
+            "sounds/put_object_single",
+            "cc.AudioClip"
+        ],
+        "1cBezBNWZC+aSWhnru7jAu": [
+            "sounds/take_object_single",
+            "cc.AudioClip"
+        ],
+        "0aOXgul1VAKJHM9Vox8By9": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "dbL+Fcgu5BwpC/RtxYwpCz": [
+            "textures/lemon",
+            "cc.SpriteFrame",
+            1
+        ],
+        "17GbkSez9GVLXNFVhj7gSQ": [
+            "textures/watermelon",
+            "cc.SpriteFrame",
+            1
+        ],
+        "c3PQhbiLZMb78NToG3/3Dh": [
+            "textures/wordwindow-btn-answer-correct",
+            "cc.SpriteFrame",
+            1
+        ],
+        "8fA1gf1PVAObqe0PKj2B8D": [
+            "textures/wordwindow-btn-answer-disabled",
+            "cc.SpriteFrame",
+            1
+        ],
+        "743q3NnVBJbY3/yCffcf3J": [
+            "textures/wordwindow-btn-answer-normal",
+            "cc.SpriteFrame",
+            1
+        ],
+        "73lOQ8U8FMm6+FMT66So2A": [
+            "textures/wordwindow-btn-speaker-active",
+            "cc.SpriteFrame",
+            1
+        ],
+        "1byKAq3x9A9qtcff13qMVz": [
+            "textures/wordwindow-btn-speaker-normal",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f3iFWrYn9J3Z9+7zvUsADB": [
+            "textures/wordwindow-equationcard-number",
+            "cc.SpriteFrame",
+            1
+        ],
+        "59pnnMsHVJe6zni+bgdLw0": [
+            "textures/wordwindow-equationcard-symbol",
+            "cc.SpriteFrame",
+            1
+        ],
+        "d2vV40AVVLlr/kyaR+8rkk": [
+            "textures/wordwindow-equationcard-x",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f9gsgEuyFD+a0TCjuQlRwo": [
+            "textures/wordwindow-sign-equal",
+            "cc.SpriteFrame",
+            1
+        ],
+        "c5Q3ZKSUtCmalO0Nd+AgGZ": [
+            "textures/wordwindow-sign-plus",
+            "cc.SpriteFrame",
+            1
+        ],
+        "1bxP1BpeROLoHaJm6tpHof": [
+            "textures/wordwindow-sign-question",
+            "cc.SpriteFrame",
+            1
+        ],
+        "5elqCM7jFC4IBS3zwuEOWt": [
+            "textures/wordwindow-sign-substraction",
+            "cc.SpriteFrame",
+            1
+        ],
+        "954oqXyexCJLLEkqYa0ITC": [
+            "textures/wordwindow_chair",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a9flq7Jg1EDpcxxLVBK73/": [
+            "textures/wordwindow_curtain1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "80RdL5+6ZMTbvuSo9KbfXb": [
+            "textures/wordwindow_curtain2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "2fXFl/U0FKgITlVNcR6Hc2": [
+            "textures/wordwindow_frame_question",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        "0aOXgul1VAKJHM9Vox8By9",
+        "14ce69a9e",
+        "17GbkSez9GVLXNFVhj7gSQ",
+        "1bxP1BpeROLoHaJm6tpHof",
+        "1byKAq3x9A9qtcff13qMVz",
+        "1cBezBNWZC+aSWhnru7jAu",
+        "27hrCnvjFLS4gePCyTlYJC",
+        "2fXFl/U0FKgITlVNcR6Hc2",
+        "38XWwEDo5FxozxLIKnc3bq",
+        "39Bd8WRUtGlp5Z77gV4OED",
+        "3bdGhcAsRGqaeihmIQzr9c",
+        "40GaVVbPxGNYhFL38qNlN0",
+        "58kOcnBslGL6BcRI6u+Ceb",
+        "59pnnMsHVJe6zni+bgdLw0",
+        "5elqCM7jFC4IBS3zwuEOWt",
+        "6dVtbSu3xFu7Eo1MTSJrpt",
+        "6eqphEEZpGwajISXGJNCBi",
+        "73lOQ8U8FMm6+FMT66So2A",
+        "743q3NnVBJbY3/yCffcf3J",
+        "7e5CxEgFVMGI6Nig2C+k71",
+        "80RdL5+6ZMTbvuSo9KbfXb",
+        "8agimJU/RB4ZphhSNUqn/1",
+        "8fA1gf1PVAObqe0PKj2B8D",
+        "8fsGuHmglGzrMef7PhTm0E",
+        "954oqXyexCJLLEkqYa0ITC",
+        "9bvaMerUlDyary99mJa6xp",
+        "a9X0mVHoxAX6/Banj3Jp35",
+        "a9flq7Jg1EDpcxxLVBK73/",
+        "abYlRRHxVBN47ekDuFJRfZ",
+        "b8lWHxW/xBjIjGQ0g4KoU8",
+        "b8y9nKM4VKkI7yfV0MVPFX",
+        "bbjOjP16BM6bEYTB03IWDU",
+        "c3PQhbiLZMb78NToG3/3Dh",
+        "c5Q3ZKSUtCmalO0Nd+AgGZ",
+        "d2vV40AVVLlr/kyaR+8rkk",
+        "dbL+Fcgu5BwpC/RtxYwpCz",
+        "dcBux3W7BGvKMIlbJsSMZI",
+        "e6rvptTxNMKKhi9jZxPhEI",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "f3iFWrYn9J3Z9+7zvUsADB",
+        "f9gsgEuyFD+a0TCjuQlRwo",
+        "ffY0EsGgtLGYTfj6gDlGNv"
+    ],
+    "scenes": {
+        "db://assets/games/questionboard/scenes/questionboard.fire": "e6rvptTxNMKKhi9jZxPhEI"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "9bvaMerUlDyary99mJa6xp",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "0c79b5e8a": [
+            "0aOXgul1VAKJHM9Vox8By9",
+            "14ce69a9e",
+            "17GbkSez9GVLXNFVhj7gSQ",
+            "1bxP1BpeROLoHaJm6tpHof",
+            "1byKAq3x9A9qtcff13qMVz",
+            "1cBezBNWZC+aSWhnru7jAu",
+            "27hrCnvjFLS4gePCyTlYJC",
+            "2fXFl/U0FKgITlVNcR6Hc2",
+            "38XWwEDo5FxozxLIKnc3bq",
+            "39Bd8WRUtGlp5Z77gV4OED",
+            "3bdGhcAsRGqaeihmIQzr9c",
+            "40GaVVbPxGNYhFL38qNlN0",
+            "58kOcnBslGL6BcRI6u+Ceb",
+            "59pnnMsHVJe6zni+bgdLw0",
+            "5elqCM7jFC4IBS3zwuEOWt",
+            "6dVtbSu3xFu7Eo1MTSJrpt",
+            "6eqphEEZpGwajISXGJNCBi",
+            "73lOQ8U8FMm6+FMT66So2A",
+            "743q3NnVBJbY3/yCffcf3J",
+            "7e5CxEgFVMGI6Nig2C+k71",
+            "80RdL5+6ZMTbvuSo9KbfXb",
+            "8agimJU/RB4ZphhSNUqn/1",
+            "8fA1gf1PVAObqe0PKj2B8D",
+            "8fsGuHmglGzrMef7PhTm0E",
+            "954oqXyexCJLLEkqYa0ITC",
+            "a9X0mVHoxAX6/Banj3Jp35",
+            "a9flq7Jg1EDpcxxLVBK73/",
+            "abYlRRHxVBN47ekDuFJRfZ",
+            "b8lWHxW/xBjIjGQ0g4KoU8",
+            "b8y9nKM4VKkI7yfV0MVPFX",
+            "bbjOjP16BM6bEYTB03IWDU",
+            "c3PQhbiLZMb78NToG3/3Dh",
+            "c5Q3ZKSUtCmalO0Nd+AgGZ",
+            "d2vV40AVVLlr/kyaR+8rkk",
+            "dbL+Fcgu5BwpC/RtxYwpCz",
+            "dcBux3W7BGvKMIlbJsSMZI",
+            "e6rvptTxNMKKhi9jZxPhEI",
+            "f3iFWrYn9J3Z9+7zvUsADB",
+            "f9gsgEuyFD+a0TCjuQlRwo",
+            "ffY0EsGgtLGYTfj6gDlGNv"
+        ]
+    },
+    "name": "questionboard",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

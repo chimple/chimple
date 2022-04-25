@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "7cbf6ebd-f326-4460-ba5f-64ab41716ccd",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "foodjar_cupboard": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "9f2463a3-8bfb-44cf-94c9-b87a01ffc02a",
+      "importer": "sprite-frame",
       "rawTextureUuid": "7cbf6ebd-f326-4460-ba5f-64ab41716ccd",
       "trimType": "auto",
       "trimThreshold": 1,

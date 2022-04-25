@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "41748e75-e0fe-43d9-82e4-7c7877c53fdd",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "taprise_moon": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "1bb09ecb-fd32-4fd9-b987-4793fe6ea33b",
+      "importer": "sprite-frame",
       "rawTextureUuid": "41748e75-e0fe-43d9-82e4-7c7877c53fdd",
       "trimType": "auto",
       "trimThreshold": 1,

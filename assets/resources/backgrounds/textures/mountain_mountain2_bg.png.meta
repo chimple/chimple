@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "e3cb061d-e3c9-411a-982a-4873288f0df8",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "mountain_mountain2_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "b049921f-1261-47db-8962-73b4b873187f",
+      "importer": "sprite-frame",
       "rawTextureUuid": "e3cb061d-e3c9-411a-982a-4873288f0df8",
       "trimType": "auto",
       "trimThreshold": 1,

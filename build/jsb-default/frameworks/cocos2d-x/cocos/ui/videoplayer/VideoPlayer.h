@@ -25,10 +25,12 @@
 #pragma once
 
 #include "base/ccMacros.h"
+#include "base/CCData.h"
 #include "base/CCRef.h"
 #include <functional>
 #include <string>
 #include <map>
+#include "renderer/gfx/Texture2D.h"
 
 #ifndef OBJC_CLASS
 #ifdef __OBJC__
@@ -108,6 +110,25 @@ class VideoPlayer : public Ref
     float duration() const;
 
     /**
+     * Get frame rgba pixel as bytes
+     */
+    void getFrame();
+
+    int getFrameChannel() const;
+
+    int getFrameWidth() const;
+
+    int getFrameHeight() const;
+
+    int getVideoTexDataSize() const;
+
+    void update();
+
+    void pushFrameDataToTexture2D(cocos2d::renderer::Texture* tex) const;
+
+    void setShowRawFrame(bool show) const;
+
+    /**
      * Causes the video player to keep aspect ratio or no when displaying the video.
      *
      * @param enable    Specify true to keep aspect ratio or false to scale the video until
@@ -175,6 +196,16 @@ class VideoPlayer : public Ref
     std::map<std::string, ccVideoPlayerCallback> _eventCallback;
 
     void *_videoView;
+
+    int _texDataSize;
+
+private:
+    unsigned char* _videoPixels;
+    int _maxDataLen;
+
+    static const int PX_RGBA = 3;
+    static const int PX_RGB565 = 6;
+    static const int PX_BGRA = 7;
 };
 
 NS_CC_END

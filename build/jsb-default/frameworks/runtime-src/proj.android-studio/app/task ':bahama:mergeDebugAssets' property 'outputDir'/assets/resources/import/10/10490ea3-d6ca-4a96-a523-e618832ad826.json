@@ -1,0 +1,35 @@
+[
+  1,
+  0,
+  0,
+  [
+    [
+      "dragonBones.DragonBonesAsset",
+      [
+        "_name",
+        "_dragonBonesJson"
+      ],
+      1
+    ]
+  ],
+  [
+    [
+      0,
+      0,
+      1,
+      3
+    ]
+  ],
+  [
+    [
+      0,
+      "glassacc_ske",
+      "{\"frameRate\":24,\"name\":\"glassacc\",\"version\":\"5.5\",\"compatibleVersion\":\"5.5\",\"armature\":[{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"glass1\",\"aabb\":{\"x\":-155,\"y\":-85,\"width\":310,\"height\":170},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"glass1\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"glass1\",\"display\":[{\"name\":\"glass1\",\"path\":\"glass-01\"}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"glass2\",\"aabb\":{\"x\":-155,\"y\":-85,\"width\":310,\"height\":170},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"glass2\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"glass2\",\"display\":[{\"name\":\"glass2\",\"path\":\"glass-02\"}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"glass3\",\"aabb\":{\"x\":-155,\"y\":-85,\"width\":310,\"height\":170},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"glass-03\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"glass-03\",\"display\":[{\"name\":\"glass-03\"}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"glass4\",\"aabb\":{\"x\":-155,\"y\":-85,\"width\":310,\"height\":170},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"glass-04\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"glass-04\",\"display\":[{\"name\":\"glass-04\"}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"glass5\",\"aabb\":{\"x\":-155,\"y\":-85,\"width\":310,\"height\":170},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"glass-05\",\"parent\":\"root\"},{\"name\":\"glass-051\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"glass-051\",\"display\":[{\"name\":\"glass-05\"}]},{\"name\":\"glass-05\",\"display\":[{\"name\":\"glass-05\"}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"glass6\",\"aabb\":{\"x\":-155,\"y\":-85,\"width\":310,\"height\":170},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"glass-06\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"glass-06\",\"display\":[{\"name\":\"glass-06\"}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"glass7\",\"aabb\":{\"x\":-155,\"y\":-85,\"width\":310,\"height\":170},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"glass-07\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"glass-07\",\"display\":[{\"name\":\"glass-07\"}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"glass8\",\"aabb\":{\"x\":-155,\"y\":-85,\"width\":310,\"height\":170},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"glass-08\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"glass-08\",\"display\":[{\"name\":\"glass-08\"}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"glass9\",\"aabb\":{\"x\":-155,\"y\":-85,\"width\":310,\"height\":170},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"glass-09\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"glass-09\",\"display\":[{\"name\":\"glass-09\"}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"glass10\",\"aabb\":{\"x\":-155,\"y\":-85,\"width\":310,\"height\":170},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"glass-10\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"glass-10\",\"display\":[{\"name\":\"glass-10\"}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]}]}"
+    ]
+  ],
+  0,
+  0,
+  [],
+  [],
+  []
+]

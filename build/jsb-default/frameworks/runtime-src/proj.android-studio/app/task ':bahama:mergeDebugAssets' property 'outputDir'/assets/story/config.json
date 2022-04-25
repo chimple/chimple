@@ -1,0 +1,153 @@
+{
+    "paths": {
+        "f6V6WjEpJEv5bfR5WZKTRO": [
+            "prefabs/draw",
+            "cc.Prefab"
+        ],
+        "beSDU6PupHqJGUks6ubOMP": [
+            "prefabs/landscape",
+            "cc.Prefab"
+        ],
+        "c44X6mbxxKJLvBn8NwK68i": [
+            "prefabs/lleft",
+            "cc.Prefab"
+        ],
+        "88fAPIbeJIsbDhvrNtJ9HC": [
+            "prefabs/lright",
+            "cc.Prefab"
+        ],
+        "66YI+34u1Iw5XuOeCcFQq4": [
+            "prefabs/navigatingButtonLeft",
+            "cc.Prefab"
+        ],
+        "35wMYtPqBGMYaDoQl55V0i": [
+            "prefabs/navigatingButtonRight",
+            "cc.Prefab"
+        ],
+        "76cmJvKWdAkLtjcF+Kca67": [
+            "prefabs/page",
+            "cc.Prefab"
+        ],
+        "9b4s+42l5JH4N31EvChKbG": [
+            "prefabs/pleft",
+            "cc.Prefab"
+        ],
+        "0b+a/JbU1B5rYmg4G4sV2L": [
+            "prefabs/portrait",
+            "cc.Prefab"
+        ],
+        "34vW0WyWJEKZsNapc1Zkt2": [
+            "prefabs/pright",
+            "cc.Prefab"
+        ],
+        "55Ye+uUF1MSKpE/dvWGfCl": [
+            "prefabs/story",
+            "cc.Prefab"
+        ],
+        "2eO76ZabBBBpdUdKt6vs5r": [
+            "prefabs/storyPage",
+            "cc.Prefab"
+        ],
+        "1fnmP4an9OqruzfJgmNXaS": [
+            "prefabs/word",
+            "cc.Prefab"
+        ],
+        "b34E4yzkxJQpRNQ5MO7cQa": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "e9v4iSlk5H+KSxasSskdnG": [
+            "textures/button_pressed_story",
+            "cc.SpriteFrame",
+            1
+        ],
+        "d2YTz9a2JFGZeBhZPNjHh7": [
+            "textures/button_pressed_story_left",
+            "cc.SpriteFrame",
+            1
+        ],
+        "1eu9ahzzlLVYRJGQ1eNjJP": [
+            "textures/button_story",
+            "cc.SpriteFrame",
+            1
+        ],
+        "db589tEuJLb5ECOSiVZOxh": [
+            "textures/button_story_left",
+            "cc.SpriteFrame",
+            1
+        ],
+        "ebQp+RwvVFs4od7SopbzRd": [
+            "textures/clip_story",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "0b+a/JbU1B5rYmg4G4sV2L",
+        "15e128324",
+        "1eu9ahzzlLVYRJGQ1eNjJP",
+        "1fnmP4an9OqruzfJgmNXaS",
+        "2eO76ZabBBBpdUdKt6vs5r",
+        "34vW0WyWJEKZsNapc1Zkt2",
+        "35wMYtPqBGMYaDoQl55V0i",
+        "55Ye+uUF1MSKpE/dvWGfCl",
+        "66YI+34u1Iw5XuOeCcFQq4",
+        "6fgBCSDDdPMInvyNlggls2",
+        "76cmJvKWdAkLtjcF+Kca67",
+        "88fAPIbeJIsbDhvrNtJ9HC",
+        "9bvaMerUlDyary99mJa6xp",
+        "9b4s+42l5JH4N31EvChKbG",
+        "b34E4yzkxJQpRNQ5MO7cQa",
+        "beSDU6PupHqJGUks6ubOMP",
+        "c44X6mbxxKJLvBn8NwK68i",
+        "d2YTz9a2JFGZeBhZPNjHh7",
+        "db589tEuJLb5ECOSiVZOxh",
+        "e9v4iSlk5H+KSxasSskdnG",
+        "ebQp+RwvVFs4od7SopbzRd",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "f6V6WjEpJEv5bfR5WZKTRO"
+    ],
+    "scenes": {},
+    "redirect": [
+        "6fgBCSDDdPMInvyNlggls2",
+        0,
+        "9bvaMerUlDyary99mJa6xp",
+        1,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        0
+    ],
+    "deps": [
+        "internal",
+        "resources"
+    ],
+    "packs": {
+        "0e7642a8c": [
+            "0b+a/JbU1B5rYmg4G4sV2L",
+            "15e128324",
+            "1eu9ahzzlLVYRJGQ1eNjJP",
+            "1fnmP4an9OqruzfJgmNXaS",
+            "2eO76ZabBBBpdUdKt6vs5r",
+            "34vW0WyWJEKZsNapc1Zkt2",
+            "35wMYtPqBGMYaDoQl55V0i",
+            "55Ye+uUF1MSKpE/dvWGfCl",
+            "66YI+34u1Iw5XuOeCcFQq4",
+            "76cmJvKWdAkLtjcF+Kca67",
+            "88fAPIbeJIsbDhvrNtJ9HC",
+            "9b4s+42l5JH4N31EvChKbG",
+            "b34E4yzkxJQpRNQ5MO7cQa",
+            "beSDU6PupHqJGUks6ubOMP",
+            "c44X6mbxxKJLvBn8NwK68i",
+            "d2YTz9a2JFGZeBhZPNjHh7",
+            "db589tEuJLb5ECOSiVZOxh",
+            "e9v4iSlk5H+KSxasSskdnG",
+            "ebQp+RwvVFs4od7SopbzRd",
+            "f6V6WjEpJEv5bfR5WZKTRO"
+        ]
+    },
+    "name": "story",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "f57a0e59-4d41-4029-a48b-9dc0253b494e",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "farm_hill2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "903cedf8-95a5-4789-86a5-c2bc732ca5de",
+      "importer": "sprite-frame",
       "rawTextureUuid": "f57a0e59-4d41-4029-a48b-9dc0253b494e",
       "trimType": "auto",
       "trimThreshold": 1,

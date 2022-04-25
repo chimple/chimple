@@ -1,0 +1,134 @@
+{
+    "paths": {
+        "ca5CM5Qm1LD6LMadJ5l2vA": [
+            "dragonbones1/cat_pink_ske",
+            "dragonBones.DragonBonesAsset"
+        ],
+        "42hqWr2VlFWagTTj725BW9": [
+            "dragonbones1/cat_pink_tex",
+            "cc.SpriteFrame",
+            1
+        ],
+        "4bTuygYKFG/r97c4E+jV+F": [
+            "dragonbones1/cat_pink_tex",
+            "dragonBones.DragonBonesAtlasAsset"
+        ],
+        "e2Lnf/QmVHcJtwQZHl1yuk": [
+            "dragonbones1/cat_pink_tex",
+            "cc.Texture2D"
+        ],
+        "daA/Mfau9FO7fP0Qo30mbN": [
+            "dragonbones2/cat_red_ske",
+            "dragonBones.DragonBonesAsset"
+        ],
+        "3d5P7A72VPYZFRUCQVyXxq": [
+            "dragonbones2/cat_red_tex",
+            "cc.Texture2D"
+        ],
+        "cffl3OjflO3JxwifqhS3Gm": [
+            "dragonbones2/cat_red_tex",
+            "cc.SpriteFrame",
+            1
+        ],
+        "ded6OYCXdECaeHf2IBykMZ": [
+            "dragonbones2/cat_red_tex",
+            "dragonBones.DragonBonesAtlasAsset"
+        ],
+        "40gKWmrzpDo7VvS58BXx/Q": [
+            "prefabs/speakingpet",
+            "cc.Prefab"
+        ],
+        "b1kvPcoQxAwo5EXr+m53L5": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "bcoHPZ7kRPJb/IdAbytdrZ": [
+            "textures/catphonics_bowl",
+            "cc.SpriteFrame",
+            1
+        ],
+        "93RwwEAx1LfKjRMFEClEyp": [
+            "textures/catphonics_fence",
+            "cc.SpriteFrame",
+            1
+        ],
+        "32DcGSzHVJppwS69A2rxp8": [
+            "textures/catphonics_grass1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "faPx3UFEZGQ79sW83m7qz6": [
+            "textures/catphonics_grass2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "1adYaJYwdCX549JwPz4UlJ": [
+            "textures/catphonics_grass3",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        "1520bd7e7",
+        "1adYaJYwdCX549JwPz4UlJ",
+        "32DcGSzHVJppwS69A2rxp8",
+        "3d5P7A72VPYZFRUCQVyXxq",
+        "40gKWmrzpDo7VvS58BXx/Q",
+        "41zzZmw1BOLqx1CvVKiutR",
+        "42hqWr2VlFWagTTj725BW9",
+        "4bTuygYKFG/r97c4E+jV+F",
+        "79m+i6p6ZC45+gtUdotiX8",
+        "93RwwEAx1LfKjRMFEClEyp",
+        "b1kvPcoQxAwo5EXr+m53L5",
+        "bcoHPZ7kRPJb/IdAbytdrZ",
+        "ca5CM5Qm1LD6LMadJ5l2vA",
+        "cffl3OjflO3JxwifqhS3Gm",
+        "daA/Mfau9FO7fP0Qo30mbN",
+        "ded6OYCXdECaeHf2IBykMZ",
+        "e2Lnf/QmVHcJtwQZHl1yuk",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "faPx3UFEZGQ79sW83m7qz6"
+    ],
+    "scenes": {
+        "db://assets/games/speakingpet/scenes/speakingpet.fire": "41zzZmw1BOLqx1CvVKiutR"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "0eb1ba557": [
+            "1520bd7e7",
+            "1adYaJYwdCX549JwPz4UlJ",
+            "32DcGSzHVJppwS69A2rxp8",
+            "3d5P7A72VPYZFRUCQVyXxq",
+            "40gKWmrzpDo7VvS58BXx/Q",
+            "41zzZmw1BOLqx1CvVKiutR",
+            "42hqWr2VlFWagTTj725BW9",
+            "4bTuygYKFG/r97c4E+jV+F",
+            "79m+i6p6ZC45+gtUdotiX8",
+            "93RwwEAx1LfKjRMFEClEyp",
+            "b1kvPcoQxAwo5EXr+m53L5",
+            "bcoHPZ7kRPJb/IdAbytdrZ",
+            "ca5CM5Qm1LD6LMadJ5l2vA",
+            "cffl3OjflO3JxwifqhS3Gm",
+            "daA/Mfau9FO7fP0Qo30mbN",
+            "ded6OYCXdECaeHf2IBykMZ",
+            "e2Lnf/QmVHcJtwQZHl1yuk",
+            "faPx3UFEZGQ79sW83m7qz6"
+        ]
+    },
+    "name": "speakingpet",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "ffe65b4e-dcea-45d4-923d-d4099b648b85",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "wings_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "dfd92f5d-08f8-4fd7-ba3f-c0c4b18c2615",
+      "importer": "sprite-frame",
       "rawTextureUuid": "ffe65b4e-dcea-45d4-923d-d4099b648b85",
       "trimType": "auto",
       "trimThreshold": 1,

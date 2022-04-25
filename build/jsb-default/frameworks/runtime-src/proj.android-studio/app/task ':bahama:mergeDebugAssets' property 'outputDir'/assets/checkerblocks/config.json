@@ -1,0 +1,155 @@
+{
+    "paths": {
+        "d8DN5WtfdKIpedSX7eCPDM": [
+            "prefabs/checkerblocks",
+            "cc.Prefab"
+        ],
+        "564wVq+vlEV4l6eocecDmh": [
+            "prefabs/hundredpuzzleDrag",
+            "cc.Prefab"
+        ],
+        "09rY5Re4tMEIU2HssKzhlc": [
+            "prefabs/hundredpuzzleDrop",
+            "cc.Prefab"
+        ],
+        "c3KWhGMlBMs4tFo6TT4cVh": [
+            "prefabs/hundredpuzzleTile",
+            "cc.Prefab"
+        ],
+        "b3dX+oKMRJrrrdTCKdJxpP": [
+            "prefabs/hundrepuzzleDragTile",
+            "cc.Prefab"
+        ],
+        "1fJn2rm75D5LS2lNE/Q0iu": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "f8XEYzj5lK3JpXQ1+Tkjkl": [
+            "textures/checker_dark",
+            "cc.SpriteFrame",
+            1
+        ],
+        "d7T1VW6dlKOL0pjqY9vqcS": [
+            "textures/checker_light",
+            "cc.SpriteFrame",
+            1
+        ],
+        "28ecYUC6dFeokkg6fAjjKN": [
+            "textures/checkerblocks_box",
+            "cc.SpriteFrame",
+            1
+        ],
+        "92cVWvLxJOIafSs4CI3U9R": [
+            "textures/checkerblocks_roof",
+            "cc.SpriteFrame",
+            1
+        ],
+        "29oogU1QpDqKcxUAlcNMnb": [
+            "textures/checkerblocks_roof2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "85HOPB3IpNRahxka5SMYQ7": [
+            "textures/checkerblocks_shed",
+            "cc.SpriteFrame",
+            1
+        ],
+        "08pV/ddFRAvopSUic8FWg0": [
+            "textures/checkerblocks_smoke",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f7NdocBEtPbq0ezmpWNMbo": [
+            "textures/hundredpuzzle_block_middle_1_surface",
+            "cc.SpriteFrame",
+            1
+        ],
+        "aayd8JCuJIKp+LJQjHAOr0": [
+            "textures/hundredpuzzle_block_middle_2_texture",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        "08pV/ddFRAvopSUic8FWg0",
+        "09rY5Re4tMEIU2HssKzhlc",
+        "11c0ecf64",
+        "16bBEsIb9LQJIHaANRMo2T",
+        "1eD9ygHzBIVqqLRXcmxJXa",
+        "1e1f41f01",
+        "1fJn2rm75D5LS2lNE/Q0iu",
+        "28ecYUC6dFeokkg6fAjjKN",
+        "29oogU1QpDqKcxUAlcNMnb",
+        "2fFCqlr75CZ6aMzCVP0ea3",
+        "38+yzrDb9CzqlMpeytM1iR",
+        "564wVq+vlEV4l6eocecDmh",
+        "6b6nuYkldPW578wYVZ8YFt",
+        "85HOPB3IpNRahxka5SMYQ7",
+        "92UUBxViBNWKKoJQ2xXTIe",
+        "92cVWvLxJOIafSs4CI3U9R",
+        "9aiFJG/TNCQItwNCRmBkT0",
+        "9bvaMerUlDyary99mJa6xp",
+        "aayd8JCuJIKp+LJQjHAOr0",
+        "acickgtYVMS5OznUxWSrhx",
+        "b3dX+oKMRJrrrdTCKdJxpP",
+        "c3KWhGMlBMs4tFo6TT4cVh",
+        "cfdbvObIdNjo+ek2jivM0+",
+        "d7T1VW6dlKOL0pjqY9vqcS",
+        "d8DN5WtfdKIpedSX7eCPDM",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "f7NdocBEtPbq0ezmpWNMbo",
+        "f8XEYzj5lK3JpXQ1+Tkjkl"
+    ],
+    "scenes": {
+        "db://assets/games/checkerblocks/scenes/checkerblocks.fire": "cfdbvObIdNjo+ek2jivM0+"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "9bvaMerUlDyary99mJa6xp",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "0631c8f9c": [
+            "08pV/ddFRAvopSUic8FWg0",
+            "09rY5Re4tMEIU2HssKzhlc",
+            "11c0ecf64",
+            "16bBEsIb9LQJIHaANRMo2T",
+            "1eD9ygHzBIVqqLRXcmxJXa",
+            "1e1f41f01",
+            "1fJn2rm75D5LS2lNE/Q0iu",
+            "28ecYUC6dFeokkg6fAjjKN",
+            "29oogU1QpDqKcxUAlcNMnb",
+            "2fFCqlr75CZ6aMzCVP0ea3",
+            "38+yzrDb9CzqlMpeytM1iR",
+            "564wVq+vlEV4l6eocecDmh",
+            "6b6nuYkldPW578wYVZ8YFt",
+            "85HOPB3IpNRahxka5SMYQ7",
+            "92UUBxViBNWKKoJQ2xXTIe",
+            "92cVWvLxJOIafSs4CI3U9R",
+            "9aiFJG/TNCQItwNCRmBkT0",
+            "aayd8JCuJIKp+LJQjHAOr0",
+            "acickgtYVMS5OznUxWSrhx",
+            "b3dX+oKMRJrrrdTCKdJxpP",
+            "c3KWhGMlBMs4tFo6TT4cVh",
+            "cfdbvObIdNjo+ek2jivM0+",
+            "d7T1VW6dlKOL0pjqY9vqcS",
+            "d8DN5WtfdKIpedSX7eCPDM",
+            "f7NdocBEtPbq0ezmpWNMbo",
+            "f8XEYzj5lK3JpXQ1+Tkjkl"
+        ]
+    },
+    "name": "checkerblocks",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

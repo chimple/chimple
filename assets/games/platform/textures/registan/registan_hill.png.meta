@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "ec77e812-7278-4f67-aa7d-b3a92d1a1213",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "registan_hill": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "6dad14c6-7dcc-4b1d-8c1c-689095a75010",
+      "importer": "sprite-frame",
       "rawTextureUuid": "ec77e812-7278-4f67-aa7d-b3a92d1a1213",
       "trimType": "auto",
       "trimThreshold": 1,

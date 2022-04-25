@@ -1,0 +1,162 @@
+{
+    "paths": {
+        "d7CIuI4wFNlLaE4WwToBeQ": [
+            "prefabs/drawshape",
+            "cc.Prefab"
+        ],
+        "64q1FePepMGbjy1GqAeXnP": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "3bVhSUgwpI45O34Xc9OoQo": [
+            "textures/drawshape_books",
+            "cc.SpriteFrame",
+            1
+        ],
+        "487GXyDYpII6rCEB43yTEb": [
+            "textures/drawshape_clock",
+            "cc.SpriteFrame",
+            1
+        ],
+        "4c4ya5Gr1AeqjsWSHW0/C3": [
+            "textures/drawshape_drawing",
+            "cc.SpriteFrame",
+            1
+        ],
+        "32P4CeDn9Hpqar5OOhhN/N": [
+            "textures/drawshape_globe",
+            "cc.SpriteFrame",
+            1
+        ],
+        "6aXYwh9/JNOrQBI5x/XSqs": [
+            "textures/drawshape_notes",
+            "cc.SpriteFrame",
+            1
+        ],
+        "33C+oUBBpBQbB5QIdUYtIM": [
+            "textures/drawshape_notice",
+            "cc.SpriteFrame",
+            1
+        ],
+        "fdxw90+YBPD7bOoxEDUhiP": [
+            "textures/drawshape_ruler",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "01f3gOl2ZIL5/A6T4MRvZr",
+        "08OOcgWF1GSKOdO5zYCffN",
+        "08O87iaFVOwqdn4knjw/Kf",
+        "08i4PwkZpDg7EYvOsePaXA",
+        "1c1d39150",
+        "29FYIk+N1GYaeWH/q1NxQO",
+        "294r0zUKFEtbsJXlgZR6RM",
+        "31McsRwsdECKG9lhJD0sDQ",
+        "32P4CeDn9Hpqar5OOhhN/N",
+        "33C+oUBBpBQbB5QIdUYtIM",
+        "3bVhSUgwpI45O34Xc9OoQo",
+        "487GXyDYpII6rCEB43yTEb",
+        "4c4ya5Gr1AeqjsWSHW0/C3",
+        "4eB6E5EoZJD5qF2xdw0mY/",
+        "5dhkL/og9E76lIntYk4qqa",
+        "61dgq5YLtFmJwmJCjpCtIj",
+        "64q1FePepMGbjy1GqAeXnP",
+        "6aXYwh9/JNOrQBI5x/XSqs",
+        "6fgBCSDDdPMInvyNlggls2",
+        "72JqB/Me9DsL34MjKJmTqA",
+        "7aC83sViVIOr8eWdAcQurx",
+        "87Ix9+v5BBPpOuzf6hZ6tr",
+        "88uQnaXSBDsaxmum7SYPBZ",
+        "89iPjnjTVH/YB9pLly2jLk",
+        "8beQfKEnVE/YT+eXO7+b+H",
+        "8b1aVw2d1PcqkZyFbnuG27",
+        "8dq7sJmrBPVqZ6dIBZGFAu",
+        "959jSJqgdH459Ofb3ErQ/2",
+        "a7wqE/D5pFW6z2EvayLPeB",
+        "a9YkwEgwlJsJ6JAuHDfbRm",
+        "b5IGZuAzxJHb/FXUa3Tf5t",
+        "bfnUUojGJC2q4Mbs5MaQc+",
+        "c8pvvO7xtJxrQLHj0GTsoH",
+        "cbfPvPf3pM7pZFpaw+bcsK",
+        "d21U5tsdlDfZ1+CHCOX+/e",
+        "d7CIuI4wFNlLaE4WwToBeQ",
+        "d9LDjplOBJb6i5VjFdZqR3",
+        "e97GVMl6JHh5Ml5qEDdSGa",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "efrehnIdRAuZRwryvIGD+n",
+        "f0BIwQ8D5Ml7nTNQbh1YlS",
+        "fdxw90+YBPD7bOoxEDUhiP",
+        "fe52TgMxFDxakHqkKriWpe"
+    ],
+    "scenes": {
+        "db://assets/games/drawshape/scenes/drawshape.fire": "61dgq5YLtFmJwmJCjpCtIj"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "29FYIk+N1GYaeWH/q1NxQO",
+        1,
+        "6fgBCSDDdPMInvyNlggls2",
+        2,
+        "87Ix9+v5BBPpOuzf6hZ6tr",
+        1,
+        "e97GVMl6JHh5Ml5qEDdSGa",
+        1,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        2,
+        "f0BIwQ8D5Ml7nTNQbh1YlS",
+        1
+    ],
+    "deps": [
+        "resources",
+        "main",
+        "internal"
+    ],
+    "packs": {
+        "0616ae6a6": [
+            "01f3gOl2ZIL5/A6T4MRvZr",
+            "08O87iaFVOwqdn4knjw/Kf",
+            "08i4PwkZpDg7EYvOsePaXA",
+            "1c1d39150",
+            "294r0zUKFEtbsJXlgZR6RM",
+            "31McsRwsdECKG9lhJD0sDQ",
+            "32P4CeDn9Hpqar5OOhhN/N",
+            "33C+oUBBpBQbB5QIdUYtIM",
+            "3bVhSUgwpI45O34Xc9OoQo",
+            "487GXyDYpII6rCEB43yTEb",
+            "4c4ya5Gr1AeqjsWSHW0/C3",
+            "4eB6E5EoZJD5qF2xdw0mY/",
+            "5dhkL/og9E76lIntYk4qqa",
+            "61dgq5YLtFmJwmJCjpCtIj",
+            "64q1FePepMGbjy1GqAeXnP",
+            "6aXYwh9/JNOrQBI5x/XSqs",
+            "72JqB/Me9DsL34MjKJmTqA",
+            "7aC83sViVIOr8eWdAcQurx",
+            "88uQnaXSBDsaxmum7SYPBZ",
+            "89iPjnjTVH/YB9pLly2jLk",
+            "8beQfKEnVE/YT+eXO7+b+H",
+            "8b1aVw2d1PcqkZyFbnuG27",
+            "8dq7sJmrBPVqZ6dIBZGFAu",
+            "959jSJqgdH459Ofb3ErQ/2",
+            "a7wqE/D5pFW6z2EvayLPeB",
+            "a9YkwEgwlJsJ6JAuHDfbRm",
+            "b5IGZuAzxJHb/FXUa3Tf5t",
+            "bfnUUojGJC2q4Mbs5MaQc+",
+            "c8pvvO7xtJxrQLHj0GTsoH",
+            "cbfPvPf3pM7pZFpaw+bcsK",
+            "d21U5tsdlDfZ1+CHCOX+/e",
+            "d7CIuI4wFNlLaE4WwToBeQ",
+            "d9LDjplOBJb6i5VjFdZqR3",
+            "efrehnIdRAuZRwryvIGD+n",
+            "fdxw90+YBPD7bOoxEDUhiP",
+            "fe52TgMxFDxakHqkKriWpe"
+        ]
+    },
+    "name": "drawshape",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

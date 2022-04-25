@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "48c97f8d-e277-4285-8d64-a96eabe463a0",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "fishtank_grass2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "2b5a2c90-73a2-4db5-8843-4ef2e880966c",
+      "importer": "sprite-frame",
       "rawTextureUuid": "48c97f8d-e277-4285-8d64-a96eabe463a0",
       "trimType": "auto",
       "trimThreshold": 1,

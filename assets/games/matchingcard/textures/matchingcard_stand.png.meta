@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "416403ea-5fb2-48ee-86bc-8180cf827bb2",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "matchingcard_stand": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "83df2ef6-ffc4-4257-a8f1-da09d32b84ff",
+      "importer": "sprite-frame",
       "rawTextureUuid": "416403ea-5fb2-48ee-86bc-8180cf827bb2",
       "trimType": "auto",
       "trimThreshold": 1,

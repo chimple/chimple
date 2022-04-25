@@ -1,0 +1,11 @@
+{
+    "name": "sdkbox-gui",
+    "version": "1.6.0",
+    "beta": false,
+    "description": "The GUI Desktop application for SDKBOX.com",
+    "main": "dist/main.js",
+    "author": "sdkbox.com",
+    "dependencies": {
+        "mkdirp": "^0.5.1"
+    }
+}

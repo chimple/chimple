@@ -1,0 +1,26 @@
+{
+    "name": "sdkbox",
+    "version": "1.6.0",
+    "package_version": 2,
+    "beta": false,
+    "description": "SDKBox GUI For Creator",
+    "author": "sdkbox.com",
+    "main": "main.js",
+    "main-menu": {
+        "i18n:MAIN_MENU.package.title/SDKBox/Launch": {
+            "message": "sdkbox:launch"
+        }
+    },
+    "contributions": {
+        "menu": [{
+            "path": "i18n:menu.extension/SDKBox",
+            "label": "Launch",
+            "message": "launch"
+        }],
+        "messages": {
+            "launch": {
+                "methods": ["launch"]
+            }
+        }
+    }
+}

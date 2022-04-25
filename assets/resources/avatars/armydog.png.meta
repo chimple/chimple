@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "e5335e20-3c64-4eac-9c51-20560560d2fd",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "armydog": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "31423677-f1b4-4831-a135-3e2844694220",
+      "importer": "sprite-frame",
       "rawTextureUuid": "e5335e20-3c64-4eac-9c51-20560560d2fd",
       "trimType": "auto",
       "trimThreshold": 1,

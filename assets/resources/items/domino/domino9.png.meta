@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "de71e9b7-168a-4689-9d49-184061a9f08a",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "domino9": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "4b277be6-a2aa-4b0a-9669-cb5eb52bf4f4",
+      "importer": "sprite-frame",
       "rawTextureUuid": "de71e9b7-168a-4689-9d49-184061a9f08a",
       "trimType": "auto",
       "trimThreshold": 1,

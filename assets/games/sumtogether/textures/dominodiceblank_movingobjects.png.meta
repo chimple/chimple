@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "4e9ea5a5-d276-474b-980c-e794c4c10af6",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "dominodiceblank_movingobjects": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "7c0b5b16-0b39-4be6-ada1-7123df5945a4",
+      "importer": "sprite-frame",
       "rawTextureUuid": "4e9ea5a5-d276-474b-980c-e794c4c10af6",
       "trimType": "auto",
       "trimThreshold": 1,

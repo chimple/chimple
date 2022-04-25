@@ -3,6 +3,16 @@
 #include "SDKBoxJSHelper.h"
 #include "PluginYoutube/PluginYoutube.h"
 
+#ifdef SDKBOX_JSBINDING_CC3
+#include "cocos/bindings/jswrapper/SeApi.h"
+#include "cocos/bindings/manual/jsb_conversions.h"
+
+namespace cocos2d = cc;
+#else
+#include "cocos/scripting/js-bindings/jswrapper/SeApi.h"
+#include "cocos/scripting/js-bindings/manual/jsb_conversions.hpp"
+#endif
+
 class YoutubeListenerJS : public sdkbox::YoutubeListener, public sdkbox::JSListenerBase
 {
 public:

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "e70b90ac-08b9-40a8-a8c2-ade80c217e36",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "flower-outline-tutorial": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "b807910d-2b43-4ff1-b61d-ee34088e3efb",
+      "importer": "sprite-frame",
       "rawTextureUuid": "e70b90ac-08b9-40a8-a8c2-ade80c217e36",
       "trimType": "auto",
       "trimThreshold": 1,

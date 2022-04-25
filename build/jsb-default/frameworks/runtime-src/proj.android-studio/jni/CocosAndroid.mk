@@ -2,7 +2,7 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := cocos2djs_shared
+LOCAL_MODULE := cocos2djs
 
 LOCAL_MODULE_FILENAME := libcocos2djs
 
@@ -15,7 +15,9 @@ LOCAL_SRC_FILES := hellojavascript/main.cpp \
 ../../Classes/jsb_module_register.cpp \
 ../../Classes/PluginFirebaseJS.cpp \
 ../../Classes/PluginFirebaseJSHelper.cpp \
-../../Classes/SDKBoxJSHelper.cpp
+../../Classes/SDKBoxJSHelper.cpp \
+../../Classes/PluginYoutubeJS.cpp \
+../../Classes/PluginYoutubeJSHelper.cpp
 LOCAL_CPPFLAGS := -DSDKBOX_ENABLED \
 -DSDKBOX_COCOS_CREATOR
 LOCAL_LDLIBS := -landroid \
@@ -23,6 +25,7 @@ LOCAL_LDLIBS := -landroid \
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 LOCAL_WHOLE_STATIC_LIBRARIES += PluginFirebase
 LOCAL_WHOLE_STATIC_LIBRARIES += sdkbox
+LOCAL_WHOLE_STATIC_LIBRARIES += PluginYoutube
 
 LOCAL_STATIC_LIBRARIES := cocos2dx_static
 
@@ -32,3 +35,4 @@ $(call import-add-path,$(LOCAL_PATH))
 $(call import-module, cocos)
 $(call import-module, ./sdkbox)
 $(call import-module, ./PluginFirebase)
+$(call import-module, ./PluginYoutube)

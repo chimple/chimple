@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "afd999cb-e6c7-4bb3-a752-eea6254e2701",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "garlic": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "9d641334-8f44-45d1-8cbd-ccb99fe67aef",
+      "importer": "sprite-frame",
       "rawTextureUuid": "afd999cb-e6c7-4bb3-a752-eea6254e2701",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "801e2b0f-559a-4ffc-899f-9e847a1d26dd",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "Theroostercrowsevery_morning": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "c9b10ae7-7c1a-4264-9100-4a072e3ab399",
+      "importer": "sprite-frame",
       "rawTextureUuid": "801e2b0f-559a-4ffc-899f-9e847a1d26dd",
       "trimType": "auto",
       "trimThreshold": 1,

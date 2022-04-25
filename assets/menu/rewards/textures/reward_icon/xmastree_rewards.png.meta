@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "18d523b3-dfd4-42af-a9ce-aa71602eeca4",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "xmastree_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "91e7d945-416d-4a53-b4f9-7fcb8b2fe6d8",
+      "importer": "sprite-frame",
       "rawTextureUuid": "18d523b3-dfd4-42af-a9ce-aa71602eeca4",
       "trimType": "auto",
       "trimThreshold": 1,

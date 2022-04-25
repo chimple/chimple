@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "8bd1cb32-bb3e-4e2d-b334-99081dc21877",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "yellow_bellpepper": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "94c8a58b-5183-4fd5-9d7f-27516347a67b",
+      "importer": "sprite-frame",
       "rawTextureUuid": "8bd1cb32-bb3e-4e2d-b334-99081dc21877",
       "trimType": "auto",
       "trimThreshold": 1,

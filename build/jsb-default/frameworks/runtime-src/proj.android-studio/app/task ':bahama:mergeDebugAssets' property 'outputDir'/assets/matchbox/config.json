@@ -1,0 +1,158 @@
+{
+    "paths": {
+        "a9mmgcCftJFKHd9oYynWL+": [
+            "audio/lineback",
+            "cc.AudioClip"
+        ],
+        "67B7Mj2b1EcaAlI/ipEAGA": [
+            "audio/problem_clear",
+            "cc.AudioClip"
+        ],
+        "59D/0V7gNECZX5MHK/zrLG": [
+            "audio/sfx_wood_correct",
+            "cc.AudioClip"
+        ],
+        "3ceD1ZbfpHQKyaWExIDZDj": [
+            "prefabs/birdy",
+            "cc.Prefab"
+        ],
+        "5akKcKQVBFSpoyrAbFZxic": [
+            "prefabs/blinds",
+            "cc.Prefab"
+        ],
+        "78B04W7clOLLV4xBpmT9YS": [
+            "prefabs/matchbox",
+            "cc.Prefab"
+        ],
+        "46CERk0a1G4q7whDUKIWTh": [
+            "prefabs/window",
+            "cc.Prefab"
+        ],
+        "66LKvygaxO978Q4JaC6vMB": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "baHQaBKyZA8pokoJtZgne8": [
+            "textures/blinds_handle_linematching",
+            "cc.SpriteFrame",
+            1
+        ],
+        "cf1vtFT1VJW5UR3DJLcbFB": [
+            "textures/blinds_linematching",
+            "cc.SpriteFrame",
+            1
+        ],
+        "6228GnOd1CbKDEDFTMFF9/": [
+            "textures/linematching_building1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "162YnAG6ZODLHaxJcmKQNW": [
+            "textures/linematching_building2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "7bDScegWlMXJ3/zSIsagXS": [
+            "textures/linematching_bush1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "4a57iN+QNA9Jb84m1htjVj": [
+            "textures/linematching_bush2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "14ElG9VTxIBY0OZHqP68IH": [
+            "textures/linematching_grass",
+            "cc.SpriteFrame",
+            1
+        ],
+        "1cJ9akjbdGyaLfLE5sS1id": [
+            "textures/pattern_linematching",
+            "cc.SpriteFrame",
+            1
+        ],
+        "ccCN+BJEpALpF+426WpfLH": [
+            "textures/phonics_birdtypeb_option1_normal",
+            "cc.SpriteFrame",
+            1
+        ],
+        "94nBnsfrBBvIGsm0oSFH5I": [
+            "textures/window",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        "14ElG9VTxIBY0OZHqP68IH",
+        "14d837394",
+        "162YnAG6ZODLHaxJcmKQNW",
+        "195440510",
+        "1cJ9akjbdGyaLfLE5sS1id",
+        "3ceD1ZbfpHQKyaWExIDZDj",
+        "46CERk0a1G4q7whDUKIWTh",
+        "4a57iN+QNA9Jb84m1htjVj",
+        "59D/0V7gNECZX5MHK/zrLG",
+        "5akKcKQVBFSpoyrAbFZxic",
+        "6228GnOd1CbKDEDFTMFF9/",
+        "66LKvygaxO978Q4JaC6vMB",
+        "67B7Mj2b1EcaAlI/ipEAGA",
+        "6fgBCSDDdPMInvyNlggls2",
+        "78B04W7clOLLV4xBpmT9YS",
+        "7bDScegWlMXJ3/zSIsagXS",
+        "94nBnsfrBBvIGsm0oSFH5I",
+        "a9mmgcCftJFKHd9oYynWL+",
+        "baHQaBKyZA8pokoJtZgne8",
+        "ccCN+BJEpALpF+426WpfLH",
+        "cf1vtFT1VJW5UR3DJLcbFB",
+        "d9YRthKjtFS64YdHNLwOun",
+        "ecpdLyjvZBwrvm+cedCcQy"
+    ],
+    "scenes": {
+        "db://assets/games/matchbox/scenes/matchbox.fire": "d9YRthKjtFS64YdHNLwOun"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "6fgBCSDDdPMInvyNlggls2",
+        1,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "029e6f960": [
+            "14ElG9VTxIBY0OZHqP68IH",
+            "14d837394",
+            "162YnAG6ZODLHaxJcmKQNW",
+            "195440510",
+            "1cJ9akjbdGyaLfLE5sS1id",
+            "3ceD1ZbfpHQKyaWExIDZDj",
+            "46CERk0a1G4q7whDUKIWTh",
+            "4a57iN+QNA9Jb84m1htjVj",
+            "59D/0V7gNECZX5MHK/zrLG",
+            "5akKcKQVBFSpoyrAbFZxic",
+            "6228GnOd1CbKDEDFTMFF9/",
+            "66LKvygaxO978Q4JaC6vMB",
+            "67B7Mj2b1EcaAlI/ipEAGA",
+            "78B04W7clOLLV4xBpmT9YS",
+            "7bDScegWlMXJ3/zSIsagXS",
+            "94nBnsfrBBvIGsm0oSFH5I",
+            "a9mmgcCftJFKHd9oYynWL+",
+            "baHQaBKyZA8pokoJtZgne8",
+            "ccCN+BJEpALpF+426WpfLH",
+            "cf1vtFT1VJW5UR3DJLcbFB",
+            "d9YRthKjtFS64YdHNLwOun"
+        ]
+    },
+    "name": "matchbox",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

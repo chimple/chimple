@@ -1,0 +1,201 @@
+{
+    "paths": {
+        "05JTpfk0JBCb9T4UBz1ClR": [
+            "prefabs/fillblank",
+            "cc.Prefab"
+        ],
+        "1ewD1KBWNNbYTzr8sz2y7u": [
+            "scenes/flower_anim",
+            "cc.AnimationClip"
+        ],
+        "0amgmGAP9COIV4Ks9F7soZ": [
+            "scenes/flower_wrong",
+            "cc.AnimationClip"
+        ],
+        "4bZNFax+xExbex9wfLBYta": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "dfEgqgGrBJarYhoK/nIP2z": [
+            "textures/board_bg_wordkicker",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a1HjNlpchAnbOkzy2Zi3gT": [
+            "textures/board_question_wordkicker",
+            "cc.SpriteFrame",
+            1
+        ],
+        "26mWGq22RORbHOv4AENtl1": [
+            "textures/box_word_wordkicker",
+            "cc.SpriteFrame",
+            1
+        ],
+        "68lNIZtp9Hl50bKZJyp/BK": [
+            "textures/flower_mid_wordkicker",
+            "cc.SpriteFrame",
+            1
+        ],
+        "1bW3ACJaJNTLOFutuo90zX": [
+            "textures/leaf_wordkicker",
+            "cc.SpriteFrame",
+            1
+        ],
+        "10AFuHOZxMWKNEezCiRv2h": [
+            "textures/petal1_wordkicker",
+            "cc.SpriteFrame",
+            1
+        ],
+        "cfC0a0RdFO7JqVLhvYQuzI": [
+            "textures/petal2_wordkicker",
+            "cc.SpriteFrame",
+            1
+        ],
+        "96OI3+G39ABYdF7vVYJvuC": [
+            "textures/petal_wordkicker",
+            "cc.SpriteFrame",
+            1
+        ],
+        "c905q2CEZAXIergB5PdfxM": [
+            "textures/right_button_workkicker",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a3zbnGTaRPKqhPHvWv0yvv": [
+            "textures/wordkicker_bush1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "91uXWFcStBv6QooANwkogv": [
+            "textures/wordkicker_bush2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a5Fl6M4FVKfL0GAuWxrPxo": [
+            "textures/wordkicker_bush3",
+            "cc.SpriteFrame",
+            1
+        ],
+        "7c2kcCYqFA0aTPEoCyNBq7": [
+            "textures/wordkicker_cloud1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "1bgpPf3HBNlrudp6wVdLpd": [
+            "textures/wordkicker_cloud2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "e8lb1klepBUY34Mm0FArHB": [
+            "textures/wordkicker_fence",
+            "cc.SpriteFrame",
+            1
+        ],
+        "c0+oMFg/hGfbaQ9Uwvb1gC": [
+            "textures/wordkicker_ground",
+            "cc.SpriteFrame",
+            1
+        ],
+        "d4JeFb37BMIaQsQMpW1Wwl": [
+            "textures/wordkicker_ground",
+            "cc.Texture2D"
+        ],
+        "3cw4BqinFFW5/p5XHaC1z2": [
+            "textures/wordkicker_ground2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "abZxa5DgpFCZdrqlF7gpMK": [
+            "textures/wordkicker_sun",
+            "cc.SpriteFrame",
+            1
+        ],
+        "b733EPa05OpbFxdwWb1YjF": [
+            "textures/wrong_button_workkicker",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "05JTpfk0JBCb9T4UBz1ClR",
+        "08OOcgWF1GSKOdO5zYCffN",
+        "0amgmGAP9COIV4Ks9F7soZ",
+        "10AFuHOZxMWKNEezCiRv2h",
+        "1a7fa30a5",
+        "1bW3ACJaJNTLOFutuo90zX",
+        "1bgpPf3HBNlrudp6wVdLpd",
+        "1ewD1KBWNNbYTzr8sz2y7u",
+        "26mWGq22RORbHOv4AENtl1",
+        "3cw4BqinFFW5/p5XHaC1z2",
+        "4bZNFax+xExbex9wfLBYta",
+        "68lNIZtp9Hl50bKZJyp/BK",
+        "7c2kcCYqFA0aTPEoCyNBq7",
+        "91uXWFcStBv6QooANwkogv",
+        "96OI3+G39ABYdF7vVYJvuC",
+        "a1HjNlpchAnbOkzy2Zi3gT",
+        "a3zbnGTaRPKqhPHvWv0yvv",
+        "a5Fl6M4FVKfL0GAuWxrPxo",
+        "abZxa5DgpFCZdrqlF7gpMK",
+        "b3qI3W5vhGULXmU7cTUTW4",
+        "b733EPa05OpbFxdwWb1YjF",
+        "c0+oMFg/hGfbaQ9Uwvb1gC",
+        "c905q2CEZAXIergB5PdfxM",
+        "cfC0a0RdFO7JqVLhvYQuzI",
+        "d1A4J6UYNFZorPDd7irURL",
+        "d4JeFb37BMIaQsQMpW1Wwl",
+        "dfEgqgGrBJarYhoK/nIP2z",
+        "e8lb1klepBUY34Mm0FArHB",
+        "ecpdLyjvZBwrvm+cedCcQy"
+    ],
+    "scenes": {
+        "db://assets/games/fillblank/scenes/fillanswer.fire": "d1A4J6UYNFZorPDd7irURL",
+        "db://assets/games/fillblank/scenes/fillblank.fire": "b3qI3W5vhGULXmU7cTUTW4"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "090fd208d": [
+            "05JTpfk0JBCb9T4UBz1ClR",
+            "0amgmGAP9COIV4Ks9F7soZ",
+            "10AFuHOZxMWKNEezCiRv2h",
+            "1a7fa30a5",
+            "1bW3ACJaJNTLOFutuo90zX",
+            "1bgpPf3HBNlrudp6wVdLpd",
+            "1ewD1KBWNNbYTzr8sz2y7u",
+            "26mWGq22RORbHOv4AENtl1",
+            "3cw4BqinFFW5/p5XHaC1z2",
+            "4bZNFax+xExbex9wfLBYta",
+            "68lNIZtp9Hl50bKZJyp/BK",
+            "7c2kcCYqFA0aTPEoCyNBq7",
+            "91uXWFcStBv6QooANwkogv",
+            "96OI3+G39ABYdF7vVYJvuC",
+            "a1HjNlpchAnbOkzy2Zi3gT",
+            "a3zbnGTaRPKqhPHvWv0yvv",
+            "a5Fl6M4FVKfL0GAuWxrPxo",
+            "abZxa5DgpFCZdrqlF7gpMK",
+            "b3qI3W5vhGULXmU7cTUTW4",
+            "b733EPa05OpbFxdwWb1YjF",
+            "c0+oMFg/hGfbaQ9Uwvb1gC",
+            "c905q2CEZAXIergB5PdfxM",
+            "cfC0a0RdFO7JqVLhvYQuzI",
+            "d1A4J6UYNFZorPDd7irURL",
+            "d4JeFb37BMIaQsQMpW1Wwl",
+            "dfEgqgGrBJarYhoK/nIP2z",
+            "e8lb1klepBUY34Mm0FArHB"
+        ]
+    },
+    "name": "fillblank",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

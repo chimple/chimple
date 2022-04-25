@@ -1,0 +1,159 @@
+{
+    "paths": {
+        "780bCRSThKBIaipF1ZuSMa": [
+            "prefabs/pictureDrag",
+            "cc.Prefab"
+        ],
+        "17dvhqNWBENq01eEuOh+bB": [
+            "prefabs/pictureDrop",
+            "cc.Prefab"
+        ],
+        "43xGFIrYhJRqdb/OyDyFyx": [
+            "prefabs/pictureboard",
+            "cc.Prefab"
+        ],
+        "acCZsS1xFAIqvM+5AcHDSN": [
+            "prefabs/pictureboard_bg",
+            "cc.Prefab"
+        ],
+        "f5sf5uT6VLY6jtHs/HC7Tu": [
+            "prefabs/truck6",
+            "cc.Prefab"
+        ],
+        "42T8E5O1FBY5nl+a3kz3XK": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "78M/DLwyxCJpnkCSCMe9Eh": [
+            "textures/engine_truck6",
+            "cc.SpriteFrame",
+            1
+        ],
+        "097Qis6blAXJH2P0xMlQ2/": [
+            "textures/engine_truck6_handle",
+            "cc.SpriteFrame",
+            1
+        ],
+        "c5xMoiXLtEkJbU+AILPETG": [
+            "textures/engine_truck6_wheel",
+            "cc.SpriteFrame",
+            1
+        ],
+        "120Qr+dqFGHKboljIyGwll": [
+            "textures/pictureboard_chair",
+            "cc.SpriteFrame",
+            1
+        ],
+        "7aK9hJ0ppIqainiSxqUmAB": [
+            "textures/pictureboard_clock",
+            "cc.SpriteFrame",
+            1
+        ],
+        "1egUWpl3RAN45sew/tBIQe": [
+            "textures/pictureboard_moon",
+            "cc.SpriteFrame",
+            1
+        ],
+        "dboRcGFv1KaLjVQ+A6v8TG": [
+            "textures/pictureboard_moutain",
+            "cc.SpriteFrame",
+            1
+        ],
+        "8c7VEhLy9FZqkoDTrtQGd0": [
+            "textures/pictureboard_pattern1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f7CrUnerRCYIa/2E/sf4zj": [
+            "textures/pictureboard_pattern2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "feV/grbhVKII9IOah4X3Zc": [
+            "textures/pictureboard_roof",
+            "cc.SpriteFrame",
+            1
+        ],
+        "86BzH+dphCZL6kgSuqnWkd": [
+            "textures/pictureboard_tree",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        "097Qis6blAXJH2P0xMlQ2/",
+        "120Qr+dqFGHKboljIyGwll",
+        "15a1fc46d",
+        "16bBEsIb9LQJIHaANRMo2T",
+        "167cb824d",
+        "17dvhqNWBENq01eEuOh+bB",
+        "1eD9ygHzBIVqqLRXcmxJXa",
+        "1egUWpl3RAN45sew/tBIQe",
+        "2fFCqlr75CZ6aMzCVP0ea3",
+        "42T8E5O1FBY5nl+a3kz3XK",
+        "43xGFIrYhJRqdb/OyDyFyx",
+        "78M/DLwyxCJpnkCSCMe9Eh",
+        "780bCRSThKBIaipF1ZuSMa",
+        "7aK9hJ0ppIqainiSxqUmAB",
+        "86BzH+dphCZL6kgSuqnWkd",
+        "8c7VEhLy9FZqkoDTrtQGd0",
+        "9bvaMerUlDyary99mJa6xp",
+        "acCZsS1xFAIqvM+5AcHDSN",
+        "acMieUjFdE2o7VjWRzttrY",
+        "c5xMoiXLtEkJbU+AILPETG",
+        "dboRcGFv1KaLjVQ+A6v8TG",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "f5sf5uT6VLY6jtHs/HC7Tu",
+        "f7CrUnerRCYIa/2E/sf4zj",
+        "feV/grbhVKII9IOah4X3Zc"
+    ],
+    "scenes": {
+        "db://assets/games/pictureboard/scenes/pictureboard.fire": "acMieUjFdE2o7VjWRzttrY"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "9bvaMerUlDyary99mJa6xp",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "0532bac7c": [
+            "097Qis6blAXJH2P0xMlQ2/",
+            "120Qr+dqFGHKboljIyGwll",
+            "15a1fc46d",
+            "16bBEsIb9LQJIHaANRMo2T",
+            "167cb824d",
+            "17dvhqNWBENq01eEuOh+bB",
+            "1eD9ygHzBIVqqLRXcmxJXa",
+            "1egUWpl3RAN45sew/tBIQe",
+            "2fFCqlr75CZ6aMzCVP0ea3",
+            "42T8E5O1FBY5nl+a3kz3XK",
+            "43xGFIrYhJRqdb/OyDyFyx",
+            "78M/DLwyxCJpnkCSCMe9Eh",
+            "780bCRSThKBIaipF1ZuSMa",
+            "7aK9hJ0ppIqainiSxqUmAB",
+            "86BzH+dphCZL6kgSuqnWkd",
+            "8c7VEhLy9FZqkoDTrtQGd0",
+            "acCZsS1xFAIqvM+5AcHDSN",
+            "acMieUjFdE2o7VjWRzttrY",
+            "c5xMoiXLtEkJbU+AILPETG",
+            "dboRcGFv1KaLjVQ+A6v8TG",
+            "f5sf5uT6VLY6jtHs/HC7Tu",
+            "f7CrUnerRCYIa/2E/sf4zj",
+            "feV/grbhVKII9IOah4X3Zc"
+        ]
+    },
+    "name": "pictureboard",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

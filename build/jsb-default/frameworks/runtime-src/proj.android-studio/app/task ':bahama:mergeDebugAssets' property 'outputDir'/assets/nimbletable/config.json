@@ -1,0 +1,124 @@
+{
+    "paths": {
+        "8e9imlVnNBRJG3+QYs2rH/": [
+            "prefabs/examplePrefab",
+            "cc.Prefab"
+        ],
+        "90fXqLcyZM4L82OoQYv4kU": [
+            "prefabs/nimbletable",
+            "cc.Prefab"
+        ],
+        "1eMyMC25RM0aJKmGWTf9FU": [
+            "scenes/correct",
+            "cc.AnimationClip"
+        ],
+        "5d2xVr84hDTY6ueRf3O/bb": [
+            "scenes/popup",
+            "cc.AnimationClip"
+        ],
+        "63x5TFGE9CfZ2u8Bq4mkAw": [
+            "scenes/wrong",
+            "cc.AnimationClip"
+        ],
+        "0fWfVApLNAW7onYADdT+IJ": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "39yPgKfQJNuIx+NN9br2Ds": [
+            "textures/answerboard_quickfacts",
+            "cc.SpriteFrame",
+            1
+        ],
+        "33VRDm6ElN1YgZVt50I9lY": [
+            "textures/nimbletable_goal",
+            "cc.SpriteFrame",
+            1
+        ],
+        "58xoY6rZBFn7a8P8FLJIEp": [
+            "textures/nimbletable_seat",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a07gSu8cJGx4UBOgvP8m1r": [
+            "textures/nimbletable_seat",
+            "cc.Texture2D"
+        ],
+        "5apeH92HRJC5NE5shnuFjU": [
+            "textures/questionboard_quickfacts",
+            "cc.SpriteFrame",
+            1
+        ],
+        "93jg+JA/ROm7PZ2PTFxxpA": [
+            "textures/tansparentquestionboard_quickfacts",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "00VnKUq0FA/5kSYUHtGyOu",
+        "08OOcgWF1GSKOdO5zYCffN",
+        "0fWfVApLNAW7onYADdT+IJ",
+        "133c4c1a7",
+        "1eMyMC25RM0aJKmGWTf9FU",
+        "1e3daee01",
+        "29KGaVWUZKGaRrzqceGJOs",
+        "33VRDm6ElN1YgZVt50I9lY",
+        "39yPgKfQJNuIx+NN9br2Ds",
+        "3aynzQ7DRF35i4nEcb0HZV",
+        "4ffBeS4xJK4pGR2t8IhogH",
+        "58xoY6rZBFn7a8P8FLJIEp",
+        "5apeH92HRJC5NE5shnuFjU",
+        "5d2xVr84hDTY6ueRf3O/bb",
+        "63x5TFGE9CfZ2u8Bq4mkAw",
+        "79m+i6p6ZC45+gtUdotiX8",
+        "8e9imlVnNBRJG3+QYs2rH/",
+        "90fXqLcyZM4L82OoQYv4kU",
+        "93jg+JA/ROm7PZ2PTFxxpA",
+        "a07gSu8cJGx4UBOgvP8m1r",
+        "ad7zh8fadPu4Moq0fzAWVK",
+        "ecpdLyjvZBwrvm+cedCcQy"
+    ],
+    "scenes": {
+        "db://assets/games/nimbletable/scenes/nimbletable.fire": "ad7zh8fadPu4Moq0fzAWVK"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "0884357fb": [
+            "00VnKUq0FA/5kSYUHtGyOu",
+            "0fWfVApLNAW7onYADdT+IJ",
+            "133c4c1a7",
+            "1eMyMC25RM0aJKmGWTf9FU",
+            "1e3daee01",
+            "29KGaVWUZKGaRrzqceGJOs",
+            "33VRDm6ElN1YgZVt50I9lY",
+            "39yPgKfQJNuIx+NN9br2Ds",
+            "3aynzQ7DRF35i4nEcb0HZV",
+            "4ffBeS4xJK4pGR2t8IhogH",
+            "58xoY6rZBFn7a8P8FLJIEp",
+            "5apeH92HRJC5NE5shnuFjU",
+            "5d2xVr84hDTY6ueRf3O/bb",
+            "63x5TFGE9CfZ2u8Bq4mkAw",
+            "79m+i6p6ZC45+gtUdotiX8",
+            "8e9imlVnNBRJG3+QYs2rH/",
+            "90fXqLcyZM4L82OoQYv4kU",
+            "93jg+JA/ROm7PZ2PTFxxpA",
+            "a07gSu8cJGx4UBOgvP8m1r",
+            "ad7zh8fadPu4Moq0fzAWVK"
+        ]
+    },
+    "name": "nimbletable",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

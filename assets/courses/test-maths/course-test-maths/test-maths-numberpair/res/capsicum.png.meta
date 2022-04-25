@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "90e2c755-fcdc-4684-beca-73103cffa4a2",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "capsicum": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "e4c7b3dd-d8ba-4a37-a32b-f4480202d15e",
+      "importer": "sprite-frame",
       "rawTextureUuid": "90e2c755-fcdc-4684-beca-73103cffa4a2",
       "trimType": "auto",
       "trimThreshold": 1,

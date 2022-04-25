@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "79319b78-350e-47e4-a4c8-6d01fc4c9229",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "mushroom_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "050bbde2-36aa-4def-a5ba-44ec5d97f0ca",
+      "importer": "sprite-frame",
       "rawTextureUuid": "79319b78-350e-47e4-a4c8-6d01fc4c9229",
       "trimType": "auto",
       "trimThreshold": 1,

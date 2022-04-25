@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "c485a31c-366d-4893-a4b2-bdbbf1f1c780",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "iron_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "67ba8d5d-cf14-4f54-bbee-86d366fae524",
+      "importer": "sprite-frame",
       "rawTextureUuid": "c485a31c-366d-4893-a4b2-bdbbf1f1c780",
       "trimType": "auto",
       "trimThreshold": 1,

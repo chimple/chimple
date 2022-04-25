@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "52cb96d4-2134-44d4-850a-1b171e4821c0",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "blackberry": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "36667bf6-0be6-4b49-b45d-9cf6180f7b42",
+      "importer": "sprite-frame",
       "rawTextureUuid": "52cb96d4-2134-44d4-850a-1b171e4821c0",
       "trimType": "auto",
       "trimThreshold": 1,

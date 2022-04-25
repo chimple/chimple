@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "ca3e03af-e175-4046-bed0-4b91055af75f",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "worldover_forest_tree3": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "f29d522a-e289-424e-8027-bd647db9637f",
+      "importer": "sprite-frame",
       "rawTextureUuid": "ca3e03af-e175-4046-bed0-4b91055af75f",
       "trimType": "auto",
       "trimThreshold": 1,

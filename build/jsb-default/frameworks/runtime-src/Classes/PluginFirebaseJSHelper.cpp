@@ -2,6 +2,16 @@
 #include "PluginFirebase/PluginFirebase.h"
 #include "SDKBoxJSHelper.h"
 
+#ifdef SDKBOX_JSBINDING_CC3
+#include "cocos/bindings/jswrapper/SeApi.h"
+#include "cocos/bindings/manual/jsb_conversions.h"
+
+namespace cocos2d = cc;
+#else
+#include "cocos/scripting/js-bindings/jswrapper/SeApi.h"
+#include "scripting/js-bindings/manual/jsb_conversions.hpp"
+#endif
+
 void analytics_register_constants(se::Value &analytics)
 {
     cocos2d::ValueMap enums;

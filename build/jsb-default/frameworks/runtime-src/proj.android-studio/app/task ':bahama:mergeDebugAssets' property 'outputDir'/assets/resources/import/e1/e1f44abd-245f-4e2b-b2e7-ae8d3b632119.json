@@ -1,0 +1,35 @@
+[
+  1,
+  0,
+  0,
+  [
+    [
+      "dragonBones.DragonBonesAsset",
+      [
+        "_name",
+        "_dragonBonesJson"
+      ],
+      1
+    ]
+  ],
+  [
+    [
+      0,
+      0,
+      1,
+      3
+    ]
+  ],
+  [
+    [
+      0,
+      "neckacc_ske",
+      "{\"frameRate\":24,\"name\":\"neckacc\",\"version\":\"5.5\",\"compatibleVersion\":\"5.5\",\"armature\":[{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"neck1\",\"aabb\":{\"x\":-84,\"y\":-23.05,\"width\":170,\"height\":98},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"neck1\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"neck1\",\"display\":[{\"name\":\"neck1\",\"transform\":{\"x\":1,\"y\":25.95}}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"neck2\",\"aabb\":{\"x\":-108,\"y\":-25,\"width\":206,\"height\":101},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"neck2\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"neck2\",\"display\":[{\"name\":\"neck2\",\"transform\":{\"x\":-5,\"y\":25.5}}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"neck3\",\"aabb\":{\"x\":-89.5,\"y\":-20.5,\"width\":181,\"height\":104},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"neck3\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"neck3\",\"display\":[{\"name\":\"neck3\",\"transform\":{\"x\":1,\"y\":31.5}}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"neck4\",\"aabb\":{\"x\":-99.5,\"y\":-19.5,\"width\":185,\"height\":102},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"neck4\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"neck4\",\"display\":[{\"name\":\"neck4\",\"transform\":{\"x\":-7,\"y\":31.5}}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"neck5\",\"aabb\":{\"x\":-89,\"y\":-64.5,\"width\":180,\"height\":94},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"neck5\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"neck5\",\"display\":[{\"name\":\"neck5\",\"transform\":{\"x\":1,\"y\":-17.5}}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"neck6\",\"aabb\":{\"x\":-88.5,\"y\":-51.5,\"width\":185,\"height\":76},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"neck6\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"neck6\",\"display\":[{\"name\":\"neck6\",\"transform\":{\"x\":4,\"y\":-13.5,\"skX\":1,\"skY\":1}}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"neck7\",\"aabb\":{\"x\":-39.36,\"y\":-16.3,\"width\":81,\"height\":40},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"neck7\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"neck7\",\"display\":[{\"name\":\"neck7\",\"transform\":{\"x\":1.14,\"y\":3.7}}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"neck8\",\"aabb\":{\"x\":-28.47,\"y\":-13.19,\"width\":58,\"height\":40},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"neck8\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"neck8\",\"display\":[{\"name\":\"neck8\",\"transform\":{\"x\":0.53,\"y\":6.81}}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"neck9\",\"aabb\":{\"x\":-60.21,\"y\":-16.38,\"width\":122,\"height\":56},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"neck9\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"neck9\",\"display\":[{\"name\":\"neck9\",\"transform\":{\"x\":0.79,\"y\":11.62}}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]},{\"type\":\"Armature\",\"frameRate\":24,\"name\":\"neck10\",\"aabb\":{\"x\":-79.62,\"y\":-74.32,\"width\":210,\"height\":174},\"bone\":[{\"name\":\"root\"}],\"slot\":[{\"name\":\"neck10\",\"parent\":\"root\"}],\"skin\":[{\"slot\":[{\"name\":\"neck10\",\"display\":[{\"name\":\"neck10\",\"transform\":{\"x\":25.38,\"y\":12.68}}]}]}],\"animation\":[{\"duration\":0,\"playTimes\":0,\"name\":\"animtion0\"}],\"defaultActions\":[{\"gotoAndPlay\":\"animtion0\"}]}]}"
+    ]
+  ],
+  0,
+  0,
+  [],
+  [],
+  []
+]

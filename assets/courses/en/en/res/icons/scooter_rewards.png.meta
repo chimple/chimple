@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "71f2bb2d-c508-411d-83eb-43d278980b65",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "scooter_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "2210841c-6e85-4c76-9692-8e31e33a3109",
+      "importer": "sprite-frame",
       "rawTextureUuid": "71f2bb2d-c508-411d-83eb-43d278980b65",
       "trimType": "auto",
       "trimThreshold": 1,

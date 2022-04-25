@@ -1,0 +1,165 @@
+{
+    "paths": {
+        "aeLmbCEnhDpLwlhjFGcgKk": [
+            "prefabs/blue_alphabet_wordmatrix",
+            "cc.Prefab"
+        ],
+        "78UUD2aZNNyoSoW48J6pQj": [
+            "prefabs/grass_question_wordmatrix",
+            "cc.Prefab"
+        ],
+        "b04zDJ6PRKgpoP+k0NkQ02": [
+            "prefabs/grid",
+            "cc.Prefab"
+        ],
+        "279gdSFyND6ppjylZhH+Qq": [
+            "prefabs/ground",
+            "cc.Prefab"
+        ],
+        "8fJiCCdfZBPL1ra/x2yibW": [
+            "prefabs/mud_drop_wordmatrix",
+            "cc.Prefab"
+        ],
+        "96HYwbP1ZKyJ4w8x4fSbDZ": [
+            "prefabs/slot_area_selected",
+            "cc.Prefab"
+        ],
+        "a7MKns6YtETbkhDN9ULIbJ": [
+            "texture/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "8cA9DFv+BMW7d7gnswzVLr": [
+            "texture/blue_alphabet_wordmatrix",
+            "cc.SpriteFrame",
+            1
+        ],
+        "48Ddl93tBHy52MP6tjoEUZ": [
+            "texture/grass_question_wordmatrix",
+            "cc.SpriteFrame",
+            1
+        ],
+        "93qZkVEZhC6rExS8lWT/k2": [
+            "texture/grid_bush1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "b0DtuxeYlOJrJ6jTbZGKbO": [
+            "texture/grid_bush2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "2aXWvTO6pH47GsYiirg0HK": [
+            "texture/grid_mud1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "e0QJHqXvBORpc9/F0SAHTq": [
+            "texture/grid_mud2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "97Z36bxRNKra52EBx27VsL": [
+            "texture/grid_mud3",
+            "cc.SpriteFrame",
+            1
+        ],
+        "aduCzTIL1I/KCB+sspjNAm": [
+            "texture/ground",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a5HarHIeVI447YRkw7lCcz": [
+            "texture/mud_drop_wordmatrix",
+            "cc.SpriteFrame",
+            1
+        ],
+        "33GkIUnYZIDa4sdYLCuCJC": [
+            "texture/slot_area_selected",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        "17da34db0",
+        "1c7e63a4f",
+        "279gdSFyND6ppjylZhH+Qq",
+        "2aXWvTO6pH47GsYiirg0HK",
+        "33GkIUnYZIDa4sdYLCuCJC",
+        "35yhms62lNYLcf6+IBFH01",
+        "43lay/KvBCcIDjtRnWdjUk",
+        "47LfXTNedBhJ5sf0G+5l7j",
+        "48Ddl93tBHy52MP6tjoEUZ",
+        "61CAGhvJ5IAqsQ8a7gFJB5",
+        "78UUD2aZNNyoSoW48J6pQj",
+        "79YlMFzshPYJRomSFgeUsh",
+        "8cA9DFv+BMW7d7gnswzVLr",
+        "8fJiCCdfZBPL1ra/x2yibW",
+        "93qZkVEZhC6rExS8lWT/k2",
+        "96HYwbP1ZKyJ4w8x4fSbDZ",
+        "97Z36bxRNKra52EBx27VsL",
+        "a1MrFy6ihKd6CPsBX6Jd5x",
+        "a5HarHIeVI447YRkw7lCcz",
+        "a7MKns6YtETbkhDN9ULIbJ",
+        "aduCzTIL1I/KCB+sspjNAm",
+        "aeLmbCEnhDpLwlhjFGcgKk",
+        "b0DtuxeYlOJrJ6jTbZGKbO",
+        "b04zDJ6PRKgpoP+k0NkQ02",
+        "b2aHrECZ5APKGS/0d2hvT1",
+        "d0qC05vt5GxLaYyB/w3t//",
+        "d4VZmoSolGAZPU4y0p30R2",
+        "e0QJHqXvBORpc9/F0SAHTq",
+        "ecpdLyjvZBwrvm+cedCcQy"
+    ],
+    "scenes": {
+        "db://assets/games/grid/scenes/grid.fire": "d4VZmoSolGAZPU4y0p30R2"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "0aecae1e4": [
+            "17da34db0",
+            "1c7e63a4f",
+            "279gdSFyND6ppjylZhH+Qq",
+            "2aXWvTO6pH47GsYiirg0HK",
+            "33GkIUnYZIDa4sdYLCuCJC",
+            "35yhms62lNYLcf6+IBFH01",
+            "43lay/KvBCcIDjtRnWdjUk",
+            "47LfXTNedBhJ5sf0G+5l7j",
+            "48Ddl93tBHy52MP6tjoEUZ",
+            "61CAGhvJ5IAqsQ8a7gFJB5",
+            "78UUD2aZNNyoSoW48J6pQj",
+            "79YlMFzshPYJRomSFgeUsh",
+            "8cA9DFv+BMW7d7gnswzVLr",
+            "8fJiCCdfZBPL1ra/x2yibW",
+            "93qZkVEZhC6rExS8lWT/k2",
+            "96HYwbP1ZKyJ4w8x4fSbDZ",
+            "97Z36bxRNKra52EBx27VsL",
+            "a1MrFy6ihKd6CPsBX6Jd5x",
+            "a5HarHIeVI447YRkw7lCcz",
+            "a7MKns6YtETbkhDN9ULIbJ",
+            "aduCzTIL1I/KCB+sspjNAm",
+            "aeLmbCEnhDpLwlhjFGcgKk",
+            "b0DtuxeYlOJrJ6jTbZGKbO",
+            "b04zDJ6PRKgpoP+k0NkQ02",
+            "b2aHrECZ5APKGS/0d2hvT1",
+            "d0qC05vt5GxLaYyB/w3t//",
+            "d4VZmoSolGAZPU4y0p30R2",
+            "e0QJHqXvBORpc9/F0SAHTq"
+        ]
+    },
+    "name": "grid",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

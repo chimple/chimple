@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "93554cc0-b249-48ed-81e8-ad8059cc437c",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "cashew": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "5ebd1abb-e51b-467d-8169-03643de602d7",
+      "importer": "sprite-frame",
       "rawTextureUuid": "93554cc0-b249-48ed-81e8-ad8059cc437c",
       "trimType": "auto",
       "trimThreshold": 1,

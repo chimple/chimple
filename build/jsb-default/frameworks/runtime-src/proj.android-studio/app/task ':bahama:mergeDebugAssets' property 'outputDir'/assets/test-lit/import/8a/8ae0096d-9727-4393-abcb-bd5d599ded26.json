@@ -1,0 +1,316 @@
+[
+  1,
+  0,
+  0,
+  [
+    [
+      "cc.JsonAsset",
+      [
+        "_name",
+        "json"
+      ],
+      1
+    ]
+  ],
+  [
+    [
+      0,
+      0,
+      1,
+      3
+    ]
+  ],
+  [
+    [
+      0,
+      "course",
+      {
+        "id": "test-lit",
+        "name": "Lit Test",
+        "lang": "en",
+        "type": "literacy",
+        "chapters": [
+          {
+            "id": "chapter_0",
+            "image": "chapter_1.png",
+            "name": "Chapter 0",
+            "lessons": [
+              {
+                "id": "test-lit-stamp",
+                "image": "stamp.png",
+                "name": "Stamp",
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-stickerbook",
+                "image": "stickerbook.png",
+                "name": "Sticker Book",
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-phonictractor",
+                "image": "phonictractor.png",
+                "name": "phonictractor",
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-balloonpop",
+                "image": "phonictractor.png",
+                "name": "balloonpop",
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-pictureboard",
+                "image": "pictureboard.png",
+                "name": "pictureboard",
+                "color": "#F55B5D",
+                "skills": []
+              },
+              {
+                "id": "test-lit-speakingpet",
+                "image": "speakingpet.png",
+                "name": "speakingpet",
+                "open": true,
+                "color": "#42C0FF",
+                "skills": []
+              },
+              {
+                "id": "test-lit-letterboard",
+                "image": "letterboard.png",
+                "name": "letterboard",
+                "open": true,
+                "color": "#6560AB",
+                "skills": []
+              },
+              {
+                "id": "test-lit-alphabetrecorder",
+                "image": "alphabetrecorder.png",
+                "name": "alphabetrecorder",
+                "open": true,
+                "color": "#FF5500",
+                "skills": []
+              }
+            ]
+          },
+          {
+            "id": "chapter_1",
+            "image": "chapter_1.png",
+            "name": "Chapter 1",
+            "lessons": [
+              {
+                "id": "test-lit-writeword",
+                "image": "writeword.png",
+                "name": "writeword",
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-picturemeaning",
+                "image": "picturemeaning.png",
+                "name": "picturemeaning",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-jumpsentence",
+                "image": "jumpsentence.png",
+                "name": "jumpsentence",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-openwindow",
+                "image": "openwindow.png",
+                "name": "openwindow",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-createsentence",
+                "image": "createsentence.png",
+                "name": "createsentence",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              }
+            ]
+          },
+          {
+            "id": "chapter_2",
+            "image": "chapter_2.png",
+            "name": "Chapter 2",
+            "lessons": [
+              {
+                "id": "test-lit-bubbletype",
+                "image": "bubbletype.png",
+                "name": "bubbletype",
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-writeletter",
+                "image": "writeletter.png",
+                "name": "writeletter",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-fillblank",
+                "image": "fillblank.png",
+                "name": "fillblank",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-spelldoor",
+                "image": "spelldoor.png",
+                "name": "spelldoor",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-writecard",
+                "image": "writecard.png",
+                "name": "writecard",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              }
+            ]
+          },
+          {
+            "id": "chapter_3",
+            "image": "chapter_3.png",
+            "name": "Chapter 3",
+            "lessons": [
+              {
+                "id": "test-lit-imagerecorder",
+                "image": "imagerecorder.png",
+                "name": "imagerecorder",
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-drawshape",
+                "image": "drawshape.png",
+                "name": "drawshape",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-rocket",
+                "image": "rocket.png",
+                "name": "rocket",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-tag",
+                "image": "tag.png",
+                "name": "tag",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-monster",
+                "image": "monster.png",
+                "name": "monster",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              }
+            ]
+          },
+          {
+            "id": "chapter_4",
+            "image": "chapter_4.png",
+            "name": "Chapter 4",
+            "lessons": [
+              {
+                "id": "test-lit-letterpair",
+                "image": "letterpair.png",
+                "name": "letterpair",
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-grid",
+                "image": "grid.png",
+                "name": "grid",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-arrangeletters",
+                "image": "arrangeletters.png",
+                "name": "arrangeletters",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-dragthealphabet",
+                "image": "dragthealphabet.png",
+                "name": "dragthealphabet",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-quizliteracy",
+                "image": "dragthealphabet.png",
+                "name": "quizliteracy",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-story",
+                "image": "dragthealphabet.png",
+                "name": "story",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-storyq",
+                "image": "dragthealphabet.png",
+                "name": "storyquiz",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              },
+              {
+                "id": "test-lit-youtube",
+                "image": "dragthealphabet.png",
+                "name": "youtube",
+                "open": true,
+                "color": "#347FC1",
+                "skills": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  ],
+  0,
+  0,
+  [],
+  [],
+  []
+]

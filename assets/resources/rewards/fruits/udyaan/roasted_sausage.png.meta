@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "361586be-19a5-48b0-837e-4afb009d25e4",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "roasted_sausage": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "cec7dbdd-a2ba-45f0-b121-3b2cdd53e5c9",
+      "importer": "sprite-frame",
       "rawTextureUuid": "361586be-19a5-48b0-837e-4afb009d25e4",
       "trimType": "auto",
       "trimThreshold": 1,

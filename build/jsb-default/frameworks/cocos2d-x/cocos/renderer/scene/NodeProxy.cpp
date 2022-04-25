@@ -83,6 +83,8 @@ NodeProxy::~NodeProxy()
     {
         child->_parent = nullptr;
     }
+    
+    CC_SAFE_RELEASE(_assembler);
 }
 
 void NodeProxy::destroyImmediately()

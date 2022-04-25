@@ -1,6 +1,11 @@
 #include "PluginFirebaseJS.hpp"
+#ifdef SDKBOX_JSBINDING_CC3
+#include "cocos/bindings/jswrapper/SeApi.h"
+#include "cocos/bindings/manual/jsb_conversions.h"
+#else
 #include "scripting/js-bindings/manual/jsb_conversions.hpp"
 #include "scripting/js-bindings/manual/jsb_global.h"
+#endif
 #include "PluginFirebase/PluginFirebase.h"
 
 se::Object* __jsb_sdkbox_Firebase_Analytics_proto = nullptr;
@@ -163,7 +168,6 @@ SE_BIND_FUNC(js_PluginFirebaseJS_Analytics_resetAnalyticsData)
 
 static bool js_sdkbox_Firebase_Analytics_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (sdkbox::Firebase::Analytics)", s.nativeThisObject());
     auto iter = se::NonRefNativePtrCreatedByCtorMap::find(s.nativeThisObject());
     if (iter != se::NonRefNativePtrCreatedByCtorMap::end())
     {

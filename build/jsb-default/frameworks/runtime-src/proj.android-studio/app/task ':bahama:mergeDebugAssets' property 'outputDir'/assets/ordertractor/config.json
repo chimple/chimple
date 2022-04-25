@@ -1,0 +1,199 @@
+{
+    "paths": {
+        "1e8AH0RRJLgaKCZuZnuaC8": [
+            "prefabs/numbertrainDrag",
+            "cc.Prefab"
+        ],
+        "16aGEqJORHXY0DuTeuAa+7": [
+            "prefabs/numbertrainDrop",
+            "cc.Prefab"
+        ],
+        "cewcty7RdKyYF0dtF6RDPf": [
+            "prefabs/ordertractor",
+            "cc.Prefab"
+        ],
+        "6cJ+SqB5FP4YEG7Ue/jMND": [
+            "prefabs/ordertractor_bg",
+            "cc.Prefab"
+        ],
+        "bcuxLcXSBP+52n+HBkyhyD": [
+            "sounds/train1",
+            "cc.AudioClip"
+        ],
+        "3b4KPjPnVKiIC0euk68uce": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "aegL/f8TVBv4hrNe7mHBds": [
+            "textures/box_answer_soundtrain",
+            "cc.SpriteFrame",
+            1
+        ],
+        "fcU2nRtAZPn4SWF3UMRVS7": [
+            "textures/box_answer_soundtrain_trans",
+            "cc.SpriteFrame",
+            1
+        ],
+        "dbD0rL6qtMzYTBKarXyzHA": [
+            "textures/ordertractor_ball",
+            "cc.SpriteFrame",
+            1
+        ],
+        "69jQHeu91J4ZzZHO/Ccato": [
+            "textures/ordertractor_cart",
+            "cc.SpriteFrame",
+            1
+        ],
+        "b2vpO38FFNBKtrCLKPoIFj": [
+            "textures/ordertractor_connector",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f9vqNmnIxMW5lHWTRq8JUF": [
+            "textures/ordertractor_trolley",
+            "cc.SpriteFrame",
+            1
+        ],
+        "5b3tJtv7NBIqJsx/RF15AM": [
+            "textures/playground_bush",
+            "cc.SpriteFrame",
+            1
+        ],
+        "b3EI6ZxfNKp4HSYJC2yUcf": [
+            "textures/playground_chair",
+            "cc.SpriteFrame",
+            1
+        ],
+        "8d8UvCJNBLNZtA/Qin+pos": [
+            "textures/playground_lamp1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "05v40uVZNEjI8U6/OJrRr0": [
+            "textures/playground_mud1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "35hBexQFNIAJQQOVYGfLtw": [
+            "textures/playground_mud2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "47fq4YK5lD/JFkltnwdQol": [
+            "textures/playground_play1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "1a1S46TOtJUa+0Ct5gMBP3": [
+            "textures/playground_play2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "8fnysZZgBC0ZvU6szDphdg": [
+            "textures/playground_tree1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "10y8EHxLFH8L+TSdcLlzAL": [
+            "textures/playground_tree2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f4fehCq3lO4LjofbPTNO7+": [
+            "textures/trolly_drop_soundtrain",
+            "cc.SpriteFrame",
+            1
+        ],
+        "86TfkeeGlH5KoG4bAb3J7r": [
+            "textures/trolly_drop_soundtrain_base",
+            "cc.SpriteFrame",
+            1
+        ],
+        "d1LTEF1MBPQYdpt7KUnTZX": [
+            "textures/trolly_drop_soundtrain_upper",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "05v40uVZNEjI8U6/OJrRr0",
+        "08OOcgWF1GSKOdO5zYCffN",
+        "0bVI3/ds5Fh5YQbW2vXulS",
+        "10y8EHxLFH8L+TSdcLlzAL",
+        "16aGEqJORHXY0DuTeuAa+7",
+        "18f87e13a",
+        "1a1S46TOtJUa+0Ct5gMBP3",
+        "1e8AH0RRJLgaKCZuZnuaC8",
+        "35hBexQFNIAJQQOVYGfLtw",
+        "3b4KPjPnVKiIC0euk68uce",
+        "47fq4YK5lD/JFkltnwdQol",
+        "5b3tJtv7NBIqJsx/RF15AM",
+        "69jQHeu91J4ZzZHO/Ccato",
+        "6cJ+SqB5FP4YEG7Ue/jMND",
+        "86TfkeeGlH5KoG4bAb3J7r",
+        "8d8UvCJNBLNZtA/Qin+pos",
+        "8fnysZZgBC0ZvU6szDphdg",
+        "a1lDuG9cdM2pGPPqgZBQHP",
+        "aegL/f8TVBv4hrNe7mHBds",
+        "b2vpO38FFNBKtrCLKPoIFj",
+        "b3EI6ZxfNKp4HSYJC2yUcf",
+        "bcuxLcXSBP+52n+HBkyhyD",
+        "cewcty7RdKyYF0dtF6RDPf",
+        "d1LTEF1MBPQYdpt7KUnTZX",
+        "dbD0rL6qtMzYTBKarXyzHA",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "f4fehCq3lO4LjofbPTNO7+",
+        "f9vqNmnIxMW5lHWTRq8JUF",
+        "fcU2nRtAZPn4SWF3UMRVS7"
+    ],
+    "scenes": {
+        "db://assets/games/ordertractor/scenes/ordertractor.fire": "0bVI3/ds5Fh5YQbW2vXulS"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "049a7585a": [
+            "05v40uVZNEjI8U6/OJrRr0",
+            "0bVI3/ds5Fh5YQbW2vXulS",
+            "10y8EHxLFH8L+TSdcLlzAL",
+            "16aGEqJORHXY0DuTeuAa+7",
+            "18f87e13a",
+            "1a1S46TOtJUa+0Ct5gMBP3",
+            "1e8AH0RRJLgaKCZuZnuaC8",
+            "35hBexQFNIAJQQOVYGfLtw",
+            "3b4KPjPnVKiIC0euk68uce",
+            "47fq4YK5lD/JFkltnwdQol",
+            "5b3tJtv7NBIqJsx/RF15AM",
+            "69jQHeu91J4ZzZHO/Ccato",
+            "6cJ+SqB5FP4YEG7Ue/jMND",
+            "86TfkeeGlH5KoG4bAb3J7r",
+            "8d8UvCJNBLNZtA/Qin+pos",
+            "8fnysZZgBC0ZvU6szDphdg",
+            "a1lDuG9cdM2pGPPqgZBQHP",
+            "aegL/f8TVBv4hrNe7mHBds",
+            "b2vpO38FFNBKtrCLKPoIFj",
+            "b3EI6ZxfNKp4HSYJC2yUcf",
+            "bcuxLcXSBP+52n+HBkyhyD",
+            "cewcty7RdKyYF0dtF6RDPf",
+            "d1LTEF1MBPQYdpt7KUnTZX",
+            "dbD0rL6qtMzYTBKarXyzHA",
+            "f4fehCq3lO4LjofbPTNO7+",
+            "f9vqNmnIxMW5lHWTRq8JUF",
+            "fcU2nRtAZPn4SWF3UMRVS7"
+        ]
+    },
+    "name": "ordertractor",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

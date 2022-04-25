@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "56ad76a0-a3b0-44f9-91f5-d57d16d57cd1",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "matchinggame_pentagon_1_large": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "70086489-d0b9-4e3f-bd47-c655b06a10f5",
+      "importer": "sprite-frame",
       "rawTextureUuid": "56ad76a0-a3b0-44f9-91f5-d57d16d57cd1",
       "trimType": "auto",
       "trimThreshold": 1,

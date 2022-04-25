@@ -1,0 +1,72 @@
+[
+  1,
+  0,
+  0,
+  [
+    [
+      "cc.JsonAsset",
+      [
+        "_name",
+        "json"
+      ],
+      1
+    ]
+  ],
+  [
+    [
+      0,
+      0,
+      1,
+      3
+    ]
+  ],
+  [
+    [
+      0,
+      "lessons",
+      [
+        {
+          "name": "Lesson1",
+          "image": "id11.png",
+          "id": "id1.1",
+          "category": "Alphabet"
+        },
+        {
+          "name": "Lesson2",
+          "image": "id12.png",
+          "id": "id1.2",
+          "category": "Alphabet"
+        },
+        {
+          "name": "Lesson3",
+          "image": "id21.png",
+          "id": "id2.1",
+          "category": "Phonics"
+        },
+        {
+          "name": "Lesson4",
+          "image": "id21.png",
+          "id": "id2.2",
+          "category": "Phonics"
+        },
+        {
+          "name": "Lesson5",
+          "image": "id31.png",
+          "id": "id3.1",
+          "category": "Syllables"
+        },
+        {
+          "name": "Lesson6",
+          "image": "id41.png",
+          "id": "id4.1",
+          "category": "Words"
+        }
+      ]
+    ]
+  ],
+  0,
+  0,
+  [],
+  [],
+  []
+]

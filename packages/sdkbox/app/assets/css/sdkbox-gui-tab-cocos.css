@@ -1,0 +1,476 @@
+
+#tab-cocos {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    display: table;
+}
+
+#tab-cocos .template {
+    display: none;
+}
+
+/** table **/
+
+table {
+    background-color: #f6f6f6;
+    max-width: 100%;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-radius: 4px;
+}
+
+thead tr {
+    height: 32px;
+    background-color: #ccc;
+}
+
+th {
+    font-weight: bold;
+    padding-left: 16px;
+    font-size: 14px;
+}
+
+td,
+td label {
+    font-family: Menlo, Monaco, monospace;
+    font-size: 12px;
+    padding-left: 16px;
+}
+
+td a {
+    font-family: Menlo, Monaco, monospace;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+tbody tr {
+    height: 24px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #e9e9e9;
+}
+
+button {
+    margin: 2px;
+}
+
+
+/** toolbar **/
+
+/** workaround for hide webview **/
+.hidden .toolbar {
+    display: none !important;
+}
+
+#tab-cocos .toolbar {
+    display: table-row;
+    line-height: 60px;
+    height: 60px;
+    background-color: #eee;
+}
+
+#tab-cocos .toolbar h1 {
+    float: left;
+    margin-left: 24px;
+    font-size: 24px;
+    font-weight: normal;
+    color: #666;
+}
+
+#tab-cocos .toolbar .buttons {
+    float: right;
+    margin-right: 24px;
+}
+
+/** projects **/
+
+#tab-cocos .projects {
+    display: table-row;
+}
+
+#tab-cocos .projects .icon {
+    width: 44px;
+    height: 44px;
+    float: left;
+    margin-right: 8px;
+}
+
+#tab-cocos .projects .icon img {
+    width: 44px;
+    height: 44px;
+    border: none;
+}
+
+
+/** list **/
+
+#tab-cocos .projects-list {
+    overflow-x: hidden;
+    width: 35%;
+    height: 100%;
+    float: left;
+}
+
+#tab-cocos .projects-list ul, .projects-list li {
+    list-style: none;
+}
+
+#tab-cocos .projects-list ul {
+    margin: 16px 16px 0 24px;
+}
+
+#tab-cocos .projects-list li {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px 8px;
+    margin-bottom: 16px;
+    background-color: #eee;
+}
+
+#tab-cocos .projects-list li:hover {
+    background-color: #fff;
+}
+
+#tab-cocos .projects-list li.selected {
+    background-color: #50baf9;
+    border: 1px solid #17567b;
+    border-radius: 4px;
+}
+
+#tab-cocos .projects-list .title {
+    height: 48px;
+}
+
+#tab-cocos .projects-list .name h2 {
+    line-height: 48px;
+    font-size: 18px;
+    font-weight: normal;
+    color: #333;
+    float: left;
+}
+
+#tab-cocos .projects-list .tags {
+    float: left;
+    margin-left: 12px;
+    margin-top: 14px;
+    height: 14px;
+}
+
+#tab-cocos .projects-list .tags span {
+    float: left;
+    color: #eee;
+    background-color: #2089c7;
+    padding: 2px 8px;
+    font-size: 12px;
+    border-radius: 10px;
+    margin-left: 4px;
+}
+
+#tab-cocos .projects-list .loader {
+    width: 16px;
+    height: 16px;
+    float: right;
+    margin-top: 16px;
+}
+
+#tab-cocos .projects-list .loader img {
+    width: 16px;
+    height: 16px;
+    border: none;
+}
+
+#tab-cocos .plugins-tags {
+    padding-top: 4px;
+}
+
+#tab-cocos .plugins-tags span {
+    float: left;
+    height: 14px;
+    background-color: #ccc;
+    color: #333;
+    padding: 2px 8px;
+    font-size: 12px;
+    border-radius: 10px;
+    margin-left: 8px;
+    margin-top: 4px;
+}
+
+#tab-cocos .plugins-tags span:before {
+    font-family: "Genericons";
+    font-size: 14px;
+    vertical-align: top;
+    text-align: center;
+    content: '\f445  ';
+}
+
+#tab-cocos .projects-list .clear {
+    float: none;
+    clear: both;
+}
+
+/** details **/
+
+#tab-cocos .projects-details {
+    overflow-x: hidden;
+    width: 65%;
+    height: 100%;
+    float: left;
+}
+
+#tab-cocos .projects-details .placeholder {
+    padding: 24px 24px;
+    font-size: 24px;
+}
+
+#tab-cocos .projects-details .details {
+    margin: 16px 16px 16px 24px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#tab-cocos .projects-details .name {
+    height: 72px;
+    background-color: #eee;
+    border-bottom: 2px solid #999;
+    border-radius: 4px;
+}
+
+#tab-cocos .projects-details .name .icon {
+    margin: 12px 0 0 16px;
+}
+
+#tab-cocos .projects-details .name h2 {
+    float: left;
+    line-height: 72px;
+    font-size: 24px;
+    font-weight: normal;
+    margin-left: 16px;
+}
+
+#tab-cocos .projects-details ul, .projects-details li {
+    list-style: none;
+}
+
+#tab-cocos .projects-details .block {
+    padding: 16px 24px;
+}
+
+#tab-cocos .projects-details .buttons {
+    padding: 0 24px 16px 24px;
+}
+
+#tab-cocos .projects-details h3 {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 32px;
+}
+
+#tab-cocos .projects-details .basics li span {
+    font-weight: bold;
+    word-wrap: break-word;
+}
+
+.live thead tr {
+    background-color: #007fb8;
+    color: #fff;
+}
+
+.plugins thead tr {
+    background-color: #00af62;
+    color: #fff;
+}
+
+.build-hint {
+    padding: 0 24px 16px 24px;
+}
+
+/* dialog */
+
+#import-plugins-dialog .loader,
+#import-plugins-dialog .loader img {
+    display: block;
+    width: 120px;
+    height: 120px;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 140px;
+}
+
+#import-plugins-dialog .contents h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#import-plugins-dialog .contents table {
+    margin: 10px 0 20px 0;
+    border: 1px solid #ccc;
+}
+
+#import-plugins-dialog thead tr {
+    background-color: #007fb8;
+    color: #fff;
+}
+
+#import-plugins-dialog .contents div .tree-component .tree-header{
+    margin: 0.1em 0.1em 0.1em 0.1em;
+    cursor: default;
+}
+#import-plugins-dialog .contents div .tree-content {
+    margin: 0.1em 0.1em 0.1em 0.1em;
+    padding: 0em 0em 0em 1.5em;
+}
+#import-plugins-dialog .contents div .tree-header-icon {
+    margin: 0em 0.2em 0em 0em;
+    display: inline-block;
+    transform: rotate(0deg);
+}
+#import-plugins-dialog .contents div .tree-item {
+    margin: 0.1em 0;
+    height: 2em;
+    display: flex;
+    justify-content: space-between;
+}
+
+#import-plugins-dialog .contents div .tree-item-content {
+    margin: 0.1em 0em 0.1em 0.5em;
+    line-height: 2em;
+    text-align: center;
+    cursor: default;
+}
+#import-plugins-dialog .contents div .tree-item-action {
+    background: #EEE;
+    margin: 0.2em 0.5em 0.2em 0em;
+    padding: 0em 0.5em;
+    border-radius: 0.5em;
+}
+.tree-item-bg-1 {
+    background: #CCC;
+}
+.tree-item-bg-2 {
+    background: #DDD;
+}
+.tree-item-content-tip {
+    visibility: hidden;
+    width: 30em;
+    background-color: #444;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+.tree-item-content:hover .tree-item-content-tip {
+    visibility: visible;
+}
+
+#console-output-dialog pre.output {
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    border-top: 1px solid #ccc;
+    margin-top: 8px;
+    padding-top: 8px;
+    font-family: Menlo, Monaco, monospace;
+    font-size: 12px;
+    font-weight: normal;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 370px;
+}
+
+.hidden {
+    display: none;
+}
+
+#install-plugin-dialog pre.import-cli-output {
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    border-top: 1px solid #ccc;
+    margin-top: 8px;
+    padding-top: 8px;
+    font-family: Menlo, Monaco, monospace;
+    font-size: 12px;
+    font-weight: normal;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 370px;
+}
+
+#install-plugin-dialog .download-plugin-item {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+}
+
+#install-plugin-dialog .download-plugin-name {
+    margin: 5px 5px 5px 10px;
+    width: 130px;
+    flex: 0 0 130px;
+}
+
+#install-plugin-dialog .download-plugin-progress {
+    margin: 5px 10px 5px 10px;
+    flex: 1 1 auto;
+    position: relative;
+    height: 30px;
+    background-color: #ddd;
+}
+
+#install-plugin-dialog .download-plugin-bar {
+    width: 0%;
+    height: 100%;
+    background-color: #4CAF50;
+}
+
+#install-plugin-dialog .download-plugin-label {
+    text-align: center;
+    line-height: 30px;
+    color: white;
+}
+
+#install-plugin-dialog .download-plugin-status {
+    margin: 5px 10px 5px 10px;
+    flex: 0 0 100px;
+}
+
+#install-plugin-dialog .separation-line {
+    margin: 20px 5px 20px 5px;
+}
+
+#install-plugin-dialog .plugin-document-item {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+}
+
+#install-plugin-dialog .plugin-document-item-name {
+    margin: 2px 5px 2px 5px;
+    width: 150px;
+    flex: 0 0 150px;
+}
+
+#install-plugin-dialog .plugin-document-item-docs {
+    margin: 2px 5px 2px 5px;
+    width: 100px;
+    flex: 0 0 100px;
+}
+
+#install-plugin-dialog .plugin-document-item-sample {
+    margin: 2px 5px 2px 5px;
+    width: 100px;
+    flex: 0 0 100px;
+}
+

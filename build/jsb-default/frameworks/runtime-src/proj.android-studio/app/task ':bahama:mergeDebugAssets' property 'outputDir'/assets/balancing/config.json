@@ -1,0 +1,243 @@
+{
+    "paths": {
+        "6cCVeo+MJHX53ZmUOKDOya": [
+            "animations/equal_balance",
+            "cc.AnimationClip"
+        ],
+        "98ZeS/K4xI4IeRXaV1+TAl": [
+            "animations/introduction_balance",
+            "cc.AnimationClip"
+        ],
+        "31kaRzqldI1orYBVKNVqbu": [
+            "animations/left_balance",
+            "cc.AnimationClip"
+        ],
+        "fexsICyb1EzLd7qqZAV6I2": [
+            "animations/right_balance",
+            "cc.AnimationClip"
+        ],
+        "cbfon/D4BPsIFgjbFThYEp": [
+            "prefabs/balancing",
+            "cc.Prefab"
+        ],
+        "8e3xhirB1IX4KeyNMwNzR7": [
+            "prefabs/imageNode",
+            "cc.Prefab"
+        ],
+        "bcUuPwI7tHpq8QGKnhmCnq": [
+            "prefabs/numberLabel",
+            "cc.Prefab"
+        ],
+        "e32jIJlh5BwKFYWzd+IP7K": [
+            "sounds/panelput",
+            "cc.AudioClip"
+        ],
+        "080yCHlx9LAomDVay8lk0n": [
+            "sounds/sfx_feedingtime_correct",
+            "cc.AudioClip"
+        ],
+        "11YyX6UItNiYmG/nTC+lbD": [
+            "sounds/sfx_feedingtime_incorrect",
+            "cc.AudioClip"
+        ],
+        "6bnGwPT/BEu7hOwdlfMrXZ": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "62ZMFWBDxLkqdaKIhXv0Gb": [
+            "textures/apple",
+            "cc.SpriteFrame",
+            1
+        ],
+        "1ex/fDD4JGkbO6idRx5ZA+": [
+            "textures/balancing_oven",
+            "cc.SpriteFrame",
+            1
+        ],
+        "0bUy4Q1tZBI5AfH+qzZ5SH": [
+            "textures/balancing_pattern",
+            "cc.SpriteFrame",
+            1
+        ],
+        "ecqXO86DVGWadmFLDoJiHM": [
+            "textures/balancing_spatula1",
+            "cc.SpriteFrame",
+            1
+        ],
+        "849fvsvyJBRaK9eVZJIqYH": [
+            "textures/balancing_spatula2",
+            "cc.SpriteFrame",
+            1
+        ],
+        "dfJs3HKGBBJr3At2pL13Ox": [
+            "textures/balancing_spatula3",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f7w9fuNdxFQ56p85mJVidz": [
+            "textures/big_fruit",
+            "cc.SpriteFrame",
+            1
+        ],
+        "1adx1GZDxHEYKQdJYZkz3g": [
+            "textures/bucket",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f3Y6Fz55dJ/KyUjaN1VhZo": [
+            "textures/equals_button",
+            "cc.SpriteFrame",
+            1
+        ],
+        "472fa6vt9G1a5/7vKjHWXd": [
+            "textures/equals_pressed_button",
+            "cc.SpriteFrame",
+            1
+        ],
+        "38fqOKN5lF+KHA3FOfRkCk": [
+            "textures/grapes",
+            "cc.SpriteFrame",
+            1
+        ],
+        "5eJyqBUM1BsodmjLI2pU2a": [
+            "textures/greater__pressed_button",
+            "cc.SpriteFrame",
+            1
+        ],
+        "d3MmLy5vtCPb11DRBjKT5R": [
+            "textures/greater_button",
+            "cc.SpriteFrame",
+            1
+        ],
+        "4ceE++jNVPbrl2wjMUGU4y": [
+            "textures/lesser_button",
+            "cc.SpriteFrame",
+            1
+        ],
+        "2fAsy4AVFIuKNV832uortp": [
+            "textures/lesser_pressed_button",
+            "cc.SpriteFrame",
+            1
+        ],
+        "58BhZSBWVDFIKZZBppWPtV": [
+            "textures/machine_balancing",
+            "cc.SpriteFrame",
+            1
+        ],
+        "6epplB27BJbrx4xmr6pCNU": [
+            "textures/machine_centre",
+            "cc.SpriteFrame",
+            1
+        ],
+        "c5ucMgksxEn4Ic1RSpZ7zM": [
+            "textures/potato",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a19oLa7pZAbbM3/M+glVug": [
+            "textures/small_button",
+            "cc.SpriteFrame",
+            1
+        ],
+        "08jmNlaBZLApCCL9vdqeFB": [
+            "textures/strawberry",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "08jmNlaBZLApCCL9vdqeFB",
+        "080yCHlx9LAomDVay8lk0n",
+        "0bUy4Q1tZBI5AfH+qzZ5SH",
+        "11YyX6UItNiYmG/nTC+lbD",
+        "18c2e320a",
+        "1adx1GZDxHEYKQdJYZkz3g",
+        "1d70218fd",
+        "1ex/fDD4JGkbO6idRx5ZA+",
+        "2fAsy4AVFIuKNV832uortp",
+        "31kaRzqldI1orYBVKNVqbu",
+        "38fqOKN5lF+KHA3FOfRkCk",
+        "472fa6vt9G1a5/7vKjHWXd",
+        "4ceE++jNVPbrl2wjMUGU4y",
+        "4ex8MjaBdFea3CsI9jLTNz",
+        "58BhZSBWVDFIKZZBppWPtV",
+        "5eJyqBUM1BsodmjLI2pU2a",
+        "62ZMFWBDxLkqdaKIhXv0Gb",
+        "6bnGwPT/BEu7hOwdlfMrXZ",
+        "6cCVeo+MJHX53ZmUOKDOya",
+        "6epplB27BJbrx4xmr6pCNU",
+        "849fvsvyJBRaK9eVZJIqYH",
+        "8e3xhirB1IX4KeyNMwNzR7",
+        "98ZeS/K4xI4IeRXaV1+TAl",
+        "9bvaMerUlDyary99mJa6xp",
+        "a19oLa7pZAbbM3/M+glVug",
+        "bcUuPwI7tHpq8QGKnhmCnq",
+        "c5ucMgksxEn4Ic1RSpZ7zM",
+        "cbfon/D4BPsIFgjbFThYEp",
+        "d3MmLy5vtCPb11DRBjKT5R",
+        "dfJs3HKGBBJr3At2pL13Ox",
+        "e32jIJlh5BwKFYWzd+IP7K",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "ecqXO86DVGWadmFLDoJiHM",
+        "f3Y6Fz55dJ/KyUjaN1VhZo",
+        "f7w9fuNdxFQ56p85mJVidz",
+        "fexsICyb1EzLd7qqZAV6I2"
+    ],
+    "scenes": {
+        "db://assets/games/balancing/scenes/balancing.fire": "4ex8MjaBdFea3CsI9jLTNz"
+    },
+    "redirect": [
+        "9bvaMerUlDyary99mJa6xp",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "0e9ebc47d": [
+            "08jmNlaBZLApCCL9vdqeFB",
+            "080yCHlx9LAomDVay8lk0n",
+            "0bUy4Q1tZBI5AfH+qzZ5SH",
+            "11YyX6UItNiYmG/nTC+lbD",
+            "18c2e320a",
+            "1adx1GZDxHEYKQdJYZkz3g",
+            "1d70218fd",
+            "1ex/fDD4JGkbO6idRx5ZA+",
+            "2fAsy4AVFIuKNV832uortp",
+            "31kaRzqldI1orYBVKNVqbu",
+            "38fqOKN5lF+KHA3FOfRkCk",
+            "472fa6vt9G1a5/7vKjHWXd",
+            "4ceE++jNVPbrl2wjMUGU4y",
+            "4ex8MjaBdFea3CsI9jLTNz",
+            "58BhZSBWVDFIKZZBppWPtV",
+            "5eJyqBUM1BsodmjLI2pU2a",
+            "62ZMFWBDxLkqdaKIhXv0Gb",
+            "6bnGwPT/BEu7hOwdlfMrXZ",
+            "6cCVeo+MJHX53ZmUOKDOya",
+            "6epplB27BJbrx4xmr6pCNU",
+            "849fvsvyJBRaK9eVZJIqYH",
+            "8e3xhirB1IX4KeyNMwNzR7",
+            "98ZeS/K4xI4IeRXaV1+TAl",
+            "a19oLa7pZAbbM3/M+glVug",
+            "bcUuPwI7tHpq8QGKnhmCnq",
+            "c5ucMgksxEn4Ic1RSpZ7zM",
+            "cbfon/D4BPsIFgjbFThYEp",
+            "d3MmLy5vtCPb11DRBjKT5R",
+            "dfJs3HKGBBJr3At2pL13Ox",
+            "e32jIJlh5BwKFYWzd+IP7K",
+            "ecqXO86DVGWadmFLDoJiHM",
+            "f3Y6Fz55dJ/KyUjaN1VhZo",
+            "f7w9fuNdxFQ56p85mJVidz",
+            "fexsICyb1EzLd7qqZAV6I2"
+        ]
+    },
+    "name": "balancing",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

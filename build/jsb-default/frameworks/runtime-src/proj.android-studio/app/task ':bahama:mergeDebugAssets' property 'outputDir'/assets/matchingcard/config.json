@@ -1,0 +1,128 @@
+{
+    "paths": {
+        "e1FQWwrPlMtrE5nlOsbWz5": [
+            "prefabs/matchingcard",
+            "cc.Prefab"
+        ],
+        "4fH18iqMxHpqEjqoZIvo0J": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "2e2hb6m41JMZowzp8VnyKW": [
+            "textures/card_back",
+            "cc.SpriteFrame",
+            1
+        ],
+        "21RIkfUmBIcq5NlxlNnti/": [
+            "textures/card_front",
+            "cc.SpriteFrame",
+            1
+        ],
+        "faQawDlb5K3aQBIO4sq1L1": [
+            "textures/card_shadow",
+            "cc.SpriteFrame",
+            1
+        ],
+        "5dgapNuidDBbPtfKnvKxrs": [
+            "textures/engine_truck7",
+            "cc.SpriteFrame",
+            1
+        ],
+        "65v18/ktRJyo2mJPl3kJ9y": [
+            "textures/engine_truck7_handle",
+            "cc.SpriteFrame",
+            1
+        ],
+        "02VzMj4ExEPa0sZeghW+oK": [
+            "textures/engine_truck7_wheel",
+            "cc.SpriteFrame",
+            1
+        ],
+        "b3eeA40IlEUKY0NWZ6o8qc": [
+            "textures/matchingcard_board",
+            "cc.SpriteFrame",
+            1
+        ],
+        "c4Th8vpz5Ivr8EZ/ovEo/Q": [
+            "textures/matchingcard_chair",
+            "cc.SpriteFrame",
+            1
+        ],
+        "833y72/8RCV6jx2gnTK4T/": [
+            "textures/matchingcard_stand",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f3zqq2wcxA8KRl5p2hNFA6": [
+            "textures/matchingcard_track",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "02VzMj4ExEPa0sZeghW+oK",
+        "08OOcgWF1GSKOdO5zYCffN",
+        "13fcbfcc5",
+        "158e80030",
+        "1eD9ygHzBIVqqLRXcmxJXa",
+        "1ff8603cd",
+        "21RIkfUmBIcq5NlxlNnti/",
+        "2e2hb6m41JMZowzp8VnyKW",
+        "39J/doDptAMrx84WwWMN7S",
+        "4fH18iqMxHpqEjqoZIvo0J",
+        "5dgapNuidDBbPtfKnvKxrs",
+        "65v18/ktRJyo2mJPl3kJ9y",
+        "833y72/8RCV6jx2gnTK4T/",
+        "9bvaMerUlDyary99mJa6xp",
+        "b3eeA40IlEUKY0NWZ6o8qc",
+        "c4Th8vpz5Ivr8EZ/ovEo/Q",
+        "e1FQWwrPlMtrE5nlOsbWz5",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "f3zqq2wcxA8KRl5p2hNFA6",
+        "faQawDlb5K3aQBIO4sq1L1",
+        "fdVt62fIZOOJ4afejD6VxC"
+    ],
+    "scenes": {
+        "db://assets/games/matchingcard/scenes/matchingcard.fire": "39J/doDptAMrx84WwWMN7S"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "9bvaMerUlDyary99mJa6xp",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "0a9681f90": [
+            "02VzMj4ExEPa0sZeghW+oK",
+            "13fcbfcc5",
+            "158e80030",
+            "1eD9ygHzBIVqqLRXcmxJXa",
+            "1ff8603cd",
+            "21RIkfUmBIcq5NlxlNnti/",
+            "2e2hb6m41JMZowzp8VnyKW",
+            "39J/doDptAMrx84WwWMN7S",
+            "4fH18iqMxHpqEjqoZIvo0J",
+            "5dgapNuidDBbPtfKnvKxrs",
+            "65v18/ktRJyo2mJPl3kJ9y",
+            "833y72/8RCV6jx2gnTK4T/",
+            "b3eeA40IlEUKY0NWZ6o8qc",
+            "c4Th8vpz5Ivr8EZ/ovEo/Q",
+            "e1FQWwrPlMtrE5nlOsbWz5",
+            "f3zqq2wcxA8KRl5p2hNFA6",
+            "faQawDlb5K3aQBIO4sq1L1",
+            "fdVt62fIZOOJ4afejD6VxC"
+        ]
+    },
+    "name": "matchingcard",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

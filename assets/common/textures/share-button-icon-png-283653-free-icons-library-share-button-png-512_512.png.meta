@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "55f1a2e9-f89b-4433-acc9-e2c61d6139eb",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "share-button-icon-png-283653-free-icons-library-share-button-png-512_512": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "0588487a-1776-4ac9-beb6-5a8db4594a42",
+      "importer": "sprite-frame",
       "rawTextureUuid": "55f1a2e9-f89b-4433-acc9-e2c61d6139eb",
       "trimType": "auto",
       "trimThreshold": 1,

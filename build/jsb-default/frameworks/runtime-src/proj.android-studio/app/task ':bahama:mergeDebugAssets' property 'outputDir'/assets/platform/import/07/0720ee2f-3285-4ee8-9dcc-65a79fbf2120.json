@@ -1,0 +1,416 @@
+[
+  1,
+  0,
+  0,
+  [
+    [
+      "cc.AnimationClip",
+      [
+        "_name",
+        "_duration",
+        "wrapMode",
+        "curveData"
+      ],
+      -1
+    ]
+  ],
+  [
+    [
+      0,
+      0,
+      1,
+      2,
+      3,
+      5
+    ]
+  ],
+  [
+    [
+      0,
+      "spike",
+      0.5,
+      2,
+      {
+        "paths": {
+          "spike/spike47": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": -6.465
+                },
+                {
+                  "frame": 0.5,
+                  "value": -104.06
+                }
+              ]
+            }
+          },
+          "spike/spike46": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 84.49
+                },
+                {
+                  "frame": 0.5,
+                  "value": -6.465
+                }
+              ]
+            }
+          },
+          "spike/spike45": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 176.456
+                },
+                {
+                  "frame": 0.5,
+                  "value": 84.49
+                }
+              ]
+            }
+          },
+          "spike/spike44": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 270.443
+                },
+                {
+                  "frame": 0.5,
+                  "value": 176.456
+                }
+              ]
+            }
+          },
+          "spike/spike43": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 361.398
+                },
+                {
+                  "frame": 0.5,
+                  "value": 270.443
+                }
+              ]
+            }
+          },
+          "spike/spike42": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 453.817
+                },
+                {
+                  "frame": 0.5,
+                  "value": 361.398
+                }
+              ]
+            }
+          },
+          "spike/spike41": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 540.246
+                },
+                {
+                  "frame": 0.5,
+                  "value": 453.817
+                }
+              ]
+            }
+          },
+          "spike/spike35": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 611.081
+                },
+                {
+                  "frame": 0.5,
+                  "value": 540.246
+                }
+              ],
+              "angle": [
+                {
+                  "frame": 0,
+                  "value": -82.99999999999999
+                },
+                {
+                  "frame": 0.5,
+                  "value": -90
+                }
+              ],
+              "x": [
+                {
+                  "frame": 0,
+                  "value": 5.485
+                },
+                {
+                  "frame": 0.5,
+                  "value": 11.293
+                }
+              ]
+            }
+          },
+          "spike/spike34": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 627.059
+                },
+                {
+                  "frame": 0.5,
+                  "value": 611.081
+                }
+              ],
+              "x": [
+                {
+                  "frame": 0,
+                  "value": 0
+                },
+                {
+                  "frame": 0.5,
+                  "value": 5.485
+                }
+              ],
+              "angle": [
+                {
+                  "frame": 0,
+                  "value": -52
+                },
+                {
+                  "frame": 0.5,
+                  "value": -82.99999999999999
+                }
+              ]
+            }
+          },
+          "spike/spike33": {
+            "props": {
+              "angle": [
+                {
+                  "frame": 0,
+                  "value": -9
+                },
+                {
+                  "frame": 0.5,
+                  "value": -52
+                }
+              ]
+            }
+          },
+          "spike/spike32": {
+            "props": {
+              "angle": [
+                {
+                  "frame": 0,
+                  "value": 37
+                },
+                {
+                  "frame": 0.5,
+                  "value": -9
+                }
+              ],
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 627.059
+                }
+              ],
+              "x": [
+                {
+                  "frame": 0,
+                  "value": 0
+                }
+              ]
+            }
+          },
+          "spike/spike31": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 628.083
+                },
+                {
+                  "frame": 0.5,
+                  "value": 627.059
+                }
+              ],
+              "x": [
+                {
+                  "frame": 0,
+                  "value": -5.81
+                },
+                {
+                  "frame": 0.5,
+                  "value": 0
+                }
+              ],
+              "angle": [
+                {
+                  "frame": 0,
+                  "value": 79.99999999999999
+                },
+                {
+                  "frame": 0.5,
+                  "value": 37
+                }
+              ]
+            }
+          },
+          "spike/spike30": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 560.239
+                },
+                {
+                  "frame": 0.5,
+                  "value": 628.083
+                }
+              ],
+              "x": [
+                {
+                  "frame": 0,
+                  "value": -10.94
+                },
+                {
+                  "frame": 0.5,
+                  "value": -5.81
+                }
+              ],
+              "angle": [
+                {
+                  "frame": 0,
+                  "value": 89.99999999999999
+                },
+                {
+                  "frame": 0.5,
+                  "value": 79.99999999999999
+                }
+              ]
+            }
+          },
+          "spike/spike26": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 460.62
+                },
+                {
+                  "frame": 0.5,
+                  "value": 560.667
+                }
+              ]
+            }
+          },
+          "spike/spike25": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 372.393
+                },
+                {
+                  "frame": 0.5,
+                  "value": 460.62
+                }
+              ]
+            }
+          },
+          "spike/spike24": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 279.172
+                },
+                {
+                  "frame": 0.5,
+                  "value": 372.393
+                }
+              ]
+            }
+          },
+          "spike/spike23": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 192.609
+                },
+                {
+                  "frame": 0.5,
+                  "value": 279.172
+                }
+              ]
+            }
+          },
+          "spike/spike22": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 102.717
+                },
+                {
+                  "frame": 0.5,
+                  "value": 192.609
+                }
+              ]
+            }
+          },
+          "spike/spike21": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": 14.973
+                },
+                {
+                  "frame": 0.5,
+                  "value": 102.717
+                }
+              ]
+            }
+          },
+          "spike/spike20": {
+            "props": {
+              "y": [
+                {
+                  "frame": 0,
+                  "value": -72.072
+                },
+                {
+                  "frame": 0.5,
+                  "value": 14.973
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  ],
+  0,
+  0,
+  [],
+  [],
+  []
+]

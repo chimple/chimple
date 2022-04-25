@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "732a3212-7606-4a4b-8eda-bdf141cbd33b",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "kitten_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "ce66f221-ab59-49a5-b360-793b57ffce9d",
+      "importer": "sprite-frame",
       "rawTextureUuid": "732a3212-7606-4a4b-8eda-bdf141cbd33b",
       "trimType": "auto",
       "trimThreshold": 1,

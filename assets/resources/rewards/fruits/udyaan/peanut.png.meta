@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "506bad26-59b7-4064-9ab6-d9d7ce788b18",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "peanut": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "0fc541f7-6149-4023-8859-355b08fc4aa5",
+      "importer": "sprite-frame",
       "rawTextureUuid": "506bad26-59b7-4064-9ab6-d9d7ce788b18",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,0 +1,164 @@
+{
+    "paths": {
+        "0adbc5WdlFHryZ2xNtS48V": [
+            "prefabs/ansButton",
+            "cc.Prefab"
+        ],
+        "61ejgoHeVIR6GO3r9o9olM": [
+            "prefabs/imageButton",
+            "cc.Prefab"
+        ],
+        "b96daWrNhKE4QitUZYsTpT": [
+            "prefabs/picturemeaning",
+            "cc.Prefab"
+        ],
+        "f28dA5bWRGsKuu9Xa+xjNG": [
+            "prefabs/picturemeaning_bg",
+            "cc.Prefab"
+        ],
+        "bcQ39agYlNMIfMbzBz9xwP": [
+            "prefabs/textAnswerButton",
+            "cc.Prefab"
+        ],
+        "a2biCkxjdDJpDkjgp8zcmx": [
+            "prefabs/textChoiceButton",
+            "cc.Prefab"
+        ],
+        "abMWrv4etKupudn0ZEbCi0": [
+            "prefabs/traffic_node",
+            "cc.Prefab"
+        ],
+        "6c+QJ2iE1O5KX8P804pSgC": [
+            "scenes/green_signal",
+            "cc.AnimationClip"
+        ],
+        "00tDOUo2FB/ZcIEXPjojS9": [
+            "scenes/red_signal",
+            "cc.AnimationClip"
+        ],
+        "76hYbjQFlIh46JI7tH4s9k": [
+            "scenes/short_flip",
+            "cc.AnimationClip"
+        ],
+        "1clhURyTNMKKXjaWCtPF7Z": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "68sUeT1QZBOaqRhO/OjMn5": [
+            "textures/answer_card",
+            "cc.SpriteFrame",
+            1
+        ],
+        "ac4XlKy0VCmKAu80rUa2xj": [
+            "textures/board_image_whatisthis",
+            "cc.SpriteFrame",
+            1
+        ],
+        "ebJLpZuIBKg6+yuPeL31CF": [
+            "textures/green",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a8fNrGdLVFrJ2Wbg8ECpSI": [
+            "textures/picture_card",
+            "cc.SpriteFrame",
+            1
+        ],
+        "51QYqX7FNHpKBRIbUq6i6k": [
+            "textures/red",
+            "cc.SpriteFrame",
+            1
+        ],
+        "6909u3TrRMhIpnaPS9xDxL": [
+            "textures/traffic_glow",
+            "cc.SpriteFrame",
+            1
+        ],
+        "59gOoIjtlLUa9IUl3KRHQD": [
+            "textures/traffic_pole",
+            "cc.SpriteFrame",
+            1
+        ],
+        "d6vdMgzelMJYnAC+FFOtok": [
+            "textures/whatisthis_bush",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "00tDOUo2FB/ZcIEXPjojS9",
+        "08OOcgWF1GSKOdO5zYCffN",
+        "0adbc5WdlFHryZ2xNtS48V",
+        "139129333",
+        "1clhURyTNMKKXjaWCtPF7Z",
+        "29FYIk+N1GYaeWH/q1NxQO",
+        "51QYqX7FNHpKBRIbUq6i6k",
+        "59gOoIjtlLUa9IUl3KRHQD",
+        "61ejgoHeVIR6GO3r9o9olM",
+        "68sUeT1QZBOaqRhO/OjMn5",
+        "6909u3TrRMhIpnaPS9xDxL",
+        "6c+QJ2iE1O5KX8P804pSgC",
+        "76hYbjQFlIh46JI7tH4s9k",
+        "78PZwKfNFMsZ233iI2fK+I",
+        "a2biCkxjdDJpDkjgp8zcmx",
+        "a8fNrGdLVFrJ2Wbg8ECpSI",
+        "abMWrv4etKupudn0ZEbCi0",
+        "ac4XlKy0VCmKAu80rUa2xj",
+        "b96daWrNhKE4QitUZYsTpT",
+        "bcQ39agYlNMIfMbzBz9xwP",
+        "d6vdMgzelMJYnAC+FFOtok",
+        "e97GVMl6JHh5Ml5qEDdSGa",
+        "ebJLpZuIBKg6+yuPeL31CF",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "f28dA5bWRGsKuu9Xa+xjNG"
+    ],
+    "scenes": {
+        "db://assets/games/picturemeaning/scenes/picturemeaning.fire": "78PZwKfNFMsZ233iI2fK+I"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "29FYIk+N1GYaeWH/q1NxQO",
+        1,
+        "e97GVMl6JHh5Ml5qEDdSGa",
+        1,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        2
+    ],
+    "deps": [
+        "resources",
+        "main",
+        "internal"
+    ],
+    "packs": {
+        "0c8b41887": [
+            "00tDOUo2FB/ZcIEXPjojS9",
+            "0adbc5WdlFHryZ2xNtS48V",
+            "139129333",
+            "1clhURyTNMKKXjaWCtPF7Z",
+            "51QYqX7FNHpKBRIbUq6i6k",
+            "59gOoIjtlLUa9IUl3KRHQD",
+            "61ejgoHeVIR6GO3r9o9olM",
+            "68sUeT1QZBOaqRhO/OjMn5",
+            "6909u3TrRMhIpnaPS9xDxL",
+            "6c+QJ2iE1O5KX8P804pSgC",
+            "76hYbjQFlIh46JI7tH4s9k",
+            "78PZwKfNFMsZ233iI2fK+I",
+            "a2biCkxjdDJpDkjgp8zcmx",
+            "a8fNrGdLVFrJ2Wbg8ECpSI",
+            "abMWrv4etKupudn0ZEbCi0",
+            "ac4XlKy0VCmKAu80rUa2xj",
+            "b96daWrNhKE4QitUZYsTpT",
+            "bcQ39agYlNMIfMbzBz9xwP",
+            "d6vdMgzelMJYnAC+FFOtok",
+            "ebJLpZuIBKg6+yuPeL31CF",
+            "f28dA5bWRGsKuu9Xa+xjNG"
+        ]
+    },
+    "name": "picturemeaning",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

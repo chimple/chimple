@@ -1,0 +1,165 @@
+{
+    "paths": {
+        "aczSxHiZ5OEp+2GZxAQP7Z": [
+            "prefabs/rowblocks",
+            "cc.Prefab"
+        ],
+        "75SWdHf9ZEv485kNHnloNj": [
+            "prefabs/rowblocks_bg",
+            "cc.Prefab"
+        ],
+        "38B93xC+JE9b0eAbvOTmcJ": [
+            "prefabs/thirtypuzzleDrag",
+            "cc.Prefab"
+        ],
+        "20VuBjysNJvrnXEwYFazf+": [
+            "prefabs/thirtypuzzleDragTile",
+            "cc.Prefab"
+        ],
+        "75SWeQWetAfKP8zm01xZaP": [
+            "prefabs/thirtypuzzleDrop",
+            "cc.Prefab"
+        ],
+        "adbeRpvOhGXpvlOR5dWalO": [
+            "prefabs/thirtypuzzleboard",
+            "cc.Prefab"
+        ],
+        "e9wulQxt5BOrlRwaMUsGuW": [
+            "prefabs/thitypuzzleTile",
+            "cc.Prefab"
+        ],
+        "b1jhov41JIroUBlHX8fOSd": [
+            "prefabs/truck3",
+            "cc.Prefab"
+        ],
+        "d8XXe53sdGBo/ZthJXKFWj": [
+            "textures/AutoAtlas",
+            "cc.SpriteAtlas"
+        ],
+        "f4XuLxBMhMOby6GdD9av2G": [
+            "textures/checker_dark",
+            "cc.SpriteFrame",
+            1
+        ],
+        "5bHHP6MCdBEL7cdwlVR97o": [
+            "textures/checker_light",
+            "cc.SpriteFrame",
+            1
+        ],
+        "acickgtYVMS5OznUxWSrhx": [
+            "textures/engine_truck3",
+            "cc.SpriteFrame",
+            1
+        ],
+        "6b6nuYkldPW578wYVZ8YFt": [
+            "textures/engine_truck3_wheel",
+            "cc.SpriteFrame",
+            1
+        ],
+        "38+yzrDb9CzqlMpeytM1iR": [
+            "textures/engine_truck3_window",
+            "cc.SpriteFrame",
+            1
+        ],
+        "05T9ROb99B0YAa3lRsfbad": [
+            "textures/rowblocks_roof",
+            "cc.SpriteFrame",
+            1
+        ],
+        "d1MDkHx2BNiqMzfRUNWX+A": [
+            "textures/rowblocks_shed",
+            "cc.SpriteFrame",
+            1
+        ],
+        "c3ma856FtDB5qEuVVirU1I": [
+            "textures/thirtypuzzle_block_middle_1_surface",
+            "cc.SpriteFrame",
+            1
+        ],
+        "3el31BUF5M7KTxxCUNCTaM": [
+            "textures/thirtypuzzle_block_middle_2_texture",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "uuids": [
+        "05T9ROb99B0YAa3lRsfbad",
+        "08OOcgWF1GSKOdO5zYCffN",
+        "16bBEsIb9LQJIHaANRMo2T",
+        "192d4dd95",
+        "1eD9ygHzBIVqqLRXcmxJXa",
+        "20VuBjysNJvrnXEwYFazf+",
+        "2fFCqlr75CZ6aMzCVP0ea3",
+        "38B93xC+JE9b0eAbvOTmcJ",
+        "38+yzrDb9CzqlMpeytM1iR",
+        "3el31BUF5M7KTxxCUNCTaM",
+        "5bHHP6MCdBEL7cdwlVR97o",
+        "5e9NJ+E8FKZoqgOZV0XkEu",
+        "6b6nuYkldPW578wYVZ8YFt",
+        "75SWdHf9ZEv485kNHnloNj",
+        "75SWeQWetAfKP8zm01xZaP",
+        "92UUBxViBNWKKoJQ2xXTIe",
+        "9aiFJG/TNCQItwNCRmBkT0",
+        "9bvaMerUlDyary99mJa6xp",
+        "acickgtYVMS5OznUxWSrhx",
+        "aczSxHiZ5OEp+2GZxAQP7Z",
+        "adbeRpvOhGXpvlOR5dWalO",
+        "b1jhov41JIroUBlHX8fOSd",
+        "c3ma856FtDB5qEuVVirU1I",
+        "d1MDkHx2BNiqMzfRUNWX+A",
+        "d8XXe53sdGBo/ZthJXKFWj",
+        "e9wulQxt5BOrlRwaMUsGuW",
+        "ecpdLyjvZBwrvm+cedCcQy",
+        "f4XuLxBMhMOby6GdD9av2G"
+    ],
+    "scenes": {
+        "db://assets/games/rowblocks/scenes/rowblocks.fire": "5e9NJ+E8FKZoqgOZV0XkEu"
+    },
+    "redirect": [
+        "08OOcgWF1GSKOdO5zYCffN",
+        0,
+        "9bvaMerUlDyary99mJa6xp",
+        0,
+        "ecpdLyjvZBwrvm+cedCcQy",
+        1
+    ],
+    "deps": [
+        "resources",
+        "internal"
+    ],
+    "packs": {
+        "03fb0f1f8": [
+            "05T9ROb99B0YAa3lRsfbad",
+            "16bBEsIb9LQJIHaANRMo2T",
+            "192d4dd95",
+            "1eD9ygHzBIVqqLRXcmxJXa",
+            "20VuBjysNJvrnXEwYFazf+",
+            "2fFCqlr75CZ6aMzCVP0ea3",
+            "38B93xC+JE9b0eAbvOTmcJ",
+            "38+yzrDb9CzqlMpeytM1iR",
+            "3el31BUF5M7KTxxCUNCTaM",
+            "5bHHP6MCdBEL7cdwlVR97o",
+            "5e9NJ+E8FKZoqgOZV0XkEu",
+            "6b6nuYkldPW578wYVZ8YFt",
+            "75SWdHf9ZEv485kNHnloNj",
+            "75SWeQWetAfKP8zm01xZaP",
+            "92UUBxViBNWKKoJQ2xXTIe",
+            "9aiFJG/TNCQItwNCRmBkT0",
+            "acickgtYVMS5OznUxWSrhx",
+            "aczSxHiZ5OEp+2GZxAQP7Z",
+            "adbeRpvOhGXpvlOR5dWalO",
+            "b1jhov41JIroUBlHX8fOSd",
+            "c3ma856FtDB5qEuVVirU1I",
+            "d1MDkHx2BNiqMzfRUNWX+A",
+            "d8XXe53sdGBo/ZthJXKFWj",
+            "e9wulQxt5BOrlRwaMUsGuW",
+            "f4XuLxBMhMOby6GdD9av2G"
+        ]
+    },
+    "name": "rowblocks",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

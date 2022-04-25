@@ -1,0 +1,307 @@
+<template class="tab-template">
+
+<div id="tab-cocos" class="tab-contents">
+
+    <div class="toolbar" class="noselect">
+        <h1 class="forStandalone">Cocos Projects</h1>
+        <h1 class="forCreator">
+            Creator Projects
+
+            <input type="checkbox" class="tab-cocos-staging-flag">
+            <label style="font-weight:normal">SDKBox Staging Server</label>
+        </h1>
+
+        <div class="buttons forStandalone">
+            <button class="import">Open</button>
+        </div>
+    </div> <!-- toolbar -->
+
+    <div class="projects">
+
+        <div class="projects-list" class="noselect">
+
+            <ul>
+
+                <li class="template">
+                    <div class="icon"><img src="" /></div>
+
+                    <div class="title">
+                        <div class="name"><h2></h2></div>
+                        <div class="tags"></div>
+                        <div class="loader"><img src="../assets/img/loader.gif" /></div>
+                    </div>
+
+                    <div class="plugins-tags"></div>
+                    <div class="clear"></div>
+                </li>
+
+            </ul>
+
+        </div> <!-- projects-list -->
+
+        <div class="projects-details">
+
+            <div class="placeholder">
+                Please open or select project.
+            </div>
+
+            <div class="details">
+
+                <div class="name">
+                    <div class="icon"><img src="" /></div>
+                    <h2></h2>
+                </div>
+
+                <div class="basics block">
+                    <ul>
+                        <li class="location">Location: <span></span></li>
+                        <li class="xcode-project-path">
+                            <input title="Enable/Disalbe Xcode Platform" type="checkbox" checked="checked"> Xcode Project: <select title="Availabel Xcode Project List"></select>
+                        </li>
+                        <li class="android-project-path">
+                            <input title="Enable/Disalbe Android Platform" type="checkbox" checked="checked">Android Project: <select title="Availabel Android Project List"></select>
+                        </li>
+                        <li class="engine">Engine: <span></span></li>
+                    </ul>
+                </div>
+
+                <div class="basics buttons forStandalone">
+                    <button class="open-project-folder">Open Project Folder</button>
+                    <button class="remove-project">Remove Project</button>
+                </div>
+
+                <div class="basics buttons forCreator">
+                    <button class="import-plugin">Import</button>
+                    <button class="update-all-plugins">Update</button>
+                    <button class="open-project-folder">Open</button>
+                    <button class="build-project">Build</button>
+                </div>
+
+                <div class="build-hint forCreator">
+                    <img src="../assets/img/icon_warning.png" width="30px" height="30px" />
+                    <font size="10px" color="red">Please build project before import plugins!</font>
+                </div>
+
+                <div class="live block">
+                    <h3>Live Report:</h3>
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="item">Item</th>
+                            <th class="value">Value</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="live buttons">
+                    <button class="check-report">Check Report</button>
+                </div>
+
+
+                <div class="plugins block">
+                    <h3>Imported Plugins:</h3>
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Version</th>
+                            <th>More</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="plugins buttons forStandalone">
+                    <button class="import-plugin">Import Plugin</button>
+                    <button class="update-all-plugins">Update All Plugins</button>
+                </div>
+
+            </div>
+
+        </div> <!-- projects-details -->
+
+    </div> <!-- projects -->
+
+    <div id="import-plugins-dialog" title="Import Plugin">
+        <div class="loader">
+            <img src="../assets/img/loader.gif" />
+        </div>
+        <div class="contents">
+            <h3 style="cursor: default;">All Plugins</h3>
+
+            <div>
+                <div class="tree-component hidden">
+                    <div class="tree-header">
+                        <span class="tree-header-icon">▾</span>
+                        <strong class="tree-header-content">Header1</strong>
+                    </div>
+                    <div class="tree-content">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+    var importCocosPluginsDialog = $('#import-plugins-dialog').dialog({
+        autoOpen: false,
+        width: 720,
+        minWidth: 720,
+        height: 520,
+        minHeight: 500,
+        modal: true,
+        closeOnEscape: true,
+        buttons: [
+            {
+                text: 'Close',
+                click:() => {
+                    importCocosPluginsDialog.dialog('close');
+                }
+            }
+        ]
+    });
+
+    function getImportCocosPluginsDialog() {
+        return importCocosPluginsDialog;
+    }
+    </script>
+
+    <div id="console-output-dialog" title="Console Output">
+        <div class="contents">
+            <div>
+<pre class="output"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    var consoleOutputDialog = $('#console-output-dialog').dialog({
+        autoOpen: false,
+        width: 720,
+        height: 520,
+        modal: false,
+        closeOnEscape: false,
+        draggable: false,
+        resizable: false,
+        buttons: [
+            {
+                text: 'Close',
+                click:() => {
+                    consoleOutputDialog.dialog('close');
+                }
+            }
+        ]
+    });
+
+    function getConsoleOutputDialog() {
+        return consoleOutputDialog;
+    }
+    </script>
+
+    <div id="install-plugin-dialog" title="Install Plugin">
+        <div class="download-plugin-step"><strong>Step1: Download and install plugin</strong></div>
+        <div class="download-plugin-list">
+            <div class="download-plugin-item hidden">
+                <div class="download-plugin-name">AdMob</div>
+                <div class="download-plugin-progress">
+                    <div class="download-plugin-bar">
+                        <div class="download-plugin-label">0%</div>
+                    </div>
+                </div>
+                <div class="download-plugin-status">Downloading</div>
+            </div>
+        </div>
+
+        <hr class="separation-line"/>
+        <div class="download-plugin-step"><strong>Step2: Review document and finish intergation</strong></div>
+        <div class="plugin-document-list">
+            <div class="plugin-document-item hidden">
+                <div class="plugin-document-item-name">AdMob</div>
+                <a class="plugin-document-item-docs">Document</a>
+                <a class="plugin-document-item-sample">Sample</a>
+            </div>
+        </div>
+
+        <div class="import-cli-contents">
+            <div>
+                <pre class="import-cli-output"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    var installDialog = $('#install-plugin-dialog').dialog({
+        autoOpen: false,
+        width: 720,
+        height: 600,
+        modal: false,
+        closeOnEscape: false,
+        draggable: false,
+        resizable: false,
+        buttons: [
+            {
+                text: 'Cancel',
+                click:() => {
+                    installDialog.dialog('close');
+                }
+            }
+        ]
+    });
+
+    function getInstallSdkboxPluginsDialog() {
+        return installDialog;
+    }
+    </script>
+
+    <div id="query-install-tapcore-dialog" title="Install TapCore">
+        <div class="download-plugin-step"><strong>Please fill your tapcore token:</strong></div>
+        <br>
+        <div>
+            <textarea class="tapcore-token" style="resize:none" cols="40" rows="4" type="text" name="authcode" value="Mickey"></textarea>
+        </div>
+        <br>
+        <div>
+            Visit <a href="https://my.tapcore.com/login/?refid=Y3DgX">Tapcore</a> to get your authcode
+        </div>
+    </div>
+
+    <script>
+    var queryInstallTapcoreDialog = $('#query-install-tapcore-dialog').dialog({
+        autoOpen: false,
+        width: 360,
+        height: 300,
+        modal: false,
+        closeOnEscape: false,
+        draggable: false,
+        resizable: false,
+        buttons: [
+            {
+                text: 'Import',
+                click:() => {
+                    if (queryInstallTapcoreDialog.wrapper) {
+                        queryInstallTapcoreDialog.wrapper.import();
+                    }
+                    // queryInstallTapcoreDialog.dialog('close');
+                }
+            }
+        ]
+    });
+
+    function getQueryInstallTapCoreDialog() {
+        return queryInstallTapcoreDialog;
+    }
+    </script>
+
+</div>
+</template>
+
