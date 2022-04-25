@@ -36,7 +36,7 @@ export default class ProfileOtpDialog extends cc.Component {
         this.editBox.string = "";
         this.confirmBtn.interactable = false;
         this.btnLabel.string = Util.i18NText("Confirm");
-        this.editBox.placeholder = Util.i18NText("Enter the 6-digit otp here...");
+        this.editBox.placeholder = Util.i18NText("Enter the 6-digit OTP here...");
         this.errLabel.string = "";
         this.editBox.enabled = true;
     }
