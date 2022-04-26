@@ -187,8 +187,9 @@ export default class Start extends cc.Component {
         UtilLogger.syncFmcTokenForUsers();
         const mode = parseInt(Profile.getValue(CURRENTMODE))
         if (mode != Mode.School) {
-            this.assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
-            config.assignments = this.assignments;
+            this.loading.active = true;
+            this.assignments = await ServiceConfig.getI().handle.listAssignments(user.id)
+            config.assignments = this.assignments.reverse();
             if (config.assignments.length > 0 || !user.isConnected) {
                 if (config.assignments.length > 0 && !user.isConnected) {
                     user.isConnected = true
@@ -244,6 +245,8 @@ export default class Start extends cc.Component {
                     }
                 }
             })
+
+            this.loading.active = false;
         }
 
         // Sample Code for offline sync
@@ -711,6 +714,7 @@ export default class Start extends cc.Component {
             this.flag = false;
             const user = User.getCurrentUser();
             this.assignments = await ServiceConfig.getI().handle.listAssignments(user.id);
+            this.assignments = this.assignments.reverse();
             if (this.assignments.length > 0 && !pendingAssignment) {
                 const currentHash = Util.getHash(this.assignments[0].assignmentId);
                 Config.i.assignments = this.assignments;
