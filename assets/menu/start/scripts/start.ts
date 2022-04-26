@@ -604,9 +604,10 @@ export default class Start extends cc.Component {
             // this.node.getChildByName('giftBox').addChild(this.gift)
             if (this.node.getChildByName('giftBox').getChildByName(this.gift.name) == undefined) {
                 this.node.getChildByName('giftBox').addChild(this.gift)
+                // this.displayCurrentReward();
             }
             if (courseProgressMap.lessonPlanIndex == courseProgressMap.lessonPlan.length) {
-                this.giveReward(this.gift, user)
+                this.giveReward(user)
             }
             Config.i.startAction = StartAction.Default
         } else {
@@ -629,7 +630,10 @@ export default class Start extends cc.Component {
         lessonButton.onClick()
         this.loading.active = true;
     }
-    private giveReward(node: cc.Node, user: User) {
+    private giveReward(user: User) {
+        console.log('giveReward node', this.node.getChildByName('giftBox').children[0])
+        let node: cc.Node = this.node.getChildByName('giftBox').children[0];
+        console.log('giveReward node', node)
         var seq = cc.repeat(
             cc.sequence(
                 cc.scaleTo(0.3, 1.2, 1.2),
@@ -759,7 +763,7 @@ export default class Start extends cc.Component {
                         const imageComp = image.addComponent(cc.Sprite)
                         // @ts-ignore
                         imageComp.spriteFrame = new cc.SpriteFrame(sp)
-                        this.gift.addChild(image)
+                        // this.gift.addChild(image)
                         Util.resizeSprite(imageComp, 64, 64)
                         this.toAddGiftBoxNode(image, sp)
                     })
@@ -770,7 +774,7 @@ export default class Start extends cc.Component {
                         const imageComp = image.addComponent(cc.Sprite)
                         // @ts-ignore
                         imageComp.spriteFrame = new cc.SpriteFrame(sp)
-                        this.gift.addChild(image)
+                        // this.gift.addChild(image)
                         Util.resizeSprite(imageComp, 64, 64)
                         this.toAddGiftBoxNode(image, sp)
                     })
@@ -787,7 +791,7 @@ export default class Start extends cc.Component {
                             const imageComp = image.addComponent(cc.Sprite)
                             // @ts-ignore
                             imageComp.spriteFrame = new cc.SpriteFrame(sp)
-                            this.gift.addChild(image)
+                            // this.gift.addChild(image)
                             Util.resizeSprite(imageComp, 64, 64)
                             this.toAddGiftBoxNode(image, sp)
                         }
@@ -814,7 +818,7 @@ export default class Start extends cc.Component {
                                     const image = new cc.Node()
                                     const imageComp = image.addComponent(cc.Sprite)
                                     imageComp.spriteFrame = new cc.SpriteFrame(asset)
-                                    this.gift.addChild(image)
+                                    // this.gift.addChild(image)
                                     Util.resizeSprite(imageComp, 64, 64)
                                     this.toAddGiftBoxNode(image, asset)
                                 }
@@ -831,7 +835,7 @@ export default class Start extends cc.Component {
                         Util.load('reward/course/res/icons/' + lesson.image, (err, texture) => {
                             if (!err) {
                                 imageComp.spriteFrame = new cc.SpriteFrame(texture);
-                                this.gift.addChild(image)
+                                // this.gift.addChild(image)
                                 Util.resizeSprite(imageComp, 64, 64)
                                 this.toAddGiftBoxNode(image, texture)
                             }
@@ -847,6 +851,8 @@ export default class Start extends cc.Component {
     }
 
     toAddGiftBoxNode(image, type) {
+        this.gift.addChild(image)
+
         const imageComp = new cc.Node().addComponent(cc.Sprite)
         imageComp.spriteFrame = new cc.SpriteFrame(type);
 
@@ -855,22 +861,31 @@ export default class Start extends cc.Component {
         console.log('const size = sprite.getOriginalSize();', imageComp.spriteFrame.getOriginalSize(), size, 'scale', scale)
         console.log('scale * size.width, scale * size.height', scale * size.width, scale * size.height)
 
-        this.node.getChildByName('giftBox').removeAllChildren()
-        this.node.getChildByName('giftBox').addChild(this.gift)
-        const planWidth = cc.winSize.width - 128
-        const x1 = -planWidth / 2
-        const y1 = -172
-        const x2 = planWidth / 4
-        const y2 = -172
-        const x3 = -planWidth / 4
-        const y3 = 172
-        const x4 = planWidth / 2
-        const y4 = 172
-        this.gift.x = Math.pow(1 - 1, 3) * x1 + 3 * Math.pow(1 - 1, 2) * 1 * x2 + 3 * (1 - 1) * Math.pow(1, 2) * x3 + Math.pow(1, 3) * x4
-        this.gift.y = Math.pow(1 - 1, 3) * y1 + 3 * Math.pow(1 - 1, 2) * 1 * y2 + 3 * (1 - 1) * Math.pow(1, 2) * y3 + Math.pow(1, 3) * y4
+        if (this.node.getChildByName('giftBox').getChildByName(this.gift.name) == undefined) {
+            this.node.getChildByName('giftBox').addChild(this.gift)
+            const planWidth = cc.winSize.width - 128
+            const x1 = -planWidth / 2
+            const y1 = -172
+            const x2 = planWidth / 4
+            const y2 = -172
+            const x3 = -planWidth / 4
+            const y3 = 172
+            const x4 = planWidth / 2
+            const y4 = 172
+            this.gift.x = Math.pow(1 - 1, 3) * x1 + 3 * Math.pow(1 - 1, 2) * 1 * x2 + 3 * (1 - 1) * Math.pow(1, 2) * x3 + Math.pow(1, 3) * x4
+            this.gift.y = Math.pow(1 - 1, 3) * y1 + 3 * Math.pow(1 - 1, 2) * 1 * y2 + 3 * (1 - 1) * Math.pow(1, 2) * y3 + Math.pow(1, 3) * y4
+            this.node.getChildByName('giftBox').children[0].getChildByName(image.name).width = scale * size.width;
+            this.node.getChildByName('giftBox').children[0].getChildByName(image.name).height = scale * size.height;
+        } else {
 
-        this.node.getChildByName('giftBox').children[0].getChildByName(image.name).width = scale * size.width;
-        this.node.getChildByName('giftBox').children[0].getChildByName(image.name).height = scale * size.height;
+            if (this.node.getChildByName('giftBox').children[0].getChildByName(image.name) != undefined) {
+                // @ts-ignore
+                this.node.getChildByName('giftBox').children[0].getChildByName(image.name).getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(type)
+                this.node.getChildByName('giftBox').children[0].getChildByName(image.name).width = scale * size.width;
+                this.node.getChildByName('giftBox').children[0].getChildByName(image.name).height = scale * size.height;
+            }
+        }
+
     }
 
     private unlockCurrentReward() {
