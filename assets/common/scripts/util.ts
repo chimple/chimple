@@ -51,14 +51,18 @@ export const REWARD_TYPES = ["character", "background", "achievement", "inventor
 export const REWARD_CHARACTERS = ['chimp', 'bear', 'camel', 'cat', 'dog', 'duck', 'hippo', 'horse', 'koala', 'rabbit', 'tiger']
 export const REWARD_BACKGROUNDS = ['camp', 'underwater', 'beach', 'forest', 'city', 'desert', 'fair', 'garden', 'mountain', 'snow', 'village']
 export const NUMBER_NAME = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-export const STICKER_BOOK = ['rewardsticker0000', "rewardsticker0001", "rewardsticker0002", "rewardsticker0003", "rewardsticker0004", "rewardsticker0005"]
-export const STICKER_REWARD = [
-    ['ap_puzzle10_bush1_puzzle', 'ap_puzzle10_bush2_puzzle', 'ap_puzzle10_bush3_puzzle', 'ap_puzzle10_camel1_puzzle', 'ap_puzzle10_camel2_puzzle'],
+export const STICKER_BOOK = ['rewardsticker0000', "rewardsticker0001", "rewardsticker0002", "rewardsticker0003", "rewardsticker0004", "rewardsticker0005", "rewardsticker0006", "rewardsticker0007", "rewardsticker0008", "rewardsticker0009"]
+export const STICKER_REWARDS = [
+    ["icecreamset_part1", "icecreamset_part2", "icecreamset_part3", "icecreamset_part4", "icecreamset_part5", "icecreamset_part6"],
     ["bulldozer_part1", "bulldozer_part2", "bulldozer_part3", "bulldozer_part4", "bulldozer_part5", "bulldozer_part6"],
     ["astronaut_part1", "astronaut_part2", "astronaut_part3", "astronaut_part4", "astronaut_part5", "astronaut_part6"],
     ["house_part1", "house_part2", "house_part3", "house_part4", "house_part5", "house_part6"],
     ["rocket_part1", "rocket_part2", "rocket_part3", "rocket_part4", "rocket_part5", "rocket_part6"],
-    ["taxi_part1", "taxi_part2", "taxi_part3", "taxi_part4", "taxi_part5", "taxi_part6"]
+    ["taxi_part1", "taxi_part2", "taxi_part3", "taxi_part4", "taxi_part5", "taxi_part6"],
+    ["frock_part1", "frock_part2", "frock_part3", "frock_part4", "frock_part5", "frock_part6"],
+    ["guitar_part1", "guitar_part2", "guitar_part3", "guitar_part4", "guitar_part5", "guitar_part6"],
+    ["seasonset_part1", "seasonset_part2", "seasonset_part3", "seasonset_part4", "seasonset_part5", "seasonset_part6"],
+    ["shirt_part1", "shirt_part2", "shirt_part3", "shirt_part4", "shirt_part5", "shirt_part6"]
 ];
 
 

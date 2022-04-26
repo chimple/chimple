@@ -1,6 +1,6 @@
 import { Queue } from "../../../queue";
 import Header from "../header";
-import { INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, STICKER_BOOK, STICKER_REWARD, Util } from "../util";
+import { INVENTORY_DATA, REWARD_BACKGROUNDS, REWARD_CHARACTERS, REWARD_TYPES, STICKER_BOOK, STICKER_REWARDS, Util } from "../util";
 import UtilLogger from "../util-logger";
 import Config, { ALL_LANGS, StartAction, Lang, ASSIGNMENT_COURSE_ID } from "./config";
 import {
@@ -457,7 +457,7 @@ export class User {
         })
 
         //unlocking Sticker Book Rewards
-        STICKER_REWARD.forEach((arr) => {
+        STICKER_REWARDS.forEach((arr) => {
             STICKER_BOOK.forEach((lessonId) => {
                 this._unlockedRewards[`${REWARD_TYPES[4]}-sticker-${lessonId}`] = 1
                 arr.forEach((sticker) => {
