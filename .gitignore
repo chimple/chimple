@@ -77,6 +77,12 @@ build/jsb-default/simulator/
 build/jsb-default/src/
 build/jsb-default/assets/
 build/jsb-default/frameworks/runtime-src/proj.android-studio/app/.externalNativeBuild
+build/app/build
+*.hprof
+
+build/jsb-default/frameworks/cocos2d-x/cocos/platform/android/libcocos2dx/build
+
+build/jsb-default/frameworks/cocos2d-x/cocos/platform/android/libcocos2dx/build/
 
 build/web-desktop
 build/web-mobile
