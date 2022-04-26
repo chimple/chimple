@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "0ea7ed53-3bde-45e8-b7c2-c5418cdd14cd",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "guitar_thumbnail": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "f49dbdd7-1884-4367-a5b9-c8f01825f02f",
+      "importer": "sprite-frame",
       "rawTextureUuid": "0ea7ed53-3bde-45e8-b7c2-c5418cdd14cd",
       "trimType": "auto",
       "trimThreshold": 1,
