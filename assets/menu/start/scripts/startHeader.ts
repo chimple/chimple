@@ -33,7 +33,7 @@ export default class StartHeader extends cc.Component {
         // this.addButton(ASSIGNMENT_COURSE_ID, assignmentPresent)
 
         this.user.courseProgressMap.forEach((val: CourseProgress, courseId: string) => {
-            if (courseId == 'assignment' && !User.getCurrentUser().isConnected) {
+            if (courseId == ASSIGNMENT_COURSE_ID && !User.getCurrentUser().isConnected) {
                 return;
             }
             this.addButton(courseId, courseId == config.course.id)
@@ -77,6 +77,12 @@ export default class StartHeader extends cc.Component {
         // if (!StartHeader.homeSelected && config.course && config.course.id == course.id) {
         //     this.selectHeaderButton(headerButtonComp);
         // }
+
+        const user = User.getCurrentUser()
+        const courseProgressMap = user.courseProgressMap.get(ASSIGNMENT_COURSE_ID);
+        if (courseId == ASSIGNMENT_COURSE_ID && courseProgressMap.lessonPlan.length > 0) {
+            headerButton.getChildByName('tick').active = true;
+        }
     }
 
     selectHeaderButton(newButton: StartHeaderButton) {
