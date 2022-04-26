@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "b3d7cb1d-4bda-41cf-bf38-38df417625b3",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "grid_bush2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "b00edbb1-7989-4e26-b27a-8d36d918a6ce",
+      "importer": "sprite-frame",
       "rawTextureUuid": "b3d7cb1d-4bda-41cf-bf38-38df417625b3",
       "trimType": "auto",
       "trimThreshold": 1,

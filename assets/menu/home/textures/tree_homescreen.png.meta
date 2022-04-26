@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "83bce884-37af-4bc6-a750-75a690f9e23b",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "tree_homescreen": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "0f698d6e-2254-45e0-9564-a824c1f489e6",
+      "importer": "sprite-frame",
       "rawTextureUuid": "83bce884-37af-4bc6-a750-75a690f9e23b",
       "trimType": "auto",
       "trimThreshold": 1,

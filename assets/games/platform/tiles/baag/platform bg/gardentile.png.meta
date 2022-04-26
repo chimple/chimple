@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "81d3918f-e0f4-4bbc-8c9f-c2f223c4adec",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "gardentile": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "b30b2b1a-df66-4e76-81b9-fd188d7f9374",
+      "importer": "sprite-frame",
       "rawTextureUuid": "81d3918f-e0f4-4bbc-8c9f-c2f223c4adec",
       "trimType": "auto",
       "trimThreshold": 1,

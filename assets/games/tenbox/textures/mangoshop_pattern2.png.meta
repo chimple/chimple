@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "96bba221-a2a4-4226-8a4d-6d5862fe911d",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "mangoshop_pattern2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "dd2ea999-1472-4812-b73b-0c6ce7763f1f",
+      "importer": "sprite-frame",
       "rawTextureUuid": "96bba221-a2a4-4226-8a4d-6d5862fe911d",
       "trimType": "auto",
       "trimThreshold": 1,

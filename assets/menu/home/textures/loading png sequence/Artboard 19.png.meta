@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "bbaffed7-725e-4d37-a929-e789d4665a9b",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "Artboard 19": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "5272ded7-1d98-4a48-8846-5803e1e14026",
+      "importer": "sprite-frame",
       "rawTextureUuid": "bbaffed7-725e-4d37-a929-e789d4665a9b",
       "trimType": "auto",
       "trimThreshold": 1,

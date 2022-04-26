@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "8be75010-bf11-42e6-a7a8-0bd55446f628",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "feedingbottle_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "f54a1a2e-5455-4616-a2aa-d68d290e9bc2",
+      "importer": "sprite-frame",
       "rawTextureUuid": "8be75010-bf11-42e6-a7a8-0bd55446f628",
       "trimType": "auto",
       "trimThreshold": 1,

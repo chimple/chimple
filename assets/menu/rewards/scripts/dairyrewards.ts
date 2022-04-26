@@ -18,8 +18,9 @@ export default class DairyRewards extends cc.Component {
     }
 
     private onStoryReadingClick() {
-        // this.node.getChildByName('homeicon').getComponent(cc.Button).interactable = false;
-        // Config.i.pushScene('menu/start/scenes/start', 'menu');
+        this.node.getChildByName('storyReadingBG').getComponent(cc.Button).interactable = false;
+        Config.i.setRewardChapter('story')
+        config.i.pushScene('menu/start/scenes/chapterLessons', 'menu')
     }
 
     private onCharacterModificationClick() {

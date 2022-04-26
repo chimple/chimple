@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "e4f7d9d6-cbe4-498e-bf80-b3c76e4b0f1b",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "playground_tree2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "10cbc107-c4b1-47f0-bf93-49d70b97300b",
+      "importer": "sprite-frame",
       "rawTextureUuid": "e4f7d9d6-cbe4-498e-bf80-b3c76e4b0f1b",
       "trimType": "auto",
       "trimThreshold": 1,

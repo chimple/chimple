@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "87deb82f-521c-424d-9230-bd89c3d86b9f",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "red_chillie": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "ce4c9ef3-dd80-4361-acb2-bb25ca1e7971",
+      "importer": "sprite-frame",
       "rawTextureUuid": "87deb82f-521c-424d-9230-bd89c3d86b9f",
       "trimType": "auto",
       "trimThreshold": 1,

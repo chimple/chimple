@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "1b8b65f3-217d-4b82-aac9-04e1b6554fd7",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "dice-outline-tutorial": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "49aeb26a-47fc-4699-a07f-7d9543939676",
+      "importer": "sprite-frame",
       "rawTextureUuid": "1b8b65f3-217d-4b82-aac9-04e1b6554fd7",
       "trimType": "auto",
       "trimThreshold": 1,

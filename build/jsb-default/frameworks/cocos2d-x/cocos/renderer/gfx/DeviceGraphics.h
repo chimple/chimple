@@ -92,6 +92,11 @@ public:
     };
     
     /**
+     * .
+     */
+    static void destroy();
+    
+    /**
      * Returns a shared instance of the director.
      */
     static DeviceGraphics* getInstance();

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "409347d6-ac77-4449-b048-d0b342ee26f8",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "dragonfruit": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "ed45c51c-7068-46b9-b26a-8a86e06cf511",
+      "importer": "sprite-frame",
       "rawTextureUuid": "409347d6-ac77-4449-b048-d0b342ee26f8",
       "trimType": "auto",
       "trimThreshold": 1,

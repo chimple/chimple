@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "2b3fac25-6379-41e3-9f16-350a60048910",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "astronaut_thumbnail": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "98782433-e275-44e8-bf5e-292fcfd27a89",
+      "importer": "sprite-frame",
       "rawTextureUuid": "2b3fac25-6379-41e3-9f16-350a60048910",
       "trimType": "auto",
       "trimThreshold": 1,

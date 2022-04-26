@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "019d3780-588f-4b78-9b27-f86bd55bc45a",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "grass_jungle": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "edf4e4ba-4768-4569-b066-8af8dfd61eda",
+      "importer": "sprite-frame",
       "rawTextureUuid": "019d3780-588f-4b78-9b27-f86bd55bc45a",
       "trimType": "auto",
       "trimThreshold": 1,

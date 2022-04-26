@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "cabebedf-6005-4269-9e5b-c00e7bee10de",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "hi0127": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "d594b07f-db72-417d-a4a9-bc36cfd6b531",
+      "importer": "sprite-frame",
       "rawTextureUuid": "cabebedf-6005-4269-9e5b-c00e7bee10de",
       "trimType": "auto",
       "trimThreshold": 1,

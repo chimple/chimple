@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "b231370e-82e4-4fb7-bca1-541dfea7d9ac",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "card-slot_empty_forthreedigit": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "bc7ece66-3f64-4c7d-b79c-da77d6809e1c",
+      "importer": "sprite-frame",
       "rawTextureUuid": "b231370e-82e4-4fb7-bca1-541dfea7d9ac",
       "trimType": "auto",
       "trimThreshold": 1,

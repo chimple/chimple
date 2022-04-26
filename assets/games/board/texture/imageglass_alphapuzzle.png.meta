@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "37ec3141-163e-4680-a933-c4d133edd957",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "imageglass_alphapuzzle": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "1140d419-dc0f-419e-b99f-77c6296c22e4",
+      "importer": "sprite-frame",
       "rawTextureUuid": "37ec3141-163e-4680-a933-c4d133edd957",
       "trimType": "auto",
       "trimThreshold": 1,

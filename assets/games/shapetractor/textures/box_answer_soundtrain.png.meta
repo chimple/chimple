@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "f81bee41-c5f5-49f5-80e2-447fabf98464",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "box_answer_soundtrain": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "5a3e0539-54cf-4c22-ba0f-153e92d4e153",
+      "importer": "sprite-frame",
       "rawTextureUuid": "f81bee41-c5f5-49f5-80e2-447fabf98464",
       "trimType": "auto",
       "trimThreshold": 1,

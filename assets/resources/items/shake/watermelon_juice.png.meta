@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "3dc0f346-0e73-4633-9bc4-8a0bf0d0805f",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "watermelon_juice": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "855800bd-1bcb-4422-9463-cca7cdd9bdea",
+      "importer": "sprite-frame",
       "rawTextureUuid": "3dc0f346-0e73-4633-9bc4-8a0bf0d0805f",
       "trimType": "custom",
       "trimThreshold": 0,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "b49e5b62-fd55-44c3-8065-a7aa036e2025",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "handacc_tex": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "7e5056ac-5cd9-492c-ad26-af75a623df25",
+      "importer": "sprite-frame",
       "rawTextureUuid": "b49e5b62-fd55-44c3-8065-a7aa036e2025",
       "trimType": "auto",
       "trimThreshold": 1,

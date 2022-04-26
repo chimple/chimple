@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "3d5bf171-5dd2-43d8-a7f1-3cacc0f17f7b",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "nimbletable_goal": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "335510e6-e849-4dd5-8819-56de7423d958",
+      "importer": "sprite-frame",
       "rawTextureUuid": "3d5bf171-5dd2-43d8-a7f1-3cacc0f17f7b",
       "trimType": "auto",
       "trimThreshold": 1,

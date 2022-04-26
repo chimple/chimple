@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "0ed7389a-a0f1-4e67-8121-e773caefa2cf",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "lollipop_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "1de00cdd-541f-47cf-a91e-9ce1df18bee2",
+      "importer": "sprite-frame",
       "rawTextureUuid": "0ed7389a-a0f1-4e67-8121-e773caefa2cf",
       "trimType": "auto",
       "trimThreshold": 1,

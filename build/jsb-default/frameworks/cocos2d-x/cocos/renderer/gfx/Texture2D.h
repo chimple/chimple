@@ -77,13 +77,11 @@ public:
      * @see Texture::ImageOption
      */
     void updateImage(const ImageOption& option);
-
 private:
     void setSubImage(const SubImageOption& options);
     void setImage(const ImageOption& options);
     void setMipmap(const std::vector<Image>& images, bool isFlipY, bool isPremultiplyAlpha);
     void setTexInfo();
-
 };
 
 // end of gfx group

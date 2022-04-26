@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "c1c3113f-53aa-471e-a3cb-f8080495f51b",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "writeletter_uclips1": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "b96b32d3-a588-41ba-bdca-18a9d243f861",
+      "importer": "sprite-frame",
       "rawTextureUuid": "c1c3113f-53aa-471e-a3cb-f8080495f51b",
       "trimType": "auto",
       "trimThreshold": 1,

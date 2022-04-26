@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "d2ce9f6c-57c8-490b-8aa4-0beb7c2d1c5d",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "koala_tex": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "fcd85cbc-b10b-4866-bd60-b960ac1863b8",
+      "importer": "sprite-frame",
       "rawTextureUuid": "d2ce9f6c-57c8-490b-8aa4-0beb7c2d1c5d",
       "trimType": "auto",
       "trimThreshold": 1,

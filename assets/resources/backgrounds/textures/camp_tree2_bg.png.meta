@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "f82de50f-5a7d-4059-b7bb-6e49461f868e",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "camp_tree2_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "8d9d955a-fb01-4994-ab6e-03b605747985",
+      "importer": "sprite-frame",
       "rawTextureUuid": "f82de50f-5a7d-4059-b7bb-6e49461f868e",
       "trimType": "auto",
       "trimThreshold": 1,

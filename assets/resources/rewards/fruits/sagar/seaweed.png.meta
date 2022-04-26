@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "92d6194d-da68-4daa-b72a-f0890e655463",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "seaweed": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "d10fc0f5-0605-44b4-83e2-ce48e9f3d09c",
+      "importer": "sprite-frame",
       "rawTextureUuid": "92d6194d-da68-4daa-b72a-f0890e655463",
       "trimType": "auto",
       "trimThreshold": 1,

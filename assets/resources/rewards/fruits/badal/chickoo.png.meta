@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "60730cf4-dc57-4596-ada9-a4b54bf74c57",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "chickoo": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "3bf63e54-2507-4d32-9484-2a34884ebd82",
+      "importer": "sprite-frame",
       "rawTextureUuid": "60730cf4-dc57-4596-ada9-a4b54bf74c57",
       "trimType": "auto",
       "trimThreshold": 1,

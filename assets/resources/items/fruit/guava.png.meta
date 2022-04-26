@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "4bd289f1-911d-4614-be0b-adfc43034a7a",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "guava": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "c50d624c-9dbb-4974-9b65-00ae0b4d72dc",
+      "importer": "sprite-frame",
       "rawTextureUuid": "4bd289f1-911d-4614-be0b-adfc43034a7a",
       "trimType": "custom",
       "trimThreshold": 0,

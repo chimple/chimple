@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "376c72d2-fe95-4cab-8d8c-6212344ad4a4",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "bottlemilk_reward": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "2c7bff78-6bbb-4a38-8bda-86db94b1d2fe",
+      "importer": "sprite-frame",
       "rawTextureUuid": "376c72d2-fe95-4cab-8d8c-6212344ad4a4",
       "trimType": "auto",
       "trimThreshold": 1,

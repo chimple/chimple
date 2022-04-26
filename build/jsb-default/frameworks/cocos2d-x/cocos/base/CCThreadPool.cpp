@@ -386,6 +386,7 @@ void ThreadPool::stop()
     for (int i = 0, n = static_cast<int>(_threads.size()); i < n; ++i)
     {
         joinThread(i);
+        _threads[i].reset();
     }
     // if there were no threads in the pool but some functors in the queue, the functors are not deleted by the threads
     // therefore delete them here

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "df719d47-3d88-45e4-9f4e-cdf34feff6f6",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "avacado": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "a8f60c10-28ba-48be-816c-7607b45ee51f",
+      "importer": "sprite-frame",
       "rawTextureUuid": "df719d47-3d88-45e4-9f4e-cdf34feff6f6",
       "trimType": "custom",
       "trimThreshold": 0,

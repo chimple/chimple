@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "e245094e-9740-4b0d-a160-036a19e4f519",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "bird-outline-tutorial": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "69313ef9-2177-432c-ab63-b0b2a4f961b1",
+      "importer": "sprite-frame",
       "rawTextureUuid": "e245094e-9740-4b0d-a160-036a19e4f519",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "a29347fe-fb65-4a22-b725-d709e047fc29",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "icon_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "91a8912d-39f1-441a-91ea-5a67c0b15e2d",
+      "importer": "sprite-frame",
       "rawTextureUuid": "a29347fe-fb65-4a22-b725-d709e047fc29",
       "trimType": "auto",
       "trimThreshold": 1,

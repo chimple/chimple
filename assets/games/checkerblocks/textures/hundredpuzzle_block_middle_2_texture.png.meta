@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "896827bb-a537-426d-a632-978e299f337b",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "hundredpuzzle_block_middle_2_texture": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "aac9df09-0ae2-482a-9f8b-2508c700eaf4",
+      "importer": "sprite-frame",
       "rawTextureUuid": "896827bb-a537-426d-a632-978e299f337b",
       "trimType": "auto",
       "trimThreshold": 1,

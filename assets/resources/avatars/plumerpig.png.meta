@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "865e500a-163e-4b02-854f-f940404f99d2",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "plumerpig": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "507f3698-2195-4761-aa87-0a34f282cfd7",
+      "importer": "sprite-frame",
       "rawTextureUuid": "865e500a-163e-4b02-854f-f940404f99d2",
       "trimType": "auto",
       "trimThreshold": 1,

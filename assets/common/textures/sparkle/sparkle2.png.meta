@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "f8efcd32-75fa-4720-a397-330a3b0ff7e5",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "sparkle2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "692d7cbd-3865-4e6b-8e14-44ef0a5dc024",
+      "importer": "sprite-frame",
       "rawTextureUuid": "f8efcd32-75fa-4720-a397-330a3b0ff7e5",
       "trimType": "auto",
       "trimThreshold": 1,

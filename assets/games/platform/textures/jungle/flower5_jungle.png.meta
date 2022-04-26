@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "bc87b945-c87f-455c-aae1-fb0c03dc13b3",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "flower5_jungle": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "12e5f37f-4955-4a75-b60e-27d168ad4024",
+      "importer": "sprite-frame",
       "rawTextureUuid": "bc87b945-c87f-455c-aae1-fb0c03dc13b3",
       "trimType": "auto",
       "trimThreshold": 1,

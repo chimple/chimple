@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "1c5f6ea4-d7be-4e38-84ce-8e5de68b1d72",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "jungle_treemono1": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "7d9ecf29-02d4-41e8-86c1-26be6043938d",
+      "importer": "sprite-frame",
       "rawTextureUuid": "1c5f6ea4-d7be-4e38-84ce-8e5de68b1d72",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "e538e172-e660-450b-96ac-345f634f6cde",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "balloonpop_burst3": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "79375fdd-b79b-4b43-a1f0-9569be24aaa8",
+      "importer": "sprite-frame",
       "rawTextureUuid": "e538e172-e660-450b-96ac-345f634f6cde",
       "trimType": "auto",
       "trimThreshold": 1,

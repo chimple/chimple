@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "1fac7978-daf8-4827-a2a2-09020928c852",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "astronautraccon": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "a231d29b-86bb-42fd-ab61-24075757e1c7",
+      "importer": "sprite-frame",
       "rawTextureUuid": "1fac7978-daf8-4827-a2a2-09020928c852",
       "trimType": "auto",
       "trimThreshold": 1,

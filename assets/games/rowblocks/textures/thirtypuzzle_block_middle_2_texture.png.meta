@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "f163832c-113e-42af-a435-a9c0f894631c",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "thirtypuzzle_block_middle_2_texture": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "3e977d41-505e-4cec-a4f1-c4250d09368c",
+      "importer": "sprite-frame",
       "rawTextureUuid": "f163832c-113e-42af-a435-a9c0f894631c",
       "trimType": "auto",
       "trimThreshold": 1,

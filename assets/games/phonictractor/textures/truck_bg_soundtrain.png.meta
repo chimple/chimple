@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "73876baa-42a7-4d48-89da-f93bb781ce3e",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "truck_bg_soundtrain": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "172fb37c-6d7c-4b77-a38b-963007824fdb",
+      "importer": "sprite-frame",
       "rawTextureUuid": "73876baa-42a7-4d48-89da-f93bb781ce3e",
       "trimType": "auto",
       "trimThreshold": 1,

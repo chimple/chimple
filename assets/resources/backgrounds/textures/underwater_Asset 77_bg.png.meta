@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "eebd2f06-23a0-4753-8328-e396965eb326",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "underwater_Asset 77_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "a19805ef-8a5c-4d92-850e-ce6dfa3b61e4",
+      "importer": "sprite-frame",
       "rawTextureUuid": "eebd2f06-23a0-4753-8328-e396965eb326",
       "trimType": "auto",
       "trimThreshold": 1,

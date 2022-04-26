@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "035e6658-7e39-4a4f-96fd-512e85cca11b",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "magnifyingglass_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "e74482d2-8b6d-4437-9cd2-57f853299fff",
+      "importer": "sprite-frame",
       "rawTextureUuid": "035e6658-7e39-4a4f-96fd-512e85cca11b",
       "trimType": "auto",
       "trimThreshold": 1,

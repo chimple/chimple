@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "39034435-3278-48d3-ab0a-c6b47894b85e",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "button-drop-on-land-ten": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "94920ef2-0e2b-47e2-baee-99fbb0160eb9",
+      "importer": "sprite-frame",
       "rawTextureUuid": "39034435-3278-48d3-ab0a-c6b47894b85e",
       "trimType": "auto",
       "trimThreshold": 1,

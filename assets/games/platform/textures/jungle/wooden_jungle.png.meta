@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "d0670c9d-c770-4e7d-886d-d901b0f2521a",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "wooden_jungle": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "f868eb65-126e-4fe1-8004-d7fc314f128b",
+      "importer": "sprite-frame",
       "rawTextureUuid": "d0670c9d-c770-4e7d-886d-d901b0f2521a",
       "trimType": "auto",
       "trimThreshold": 1,

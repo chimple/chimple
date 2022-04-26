@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "cceb5ba7-62ee-4bd0-8e62-6446bc444815",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "sagar_watertile2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "82b8a174-fd62-436c-8ea5-739b822ead21",
+      "importer": "sprite-frame",
       "rawTextureUuid": "cceb5ba7-62ee-4bd0-8e62-6446bc444815",
       "trimType": "auto",
       "trimThreshold": 1,

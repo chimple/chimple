@@ -63,4 +63,16 @@ bool RenderBuffer::init(DeviceGraphics* device, Format format, uint16_t width, u
     return true;
 }
 
+bool RenderBuffer::update (uint16_t width, uint16_t height) {
+    _width = width;
+    _height = height;
+
+    GLint oldRenderBuffer;
+    glGetIntegerv(GL_RENDERBUFFER_BINDING, &oldRenderBuffer);
+    GL_CHECK(glBindRenderbuffer(GL_RENDERBUFFER, _glID));
+    GL_CHECK(glRenderbufferStorage(GL_RENDERBUFFER, (GLenum)_format, width, height));
+    GL_CHECK(glBindRenderbuffer(GL_RENDERBUFFER, oldRenderBuffer));
+    return true;
+}
+
 RENDERER_END

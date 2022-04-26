@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "a4ee78b0-d520-43ce-a0c2-719c2b8c3ca7",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "kiwi": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "8f16bf15-9627-44d3-b081-7830fe5beeb4",
+      "importer": "sprite-frame",
       "rawTextureUuid": "a4ee78b0-d520-43ce-a0c2-719c2b8c3ca7",
       "trimType": "custom",
       "trimThreshold": 0,

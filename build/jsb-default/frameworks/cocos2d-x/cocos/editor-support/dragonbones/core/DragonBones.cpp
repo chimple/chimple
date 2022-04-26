@@ -5,6 +5,8 @@
 #include "../event/EventObject.h"
 #include "../event/IEventDispatcher.h"
 
+#include "../../dragonbones-creator-support/CCArmatureDisplay.h"
+
 DRAGONBONES_NAMESPACE_BEGIN
 
 const std::string DragonBones::VEISION = "5.6.300";
@@ -32,6 +34,14 @@ DragonBones::~DragonBones()
     }
 
     _clock = nullptr;
+    
+    if (_eventManager) {
+        auto mgr = dynamic_cast<CCArmatureDisplay*>(_eventManager);
+        if (NULL != mgr) {
+            mgr->release();
+        }
+    }
+    
     _eventManager = nullptr;
 }
 

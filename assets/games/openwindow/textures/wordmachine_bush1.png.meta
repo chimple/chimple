@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "16b2ed73-76cc-4b0d-9ad7-e0f12b0cccdf",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "wordmachine_bush1": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "52ed6cb6-5f80-4c70-9625-be6f31f0de07",
+      "importer": "sprite-frame",
       "rawTextureUuid": "16b2ed73-76cc-4b0d-9ad7-e0f12b0cccdf",
       "trimType": "auto",
       "trimThreshold": 1,
