@@ -108,8 +108,12 @@ export default class LeaderboardProfile extends cc.Component {
             // const totalScore = studentList[i].total?.toFixed(0)?.toString();
             let maskedName = studentList[i].name?.trim();
             if (!isCurrentUser) {
-                const mask = '*'.repeat(maskedName.length) || "***";
-                maskedName = maskedName[0] + mask.substring(0, 4) + maskedName[maskedName.length - 1]
+                if (/\p{Emoji}/u.test(maskedName)) {
+                    maskedName = "****";
+                } else {
+                    const mask = '*'.repeat(maskedName.length) || "***";
+                    maskedName = maskedName[0] + mask.substring(0, 4) + maskedName[maskedName.length - 1];
+                }
             } else {
                 this.userNode.getChildByName('starscore').getComponentInChildren(cc.Label).string = totalScore;
             }
