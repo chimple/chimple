@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "8aa444a6-82b0-4255-adc2-911388c233db",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "fair_hill_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "f46476ca-d804-40bd-9cbb-966b691b4be4",
+      "importer": "sprite-frame",
       "rawTextureUuid": "8aa444a6-82b0-4255-adc2-911388c233db",
       "trimType": "auto",
       "trimThreshold": 1,

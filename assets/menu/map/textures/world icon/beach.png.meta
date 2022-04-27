@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "631d6708-460d-45c7-a1f8-2f87275af922",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "beach": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "2310108c-62be-4b5c-a3f4-f2b5f693ae70",
+      "importer": "sprite-frame",
       "rawTextureUuid": "631d6708-460d-45c7-a1f8-2f87275af922",
       "trimType": "auto",
       "trimThreshold": 1,

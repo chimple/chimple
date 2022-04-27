@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "70a57311-4c26-4f9f-874b-ff8a9ac85e38",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "windmill_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "82702a15-8b83-4677-bab6-ce9006f08a6a",
+      "importer": "sprite-frame",
       "rawTextureUuid": "70a57311-4c26-4f9f-874b-ff8a9ac85e38",
       "trimType": "auto",
       "trimThreshold": 1,

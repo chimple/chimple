@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "726b12d3-d308-4a6e-a2cb-6f1c32476abf",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "petal1_wordkicker": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "10005b87-399c-4c58-a344-7b30a246fda1",
+      "importer": "sprite-frame",
       "rawTextureUuid": "726b12d3-d308-4a6e-a2cb-6f1c32476abf",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "0ad7e3f3-739b-4451-bd77-aa844a53bddb",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "jeep_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "1a0a364c-c6b6-4388-85d9-937688fd7e66",
+      "importer": "sprite-frame",
       "rawTextureUuid": "0ad7e3f3-739b-4451-bd77-aa844a53bddb",
       "trimType": "auto",
       "trimThreshold": 1,

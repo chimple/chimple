@@ -53,14 +53,24 @@ namespace
             GL_CHECK(glFramebufferRenderbuffer(GL_FRAMEBUFFER, location, GL_RENDERBUFFER, target->getHandle()));
         }
     }
+
+    static DeviceGraphics* __instance = nullptr;
 } // namespace {
+
+void DeviceGraphics::destroy() {
+    if (__instance) {
+        __instance->release();
+        delete __instance;
+        __instance = nullptr;
+    }
+}
 
 DeviceGraphics* DeviceGraphics::getInstance()
 {
-    static DeviceGraphics* __instance = nullptr;
-    if (__instance == nullptr)
+    if (__instance == nullptr) {
         __instance = new (std::nothrow) DeviceGraphics();
-
+        __instance->retain();
+    }
     return __instance;
 }
 

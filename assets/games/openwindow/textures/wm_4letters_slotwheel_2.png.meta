@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "0c0cd00e-0241-4979-a6c5-f6e0cc098978",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "wm_4letters_slotwheel_2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "113aa8b6-5f4c-4660-9625-3ccf5b4b9423",
+      "importer": "sprite-frame",
       "rawTextureUuid": "0c0cd00e-0241-4979-a6c5-f6e0cc098978",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "94424a47-71b2-4a7a-91b6-d25166a1140e",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "city_trees_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "e5a73a81-e7df-41c3-a090-5948e2d53a56",
+      "importer": "sprite-frame",
       "rawTextureUuid": "94424a47-71b2-4a7a-91b6-d25166a1140e",
       "trimType": "auto",
       "trimThreshold": 1,

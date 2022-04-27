@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "55c43d70-d443-4749-a7d7-2101a1e02644",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "mountain_hill_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "a79cd8cc-cefa-427e-b6a7-bddd2531b96d",
+      "importer": "sprite-frame",
       "rawTextureUuid": "55c43d70-d443-4749-a7d7-2101a1e02644",
       "trimType": "auto",
       "trimThreshold": 1,

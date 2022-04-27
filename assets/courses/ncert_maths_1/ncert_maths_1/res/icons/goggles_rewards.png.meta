@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "4f80dd44-434f-4d70-928b-b0ad5312fcd2",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "goggles_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "3edf0c3a-bbaf-4129-9e52-e2f89333c7b8",
+      "importer": "sprite-frame",
       "rawTextureUuid": "4f80dd44-434f-4d70-928b-b0ad5312fcd2",
       "trimType": "auto",
       "trimThreshold": 1,

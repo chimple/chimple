@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "72e47c92-ff18-4b3e-a95b-9dccb4b69e34",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "spelldoor_bush2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "d91e4a42-3d07-437d-b1d5-1a73f64551a3",
+      "importer": "sprite-frame",
       "rawTextureUuid": "72e47c92-ff18-4b3e-a95b-9dccb4b69e34",
       "trimType": "auto",
       "trimThreshold": 1,

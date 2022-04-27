@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "8f207b6f-f785-4717-aa6c-7ce324d695fa",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "wm_oneslot_frame": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "9a9c3be3-72c9-4252-a56c-958c603e47de",
+      "importer": "sprite-frame",
       "rawTextureUuid": "8f207b6f-f785-4717-aa6c-7ce324d695fa",
       "trimType": "auto",
       "trimThreshold": 1,

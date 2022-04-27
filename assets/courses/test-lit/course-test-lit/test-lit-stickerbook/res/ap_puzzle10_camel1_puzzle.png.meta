@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "7fd6ca28-df1a-4cf4-acce-62b389f394a2",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "ap_puzzle10_camel1_puzzle": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "07dde5fa-61aa-446d-b957-cc786f2e59c7",
+      "importer": "sprite-frame",
       "rawTextureUuid": "7fd6ca28-df1a-4cf4-acce-62b389f394a2",
       "trimType": "auto",
       "trimThreshold": 1,

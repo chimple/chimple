@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "4be21784-d35b-4eae-983c-bc74ec5e5dbb",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "beach_rock_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "5420185d-05ad-4500-852f-13b768ec567d",
+      "importer": "sprite-frame",
       "rawTextureUuid": "4be21784-d35b-4eae-983c-bc74ec5e5dbb",
       "trimType": "auto",
       "trimThreshold": 1,

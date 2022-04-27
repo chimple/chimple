@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "4394b9cf-929e-4611-b342-f429db3ee133",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "fish-outline-tutorial": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "b152943b-2fe8-4745-b1d4-4bb635347996",
+      "importer": "sprite-frame",
       "rawTextureUuid": "4394b9cf-929e-4611-b342-f429db3ee133",
       "trimType": "auto",
       "trimThreshold": 1,

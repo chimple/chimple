@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "b4a327ea-630e-4608-bea2-c4d834c187f4",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "broccoli": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "d8e55ec3-c445-4b1d-92cb-d17333082c15",
+      "importer": "sprite-frame",
       "rawTextureUuid": "b4a327ea-630e-4608-bea2-c4d834c187f4",
       "trimType": "auto",
       "trimThreshold": 1,

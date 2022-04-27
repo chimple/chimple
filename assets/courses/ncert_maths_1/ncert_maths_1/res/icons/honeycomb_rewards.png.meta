@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "7fa6af62-6588-4045-8533-736b6913da9d",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "honeycomb_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "1b1d1b7b-5369-4bd8-86a6-a784a4033dda",
+      "importer": "sprite-frame",
       "rawTextureUuid": "7fa6af62-6588-4045-8533-736b6913da9d",
       "trimType": "auto",
       "trimThreshold": 1,

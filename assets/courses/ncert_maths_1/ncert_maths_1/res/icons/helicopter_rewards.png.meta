@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "2e226e34-ad81-4e49-9e26-fde3518443a5",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "helicopter_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "043dc0dd-0790-4c33-9cd8-a87ae5c8aae3",
+      "importer": "sprite-frame",
       "rawTextureUuid": "2e226e34-ad81-4e49-9e26-fde3518443a5",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "da518d7e-8904-4963-a96f-cb1d77a52c23",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "rocketend_bg_wordnote": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "6e0d7c32-d41e-4080-becf-59809aa9eda7",
+      "importer": "sprite-frame",
       "rawTextureUuid": "da518d7e-8904-4963-a96f-cb1d77a52c23",
       "trimType": "auto",
       "trimThreshold": 1,

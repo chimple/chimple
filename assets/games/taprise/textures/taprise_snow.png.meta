@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "e6beb534-1266-48f5-972b-2e2fe6337866",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "taprise_snow": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "b7a7da0a-79e6-49d0-b280-5abaa91ec4c5",
+      "importer": "sprite-frame",
       "rawTextureUuid": "e6beb534-1266-48f5-972b-2e2fe6337866",
       "trimType": "auto",
       "trimThreshold": 1,

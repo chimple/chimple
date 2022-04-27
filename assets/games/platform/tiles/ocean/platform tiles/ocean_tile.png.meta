@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "13a2fe3b-6318-4295-9a73-8f9b9671d34c",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "ocean_tile": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "5979926b-0058-4c60-adea-d418ec12a194",
+      "importer": "sprite-frame",
       "rawTextureUuid": "13a2fe3b-6318-4295-9a73-8f9b9671d34c",
       "trimType": "auto",
       "trimThreshold": 1,

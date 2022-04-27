@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "5ff0689b-5384-4180-b40b-86d2d3fec197",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "enoki_mushroom": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "b0169dc5-b33d-4711-bcb9-f442b6c91ac4",
+      "importer": "sprite-frame",
       "rawTextureUuid": "5ff0689b-5384-4180-b40b-86d2d3fec197",
       "trimType": "auto",
       "trimThreshold": 1,

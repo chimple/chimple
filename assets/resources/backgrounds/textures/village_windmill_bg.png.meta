@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "9946515b-0f5a-4bfe-ae3f-6dfcb1f38812",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "village_windmill_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "c05dc5cf-3a48-42ac-adc3-28f478403af9",
+      "importer": "sprite-frame",
       "rawTextureUuid": "9946515b-0f5a-4bfe-ae3f-6dfcb1f38812",
       "trimType": "auto",
       "trimThreshold": 1,

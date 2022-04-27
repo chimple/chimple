@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "f20e4d73-b478-4959-b436-8bb936d2d0cc",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "shapetractor_cloud": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "ebe68543-112a-4e00-80cc-e977b6066071",
+      "importer": "sprite-frame",
       "rawTextureUuid": "f20e4d73-b478-4959-b436-8bb936d2d0cc",
       "trimType": "auto",
       "trimThreshold": 1,

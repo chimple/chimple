@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "d349c708-b9d0-4e5e-bb8f-fd53613b3dba",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "squid": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "5aa714f7-bf6d-4ca4-80d1-c8b69cb9af53",
+      "importer": "sprite-frame",
       "rawTextureUuid": "d349c708-b9d0-4e5e-bb8f-fd53613b3dba",
       "trimType": "auto",
       "trimThreshold": 1,

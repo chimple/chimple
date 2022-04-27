@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "0dd0e350-9160-41ad-a613-c30711040c42",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "registan_cloud": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "209a1311-c79a-4e27-b778-f24499af3985",
+      "importer": "sprite-frame",
       "rawTextureUuid": "0dd0e350-9160-41ad-a613-c30711040c42",
       "trimType": "auto",
       "trimThreshold": 1,

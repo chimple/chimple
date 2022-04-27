@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "90036804-1d7c-4944-9686-3242f2abc868",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "wordwindow-btn-answer-disabled": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "8f03581f-d4f5-4039-ba9e-d0f2a3d81f03",
+      "importer": "sprite-frame",
       "rawTextureUuid": "90036804-1d7c-4944-9686-3242f2abc868",
       "trimType": "auto",
       "trimThreshold": 1,

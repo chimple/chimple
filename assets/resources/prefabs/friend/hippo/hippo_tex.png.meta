@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "65bf6819-9ab3-4bd6-acad-4bcd5fa291db",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "hippo_tex": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "e44d614e-c87e-41d2-8594-7b3c05d2b07a",
+      "importer": "sprite-frame",
       "rawTextureUuid": "65bf6819-9ab3-4bd6-acad-4bcd5fa291db",
       "trimType": "auto",
       "trimThreshold": 1,

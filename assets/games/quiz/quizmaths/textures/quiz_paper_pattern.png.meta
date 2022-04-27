@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "1b5a9e3c-7f34-49fa-be0e-fd3f3b5f990e",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "quiz_paper_pattern": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "a92d6ba9-4dcf-4bda-b691-a146718f19e7",
+      "importer": "sprite-frame",
       "rawTextureUuid": "1b5a9e3c-7f34-49fa-be0e-fd3f3b5f990e",
       "trimType": "auto",
       "trimThreshold": 1,

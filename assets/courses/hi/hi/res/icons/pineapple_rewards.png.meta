@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "858c1fe7-6a42-4e72-80e6-4feced478cf0",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "pineapple_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "1fd2cb27-2235-42ef-8298-64fcbeca432f",
+      "importer": "sprite-frame",
       "rawTextureUuid": "858c1fe7-6a42-4e72-80e6-4feced478cf0",
       "trimType": "auto",
       "trimThreshold": 1,

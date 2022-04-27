@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "3a5553d4-c291-460e-bde4-5265c9dead50",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "beach_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "a92313f5-f37d-494c-9265-81b0fbfafd0b",
+      "importer": "sprite-frame",
       "rawTextureUuid": "3a5553d4-c291-460e-bde4-5265c9dead50",
       "trimType": "auto",
       "trimThreshold": 1,

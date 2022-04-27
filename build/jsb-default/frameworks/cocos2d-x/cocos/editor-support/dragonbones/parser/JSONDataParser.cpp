@@ -1341,7 +1341,13 @@ unsigned JSONDataParser::_parseZOrderFrame(const rapidjson::Value& rawData, unsi
                 }
                 
                 unsigned index = originalIndex + zOrderOffset;
-                CCASSERT(index >= 0 && index < zOrders.size(), "DragonBones::JSONDataParser index is invalid");
+                // CCASSERT(index >= 0 && index < zOrders.size(), "DragonBones::JSONDataParser index is invalid");
+                        
+                if (!(index >= 0 && index < zOrders.size()))
+                {
+                    originalIndex++;
+                    continue;
+                }
                 zOrders[index] = originalIndex++;
             }
 
@@ -1358,9 +1364,18 @@ unsigned JSONDataParser::_parseZOrderFrame(const rapidjson::Value& rawData, unsi
             {
                 if (zOrders[i] == -1) 
                 {
-                    _frameArray[frameOffset + 2 + i] = unchanged[--unchangedIndex];
+                    // _frameArray[frameOffset + 2 + i] = unchanged[--unchangedIndex];
+                    if(unchangedIndex > 0) 
+                    {
+                        _frameArray[frameOffset + 2 + i] = unchanged[--unchangedIndex];
+                    } 
+                    else 
+                    {
+                        _frameArray[frameOffset + 2 + i] = 0;
+                    }
                 }
-                else {
+                else 
+                {
                     _frameArray[frameOffset + 2 + i] = zOrders[i];
                 }
             }

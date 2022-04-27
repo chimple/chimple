@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "cdd19ae5-e687-46d0-87d4-c4745fed760e",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "snow_snow_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "c8830bcc-48b7-4006-8d7a-dde11b46e118",
+      "importer": "sprite-frame",
       "rawTextureUuid": "cdd19ae5-e687-46d0-87d4-c4745fed760e",
       "trimType": "auto",
       "trimThreshold": 1,

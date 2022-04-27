@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "419fa103-3a52-4fe5-ba44-dabbc6382b2b",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "box_decamon2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "dd6ad7e7-5f67-499d-8bb8-b7d648dce66e",
+      "importer": "sprite-frame",
       "rawTextureUuid": "419fa103-3a52-4fe5-ba44-dabbc6382b2b",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -9,19 +9,6 @@
       "image": "sticker.png",
       "lessons": [
         {
-          "id": "rewardsticker0000",
-          "image": "rewardsticker0000.png",
-          "name": "Icecream Set",
-          "skills": [
-            "icecreamset_part1",
-            "icecreamset_part2",
-            "icecreamset_part3",
-            "icecreamset_part4",
-            "icecreamset_part5",
-            "icecreamset_part6"
-          ]
-        },
-        {
           "id": "rewardsticker0001",
           "image": "rewardsticker0001.png",
           "name": "Bulldozer",
@@ -45,19 +32,6 @@
             "astronaut_part4",
             "astronaut_part5",
             "astronaut_part6"
-          ]
-        },
-        {
-          "id": "rewardsticker0003",
-          "image": "rewardsticker0003.png",
-          "name": "House",
-          "skills": [
-            "house_part1",
-            "house_part2",
-            "house_part3",
-            "house_part4",
-            "house_part5",
-            "house_part6"
           ]
         },
         {
@@ -87,6 +61,32 @@
           ]
         },
         {
+          "id": "rewardsticker0003",
+          "image": "rewardsticker0003.png",
+          "name": "House",
+          "skills": [
+            "house_part1",
+            "house_part2",
+            "house_part3",
+            "house_part4",
+            "house_part5",
+            "house_part6"
+          ]
+        },
+        {
+          "id": "rewardsticker0009",
+          "image": "rewardsticker0009.png",
+          "name": "Shirt",
+          "skills": [
+            "shirt_part1",
+            "shirt_part2",
+            "shirt_part3",
+            "shirt_part4",
+            "shirt_part5",
+            "shirt_part6"
+          ]
+        },
+        {
           "id": "rewardsticker0006",
           "image": "rewardsticker0006.png",
           "name": "Frock",
@@ -113,6 +113,19 @@
           ]
         },
         {
+          "id": "rewardsticker0000",
+          "image": "rewardsticker0000.png",
+          "name": "Icecream Set",
+          "skills": [
+            "icecreamset_part1",
+            "icecreamset_part2",
+            "icecreamset_part3",
+            "icecreamset_part4",
+            "icecreamset_part5",
+            "icecreamset_part6"
+          ]
+        },
+        {
           "id": "rewardsticker0008",
           "image": "rewardsticker0008.png",
           "name": "Season Set",
@@ -123,19 +136,6 @@
             "seasonset_part4",
             "seasonset_part5",
             "seasonset_part6"
-          ]
-        },
-        {
-          "id": "rewardsticker0009",
-          "image": "rewardsticker0009.png",
-          "name": "Shirt",
-          "skills": [
-            "shirt_part1",
-            "shirt_part2",
-            "shirt_part3",
-            "shirt_part4",
-            "shirt_part5",
-            "shirt_part6"
           ]
         }
       ],
@@ -207,6 +207,18 @@
         }
       ],
       "name": "Platformer Game"
+    },
+    {
+      "id": "story",
+      "image": "sticker.png",
+      "lessons": [
+        {
+          "id": "rewardstorywhereismybat",
+          "image": "rewardstorywhereismybat.png",
+          "name": "Where is My Bat?"
+        }
+      ],
+      "name": "Story Books"
     }
   ]
 }

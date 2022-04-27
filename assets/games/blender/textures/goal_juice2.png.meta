@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "45c8a739-2a7c-4fbb-bfba-94e665530cb8",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "goal_juice2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "bbeb68db-91eb-4756-857f-bc98a02ed04b",
+      "importer": "sprite-frame",
       "rawTextureUuid": "45c8a739-2a7c-4fbb-bfba-94e665530cb8",
       "trimType": "auto",
       "trimThreshold": 1,

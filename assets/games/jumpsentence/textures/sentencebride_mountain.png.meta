@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "5f17720a-231e-47e9-929c-7289a1aac028",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "sentencebride_mountain": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "f1bfa2d8-5e01-4c92-b3b8-53b908a3c207",
+      "importer": "sprite-frame",
       "rawTextureUuid": "5f17720a-231e-47e9-929c-7289a1aac028",
       "trimType": "auto",
       "trimThreshold": 1,

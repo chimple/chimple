@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "6432706e-4004-4172-9cbf-e0a949311b7a",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "igloo_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "0857d51b-6807-47d9-884d-47f93a1066c2",
+      "importer": "sprite-frame",
       "rawTextureUuid": "6432706e-4004-4172-9cbf-e0a949311b7a",
       "trimType": "auto",
       "trimThreshold": 1,

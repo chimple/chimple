@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "e0f7d69f-9f17-4cb8-bdd0-60e00f7afa53",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "watermelon-outline": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "b7d3b797-846f-402c-86d9-5d85c44a1338",
+      "importer": "sprite-frame",
       "rawTextureUuid": "e0f7d69f-9f17-4cb8-bdd0-60e00f7afa53",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "427bd193-cc54-41e0-b4a1-e0a349bbfd46",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "motorcycle_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "27f1b495-96fe-4fde-85a2-510333964cc4",
+      "importer": "sprite-frame",
       "rawTextureUuid": "427bd193-cc54-41e0-b4a1-e0a349bbfd46",
       "trimType": "auto",
       "trimThreshold": 1,

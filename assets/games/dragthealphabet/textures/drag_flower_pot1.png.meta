@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "3d282001-1112-438e-a69c-90b364610bc7",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "drag_flower_pot1": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "ca9dcac2-a16e-4f55-8af8-ad9a3d8d6057",
+      "importer": "sprite-frame",
       "rawTextureUuid": "3d282001-1112-438e-a69c-90b364610bc7",
       "trimType": "auto",
       "trimThreshold": 1,

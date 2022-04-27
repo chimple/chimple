@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "c1e77404-20b0-4575-9dfe-fc4e8aee6cba",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "chocolate_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "18d510db-70ee-4862-afc0-611e427f2e80",
+      "importer": "sprite-frame",
       "rawTextureUuid": "c1e77404-20b0-4575-9dfe-fc4e8aee6cba",
       "trimType": "auto",
       "trimThreshold": 1,

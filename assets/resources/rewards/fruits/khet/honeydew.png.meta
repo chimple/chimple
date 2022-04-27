@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "35dd411c-0de0-4976-a22e-df2ac5db5910",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "honeydew": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "51715ff6-df32-49b5-a296-2011a273913d",
+      "importer": "sprite-frame",
       "rawTextureUuid": "35dd411c-0de0-4976-a22e-df2ac5db5910",
       "trimType": "auto",
       "trimThreshold": 1,

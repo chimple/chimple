@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "67851554-f3fe-4c8f-9182-35b535bc2aa6",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "tansparentquestionboard_quickfacts": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "938e0f89-03f4-4e9b-b3d9-d8f4c5c71a40",
+      "importer": "sprite-frame",
       "rawTextureUuid": "67851554-f3fe-4c8f-9182-35b535bc2aa6",
       "trimType": "auto",
       "trimThreshold": 1,

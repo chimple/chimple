@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "af6f62f6-4694-4af3-83d4-d40cb5df5d9a",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "mermaid_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "ae8dbeb8-ca7c-47d2-82ba-b6c7817c8d55",
+      "importer": "sprite-frame",
       "rawTextureUuid": "af6f62f6-4694-4af3-83d4-d40cb5df5d9a",
       "trimType": "auto",
       "trimThreshold": 1,

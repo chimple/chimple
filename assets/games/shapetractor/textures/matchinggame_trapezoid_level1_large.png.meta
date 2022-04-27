@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "98c7bc65-21ca-4b7c-a85a-7521c1d4e71e",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "matchinggame_trapezoid_level1_large": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "5cc09c15-9017-40e8-b211-4ed1553f3c79",
+      "importer": "sprite-frame",
       "rawTextureUuid": "98c7bc65-21ca-4b7c-a85a-7521c1d4e71e",
       "trimType": "auto",
       "trimThreshold": 1,

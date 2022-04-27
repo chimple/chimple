@@ -23,6 +23,7 @@ THE SOFTWARE.
 ****************************************************************************/
 #include "2d/CCLabelLayout.h"
 #include "2d/CCTTFLabelAtlasCache.h"
+#include "2d/CCTTFLabelRenderer.h"
 
 #include "base/ccUTF8.h"
 #include "MiddlewareMacro.h"
@@ -47,6 +48,8 @@ THE SOFTWARE.
 #include "base/ccConfig.h"
 
 #if CC_ENABLE_TTF_LABEL_RENDERER
+
+#define INIT_VERTEX_SIZE 32
 
 namespace {
     const std::string textureKey = "texture";
@@ -179,7 +182,7 @@ namespace cocos2d {
     TextRenderGroupItem::TextRenderGroupItem(renderer::Texture* tex)
     {
         _texture = tex;
-        _buffer = new middleware::MeshBuffer(VF_XYUVC);
+        _buffer = new middleware::MeshBuffer(VF_XYUVC, sizeof(uint16_t) * 6 * INIT_VERTEX_SIZE, INIT_VERTEX_SIZE * 4);
     }
     TextRenderGroupItem::~TextRenderGroupItem()
     {
@@ -196,11 +199,8 @@ namespace cocos2d {
     void TextRenderGroupItem::addRect(const Rect &rect, const Rect &uv, const Color4B &color, bool italics)
     {
         middleware::IOBuffer &vertexBuffer = _buffer->getVB();
-        const int minSize = sizeof(V2F_T2F_C4B) * std::max(16, 4 * _rectSize);
-        if (vertexBuffer.getCapacity() < minSize)
-        {
-            vertexBuffer.checkSpace(minSize << 2, true);
-        }
+        const int minSize = sizeof(V2F_T2F_C4B) * 4;
+        vertexBuffer.checkSpace(minSize << 1, true);
 
         V2F_T2F_C4B *verts = ((V2F_T2F_C4B*)vertexBuffer.getBuffer()) + 4 * _rectSize;
 
@@ -225,6 +225,8 @@ namespace cocos2d {
         verts[1].color = color;
         verts[2].color = color;
         verts[3].color = color;
+        
+        vertexBuffer.move(4 * sizeof(V2F_T2F_C4B));
         _rectSize += 1;
 
         _dirtyFlags |= DirtyFlag::VERTEX_DIRTY;
@@ -233,8 +235,8 @@ namespace cocos2d {
     void TextRenderGroupItem::addIndexes()
     {
         middleware::IOBuffer &indexBuffer = _buffer->getIB();
-        int indexSize = sizeof(uint16_t) * _rectSize * 6;
-        indexBuffer.checkSpace(indexSize, true);
+        int indexSize = sizeof(uint16_t) * 6 * (_rectSize - _indexSize);
+        indexBuffer.checkSpace(indexSize << 1, true);
         uint16_t *indices = (uint16_t*)indexBuffer.getBuffer();
         for (int i = _indexSize; i < _rectSize; i += 1)
         {
@@ -245,7 +247,8 @@ namespace cocos2d {
             indices[i * 6 + 4] = 3 + 4 * i;
             indices[i * 6 + 5] = 2 + 4 * i;
         }
-
+        
+        indexBuffer.move(sizeof(uint16_t) * 6 * (_rectSize - _indexSize));
         if (_indexSize < _rectSize)
         {
             _indexSize = _rectSize;
@@ -775,6 +778,19 @@ namespace cocos2d {
         }
 
 
+        se::Object *comp = _renderer->getJsComponent();
+        if ((OverFlow == LabelOverflow::NONE || OverFlow == LabelOverflow::RESIZE_HEIGHT) && comp) {
+            se::Value funcVal;
+            se::Value nodeVal;
+            if(comp->getProperty("node", &nodeVal) && nodeVal.isObject() &&
+                nodeVal.toObject()->getProperty("setContentSize", &funcVal)) {
+                se::ValueArray args;
+                args.push_back(se::Value( OverFlow == LabelOverflow::RESIZE_HEIGHT ? ContentWidth: maxLineWidth));
+                args.push_back(se::Value(TotalTextHeight));
+                funcVal.toObject()->call(args, nodeVal.toObject());
+            }
+        }
+        
         _textSpace = std::move(textSpaces._data);
 
         return true;

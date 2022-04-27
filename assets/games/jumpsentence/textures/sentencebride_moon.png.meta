@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "0d757951-143f-454f-b747-a28025498662",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "sentencebride_moon": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "9f5cfb76-cc38-420c-94d7-8dfa54bd6fda",
+      "importer": "sprite-frame",
       "rawTextureUuid": "0d757951-143f-454f-b747-a28025498662",
       "trimType": "auto",
       "trimThreshold": 1,

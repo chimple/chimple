@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "029b0095-a332-4504-9e66-266b4f647109",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "writecard_bush2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "c845beb9-5cc0-4284-be36-f24c9140b9c6",
+      "importer": "sprite-frame",
       "rawTextureUuid": "029b0095-a332-4504-9e66-266b4f647109",
       "trimType": "auto",
       "trimThreshold": 1,

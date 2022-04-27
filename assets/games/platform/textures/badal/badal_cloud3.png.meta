@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "23c85fa8-fcaf-4e6a-a422-f4ebbbf87420",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "badal_cloud3": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "cc8a5b02-4af3-46b8-9402-666d005092a2",
+      "importer": "sprite-frame",
       "rawTextureUuid": "23c85fa8-fcaf-4e6a-a422-f4ebbbf87420",
       "trimType": "auto",
       "trimThreshold": 1,

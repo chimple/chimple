@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "9a5a940e-d5f2-4b9f-8310-42afeddddcde",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "trolly_drop_soundtrain_3block": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "5a949269-4436-4b4d-87f5-6a820fdc22ab",
+      "importer": "sprite-frame",
       "rawTextureUuid": "9a5a940e-d5f2-4b9f-8310-42afeddddcde",
       "trimType": "auto",
       "trimThreshold": 1,

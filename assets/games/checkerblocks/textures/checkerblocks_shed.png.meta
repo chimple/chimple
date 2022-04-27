@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "6a21918d-8def-4467-b1c6-dfa4d9a1a066",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "checkerblocks_shed": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "851ce3c1-dc8a-4d45-a871-91ae5231843b",
+      "importer": "sprite-frame",
       "rawTextureUuid": "6a21918d-8def-4467-b1c6-dfa4d9a1a066",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "d59e3d8c-d650-461f-a168-455333d4a18d",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "desertcloud_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "92003e42-85db-4768-ae44-22822271ff63",
+      "importer": "sprite-frame",
       "rawTextureUuid": "d59e3d8c-d650-461f-a168-455333d4a18d",
       "trimType": "auto",
       "trimThreshold": 1,

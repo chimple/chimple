@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "d96ac11a-d0e4-483f-99b3-edd3e368826b",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "engine_truck6": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "7833f0cb-c32c-4226-99e4-09208c7bd121",
+      "importer": "sprite-frame",
       "rawTextureUuid": "d96ac11a-d0e4-483f-99b3-edd3e368826b",
       "trimType": "auto",
       "trimThreshold": 1,

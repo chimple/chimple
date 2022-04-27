@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "165196f6-99bb-4582-87c1-6607e4a26aae",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "chimp_tex": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "7fc3c977-1f2b-4884-9017-8b16b08e9065",
+      "importer": "sprite-frame",
       "rawTextureUuid": "165196f6-99bb-4582-87c1-6607e4a26aae",
       "trimType": "auto",
       "trimThreshold": 1,

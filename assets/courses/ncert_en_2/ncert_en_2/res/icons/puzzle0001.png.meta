@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "8f33e618-7832-4e0e-924d-f372c35aa698",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "puzzle0001": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "22223bf2-e901-4ffb-aca4-b343e0be936b",
+      "importer": "sprite-frame",
       "rawTextureUuid": "8f33e618-7832-4e0e-924d-f372c35aa698",
       "trimType": "auto",
       "trimThreshold": 1,

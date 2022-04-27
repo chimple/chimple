@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "66b5f1b5-7e60-487e-aa79-b8ddf8b3f4fb",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "bell_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "42ef406a-94f7-4774-87e8-b146a24dbc1c",
+      "importer": "sprite-frame",
       "rawTextureUuid": "66b5f1b5-7e60-487e-aa79-b8ddf8b3f4fb",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "77685c7f-c431-4aaf-baf9-0c86fb00ac91",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "achievement_icon": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "3acefcea-74cf-4c74-95d8-5c9eceeaee0c",
+      "importer": "sprite-frame",
       "rawTextureUuid": "77685c7f-c431-4aaf-baf9-0c86fb00ac91",
       "trimType": "auto",
       "trimThreshold": 1,

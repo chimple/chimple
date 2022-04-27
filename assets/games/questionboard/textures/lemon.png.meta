@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "a843e32b-e0e1-4c9f-bddf-70c23c1e96ed",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "lemon": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "db2fe15c-82ee-41c2-90bf-46dc58c290b3",
+      "importer": "sprite-frame",
       "rawTextureUuid": "a843e32b-e0e1-4c9f-bddf-70c23c1e96ed",
       "trimType": "auto",
       "trimThreshold": 1,

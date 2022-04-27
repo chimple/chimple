@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "d21b24ca-ac77-4080-9a16-b3d6b077aa01",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "worldover_playground2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "5b5614e0-b75f-4c10-872f-64edf82267d8",
+      "importer": "sprite-frame",
       "rawTextureUuid": "d21b24ca-ac77-4080-9a16-b3d6b077aa01",
       "trimType": "auto",
       "trimThreshold": 1,
