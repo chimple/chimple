@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "03a79438-5d73-444d-9730-e854a479bca3",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "spinach": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "5962be12-90c1-41c1-bc9b-c203cdb73ac6",
+      "importer": "sprite-frame",
       "rawTextureUuid": "03a79438-5d73-444d-9730-e854a479bca3",
       "trimType": "auto",
       "trimThreshold": 1,

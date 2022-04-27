@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "061a763b-830c-4a1f-82fc-d0de75623082",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "soldierpolar": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "1b7d456a-ce9e-4dc0-af52-d81adc801695",
+      "importer": "sprite-frame",
       "rawTextureUuid": "061a763b-830c-4a1f-82fc-d0de75623082",
       "trimType": "auto",
       "trimThreshold": 1,

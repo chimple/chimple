@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "7bbf07d3-2dd0-49a8-a563-8b6736cea46d",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "potato": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "c5b9c320-92cc-449f-821c-d514a967bccc",
+      "importer": "sprite-frame",
       "rawTextureUuid": "7bbf07d3-2dd0-49a8-a563-8b6736cea46d",
       "trimType": "auto",
       "trimThreshold": 1,

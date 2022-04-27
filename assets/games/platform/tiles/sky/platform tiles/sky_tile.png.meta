@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "8ee62954-fca1-4aac-a4e5-9ecd4c40c2d7",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "sky_tile": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "ecb1fd9e-1b9b-4106-8b8c-474b9a144186",
+      "importer": "sprite-frame",
       "rawTextureUuid": "8ee62954-fca1-4aac-a4e5-9ecd4c40c2d7",
       "trimType": "auto",
       "trimThreshold": 1,

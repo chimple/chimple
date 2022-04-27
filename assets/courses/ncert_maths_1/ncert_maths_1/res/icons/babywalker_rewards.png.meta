@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "9583191d-7206-42fb-8a74-bc2d76f68872",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "babywalker_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "ec6aceae-7b82-41c2-8f00-60584a92d5bb",
+      "importer": "sprite-frame",
       "rawTextureUuid": "9583191d-7206-42fb-8a74-bc2d76f68872",
       "trimType": "auto",
       "trimThreshold": 1,

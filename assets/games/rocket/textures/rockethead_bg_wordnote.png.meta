@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "939458fc-95da-4999-b2a2-ee331f117350",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "rockethead_bg_wordnote": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "d19a8a3c-65dc-4d00-b390-206efb9f270f",
+      "importer": "sprite-frame",
       "rawTextureUuid": "939458fc-95da-4999-b2a2-ee331f117350",
       "trimType": "auto",
       "trimThreshold": 1,

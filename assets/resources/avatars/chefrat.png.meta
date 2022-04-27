@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "f224be8d-cbde-4b61-9ae8-160e5d7d10f5",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "chefrat": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "b7c9e8f6-b31b-466e-a6c6-14c834bcbd3c",
+      "importer": "sprite-frame",
       "rawTextureUuid": "f224be8d-cbde-4b61-9ae8-160e5d7d10f5",
       "trimType": "auto",
       "trimThreshold": 1,

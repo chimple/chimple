@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "e32a055e-38d8-4e59-887f-bd67ecbcf923",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "beach_sandtile4": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "6739d570-8691-429f-a5fd-8047b6cdd263",
+      "importer": "sprite-frame",
       "rawTextureUuid": "e32a055e-38d8-4e59-887f-bd67ecbcf923",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "544a0309-ef08-443c-9d8a-26ac709126cf",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "village_trees_1_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "b1d80472-1856-44bb-b7d9-c22132188381",
+      "importer": "sprite-frame",
       "rawTextureUuid": "544a0309-ef08-443c-9d8a-26ac709126cf",
       "trimType": "auto",
       "trimThreshold": 1,

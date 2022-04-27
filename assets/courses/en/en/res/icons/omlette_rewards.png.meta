@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "c10899e1-8dbd-4fbf-8ebc-992435509529",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "omlette_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "db3968d5-d62f-464f-9050-d2b1e155fb69",
+      "importer": "sprite-frame",
       "rawTextureUuid": "c10899e1-8dbd-4fbf-8ebc-992435509529",
       "trimType": "auto",
       "trimThreshold": 1,

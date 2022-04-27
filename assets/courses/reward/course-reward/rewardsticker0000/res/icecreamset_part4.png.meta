@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "4aabab89-c4b4-4549-a8f8-b2c908ac24e3",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "icecreamset_part4": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "d19b1d1f-e541-44b7-9fef-61c7ee38b8cc",
+      "importer": "sprite-frame",
       "rawTextureUuid": "4aabab89-c4b4-4549-a8f8-b2c908ac24e3",
       "trimType": "auto",
       "trimThreshold": 1,

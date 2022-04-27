@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "bf4a701e-a52f-4ccd-9b40-0714f56fc6b2",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "playground_bush": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "5bded26d-bfb3-4122-a26c-c7f445d7900c",
+      "importer": "sprite-frame",
       "rawTextureUuid": "bf4a701e-a52f-4ccd-9b40-0714f56fc6b2",
       "trimType": "auto",
       "trimThreshold": 1,

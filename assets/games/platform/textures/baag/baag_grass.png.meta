@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "778eb2b5-8855-43f5-84a2-63435978c2dd",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "baag_grass": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "1b3123ac-33c9-478c-b316-c2171d709b49",
+      "importer": "sprite-frame",
       "rawTextureUuid": "778eb2b5-8855-43f5-84a2-63435978c2dd",
       "trimType": "auto",
       "trimThreshold": 1,

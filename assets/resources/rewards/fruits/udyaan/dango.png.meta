@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "af416a3d-fa69-476c-859b-0f79e9a17d79",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "dango": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "ccac3b10-6335-4bdd-9553-a22c6d7511df",
+      "importer": "sprite-frame",
       "rawTextureUuid": "af416a3d-fa69-476c-859b-0f79e9a17d79",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "467c7f86-8520-43f1-8c5c-8460e63add39",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "bulldozer_part2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "f6848e0f-f037-446c-9475-bc837681c5de",
+      "importer": "sprite-frame",
       "rawTextureUuid": "467c7f86-8520-43f1-8c5c-8460e63add39",
       "trimType": "auto",
       "trimThreshold": 1,

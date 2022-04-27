@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "8f13e362-a740-48ad-b7af-ff16fa326aaf",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "mathlessonbg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "a52bd57e-168b-431f-96fe-7f36fca0203a",
+      "importer": "sprite-frame",
       "rawTextureUuid": "8f13e362-a740-48ad-b7af-ff16fa326aaf",
       "trimType": "auto",
       "trimThreshold": 1,

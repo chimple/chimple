@@ -66,25 +66,6 @@ bool js_register_gfx_GraphicsHandle(se::Object* obj)
 se::Object* __jsb_cocos2d_renderer_IndexBuffer_proto = nullptr;
 se::Class* __jsb_cocos2d_renderer_IndexBuffer_class = nullptr;
 
-static bool js_gfx_IndexBuffer_setBytes(se::State& s)
-{
-    cocos2d::renderer::IndexBuffer* cobj = (cocos2d::renderer::IndexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_setBytes : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        unsigned int arg0 = 0;
-        ok &= seval_to_uint32(args[0], (uint32_t*)&arg0);
-        SE_PRECONDITION2(ok, false, "js_gfx_IndexBuffer_setBytes : Error processing arguments");
-        cobj->setBytes(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_IndexBuffer_setBytes)
-
 static bool js_gfx_IndexBuffer_getUsage(se::State& s)
 {
     cocos2d::renderer::IndexBuffer* cobj = (cocos2d::renderer::IndexBuffer*)s.nativeThisObject();
@@ -257,7 +238,6 @@ bool js_register_gfx_IndexBuffer(se::Object* obj)
 {
     auto cls = se::Class::create("IndexBuffer", obj, __jsb_cocos2d_renderer_GraphicsHandle_proto, _SE(js_gfx_IndexBuffer_constructor));
 
-    cls->defineFunction("setBytes", _SE(js_gfx_IndexBuffer_setBytes));
     cls->defineFunction("getUsage", _SE(js_gfx_IndexBuffer_getUsage));
     cls->defineFunction("setFormat", _SE(js_gfx_IndexBuffer_setFormat));
     cls->defineFunction("setCount", _SE(js_gfx_IndexBuffer_setCount));
@@ -279,25 +259,6 @@ bool js_register_gfx_IndexBuffer(se::Object* obj)
 
 se::Object* __jsb_cocos2d_renderer_VertexBuffer_proto = nullptr;
 se::Class* __jsb_cocos2d_renderer_VertexBuffer_class = nullptr;
-
-static bool js_gfx_VertexBuffer_setBytes(se::State& s)
-{
-    cocos2d::renderer::VertexBuffer* cobj = (cocos2d::renderer::VertexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_setBytes : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        unsigned int arg0 = 0;
-        ok &= seval_to_uint32(args[0], (uint32_t*)&arg0);
-        SE_PRECONDITION2(ok, false, "js_gfx_VertexBuffer_setBytes : Error processing arguments");
-        cobj->setBytes(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_VertexBuffer_setBytes)
 
 static bool js_gfx_VertexBuffer_getUsage(se::State& s)
 {
@@ -433,7 +394,6 @@ bool js_register_gfx_VertexBuffer(se::Object* obj)
 {
     auto cls = se::Class::create("VertexBuffer", obj, __jsb_cocos2d_renderer_GraphicsHandle_proto, _SE(js_gfx_VertexBuffer_constructor));
 
-    cls->defineFunction("setBytes", _SE(js_gfx_VertexBuffer_setBytes));
     cls->defineFunction("getUsage", _SE(js_gfx_VertexBuffer_getUsage));
     cls->defineFunction("setCount", _SE(js_gfx_VertexBuffer_setCount));
     cls->defineFunction("destroy", _SE(js_gfx_VertexBuffer_destroy));
@@ -1053,6 +1013,19 @@ static bool js_gfx_DeviceGraphics_enableStencilTest(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_DeviceGraphics_enableStencilTest)
 
+static bool js_gfx_DeviceGraphics_destroy(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    if (argc == 0) {
+        cocos2d::renderer::DeviceGraphics::destroy();
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_DeviceGraphics_destroy)
+
 static bool js_gfx_DeviceGraphics_getInstance(se::State& s)
 {
     const auto& args = s.args();
@@ -1106,6 +1079,7 @@ bool js_register_gfx_DeviceGraphics(se::Object* obj)
     cls->defineFunction("setCullMode", _SE(js_gfx_DeviceGraphics_setCullMode));
     cls->defineFunction("setStencilOp", _SE(js_gfx_DeviceGraphics_setStencilOp));
     cls->defineFunction("enableStencilTest", _SE(js_gfx_DeviceGraphics_enableStencilTest));
+    cls->defineStaticFunction("destroy", _SE(js_gfx_DeviceGraphics_destroy));
     cls->defineStaticFunction("getInstance", _SE(js_gfx_DeviceGraphics_getInstance));
     cls->install();
     JSBClassType::registerClass<cocos2d::renderer::DeviceGraphics>(cls);
@@ -1272,6 +1246,29 @@ static bool js_gfx_RenderBuffer_init(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_RenderBuffer_init)
 
+static bool js_gfx_RenderBuffer_update(se::State& s)
+{
+    cocos2d::renderer::RenderBuffer* cobj = (cocos2d::renderer::RenderBuffer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_RenderBuffer_update : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        unsigned short arg0 = 0;
+        unsigned short arg1 = 0;
+        ok &= seval_to_uint16(args[0], &arg0);
+        ok &= seval_to_uint16(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_gfx_RenderBuffer_update : Error processing arguments");
+        bool result = cobj->update(arg0, arg1);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_gfx_RenderBuffer_update : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_RenderBuffer_update)
+
 static bool js_gfx_RenderBuffer_create(se::State& s)
 {
     const auto& args = s.args();
@@ -1327,6 +1324,7 @@ bool js_register_gfx_RenderBuffer(se::Object* obj)
     auto cls = se::Class::create("RenderBuffer", obj, __jsb_cocos2d_renderer_RenderTarget_proto, _SE(js_gfx_RenderBuffer_constructor));
 
     cls->defineFunction("init", _SE(js_gfx_RenderBuffer_init));
+    cls->defineFunction("update", _SE(js_gfx_RenderBuffer_update));
     cls->defineStaticFunction("create", _SE(js_gfx_RenderBuffer_create));
     cls->defineFinalizeFunction(_SE(js_cocos2d_renderer_RenderBuffer_finalize));
     cls->install();

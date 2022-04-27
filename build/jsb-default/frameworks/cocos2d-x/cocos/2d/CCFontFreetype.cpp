@@ -74,17 +74,23 @@ namespace cocos2d {
         }
         ~FontFreeTypeLibrary()
         {
+            _faceCache.clear();
             FT_Done_FreeType(_library);
         }
 
         FT_Library * get() { return &_library; }
 
+        std::unordered_map<std::string, std::shared_ptr<Data>> &getFaceCache() {
+            return _faceCache;
+        }
+        
     private:
+        std::unordered_map<std::string, std::shared_ptr<Data>> _faceCache;
         FT_Library _library;
     };
 
     namespace {
-        std::weak_ptr<FontFreeTypeLibrary> _sFTLibrary;
+        std::shared_ptr<FontFreeTypeLibrary> _sFTLibrary;
 
         PixelMode FTtoPixelModel(FT_Pixel_Mode mode)
         {
@@ -214,10 +220,9 @@ namespace cocos2d {
 
     FontFreeType::FontFreeType(const std::string& fontName, float fontSize, LabelLayoutInfo *info)
     {
-        _ftLibrary = _sFTLibrary.lock();
-        if (!_ftLibrary)
+        if (!_sFTLibrary)
         {
-            _ftLibrary = std::make_shared< FontFreeTypeLibrary>();
+            _sFTLibrary = std::make_shared< FontFreeTypeLibrary>();
         }
 
         _fontName = fontName;
@@ -240,18 +245,28 @@ namespace cocos2d {
 
     FT_Library& FontFreeType::getFTLibrary()
     {
-        return *_ftLibrary->get();
+        return *(_sFTLibrary->get());
     }
 
     bool FontFreeType::loadFont()
     {
-        _fontData = FileUtils::getInstance()->getDataFromFile(_fontName);
-
-        if (FT_New_Memory_Face(getFTLibrary(), _fontData.getBytes(), _fontData.getSize(), 0, &_face))
+        std::shared_ptr<Data> faceData;
+        auto itr = _sFTLibrary->getFaceCache().find(_fontName);
+        if (itr == _sFTLibrary->getFaceCache().end()) {
+            faceData = std::make_shared<Data>(FileUtils::getInstance()->getDataFromFile(_fontName));
+            _sFTLibrary->getFaceCache()[_fontName] = faceData;
+        } else {
+            faceData = itr->second;
+        }
+        
+        if (FT_New_Memory_Face(getFTLibrary(), faceData->getBytes(), faceData->getSize(), 0, &_face))
         {
             cocos2d::log("[error] failed to parse font %s", _fontName.c_str());
             return false;
         }
+
+        _fontFaceData = faceData;
+    
 
         if (FT_Select_Charmap(_face, _encoding))
         {

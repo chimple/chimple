@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "70898506-105d-45a5-9897-bd5e78a39b84",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "sticker-rewardsticker0000": {
-      "ver": "1.0.4",
-      "uuid": "f996d67f-053c-4972-a321-f76fe3b1803a",
+      "ver": "1.0.6",
+      "uuid": "4587cbad-9eb2-42d5-b86a-2ef97168465d",
+      "importer": "sprite-frame",
       "rawTextureUuid": "70898506-105d-45a5-9897-bd5e78a39b84",
       "trimType": "auto",
       "trimThreshold": 1,

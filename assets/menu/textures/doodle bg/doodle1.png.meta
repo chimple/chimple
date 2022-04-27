@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "926137b3-b0b8-4b95-9318-aaaec96f931d",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "doodle1": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "64fafb26-db8c-4f8b-8a86-05d2d8c7f7a6",
+      "importer": "sprite-frame",
       "rawTextureUuid": "926137b3-b0b8-4b95-9318-aaaec96f931d",
       "trimType": "auto",
       "trimThreshold": 1,

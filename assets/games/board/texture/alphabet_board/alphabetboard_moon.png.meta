@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "6966a9ea-f20e-4d6a-b5df-6c6be3e20a1d",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "alphabetboard_moon": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "cd1a1283-4bf9-46d1-b59d-8f116c15ec0a",
+      "importer": "sprite-frame",
       "rawTextureUuid": "6966a9ea-f20e-4d6a-b5df-6c6be3e20a1d",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "ee8438d2-d826-4270-a9b4-9166fb85d00d",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "worldover_garden1": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "4445eb77-7f00-46a6-8676-54eed669bec1",
+      "importer": "sprite-frame",
       "rawTextureUuid": "ee8438d2-d826-4270-a9b4-9166fb85d00d",
       "trimType": "auto",
       "trimThreshold": 1,

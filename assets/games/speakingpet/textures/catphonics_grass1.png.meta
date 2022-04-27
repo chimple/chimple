@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "741844bd-b158-4205-a7b3-2ebebf64aa88",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "catphonics_grass1": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "320dc192-cc75-49a6-9c12-ebd036af1a7c",
+      "importer": "sprite-frame",
       "rawTextureUuid": "741844bd-b158-4205-a7b3-2ebebf64aa88",
       "trimType": "auto",
       "trimThreshold": 1,

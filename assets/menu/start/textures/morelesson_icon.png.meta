@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "67fafd57-220e-45f1-af84-9131f434a798",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "morelesson_icon": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "80768de0-3c93-452b-8296-ec7f1e504885",
+      "importer": "sprite-frame",
       "rawTextureUuid": "67fafd57-220e-45f1-af84-9131f434a798",
       "trimType": "auto",
       "trimThreshold": 1,

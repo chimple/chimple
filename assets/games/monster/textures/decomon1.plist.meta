@@ -1,6 +1,7 @@
 {
-  "ver": "1.2.4",
+  "ver": "1.2.6",
   "uuid": "7e5f9a41-3f46-4d47-8831-99648a9889ce",
+  "importer": "sprite-atlas",
   "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
   "size": {
     "width": 250,
@@ -9,8 +10,9 @@
   "type": "Texture Packer",
   "subMetas": {
     "decomon-decomon1-decomon_eye_a_angry1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "59a3c2c9-baf7-45c9-badd-4cf2ddea7f16",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -31,8 +33,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_a_angry2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "1e25159f-2b63-466a-8022-5b15002c04af",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -53,8 +56,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_a_ballin.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "f8749ff4-5038-4d30-86d0-e4dfc527297c",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -75,8 +79,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_a_ballout.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "dbed8062-5cb0-4b12-b6c9-792b6fc49ca6",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -97,8 +102,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_a_blink1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "48d0d9ae-76bd-4e46-a6c0-9512ca15a2db",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -119,8 +125,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_a_blink2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "4313c157-dd55-47e0-898d-07d7d23c2172",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -141,8 +148,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_a_blink3.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "927fb7b8-72d8-46bb-860e-0c0496773b63",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -163,8 +171,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_a_lid.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "618d4472-31cf-4a53-86e2-0e8039f49593",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -185,8 +194,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_abcfh_ballout_angry.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "36e98b7d-0295-4893-8bb5-26403b8e28ff",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -207,8 +217,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_b_angry1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "23504eb4-a83e-4ab2-a32f-ce5e6f58fb47",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -229,8 +240,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_b_angry2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "d1306cb3-c6ae-46bc-a5da-5ebd2c3d06a7",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -251,8 +263,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_b_ballin.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "ea1217c5-a107-4fb7-8abf-3b8a7579fe8b",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -273,8 +286,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_b_ballout.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "ac930b79-89ac-4092-aa65-1f470cf4b5f7",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -295,8 +309,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_b_blink1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "9cdf0dce-c321-41b8-845e-43e5c0597bef",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -317,8 +332,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_b_blink2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "7ff1b278-c6dc-42b4-989a-f85cd802e1e6",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -339,8 +355,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_b_blink3.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "f6aa80e7-c3d5-4dc7-a85b-7d236e97cfd9",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -361,8 +378,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_b_lid.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "a4a033a0-db73-41b9-9215-6c831b97b968",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -383,8 +401,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_b_sad1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "47444f7a-0e37-4521-be73-8a5eab8db2ff",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -405,8 +424,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_b_sad2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "bac301e6-f042-4323-b0d4-8b37729e3182",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -427,8 +447,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_c_angry1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "f6330eb4-f35c-41e0-aadd-0ea36231fafa",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -449,8 +470,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_c_angry2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "8e744342-8df5-48cf-b316-6e8a4b02b208",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -471,8 +493,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_c_ballin.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "b599090a-4042-4b8c-adef-07c1868b1cb5",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -493,8 +516,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_c_ballout.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "945e635c-c676-4bfb-800a-01c1cdea13b1",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -515,8 +539,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_c_blink1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "f9172452-d98f-4649-a172-6e956d9ba9a5",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -537,8 +562,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_c_blink2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "2e7bd42a-e0e1-4074-bbb6-08515c08a746",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -559,8 +585,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_c_blink3.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "79dacbf6-5572-4bef-9dd7-4eb65c0c7b85",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -581,8 +608,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_c_lid.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "c80c0df9-afed-45e9-8445-4ab598f384dd",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -603,8 +631,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_d_angry1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "2ad5ec86-7833-4016-88e1-9ff533df9453",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -625,8 +654,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_d_angry2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "c8189c1c-99b0-44e9-8054-70dd24afc69b",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -647,8 +677,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_d_ballin.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "53181416-f79c-4e51-9a25-34a2fc89b63a",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -669,8 +700,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_d_ballout.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "eb4e5db5-f299-4d21-a458-c057a03fcc7e",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -691,8 +723,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_d_ballout_angry.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "9370de4e-9ff2-4a09-8156-d837cbf545df",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -713,8 +746,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_d_blink1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "02261ef9-db95-4e89-873e-e2fa3bf301fb",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -735,8 +769,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_d_blink2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "46b0b0d1-53dc-48e4-8ac9-378976459738",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -757,8 +792,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_d_blink3.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "9b29df24-6bd0-4879-838b-29f75d17b06e",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -779,8 +815,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_d_lid.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "7d8a2c4f-4f83-4635-b0c2-c5b48456fdee",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -801,8 +838,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_d_sad1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "9422859c-6489-41d9-8aca-a9641898bb69",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -823,8 +861,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_d_sad2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "b04afb5a-618e-49b7-b46d-e3cc72ebb176",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -845,8 +884,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_e_angry1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "361d1a0c-8977-4f6c-828f-3ca5f8ef8224",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -867,8 +907,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_e_angry2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "8bae5234-9440-4fb9-b426-d008caf9aedf",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -889,8 +930,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_e_ballin.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "3d2038ee-a048-499c-a45f-5702124654df",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -911,8 +953,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_e_ballout.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "8f355eff-b169-4636-8559-5e55ea7686de",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -933,8 +976,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_e_ballout_angry.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "864a5192-78e6-489c-90af-42d306556bc6",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -955,8 +999,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_e_blink1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "d6e0b30c-fc28-4d13-9db2-fbda3fb95517",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -977,8 +1022,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_e_blink2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "6dc30d73-e0d8-4615-91c1-96f2fd271b99",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -999,8 +1045,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_e_blink3.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "6c7f8a94-cc5e-4d17-b63a-2b558e055892",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1021,8 +1068,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_e_lid.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "a2469e31-78b5-4b3d-9c55-db99d0f9d7ef",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1043,8 +1091,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_e_sad1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "96134bd2-a79b-45f5-befc-c0307b246998",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1065,8 +1114,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_e_sad2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "144b48f2-dd1c-4c3a-8692-d8af143e582e",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1087,8 +1137,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_f_angry1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "a1077ab7-d93f-4580-b842-b8167ba0612c",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1109,8 +1160,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_f_angry2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "753e745e-bb83-4a4e-b66f-a7c17b92f9ef",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1131,8 +1183,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_f_ballin.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "2637902b-7ca4-4e79-8b69-0b56d20867b7",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1153,8 +1206,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_f_ballout.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "12745d00-927d-4385-ad7e-25c05ad221bb",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1175,8 +1229,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_f_blink1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "ecf4be30-577f-405f-b288-70df65c6361b",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1197,8 +1252,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_f_blink2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "54cd7ed4-1846-4f0d-b667-fa9e2f63a9d6",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1219,8 +1275,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_f_blink3.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "917c5b4b-e7fe-4030-9530-6b8341a460fc",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1241,8 +1298,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_f_lid.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "bd88591c-23b2-4847-83a4-79038f0cc470",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1263,8 +1321,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_g_angry1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "109fe725-2a20-440a-ae56-423684da1ef7",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1285,8 +1344,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_g_angry2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "5c4a101c-8d3d-4454-9126-28cf988c1ad3",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1307,8 +1367,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_g_ballin.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "0f4da44f-2ecf-49db-ace8-fd47ff2fc4e8",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1329,8 +1390,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_g_ballout.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "f1c922ec-6e09-4bbf-bd3e-94129b729b44",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1351,8 +1413,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_g_ballout_angry.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "6012859d-3eb1-4003-86c9-8aa7d1ea33f7",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1373,8 +1436,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_g_blink1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "8021beeb-a066-416e-a48d-cdaa7a6dcfe8",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1395,8 +1459,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_g_blink2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "59c1eda2-2a1b-4044-903e-3eba9a1c7aac",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1417,8 +1482,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_g_blink3.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "2a71d45b-81bc-42d8-9b66-33cdd43578c9",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1439,8 +1505,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_g_lid.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "5370aab2-a6b7-482d-865d-107441923ded",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1461,8 +1528,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_g_sad1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "fd8ea069-d790-4cd5-9717-25de975da86b",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1483,8 +1551,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_g_sad2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "654501b0-c517-4381-acee-c768932db488",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1505,8 +1574,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_h_angry1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "8469799c-f837-470f-9544-36c27f5c8c9e",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1527,8 +1597,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_h_angry2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "489dc1f1-68cc-4c62-9900-09bd442c8536",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1549,8 +1620,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_h_ballin.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "d8e20858-85c0-495e-a6b3-1b9178348fee",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1571,8 +1643,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_h_ballout.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "988955ed-2a1a-4a81-95b3-23fd3a8589ef",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1593,8 +1666,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_h_blink1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "d3fb0498-5e2b-43f2-80e6-77cedf102176",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1615,8 +1689,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_h_blink2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "e6cea27e-c0df-41e9-96d9-e3d45a20673f",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1637,8 +1712,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_h_blink3.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "12eeca42-0d23-485c-aaef-993020928d35",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1659,8 +1735,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_h_lid.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "5c708e70-ad20-4ffc-af55-ae142aa9dde4",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1681,8 +1758,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_h_sad1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "c5333a6d-053a-480f-9db6-d02dfe5e0134",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1703,8 +1781,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_h_sad2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "e6c47096-4599-4f7b-a9ad-ffd3221c303f",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1725,8 +1804,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_i_angry.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "771e7b38-3c6a-4948-a99f-e166a6813026",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1747,8 +1827,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_i_ballin.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "e64c4f74-86f9-4fc4-b3db-e009243e649b",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1769,8 +1850,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_i_ballout.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "3904095e-6ead-4264-8e40-418eeefaa329",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1791,8 +1873,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_eye_i_blink.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "4adf7773-d90e-4813-9c83-eed320443279",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1813,8 +1896,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_gear_1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "e46182f9-7a1a-4c17-809d-e4deca93f350",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1835,8 +1919,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_gear_2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "c27a2b8a-0537-4fc6-bea3-9275accbe602",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1857,8 +1942,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_gear_3.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "d5da446e-213d-48f7-8786-d282da8bdc77",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1879,8 +1965,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_gear_4.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "918252c1-f1a6-4e53-8ea3-c823aba3ffc8",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1901,8 +1988,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_gear_5.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "de9fd217-12ae-4b09-b58e-7ac192982bed",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1923,8 +2011,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_gear_6.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "f4d5b41e-2996-43be-8c40-2486995228db",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1945,8 +2034,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_gear_7.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "cb02619a-29e9-4118-9183-8c958bf9061b",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1967,8 +2057,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_gear_8.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "340386ac-3229-495a-be6d-46fe32b4e315",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1989,8 +2080,9 @@
       "subMetas": {}
     },
     "decomon-decomon1-decomon_gear_9.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "142b14da-1c36-4881-bc3f-89a1c1bd32c4",
+      "importer": "sprite-frame",
       "rawTextureUuid": "649c9990-709e-441d-9039-3ffa6403d536",
       "trimType": "auto",
       "trimThreshold": 1,

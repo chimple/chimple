@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "f7a3d792-be81-4ea5-8211-3ba7cbfe3437",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "spelldoor_building2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "391eff2d-23c1-489f-89a2-6f14dfd18169",
+      "importer": "sprite-frame",
       "rawTextureUuid": "f7a3d792-be81-4ea5-8211-3ba7cbfe3437",
       "trimType": "auto",
       "trimThreshold": 1,

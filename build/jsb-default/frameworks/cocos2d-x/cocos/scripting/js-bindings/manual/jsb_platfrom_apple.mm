@@ -32,10 +32,13 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreText/CoreText.h>
+
 #include <regex>
+#include <unordered_set>
 
 using namespace cocos2d;
 
+static std::unordered_set<CGFontRef> _fontSet;
 static std::unordered_map<std::string, std::string> _fontFamilyNameMap;
 
 const std::unordered_map<std::string, std::string>& getFontFamilyNameMap()
@@ -170,9 +173,13 @@ static bool JSB_loadFont(se::State& s)
                 _fontFamilyNameMap.emplace(originalFamilyName, familyName);
                 s.rval().setString(familyName);
             }
+            
+            _fontSet.insert(font);
+        }
+        else {            
+            CFRelease(font);
         }
 
-        CFRelease(font);
         CFRelease(providerRef);
         return true;
     }
@@ -185,5 +192,17 @@ SE_BIND_FUNC(JSB_loadFont)
 bool register_platform_bindings(se::Object* obj)
 {
     __jsbObj->defineFunction("loadFont", _SE(JSB_loadFont));
+    
+    se::ScriptEngine::getInstance()->addBeforeCleanupHook([](){
+        CFErrorRef error;
+        for (auto font : _fontSet) {
+            CTFontManagerUnregisterGraphicsFont(font, &error);
+            CFRelease(font);
+        }
+        
+        _fontSet.clear();
+        _fontFamilyNameMap.clear();
+    });
+    
     return true;
 }

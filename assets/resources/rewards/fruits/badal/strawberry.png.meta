@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "59b938ab-efcf-46f8-b3f0-311809810f65",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "strawberry": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "ff08541a-93b0-4c0e-862b-06182b920ea1",
+      "importer": "sprite-frame",
       "rawTextureUuid": "59b938ab-efcf-46f8-b3f0-311809810f65",
       "trimType": "auto",
       "trimThreshold": 1,

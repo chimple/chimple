@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "f39b520e-0c0d-4fe7-b2b1-c082f7d42f4a",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "jackfruit": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "ed40fa17-87c6-4995-84f9-917d9ea11ec5",
+      "importer": "sprite-frame",
       "rawTextureUuid": "f39b520e-0c0d-4fe7-b2b1-c082f7d42f4a",
       "trimType": "auto",
       "trimThreshold": 1,

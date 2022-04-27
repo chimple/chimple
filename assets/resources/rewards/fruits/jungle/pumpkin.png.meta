@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "030e9b1a-bca0-4817-aba2-2777213b9542",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "pumpkin": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "a7167621-3515-42c4-bf15-65e6f05bde88",
+      "importer": "sprite-frame",
       "rawTextureUuid": "030e9b1a-bca0-4817-aba2-2777213b9542",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "5fc48840-ac81-45e8-80ec-8280dc2b4b2c",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "fishtank_bush1": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "94ea87e2-bafb-4b36-83e8-a90e87cc6089",
+      "importer": "sprite-frame",
       "rawTextureUuid": "5fc48840-ac81-45e8-80ec-8280dc2b4b2c",
       "trimType": "auto",
       "trimThreshold": 1,

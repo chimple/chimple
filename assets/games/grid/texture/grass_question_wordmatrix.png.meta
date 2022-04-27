@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "3511b8c6-12db-4cdd-8903-e7e5fcd394c9",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "grass_question_wordmatrix": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "480dd97d-ded0-47cb-9d8c-3fab63a04519",
+      "importer": "sprite-frame",
       "rawTextureUuid": "3511b8c6-12db-4cdd-8903-e7e5fcd394c9",
       "trimType": "auto",
       "trimThreshold": 1,

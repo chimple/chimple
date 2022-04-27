@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "8beca6e9-ffbe-48e8-9952-47541d27162f",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "hindilessonbg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "32107da6-ee34-4f2a-9fea-d3bbcdd6c1fb",
+      "importer": "sprite-frame",
       "rawTextureUuid": "8beca6e9-ffbe-48e8-9952-47541d27162f",
       "trimType": "auto",
       "trimThreshold": 1,

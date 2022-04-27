@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "572c3882-524f-4b2a-8c9b-fa3af6410a8f",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "village_house_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "26482220-83c6-43e1-b559-7f24c45af27c",
+      "importer": "sprite-frame",
       "rawTextureUuid": "572c3882-524f-4b2a-8c9b-fa3af6410a8f",
       "trimType": "auto",
       "trimThreshold": 1,

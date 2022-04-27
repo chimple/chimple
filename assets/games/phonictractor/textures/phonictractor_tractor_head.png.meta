@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "27aa42df-8245-4088-91f2-6bd2bd9ee219",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "phonictractor_tractor_head": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "1b04bc4c-4581-41b1-9ef0-db37cca266e4",
+      "importer": "sprite-frame",
       "rawTextureUuid": "27aa42df-8245-4088-91f2-6bd2bd9ee219",
       "trimType": "auto",
       "trimThreshold": 1,

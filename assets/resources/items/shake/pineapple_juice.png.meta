@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "63d59526-266b-4987-bc17-0df399931725",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "pineapple_juice": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "317ee275-1592-4f76-a85d-f2ab542bbaa3",
+      "importer": "sprite-frame",
       "rawTextureUuid": "63d59526-266b-4987-bc17-0df399931725",
       "trimType": "custom",
       "trimThreshold": 0,
