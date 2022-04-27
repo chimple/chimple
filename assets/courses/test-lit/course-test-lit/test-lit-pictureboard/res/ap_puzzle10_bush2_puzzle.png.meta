@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "d04daf3e-72d3-4ac6-949a-e8eebd581de0",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "ap_puzzle10_bush2_puzzle": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "cf7b5bf3-8f9a-4807-a639-314b1e3782cf",
+      "importer": "sprite-frame",
       "rawTextureUuid": "d04daf3e-72d3-4ac6-949a-e8eebd581de0",
       "trimType": "auto",
       "trimThreshold": 1,

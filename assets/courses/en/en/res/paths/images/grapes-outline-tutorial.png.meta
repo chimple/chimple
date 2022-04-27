@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "2eff002e-727a-48c1-8ecd-ca6435e5f917",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "grapes-outline-tutorial": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "a8a67b3a-7d21-4247-a2d4-82491e62fa27",
+      "importer": "sprite-frame",
       "rawTextureUuid": "2eff002e-727a-48c1-8ecd-ca6435e5f917",
       "trimType": "auto",
       "trimThreshold": 1,

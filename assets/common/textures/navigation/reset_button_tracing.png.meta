@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "4d9f873a-bdd8-4116-ad0b-4338f8ee022d",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "reset_button_tracing": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "375f4ced-16e3-4436-8387-86e4a9df3832",
+      "importer": "sprite-frame",
       "rawTextureUuid": "4d9f873a-bdd8-4116-ad0b-4338f8ee022d",
       "trimType": "auto",
       "trimThreshold": 1,

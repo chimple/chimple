@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "4f5ca4b3-85c9-4226-a3b8-797f6f28ae2f",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "doubledigit_pattern2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "e6a7180e-ae53-4ba0-8735-14a4221df322",
+      "importer": "sprite-frame",
       "rawTextureUuid": "4f5ca4b3-85c9-4226-a3b8-797f6f28ae2f",
       "trimType": "auto",
       "trimThreshold": 1,

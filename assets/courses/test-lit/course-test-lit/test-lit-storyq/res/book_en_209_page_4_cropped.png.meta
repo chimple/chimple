@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "11c4276e-cee5-411a-b308-ac6812bc92cd",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "book_en_209_page_4_cropped": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "354180b8-ac51-4140-a325-36084dfd8c79",
+      "importer": "sprite-frame",
       "rawTextureUuid": "11c4276e-cee5-411a-b308-ac6812bc92cd",
       "trimType": "auto",
       "trimThreshold": 1,

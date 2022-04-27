@@ -87,7 +87,7 @@ export default class LeaderboardProfile extends cc.Component {
             this.weeklyRank.getComponent(cc.Label).string = Util?.i18NText("This week rank") + " : " + (this.weeklyIndex + 1).toString() + " ";
         }
         if (this.allTimeIndex >= 0) {
-            this.allTimeRank.getComponent(cc.Label).string = Util.i18NText("All time rank")+ " : " + (this.allTimeIndex + 1).toString() + " ";
+            this.allTimeRank.getComponent(cc.Label).string = Util.i18NText("All time rank") + " : " + (this.allTimeIndex + 1).toString() + " ";
         }
         console.log("this leaderboard", this.leaderboardJson)
         this.loadUi(true)
@@ -101,10 +101,11 @@ export default class LeaderboardProfile extends cc.Component {
         const availableWidth = cc.winSize.width - this.weeklyRank.parent.width;
         const student = cc.instantiate(this.userPrefab)
         const noOfColums: number = (((student.width * 3) <= availableWidth) ? 3 : (((student.width * 2) <= availableWidth) ? 2 : 1));
-        const studentWidth = availableWidth / noOfColums;
+        const studentWidth = (availableWidth / noOfColums) - 10;
         for (let i = 0; i < studentList.length; i++) {
             const isCurrentUser = thisweek ? (this.weeklyIndex === i) : (this.allTimeIndex === i);
             const totalScore = studentList[i].lessonsPlayed.toString();
+            // const totalScore = studentList[i].total?.toFixed(0)?.toString();
             let maskedName = studentList[i].name;
             if (!isCurrentUser) {
                 const mask = maskedName.substring(1, maskedName.length - 1).replace(/./gi, "*") || "***";
@@ -114,6 +115,11 @@ export default class LeaderboardProfile extends cc.Component {
             }
             if (maskedName.length > 6) {
                 maskedName = maskedName.substring(0, 5) + '..'
+            }
+
+
+            if (!maskedName) {
+                maskedName = "*****"
             }
             if (i === 0) {
                 this.firstStudent.getChildByName('name').getComponent(cc.Label).string = maskedName

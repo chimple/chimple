@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "c905351d-83f6-4684-bc77-1611b905e666",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "worldover_sky2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "f5f28eb9-0c55-4214-adcf-052856596bf5",
+      "importer": "sprite-frame",
       "rawTextureUuid": "c905351d-83f6-4684-bc77-1611b905e666",
       "trimType": "auto",
       "trimThreshold": 1,

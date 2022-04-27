@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "86aea492-c07d-475e-89be-17248bf88ea2",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "campcloud_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "633e0130-8b9f-4659-a79a-ba44ee5381fa",
+      "importer": "sprite-frame",
       "rawTextureUuid": "86aea492-c07d-475e-89be-17248bf88ea2",
       "trimType": "auto",
       "trimThreshold": 1,

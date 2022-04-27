@@ -923,29 +923,29 @@ export default class Start extends cc.Component {
 
     }
 
-    protected update(dt: number) {
-        if (RECEIVED_TEACHER_REQUESTS) {
-            // @ts-ignore
-            RECEIVED_TEACHER_REQUESTS = false;
-            this.setUpTeacherDialog();
-        } else if (Config.isMicroLink) {
-            const dataStr: string = cc.sys.localStorage.getItem(MICROLINK);
-            cc.sys.localStorage.removeItem(MICROLINK);
-            if (!!dataStr && dataStr.length > 0) {
-                let data: any[] = JSON.parse(dataStr) || [];
-                if (data && data.length > 0) {
-                    this.loadLesson(data);
-                }
-            }
-        }
-        // if(this.node.active && User.getCurrentUser().isConnected){
-        //     this.timer += Math.floor(dt * 100);
-        //     if(this.timer > 300){
-        //         this.timer = 0;
-        //         this.showAssignmentPopup(false);
-        //     }
-        // }
-    }
+    // protected update(dt: number) {
+    //     if (RECEIVED_TEACHER_REQUESTS) {
+    //         // @ts-ignore
+    //         RECEIVED_TEACHER_REQUESTS = false;
+    //         this.setUpTeacherDialog();
+    //     } else if (Config.isMicroLink) {
+    //         const dataStr: string = cc.sys.localStorage.getItem(MICROLINK);
+    //         cc.sys.localStorage.removeItem(MICROLINK);
+    //         if (!!dataStr && dataStr.length > 0) {
+    //             let data: any[] = JSON.parse(dataStr) || [];
+    //             if (data && data.length > 0) {
+    //                 this.loadLesson(data);
+    //             }
+    //         }
+    //     }
+    //     // if(this.node.active && User.getCurrentUser().isConnected){
+    //     //     this.timer += Math.floor(dt * 100);
+    //     //     if(this.timer > 300){
+    //     //         this.timer = 0;
+    //     //         this.showAssignmentPopup(false);
+    //     //     }
+    //     // }
+    // }
 }
 
 

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "551c8d00-7816-480e-80f0-c46b9419a029",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "quiz_progressmonitor_wrong": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "b937e544-68ff-4860-8aeb-2fed6efb3d8d",
+      "importer": "sprite-frame",
       "rawTextureUuid": "551c8d00-7816-480e-80f0-c46b9419a029",
       "trimType": "auto",
       "trimThreshold": 1,

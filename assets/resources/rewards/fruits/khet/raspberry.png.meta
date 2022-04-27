@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "f1cf5491-2ffb-48c1-8f4b-b5d427f070db",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "raspberry": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "d53b5b91-705b-43a9-b2fa-05c447c7c201",
+      "importer": "sprite-frame",
       "rawTextureUuid": "f1cf5491-2ffb-48c1-8f4b-b5d427f070db",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "de03d42d-c98f-4454-a03e-3f96467ede04",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "worldover_snow1": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "9f9efe56-8832-4835-80d9-d12bacdb97af",
+      "importer": "sprite-frame",
       "rawTextureUuid": "de03d42d-c98f-4454-a03e-3f96467ede04",
       "trimType": "auto",
       "trimThreshold": 1,

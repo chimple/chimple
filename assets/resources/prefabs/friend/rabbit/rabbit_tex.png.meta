@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "c4482e64-0265-40b8-8b74-caaf6d96bf93",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "rabbit_tex": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "a9b3c3fe-1d76-4639-b296-2f3130a11b42",
+      "importer": "sprite-frame",
       "rawTextureUuid": "c4482e64-0265-40b8-8b74-caaf6d96bf93",
       "trimType": "auto",
       "trimThreshold": 1,

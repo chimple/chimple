@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "3b2ecddd-c0e8-4d37-9de6-93f88b43b2dc",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "cilantro": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "6e1746fb-50e5-45ba-9951-e2a9086e506c",
+      "importer": "sprite-frame",
       "rawTextureUuid": "3b2ecddd-c0e8-4d37-9de6-93f88b43b2dc",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "e7a5be37-46d2-4ccf-bf54-771432ee8a40",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "shirt_part4": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "bad1111b-a895-4613-8592-b0cb32b02f27",
+      "importer": "sprite-frame",
       "rawTextureUuid": "e7a5be37-46d2-4ccf-bf54-771432ee8a40",
       "trimType": "auto",
       "trimThreshold": 1,

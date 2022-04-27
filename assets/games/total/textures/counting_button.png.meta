@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "2ace2875-dcb6-4333-8d20-945661fe1322",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "counting_button": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "067395b9-ddb9-4ba8-b386-af91b3b0e560",
+      "importer": "sprite-frame",
       "rawTextureUuid": "2ace2875-dcb6-4333-8d20-945661fe1322",
       "trimType": "auto",
       "trimThreshold": 1,

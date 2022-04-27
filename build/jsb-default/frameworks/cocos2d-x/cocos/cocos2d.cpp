@@ -32,7 +32,7 @@ NS_CC_BEGIN
 
 CC_DLL const char* cocos2dVersion()
 {
-    return "2.4.3";
+    return "2.4.8";
 }
 
 NS_CC_END

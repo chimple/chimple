@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "63834ed6-9387-4899-b7a3-d8242192baec",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "bangimg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "9d5303d9-b866-410e-95b0-270d50654403",
+      "importer": "sprite-frame",
       "rawTextureUuid": "63834ed6-9387-4899-b7a3-d8242192baec",
       "trimType": "auto",
       "trimThreshold": 1,

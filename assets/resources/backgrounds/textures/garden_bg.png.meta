@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "f9fd2814-e03f-4165-a8d5-9dc6a91851a4",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "garden_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "9dcaf881-2802-46ca-b66c-174af3830ccb",
+      "importer": "sprite-frame",
       "rawTextureUuid": "f9fd2814-e03f-4165-a8d5-9dc6a91851a4",
       "trimType": "auto",
       "trimThreshold": 1,

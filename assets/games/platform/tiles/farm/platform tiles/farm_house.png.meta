@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "3a2b2dd8-3480-488a-b6f2-b6104a82366f",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "farm_house": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "dd7ef0dd-7c6a-43ba-b6c6-8badb22a136a",
+      "importer": "sprite-frame",
       "rawTextureUuid": "3a2b2dd8-3480-488a-b6f2-b6104a82366f",
       "trimType": "auto",
       "trimThreshold": 1,

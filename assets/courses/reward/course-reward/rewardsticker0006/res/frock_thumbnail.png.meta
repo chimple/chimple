@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
-  "uuid": "93564a26-73a2-48cd-91eb-fc6eb21bf348",
+  "ver": "2.3.7",
+  "uuid": "a0ba2853-9b7c-4fcf-b6b6-19d7ea8a36b6",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,9 +13,10 @@
   "platformSettings": {},
   "subMetas": {
     "frock_thumbnail": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "26867f4d-09fc-44c8-93d2-d6e07e26fe25",
-      "rawTextureUuid": "93564a26-73a2-48cd-91eb-fc6eb21bf348",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "a0ba2853-9b7c-4fcf-b6b6-19d7ea8a36b6",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

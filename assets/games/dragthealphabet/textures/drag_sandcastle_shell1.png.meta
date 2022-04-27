@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "298958c2-ab5b-4f6e-8b1f-3bb1fe99d0df",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "drag_sandcastle_shell1": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "c893d33a-ca6d-4bcb-bcd3-11f94af7e88c",
+      "importer": "sprite-frame",
       "rawTextureUuid": "298958c2-ab5b-4f6e-8b1f-3bb1fe99d0df",
       "trimType": "auto",
       "trimThreshold": 1,

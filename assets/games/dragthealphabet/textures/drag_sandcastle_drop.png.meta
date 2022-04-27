@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "526d8e1c-62e4-4943-8b4a-83d78f9aeeae",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "drag_sandcastle_drop": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "080070f3-0212-4d6b-a582-d769bfdb24d2",
+      "importer": "sprite-frame",
       "rawTextureUuid": "526d8e1c-62e4-4943-8b4a-83d78f9aeeae",
       "trimType": "auto",
       "trimThreshold": 1,

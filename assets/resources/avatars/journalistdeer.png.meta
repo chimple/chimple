@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "1c50c76c-9550-4e9a-8b88-1495be213435",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "journalistdeer": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "7e196303-cbbf-4f78-95b7-02a69caea566",
+      "importer": "sprite-frame",
       "rawTextureUuid": "1c50c76c-9550-4e9a-8b88-1495be213435",
       "trimType": "auto",
       "trimThreshold": 1,

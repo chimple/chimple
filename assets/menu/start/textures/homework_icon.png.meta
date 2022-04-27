@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "95ab3086-9f87-4577-956f-af9c06714d1b",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "homework_icon": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "3d3889cb-a8b0-4621-be23-2b468f0ccfc7",
+      "importer": "sprite-frame",
       "rawTextureUuid": "95ab3086-9f87-4577-956f-af9c06714d1b",
       "trimType": "auto",
       "trimThreshold": 1,

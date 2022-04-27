@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "cf1d242d-31b8-42a8-be96-9c5737516dd9",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "bosspanda": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "3449d217-91d2-48e4-8af5-a2cd765063b3",
+      "importer": "sprite-frame",
       "rawTextureUuid": "cf1d242d-31b8-42a8-be96-9c5737516dd9",
       "trimType": "auto",
       "trimThreshold": 1,

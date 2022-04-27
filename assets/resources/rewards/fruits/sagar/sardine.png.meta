@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "55cb4843-de82-4feb-815c-459f9d13e6e9",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "sardine": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "6a7b3be1-1035-4872-bd36-a3c35e9cff2e",
+      "importer": "sprite-frame",
       "rawTextureUuid": "55cb4843-de82-4feb-815c-459f9d13e6e9",
       "trimType": "auto",
       "trimThreshold": 1,

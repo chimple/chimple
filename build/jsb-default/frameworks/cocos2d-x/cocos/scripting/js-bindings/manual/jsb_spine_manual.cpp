@@ -296,6 +296,10 @@ bool register_all_spine_manual(se::Object* obj)
         }
     });
     
+    se::ScriptEngine::getInstance()->addBeforeCleanupHook([](){
+        spine::SkeletonDataMgr::destroyInstance();
+    });
+    
     se::ScriptEngine::getInstance()->clearException();
     
     return true;

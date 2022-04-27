@@ -70,6 +70,7 @@ public:
      */
     bool init(DeviceGraphics* device, Format format, uint16_t width, uint16_t height);
 
+    bool update (uint16_t width, uint16_t height);
 private:
     DeviceGraphics* _device;
     Format _format;

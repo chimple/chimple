@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "82c5fdf1-bf58-47db-bf02-b8981a56b697",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "garden_bush_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "b6a827ca-d9a0-4820-9dd9-d9439abc5677",
+      "importer": "sprite-frame",
       "rawTextureUuid": "82c5fdf1-bf58-47db-bf02-b8981a56b697",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "34142452-3852-4bc2-b1e6-c4a70caf510d",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "block2_multiplicationboard": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "5e010361-4890-4150-b9f3-22a8d4163d36",
+      "importer": "sprite-frame",
       "rawTextureUuid": "34142452-3852-4bc2-b1e6-c4a70caf510d",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "45cad612-bb92-4874-85b1-e363b73e5501",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "teacherbird": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "7e9f2acf-b5d7-4e5d-beed-f1c86bd0eef1",
+      "importer": "sprite-frame",
       "rawTextureUuid": "45cad612-bb92-4874-85b1-e363b73e5501",
       "trimType": "auto",
       "trimThreshold": 1,

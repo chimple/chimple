@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "c0dfd2c4-ef40-4b88-86db-eb7e29d15e6c",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "jungle_hill4": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "b72c0d4b-9303-491b-82dd-8a6852239449",
+      "importer": "sprite-frame",
       "rawTextureUuid": "c0dfd2c4-ef40-4b88-86db-eb7e29d15e6c",
       "trimType": "auto",
       "trimThreshold": 1,

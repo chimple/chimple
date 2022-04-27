@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "dc5ef9a1-4eb8-416b-8bf1-4c295ccd3604",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "compass_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "e2348de5-d90a-4c0a-98f6-260c3b402bd7",
+      "importer": "sprite-frame",
       "rawTextureUuid": "dc5ef9a1-4eb8-416b-8bf1-4c295ccd3604",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "cda8b79b-0c45-4e20-b506-8ca36d46cd6d",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "drynuts_rewards": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "abecebdc-3804-4543-81ce-e982008f9af6",
+      "importer": "sprite-frame",
       "rawTextureUuid": "cda8b79b-0c45-4e20-b506-8ca36d46cd6d",
       "trimType": "auto",
       "trimThreshold": 1,

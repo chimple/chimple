@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "54df7838-fbc1-4157-bd1d-bc0d10ac7c1b",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "taxi_part6": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "ea037923-c1f9-46f7-bc6a-e76b6ea4ab3d",
+      "importer": "sprite-frame",
       "rawTextureUuid": "54df7838-fbc1-4157-bd1d-bc0d10ac7c1b",
       "trimType": "auto",
       "trimThreshold": 1,

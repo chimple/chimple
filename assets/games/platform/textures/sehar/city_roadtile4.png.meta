@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "6c86bf17-bd97-47d8-a86e-3fd646c868b6",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "city_roadtile4": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "65f072b0-cafc-4f81-bb68-c909a7f33bbb",
+      "importer": "sprite-frame",
       "rawTextureUuid": "6c86bf17-bd97-47d8-a86e-3fd646c868b6",
       "trimType": "auto",
       "trimThreshold": 1,

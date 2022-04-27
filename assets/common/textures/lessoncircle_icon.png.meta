@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "5153e7e8-26c4-40a2-a8ae-9aa175ebccfa",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "lessoncircle_icon": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "825cd531-05b2-44cb-b80e-cc400429684e",
+      "importer": "sprite-frame",
       "rawTextureUuid": "5153e7e8-26c4-40a2-a8ae-9aa175ebccfa",
       "trimType": "auto",
       "trimThreshold": 1,

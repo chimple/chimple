@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "fade7377-ba46-46d2-8b75-98da3d7000c1",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "balancing_oven": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "1ec7f7c3-0f82-4691-b3ba-89d471e5903e",
+      "importer": "sprite-frame",
       "rawTextureUuid": "fade7377-ba46-46d2-8b75-98da3d7000c1",
       "trimType": "auto",
       "trimThreshold": 1,

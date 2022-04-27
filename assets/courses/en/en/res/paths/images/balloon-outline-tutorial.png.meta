@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "873849fa-7306-47f4-a79e-25aad6590149",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "balloon-outline-tutorial": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "a37e104e-f1ac-46dc-b12b-1880fe2bf6c5",
+      "importer": "sprite-frame",
       "rawTextureUuid": "873849fa-7306-47f4-a79e-25aad6590149",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "28a6b7d1-35a4-4718-a28e-86aa55bf79db",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "litchi": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "a52e22b2-3890-4feb-b1c1-43a047cbbd1b",
+      "importer": "sprite-frame",
       "rawTextureUuid": "28a6b7d1-35a4-4718-a28e-86aa55bf79db",
       "trimType": "auto",
       "trimThreshold": 1,

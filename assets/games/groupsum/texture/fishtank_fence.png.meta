@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "f9715d31-a38d-4196-893e-dc4757cdceec",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "fishtank_fence": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "4df822c0-bc62-46e8-8155-d2bd4a3d30f0",
+      "importer": "sprite-frame",
       "rawTextureUuid": "f9715d31-a38d-4196-893e-dc4757cdceec",
       "trimType": "auto",
       "trimThreshold": 1,

@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "543b8e98-5aac-4508-9134-3b92a316164c",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "giftboxwhite": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "27005b1e-6bb4-4e95-9019-0e86f887defc",
+      "importer": "sprite-frame",
       "rawTextureUuid": "543b8e98-5aac-4508-9134-3b92a316164c",
       "trimType": "auto",
       "trimThreshold": 1,

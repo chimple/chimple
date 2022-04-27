@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "a522f51e-0f04-448b-bfeb-f1f2213c1d2f",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "sushi": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "097c385d-1bcd-4327-98b7-7280c31ae5d1",
+      "importer": "sprite-frame",
       "rawTextureUuid": "a522f51e-0f04-448b-bfeb-f1f2213c1d2f",
       "trimType": "auto",
       "trimThreshold": 1,

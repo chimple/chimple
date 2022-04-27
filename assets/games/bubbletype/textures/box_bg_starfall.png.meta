@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "31e995a4-1a0f-4b5e-9d1e-d51f2962f0fd",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "box_bg_starfall": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "fe8806f8-10e4-46dc-954c-a86d3f17b00b",
+      "importer": "sprite-frame",
       "rawTextureUuid": "31e995a4-1a0f-4b5e-9d1e-d51f2962f0fd",
       "trimType": "auto",
       "trimThreshold": 1,

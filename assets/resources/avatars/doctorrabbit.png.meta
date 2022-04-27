@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "a09a352c-0a13-4ca0-93e0-793660df6bbb",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "doctorrabbit": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "7dfd252d-4f5f-4dd7-b159-e35c0c1c0b31",
+      "importer": "sprite-frame",
       "rawTextureUuid": "a09a352c-0a13-4ca0-93e0-793660df6bbb",
       "trimType": "auto",
       "trimThreshold": 1,

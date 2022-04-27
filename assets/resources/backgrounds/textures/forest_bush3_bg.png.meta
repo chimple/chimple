@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "b4f6b406-2a5f-46a6-9bf9-6fbad3315eb2",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "forest_bush3_bg": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "c34b6ac1-2f32-48e3-b173-7e67d3fac6f9",
+      "importer": "sprite-frame",
       "rawTextureUuid": "b4f6b406-2a5f-46a6-9bf9-6fbad3315eb2",
       "trimType": "auto",
       "trimThreshold": 1,

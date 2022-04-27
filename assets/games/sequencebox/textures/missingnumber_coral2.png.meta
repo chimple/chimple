@@ -1,6 +1,7 @@
 {
-  "ver": "2.3.5",
+  "ver": "2.3.7",
   "uuid": "d666dcb6-2894-44ad-81da-c101e6322cf7",
+  "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "point",
@@ -12,8 +13,9 @@
   "platformSettings": {},
   "subMetas": {
     "missingnumber_coral2": {
-      "ver": "1.0.4",
+      "ver": "1.0.6",
       "uuid": "83372885-3f29-4996-8284-367b59c3a7d4",
+      "importer": "sprite-frame",
       "rawTextureUuid": "d666dcb6-2894-44ad-81da-c101e6322cf7",
       "trimType": "auto",
       "trimThreshold": 1,
