@@ -64,13 +64,13 @@ export default class Rewards extends cc.Component {
         if (Rewards.contentDecisionFlag) {
             switch (Rewards.contentDecisionFlag) {
                 case '0':
-                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = Util.i18NText("Character Modification");
+                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = Util.i18NText("Characters");
                     break;
                 case '1':
-                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = Util.i18NText("Background Collection");
+                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = Util.i18NText("Backgrounds");
                     break;
                 case '2':
-                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = Util.i18NText("Badges Collection");
+                    this.node.getChildByName('Rewards label').getComponent(cc.Label).string = Util.i18NText("Challenge Badges");
                     break;
 
                 default:
