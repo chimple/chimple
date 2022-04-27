@@ -156,7 +156,7 @@ export class FirebaseApi implements ServiceApi {
 
         console.log('assignments query result', jsonResult)
         this.buildAssignments(assignments, [].concat(jsonResult.results));
-        return assignments;
+        return assignments.reverse();
     }
 
     buildAssignments(results: any[], assignments: any[]) {

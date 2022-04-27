@@ -189,7 +189,7 @@ export default class Start extends cc.Component {
         if (mode != Mode.School) {
             this.loading.active = true;
             this.assignments = await ServiceConfig.getI().handle.listAssignments(user.id)
-            config.assignments = this.assignments.reverse();
+            config.assignments = this.assignments;
             if (config.assignments.length > 0 || !user.isConnected) {
                 if (config.assignments.length > 0 && !user.isConnected) {
                     user.isConnected = true
