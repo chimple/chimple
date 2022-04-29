@@ -106,18 +106,20 @@ export default class LeaderboardProfile extends cc.Component {
             const isCurrentUser = thisweek ? (this.weeklyIndex === i) : (this.allTimeIndex === i);
             const totalScore = studentList[i].lessonsPlayed.toString();
             // const totalScore = studentList[i].total?.toFixed(0)?.toString();
-            let maskedName = studentList[i].name;
+            let maskedName = studentList[i].name?.trim();
             if (!isCurrentUser) {
-                const mask = maskedName.substring(1, maskedName.length - 1).replace(/./gi, "*") || "***";
-                maskedName = maskedName[0] + mask.substring(0, 4) + maskedName[maskedName.length - 1]
+                if (/\p{Emoji}/u.test(maskedName)) {
+                    maskedName = "****";
+                } else {
+                    const mask = '*'.repeat(maskedName.length) || "***";
+                    maskedName = maskedName[0] + mask.substring(0, 4) + maskedName[maskedName.length - 1];
+                }
             } else {
                 this.userNode.getChildByName('starscore').getComponentInChildren(cc.Label).string = totalScore;
             }
             if (maskedName.length > 6) {
                 maskedName = maskedName.substring(0, 5) + '..'
             }
-
-
             if (!maskedName) {
                 maskedName = "*****"
             }
