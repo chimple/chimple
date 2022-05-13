@@ -250,8 +250,10 @@ export default class LeaderboardProfile extends cc.Component {
             });
         } else {
             cc.resources.load(`avatars/${user.avatarImage}`, (err, sp) => {
-                // @ts-ignore
-                userNode.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
+                if (!err) {
+                    // @ts-ignore
+                    userNode.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
+                }
             });
         }
     }
