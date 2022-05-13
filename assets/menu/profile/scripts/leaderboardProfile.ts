@@ -75,6 +75,9 @@ export default class LeaderboardProfile extends cc.Component {
             this.connectButton.getComponentInChildren(cc.Label).string = "Connected";
             this.connectButton.node.color = new cc.Color(240, 88, 34);
         }
+        if (Profile.getValue(CURRENTMODE) == 3) {
+            this.connectButton.node.active = false
+        }
         if (this.user.schoolName) {
             this.schoolName.getComponent(cc.Label).string = Util.i18NText("School") + " : " + this.user.schoolName
         }
