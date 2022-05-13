@@ -1,9 +1,11 @@
 import Config from "../../../common/scripts/lib/config";
-import { User } from "../../../common/scripts/lib/profile";
+import { CURRENT_STUDENT_ID, IS_REMEMBER_TOGGLE_ON, LOGGED_IN_USER } from "../../../common/scripts/lib/constants";
+import Profile, { CURRENTMODE, User } from "../../../common/scripts/lib/profile";
 import { LeaderboardInfo, StudentLeaderboardInfo } from "../../../common/scripts/services/ServiceApi";
 import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
 import { Util } from "../../../common/scripts/util";
 import { AVATARS } from "../../../private/home/loginnew/scripts/cameraScene";
+import { SECTION_LIST } from "../../../private/school/scripts/landing";
 
 
 const { ccclass, property } = cc._decorator;
@@ -195,10 +197,31 @@ export default class LeaderboardProfile extends cc.Component {
         Config.i.pushScene('menu/start/scenes/start', 'menu');
     }
 
-    private onSignoutClick() {
+    private onLogoutButtonClick() {
         this.node.getChildByName('signout').getComponent(cc.Button).interactable = false;
-        Config.loadScene('private/home/loginnew/scenes/welcomePage', 'private', null);
+        User.setCurrentUser(null);
+        Config.i.popAllScenes();
+        if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
+            cc.sys.localStorage.removeItem(LOGGED_IN_USER);
+            // @ts-ignore
+            // currentSelectMode = SelectionMode.Section;
+            Config.loadScene(SECTION_LIST, 'private', null);
+        } else {
+            if (Profile.getValue(CURRENTMODE) == 3) {
+
+                if (cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) == null || cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) === "false") {
+                    Config.i.pushScene(SECTION_LIST, 'private', null);
+                }
+                else {
+                    Config.i.pushScene('private/school/scenes/currentLoggedUser', 'private', null);
+                }
+            }
+            else {
+                cc.director.loadScene("welcomePage")
+            }
+        }
     }
+
     private onConnectClick() {
         this.otpDialog.active = true;
     }
