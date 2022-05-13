@@ -205,25 +205,8 @@ export default class LeaderboardProfile extends cc.Component {
         this.node.getChildByName('signout').getComponent(cc.Button).interactable = false;
         User.setCurrentUser(null);
         Config.i.popAllScenes();
-        if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
-            cc.sys.localStorage.removeItem(LOGGED_IN_USER);
-            // @ts-ignore
-            // currentSelectMode = SelectionMode.Section;
-            Config.loadScene(SECTION_LIST, 'private', null);
-        } else {
-            if (Profile.getValue(CURRENTMODE) == 3) {
+        cc.director.loadScene("welcomePage")
 
-                if (cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) == null || cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) === "false") {
-                    Config.i.pushScene(SECTION_LIST, 'private', null);
-                }
-                else {
-                    Config.i.pushScene('private/school/scenes/currentLoggedUser', 'private', null);
-                }
-            }
-            else {
-                cc.director.loadScene("welcomePage")
-            }
-        }
     }
 
     private onConnectClick() {
