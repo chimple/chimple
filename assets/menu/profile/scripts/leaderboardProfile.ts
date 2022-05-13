@@ -1,6 +1,7 @@
 import Config from "../../../common/scripts/lib/config";
 import { CURRENT_STUDENT_ID, IS_REMEMBER_TOGGLE_ON, LOGGED_IN_USER } from "../../../common/scripts/lib/constants";
 import Profile, { CURRENTMODE, User } from "../../../common/scripts/lib/profile";
+import { ParseImageDownloader } from "../../../common/scripts/services/ParseImageDownloader";
 import { LeaderboardInfo, StudentLeaderboardInfo } from "../../../common/scripts/services/ServiceApi";
 import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
 import { Util } from "../../../common/scripts/util";
@@ -241,14 +242,19 @@ export default class LeaderboardProfile extends cc.Component {
     }
 
     loadUserImageOrAvatar(user: User, userNode: cc.Node) {
-        if (user.imgPath && user.imgPath != '') {
-            cc.loader.load(user.imgPath, function (err, texture) {
-                if (!err) {
-                    let temp = new cc.SpriteFrame(texture)
-                    userNode.getComponent(cc.Sprite).spriteFrame = temp;
+        if (user && user.studentId && user.studentId != '' && user.studentId.length > 0 && user.avatarImage == null) {
+            ParseImageDownloader.loadImageForSchool(user.imgPath, user.studentId, (texture) => {
+                if (!!texture && userNode) {
+                    let spriteFrame: cc.SpriteFrame = new cc.SpriteFrame(texture);
+                    const maskNode: cc.Node = userNode.getChildByName('mask');
+                    if (maskNode) {
+                        const image: cc.Node = maskNode.getChildByName('image');
+                        image.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                    }
                 }
             });
-        } else {
+        }
+        else if (user && user.avatarImage && user.avatarImage.length > 0) {
             cc.resources.load(`avatars/${user.avatarImage}`, (err, sp) => {
                 if (!err) {
                     // @ts-ignore
