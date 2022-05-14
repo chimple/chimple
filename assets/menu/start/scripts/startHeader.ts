@@ -35,7 +35,11 @@ export default class StartHeader extends cc.Component {
         const cpm = this.user.courseProgressMap;
         const ar = Array.from(cpm.keys());
         const mode = parseInt(Profile.getValue(CURRENTMODE))
-        ar.sort((a, b) => cpm.get(a).date.getTime() - cpm.get(b).date.getTime());
+        try {
+            ar.sort((a, b) => cpm.get(a).date.getTime() - cpm.get(b).date.getTime());
+        } catch (error) {
+            cc.log(error)
+        }
         ar.forEach((courseId: string) => {
             if (courseId == ASSIGNMENT_COURSE_ID && !User.getCurrentUser().isConnected) {
                 return;
