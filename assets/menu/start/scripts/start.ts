@@ -757,8 +757,10 @@ export default class Start extends cc.Component {
         return []
     }
 
+    isGiftAdded: boolean = true;
     private displayCurrentReward() {
-        if (this.gift) {
+        if (this.gift && this.isGiftAdded) {
+            this.isGiftAdded = false
             const currentReward = User.getCurrentUser().currentReward;
             switch (currentReward[0]) {
                 case REWARD_TYPES[0]: //character
@@ -855,6 +857,9 @@ export default class Start extends cc.Component {
     }
 
     toAddGiftBoxNode(image, type) {
+        if (Profile.getValue(CURRENTMODE) == 3) {
+            this.node.getChildByName('giftBox').removeAllChildren();
+        }
         this.gift.addChild(image)
 
         const imageComp = new cc.Node().addComponent(cc.Sprite)
