@@ -1,9 +1,12 @@
 import Config from "../../../common/scripts/lib/config";
-import { User } from "../../../common/scripts/lib/profile";
+import { CURRENT_STUDENT_ID, IS_REMEMBER_TOGGLE_ON, LOGGED_IN_USER } from "../../../common/scripts/lib/constants";
+import Profile, { CURRENTMODE, User } from "../../../common/scripts/lib/profile";
+import { ParseImageDownloader } from "../../../common/scripts/services/ParseImageDownloader";
 import { LeaderboardInfo, StudentLeaderboardInfo } from "../../../common/scripts/services/ServiceApi";
 import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
 import { Util } from "../../../common/scripts/util";
 import { AVATARS } from "../../../private/home/loginnew/scripts/cameraScene";
+import { SECTION_LIST } from "../../../private/school/scripts/landing";
 
 
 const { ccclass, property } = cc._decorator;
@@ -72,6 +75,9 @@ export default class LeaderboardProfile extends cc.Component {
             this.connectButton.interactable = false;
             this.connectButton.getComponentInChildren(cc.Label).string = "Connected";
             this.connectButton.node.color = new cc.Color(240, 88, 34);
+        }
+        if (Profile.getValue(CURRENTMODE) == 3) {
+            this.connectButton.node.active = false
         }
         if (this.user.schoolName) {
             this.schoolName.getComponent(cc.Label).string = Util.i18NText("School") + " : " + this.user.schoolName
@@ -195,10 +201,14 @@ export default class LeaderboardProfile extends cc.Component {
         Config.i.pushScene('menu/start/scenes/start', 'menu');
     }
 
-    private onSignoutClick() {
+    private onLogoutButtonClick() {
         this.node.getChildByName('signout').getComponent(cc.Button).interactable = false;
-        Config.loadScene('private/home/loginnew/scenes/welcomePage', 'private', null);
+        User.setCurrentUser(null);
+        Config.i.popAllScenes();
+        cc.director.loadScene("welcomePage")
+
     }
+
     private onConnectClick() {
         this.otpDialog.active = true;
     }
@@ -215,17 +225,24 @@ export default class LeaderboardProfile extends cc.Component {
     }
 
     loadUserImageOrAvatar(user: User, userNode: cc.Node) {
-        if (user.imgPath && user.imgPath != '') {
-            cc.loader.load(user.imgPath, function (err, texture) {
-                if (!err) {
-                    let temp = new cc.SpriteFrame(texture)
-                    userNode.getComponent(cc.Sprite).spriteFrame = temp;
+        if (user && user.studentId && user.studentId != '' && user.studentId.length > 0 && user.avatarImage == null) {
+            ParseImageDownloader.loadImageForSchool(user.imgPath, user.studentId, (texture) => {
+                if (!!texture && userNode) {
+                    let spriteFrame: cc.SpriteFrame = new cc.SpriteFrame(texture);
+                    const maskNode: cc.Node = userNode.getChildByName('mask');
+                    if (maskNode) {
+                        const image: cc.Node = maskNode.getChildByName('image');
+                        image.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                    }
                 }
             });
-        } else {
+        }
+        else if (user && user.avatarImage && user.avatarImage.length > 0) {
             cc.resources.load(`avatars/${user.avatarImage}`, (err, sp) => {
-                // @ts-ignore
-                userNode.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
+                if (!err) {
+                    // @ts-ignore
+                    userNode.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
+                }
             });
         }
     }

@@ -1123,7 +1123,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 207.87,
+      "width": 0,
       "height": 25.2
     },
     "_anchorPoint": {
@@ -2405,7 +2405,7 @@
     },
     "component": "",
     "_componentId": "1289fGnh71OXIkxHw8YC6zL",
-    "handler": "onSignoutClick",
+    "handler": "onLogoutButtonClick",
     "customEventData": ""
   },
   {

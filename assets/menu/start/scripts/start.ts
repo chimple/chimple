@@ -9,7 +9,7 @@ import {
 } from "../../../chimple";
 import Friend from "../../../common/scripts/friend";
 import Config, { ASSIGNMENT_COURSE_ID, COURSES_LANG_ID, StartAction } from "../../../common/scripts/lib/config";
-import { EXAM, MIN_PASS, MODE, Mode } from "../../../common/scripts/lib/constants";
+import { EXAM, IS_REMEMBER_TOGGLE_ON, MIN_PASS, MODE, Mode } from "../../../common/scripts/lib/constants";
 import { Chapter, Course, Lesson } from "../../../common/scripts/lib/convert";
 import Profile, { User, CourseProgress, IS_OTP_VERIFIED, LessonProgress, CURRENTMODE } from "../../../common/scripts/lib/profile";
 import Loading from "../../../common/scripts/loading";
@@ -30,6 +30,7 @@ import AssignmentPopup from "./assignmentPopup";
 import ChimpleLabel from "../../../common/scripts/chimple-label";
 import PreTestDialog from "./preTestDialog";
 import StartHeader from "./startHeader";
+import { SECTION_LIST } from "../../../private/school/scripts/landing";
 
 
 const COMPLETE_AUDIOS = [
@@ -417,9 +418,22 @@ export default class Start extends cc.Component {
     }
 
     onAssignmentsClick() {
-        ChapterLessons.showType = ChapterLessonType.Assignments
+        // ChapterLessons.showType = ChapterLessonType.Assignments
         // Config.i.pushScene('menu/start/scenes/chapterLessons', 'menu')
-        Config.i.pushScene('menu/Profile/scene/leaderboardProfile', 'menu')
+
+        if (Profile.getValue(CURRENTMODE) == 3) {
+            User.setCurrentUser(null);
+            Config.i.popAllScenes();
+            if (cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) == null || cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) === "false") {
+                Config.i.pushScene(SECTION_LIST, 'private', null);
+            }
+            else {
+                Config.i.pushScene('private/school/scenes/currentLoggedUser', 'private', null);
+            }
+        }
+        else{
+            Config.i.pushScene('menu/Profile/scene/leaderboardProfile', 'menu')
+        }
     }
 
     onFeaturedClick() {
