@@ -1,5 +1,6 @@
 import Config, { ASSIGNMENT_COURSE_ID } from "../../../common/scripts/lib/config";
-import { User, CourseProgress } from "../../../common/scripts/lib/profile";
+import { Mode } from "../../../common/scripts/lib/constants";
+import Profile, { User, CourseProgress, CURRENTMODE } from "../../../common/scripts/lib/profile";
 import { Util } from "../../../common/scripts/util";
 import StartHeaderButton from "./startHeaderButton";
 
@@ -31,11 +32,15 @@ export default class StartHeader extends cc.Component {
         const config = Config.i
         // const assignmentPresent = config.assignments != null && config.assignments.length > 0
         // this.addButton(ASSIGNMENT_COURSE_ID, assignmentPresent)
-
-        this.user.courseProgressMap.forEach((val: CourseProgress, courseId: string) => {
+        const cpm = this.user.courseProgressMap;
+        const ar = Array.from(cpm.keys());
+        const mode = parseInt(Profile.getValue(CURRENTMODE))
+        ar.sort((a, b) => cpm.get(a).date.getTime() - cpm.get(b).date.getTime());
+        ar.forEach((courseId: string) => {
             if (courseId == ASSIGNMENT_COURSE_ID && !User.getCurrentUser().isConnected) {
                 return;
             }
+            if (courseId == ASSIGNMENT_COURSE_ID && mode === Mode.School) return;
             this.addButton(courseId, courseId == config.course.id)
         })
         this.node.width = cc.winSize.width
