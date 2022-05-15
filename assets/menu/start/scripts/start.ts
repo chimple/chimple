@@ -308,7 +308,8 @@ export default class Start extends cc.Component {
         } catch (error) {
             cc.log(error)
         }
-        if (User.getCurrentUser().isConnected) {
+        const mode = parseInt(Profile.getValue(CURRENTMODE))
+        if (User.getCurrentUser().isConnected && mode != Mode.School ) {
             return Config.i.curriculum.get(ar[0]);
         } else {
             return Config.i.curriculum.get(ar[1]);
