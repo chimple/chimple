@@ -155,6 +155,7 @@ export default class Start extends cc.Component {
         // })
 
         const startAction = config.startAction
+        this.gift = cc.instantiate(this.giftBoxPrefab)
         user.curriculumLoaded
             ? this.initPage()
             : config.loadCourseJsons(user, this.node, this.initPage.bind(this))
@@ -263,8 +264,6 @@ export default class Start extends cc.Component {
         // user.sectionId = "D7qVA373VEKXtPeg7BEc";
         // user.studentId = "61oKRmXrCWSGkjN2KuCv";
 
-        this.gift = cc.instantiate(this.giftBoxPrefab)
-        this.displayCurrentReward()
     }
 
     private initPage() {
@@ -309,7 +308,7 @@ export default class Start extends cc.Component {
             cc.log(error)
         }
         const mode = parseInt(Profile.getValue(CURRENTMODE))
-        if (User.getCurrentUser().isConnected && mode != Mode.School ) {
+        if (User.getCurrentUser().isConnected && mode != Mode.School) {
             return Config.i.curriculum.get(ar[0]);
         } else {
             return Config.i.curriculum.get(ar[1]);
@@ -432,7 +431,7 @@ export default class Start extends cc.Component {
                 Config.i.pushScene('private/school/scenes/currentLoggedUser', 'private', null);
             }
         }
-        else{
+        else {
             Config.i.pushScene('menu/Profile/scene/leaderboardProfile', 'menu')
         }
     }
@@ -772,10 +771,8 @@ export default class Start extends cc.Component {
         return []
     }
 
-    isGiftAdded: boolean = true;
     private displayCurrentReward() {
-        if (this.gift && this.isGiftAdded) {
-            this.isGiftAdded = false
+        if (this.gift) {
             const currentReward = User.getCurrentUser().currentReward;
             switch (currentReward[0]) {
                 case REWARD_TYPES[0]: //character
@@ -871,11 +868,8 @@ export default class Start extends cc.Component {
         // this.gift.once('touchend', () => this.unlockCurrentReward())
     }
 
-    toAddGiftBoxNode(image, type) {
-        if (Profile.getValue(CURRENTMODE) == 3) {
-            this.node.getChildByName('giftBox').removeAllChildren();
-        }
-        this.gift.addChild(image)
+    toAddGiftBoxNode(image:cc.Node, type) {
+        this.gift.addChild(image);
 
         const imageComp = new cc.Node().addComponent(cc.Sprite)
         imageComp.spriteFrame = new cc.SpriteFrame(type);
