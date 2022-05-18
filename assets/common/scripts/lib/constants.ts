@@ -392,3 +392,14 @@ export interface Student {
     sectionId: string;
     profileInfo: any;
 }
+
+export const courseSortIndex = {
+    assignment: 0,
+    en: 1,
+    maths: 2,
+    hi: 3,
+    kn: 4,
+    puzzle: 5,
+    "test-lit": 6,
+    "test-maths": 7
+}

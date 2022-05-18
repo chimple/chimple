@@ -69,9 +69,9 @@ export class CourseProgressClass implements CourseProgress {
     lessonPlanIndex: number
     lessonPlanDate: Date
 
-    constructor(currentChapterId: string = null, date = new Date()) {
+    constructor(currentChapterId: string = null) {
         this.currentChapterId = currentChapterId
-        this.date = date
+        this.date = new Date()
         this.assignments = []
         this.lessonPlan = []
         this.lessonPlanIndex = 0
@@ -722,11 +722,11 @@ export class User {
                 ])
                 : new Map([
                     ['assignment', new CourseProgressClass()],
-                    ['en', new CourseProgressClass(null, getDate(1))],
-                    ['maths', new CourseProgressClass(null, getDate(2))],
-                    ['hi', new CourseProgressClass(null, getDate(3))],
+                    ['en', new CourseProgressClass()],
+                    ['maths', new CourseProgressClass()],
+                    ['hi', new CourseProgressClass()],
                     // ['kn', new CourseProgressClass()],
-                    ['puzzle', new CourseProgressClass('puzzle00', getDate(4))]
+                    ['puzzle', new CourseProgressClass('puzzle00')]
                 ]),
             new Map(),
             new Map(),
