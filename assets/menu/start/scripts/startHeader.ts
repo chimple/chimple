@@ -1,5 +1,5 @@
 import Config, { ASSIGNMENT_COURSE_ID } from "../../../common/scripts/lib/config";
-import { Mode } from "../../../common/scripts/lib/constants";
+import { courseSortIndex, Mode } from "../../../common/scripts/lib/constants";
 import Profile, { User, CourseProgress, CURRENTMODE } from "../../../common/scripts/lib/profile";
 import { Util } from "../../../common/scripts/util";
 import StartHeaderButton from "./startHeaderButton";
@@ -36,7 +36,7 @@ export default class StartHeader extends cc.Component {
         const ar = Array.from(cpm.keys());
         const mode = parseInt(Profile.getValue(CURRENTMODE))
         try {
-            ar.sort((a, b) => cpm.get(a).date.getTime() - cpm.get(b).date.getTime());
+            ar.sort((a, b) => courseSortIndex[a] - courseSortIndex[b]);
         } catch (error) {
             cc.log(error)
         }

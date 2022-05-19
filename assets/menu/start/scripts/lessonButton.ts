@@ -94,6 +94,7 @@ export default class LessonButton extends cc.Component {
             ]
             Config.i.popAllScenes()
             Config.i.pushScene('menu/start/scenes/start', 'menu', null, true);
+            return;
         }
         const user = User.getCurrentUser();
         if (COURSES_LANG_ID.includes(this.lesson.chapter.course.id)) {
