@@ -311,7 +311,7 @@ export default class Start extends cc.Component {
         if (User.getCurrentUser().isConnected && mode != Mode.School) {
             return Config.i.curriculum.get(ar[0]);
         } else {
-            return Config.i.curriculum.get(ar[1]);
+            return Config.i.curriculum.get(ar[1] === 'assignment' ? ar[0] : ar[1]);
         }
     }
 
@@ -868,7 +868,7 @@ export default class Start extends cc.Component {
         // this.gift.once('touchend', () => this.unlockCurrentReward())
     }
 
-    toAddGiftBoxNode(image:cc.Node, type) {
+    toAddGiftBoxNode(image: cc.Node, type) {
         this.gift.addChild(image);
 
         const imageComp = new cc.Node().addComponent(cc.Sprite)
