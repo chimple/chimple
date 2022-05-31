@@ -112,13 +112,18 @@ export default class LeaderboardProfile extends cc.Component {
             const isCurrentUser = thisweek ? (this.weeklyIndex === i) : (this.allTimeIndex === i);
             const totalScore = studentList[i].lessonsPlayed.toString();
             // const totalScore = studentList[i].total?.toFixed(0)?.toString();
-            let maskedName = studentList[i].name?.trim();
+            let maskedName = studentList[i].name?.trim() ?? "";
             if (!isCurrentUser) {
-                if (/\p{Emoji}/u.test(maskedName)) {
+                try {
+                    const regexExp = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi;
+                    if (regexExp.test(maskedName)) {
+                        maskedName = "****";
+                    } else {
+                        const mask = '*'.repeat(maskedName.length) || "***";
+                        maskedName = maskedName[0] + mask.substring(0, 4) + maskedName[maskedName.length - 1];
+                    }
+                } catch (error) {
                     maskedName = "****";
-                } else {
-                    const mask = '*'.repeat(maskedName.length) || "***";
-                    maskedName = maskedName[0] + mask.substring(0, 4) + maskedName[maskedName.length - 1];
                 }
             } else {
                 this.userNode.getChildByName('starscore').getComponentInChildren(cc.Label).string = totalScore;
