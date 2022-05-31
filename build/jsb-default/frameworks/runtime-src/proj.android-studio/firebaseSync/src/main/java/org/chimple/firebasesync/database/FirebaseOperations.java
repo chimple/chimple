@@ -94,9 +94,13 @@ public class FirebaseOperations {
                                 String docId = null;
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     Log.d(TAG, "got connection Id: " + document.getId());
-                                    int from = document.getId().indexOf("ST_");
+                                    int fromST = document.getId().indexOf("ST_");
+                                    int fromSU = document.getId().indexOf("SU_");
                                     if (docId == null) {
-                                        docId = from != -1 ? document.getId().replace("ST_", "") : null;
+                                        docId = fromST != -1 ? document.getId().replace("ST_", "") : null;
+                                    }
+                                    if (docId == null) {
+                                        docId = fromSU != -1 ? document.getId().replace("SU_", "") : null;
                                     }
                                     Log.d(TAG, "got school Id from connection: " + docId);
                                     if (docId != null) {
@@ -461,10 +465,13 @@ public class FirebaseOperations {
                                        String section,
                                        String subjectCode,
                                        Integer score,
-                                       String assignmentId) {
+                                       String assignmentId,
+                                       String name,
+                                       Integer timeSpent
+                                       ) {
         // First update to Local DB
         FirebaseOperations.ref.operations.createHistoricalProgress(chapterId, chapterName, lessonId, lessonName, progressId,
-                school, section, subjectCode, score, assignmentId);
+                school, section, subjectCode, score, assignmentId,name,timeSpent);
     }
 
 
