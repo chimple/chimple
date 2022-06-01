@@ -75,6 +75,12 @@ export default class ProfileOtpDialog extends cc.Component {
     @property(cc.Node)
     className: cc.Node = null;
 
+    @property(cc.Label)
+    dialingCodeLabel: cc.Label = null;
+
+    @property(cc.EditBox)
+    contactEditBox: cc.EditBox = null;
+
     static customAuthInfo: CustomAuthInfo;
     static newconfirmBtn: cc.Button;
     static newErrLabel: cc.Label;
@@ -83,6 +89,9 @@ export default class ProfileOtpDialog extends cc.Component {
     static newSchoolName: cc.Node;
     static newClassName: cc.Node;
     static newNode: cc.Node;
+
+    dialingCode: string;
+    contactFieldValue: string = "";
 
     constructor() {
         super();
@@ -102,15 +111,29 @@ export default class ProfileOtpDialog extends cc.Component {
         this.editBox.placeholder = Util.i18NText("Enter the 6-digit OTP here...");
         ProfileOtpDialog.newErrLabel.string = "";
         this.editBox.enabled = true;
+        this.dialingCode = Profile.getValue(DIALING_CODE) ?? "+91";
+        let contact = Profile.getValue(CONTACT);
+        this.dialingCodeLabel.string = this.dialingCode;
+        if (contact) {
+            contact = contact.substring(this.dialingCode.length);
+            this.contactEditBox.string = contact;
+            this.contactFieldValue = contact;
+        }
     }
 
     onEditingBegan() {
         this.editBox.placeholderLabel.string = "";
     }
 
+    onPhoneEditBegan() {
+        this.contactEditBox.placeholderLabel.string = "";
+    }
+
+
     onTextChanged() {
-        let otp = this.editBox.string;
-        if (otp.length === 6) {
+        const otp = this.editBox.string;
+        const phoneNumber = this.contactEditBox.string;
+        if (otp.length === 6 && phoneNumber.length > 3) {
             ProfileOtpDialog.newconfirmBtn.interactable = true;
         } else {
             ProfileOtpDialog.newconfirmBtn.interactable = false;
@@ -124,9 +147,8 @@ export default class ProfileOtpDialog extends cc.Component {
     async onSendLinkStudentRequest() {
         const studentId: string = User.getCurrentUser().id;
         ProfileOtpDialog.otpCode = this.editBox.string;
-        const user = User.getCurrentUser();
-        const dial_code = !!Profile.getValue(DIALING_CODE) ? Profile.getValue(DIALING_CODE) : null;
-        const phoneNumber = !!Profile.getValue(CONTACT) ? Profile.getValue(CONTACT).substring(dial_code.length) : null;
+        const dial_code = this.dialingCodeLabel.string;
+        const phoneNumber = this.contactEditBox.string;
         if (!!studentId && !!ProfileOtpDialog.otpCode) {
             ProfileOtpDialog.newconfirmBtn.interactable = false;
             ProfileOtpDialog.newErrLabel.string = "";
