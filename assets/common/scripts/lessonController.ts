@@ -25,7 +25,7 @@ import { ParseNetwork, RequestParams } from "./services/ParseNetwork";
 import { WEBCLASS_HISTORICAL_PROGRESS_URL_PROD, WEBCLASS_HISTORICAL_PROGRESS_URL_TEST } from "./domain/parseConstants";
 import { FirebaseApi } from "./services/FirebaseApi";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class LessonController extends cc.Component {
@@ -98,10 +98,10 @@ export default class LessonController extends cc.Component {
         } else {
             this.backButton.on('touchend', () => {
                 this.node.getChildByName("quit").active = true;
-               if(parseInt(Profile.getValue(CURRENTMODE)) == Mode.School){
-                this.node.getChildByName("quit").getChildByName('quit_bg').getChildByName('exit_game').y = this.node.getChildByName("quit").getPosition().y
-                this.node.getChildByName("quit").getChildByName('quit_bg').getChildByName('help_video').active = false;
-               }
+                if (parseInt(Profile.getValue(CURRENTMODE)) == Mode.School) {
+                    this.node.getChildByName("quit").getChildByName('quit_bg').getChildByName('exit_game').y = this.node.getChildByName("quit").getPosition().y
+                    this.node.getChildByName("quit").getChildByName('quit_bg').getChildByName('help_video').active = false;
+                }
             });
         }
     }
@@ -146,8 +146,8 @@ export default class LessonController extends cc.Component {
             LessonController.loadQuizzes(lessons, callback, node);
         } else {
             Config.loadBundle(config.lesson.id, (bundle) => {
-                    LessonController.preloadAndFirst(bundle, callback);
-                },
+                LessonController.preloadAndFirst(bundle, callback);
+            },
                 callback);
         }
     }
@@ -178,12 +178,12 @@ export default class LessonController extends cc.Component {
         let numLessons = lessons.length;
         lessons.forEach((les) => {
             Config.loadBundle(les.id, (bundle) => {
-                    bundle.preloadDir('res', null, null, (err: Error, items) => {
-                        Util.bundles.set(les.id, bundle);
-                        LessonController.bundles.push(bundle);
-                        numLessons--;
-                    });
-                },
+                bundle.preloadDir('res', null, null, (err: Error, items) => {
+                    Util.bundles.set(les.id, bundle);
+                    LessonController.bundles.push(bundle);
+                    numLessons--;
+                });
+            },
                 callback);
         });
         const checkAllLoaded = () => {
@@ -304,69 +304,69 @@ export default class LessonController extends cc.Component {
         const isStory = config.game == 'story';
         if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
             let monitorInfo = {
-                chapter        : config.chapter.id,
-                lesson         : config.lesson.id,
-                incorrect      : this.wrongMoves,
-                totalQuestions : config.totalProblems,
-                correct        : this.rightMoves,
+                chapter: config.chapter.id,
+                lesson: config.lesson.id,
+                incorrect: this.wrongMoves,
+                totalQuestions: config.totalProblems,
+                correct: this.rightMoves,
                 totalChallenges: config.totalProblems,
-                totalSeconds   : timeSpent,
-                activity       : config.game,
-                kind           : 'Monitor',
-                schoolId       : cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
-                studentId      : cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
-                classId        : cc.sys.localStorage.getItem(CURRENT_CLASS_ID)
+                totalSeconds: timeSpent,
+                activity: config.game,
+                kind: 'Monitor',
+                schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
+                studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
+                classId: cc.sys.localStorage.getItem(CURRENT_CLASS_ID)
             };
             Queue.getInstance().push(monitorInfo);
         }
 
         const eventName: string = this.isQuiz ? "quizEnd" : "gameEnd";
         const event = {
-            lessonSessionId  : this.lessonSessionId,
-            gameName         : config.game,
-            totalGames       : config.totalProblems,
+            lessonSessionId: this.lessonSessionId,
+            gameName: config.game,
+            totalGames: config.totalProblems,
             currentGameNumber: config.problem,
-            problemSessionId : this.problemSessionId,
-            chapterName      : config.chapter.name,
-            chapterId        : config.chapter.id,
-            lessonName       : config.lesson.name,
-            lessonId         : config.lesson.id,
-            courseName       : config.course.id,
-            problemNo        : config.problem,
-            timeSpent        : Math.abs(timeSpent),
-            wrongMoves       : this.wrongMoves,
-            correctMoves     : this.rightMoves,
-            correct          : this.isQuizAnsweredCorrectly ? 1 : 0,
-            skills           : config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
-            game_completed   : this.isGameCompleted,
-            quiz_completed   : this.isQuizCompleted,
-            assignmentId     : config.lesson.assignmentId || null,
-            mlStudentId      : config.lesson.mlStudentId || null,
-            mlClassId        : config.lesson.mlClassId || null,
-            mlPartnerId      : config.lesson.mlPartnerId || null
+            problemSessionId: this.problemSessionId,
+            chapterName: config.chapter.name,
+            chapterId: config.chapter.id,
+            lessonName: config.lesson.name,
+            lessonId: config.lesson.id,
+            courseName: config.course.id,
+            problemNo: config.problem,
+            timeSpent: Math.abs(timeSpent),
+            wrongMoves: this.wrongMoves,
+            correctMoves: this.rightMoves,
+            correct: this.isQuizAnsweredCorrectly ? 1 : 0,
+            skills: config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
+            game_completed: this.isGameCompleted,
+            quiz_completed: this.isQuizCompleted,
+            assignmentId: config.lesson.assignmentId || null,
+            mlStudentId: config.lesson.mlStudentId || null,
+            mlClassId: config.lesson.mlClassId || null,
+            mlPartnerId: config.lesson.mlPartnerId || null
         };
         UtilLogger.logChimpleEvent(eventName, event);
-        if(!Config.isMicroLink) {
+        if (!Config.isMicroLink) {
             const deviceId = UtilLogger.currentDeviceId();
             const logEventForIxo = {
-                lessonSessionId  : this.lessonSessionId,
-                gameName         : config.game,
-                totalGames       : config.totalProblems,
+                lessonSessionId: this.lessonSessionId,
+                gameName: config.game,
+                totalGames: config.totalProblems,
                 currentGameNumber: config.problem,
-                problemSessionId : this.problemSessionId,
-                chapterName      : config.chapter.name,
-                chapterId        : config.chapter.id,
-                lessonName       : config.lesson.name,
-                lessonId         : config.lesson.id,
-                courseName       : config.course.id,
-                problemNo        : config.problem,
-                timeSpent        : Math.abs(timeSpent),
-                userId           : User.getCurrentUser().id,
-                deviceId         : deviceId
+                problemSessionId: this.problemSessionId,
+                chapterName: config.chapter.name,
+                chapterId: config.chapter.id,
+                lessonName: config.lesson.name,
+                lessonId: config.lesson.id,
+                courseName: config.course.id,
+                problemNo: config.problem,
+                timeSpent: Math.abs(timeSpent),
+                userId: User.getCurrentUser().id,
+                deviceId: deviceId
             };
             const headerCSV = Object.keys(logEventForIxo).join(",");
             const eventCSV = Object.values(logEventForIxo).join(",");
-            UtilLogger.logToDaily(deviceId, headerCSV, eventCSV);    
+            UtilLogger.logToDaily(deviceId, headerCSV, eventCSV);
         }
 
         const starType = this.isQuiz
@@ -415,27 +415,27 @@ export default class LessonController extends cc.Component {
             switch (ServiceConfig.getI().mode) {
                 case APIMode.FIREBASE:
                     let updateInfo = {
-                        lessonName     : config.lesson.name,
-                        chapterName    : config.chapter.name,
-                        chapter        : config.chapter.id,
-                        lesson         : config.lesson.id,
-                        courseName     : config.course.id,
+                        lessonName: config.lesson.name,
+                        chapterName: config.chapter.name,
+                        chapter: config.chapter.id,
+                        lesson: config.lesson.id,
+                        courseName: config.course.id,
                         percentComplete: percentageComplete,
-                        timespent      : Math.abs(timeSpent),
-                        assignmentId   : config.lesson.assignmentId,
-                        assessment     : score,
-                        kind           : 'Progress',
-                        studentId      : User.getCurrentUser().id,
-                        dateTimeStamp  : new Date().getTime()
+                        timespent: Math.abs(timeSpent),
+                        assignmentId: config.lesson.assignmentId,
+                        assessment: score,
+                        kind: 'Progress',
+                        studentId: User.getCurrentUser().id,
+                        dateTimeStamp: new Date().getTime()
                     };
                     let mode = parseInt(Profile.getValue(CURRENTMODE));
-                    if (mode === Mode.School) {
+                    if (mode === Mode.School || mode === Mode.HomeConnect) {
                         UtilLogger.historyProgress(updateInfo.chapter,
                             updateInfo.chapterName, updateInfo.lesson, updateInfo.lessonName,
                             User.getCurrentUser().id, User.getCurrentUser().schoolId,
                             User.getCurrentUser().sectionId,
                             updateInfo.courseName, "" + updateInfo.assessment,
-                            config.lesson.assignmentId);
+                            config.lesson.assignmentId, User.getCurrentUser().name, timeSpent.toString());
                     } else {
                         Queue.getInstance().push(updateInfo);
                     }
@@ -443,17 +443,17 @@ export default class LessonController extends cc.Component {
                 case APIMode.PARSE:
                     if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
                         let updateInfo = {
-                            chapter        : config.chapter.id,
-                            lesson         : config.lesson.id,
-                            courseName     : config.course.id,
+                            chapter: config.chapter.id,
+                            lesson: config.lesson.id,
+                            courseName: config.course.id,
                             percentComplete: percentageComplete,
-                            timespent      : Math.abs(timeSpent),
-                            assessment     : score,
-                            kind           : 'Progress',
-                            schoolId       : cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
-                            studentId      : cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
-                            sectionId      : cc.sys.localStorage.getItem(CURRENT_SECTION_ID),
-                            subjectId      : cc.sys.localStorage.getItem(CURRENT_SUBJECT_ID)
+                            timespent: Math.abs(timeSpent),
+                            assessment: score,
+                            kind: 'Progress',
+                            schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
+                            studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
+                            sectionId: cc.sys.localStorage.getItem(CURRENT_SECTION_ID),
+                            subjectId: cc.sys.localStorage.getItem(CURRENT_SUBJECT_ID)
                         };
 
                         Queue.getInstance().push(updateInfo);
@@ -464,20 +464,20 @@ export default class LessonController extends cc.Component {
 
         UtilLogger.logChimpleEvent("lessonEnd", {
             lessonSessionId: this.lessonSessionId,
-            chapterName    : config.chapter.name,
-            chapterId      : config.chapter.id,
-            lessonName     : config.lesson.name,
-            lessonId       : config.lesson.id,
-            courseName     : config.course.id,
-            lessonType     : config.lesson.type,
-            score          : score,
-            timeSpent      : Math.abs(timeSpent),
-            skills         : config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
-            attempts       : user ? (user.lessonProgressMap.get(config.lesson.id) ? user.lessonProgressMap.get(config.lesson.id).attempts : 1) : 1,
-            assignmentId   : config.lesson.assignmentId,
-            mlStudentId    : config.lesson.mlStudentId,
-            mlClassId      : config.lesson.mlClassId,
-            mlPartnerId    : config.lesson.mlPartnerId
+            chapterName: config.chapter.name,
+            chapterId: config.chapter.id,
+            lessonName: config.lesson.name,
+            lessonId: config.lesson.id,
+            courseName: config.course.id,
+            lessonType: config.lesson.type,
+            score: score,
+            timeSpent: Math.abs(timeSpent),
+            skills: config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
+            attempts: user ? (user.lessonProgressMap.get(config.lesson.id) ? user.lessonProgressMap.get(config.lesson.id).attempts : 1) : 1,
+            assignmentId: config.lesson.assignmentId,
+            mlStudentId: config.lesson.mlStudentId,
+            mlClassId: config.lesson.mlClassId,
+            mlPartnerId: config.lesson.mlPartnerId
         });
 
         try {
@@ -546,12 +546,11 @@ export default class LessonController extends cc.Component {
             this.wrongMoves++;
             this.tempWrongMoves++;
             if (this.tempWrongMoves > 1) {
-            iconHighlightAnimation.play('icon_highlight');
+                iconHighlightAnimation.play('icon_highlight');
             }
             LessonController.friend.speak(this.wrongAudio, null, true, 'sad');
             // Util.playSfx(this.wrongAudio);
             // LessonController.friend.playSadAnimation(1)
-    
         });
         this.gameNode.on(QUIZ_ANSWERED, (isAnsweredCorrectly: boolean) => {
             if (isAnsweredCorrectly) {
@@ -571,27 +570,27 @@ export default class LessonController extends cc.Component {
             const eventName: string = this.isQuiz ? "quizIncomplete" : "gameIncomplete";
             const config = Config.i;
             UtilLogger.logChimpleEvent(eventName, {
-                gameName         : config.game,
-                totalGames       : config.totalProblems,
+                gameName: config.game,
+                totalGames: config.totalProblems,
                 currentGameNumber: config.problem,
-                lessonSessionId  : this.lessonSessionId,
-                problemSessionId : this.problemSessionId,
-                chapterName      : config.chapter.name,
-                chapterId        : config.chapter.id,
-                lessonName       : config.lesson.name,
-                lessonId         : config.lesson.id,
-                courseName       : config.course.id,
-                problemNo        : config.problem,
-                timeSpent        : Math.abs(timeSpent),
-                wrongMoves       : this.wrongMoves,
-                correctMoves     : this.rightMoves,
-                skills           : config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
-                mlStudentId      : config.lesson.mlStudentId,
-                mlClassId        : config.lesson.mlClassId,
-                mlPartnerId      : config.lesson.mlPartnerId,
-                assignmentId     : config.lesson.assignmentId,
-                game_completed   : this.isGameCompleted,
-                quiz_completed   : this.isQuizCompleted
+                lessonSessionId: this.lessonSessionId,
+                problemSessionId: this.problemSessionId,
+                chapterName: config.chapter.name,
+                chapterId: config.chapter.id,
+                lessonName: config.lesson.name,
+                lessonId: config.lesson.id,
+                courseName: config.course.id,
+                problemNo: config.problem,
+                timeSpent: Math.abs(timeSpent),
+                wrongMoves: this.wrongMoves,
+                correctMoves: this.rightMoves,
+                skills: config.lesson.skills && config.lesson.skills.length > 0 ? config.lesson.skills.join(",") : "",
+                mlStudentId: config.lesson.mlStudentId,
+                mlClassId: config.lesson.mlClassId,
+                mlPartnerId: config.lesson.mlPartnerId,
+                assignmentId: config.lesson.assignmentId,
+                game_completed: this.isGameCompleted,
+                quiz_completed: this.isQuizCompleted
             });
         }
 
@@ -605,7 +604,7 @@ export default class LessonController extends cc.Component {
     }
 
     onClickHelpVideoButton() {
-         UtilLogger.launchYoutube(GAME_CONFIGS[Config.i.game].youtube)
+        UtilLogger.launchYoutube(GAME_CONFIGS[Config.i.game].youtube)
     }
 
 

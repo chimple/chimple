@@ -88,6 +88,7 @@ export const FIREBASE_UPDATE_PROGRESS_URL = 'https://us-central1-bahama-stage.cl
 export const FIREBASE_SYNC_FAILED_PROGRESS_URL = 'https://us-central1-bahama-stage.cloudfunctions.net/chimple/syncProgressOnHttp';
 export const FIREBASE_LINK_STUDENT_URL = 'https://us-central1-bahama-stage.cloudfunctions.net/chimple/LinkStudent';
 export const FIREBASE_GET_LEADERBOARD_URL = 'https://us-central1-bahama-stage.cloudfunctions.net/chimple/getLeaderboard';
+export const FIREBASE_CUSTOM_AUTH_URL = 'https://us-central1-bahama-stage.cloudfunctions.net/chimple/customAuth';
 
 export const WEBCLASS_HISTORICAL_PROGRESS_URL_PROD = 'https://cvjgnzup21.execute-api.ap-south-1.amazonaws.com/webclasshistoricaldata-prod';
 export const WEBCLASS_HISTORICAL_PROGRESS_URL_TEST = 'https://cvjgnzup21.execute-api.ap-south-1.amazonaws.com/webclasshistoricaldata-test';

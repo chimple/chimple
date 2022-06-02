@@ -97,6 +97,11 @@ export interface LessonProgress {
     assignmentIds: string[];
 }
 
+export interface Last5LessonsItem {
+    score: number;
+    date?: string;
+    lesson: string;
+}
 export class LessonProgressClass implements LessonProgress {
     achievement: number = 0;
     score: number;
@@ -152,6 +157,7 @@ export class User {
     curriculumLoaded: boolean = false
     private _sectionName: string;
     private _schoolName: string;
+    private _last5Lessons: Map<string, Last5LessonsItem[]>;
 
     constructor(
         id: string,
@@ -177,7 +183,8 @@ export class User {
         studentId: string = '',
         schoolName: string = '',
         sectionName: string = '',
-        currentReward: string[] = []
+        currentReward: string[] = [],
+        last5Lessons: Map<string, Last5LessonsItem[]> = new Map()
     ) {
         this._id = id;
         this._name = name;
@@ -207,6 +214,7 @@ export class User {
         this._studentId = studentId;
         this._schoolName = schoolName;
         this._sectionName = sectionName;
+        this._last5Lessons = last5Lessons;
     }
 
     _genderEvent(gender: Gender) {
@@ -337,7 +345,7 @@ export class User {
     }
 
     set unlockedInventory(unlockedInventory: object) {
-        this._unlockedInventory = {};
+        this._unlockedInventory = unlockedInventory ?? {};
         this.storeUser();
     }
 
@@ -346,7 +354,7 @@ export class User {
     }
 
     set unlockedRewards(unlockedRewards: object) {
-        this._unlockedRewards = {};
+        this._unlockedRewards = unlockedRewards ?? {};
         this.storeUser();
     }
 
@@ -427,6 +435,23 @@ export class User {
         this._schoolName = value;
     }
 
+    get last5Lessons(): Map<string, Last5LessonsItem[]> {
+        return this._last5Lessons;
+    }
+    set last5Lessons(value: Map<string, Last5LessonsItem[]>) {
+        this._last5Lessons = value;
+    }
+
+
+    updateLast5Lessons(item: Last5LessonsItem) {
+        const config = Config.i;
+        const course = config.course.id;
+        let last5Lessons = this._last5Lessons.get(course) ?? [];
+        last5Lessons.unshift(item);
+        last5Lessons = last5Lessons.slice(0, 5);
+        this._last5Lessons.set(course, last5Lessons);
+    }
+
 
     unlockInventoryForItem(item: string) {
         this._unlockedInventory[item] = true;
@@ -497,6 +522,7 @@ export class User {
         var reward: [string, string]
         const config = Config.i
         const cpm = this.courseProgressMap.get(config.course.id)
+        this.updateLast5Lessons({ lesson: lessonId, score: score, date: new Date().toISOString() })
         if (cpm) {
             if (this._lessonProgressMap.has(lessonId)) {
                 const lessonProgress = this._lessonProgressMap.get(lessonId)
@@ -810,6 +836,17 @@ export class User {
         for (const key in data.chapterFinishedMap) {
             chapterFinishedMap.set(key, data.chapterFinishedMap[key]);
         }
+        const last5Lessons = new Map<string, Last5LessonsItem[]>();
+        if (data.last5Lessons) {
+            for (const key in data.last5Lessons) {
+                const last5LessonsItems: Last5LessonsItem[] = [];
+                for (const item of data.last5Lessons[key]) {
+                    const last5LessonsItem: Last5LessonsItem = { lesson: item.lesson, score: item.score, date: item.date };
+                    last5LessonsItems.push(last5LessonsItem)
+                }
+                last5Lessons.set(key, last5LessonsItems);
+            }
+        }
         let user = new User(
             data.id,
             data.name,
@@ -834,7 +871,8 @@ export class User {
             data.studentId,
             data.schoolName,
             data.sectionName,
-            data.currentReward
+            data.currentReward,
+            last5Lessons
         );
         user.isConnected = data.isConnected
         // user._lessonPlanDate = new Date(data.lessonPlanDate)
@@ -855,6 +893,10 @@ export class User {
         const chapterFinishedMapObj = {};
         user._chapterFinishedMap.forEach((lp, id) => {
             chapterFinishedMapObj[id] = lp;
+        });
+        const las5LessonMapObj = {};
+        user._last5Lessons.forEach((lp, id) => {
+            las5LessonMapObj[id] = lp;
         });
         return JSON.stringify({
             'id': user.id,
@@ -884,7 +926,8 @@ export class User {
             'studentId': user.studentId,
             'schoolName': user.schoolName,
             'sectionName': user.sectionName,
-            'currentReward': user.currentReward
+            'currentReward': user.currentReward,
+            "last5Lessons": las5LessonMapObj
         });
     }
 

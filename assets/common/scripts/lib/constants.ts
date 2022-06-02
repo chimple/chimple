@@ -8,7 +8,8 @@ export enum Mode {
     Home,
     Teacher,
     School,
-    None
+    None,
+    HomeConnect
 }
 
 export let D_MODE: DeployMode = DeployMode.Close;

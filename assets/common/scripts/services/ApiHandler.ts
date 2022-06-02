@@ -1,4 +1,4 @@
-import {AcceptTeacherRequest, LeaderboardInfo, ServiceApi, UpdateProgressInfo} from "./ServiceApi";
+import {AcceptTeacherRequest, CustomAuthInfo, LeaderboardInfo, ServiceApi, UpdateProgressInfo} from "./ServiceApi";
 import {UpdateHomeTeacher} from "./parseApi";
 
 export class ApiHandler {
@@ -49,5 +49,8 @@ export class ApiHandler {
 
     public async getLeaderboard(studentId: string, sectionId: string, schoolId: string): Promise<LeaderboardInfo> {
         return await this.s.getLeaderboard(studentId, sectionId, schoolId);
+    }
+    public async customAuth(code: string, phoneNumber: string, countryCode: string,progressId:string): Promise<CustomAuthInfo> {
+        return await this.s.customAuth(code, phoneNumber, countryCode,progressId);
     }
 }

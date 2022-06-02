@@ -1,5 +1,5 @@
 import Config from "../../../common/scripts/lib/config";
-import { CURRENT_STUDENT_ID, IS_REMEMBER_TOGGLE_ON, LOGGED_IN_USER } from "../../../common/scripts/lib/constants";
+import { CURRENT_STUDENT_ID, IS_REMEMBER_TOGGLE_ON, LOGGED_IN_USER, Mode } from "../../../common/scripts/lib/constants";
 import Profile, { CURRENTMODE, User } from "../../../common/scripts/lib/profile";
 import { ParseImageDownloader } from "../../../common/scripts/services/ParseImageDownloader";
 import { LeaderboardInfo, StudentLeaderboardInfo } from "../../../common/scripts/services/ServiceApi";
@@ -210,8 +210,17 @@ export default class LeaderboardProfile extends cc.Component {
         this.node.getChildByName('signout').getComponent(cc.Button).interactable = false;
         User.setCurrentUser(null);
         Config.i.popAllScenes();
-        cc.director.loadScene("welcomePage")
-
+        if (Profile.getValue(CURRENTMODE) == Mode.School) {
+            if (cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) == null || cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) === "false") {
+                Config.i.pushScene(SECTION_LIST, 'private', null);
+            }
+            else {
+                Config.i.pushScene('private/school/scenes/currentLoggedUser', 'private', null);
+            }
+        }
+        else {
+            cc.director.loadScene("welcomePage")
+        }
     }
 
     private onConnectClick() {

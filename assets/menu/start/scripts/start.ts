@@ -421,19 +421,7 @@ export default class Start extends cc.Component {
         // ChapterLessons.showType = ChapterLessonType.Assignments
         // Config.i.pushScene('menu/start/scenes/chapterLessons', 'menu')
 
-        if (Profile.getValue(CURRENTMODE) == 3) {
-            User.setCurrentUser(null);
-            Config.i.popAllScenes();
-            if (cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) == null || cc.sys.localStorage.getItem(IS_REMEMBER_TOGGLE_ON) === "false") {
-                Config.i.pushScene(SECTION_LIST, 'private', null);
-            }
-            else {
-                Config.i.pushScene('private/school/scenes/currentLoggedUser', 'private', null);
-            }
-        }
-        else {
             Config.i.pushScene('menu/Profile/scene/leaderboardProfile', 'menu')
-        }
     }
 
     onFeaturedClick() {

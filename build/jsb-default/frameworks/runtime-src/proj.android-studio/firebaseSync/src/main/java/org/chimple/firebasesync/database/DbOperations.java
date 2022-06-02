@@ -9,6 +9,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.SetOptions;
+
 import com.google.gson.Gson;
 
 import org.chimple.firebasesync.model.School;
@@ -24,7 +26,7 @@ import static org.chimple.firebasesync.database.Helper.HISTORICAL_PROGRESS_COLLE
 import static org.chimple.firebasesync.database.Helper.SCHOOL_COLLECTION;
 import static org.chimple.firebasesync.database.Helper.SECTION_COLLECTION;
 import static org.chimple.firebasesync.database.Helper.STUDENT_COLLECTION;
-
+import static org.chimple.firebasesync.database.Helper.LEADERBOARD_COLLECTION;;
 
 public class DbOperations {
     private static final Object LOCK = new Object();
@@ -142,50 +144,52 @@ public class DbOperations {
         });
     }
 
-
-//    public void convertSectionsToJson(final String schoolId) {
-//        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                List<Section> sections = db.sectionDao().loadAllSectionsBySchoolId(schoolId);
-//                if (sections != null) {
-//                    Gson gson = new GsonBuilder().create();
-//                    String jsonSections = gson.toJson(sections);
-//                    FirebaseOperations.getInitializedInstance().dbOperationResult(jsonSections);
-//                }
-//            }
-//        });
-//    }
-//
-//    public void convertStudentsForSchoolToJson(final String schoolId) {
-//        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                List<Student> students;
-//                students = db.studentDao().loadAllStudentsBySchoolId(schoolId);
-//                if (students != null) {
-//                    Gson gson = new GsonBuilder().create();
-//                    String jsonSections = gson.toJson(students);
-//                    FirebaseOperations.getInitializedInstance().dbOperationResult(jsonSections);
-//                }
-//            }
-//        });
-//    }
-//
-//    public void convertStudentsForSchoolAndSectionToJson(final String schoolId, final String sectionId) {
-//        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                List<Student> students = db.studentDao().loadAllStudentsBySchoolIdAndSectionId(schoolId, sectionId);
-//                List<Student> students = db.studentDao().loadAllStudentsBySchoolIdAndSectionId(schoolId, sectionId);
-//                if (students != null) {
-//                    Gson gson = new GsonBuilder().create();
-//                    String jsonSections = gson.toJson(students);
-//                    FirebaseOperations.getInitializedInstance().dbOperationResult(jsonSections);
-//                }
-//            }
-//        });
-//    }
+    // public void convertSectionsToJson(final String schoolId) {
+    // AppExecutors.getInstance().diskIO().execute(new Runnable() {
+    // @Override
+    // public void run() {
+    // List<Section> sections = db.sectionDao().loadAllSectionsBySchoolId(schoolId);
+    // if (sections != null) {
+    // Gson gson = new GsonBuilder().create();
+    // String jsonSections = gson.toJson(sections);
+    // FirebaseOperations.getInitializedInstance().dbOperationResult(jsonSections);
+    // }
+    // }
+    // });
+    // }
+    //
+    // public void convertStudentsForSchoolToJson(final String schoolId) {
+    // AppExecutors.getInstance().diskIO().execute(new Runnable() {
+    // @Override
+    // public void run() {
+    // List<Student> students;
+    // students = db.studentDao().loadAllStudentsBySchoolId(schoolId);
+    // if (students != null) {
+    // Gson gson = new GsonBuilder().create();
+    // String jsonSections = gson.toJson(students);
+    // FirebaseOperations.getInitializedInstance().dbOperationResult(jsonSections);
+    // }
+    // }
+    // });
+    // }
+    //
+    // public void convertStudentsForSchoolAndSectionToJson(final String schoolId,
+    // final String sectionId) {
+    // AppExecutors.getInstance().diskIO().execute(new Runnable() {
+    // @Override
+    // public void run() {
+    // List<Student> students =
+    // db.studentDao().loadAllStudentsBySchoolIdAndSectionId(schoolId, sectionId);
+    // List<Student> students =
+    // db.studentDao().loadAllStudentsBySchoolIdAndSectionId(schoolId, sectionId);
+    // if (students != null) {
+    // Gson gson = new GsonBuilder().create();
+    // String jsonSections = gson.toJson(students);
+    // FirebaseOperations.getInitializedInstance().dbOperationResult(jsonSections);
+    // }
+    // }
+    // });
+    // }
 
     public Student loadStudentById(final String firebaseId) {
         try {
@@ -199,7 +203,7 @@ public class DbOperations {
 
             Student[] student = result.get();
             return student[0];
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -233,7 +237,8 @@ public class DbOperations {
                 @Override
                 public void run() {
                     db.studentDao().updateSync(s.getFirebaseId(), sync);
-                    Student p = db.studentDao().findSyncedProfileForStudent(s.getSchoolId(), s.getSectionId(), s.getFirebaseId());
+                    Student p = db.studentDao().findSyncedProfileForStudent(s.getSchoolId(), s.getSectionId(),
+                            s.getFirebaseId());
                     if (p != null) {
                         Log.d(TAG, "Profile Synced:" + p.isSynced());
                     }
@@ -255,7 +260,8 @@ public class DbOperations {
         });
     }
 
-    public void updateStudentProfileToLocalDB(final String schoolId, final String sectionId, final String firebaseId, final String profile, String progressId) {
+    public void updateStudentProfileToLocalDB(final String schoolId, final String sectionId, final String firebaseId,
+            final String profile, String progressId) {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
@@ -268,7 +274,10 @@ public class DbOperations {
 
     private void updateStudentDoc(final Student s) {
         if (s != null) {
-            DocumentReference student = FirebaseOperations.getInitializedInstance().getDb().collection(SCHOOL_COLLECTION + "/" + s.getSchoolId() + "/" + SECTION_COLLECTION + "/" + s.getSectionId() + "/" + STUDENT_COLLECTION).document(s.getFirebaseId());
+            DocumentReference student = FirebaseOperations
+                    .getInitializedInstance().getDb().collection(SCHOOL_COLLECTION + "/" + s.getSchoolId() + "/"
+                            + SECTION_COLLECTION + "/" + s.getSectionId() + "/" + STUDENT_COLLECTION)
+                    .document(s.getFirebaseId());
             HashMap updatedProfileMap = new Gson().fromJson(s.getProfileInfo(), HashMap.class);
             student.update("profile", updatedProfileMap,
                     "link", true,
@@ -277,7 +286,8 @@ public class DbOperations {
                         @Override
                         public void onSuccess(Void aVoid) {
                             updateSync(s, true);
-                            Log.d(TAG, s.getName() + ": " + "DocumentSnapshot successfully updated! Sync Completed for:" + s.getFirebaseId());
+                            Log.d(TAG, s.getName() + ": " + "DocumentSnapshot successfully updated! Sync Completed for:"
+                                    + s.getFirebaseId());
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -290,7 +300,8 @@ public class DbOperations {
         }
     }
 
-    private void updateProfileForStudentToFirebase(final String schoolId, final String sectionId, final String firebaseId) {
+    private void updateProfileForStudentToFirebase(final String schoolId, final String sectionId,
+            final String firebaseId) {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
@@ -308,8 +319,7 @@ public class DbOperations {
                 List<Section> s = db.sectionDao().loadAllSectionsBySchoolId(schoolId);
                 for (Section s1 : s) {
                     FirebaseOperations.getInitializedInstance().addStudentListener(
-                            schoolId, s1.getFirebaseId()
-                    );
+                            schoolId, s1.getFirebaseId());
                 }
             }
         });
@@ -372,21 +382,23 @@ public class DbOperations {
         return null;
     }
 
-
     public void createHistoricalProgress(final String chapterId,
-                                         final String chapterName,
-                                         final String lessonId,
-                                         final String lessonName,
-                                         final String progressId,
-                                         final String school,
-                                         final String section,
-                                         final String subjectCode,
-                                         final Integer score,
-                                         final String assignmentId) {
+            final String chapterName,
+            final String lessonId,
+            final String lessonName,
+            final String progressId,
+            final String school,
+            final String section,
+            final String subjectCode,
+            final Integer score,
+            final String assignmentId,
+            final String name,
+            final Integer timeSpent) {
         Map<String, Object> historicalData = new HashMap<>();
         DocumentReference schoolSection = null;
         if (school != null && section != null) {
-            schoolSection = FirebaseOperations.getInitializedInstance().getDb().collection(SCHOOL_COLLECTION + "/" + school + "/" + SECTION_COLLECTION).document(section);
+            schoolSection = FirebaseOperations.getInitializedInstance().getDb()
+                    .collection(SCHOOL_COLLECTION + "/" + school + "/" + SECTION_COLLECTION).document(section);
         }
         historicalData.put("chapterId", chapterId);
         historicalData.put("chapterName", chapterName);
@@ -401,19 +413,58 @@ public class DbOperations {
 
         Log.d(TAG, "Calling history progress Collection to insert record");
 
-        CollectionReference collection = FirebaseOperations.getInitializedInstance().getDb().collection(HISTORICAL_PROGRESS_COLLECTION);
+        CollectionReference collection = FirebaseOperations.getInitializedInstance().getDb()
+                .collection(HISTORICAL_PROGRESS_COLLECTION);
         collection
                 .add(historicalData)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot written with ID to history progress: " + documentReference.getId());
+                        Log.d(TAG,
+                                "DocumentSnapshot written with ID to history progress: " + documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error adding document to history progress", e);
+                    }
+                });
+        Map<String, Object> leaderBoardData = new HashMap<>();
+        Map<String, Object> allData = new HashMap<>();
+        Map<String,Object> progressData = new HashMap<>();
+        Map<String,Object> weeklyData = new HashMap<>();
+        FieldValue totalScore = FieldValue.increment(score);
+        FieldValue lessonsPlayed = FieldValue.increment(1);
+        FieldValue totalTimeSpent = FieldValue.increment(timeSpent);
+        Map<String,Object> allTimeData = new HashMap<>();
+        weeklyData.put("s",totalScore);
+        weeklyData.put("l",lessonsPlayed);
+        weeklyData.put("t",totalTimeSpent);
+        allTimeData.put("s",totalScore);
+        allTimeData.put("l",lessonsPlayed);
+        allTimeData.put("t",totalTimeSpent);
+        allData.put("w",weeklyData);
+        allData.put("a",allTimeData);
+        allData.put("n",name);
+        progressData.put(progressId,allData);
+        leaderBoardData.put("d",progressData);
+        leaderBoardData.put("u", FieldValue.serverTimestamp());
+        DocumentReference leaderboardDocRef = FirebaseOperations.getInitializedInstance().getDb()
+                .collection(LEADERBOARD_COLLECTION).document(school + "-" + section);
+        leaderboardDocRef
+                .set(leaderBoardData, SetOptions.merge())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG,
+                                "DocumentSnapshot written with ID to leaderboard: " + school + "-" + section);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document to leaderboard", e);
                     }
                 });
     }

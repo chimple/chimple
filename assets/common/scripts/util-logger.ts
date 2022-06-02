@@ -1,6 +1,6 @@
-import { ASSET_LOAD_METHOD, firebaseConfigWeb, Mode } from "./lib/constants";
-import Profile, { CURRENTMODE, LessonProgressClass, User } from "./lib/profile";
-import { AcceptTeacherRequest } from "./services/ServiceApi";
+import { ASSET_LOAD_METHOD, firebaseConfigWeb, FIREBASE_SCHOOL_ID, FIREBASE_SECTION_ID, FIREBASE_STUDENT_ID, Mode, Student } from "./lib/constants";
+import Profile, { CURRENTMODE, Last5LessonsItem, LessonProgressClass, User } from "./lib/profile";
+import { AcceptTeacherRequest, CustomAuthInfo } from "./services/ServiceApi";
 import { ACCEPT_TEACHER_REQUEST } from "../../chimple";
 
 const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
@@ -86,7 +86,7 @@ const SYNC_PROFILE_METHOD = "syncProfile";
 const SYNC_PROFILE_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
 
 const HISTORICAL_PROGRESS_METHOD = "historyProgress";
-const HISTORICAL_PROGRESS_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
+const HISTORICAL_PROGRESS_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
 
 const LOG_DAILY_METHOD = "logToDailyFile";
 const LOG_DAILY_METHOD_SIGNATURE = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V";
@@ -641,8 +641,8 @@ export default class UtilLogger {
     }
 
     public static historyProgress(chapterId: string, chapterName: string, lessonId: string,
-                                  lessonName: string, progressId: string, school: string,
-                                  section: string, subjectCode: string, score: string, assignmentId: string) {
+        lessonName: string, progressId: string, school: string,
+        section: string, subjectCode: string, score: string, assignmentId: string, name: string, timeSpent: string) {
         cc.log(`historyProgress for: ${chapterId}-${chapterName}-${lessonId}-${progressId}`);
         try {
             if (
@@ -662,7 +662,9 @@ export default class UtilLogger {
                     section,
                     subjectCode,
                     score,
-                    assignmentId
+                    assignmentId,
+                    name,
+                    timeSpent
                 );
             }
         } catch (e) {
@@ -671,13 +673,25 @@ export default class UtilLogger {
 
     public static syncProfile(schoolId: string, sectionId: string, studentId: string, profile: string, progressId: string): void {
         cc.log(`syncProfile for: ${schoolId}-${sectionId}-${studentId}-${progressId}`);
+        cc.log(`syncProfile in util-logger: mode `, parseInt(Profile.getValue(CURRENTMODE)), Mode.HomeConnect);
         try {
             let mode = parseInt(Profile.getValue(CURRENTMODE));
+            console.log("syncProfile in util-logger bool ", mode === Mode.School, mode === Mode.HomeConnect,
+                cc.sys.isNative,
+                cc.sys.os == cc.sys.OS_ANDROID, (mode === Mode.School || mode === Mode.HomeConnect) &&
+                cc.sys.isNative &&
+            cc.sys.os == cc.sys.OS_ANDROID)
             if (
-                mode === Mode.School &&
+                (mode === Mode.School || mode === Mode.HomeConnect) &&
                 cc.sys.isNative &&
                 cc.sys.os == cc.sys.OS_ANDROID
             ) {
+                cc.log(`syncProfile in util-logger: mode in if `,
+                    schoolId,
+                    sectionId,
+                    studentId,
+                    profile,
+                    progressId);
                 return jsb.reflection.callStaticMethod(
                     LOGGER_CLASS,
                     SYNC_PROFILE_METHOD,
@@ -690,39 +704,40 @@ export default class UtilLogger {
                 );
             }
         } catch (e) {
+            cc.log("syncProfile in util-logger error ", e)
         }
     }
 
     public static processLinkStudent(sectionId: string, schoolId: string,
-                                     studentId: string, schoolName: string,
-                                     sectionName: string,
-                                     progressId: string,
-                                     otpCode: string = null,
-                                     profile: any = null) {
+        studentId: string, schoolName: string,
+        sectionName: string,
+        progressId: string,
+        otpCode: string = null,
+        profile: any = null) {
 
         const user = User.getCurrentUser();
-        if(user != null && !!profile){
+        if (user != null && !!profile) {
             for (let key in profile.lessonProgressMap) {
                 var _course = profile.lessonProgressMap[key][COURSE]
-                if(user.lessonProgressMap.has(key)){
-                   if(user.lessonProgressMap.get(key).score > profile.lessonProgressMap[key][SCORE]) {
-                       this.score = user.lessonProgressMap.get(key).score
-                   }
-                   else{
-                       this.score = profile.lessonProgressMap[key][SCORE]
-                   }
+                if (user.lessonProgressMap.has(key)) {
+                    if (user.lessonProgressMap.get(key).score > profile.lessonProgressMap[key][SCORE]) {
+                        this.score = user.lessonProgressMap.get(key).score
+                    }
+                    else {
+                        this.score = profile.lessonProgressMap[key][SCORE]
+                    }
                 }
-               else{
-                 this.score = profile.lessonProgressMap[key][SCORE]
-               }
+                else {
+                    this.score = profile.lessonProgressMap[key][SCORE]
+                }
                 var _assignments = profile.lessonProgressMap[key][ASSIGNMENTIDS]
                 var _date = profile.lessonProgressMap[key][DATE]
-                if(key == _course + '_PreQuiz'){
+                if (key == _course + '_PreQuiz') {
                     const cpm = user.courseProgressMap.get(_course)
-                    cpm.updateChapterId(_course+'00');
+                    cpm.updateChapterId(_course + '00');
                     user.courseProgressMap.get(_course).lessonPlanIndex++
                 }
-                user.lessonProgressMap.set(key, new LessonProgressClass(this.score,1,_course,_assignments.toString(),_date));
+                user.lessonProgressMap.set(key, new LessonProgressClass(this.score, 1, _course, _assignments.toString(), _date));
             }
         }
         if (user != null && !!schoolId && !!sectionId && !!studentId && !user.isConnected) {
@@ -732,17 +747,17 @@ export default class UtilLogger {
             user.schoolName = schoolName;
             user.sectionName = sectionName;
             user.isConnected = true;
-            !!progressId ? User.replaceUserID(user.id,progressId) : '';
+            !!progressId ? User.replaceUserID(user.id, progressId) : '';
             user.id = !!progressId ? progressId : user.id;
             user.storeUser();
 
             const request: AcceptTeacherRequest = {
-                teacherId        : user.schoolId,
-                sectionId        : user.sectionId,
-                studentId        : user.id,
-                studentName      : user.name,
+                teacherId: user.schoolId,
+                sectionId: user.sectionId,
+                studentId: user.id,
+                studentName: user.name,
                 firebaseStudentId: user.studentId,
-                otpCode          : otpCode
+                otpCode: otpCode
             };
             UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, request);
             UtilLogger.subscribeToTopic(`assignment-${user.schoolId}-${user.sectionId}`);
@@ -754,6 +769,121 @@ export default class UtilLogger {
             }
             cc.sys.localStorage.setItem(key, JSON.stringify(teachersForStudent));
         }
+    }
+
+    public static processNewLinkStudent(customAuthInfo: CustomAuthInfo, otpCode: string) {
+        const firebaseUser = customAuthInfo.student;
+        const student: Student = {
+            age: firebaseUser.age,
+            countryCode: firebaseUser.countryCode,
+            firebaseId: customAuthInfo.studentId,
+            gender: firebaseUser.gender,
+            image: firebaseUser.image,
+            isSynced: "false",
+            link: firebaseUser.link,
+            name: firebaseUser.name,
+            phoneNumber: firebaseUser.phoneNumber,
+            profileInfo: firebaseUser.profile,
+            progressId: firebaseUser.progressId,
+            schoolId: customAuthInfo.schoolId,
+            sectionId: customAuthInfo.sectionId
+        }
+        const studentJson: string = UtilLogger.fetchStudentById(student.firebaseId);
+        cc.log("Student Json ", studentJson);
+        const profileExists = !!student?.profileInfo;
+        let user: User = null;
+        if (!profileExists || !student?.profileInfo?.lessonProgressMap || !student?.profileInfo?.courseProgressMap) {
+            cc.log("creating new user:" + user);
+            user = User.getCurrentUser();
+        } else {
+            cc.log("Student Profile exists:" + student.profileInfo);
+            user = User.fromJson(JSON.stringify(student.profileInfo));
+            const currentuser = User.getCurrentUser();
+            if (user != null && !!currentuser && !!currentuser?.lessonProgressMap) {
+                UtilLogger.mergeUser(currentuser, user);
+            }
+            cc.log("getting user from profile json:" + user);
+        }
+        user.schoolId = student.schoolId
+        user.sectionId = student.sectionId;
+        user.studentId = student.firebaseId;
+        user.imgPath = student.image;
+        user.isConnected = true;
+        user.schoolName = customAuthInfo.schoolName;
+        user.sectionName = customAuthInfo.sectionName;
+        cc.log('replacoing the userid..')
+        !!customAuthInfo.progressId ? User.replaceUserID(user.id, customAuthInfo.progressId) : '';
+        user.id = !!customAuthInfo.progressId ? customAuthInfo.progressId : user.id;
+        cc.log('schoolId ', student.schoolId);
+        cc.sys.localStorage.setItem(FIREBASE_SCHOOL_ID, student.schoolId)
+        cc.sys.localStorage.setItem(FIREBASE_SECTION_ID, student.sectionId)
+        cc.sys.localStorage.setItem(FIREBASE_STUDENT_ID, customAuthInfo.studentId)
+        console.log('setCurrentUser userid..')
+        User.setCurrentUser(user);
+        console.log('storeUser userid..')
+        user.storeUser();
+        // User.syncProfile();
+        cc.log('synced profile', User.getCurrentUser().isConnected, User.getCurrentUser().courseProgressMap);
+        const request: AcceptTeacherRequest = {
+            teacherId: student.schoolId,
+            sectionId: student.sectionId,
+            studentId: customAuthInfo.progressId,
+            studentName: user.name,
+            firebaseStudentId: user.studentId,
+            otpCode: otpCode
+        };
+        cc.log('AcceptTeacherRequest', request);
+        UtilLogger.logChimpleEvent(ACCEPT_TEACHER_REQUEST, request);
+        UtilLogger.subscribeToTopic(`assignment-${student.schoolId}-${student.sectionId}`);
+        UtilLogger.subscribeToTopic(`assignment-${student.schoolId}`);
+        const key = `teacher_for_student_${user.id}`;
+        let teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
+        if (teachersForStudent.indexOf(user.sectionName) == -1) {
+            teachersForStudent.push(user.sectionName);
+        }
+        cc.sys.localStorage.setItem(key, JSON.stringify(teachersForStudent));
+        cc.log('LOAD prestart scene');
+    }
+    public static mergeUser(fromUser: User, toUser: User): User {
+        console.log("mergeing user")
+        if (!fromUser || !toUser) return toUser;
+        if (!!fromUser.lessonProgressMap) {
+            if (!toUser.lessonProgressMap) {
+                toUser.lessonProgressMap = fromUser.lessonProgressMap;
+            }
+            else {
+                fromUser.lessonProgressMap.forEach((v, key) => {
+                    let score = fromUser.lessonProgressMap.get(key)?.score ?? 0;
+                    const _course = fromUser.lessonProgressMap.get(key)?.course;
+                    if (toUser.lessonProgressMap.has(key)) {
+                        if (toUser.lessonProgressMap.get(key).score > score) {
+                            score = toUser.lessonProgressMap.get(key).score;
+                        }
+                    }
+                    const fromAssignments = fromUser.lessonProgressMap.get(key)?.assignmentIds ?? [];
+                    const toAssignments = toUser.lessonProgressMap.get(key)?.assignmentIds ?? [];
+                    const _assignments = fromAssignments.concat(toAssignments.filter((item) => fromAssignments.indexOf(item) < 0));
+                    const _date = fromUser.lessonProgressMap.get(key)?.date;
+                    toUser.lessonProgressMap.set(key, new LessonProgressClass(this.score, 1, _course, _assignments.toString(), _date));
+                })
+            }
+        }
+        if (!toUser.courseProgressMap) {
+            toUser.courseProgressMap = fromUser.courseProgressMap;
+        }
+        const unlockedRewards = { ...toUser.unlockedRewards ?? {}, ...fromUser.unlockedRewards ?? {} }
+        const unlockedInventory = { ...toUser.unlockedInventory ?? {}, ...fromUser.unlockedInventory ?? {} }
+        const currentReward = toUser.currentReward?.concat(fromUser.currentReward?.filter((item) => toUser.currentReward?.indexOf(item) < 0)) ?? []
+        const assignments = toUser.assignments?.concat(fromUser.assignments?.filter((item) => toUser.assignments?.indexOf(item) < 0)) ?? []
+        const inventory = { ...toUser.inventory ?? {}, ...fromUser.inventory ?? {} }
+        const last5Lessons: Map<string, Last5LessonsItem[]> = new Map([...Array.from(fromUser.last5Lessons?.entries()), ...Array.from(toUser.last5Lessons?.entries())]);
+        toUser.unlockedRewards = unlockedRewards;
+        toUser.unlockedInventory = unlockedInventory;
+        toUser.currentReward = currentReward;
+        toUser.assignments = assignments;
+        toUser.inventory = inventory;
+        toUser.last5Lessons = last5Lessons;
+        return toUser;
     }
 
     public static logToDaily(deviceId: string, header: string, event: string) {

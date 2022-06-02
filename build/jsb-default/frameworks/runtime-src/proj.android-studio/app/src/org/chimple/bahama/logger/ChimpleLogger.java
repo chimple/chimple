@@ -1115,7 +1115,9 @@ public class ChimpleLogger {
             String section,
             String subjectCode,
             String score,
-            String assignmentId
+            String assignmentId,
+            String name,
+            String timeSpent
     ) {
         FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
         if (instance != null) {
@@ -1129,7 +1131,10 @@ public class ChimpleLogger {
                     section,
                     subjectCode,
                     Integer.parseInt(score),
-                    assignmentId);
+                    assignmentId,
+                    name,
+                    Integer.parseInt(timeSpent)
+                    );
         }
     }
 }

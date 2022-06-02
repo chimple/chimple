@@ -1,5 +1,5 @@
-import {ParseUser} from "../domain/parseUser";
-import {RequestParams, ParseNetwork, AuthHeader} from "./ParseNetwork";
+import { ParseUser } from "../domain/parseUser";
+import { RequestParams, ParseNetwork, AuthHeader } from "./ParseNetwork";
 import {
     LOGIN_URL,
     USER_URL,
@@ -53,21 +53,21 @@ import {
     CURRENT_CLASS_ID,
     CURRENT_SUBJECT_ID
 } from "../lib/constants";
-import {ParseConnection} from "../domain/parseConnection";
-import {ParseSchool, ParseSubjectByTeacher, Pointer} from "../domain/parseSchool";
-import {ParseChapterAssignment} from "../domain/parseChapterAssignment";
-import {ParseSubject} from "../domain/parseSubject";
-import {ParseSection} from "../domain/parseSection";
-import {ParseStudent} from "../domain/parseStudent";
-import {ParseClass} from "../domain/parseClass";
-import {ParseMonitor} from "../domain/parseMonitor";
-import Profile, {Gender, User, LessonProgress} from "../lib/profile";
-import {ParseAssignmentForChapter} from "../domain/parseAssignmentForChapter";
-import {ParseTeachersForStudent} from "../domain/parseTeachersForStudent";
-import {ParseChapterProgress} from "../domain/parseChapterProgress";
-import {ParseAssignment, Result} from "../domain/parseAssignment";
-import {AcceptTeacherRequest, LeaderboardInfo, ServiceApi, UpdateProgressInfo} from "./ServiceApi";
-import {Queue} from "../../../queue";
+import { ParseConnection } from "../domain/parseConnection";
+import { ParseSchool, ParseSubjectByTeacher, Pointer } from "../domain/parseSchool";
+import { ParseChapterAssignment } from "../domain/parseChapterAssignment";
+import { ParseSubject } from "../domain/parseSubject";
+import { ParseSection } from "../domain/parseSection";
+import { ParseStudent } from "../domain/parseStudent";
+import { ParseClass } from "../domain/parseClass";
+import { ParseMonitor } from "../domain/parseMonitor";
+import Profile, { Gender, User, LessonProgress } from "../lib/profile";
+import { ParseAssignmentForChapter } from "../domain/parseAssignmentForChapter";
+import { ParseTeachersForStudent } from "../domain/parseTeachersForStudent";
+import { ParseChapterProgress } from "../domain/parseChapterProgress";
+import { ParseAssignment, Result } from "../domain/parseAssignment";
+import { AcceptTeacherRequest, CustomAuthInfo, LeaderboardInfo, ServiceApi, UpdateProgressInfo } from "./ServiceApi";
+import { Queue } from "../../../queue";
 
 export const enum SelectionMode {
     Home,
@@ -210,7 +210,7 @@ export class ParseApi implements ServiceApi {
     public async login(username: string, password: string): Promise<ParseUser> {
         const requestParams: RequestParams = {
             url: LOGIN_URL,
-            queryParams: {username, password}
+            queryParams: { username, password }
         };
         await ParseNetwork.getInstance().get(requestParams, LOGGED_IN_USER, this.getAuthHeader());
         return ParseApi.instance.getLoggedInUser();
@@ -237,7 +237,7 @@ export class ParseApi implements ServiceApi {
         let userExists: boolean = false;
         const requestParams: RequestParams = {
             url: USER_URL,
-            queryParams: {'username': username},
+            queryParams: { 'username': username },
             isWhereQuery: true
         };
         let jsonResult = await ParseNetwork.getInstance().get(requestParams, username, this.getAuthHeader());
@@ -552,9 +552,9 @@ export class ParseApi implements ServiceApi {
             result = isObject ? Object.assign({}) : Object.assign([]);
         } else if (payload && Array.isArray(payload)) {
             result = payload.map(p => {
-                    let s: T = new ctor();
-                    return Object.assign(s, p);
-                }
+                let s: T = new ctor();
+                return Object.assign(s, p);
+            }
             );
         } else if (payload) {
             let s: T = new ctor();
@@ -608,12 +608,12 @@ export class ParseApi implements ServiceApi {
             const gender: Gender = student.gender ? student.gender.toLowerCase() === "male" ? Gender.BOY : Gender.GIRL : Gender.UNKNOWN;
             // build current user or fetch existing user
             const currentUser: User = User.createUserOrFindExistingUser({
-                    id: student.objectId,
-                    name: student.name,
-                    age: student.age,
-                    gender: gender,
-                    imgPath: student.image ? student.image.url : ''
-                }
+                id: student.objectId,
+                name: student.name,
+                age: student.age,
+                gender: gender,
+                imgPath: student.image ? student.image.url : ''
+            }
             );
             User.setCurrentUser(currentUser);
 
@@ -693,7 +693,7 @@ export class ParseApi implements ServiceApi {
         return assignments;
     }
 
-    buildAssignments(results: any[], assignments: any []) {
+    buildAssignments(results: any[], assignments: any[]) {
         const lessonMap = User.getCurrentUser().lessonProgressMap;
         assignments.forEach(
             (s: any[]) => {
@@ -1004,6 +1004,10 @@ export class ParseApi implements ServiceApi {
     }
 
     async getLeaderboard(studentId: string, sectionId: string, schoolId: string): Promise<LeaderboardInfo> {
+        return null;
+    }
+
+    async customAuth(code: string, phoneNumber: string, countryCode: string, progressId: string): Promise<CustomAuthInfo> {
         return null;
     }
 }

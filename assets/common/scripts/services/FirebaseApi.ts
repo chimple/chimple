@@ -1,8 +1,9 @@
 import { AuthHeader, ParseNetwork, RequestParams } from "./ParseNetwork";
-import { AcceptTeacherRequest, LeaderboardInfo, ServiceApi, StudentLeaderboardInfo, UpdateProgressInfo } from "./ServiceApi";
+import { AcceptTeacherRequest, CustomAuthInfo, LeaderboardInfo, ServiceApi, StudentLeaderboardInfo, UpdateProgressInfo } from "./ServiceApi";
 import { Queue } from "../../../queue";
 import { UpdateHomeTeacher } from "./parseApi";
 import {
+    FIREBASE_CUSTOM_AUTH_URL,
     FIREBASE_GET_LEADERBOARD_URL,
     FIREBASE_LINK_STUDENT_URL,
     FIREBASE_LIST_ASSIGNMENTS,
@@ -145,7 +146,7 @@ export class FirebaseApi implements ServiceApi {
                 user.isConnected = false;
                 user.storeUser();
             }
-        } else if (!!jsonResult.studentId && mode != Mode.School) {
+        } else if (!!jsonResult.studentId && mode != Mode.School && mode != Mode.HomeConnect) {
             const studentId: string = jsonResult.studentId;
             const sectionId: string = jsonResult.sectionId;
             const schoolId: string = jsonResult.schoolId;
@@ -276,6 +277,36 @@ export class FirebaseApi implements ServiceApi {
             result = {
                 weekly: weekly,
                 allTime: allTime,
+            }
+            return result;
+        }
+    }
+
+    async customAuth(code: string, phoneNumber: string, countryCode: string, progressId: string): Promise<CustomAuthInfo> {
+        if (progressId && progressId.length > 0 &&
+            code && code.length > 0) {
+            let sendCode = Number(code);
+            const requestParams: RequestParams = {
+                url: FIREBASE_CUSTOM_AUTH_URL,
+                body: {
+                    progressId,
+                    code: sendCode,
+                    version: 2,
+                    phoneNumber: phoneNumber,
+                    countryCode: countryCode
+                }
+            };
+            console.log('req params', requestParams);
+            const response = await ParseNetwork.getInstance().post(requestParams, this.getAuthHeader())
+            const result: CustomAuthInfo = {
+                email: response.data.email,
+                progressId: response.data.progressId,
+                schoolId: response.data.schoolId,
+                schoolName: response.data.schoolName,
+                sectionId: response.data.sectionId,
+                sectionName: response.data.sectionName,
+                student: response.data.student,
+                studentId: response.data.studentId
             }
             return result;
         }

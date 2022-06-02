@@ -38,6 +38,7 @@ public class Helper {
     public static String STUDENT_COLLECTION = "Student";
     public static String FB_SELECTED_SCHOOL = "FB_SELECTED_SCHOOL";
     public static String HISTORICAL_PROGRESS_COLLECTION = "historical_progress";
+    public static String LEADERBOARD_COLLECTION = "Leaderboard";
 
     private Context context = null;
     private static Helper sInstance = null;

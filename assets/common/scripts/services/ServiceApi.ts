@@ -19,6 +19,9 @@ export interface ServiceApi {
     syncFailedProgresses(infos: UpdateProgressInfo[]): Promise<any>;
 
     getLeaderboard(studentId: string, sectionId: string, schoolId: string): Promise<LeaderboardInfo>;
+
+    customAuth(code: string, phoneNumber: string, countryCode: string, progressId: string): Promise<CustomAuthInfo>;
+
 }
 
 export interface AcceptTeacherRequest {
@@ -60,4 +63,15 @@ export interface StudentLeaderboardInfo {
     timeSpent: number,
     lessonsPlayed: number,
     userId: string
+}
+
+export interface CustomAuthInfo {
+    schoolId: string,
+    sectionId: string,
+    progressId: string,
+    student: any,
+    studentId: string,
+    email: string,
+    sectionName: string,
+    schoolName: string,
 }
