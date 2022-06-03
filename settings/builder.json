@@ -23,12 +23,13 @@
   "zipCompressJs": true,
   "fb-instant-games": {},
   "android": {
-    "REMOTE_SERVER_ROOT": "https://bahama-ta-stage.web.app",
+    "REMOTE_SERVER_ROOT": "https://bahama-stage.web.app",
     "packageName": "org.chimple.bahama"
   },
   "ios": {
     "REMOTE_SERVER_ROOT": "",
-    "packageName": "org.cocos2d.demo"
+    "packageName": "org.cocos2d.demo",
+    "ios_enable_jit": true
   },
   "mac": {
     "REMOTE_SERVER_ROOT": "",
@@ -50,5 +51,6 @@
     "scheme": "https",
     "skipRecord": false
   },
-  "appBundle": true
+  "appBundle": true,
+  "agreements": {}
 }
