@@ -98,7 +98,7 @@ export default class LeaderboardProfile extends cc.Component {
         }
         console.log("this leaderboard", this.leaderboardJson)
         this.loadUi(true)
-        if ((mode == Mode.HomeConnect && !this.user.isConnected) || (mode == Mode.Home && this.user.isConnected)) {
+        if ((mode == Mode.HomeConnect && !this.user.isConnected && !!this.user.schoolId) || (mode == Mode.Home && this.user.isConnected)) {
             this.otpDialog.active = true;
         }
     }
@@ -199,10 +199,12 @@ export default class LeaderboardProfile extends cc.Component {
 
     private showLoading() {
         this.loading.active = true;
+        this.node.getChildByName('block').active = true;
     }
 
     private hideLoading() {
         this.loading.active = false;
+        this.node.getChildByName('block').active = false;
     }
 
     private onHomeClick() {

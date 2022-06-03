@@ -91,21 +91,24 @@
       },
       {
         "__id__": 118
+      },
+      {
+        "__id__": 189
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 189
-      },
-      {
-        "__id__": 190
-      },
-      {
-        "__id__": 191
-      },
-      {
         "__id__": 192
+      },
+      {
+        "__id__": 193
+      },
+      {
+        "__id__": 194
+      },
+      {
+        "__id__": 195
       }
     ],
     "_prefab": null,
@@ -8362,7 +8365,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 518,
+      "width": 538,
       "height": 75
     },
     "_anchorPoint": {
@@ -8374,7 +8377,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -380.468,
+        -345.468,
         34,
         0,
         0,
@@ -8414,8 +8417,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "Enter Phone Number",
-    "_N$string": "Enter Phone Number",
+    "_string": "Enter Phone Number Here..",
+    "_N$string": "Enter Phone Number Here..",
     "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": false,
@@ -8443,8 +8446,8 @@
     "alignMode": 0,
     "_target": null,
     "_alignFlags": 45,
-    "_left": -120.46800000000002,
-    "_right": 122.46800000000002,
+    "_left": -85.46800000000002,
+    "_right": 67.46800000000002,
     "_top": 3.5,
     "_bottom": -3.5,
     "_verticalCenter": 0,
@@ -8712,7 +8715,117 @@
     "contactEditBox": {
       "__id__": 181
     },
+    "loadingPrefab": {
+      "__uuid__": "040cadb4-733f-4b4b-9966-121511318cfd"
+    },
     "_id": "dceR2qErVLvLBZwfWD7i24"
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "block",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 2
+    },
+    "_children": [],
+    "_active": false,
+    "_components": [
+      {
+        "__id__": 190
+      },
+      {
+        "__id__": 191
+      }
+    ],
+    "_prefab": null,
+    "_opacity": 128,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 128,
+      "g": 128,
+      "b": 128,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 1700,
+      "height": 768
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": "90cnhvDilCB6dWXVkL5cta"
+  },
+  {
+    "__type__": "cc.BlockInputEvents",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 189
+    },
+    "_enabled": true,
+    "_id": "c8KZ1CYqhHNYZG565DDmi0"
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 189
+    },
+    "_enabled": true,
+    "_materials": [
+      {
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+      }
+    ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_spriteFrame": {
+      "__uuid__": "410fb916-8721-4663-bab8-34397391ace7"
+    },
+    "_type": 0,
+    "_sizeMode": 0,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_atlas": null,
+    "_id": "752VmDDepIMIcTaBsv2+IV"
   },
   {
     "__type__": "cc.Canvas",

@@ -31,6 +31,7 @@ cc.loginSucceeded = async function (schoolInfo: string) {
             if (sec) {
                 ProfileOtpDialog.newClassName.getComponent(cc.Label).string = Util.i18NText("Class  :") + " " + sec
             }
+            ProfileOtpDialog.hideLoading();
             ProfileOtpDialog.newParentNode.interactable = false;
             ProfileOtpDialog.newNode.active = false;
         }
@@ -86,6 +87,9 @@ export default class ProfileOtpDialog extends cc.Component {
     @property(cc.EditBox)
     contactEditBox: cc.EditBox = null;
 
+    @property(cc.Prefab)
+    loadingPrefab: cc.Prefab = null;
+
     static customAuthInfo: CustomAuthInfo;
     static newconfirmBtn: cc.Button;
     static newErrLabel: cc.Label;
@@ -94,6 +98,8 @@ export default class ProfileOtpDialog extends cc.Component {
     static newSchoolName: cc.Node;
     static newClassName: cc.Node;
     static newNode: cc.Node;
+    static loading: cc.Node = null;
+    static node: cc.Node;
 
     dialingCode: string;
     contactFieldValue: string = "";
@@ -105,6 +111,7 @@ export default class ProfileOtpDialog extends cc.Component {
     protected onLoad() {
         this.title.string = Util.i18NText("Ask your teacher for the class code and enter it there");
         this.editBox.string = "";
+        ProfileOtpDialog.node = this.node;
         ProfileOtpDialog.newconfirmBtn = this.confirmBtn;
         ProfileOtpDialog.newErrLabel = this.errLabel;
         ProfileOtpDialog.newconfirmBtn.interactable = false;
@@ -112,6 +119,7 @@ export default class ProfileOtpDialog extends cc.Component {
         ProfileOtpDialog.newParentNode = this.parentNode;
         ProfileOtpDialog.newSchoolName = this.schoolName;
         ProfileOtpDialog.newNode = this.node;
+        this.createLoading()
         this.btnLabel.string = Util.i18NText("Confirm");
         this.editBox.placeholder = Util.i18NText("Enter the 6-digit OTP here...");
         this.contactEditBox.placeholder = Util.i18NText("Enter Phone Number here...");
@@ -148,6 +156,23 @@ export default class ProfileOtpDialog extends cc.Component {
 
     onOtpClose() {
         this.node.active = false;
+        ProfileOtpDialog?.hideLoading();
+    }
+
+    private createLoading() {
+        ProfileOtpDialog.loading = cc.instantiate(this.loadingPrefab);
+        ProfileOtpDialog.loading.zIndex = 3;
+        ProfileOtpDialog.node.addChild(ProfileOtpDialog.loading);
+        ProfileOtpDialog.loading.active = false;
+    }
+    private showLoading() {
+        ProfileOtpDialog.loading.active = true;
+        ProfileOtpDialog.node.parent.getChildByName('block').active = true;
+    }
+
+    static hideLoading() {
+        ProfileOtpDialog.loading.active = false;
+        ProfileOtpDialog.node.parent.getChildByName('block').active = false;
     }
 
     async onSendLinkStudentRequest() {
@@ -159,6 +184,7 @@ export default class ProfileOtpDialog extends cc.Component {
             ProfileOtpDialog.newconfirmBtn.interactable = false;
             ProfileOtpDialog.newErrLabel.string = "";
             // send request
+            this.showLoading();
             try {
                 cc.log('getting custom auth...', ProfileOtpDialog.otpCode, phoneNumber, dial_code, studentId)
                 ProfileOtpDialog.customAuthInfo = await ServiceConfig.getI().handle.customAuth(ProfileOtpDialog.otpCode, phoneNumber, dial_code, studentId);
@@ -195,11 +221,16 @@ export default class ProfileOtpDialog extends cc.Component {
         }
     }
     static showError(error: string) {
-        if (!!ProfileOtpDialog.newErrLabel) {
-            ProfileOtpDialog.newErrLabel.string = Util?.i18NText(error);
-        }
-        if (!!ProfileOtpDialog.newconfirmBtn) {
-            ProfileOtpDialog.newconfirmBtn.interactable = true;
+        try {
+            ProfileOtpDialog?.hideLoading();
+            if (!!ProfileOtpDialog.newErrLabel) {
+                ProfileOtpDialog.newErrLabel.string = Util?.i18NText(error);
+            }
+            if (!!ProfileOtpDialog.newconfirmBtn) {
+                ProfileOtpDialog.newconfirmBtn.interactable = true;
+            }
+        } catch (error) {
+            cc.log("error", error);
         }
     }
     private async login(email: string, password: string) {
