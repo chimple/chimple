@@ -45,8 +45,13 @@ cc.loginSucceeded = async function (schoolInfo: string) {
 
 //@ts-ignore
 cc.loginFailed = async function (reason) {
-    ProfileOtpDialog.showError("code is invalid or expired")
-    cc.log("loginFailed in otp: " + reason);
+    try {
+        cc.log("ProfileOtpDialog loginfailed ", reason);
+        UtilLogger.processLoginFail();
+        ProfileOtpDialog?.showError("code is invalid or expired")
+    } catch (error) {
+        cc.log('error in profileotp login failed', error)
+    }
 }
 
 @ccclass
@@ -109,6 +114,7 @@ export default class ProfileOtpDialog extends cc.Component {
         ProfileOtpDialog.newNode = this.node;
         this.btnLabel.string = Util.i18NText("Confirm");
         this.editBox.placeholder = Util.i18NText("Enter the 6-digit OTP here...");
+        this.contactEditBox.placeholder = Util.i18NText("Enter Phone Number here...");
         ProfileOtpDialog.newErrLabel.string = "";
         this.editBox.enabled = true;
         this.dialingCode = Profile.getValue(DIALING_CODE) ?? "+91";
@@ -159,21 +165,49 @@ export default class ProfileOtpDialog extends cc.Component {
                 cc.log('custom auth', ProfileOtpDialog.customAuthInfo);
                 this.login(ProfileOtpDialog.customAuthInfo.email, ProfileOtpDialog.otpCode);
             } catch (e) {
-                cc.log('error', e);
-                ProfileOtpDialog.showError("code is invalid or expired")
+                let errCode;
+                try {
+                    const errJson = JSON.parse(e.message);
+                    errCode = errJson.message
+                } catch (err) {
+                }
+                cc.log('error.toString()', errCode);
+                let errorMessage = "Something Went Wrong, Please Try Again";
+                if (!!errCode) {
+                    switch (errCode) {
+                        case "invalid-code":
+                            errorMessage = "code is invalid or expired";
+                            break;
+                        case "invalid-phone-number":
+                            errorMessage = "Invalid Phone Number";
+                            break;
+                        case "phone-number-already-used":
+                            errorMessage = "Phone number is already used"
+                            break;
+                        default:
+                            errorMessage = "Something Went Wrong, Please Try Again"
+                            break;
+                    }
+                }
+
+                ProfileOtpDialog.showError(errorMessage)
             }
         }
     }
     static showError(error: string) {
-        ProfileOtpDialog.newErrLabel.string = error;
-        ProfileOtpDialog.newconfirmBtn.interactable = true;
+        if (!!ProfileOtpDialog.newErrLabel) {
+            ProfileOtpDialog.newErrLabel.string = Util?.i18NText(error);
+        }
+        if (!!ProfileOtpDialog.newconfirmBtn) {
+            ProfileOtpDialog.newconfirmBtn.interactable = true;
+        }
     }
     private async login(email: string, password: string) {
         if (UtilLogger.isNetworkAvailable()) {
             UtilLogger.login(email, password);
         }
         else {
-            ProfileOtpDialog.showError("code is invalid or expired")
+            ProfileOtpDialog.showError("Something Went Wrong, Please Try Again")
             cc.log('web is not supported')
         }
     }

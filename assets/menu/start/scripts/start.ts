@@ -31,6 +31,7 @@ import ChimpleLabel from "../../../common/scripts/chimple-label";
 import PreTestDialog from "./preTestDialog";
 import StartHeader from "./startHeader";
 import { SECTION_LIST } from "../../../private/school/scripts/landing";
+import ReConnectPopup from "./reConnectPopup";
 
 
 const COMPLETE_AUDIOS = [
@@ -188,12 +189,19 @@ export default class Start extends cc.Component {
         ChapterLessons.showType = ChapterLessonType.Library;
         UtilLogger.syncFmcTokenForUsers();
         const mode = parseInt(Profile.getValue(CURRENTMODE))
+        if (mode == Mode.HomeConnect && !user.isConnected) {
+            this.showReConnectPopup("Your class code is expired");
+        }
+        else if (mode == Mode.Home && user.isConnected) {
+            this.showReConnectPopup("Re-Connect to your class using phone number");
+        }
+
         if (mode != Mode.School) {
             this.loading.active = true;
             this.assignments = await ServiceConfig.getI().handle.listAssignments(user.id)
             config.assignments = this.assignments;
             if (config.assignments.length > 0 || !user.isConnected) {
-                if (config.assignments.length > 0 && !user.isConnected) {
+                if (config.assignments.length > 0 && !user.isConnected && mode != Mode.HomeConnect) {
                     user.isConnected = true
                     user.storeUser()
                 }
@@ -264,6 +272,15 @@ export default class Start extends cc.Component {
         // user.sectionId = "D7qVA373VEKXtPeg7BEc";
         // user.studentId = "61oKRmXrCWSGkjN2KuCv";
 
+    }
+
+    private showReConnectPopup(msg: string, title: string = "Do you want to connect now?") {
+        const reConnectPopupNode = this.node.getChildByName("reconnect_popup");
+        if (reConnectPopupNode.active == false) {
+            reConnectPopupNode.getComponent(ReConnectPopup).msg.getComponent(ChimpleLabel).string = Util.i18NText(msg);
+            reConnectPopupNode.getComponent(ReConnectPopup).text.getComponent(ChimpleLabel).string = Util.i18NText(title);
+            reConnectPopupNode.active = true;
+        }
     }
 
     private initPage() {
@@ -421,7 +438,7 @@ export default class Start extends cc.Component {
         // ChapterLessons.showType = ChapterLessonType.Assignments
         // Config.i.pushScene('menu/start/scenes/chapterLessons', 'menu')
 
-            Config.i.pushScene('menu/Profile/scene/leaderboardProfile', 'menu')
+        Config.i.pushScene('menu/Profile/scene/leaderboardProfile', 'menu')
     }
 
     onFeaturedClick() {

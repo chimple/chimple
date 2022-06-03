@@ -71,12 +71,13 @@ export default class LeaderboardProfile extends cc.Component {
         this.user = User.getCurrentUser();
         this.loadUserImageOrAvatar(this.user, this.userNode);
         // console.log(AVATARS)
-        if (this.user.isConnected) {
+        const mode = parseInt(Profile.getValue(CURRENTMODE))
+        if (this.user.isConnected && mode != Mode.Home) {
             this.connectButton.interactable = false;
             this.connectButton.getComponentInChildren(cc.Label).string = "Connected";
             this.connectButton.node.color = new cc.Color(240, 88, 34);
         }
-        if (Profile.getValue(CURRENTMODE) == 3) {
+        if (Profile.getValue(CURRENTMODE) == Mode.School) {
             this.connectButton.node.active = false
         }
         if (this.user.schoolName) {
@@ -97,6 +98,9 @@ export default class LeaderboardProfile extends cc.Component {
         }
         console.log("this leaderboard", this.leaderboardJson)
         this.loadUi(true)
+        if ((mode == Mode.HomeConnect && !this.user.isConnected) || (mode == Mode.Home && this.user.isConnected)) {
+            this.otpDialog.active = true;
+        }
     }
 
     loadUi(thisweek: boolean) {

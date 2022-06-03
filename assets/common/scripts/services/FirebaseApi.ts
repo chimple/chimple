@@ -131,30 +131,31 @@ export class FirebaseApi implements ServiceApi {
         };
         let mode = parseInt(Profile.getValue(CURRENTMODE));
         let jsonResult = await ParseNetwork.getInstance().get(requestParams, null, this.getAuthHeader()) || [];
-        if (!!jsonResult && 'link' in jsonResult && !jsonResult.link) {
-            const user = User.getCurrentUser();
-            if (user != null) {
-                const key = `teacher_for_student_${User.getCurrentUser().id}`;
-                let teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
-                teachersForStudent = teachersForStudent.filter(e => e !== User.getCurrentUser().sectionName);
-                cc.sys.localStorage.setItem(key, JSON.stringify(teachersForStudent));
-                user.studentId = null;
-                user.sectionId = null;
-                user.schoolId = null;
-                user.schoolName = null;
-                user.sectionName = null;
-                user.isConnected = false;
-                user.storeUser();
+        if (mode != Mode.HomeConnect) {
+            if (!!jsonResult && 'link' in jsonResult && !jsonResult.link) {
+                const user = User.getCurrentUser();
+                if (user != null) {
+                    const key = `teacher_for_student_${User.getCurrentUser().id}`;
+                    let teachersForStudent: string[] = JSON.parse(cc.sys.localStorage.getItem(key) || '[]');
+                    teachersForStudent = teachersForStudent.filter(e => e !== User.getCurrentUser().sectionName);
+                    cc.sys.localStorage.setItem(key, JSON.stringify(teachersForStudent));
+                    user.studentId = null;
+                    user.sectionId = null;
+                    user.schoolId = null;
+                    user.schoolName = null;
+                    user.sectionName = null;
+                    user.isConnected = false;
+                    user.storeUser();
+                }
+            } else if (!!jsonResult.studentId && mode != Mode.School && mode != Mode.HomeConnect) {
+                const studentId: string = jsonResult.studentId;
+                const sectionId: string = jsonResult.sectionId;
+                const schoolId: string = jsonResult.schoolId;
+                const sectionName: string = jsonResult.sectionName;
+                const schoolName: string = jsonResult.schoolName;
+                UtilLogger.processLinkStudent(sectionId, schoolId, studentId, schoolName, sectionName, null);
             }
-        } else if (!!jsonResult.studentId && mode != Mode.School && mode != Mode.HomeConnect) {
-            const studentId: string = jsonResult.studentId;
-            const sectionId: string = jsonResult.sectionId;
-            const schoolId: string = jsonResult.schoolId;
-            const sectionName: string = jsonResult.sectionName;
-            const schoolName: string = jsonResult.schoolName;
-            UtilLogger.processLinkStudent(sectionId, schoolId, studentId, schoolName, sectionName, null);
         }
-
         console.log('assignments query result', jsonResult)
         this.buildAssignments(assignments, [].concat(jsonResult.results));
         return assignments.reverse();
