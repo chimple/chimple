@@ -389,7 +389,10 @@ export default class LessonController extends cc.Component {
     private async lessonEnd() {
         Util.playSfx(this.startAudio);
         const config = Config.getInstance();
-        const timeSpent = Math.ceil((new Date().getTime() - this.lessonStartTime) / 1000);
+        let timeSpent = Math.ceil((new Date().getTime() - this.lessonStartTime) / 1000);
+        if (Math.abs(timeSpent) > 1200) {
+            timeSpent = 1200
+        }
         let score: number = Math.round(this.totalQuizzes > 0
             ? this.quizScore / this.totalQuizzes * 70 + this.rightMoves / (this.rightMoves + this.wrongMoves) * 30
             : this.rightMoves / (this.rightMoves + this.wrongMoves) * 100);
