@@ -36,8 +36,7 @@ export default class Buttons extends cc.Component {
             studentMap = JSON.parse(student.profileInfo)
           }
           cc.log("studentJson1", studentJson)
-          cc.log("studentMap", studentMap)
-
+          const isConnected = user.isConnected;
           if (!!student && !!studentMap?.courseProgressMap) {
             user = User.fromJson(student.profileInfo);
             cc.log('studentJson1 user json ', user?.id,
@@ -65,6 +64,7 @@ export default class Buttons extends cc.Component {
               user?.last5Lessons
             )
           }
+          user.isConnected = isConnected;
           User.setCurrentUser(user);
           User.syncProfile();
           Util.preloadStartScene(this.node, cc.director.getScene().getChildByName("Canvas").getChildByName('loading'))

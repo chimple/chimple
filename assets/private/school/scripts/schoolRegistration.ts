@@ -15,7 +15,7 @@ import { SECTION_LIST, SELECT_SECTIONS_SCENE } from "./landing";
 import { ParseConnection } from "../../../common/scripts/domain/parseConnection";
 import UtilLogger from "../../../common/scripts/util-logger";
 import { CURRENT_SCHOOL_ID, Mode, School, Section, IS_REMEMBER_TOGGLE_ON, REMEMBERED_USER } from "../../../common/scripts/lib/constants";
-import Profile, { CURRENTMODE, IN_LOGIN_FLOW } from "../../../common/scripts/lib/profile";
+import Profile, { CURRENTMODE, IN_LOGIN_FLOW, User } from "../../../common/scripts/lib/profile";
 
 export enum EditOptions {
     SchoolCodeChanged = "0",
@@ -46,11 +46,18 @@ cc.loginSucceeded = async function (schoolInfo: string) {
 
 //@ts-ignore
 cc.loginFailed = async function (reason) {
-    SchoolRegistration.registrationNode.getComponent(cc.Button).interactable = true;
-    SchoolRegistration.registrationNode.parent.getChildByName('block').active = false;
-    SchoolRegistration.loading.active = false
-    SchoolRegistration.warning.active = true
-    cc.log("loginFailed: " + reason);
+    try {
+        cc.log("user in scool register schoolId", reason);
+        UtilLogger.processLoginFail();
+        SchoolRegistration.registrationNode.getComponent(cc.Button).interactable = true;
+        SchoolRegistration.registrationNode.parent.getChildByName('block').active = false;
+        SchoolRegistration.loading.active = false
+        SchoolRegistration.warning.active = true
+        cc.log("loginFailed: " + reason);
+    } catch (error) {
+        cc.log("error in login fialed");
+        cc.log(error)
+    }
 }
 
 @ccclass
