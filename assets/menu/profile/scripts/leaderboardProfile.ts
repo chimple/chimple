@@ -88,8 +88,8 @@ export default class LeaderboardProfile extends cc.Component {
         }
         this.userNode.getComponentInChildren(cc.Label).string = this.user.name;
         this.leaderboardJson = await ServiceConfig.getI().handle.getLeaderboard(this.user.id, this.user.sectionId, this.user.schoolId,);
-        this.weeklyIndex = this.leaderboardJson.weekly.map((v: StudentLeaderboardInfo) => v.userId).indexOf(this.user.id);
-        this.allTimeIndex = this.leaderboardJson.allTime.map((v: StudentLeaderboardInfo) => v.userId).indexOf(this.user.id);
+        this.weeklyIndex = this.leaderboardJson?.weekly?.map((v: StudentLeaderboardInfo) => v.userId)?.indexOf(this.user.id) ?? 0;
+        this.allTimeIndex = this.leaderboardJson?.allTime?.map((v: StudentLeaderboardInfo) => v.userId)?.indexOf(this.user.id) ?? 0;
         if (this.weeklyIndex >= 0) {
             this.weeklyRank.getComponent(cc.Label).string = Util?.i18NText("This week rank") + " : " + (this.weeklyIndex + 1).toString() + " ";
         }
@@ -106,13 +106,13 @@ export default class LeaderboardProfile extends cc.Component {
     loadUi(thisweek: boolean) {
         this.hideLoading()
         this.leaderboardlayout.removeAllChildren();
-        const studentList: StudentLeaderboardInfo[] = thisweek ? this.leaderboardJson.weekly : this.leaderboardJson.allTime;
+        const studentList: StudentLeaderboardInfo[] = thisweek ? this.leaderboardJson?.weekly : this.leaderboardJson?.allTime;
         const currentUserColor = new cc.Color(255, 85, 0);
         const availableWidth = cc.winSize.width - this.weeklyRank.parent.width;
         const student = cc.instantiate(this.userPrefab)
         const noOfColums: number = (((student.width * 3) <= availableWidth) ? 3 : (((student.width * 2) <= availableWidth) ? 2 : 1));
         const studentWidth = (availableWidth / noOfColums) - 10;
-        for (let i = 0; i < studentList.length; i++) {
+        for (let i = 0; i < studentList?.length; i++) {
             const isCurrentUser = thisweek ? (this.weeklyIndex === i) : (this.allTimeIndex === i);
             const totalScore = studentList[i].lessonsPlayed.toString();
             // const totalScore = studentList[i].total?.toFixed(0)?.toString();
