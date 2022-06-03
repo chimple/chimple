@@ -237,7 +237,7 @@ export class ParseNetwork {
             cc.log('result:', result);
             if (!result.ok) {
                 cc.log('processing failed to due:', result.data);
-                throw Error('processing failed to due: ' + result.data);
+                throw Error(JSON.stringify(result.data));
             }
         } catch (e) {
             cc.log('exception:', e);

@@ -844,6 +844,27 @@ export default class UtilLogger {
         cc.sys.localStorage.setItem(key, JSON.stringify(teachersForStudent));
         cc.log('LOAD prestart scene');
     }
+
+    public static processLoginFail() {
+        const mode = parseInt(Profile.getValue(CURRENTMODE))
+        cc.log('processLoginFail...');
+        if (mode == Mode.HomeConnect) {
+            const currentUser = User.getCurrentUser();
+            if (!!currentUser) {
+                cc.log('processLoginFail... current User', User.toJson(currentUser));
+                currentUser.isConnected = false;
+                currentUser.storeUser();
+            }
+            User.getUsers().forEach((user) => {
+                const schoolId = cc.sys.localStorage.getItem('SCHOOL_USER');
+                if (user?.schoolId === schoolId) {
+                    user.isConnected = false;
+                    user.storeUser();
+                }
+            });
+        }
+    }
+
     public static mergeUser(fromUser: User, toUser: User): User {
         console.log("mergeing user")
         if (!fromUser || !toUser) return toUser;
