@@ -189,7 +189,7 @@ export default class Start extends cc.Component {
         ChapterLessons.showType = ChapterLessonType.Library;
         UtilLogger.syncFmcTokenForUsers();
         const mode = parseInt(Profile.getValue(CURRENTMODE))
-        if (mode == Mode.HomeConnect && !user.isConnected) {
+        if (mode == Mode.HomeConnect && !user.isConnected && !!user.schoolId) {
             this.showReConnectPopup("Your class code is expired");
         }
         else if (mode == Mode.Home && user.isConnected) {
