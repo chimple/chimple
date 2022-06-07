@@ -125,6 +125,7 @@ export default class Start extends cc.Component {
     previousHash: number;
     assignPopupActive: boolean = true;
     gift: cc.Node
+    disableGiftBoxNodeFlag: boolean = false;
 
     async onLoad() {
         const user = User.getCurrentUser()
@@ -635,7 +636,7 @@ export default class Start extends cc.Component {
         } else {
             //if courseId == ASSIGNMENT_COURSE_ID Disabling giftBox and rewardBg 
             this.node.getChildByName('rewardBg').active = false
-            this.node.getChildByName('giftBox').active = false
+            if (this.disableGiftBoxNodeFlag) this.node.getChildByName('giftBox').active = false
             const label = new cc.Node()
             const chimpleLabel = label.addComponent(ChimpleLabel)
             chimpleLabel.string = 'No lessons found. Try another subject'
@@ -907,6 +908,20 @@ export default class Start extends cc.Component {
                 this.node.getChildByName('giftBox').children[0].getChildByName(image.name).width = scale * size.width;
                 this.node.getChildByName('giftBox').children[0].getChildByName(image.name).height = scale * size.height;
             }
+        }
+
+        console.log('addGiftBox called', Config.i.course.id)
+        const user = User.getCurrentUser()
+        const courseProgressMap = user.courseProgressMap.get(Config.i.course.id);
+
+        if (!this.disableGiftBoxNodeFlag && user.isConnected && Config.i.course.id == ASSIGNMENT_COURSE_ID
+            && (courseProgressMap.lessonPlan == null || courseProgressMap.lessonPlan.length <= 0)) {
+            console.log('if called')
+            this.node.getChildByName('giftBox').active = false
+            this.disableGiftBoxNodeFlag = true
+        } else if (User.getCurrentUser().isConnected && Config.i.course.id != ASSIGNMENT_COURSE_ID) {
+            console.log('if called')
+            this.disableGiftBoxNodeFlag = true
         }
 
     }
