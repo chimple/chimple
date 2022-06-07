@@ -1007,7 +1007,7 @@ export class ParseApi implements ServiceApi {
         return null;
     }
 
-    async customAuth(code: string, phoneNumber: string, countryCode: string, progressId: string): Promise<CustomAuthInfo> {
+    async customAuth(code: string, phoneNumber: string, countryCode: string, progressId: string, isSecondProfile: boolean, schoolId: string): Promise<CustomAuthInfo> {
         return null;
     }
 }

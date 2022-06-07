@@ -20,7 +20,7 @@ export interface ServiceApi {
 
     getLeaderboard(studentId: string, sectionId: string, schoolId: string): Promise<LeaderboardInfo>;
 
-    customAuth(code: string, phoneNumber: string, countryCode: string, progressId: string): Promise<CustomAuthInfo>;
+    customAuth(code: string, phoneNumber: string, countryCode: string, progressId: string, isSecondProfile: boolean, schoolId: string): Promise<CustomAuthInfo>;
 
 }
 

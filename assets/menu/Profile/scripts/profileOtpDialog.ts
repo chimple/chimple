@@ -19,21 +19,7 @@ cc.loginSucceeded = async function (schoolInfo: string) {
             const school: School = JSON.parse(schoolInfo);
             cc.sys.localStorage.setItem('SCHOOL_USER', ProfileOtpDialog.customAuthInfo.schoolId);
             cc.sys.localStorage.setItem('SCHOOL_CODE', school.schoolCode);
-            Profile.setItem(CURRENTMODE, Mode.HomeConnect);
-            UtilLogger.processNewLinkStudent(ProfileOtpDialog.customAuthInfo, ProfileOtpDialog.otpCode);
-            const s = ProfileOtpDialog.customAuthInfo.schoolName ? ProfileOtpDialog.customAuthInfo.schoolName : '';
-            const sec = ProfileOtpDialog.customAuthInfo.sectionName ? ProfileOtpDialog.customAuthInfo.sectionName : '';
-            ProfileOtpDialog.newParentNode.getComponentInChildren(cc.Label).string = Util.i18NText("Connected");
-            ProfileOtpDialog.newParentNode.node.color = new cc.Color(240, 88, 34);
-            if (s) {
-                ProfileOtpDialog.newSchoolName.getComponent(cc.Label).string = Util.i18NText("School") + " : " + s
-            }
-            if (sec) {
-                ProfileOtpDialog.newClassName.getComponent(cc.Label).string = Util.i18NText("Class  :") + " " + sec
-            }
-            ProfileOtpDialog.hideLoading();
-            ProfileOtpDialog.newParentNode.interactable = false;
-            ProfileOtpDialog.newNode.active = false;
+            ProfileOtpDialog.onLoginSuccess();
         }
         else {
             ProfileOtpDialog.showError("code is invalid or expired")
@@ -103,6 +89,7 @@ export default class ProfileOtpDialog extends cc.Component {
 
     dialingCode: string;
     contactFieldValue: string = "";
+    oldSchoolId: string;
 
     constructor() {
         super();
@@ -186,10 +173,15 @@ export default class ProfileOtpDialog extends cc.Component {
             // send request
             this.showLoading();
             try {
+                const isSecondProfile = this.isSecondConnectedProfile();
                 cc.log('getting custom auth...', ProfileOtpDialog.otpCode, phoneNumber, dial_code, studentId)
-                ProfileOtpDialog.customAuthInfo = await ServiceConfig.getI().handle.customAuth(ProfileOtpDialog.otpCode, phoneNumber, dial_code, studentId);
+                ProfileOtpDialog.customAuthInfo = await ServiceConfig.getI().handle.customAuth(ProfileOtpDialog.otpCode, phoneNumber, dial_code, studentId, isSecondProfile, this.oldSchoolId);
                 cc.log('custom auth', ProfileOtpDialog.customAuthInfo);
-                this.login(ProfileOtpDialog.customAuthInfo.email, ProfileOtpDialog.otpCode);
+                if (isSecondProfile) {
+                    ProfileOtpDialog.onLoginSuccess();
+                } else {
+                    this.login(ProfileOtpDialog.customAuthInfo.email, ProfileOtpDialog.otpCode);
+                }
             } catch (e) {
                 let errCode;
                 try {
@@ -240,6 +232,41 @@ export default class ProfileOtpDialog extends cc.Component {
         else {
             ProfileOtpDialog.showError("Something Went Wrong, Please Try Again")
             cc.log('web is not supported')
+        }
+    }
+    private isSecondConnectedProfile(): boolean {
+        if (User.getUsers().length <= 1) {
+            return false;
+        }
+        for (const usr of User.getUsers()) {
+            if (usr.isConnected && !!usr.schoolId && !!usr.studentId) {
+                this.oldSchoolId = usr.schoolId;
+                return true;
+            }
+        }
+        return false
+    }
+
+    static onLoginSuccess() {
+        try {
+            Profile.setItem(CURRENTMODE, Mode.HomeConnect);
+            UtilLogger.processNewLinkStudent(ProfileOtpDialog.customAuthInfo, ProfileOtpDialog.otpCode);
+            const s = ProfileOtpDialog.customAuthInfo.schoolName ? ProfileOtpDialog.customAuthInfo.schoolName : '';
+            const sec = ProfileOtpDialog.customAuthInfo.sectionName ? ProfileOtpDialog.customAuthInfo.sectionName : '';
+            ProfileOtpDialog.newParentNode.getComponentInChildren(cc.Label).string = Util.i18NText("Connected");
+            ProfileOtpDialog.newParentNode.node.color = new cc.Color(240, 88, 34);
+            if (s) {
+                ProfileOtpDialog.newSchoolName.getComponent(cc.Label).string = Util.i18NText("School") + " : " + s
+            }
+            if (sec) {
+                ProfileOtpDialog.newClassName.getComponent(cc.Label).string = Util.i18NText("Class  :") + " " + sec
+            }
+            ProfileOtpDialog.hideLoading();
+            ProfileOtpDialog.newParentNode.interactable = false;
+            ProfileOtpDialog.newNode.active = false;
+        } catch (error) {
+            ProfileOtpDialog.showError("code is invalid or expired")
+
         }
     }
 }
