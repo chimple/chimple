@@ -50,7 +50,7 @@ export class ApiHandler {
     public async getLeaderboard(studentId: string, sectionId: string, schoolId: string): Promise<LeaderboardInfo> {
         return await this.s.getLeaderboard(studentId, sectionId, schoolId);
     }
-    public async customAuth(code: string, phoneNumber: string, countryCode: string, progressId:string, isSecondProfile: boolean, schoolId: string): Promise<CustomAuthInfo> {
-        return await this.s.customAuth(code, phoneNumber, countryCode, progressId, isSecondProfile, schoolId);
+    public async customAuth(code: string, phoneNumber: string, progressId:string, isSecondProfile: boolean, schoolId: string): Promise<CustomAuthInfo> {
+        return await this.s.customAuth(code, phoneNumber, progressId, isSecondProfile, schoolId);
     }
 }

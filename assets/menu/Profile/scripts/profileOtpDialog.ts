@@ -67,9 +67,6 @@ export default class ProfileOtpDialog extends cc.Component {
     @property(cc.Node)
     className: cc.Node = null;
 
-    @property(cc.Label)
-    dialingCodeLabel: cc.Label = null;
-
     @property(cc.EditBox)
     contactEditBox: cc.EditBox = null;
 
@@ -88,7 +85,6 @@ export default class ProfileOtpDialog extends cc.Component {
     static node: cc.Node;
 
     dialingCode: string;
-    contactFieldValue: string = "";
     oldSchoolId: string;
 
     constructor() {
@@ -114,11 +110,9 @@ export default class ProfileOtpDialog extends cc.Component {
         this.editBox.enabled = true;
         this.dialingCode = Profile.getValue(DIALING_CODE) ?? "+91";
         let contact = Profile.getValue(CONTACT);
-        this.dialingCodeLabel.string = this.dialingCode;
         if (contact) {
             contact = contact.substring(this.dialingCode.length);
             this.contactEditBox.string = contact;
-            this.contactFieldValue = contact;
         }
     }
 
@@ -165,7 +159,7 @@ export default class ProfileOtpDialog extends cc.Component {
     async onSendLinkStudentRequest() {
         const studentId: string = User.getCurrentUser().id;
         ProfileOtpDialog.otpCode = this.editBox.string;
-        const dial_code = this.dialingCodeLabel.string;
+        // const dial_code = this.dialingCodeLabel.string;
         const phoneNumber = this.contactEditBox.string;
         if (!!studentId && !!ProfileOtpDialog.otpCode) {
             ProfileOtpDialog.newconfirmBtn.interactable = false;
@@ -174,8 +168,8 @@ export default class ProfileOtpDialog extends cc.Component {
             this.showLoading();
             try {
                 const isSecondProfile = this.isSecondConnectedProfile();
-                cc.log('getting custom auth...', ProfileOtpDialog.otpCode, phoneNumber, dial_code, studentId)
-                ProfileOtpDialog.customAuthInfo = await ServiceConfig.getI().handle.customAuth(ProfileOtpDialog.otpCode, phoneNumber, dial_code, studentId, isSecondProfile, this.oldSchoolId);
+                cc.log('getting custom auth...', ProfileOtpDialog.otpCode, phoneNumber, studentId)
+                ProfileOtpDialog.customAuthInfo = await ServiceConfig.getI().handle.customAuth(ProfileOtpDialog.otpCode, phoneNumber, studentId, isSecondProfile, this.oldSchoolId);
                 cc.log('custom auth', ProfileOtpDialog.customAuthInfo);
                 if (isSecondProfile) {
                     ProfileOtpDialog.onLoginSuccess();

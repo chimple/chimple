@@ -283,7 +283,7 @@ export class FirebaseApi implements ServiceApi {
         }
     }
 
-    async customAuth(code: string, phoneNumber: string, countryCode: string, progressId: string, isSecondProfile: boolean, schoolId: string): Promise<CustomAuthInfo> {
+    async customAuth(code: string, phoneNumber: string, progressId: string, isSecondProfile: boolean, schoolId: string): Promise<CustomAuthInfo> {
         if (progressId && progressId.length > 0 &&
             code && code.length > 0) {
             let sendCode = Number(code);
@@ -294,7 +294,6 @@ export class FirebaseApi implements ServiceApi {
                     code: sendCode,
                     version: 2,
                     phoneNumber: phoneNumber,
-                    countryCode: countryCode,
                     isSecondProfile: isSecondProfile,
                     schoolId: schoolId
                 }
