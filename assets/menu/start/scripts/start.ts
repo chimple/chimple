@@ -910,8 +910,17 @@ export default class Start extends cc.Component {
             }
         }
 
-        if (this.disableGiftBoxNodeFlag) {
+        console.log('addGiftBox called', Config.i.course.id)
+        const user = User.getCurrentUser()
+        const courseProgressMap = user.courseProgressMap.get(Config.i.course.id);
+
+        if (!this.disableGiftBoxNodeFlag && user.isConnected && Config.i.course.id == ASSIGNMENT_COURSE_ID
+            && (courseProgressMap.lessonPlan == null || courseProgressMap.lessonPlan.length <= 0)) {
+            console.log('if called')
             this.node.getChildByName('giftBox').active = false
+            this.disableGiftBoxNodeFlag = true
+        } else if (User.getCurrentUser().isConnected && Config.i.course.id != ASSIGNMENT_COURSE_ID) {
+            console.log('if called')
             this.disableGiftBoxNodeFlag = true
         }
 
