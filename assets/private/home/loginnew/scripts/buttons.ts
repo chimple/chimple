@@ -33,7 +33,9 @@ export default class Buttons extends cc.Component {
           let studentMap;
           if (!!studentJson) {
             student = JSON.parse(studentJson)
-            studentMap = JSON.parse(student.profileInfo)
+            if (!!student?.profileInfo) {
+              studentMap = JSON.parse(student?.profileInfo)
+            }
           }
           cc.log("studentJson1", studentJson)
           const isConnected = user.isConnected;
