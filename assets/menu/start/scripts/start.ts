@@ -144,59 +144,7 @@ export default class Start extends cc.Component {
         //     this.drawer.active = true
         // })
         const config = Config.i
-        if (!config.course) {
-            config.course = this.getNextCourse()
-            config.startCourse = config.course
-        } else {
-            config.unsetRewardChapter()
-            config.course = config.startCourse
-        }
-        // this.library.string = config.course.name
-        // Util.load(config.course.id + '/course/res/icons/' + config.course.id + '.png', (err: Error, texture) => {
-        //     this.librarySprite.spriteFrame = err ? null : new cc.SpriteFrame(texture);
-        // })
-
-        const startAction = config.startAction
-        this.gift = cc.instantiate(this.giftBoxPrefab)
-        user.curriculumLoaded
-            ? this.initPage()
-            : config.loadCourseJsons(user, this.node, this.initPage.bind(this))
-
-        Util.loadFriend((node: cc.Node) => {
-            this.friend = node
-            node.scale = 0.8
-            this.node.addChild(this.friend)
-            node.y = -cc.winSize.height / 2 + 16
-            node.x = cc.winSize.width / 3.25
-            Util.loadAccessoriesAndEquipAcc(node.children[1], node)
-            const friendComp = this.friend.getComponent(Friend)
-            switch (startAction) {
-                case StartAction.Start:
-                    friendComp.helpFile = 'start'
-                    break;
-                case StartAction.MoveLessonPlan:
-                    friendComp.helpFile = COMPLETE_AUDIOS[Math.floor(Math.random() * COMPLETE_AUDIOS.length)]
-
-                    break;
-                case StartAction.LessonComplete:
-                    friendComp.helpFile = COMPLETE_AUDIOS[Math.floor(Math.random() * COMPLETE_AUDIOS.length)]
-                    break;
-                case StartAction.Default:
-                    friendComp.helpFile = DEFAULT_AUDIOS[Math.floor(Math.random() * DEFAULT_AUDIOS.length)]
-                    break;
-            }
-            friendComp.speakHelp(true)
-        })
-        ChapterLessons.showType = ChapterLessonType.Library;
-        UtilLogger.syncFmcTokenForUsers();
         const mode = parseInt(Profile.getValue(CURRENTMODE))
-        if (mode == Mode.HomeConnect && !user.isConnected && !!user.schoolId) {
-            this.showReConnectPopup("Your class code is expired");
-        }
-        else if (mode == Mode.Home && user.isConnected) {
-            this.showReConnectPopup("Re-Connect to your class using phone number");
-        }
-
         if (mode != Mode.School) {
             this.loading.active = true;
             this.assignments = await ServiceConfig.getI().handle.listAssignments(user.id)
@@ -258,6 +206,57 @@ export default class Start extends cc.Component {
             })
 
             this.loading.active = false;
+        }
+        if (!config.course) {
+            config.course = this.getNextCourse()
+            config.startCourse = config.course
+        } else {
+            config.unsetRewardChapter()
+            config.course = config.startCourse
+        }
+        // this.library.string = config.course.name
+        // Util.load(config.course.id + '/course/res/icons/' + config.course.id + '.png', (err: Error, texture) => {
+        //     this.librarySprite.spriteFrame = err ? null : new cc.SpriteFrame(texture);
+        // })
+
+        const startAction = config.startAction
+        this.gift = cc.instantiate(this.giftBoxPrefab)
+        user.curriculumLoaded
+            ? this.initPage()
+            : config.loadCourseJsons(user, this.node, this.initPage.bind(this))
+
+        Util.loadFriend((node: cc.Node) => {
+            this.friend = node
+            node.scale = 0.8
+            this.node.addChild(this.friend)
+            node.y = -cc.winSize.height / 2 + 16
+            node.x = cc.winSize.width / 3.25
+            Util.loadAccessoriesAndEquipAcc(node.children[1], node)
+            const friendComp = this.friend.getComponent(Friend)
+            switch (startAction) {
+                case StartAction.Start:
+                    friendComp.helpFile = 'start'
+                    break;
+                case StartAction.MoveLessonPlan:
+                    friendComp.helpFile = COMPLETE_AUDIOS[Math.floor(Math.random() * COMPLETE_AUDIOS.length)]
+
+                    break;
+                case StartAction.LessonComplete:
+                    friendComp.helpFile = COMPLETE_AUDIOS[Math.floor(Math.random() * COMPLETE_AUDIOS.length)]
+                    break;
+                case StartAction.Default:
+                    friendComp.helpFile = DEFAULT_AUDIOS[Math.floor(Math.random() * DEFAULT_AUDIOS.length)]
+                    break;
+            }
+            friendComp.speakHelp(true)
+        })
+        ChapterLessons.showType = ChapterLessonType.Library;
+        UtilLogger.syncFmcTokenForUsers();
+        if (mode == Mode.HomeConnect && !user.isConnected && !!user.schoolId) {
+            this.showReConnectPopup("Your class code is expired");
+        }
+        else if (mode == Mode.Home && user.isConnected) {
+            this.showReConnectPopup("Re-Connect to your class using phone number");
         }
 
         // Sample Code for offline sync
@@ -327,9 +326,12 @@ export default class Start extends cc.Component {
         }
         const mode = parseInt(Profile.getValue(CURRENTMODE))
         if (User.getCurrentUser().isConnected && mode != Mode.School) {
-            return Config.i.curriculum.get(ar[0]);
+            if (!!Config.i.assignments && Config.i.assignments.length > 0) {
+                return Config.i.curriculum.get(ASSIGNMENT_COURSE_ID);
+            }
+            return Config.i.curriculum.get(ar[0] === ASSIGNMENT_COURSE_ID ? ar[1] : ar[0]);
         } else {
-            return Config.i.curriculum.get(ar[1] === 'assignment' ? ar[0] : ar[1]);
+            return Config.i.curriculum.get(ar[1] === ASSIGNMENT_COURSE_ID ? ar[0] : ar[1]);
         }
     }
 
