@@ -105,7 +105,7 @@ export default class ProfileOtpDialog extends cc.Component {
         this.createLoading()
         this.btnLabel.string = Util.i18NText("Confirm");
         this.editBox.placeholder = Util.i18NText("Enter the 6-digit OTP here...");
-        this.contactEditBox.placeholder = Util.i18NText("Enter Phone Number here...");
+        this.contactEditBox.placeholder = Util.i18NText("Enter ID here...");
         ProfileOtpDialog.newErrLabel.string = "";
         this.editBox.enabled = true;
         this.dialingCode = Profile.getValue(DIALING_CODE) ?? "+91";
