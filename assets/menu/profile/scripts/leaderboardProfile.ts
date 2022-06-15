@@ -167,6 +167,7 @@ export default class LeaderboardProfile extends cc.Component {
                 student.getChildByName('name').getComponent(cc.Label).string = maskedName;
                 if (isCurrentUser) {
                     student.getChildByName('name').color = currentUserColor;
+                    student.getChildByName('bg').active = true;
                 }
                 student.width = studentWidth;
                 this.loadRandomAvatar(student.getChildByName('user'), isCurrentUser);
