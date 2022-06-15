@@ -192,13 +192,13 @@ export default class ProfileOtpDialog extends cc.Component {
                 if (!!errCode) {
                     switch (errCode) {
                         case "invalid-code":
-                            errorMessage = "code is invalid or expired";
+                            errorMessage = "Class code is invalid or expired";
                             break;
                         case "invalid-phone-number":
-                            errorMessage = "Invalid Phone Number";
+                            errorMessage = "Invalid Student ID";
                             break;
                         case "phone-number-already-used":
-                            errorMessage = "Phone number is already used"
+                            errorMessage = "Student ID is already used"
                             break;
                         default:
                             errorMessage = "Something Went Wrong, Please Try Again"
