@@ -101,8 +101,9 @@ export default class ProfileOtpDialog extends cc.Component {
         ProfileOtpDialog.newSchoolName = this.schoolName;
         ProfileOtpDialog.newNode = this.node;
         this.createLoading()
-
+        this.setDefaultText()
         this.editBox.enabled = true;
+        this.editBox.string = "";
         this.dialingCode = Profile.getValue(DIALING_CODE) ?? "+91";
         let contact = Profile.getValue(CONTACT);
         if (contact) {
@@ -119,11 +120,10 @@ export default class ProfileOtpDialog extends cc.Component {
         this.contactEditBox.placeholderLabel.string = "";
     }
     setDefaultText() {
-        this.title.string = Util.i18NText("Ask your teacher for the class code and enter it there");
-        this.editBox.string = "";
+        this.title.string = Util.i18NText("Please enter the details shared by your teacher below:");
         this.btnLabel.string = Util.i18NText("Confirm");
-        this.editBox.placeholder = Util.i18NText("Enter the 6-digit OTP here...");
-        this.contactEditBox.placeholder = Util.i18NText("Enter ID here...");
+        this.editBox.placeholder = Util.i18NText("Enter the class code here");
+        this.contactEditBox.placeholder = Util.i18NText("Enter Student ID here");
         ProfileOtpDialog.newErrLabel.string = "";
     }
 
