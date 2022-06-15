@@ -131,6 +131,9 @@ export default class LeaderboardProfile extends cc.Component {
                 }
             } else {
                 this.userNode.getChildByName('starscore').getComponentInChildren(cc.Label).string = totalScore;
+                if (!!this.user?.name) {
+                    maskedName = this.user.name;
+                }
             }
             if (maskedName.length > 6) {
                 maskedName = maskedName.substring(0, 5) + '..'
