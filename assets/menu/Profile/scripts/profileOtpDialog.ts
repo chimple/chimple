@@ -92,8 +92,6 @@ export default class ProfileOtpDialog extends cc.Component {
     }
     @catchError()
     protected onLoad() {
-        this.title.string = Util.i18NText("Ask your teacher for the class code and enter it there");
-        this.editBox.string = "";
         ProfileOtpDialog.node = this.node;
         ProfileOtpDialog.newconfirmBtn = this.confirmBtn;
         ProfileOtpDialog.newErrLabel = this.errLabel;
@@ -103,10 +101,7 @@ export default class ProfileOtpDialog extends cc.Component {
         ProfileOtpDialog.newSchoolName = this.schoolName;
         ProfileOtpDialog.newNode = this.node;
         this.createLoading()
-        this.btnLabel.string = Util.i18NText("Confirm");
-        this.editBox.placeholder = Util.i18NText("Enter the 6-digit OTP here...");
-        this.contactEditBox.placeholder = Util.i18NText("Enter ID here...");
-        ProfileOtpDialog.newErrLabel.string = "";
+
         this.editBox.enabled = true;
         this.dialingCode = Profile.getValue(DIALING_CODE) ?? "+91";
         let contact = Profile.getValue(CONTACT);
@@ -123,6 +118,14 @@ export default class ProfileOtpDialog extends cc.Component {
     onPhoneEditBegan() {
         this.contactEditBox.placeholderLabel.string = "";
     }
+    setDefaultText() {
+        this.title.string = Util.i18NText("Ask your teacher for the class code and enter it there");
+        this.editBox.string = "";
+        this.btnLabel.string = Util.i18NText("Confirm");
+        this.editBox.placeholder = Util.i18NText("Enter the 6-digit OTP here...");
+        this.contactEditBox.placeholder = Util.i18NText("Enter ID here...");
+        ProfileOtpDialog.newErrLabel.string = "";
+    }
 
 
     onTextChanged() {
@@ -137,6 +140,7 @@ export default class ProfileOtpDialog extends cc.Component {
 
     onOtpClose() {
         this.node.active = false;
+        this.setDefaultText()
         ProfileOtpDialog?.hideLoading();
     }
 
