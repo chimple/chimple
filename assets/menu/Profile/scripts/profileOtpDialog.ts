@@ -92,8 +92,6 @@ export default class ProfileOtpDialog extends cc.Component {
     }
     @catchError()
     protected onLoad() {
-        this.title.string = Util.i18NText("Ask your teacher for the class code and enter it there");
-        this.editBox.string = "";
         ProfileOtpDialog.node = this.node;
         ProfileOtpDialog.newconfirmBtn = this.confirmBtn;
         ProfileOtpDialog.newErrLabel = this.errLabel;
@@ -103,11 +101,9 @@ export default class ProfileOtpDialog extends cc.Component {
         ProfileOtpDialog.newSchoolName = this.schoolName;
         ProfileOtpDialog.newNode = this.node;
         this.createLoading()
-        this.btnLabel.string = Util.i18NText("Confirm");
-        this.editBox.placeholder = Util.i18NText("Enter the 6-digit OTP here...");
-        this.contactEditBox.placeholder = Util.i18NText("Enter ID here...");
-        ProfileOtpDialog.newErrLabel.string = "";
+        this.setDefaultText()
         this.editBox.enabled = true;
+        this.editBox.string = "";
         this.dialingCode = Profile.getValue(DIALING_CODE) ?? "+91";
         let contact = Profile.getValue(CONTACT);
         if (contact) {
@@ -123,6 +119,13 @@ export default class ProfileOtpDialog extends cc.Component {
     onPhoneEditBegan() {
         this.contactEditBox.placeholderLabel.string = "";
     }
+    setDefaultText() {
+        this.title.string = Util.i18NText("Please enter the details shared by your teacher below:");
+        this.btnLabel.string = Util.i18NText("Confirm");
+        this.editBox.placeholder = Util.i18NText("Enter the class code here");
+        this.contactEditBox.placeholder = Util.i18NText("Enter Student ID here");
+        ProfileOtpDialog.newErrLabel.string = "";
+    }
 
 
     onTextChanged() {
@@ -137,6 +140,7 @@ export default class ProfileOtpDialog extends cc.Component {
 
     onOtpClose() {
         this.node.active = false;
+        this.setDefaultText()
         ProfileOtpDialog?.hideLoading();
     }
 
@@ -188,13 +192,13 @@ export default class ProfileOtpDialog extends cc.Component {
                 if (!!errCode) {
                     switch (errCode) {
                         case "invalid-code":
-                            errorMessage = "code is invalid or expired";
+                            errorMessage = "Class code is invalid or expired";
                             break;
                         case "invalid-phone-number":
-                            errorMessage = "Invalid Phone Number";
+                            errorMessage = "Invalid Student ID";
                             break;
                         case "phone-number-already-used":
-                            errorMessage = "Phone number is already used"
+                            errorMessage = "Student ID is already used"
                             break;
                         default:
                             errorMessage = "Something Went Wrong, Please Try Again"

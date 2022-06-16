@@ -5921,7 +5921,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 450,
+      "width": 500,
       "height": 80
     },
     "_anchorPoint": {
@@ -5973,8 +5973,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "Ask your teacher for the class code and enter it there",
-    "_N$string": "Ask your teacher for the class code and enter it there",
+    "_string": "Please enter the details shared by your teacher below:",
+    "_N$string": "Please enter the details shared by your teacher below:",
     "_fontSize": 36,
     "_lineHeight": 60,
     "_enableWrapText": true,
@@ -6031,8 +6031,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -270.812,
-        190.065,
+        -275.754,
+        196.654,
         0,
         0,
         0,
@@ -6572,8 +6572,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "Enter the 6-digit OTP",
-    "_N$string": "Enter the 6-digit OTP",
+    "_string": "Enter the class code here",
+    "_N$string": "Enter the class code here",
     "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": false,
@@ -7549,8 +7549,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "Enter ID here...",
-    "_N$string": "Enter ID here...",
+    "_string": "Enter Student ID here",
+    "_N$string": "Enter Student ID here",
     "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": false,
@@ -7619,7 +7619,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 511.66,
+      "width": 467.17,
       "height": 50.4
     },
     "_anchorPoint": {
