@@ -529,7 +529,6 @@ export default class Start extends cc.Component {
         for (let assign of Config.i.assignments) {
             const lesson = Config.i.allLessons.get(assign.lessonId)
             if (!!lesson) {
-                lesson.assignmentId = assign.assignmentId;
                 const lessonProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(assign.lessonId)
                 if (!lessonProgress) {
                     count++;
@@ -537,7 +536,8 @@ export default class Start extends cc.Component {
                     //     this.showAssignmentPopup(true);
                     //     this.assignPopupActive = false;
                     // }
-                } else if (lessonProgress && ![].concat(lessonProgress.assignmentIds).includes(assign.assignmentId)) {
+                } else if (!!lessonProgress && ![].concat(lessonProgress.assignmentIds).includes(assign.assignmentId)) {
+                    lesson.assignmentId = assign.assignmentId;
                     count++;
                     // if (this.assignPopupActive) {
                     //     this.showAssignmentPopup(true);
