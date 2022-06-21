@@ -11,7 +11,7 @@ import {
     FIREBASE_UPDATE_HOME_TEACHER_URL, FIREBASE_UPDATE_PROGRESS_URL, LIST_ASSIGNMENTS, UPDATE_PROGRESS_URL
 } from "../domain/parseConstants";
 import { ServiceConfig } from "./ServiceConfig";
-import Profile, { CURRENTMODE, LessonProgress, User } from "../lib/profile";
+import Profile, { CURRENTMODE, Gender, LessonProgress, User } from "../lib/profile";
 import UtilLogger from "../util-logger";
 import { Mode } from "../lib/constants";
 
@@ -283,7 +283,7 @@ export class FirebaseApi implements ServiceApi {
         }
     }
 
-    async customAuth(code: string, phoneNumber: string, progressId: string, isSecondProfile: boolean, schoolId: string): Promise<CustomAuthInfo> {
+    async customAuth(code: string, phoneNumber: string, progressId: string, isSecondProfile: boolean, schoolId: string, name: string, countryCode: string, age: number, gender: Gender): Promise<CustomAuthInfo> {
         if (progressId && progressId.length > 0 &&
             code && code.length > 0) {
             let sendCode = Number(code);
@@ -295,7 +295,11 @@ export class FirebaseApi implements ServiceApi {
                     version: 2,
                     phoneNumber: phoneNumber,
                     isSecondProfile: isSecondProfile,
-                    schoolId: schoolId
+                    schoolId: schoolId,
+                    age: age,
+                    name: name,
+                    countryCode: countryCode,
+                    gender: gender === Gender.BOY ? "male" : (gender === Gender.GIRL ? "female" : null)
                 }
             };
             console.log('req params', requestParams);

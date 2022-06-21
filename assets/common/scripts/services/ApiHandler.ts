@@ -1,5 +1,6 @@
 import {AcceptTeacherRequest, CustomAuthInfo, LeaderboardInfo, ServiceApi, UpdateProgressInfo} from "./ServiceApi";
 import {UpdateHomeTeacher} from "./parseApi";
+import { Gender } from "../lib/profile";
 
 export class ApiHandler {
     public static i: ApiHandler;
@@ -50,7 +51,7 @@ export class ApiHandler {
     public async getLeaderboard(studentId: string, sectionId: string, schoolId: string): Promise<LeaderboardInfo> {
         return await this.s.getLeaderboard(studentId, sectionId, schoolId);
     }
-    public async customAuth(code: string, phoneNumber: string, progressId:string, isSecondProfile: boolean, schoolId: string): Promise<CustomAuthInfo> {
-        return await this.s.customAuth(code, phoneNumber, progressId, isSecondProfile, schoolId);
+    public async customAuth(code: string, phoneNumber: string, progressId:string, isSecondProfile: boolean, schoolId: string,name:string,countryCode:string,age:number,gender:Gender): Promise<CustomAuthInfo> {
+        return await this.s.customAuth(code, phoneNumber, progressId, isSecondProfile, schoolId, name, countryCode, age, gender);
     }
 }

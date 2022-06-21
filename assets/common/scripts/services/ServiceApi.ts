@@ -1,4 +1,5 @@
 import { ParseSchool } from "../domain/parseSchool";
+import { Gender } from "../lib/profile";
 import { UpdateHomeTeacher } from "./parseApi";
 
 export interface ServiceApi {
@@ -20,7 +21,7 @@ export interface ServiceApi {
 
     getLeaderboard(studentId: string, sectionId: string, schoolId: string): Promise<LeaderboardInfo>;
 
-    customAuth(code: string, phoneNumber: string, progressId: string, isSecondProfile: boolean, schoolId: string): Promise<CustomAuthInfo>;
+    customAuth(code: string, phoneNumber: string, progressId: string, isSecondProfile: boolean, schoolId: string, name: string, countryCode: string, age: number, gender:Gender): Promise<CustomAuthInfo>;
 
 }
 

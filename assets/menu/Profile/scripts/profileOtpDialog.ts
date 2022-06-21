@@ -161,7 +161,8 @@ export default class ProfileOtpDialog extends cc.Component {
     }
 
     async onSendLinkStudentRequest() {
-        const studentId: string = User.getCurrentUser().id;
+        const user: User = User.getCurrentUser();
+        const studentId: string = user.id;
         ProfileOtpDialog.otpCode = this.editBox.string;
         // const dial_code = this.dialingCodeLabel.string;
         const phoneNumber = this.contactEditBox.string;
@@ -173,7 +174,7 @@ export default class ProfileOtpDialog extends cc.Component {
             try {
                 const isSecondProfile = this.isSecondConnectedProfile();
                 cc.log('getting custom auth...', ProfileOtpDialog.otpCode, phoneNumber, studentId)
-                ProfileOtpDialog.customAuthInfo = await ServiceConfig.getI().handle.customAuth(ProfileOtpDialog.otpCode, phoneNumber, studentId, isSecondProfile, this.oldSchoolId);
+                ProfileOtpDialog.customAuthInfo = await ServiceConfig.getI().handle.customAuth(ProfileOtpDialog.otpCode, phoneNumber, studentId, isSecondProfile, this.oldSchoolId, user.name, Profile.getValue(DIALING_CODE), user.age, user.gender);
                 cc.log('custom auth', ProfileOtpDialog.customAuthInfo);
                 if (isSecondProfile) {
                     ProfileOtpDialog.onLoginSuccess();
