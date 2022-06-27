@@ -266,12 +266,12 @@ export default class Config {
     static continueLoadScene(scene: string, bundle: string = null, callback: Function = null) {
         if (bundle != null) {
             UtilLogger.logChimpleEvent("load_scene", {
-                scene: scene,
+                scene: scene == 'common/scenes/lessonController' ? scene + ' ' + Config.i.lesson.id : scene,
                 bundle: bundle
             })
 
             UtilLogger.logChimpleEvent("screen_view", {
-                scene: scene,
+                scene: scene == 'common/scenes/lessonController' ? scene + ' ' + Config.i.lesson.id : scene,
                 bundle: bundle
             })
 
@@ -296,11 +296,11 @@ export default class Config {
         } else {
             cc.director.loadScene(scene, () => {
                 UtilLogger.logChimpleEvent("load_scene", {
-                    scene: scene
+                    scene: scene == 'common/scenes/lessonController' ? scene + ' ' + Config.i.lesson.id : scene,
                 })
 
                 UtilLogger.logChimpleEvent("screen_view", {
-                    scene: scene
+                    scene: scene == 'common/scenes/lessonController' ? scene + ' ' + Config.i.lesson.id : scene,
                 })
 
                 cc.sys.garbageCollect();
