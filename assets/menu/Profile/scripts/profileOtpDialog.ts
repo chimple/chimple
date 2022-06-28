@@ -113,18 +113,24 @@ export default class ProfileOtpDialog extends cc.Component {
     }
 
     onEditingBegan() {
+        this.setPlaceholder();
         this.editBox.placeholderLabel.string = "";
     }
 
     onPhoneEditBegan() {
+        this.setPlaceholder();
         this.contactEditBox.placeholderLabel.string = "";
     }
     setDefaultText() {
         this.title.string = Util.i18NText("Please enter the details shared by your teacher below:");
         this.btnLabel.string = Util.i18NText("Confirm");
-        this.editBox.placeholder = Util.i18NText("Enter the class code here");
-        this.contactEditBox.placeholder = Util.i18NText("Enter Student ID here");
         ProfileOtpDialog.newErrLabel.string = "";
+        this.setPlaceholder();
+    }
+
+    setPlaceholder() {
+        this.editBox.placeholderLabel.string = !!this.editBox.string ? "" : Util.i18NText("Enter the class code here");
+        this.contactEditBox.placeholderLabel.string = !!this.contactEditBox.string ? "" : Util.i18NText("Enter Student ID here");
     }
 
 
