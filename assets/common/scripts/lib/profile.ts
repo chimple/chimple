@@ -10,7 +10,8 @@ import {
     FIREBASE_SCHOOL_ID,
     FIREBASE_SECTION_ID,
     FIREBASE_STUDENT_ID,
-    MIN_PASS
+    MIN_PASS,
+    Mode
 } from "./constants";
 
 const WORLD = "World";
@@ -692,7 +693,9 @@ export class User {
 
     static syncProfile() {
         const user = User._currentUser;
+        const mode = parseInt(Profile.getValue(CURRENTMODE));
         if (cc.sys.isNative && !!user && !!user.schoolId && !!user.sectionId && !!user.studentId && !!user.id) {
+            if (!user?.isConnected && mode === Mode.HomeConnect) return;
             UtilLogger.syncProfile(user.schoolId, user.sectionId, user.studentId, User.toJson(user), user.id)
         }
     }
@@ -874,7 +877,7 @@ export class User {
             data.currentReward,
             last5Lessons
         );
-        user.isConnected = data.isConnected
+        user.isConnected = data.isConnected;
         // user._lessonPlanDate = new Date(data.lessonPlanDate)
         // if (data.lessonPlanCourseId) user._lessonPlanCourseId = data.lessonPlanCourseId
         if (data.assignments) user._assignments = data.assignments

@@ -433,12 +433,14 @@ export default class LessonController extends cc.Component {
                     };
                     let mode = parseInt(Profile.getValue(CURRENTMODE));
                     if (mode === Mode.School || mode === Mode.HomeConnect) {
-                        UtilLogger.historyProgress(updateInfo.chapter,
-                            updateInfo.chapterName, updateInfo.lesson, updateInfo.lessonName,
-                            User.getCurrentUser().id, User.getCurrentUser().schoolId,
-                            User.getCurrentUser().sectionId,
-                            updateInfo.courseName, "" + updateInfo.assessment,
-                            config.lesson.assignmentId, User.getCurrentUser().name, timeSpent.toString());
+                        if (mode === Mode.School || user.isConnected) {
+                            UtilLogger.historyProgress(updateInfo.chapter,
+                                updateInfo.chapterName, updateInfo.lesson, updateInfo.lessonName,
+                                User.getCurrentUser().id, User.getCurrentUser().schoolId,
+                                User.getCurrentUser().sectionId,
+                                updateInfo.courseName, "" + updateInfo.assessment,
+                                config.lesson.assignmentId, User.getCurrentUser().name, timeSpent.toString());
+                        }
                     } else {
                         Queue.getInstance().push(updateInfo);
                     }

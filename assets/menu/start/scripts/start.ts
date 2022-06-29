@@ -253,7 +253,7 @@ export default class Start extends cc.Component {
         ChapterLessons.showType = ChapterLessonType.Library;
         UtilLogger.syncFmcTokenForUsers();
         if (mode == Mode.HomeConnect && !user.isConnected && !!user.schoolId) {
-            this.showReConnectPopup("Your class code is expired");
+            this.showReConnectPopup("You are disconnected or class code is expired");
         }
         else if (mode == Mode.Home && user.isConnected) {
             this.showReConnectPopup("Re-Connect to your class using phone number");
