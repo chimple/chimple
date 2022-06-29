@@ -300,6 +300,11 @@ public class FirebaseOperations {
                 new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w(TAG, "Listen failed in sectionListener.", e);
+                            return;
+                        }
+                        if (queryDocumentSnapshots != null) {
                         for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()) {
                             switch (dc.getType()) {
                                 case ADDED:
@@ -317,7 +322,6 @@ public class FirebaseOperations {
                             }
                         }
 
-                        if (queryDocumentSnapshots != null) {
                             for (QueryDocumentSnapshot snapshots : queryDocumentSnapshots) {
                                 String source = snapshots.getMetadata().isFromCache() ?
                                         CACHE : SERVER;
@@ -373,6 +377,11 @@ public class FirebaseOperations {
                 new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w(TAG, "Listen failed in studentListener.", e);
+                            return;
+                        }
+                        if (queryDocumentSnapshots != null) {
                         for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()) {
                             switch (dc.getType()) {
                                 case ADDED:
@@ -390,7 +399,7 @@ public class FirebaseOperations {
                             }
                         }
 
-                        if (queryDocumentSnapshots != null) {
+
                             for (QueryDocumentSnapshot snapshots : queryDocumentSnapshots) {
                                 String source = snapshots.getMetadata().isFromCache() ?
                                         CACHE : SERVER;

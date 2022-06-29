@@ -863,8 +863,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
 
 
     public static void login(String email, String password) {
-        if (!AppActivity.app.helper.isFirebaseUserLoggedIn()
-                && email != null && !email.isEmpty()
+        if ( email != null && !email.isEmpty()
                 && password != null && !password.isEmpty()
         ) {
             Log.d(TAG, "Login request for email:" + email + " password:" + password);

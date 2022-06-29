@@ -39,36 +39,41 @@ export default class Buttons extends cc.Component {
           }
           cc.log("studentJson1", studentJson)
           const isConnected = user.isConnected;
-          if (!!student && !!studentMap?.courseProgressMap) {
-            user = User.fromJson(student.profileInfo);
-            cc.log('studentJson1 user json ', user?.id,
-              user?.name,
-              user?.age,
-              user?.gender,
-              user?.imgPath,
-              user?.avatarImage,
-              user?.isTeacher,
-              user?.inventory,
-              user?.currentBg,
-              user?.currentCharacter,
-              user?.courseProgressMap,
-              user?.lessonProgressMap,
-              user?.unlockedInventory,
-              user?.unlockedRewards,
-              user?.debug,
-              user?.serverId,
-              user?.schoolId,
-              user?.sectionId,
-              user?.studentId,
-              user?.schoolName,
-              user?.sectionName,
-              user?.currentReward,
-              user?.last5Lessons
+          if (!!student && !!studentMap?.courseProgressMap && isConnected) {
+            const tempUser = User.fromJson(student.profileInfo);
+            cc.log('studentJson1 user json ', tempUser?.id,
+              tempUser?.name,
+              tempUser?.age,
+              tempUser?.gender,
+              tempUser?.imgPath,
+              tempUser?.avatarImage,
+              tempUser?.isTeacher,
+              tempUser?.inventory,
+              tempUser?.currentBg,
+              tempUser?.currentCharacter,
+              tempUser?.courseProgressMap,
+              tempUser?.lessonProgressMap,
+              tempUser?.unlockedInventory,
+              tempUser?.unlockedRewards,
+              tempUser?.debug,
+              tempUser?.serverId,
+              tempUser?.schoolId,
+              tempUser?.sectionId,
+              tempUser?.studentId,
+              tempUser?.schoolName,
+              tempUser?.sectionName,
+              tempUser?.currentReward,
+              tempUser?.last5Lessons
             )
+            if (tempUser.isConnected) {
+              user = tempUser;
+            } else {
+              user.isConnected = false
+            }
           }
-          user.isConnected = isConnected;
+          // user.isConnected = isConnected;
           User.setCurrentUser(user);
-          User.syncProfile();
+          User.storeUser(user);
           Util.preloadStartScene(this.node, cc.director.getScene().getChildByName("Canvas").getChildByName('loading'))
         }
         else {
