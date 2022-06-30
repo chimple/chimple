@@ -80,10 +80,10 @@ export default class LeaderboardProfile extends cc.Component {
         if (Profile.getValue(CURRENTMODE) == Mode.School) {
             this.connectButton.node.active = false
         }
-        if (this.user.schoolName) {
+        if (this.user.schoolName && this.user.isConnected) {
             this.schoolName.getComponent(cc.Label).string = Util.i18NText("School") + " : " + this.user.schoolName
         }
-        if (this.user.sectionName) {
+        if (this.user.sectionName && this.user.isConnected) {
             this.className.getComponent(cc.Label).string = Util.i18NText("Class  :") + " " + this.user.sectionName
         }
         this.userNode.getComponentInChildren(cc.Label).string = this.user.name;
