@@ -139,7 +139,7 @@ export default class Start extends cc.Component {
             else {
                 await this.getAssigments();
             }
-
+        }
             // call API to get featured stories
             // store in config.featuredLessons
             // config.featuredLessons = [
@@ -191,7 +191,6 @@ export default class Start extends cc.Component {
             headerComp.onCourseClick = this.onCourseClick.bind(this)
             this.header.addChild(headerNode)
             this.loading.active = false;
-        }
         if (mode == Mode.HomeConnect && !user.isConnected && !!user.schoolId) {
             this.showReConnectPopup("You are disconnected or class code is expired");
         }
