@@ -195,7 +195,7 @@ export default class Start extends cc.Component {
             this.showReConnectPopup("You are disconnected or class code is expired");
         }
         else if (mode == Mode.Home && user.isConnected) {
-            this.showReConnectPopup("Re-Connect to your class using phone number");
+            this.showReConnectPopup("Re-Connect to your class using Student ID");
         }
     }
 
