@@ -133,7 +133,7 @@ export default class Start extends cc.Component {
         const user = User.getCurrentUser()
         if (mode != Mode.School) {
             this.loading.active = true;
-            if (this.isAssignmentsExistsInLessonPlan()) {
+            if (this.isAssignmentsExistsInLessonPlan() || !user.isConnected) {
                 this.getAssigments();
             }
             else {
