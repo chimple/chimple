@@ -127,47 +127,19 @@ export default class Start extends cc.Component {
     gift: cc.Node
     disableGiftBoxNodeFlag: boolean = false;
 
-    async onLoad() {
-        const user = User.getCurrentUser()
-        this.bgHolder.removeAllChildren();
-
-        cc.audioEngine.pauseMusic()
-        if (!!user && !!user.currentBg) {
-            Util.setBackground(user.currentBg, this.bgHolder);
-        } else {
-            Util.setBackground("camp", this.bgHolder);
-        }
-        const loadingComp = this.loading.getComponent(Loading)
-        loadingComp.allowCancel = false
-
-        // this.homeButton.on('touchend', () => {
-        //     this.drawer.active = true
-        // })
+    async start() {
         const config = Config.i
         const mode = parseInt(Profile.getValue(CURRENTMODE))
+        const user = User.getCurrentUser()
         if (mode != Mode.School) {
             this.loading.active = true;
-            this.assignments = await ServiceConfig.getI().handle.listAssignments(user.id)
-            config.assignments = this.assignments;
-            if (config.assignments.length > 0 || !user.isConnected) {
-                if (config.assignments.length > 0 && !user.isConnected && mode != Mode.HomeConnect) {
-                    user.isConnected = true
-                    user.storeUser()
-                }
-                if (!!this.assignmentButton) {
-                    this.assignmentButton.interactable = true
-                }
+            if (this.isAssignmentsExistsInLessonPlan() || !user.isConnected) {
+                this.getAssigments();
             }
-
-
-            if (user.isConnected && config.assignments.length > 0) {
-                this.previousHash = Util.getHash(this.assignments[0].assignmentId);
-                try {
-                    this.assignmentCount.active = true;
-                    this.checkPendingAssignments();
-                } catch (e) { }
+            else {
+                await this.getAssigments();
             }
-
+        }
             // call API to get featured stories
             // store in config.featuredLessons
             // config.featuredLessons = [
@@ -193,27 +165,54 @@ export default class Start extends cc.Component {
             //         "course": "en"
             //     }
             // ]
-            const featuredLessonsUrl = 'https://raw.githubusercontent.com/chimple/chimple/master/featured_lessons.json'
-            cc.assetManager.loadRemote(featuredLessonsUrl, (err, jsonAsset) => {
-                // @ts-ignore
-                if (!err && jsonAsset && jsonAsset.json) {
-                    // @ts-ignore
-                    config.featuredLessons = jsonAsset.json
-                    if (config.featuredLessons.length > 0 && this.featuredButton) {
-                        this.featuredButton.interactable = true
-                    }
-                }
-            })
-
+            // const featuredLessonsUrl = 'https://raw.githubusercontent.com/chimple/chimple/master/featured_lessons.json'
+            // cc.assetManager.loadRemote(featuredLessonsUrl, (err, jsonAsset) => {
+            //     // @ts-ignore
+            //     if (!err && jsonAsset && jsonAsset.json) {
+            //         // @ts-ignore
+            //         config.featuredLessons = jsonAsset.json
+            //         if (config.featuredLessons.length > 0 && this.featuredButton) {
+            //             this.featuredButton.interactable = true
+            //         }
+            //     }
+            // })
+            if (!config.course) {
+                config.course = this.getNextCourse()
+                config.startCourse = config.course
+            } else {
+                config.unsetRewardChapter()
+                config.course = config.startCourse
+            }
+            this.createAndDisplayLessonPlan();
+            this.displayCurrentReward();
+            const headerNode = cc.instantiate(this.headerPrefab)
+            const headerComp = headerNode.getComponent(StartHeader)
+            headerComp.user = user
+            headerComp.onCourseClick = this.onCourseClick.bind(this)
+            this.header.addChild(headerNode)
             this.loading.active = false;
+        if (mode == Mode.HomeConnect && !user.isConnected && !!user.schoolId) {
+            this.showReConnectPopup("You are disconnected or class code is expired");
         }
-        if (!config.course) {
-            config.course = this.getNextCourse()
-            config.startCourse = config.course
+        else if (mode == Mode.Home && user.isConnected) {
+            this.showReConnectPopup("Re-Connect to your class using phone number");
+        }
+    }
+
+    async onLoad() {
+        const user = User.getCurrentUser()
+        this.bgHolder.removeAllChildren();
+
+        cc.audioEngine.pauseMusic()
+        if (!!user && !!user.currentBg) {
+            Util.setBackground(user.currentBg, this.bgHolder);
         } else {
-            config.unsetRewardChapter()
-            config.course = config.startCourse
+            Util.setBackground("camp", this.bgHolder);
         }
+        const loadingComp = this.loading.getComponent(Loading)
+        loadingComp.allowCancel = false
+
+        const config = Config.i
         // this.library.string = config.course.name
         // Util.load(config.course.id + '/course/res/icons/' + config.course.id + '.png', (err: Error, texture) => {
         //     this.librarySprite.spriteFrame = err ? null : new cc.SpriteFrame(texture);
@@ -252,12 +251,6 @@ export default class Start extends cc.Component {
         })
         ChapterLessons.showType = ChapterLessonType.Library;
         UtilLogger.syncFmcTokenForUsers();
-        if (mode == Mode.HomeConnect && !user.isConnected && !!user.schoolId) {
-            this.showReConnectPopup("You are disconnected or class code is expired");
-        }
-        else if (mode == Mode.Home && user.isConnected) {
-            this.showReConnectPopup("Re-Connect to your class using phone number");
-        }
 
         // Sample Code for offline sync
         // const school = UtilLogger.findSchool("prakash@sutara.org");
@@ -286,20 +279,20 @@ export default class Start extends cc.Component {
     private initPage() {
         const user = User.getCurrentUser()
         const config = Config.i
-        this.createAndDisplayLessonPlan();
+        // this.createAndDisplayLessonPlan();
         if (user.currentReward == null || user.currentReward.length == 0) {
             user.currentReward = this.getNextReward()
         }
-        this.displayCurrentReward()
+        // this.displayCurrentReward()
         if (!Config.isMicroLink) {
             this.loading.active = false;
         }
         this.registerTeacherDialogCloseEvent();
-        const headerNode = cc.instantiate(this.headerPrefab)
-        const headerComp = headerNode.getComponent(StartHeader)
-        headerComp.user = user
-        headerComp.onCourseClick = this.onCourseClick.bind(this)
-        this.header.addChild(headerNode)
+        // const headerNode = cc.instantiate(this.headerPrefab)
+        // const headerComp = headerNode.getComponent(StartHeader)
+        // headerComp.user = user
+        // headerComp.onCourseClick = this.onCourseClick.bind(this)
+        // this.header.addChild(headerNode)
     }
 
     private createAndDisplayLessonPlan() {
@@ -326,7 +319,7 @@ export default class Start extends cc.Component {
         }
         const mode = parseInt(Profile.getValue(CURRENTMODE))
         if (User.getCurrentUser().isConnected && mode != Mode.School) {
-            if (!!Config.i.assignments && Config.i.assignments.length > 0) {
+            if (this.isAssignmentsExistsInLessonPlan() || (!!Config.i.getAssignmentLessonsTodo() && Config.i.getAssignmentLessonsTodo().length > 0)) {
                 return Config.i.curriculum.get(ASSIGNMENT_COURSE_ID);
             }
             return Config.i.curriculum.get(ar[0] === ASSIGNMENT_COURSE_ID ? ar[1] : ar[0]);
@@ -957,6 +950,40 @@ export default class Start extends cc.Component {
                 break;
         }
 
+    }
+
+    private isAssignmentsExistsInLessonPlan(): boolean {
+        const user = User.getCurrentUser()
+        const courseProgressMap = user.courseProgressMap.get(ASSIGNMENT_COURSE_ID);
+        return (courseProgressMap.lessonPlan
+            && courseProgressMap.lessonPlan.length > 0
+            && courseProgressMap.lessonPlanIndex <= courseProgressMap.lessonPlan.length)
+    }
+
+    private async getAssigments() {
+        const config = Config.i
+        const mode = parseInt(Profile.getValue(CURRENTMODE))
+        const user = User.getCurrentUser()
+        this.assignments = await ServiceConfig.getI().handle.listAssignments(user.id)
+        config.assignments = this.assignments;
+        if (config.assignments.length > 0 || !user.isConnected) {
+            if (config.assignments.length > 0 && !user.isConnected && mode != Mode.HomeConnect) {
+                user.isConnected = true
+                user.storeUser()
+            }
+            if (!!this.assignmentButton) {
+                this.assignmentButton.interactable = true
+            }
+        }
+
+
+        if (user.isConnected && config.assignments.length > 0) {
+            this.previousHash = Util.getHash(this.assignments[0].assignmentId);
+            try {
+                this.assignmentCount.active = true;
+                this.checkPendingAssignments();
+            } catch (e) { }
+        }
     }
 
     // protected update(dt: number) {
