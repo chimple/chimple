@@ -30,6 +30,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
@@ -42,6 +43,7 @@ import android.os.Looper;
 import android.os.Parcelable;
 import android.os.RemoteException;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -57,6 +59,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.InstallState;
+import com.google.android.play.core.install.InstallStateUpdatedListener;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallStatus;
+import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
@@ -99,6 +110,7 @@ import static org.chimple.bahama.logger.ChimpleLogger.FIREBASE_MESSAGES_SYNC;
 import static org.chimple.bahama.logger.ChimpleLogger.FIREBASE_MESSAGE_TOKEN;
 import static org.chimple.firebasesync.database.Helper.EMAIL;
 import static org.chimple.firebasesync.database.Helper.PASSWORD;
+import static org.cocos2dx.lib.Cocos2dxHelper.getActivity;
 
 public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private static final int STORAGE_PERMISSION_CODE = 101;
@@ -126,6 +138,8 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private Helper helper = null;
+    private int MY_REQUEST_CODE =123;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -233,7 +247,131 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
 
         String students = ChimpleLogger.fetchStudentsForSchoolAndSection("mYLtsjfVuFD6NGLLIVHG", "D7qVA373VEKXtPeg7BEc");
         Log.d(TAG, "students:" + students);
+        checkUpdate();
     }
+    AppUpdateManager appUpdateManager;
+
+    public  void checkUpdate() {
+        Log.d(TAG,"checking for update");
+        try {
+        appUpdateManager = AppUpdateManagerFactory.create(AppActivity.this.getApplicationContext());
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+        appUpdateInfoTask.addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
+            @Override
+            public void onSuccess(AppUpdateInfo appUpdateInfo) {
+                Log.d(TAG,"update appUpdateInfo appUpdateInfo.updateAvailability() "+appUpdateInfo.updateAvailability()+"UpdateAvailability.UPDATE_AVAILABLE "+UpdateAvailability.UPDATE_AVAILABLE+"appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE) "+appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE));
+                appUpdateManager.registerListener(listener);
+                if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                        // This example applies an immediate update. To apply a flexible update
+                        // instead, pass in AppUpdateType.FLEXIBLE
+                        && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+                    // Request the update.
+                    Log.d(TAG,"update is Available");
+                    startUpdate(appUpdateInfo);
+                }
+                else{
+                    Log.d(TAG,"update is not Available");
+                }
+            }
+        });
+    } catch (Exception e) {
+            Log.d(TAG,"error in checkUpdate"+e.getMessage());
+    }
+    }
+
+    public  void startUpdate(AppUpdateInfo appUpdateInfo) {
+        try {
+            Log.d(TAG, "starting the update" );
+            appUpdateManager.startUpdateFlowForResult(
+                // Pass the intent that is returned by 'getAppUpdateInfo()'.
+                appUpdateInfo,
+                // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
+                AppUpdateType.FLEXIBLE,
+                // The current activity making the update request.
+                this,
+                // Include a request code to later monitor this update request.
+                MY_REQUEST_CODE);
+        } catch (IntentSender.SendIntentException e) {
+            Log.d(TAG, "error in starting the update " + e.getMessage());
+        }
+
+    }
+
+    private InstallStateUpdatedListener listener = new InstallStateUpdatedListener() {
+        @Override
+        public void onStateUpdate(InstallState installState) {
+            try {
+            if (installState.installStatus() == InstallStatus.DOWNLOADING) {
+                long bytesDownloaded = installState.bytesDownloaded();
+                long totalBytesToDownload = installState.totalBytesToDownload();
+                Log.d(TAG, "onStateUpdate bytesDownloaded: "+bytesDownloaded+"totalBytesToDownload: "+totalBytesToDownload);
+//                if (flexibleUpdateDownloadListener != null) {
+//                    flexibleUpdateDownloadListener.onDownloadProgress(bytesDownloaded, totalBytesToDownload);
+//                }
+            }
+            if (installState.installStatus() == InstallStatus.DOWNLOADED) {
+                // After the update is downloaded, show a notification
+                // and request user confirmation to restart the app.
+                Log.d(TAG, "An update has been downloaded");
+                popupSnackbarForCompleteUpdate();
+            }
+        } catch (Exception e) {
+            Log.d(TAG,"error in startUpdate "+e.getMessage());
+        }
+        }
+    };
+
+
+    private void popupSnackbarForCompleteUpdate() {
+        try {
+        Log.d(TAG, "on popupSnackbarForCompleteUpdate");
+        Snackbar snackbar =
+                Snackbar.make(
+                        getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+                        "An update has just been downloaded.",
+                        Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("RESTART", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                appUpdateManager.completeUpdate();
+            }
+        });
+        snackbar.show();
+    } catch (Exception e) {
+        Log.d(TAG,"error in popupSnackbarforCompleteUpdate "+e.getMessage());
+    }
+    }
+
+    private void removeInstallStateUpdateListener() {
+        try {
+        if (appUpdateManager != null) {
+            appUpdateManager.unregisterListener(listener);
+        }
+    } catch (Exception e) {
+        Log.d(TAG,"error in removeInstallStateUpdateListener "+e.getMessage());
+    }
+    }
+
+    private void continueUpdateForFlexible() {
+        try {
+        appUpdateManager
+                .getAppUpdateInfo()
+                .addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
+                    @Override
+                    public void onSuccess(AppUpdateInfo appUpdateInfo) {
+                        // If the update is downloaded but not installed,
+                        // notify the user to complete the update.
+                        if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+                            Log.d(TAG, "An update has been downloaded");
+                            popupSnackbarForCompleteUpdate();
+                        }
+                    }
+                });
+    } catch (Exception e) {
+        Log.d(TAG,"error in continueUpdateForFlexible "+e.getMessage());
+    }
+    }
+
 
     public void processDeepLink() {
         //Deep Links
@@ -446,6 +584,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     protected void onResume() {
         super.onResume();
         SDKWrapper.getInstance().onResume();
+        continueUpdateForFlexible();
     }
 
     @Override
@@ -540,6 +679,8 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
 
         super.onStop();
         SDKWrapper.getInstance().onStop();
+        removeInstallStateUpdateListener();
+
     }
 
     @Override
