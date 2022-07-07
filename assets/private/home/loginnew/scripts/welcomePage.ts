@@ -62,21 +62,25 @@ export default class WelcomePage extends cc.Component {
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        this.setSoundSlider()
-        Util.playSfx(this.bgMusic, true, true);
-        this.languageLabel.string = LANG_CONFIGS.get(Profile.lang).displayName;
-        Util.loadi18NMapping(
-            () => {
-                const lang = Profile.lang || Lang.ENGLISH
-                const langConfig = LANG_CONFIGS.get(lang)
-                if (!Config.i.hasLoadedTextFont(langConfig.font)) {
-                    Config.i.loadFontDynamically(langConfig.font)
+        try {
+            this.setSoundSlider()
+            Util.playSfx(this.bgMusic, true, true);
+            this.languageLabel.string = LANG_CONFIGS.get(Profile.lang).displayName;
+            Util.loadi18NMapping(
+                () => {
+                    const lang = Profile.lang || Lang.ENGLISH
+                    const langConfig = LANG_CONFIGS.get(lang)
+                    if (!Config.i.hasLoadedTextFont(langConfig.font)) {
+                        Config.i.loadFontDynamically(langConfig.font)
+                    }
+                    this.selectModes();
+                    this.layoutManager();
+                    Profile.initialize();
                 }
-                this.selectModes();
-                this.layoutManager();
-                Profile.initialize();
-            }
-        )
+            )
+        } catch (error) {
+            cc.log("error in welcome page load", error);
+        }
     }
 
     setSoundSlider() {
@@ -135,49 +139,72 @@ export default class WelcomePage extends cc.Component {
             case Mode.HomeConnect:
             case Mode.Home:
                 // If mode is home, show front page with settings (parent) icon on top
-                this.parentButtonNode = cc.instantiate(this.parentButtonPrefab);
-                const bg = this.parentButtonNode.getChildByName("Background")
+                if (!!this.parentButtonPrefab)
+                    this.parentButtonNode = cc.instantiate(this.parentButtonPrefab);
+                const bg = this.parentButtonNode?.getChildByName("Background");
                 if (bg) {
                     const label = bg.getChildByName("Label");
                     const chimpleLabelComponent = label.getComponent(ChimpleLabel);
                     chimpleLabelComponent.string = Util.i18NText("Parent");
                 }
-                this.parentOrSettingNode.addChild(this.parentButtonNode)
+                this.parentOrSettingNode?.addChild(this.parentButtonNode);
                 break;
             case Mode.None:
                 // If mode is not set, show front page with school icon on top
-                this.schoolButtonNode = cc.instantiate(this.schoolButtonPrefab)
-                this.parentOrSettingNode.addChild(this.schoolButtonNode)
+                if (!!this.schoolButtonPrefab) {
+                    this.schoolButtonNode = cc.instantiate(this.schoolButtonPrefab)
+                    this.parentOrSettingNode?.addChild(this.schoolButtonNode)
+                }
                 break;
             default:
                 // default what needs to be here
-                this.schoolButtonNode = cc.instantiate(this.schoolButtonPrefab)
-                this.parentOrSettingNode.addChild(this.schoolButtonNode)
+                if (!!this.schoolButtonPrefab) {
+                    this.schoolButtonNode = cc.instantiate(this.schoolButtonPrefab)
+                    this.parentOrSettingNode?.addChild(this.schoolButtonNode)
+                }
                 break;
         }
     }
 
     layoutManager() {
-        const filteredUsers = User.getUsers().filter(e => (!e.isTeacher && e.age > 0)) || [];
-        WelcomePage.userArr = filteredUsers;
-        cc.log("=<>=" + WelcomePage.userArr.length);
-        if (WelcomePage.userArr.length == 0) {
-            let addBtn = cc.instantiate(this.addButton);
-            this.node.getChildByName("plusbutton").addChild(addBtn);
-            this.node.getChildByName("messageLabel").getComponent(cc.Label).string = "";
-        }
-        filteredUsers.forEach((e) => {
-            cc.log(e);
-            let userButtonRef = cc.instantiate(this.userButton);
-            userButtonRef.getChildByName("Label").getComponent(cc.Label).string = e.name;
-            // LOAD AVATAR
-            cc.resources.load(`avatars/${e.avatarImage}`, (err, sp) => {
-                // @ts-ignore
-                userButtonRef.getChildByName("Background").getChildByName("avatar").getChildByName("icon").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
+        try {
+            const filteredUsers = User.getUsers().filter(e => (!e.isTeacher && e.age > 0)) || [];
+            WelcomePage.userArr = filteredUsers;
+            cc.log("=<>=" + WelcomePage.userArr.length);
+            if (WelcomePage.userArr.length == 0) {
+                let addBtn;
+                if (!!this.addButton)
+                    addBtn = cc.instantiate(this.addButton);
+                if (!!this.node) {
+                    this.node.getChildByName("plusbutton").addChild(addBtn);
+                    this.node.getChildByName("messageLabel").getComponent(cc.Label).string = "";
+                }
+            }
+            filteredUsers.forEach((e) => {
+                cc.log(e);
+                let userButtonRef;
+                if (!!this.userButton)
+                    userButtonRef = cc.instantiate(this.userButton);
+                if (!!userButtonRef) {
+                    userButtonRef.getChildByName("Label").getComponent(cc.Label).string = e.name;
+                    // LOAD AVATAR
+                    cc.resources.load(`avatars/${e.avatarImage}`, (err, sp) => {
+                        try {
+                            if (!err) {
+                                // @ts-ignore
+                                userButtonRef.getChildByName("Background").getChildByName("avatar").getChildByName("icon").getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
+                            }
+                        } catch (error) {
+                            cc.log('error in welcome page load avatars', error);
+                        }
+                    });
+                    userButtonRef.name = e.id;
+                    this.node?.getChildByName("userLayout").addChild(userButtonRef);
+                }
             });
-            userButtonRef.name = e.id;
-            this.node.getChildByName("userLayout").addChild(userButtonRef);
-        });
-        let a = cc.sys.localStorage.getItem("userId");
+            let a = cc.sys.localStorage.getItem("userId");
+        } catch (error) {
+            cc.log('error in welcome page layoutManager', error)
+        }
     }
 }
