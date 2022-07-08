@@ -72,6 +72,9 @@ export default class Buttons extends cc.Component {
             }
           }
           // user.isConnected = isConnected;
+          if (!studentMap) {
+            user.isConnected = false;
+          }
           User.setCurrentUser(user);
           User.storeUser(user);
           Util.preloadStartScene(this.node, cc.director.getScene().getChildByName("Canvas").getChildByName('loading'))
