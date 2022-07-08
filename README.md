@@ -49,16 +49,16 @@ devtools://devtools/bundled/inspector.html?v8only=true&ws=127.0.0.1:6086/0001000
 
 To hot update:
 Click on Build->Build
-node scripts/version_generator.js -v 37 -u https://chimple-stage.web.app/hot-update/ -s build/jsb-default -d hot-update/
+node scripts/version_generator.js -v 51 -u https://chimple-stage.web.app/hot-update/ -s build/jsb-default -d hot-update/
 cp -R build/jsb-default/assets hot-update
 cp -R build/jsb-default/src hot-update
 cp -R hot-update ../lang/chimple-stage/public
 
 For production hot update:
-node scripts/version_generator.js -v 47 -u https://bahama-ta-stage.web.app/v2/hot-update/ -s build/jsb-default -d hot-update/
+node scripts/version_generator.js -v 51 -u https://bahama-stage.web.app/v2/hot-update/ -s build/jsb-default -d hot-update/
 cp -R build/jsb-default/assets hot-update
 cp -R build/jsb-default/src hot-update
-cp -R hot-update ../lang/bahama-ta-stage/public/v2
+cp -R hot-update ../lang/bahama-stage/public/v2
 
 For malagasy production hot update:
 node scripts/version_generator.js -v 1 -u https://bahama-ta-stage.web.app/mg/hot-update/ -s build/jsb-default -d hot-update/
