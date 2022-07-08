@@ -55,7 +55,7 @@ cp -R build/jsb-default/src hot-update
 cp -R hot-update ../lang/chimple-stage/public
 
 For production hot update:
-node scripts/version_generator.js -v 51 -u https://bahama-stage.web.app/v2/hot-update/ -s build/jsb-default -d hot-update/
+node scripts/version_generator.js -v 52 -u https://bahama-stage.web.app/v2/hot-update/ -s build/jsb-default -d hot-update/
 cp -R build/jsb-default/assets hot-update
 cp -R build/jsb-default/src hot-update
 cp -R hot-update ../lang/bahama-stage/public/v2
