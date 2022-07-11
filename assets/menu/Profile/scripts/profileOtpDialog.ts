@@ -22,10 +22,10 @@ cc.loginSucceeded = async function (schoolInfo: string) {
             ProfileOtpDialog.onLoginSuccess();
         }
         else {
-            ProfileOtpDialog.showError("code is invalid or expired")
+            ProfileOtpDialog.showError("Something Went Wrong, Please Try Again")
         }
     } catch (error) {
-        ProfileOtpDialog.showError("code is invalid or expired")
+        ProfileOtpDialog.showError("Something Went Wrong, Please Try Again")
 
     }
 }
@@ -35,7 +35,7 @@ cc.loginFailed = async function (reason) {
     try {
         cc.log("ProfileOtpDialog loginfailed ", reason);
         UtilLogger.processLoginFail();
-        ProfileOtpDialog?.showError("code is invalid or expired")
+        ProfileOtpDialog?.showError("Something Went Wrong, Please Try Again")
     } catch (error) {
         cc.log('error in profileotp login failed', error)
     }
@@ -270,8 +270,8 @@ export default class ProfileOtpDialog extends cc.Component {
             ProfileOtpDialog.newParentNode.interactable = false;
             ProfileOtpDialog.newNode.active = false;
         } catch (error) {
-            ProfileOtpDialog.showError("code is invalid or expired")
-
+            ProfileOtpDialog.showError("Something Went Wrong, Please Try Again")
+            cc.log(error)
         }
     }
 }
