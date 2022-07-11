@@ -58,7 +58,7 @@ export const LANG_CONFIGS = new Map<Lang, LangConfig>([
     [Lang.ENGLISH, { 'font': 'en-main', 'displayName': 'English', 'symbol': 'A', 'colorCode': '#FFBC00' }],
     [Lang.HINDI, { 'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7' }],
     [Lang.KANNADA, { 'font': 'kn-main', 'displayName': 'ಕನ್ನಡ', 'symbol': 'ಕ', 'colorCode': '#6E4596' }],
-    [Lang.MARATHI, { 'font': 'hi-main', 'displayName': 'मराठी', 'symbol': 'म', 'colorCode': '#99EE55' }]
+    [Lang.MARATHI, { 'font': 'mr-main', 'displayName': 'मराठी', 'symbol': 'म', 'colorCode': '#99EE55' }],
 ])
 
 export class World {
