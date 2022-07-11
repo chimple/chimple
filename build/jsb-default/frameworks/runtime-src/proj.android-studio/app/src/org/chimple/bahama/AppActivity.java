@@ -59,7 +59,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
+//import com.google.android.material.snackbar.Snackbar;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
@@ -325,18 +325,18 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     private void popupSnackbarForCompleteUpdate() {
         try {
         Log.d(TAG, "on popupSnackbarForCompleteUpdate");
-        Snackbar snackbar =
-                Snackbar.make(
-                        getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
-                        "An update has just been downloaded.",
-                        Snackbar.LENGTH_INDEFINITE);
-        snackbar.setAction("RESTART", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        Snackbar snackbar =
+//                Snackbar.make(
+//                        getActivity().getWindow().getDecorView().findViewById(android.R.id.content),
+//                        "An update has just been downloaded.",
+//                        Snackbar.LENGTH_INDEFINITE);
+//        snackbar.setAction("RESTART", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
                 appUpdateManager.completeUpdate();
-            }
-        });
-        snackbar.show();
+//            }
+//        });
+//        snackbar.show();
     } catch (Exception e) {
         Log.d(TAG,"error in popupSnackbarforCompleteUpdate "+e.getMessage());
     }
