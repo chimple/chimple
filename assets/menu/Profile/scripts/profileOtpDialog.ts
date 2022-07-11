@@ -271,7 +271,7 @@ export default class ProfileOtpDialog extends cc.Component {
             ProfileOtpDialog.newNode.active = false;
         } catch (error) {
             ProfileOtpDialog.showError("Something Went Wrong, Please Try Again")
-
+            cc.log(error)
         }
     }
 }
