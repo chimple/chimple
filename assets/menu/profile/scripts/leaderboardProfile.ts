@@ -229,6 +229,7 @@ export default class LeaderboardProfile extends cc.Component {
             }
         }
         else {
+            Config.i.assignments = null;
             cc.director.loadScene("welcomePage")
         }
     }
