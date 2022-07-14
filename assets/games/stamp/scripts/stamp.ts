@@ -6,6 +6,7 @@ import StickerHolder from "./stickerHolder";
 import { StampReward } from "../../../common/scripts/lib/convert";
 import StampDrag from "./stampDrag";
 import { User } from "../../../common/scripts/lib/profile";
+import LessonController from "../../../common/scripts/lessonController";
 
 const { ccclass, property } = cc._decorator;
 
@@ -53,8 +54,14 @@ export default class Stamp extends Game {
     currentColor: string;
 
     onLoad() {
-
         const config = Config.getInstance();
+        if (!!LessonController.bundles) {
+            for (let i = 0; i < LessonController.bundles.length; i++) {
+                if (LessonController.bundles[i].name === config.lesson.id) {
+                    LessonController.bundles.splice(i, 1);
+                }
+            }
+        }
         cc.director.getCollisionManager().enabled = true
         this.graphics.node.on('touchstart', () => {
 
