@@ -59,7 +59,8 @@ export default class LeaderboardProfile extends cc.Component {
     private weeklyIndex: number;
     private allTimeIndex: number;
     private user: User;
-
+    private currentTab: string = "weekly";
+    private tempIcons: { [userId: string]: number; } = {};
 
     onLoad() {
         this.createLoading()
@@ -98,13 +99,13 @@ export default class LeaderboardProfile extends cc.Component {
         }
         console.log("this leaderboard", this.leaderboardJson)
         this.loadUi(true)
+        this.hideLoading();
         if ((mode == Mode.HomeConnect && !this.user.isConnected && !!this.user.schoolId) || (mode == Mode.Home && this.user.isConnected)) {
             this.otpDialog.active = true;
         }
     }
 
     loadUi(thisweek: boolean) {
-        this.hideLoading()
         this.leaderboardlayout.removeAllChildren();
         const studentList: StudentLeaderboardInfo[] = thisweek ? this.leaderboardJson?.weekly : this.leaderboardJson?.allTime;
         const currentUserColor = new cc.Color(255, 85, 0);
@@ -173,7 +174,7 @@ export default class LeaderboardProfile extends cc.Component {
                     student.getChildByName('bg').active = true;
                 }
                 student.width = studentWidth;
-                this.loadRandomAvatar(student.getChildByName('user'), isCurrentUser);
+                this.loadRandomAvatar(student.getChildByName('user'), studentList[i].userId, isCurrentUser);
                 student.getChildByName('starscore').getComponentInChildren(cc.Label).string = totalScore;
                 labelComponent.string = (i + 1).toString();
                 this.leaderboardlayout.addChild(student)
@@ -187,10 +188,15 @@ export default class LeaderboardProfile extends cc.Component {
     }
 
     // onTabClick(event)
-    tabNavigator(event, value: string) {
+    async tabNavigator(event, value: string) {
+        if (value === this.currentTab) return;
+        this.showLoading();
+        this.currentTab = value
         event.target.parent.children.forEach(e => e.getChildByName("Active Tab").active = false);
         event.target.getChildByName("Active Tab").active = true;
         this.loadUi(value === "weekly");
+        await new Promise(resolve => setTimeout(resolve, 300))
+        this.hideLoading();
     }
 
 
@@ -237,12 +243,19 @@ export default class LeaderboardProfile extends cc.Component {
     private onConnectClick() {
         this.otpDialog.active = true;
     }
-    loadRandomAvatar(student: cc.Node, isCurrentUser = false) {
+    loadRandomAvatar(student: cc.Node, userId: string, isCurrentUser = false) {
         if (isCurrentUser) {
             this.loadUserImageOrAvatar(User.getCurrentUser(), student);
             return;
         }
-        let randomInt = Math.floor(Math.random() * ((AVATARS.length - 1) - 0 + 1) + 0)
+        let randomInt: number;
+        if (this.tempIcons[userId] != null) {
+            randomInt = this.tempIcons[userId]
+        }
+        else {
+            randomInt = Math.floor(Math.random() * ((AVATARS.length - 1) - 0 + 1) + 0)
+            this.tempIcons[userId] = randomInt;
+        }
         cc.resources.load(`avatars/${AVATARS[randomInt]}`, (err, sp) => {
             // @ts-ignore
             student.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(sp);
