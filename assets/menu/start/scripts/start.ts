@@ -133,8 +133,20 @@ export default class Start extends cc.Component {
         const user = User.getCurrentUser()
         if (mode != Mode.School) {
             this.loading.active = true;
+            //Don't wait for assignments if assignments in courseProgressMap exists or user is not connected  
             if (this.isAssignmentsExistsInLessonPlan() || !user.isConnected) {
-                this.getAssigments();
+                //Get assignments without await only on app open
+                if (!config.assignments) {
+                    this.getAssigments();
+                }
+                else {
+                    //Update lessons with assignmentId's, helps for duplicate assignments
+                    try {
+                        this.checkPendingAssignments();
+                    } catch (error) {
+                        
+                    }
+                }
             }
             else {
                 await this.getAssigments();
@@ -273,7 +285,7 @@ export default class Start extends cc.Component {
             reConnectPopupNode.getComponent(ReConnectPopup).msg.getComponent(ChimpleLabel).string = Util.i18NText(msg);
             reConnectPopupNode.getComponent(ReConnectPopup).text.getComponent(ChimpleLabel).string = Util.i18NText(title);
             reConnectPopupNode.active = true;
-            reConnectPopupNode.zIndex=2;
+            reConnectPopupNode.zIndex = 2;
         }
     }
 
@@ -764,9 +776,11 @@ export default class Start extends cc.Component {
             for (const lesson of chapter.lessons) {
                 if (!User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[4]}-${chapter.id}-${lesson.id}`])
                     return [REWARD_TYPES[4], chapter.id, lesson.id]
-                for (const single of lesson.skills) {
-                    if (!User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[4]}-${chapter.id}-${lesson.id}-${single}`])
-                        return [REWARD_TYPES[4], chapter.id, lesson.id, single]
+                if (!!lesson?.skills) {
+                    for (const single of lesson.skills) {
+                        if (!User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[4]}-${chapter.id}-${lesson.id}-${single}`])
+                            return [REWARD_TYPES[4], chapter.id, lesson.id, single]
+                    }
                 }
             }
         }
