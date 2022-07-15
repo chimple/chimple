@@ -776,9 +776,11 @@ export default class Start extends cc.Component {
             for (const lesson of chapter.lessons) {
                 if (!User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[4]}-${chapter.id}-${lesson.id}`])
                     return [REWARD_TYPES[4], chapter.id, lesson.id]
-                for (const single of lesson.skills) {
-                    if (!User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[4]}-${chapter.id}-${lesson.id}-${single}`])
-                        return [REWARD_TYPES[4], chapter.id, lesson.id, single]
+                if (!!lesson?.skills) {
+                    for (const single of lesson.skills) {
+                        if (!User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[4]}-${chapter.id}-${lesson.id}-${single}`])
+                            return [REWARD_TYPES[4], chapter.id, lesson.id, single]
+                    }
                 }
             }
         }
