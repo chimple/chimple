@@ -17,8 +17,11 @@ import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
 import TeacherAddedDialog, { TEACHER_ADD_DIALOG_CLOSED } from "../../../common/scripts/teacherAddedDialog";
 import {
     INVENTORY_ANIMATIONS,
+    INVENTORY_DATA,
     INVENTORY_ICONS,
     INVENTORY_SAVE_CONSTANTS,
+    REWARD_BACKGROUNDS,
+    REWARD_CHARACTERS,
     REWARD_TYPES,
     Util
 } from "../../../common/scripts/util";
@@ -32,6 +35,7 @@ import PreTestDialog from "./preTestDialog";
 import StartHeader from "./startHeader";
 import { SECTION_LIST } from "../../../private/school/scripts/landing";
 import ReConnectPopup from "./reConnectPopup";
+import Rewards from "../../rewards/scripts/rewards";
 
 
 const COMPLETE_AUDIOS = [
@@ -144,7 +148,7 @@ export default class Start extends cc.Component {
                     try {
                         this.checkPendingAssignments();
                     } catch (error) {
-                        
+
                     }
                 }
             }
@@ -152,57 +156,57 @@ export default class Start extends cc.Component {
                 await this.getAssigments();
             }
         }
-            // call API to get featured stories
-            // store in config.featuredLessons
-            // config.featuredLessons = [
-            //     {
-            //         "id": "drawshape0010",
-            //         "image": "puzzle0010.png",
-            //         "name": "Watermelon",
-            //         "color": "#D48FF9",
-            //         "course": "puzzle"
-            //     },
-            //     {
-            //         "id": "hi1902",
-            //         "image": "hi1902.png",
-            //         "name": "पढ़ने के सुधार",
-            //         "color": "#B8D855",
-            //         "course": "hi"
-            //     },
-            //     {
-            //         "id": "entest",
-            //         "image": "en0805.png",
-            //         "name": "New Story",
-            //         "color": "#D48FF9",
-            //         "course": "en"
-            //     }
-            // ]
-            // const featuredLessonsUrl = 'https://raw.githubusercontent.com/chimple/chimple/master/featured_lessons.json'
-            // cc.assetManager.loadRemote(featuredLessonsUrl, (err, jsonAsset) => {
-            //     // @ts-ignore
-            //     if (!err && jsonAsset && jsonAsset.json) {
-            //         // @ts-ignore
-            //         config.featuredLessons = jsonAsset.json
-            //         if (config.featuredLessons.length > 0 && this.featuredButton) {
-            //             this.featuredButton.interactable = true
-            //         }
-            //     }
-            // })
-            if (!config.course) {
-                config.course = this.getNextCourse()
-                config.startCourse = config.course
-            } else {
-                config.unsetRewardChapter()
-                config.course = config.startCourse
-            }
-            this.createAndDisplayLessonPlan();
-            this.displayCurrentReward();
-            const headerNode = cc.instantiate(this.headerPrefab)
-            const headerComp = headerNode.getComponent(StartHeader)
-            headerComp.user = user
-            headerComp.onCourseClick = this.onCourseClick.bind(this)
-            this.header.addChild(headerNode)
-            this.loading.active = false;
+        // call API to get featured stories
+        // store in config.featuredLessons
+        // config.featuredLessons = [
+        //     {
+        //         "id": "drawshape0010",
+        //         "image": "puzzle0010.png",
+        //         "name": "Watermelon",
+        //         "color": "#D48FF9",
+        //         "course": "puzzle"
+        //     },
+        //     {
+        //         "id": "hi1902",
+        //         "image": "hi1902.png",
+        //         "name": "पढ़ने के सुधार",
+        //         "color": "#B8D855",
+        //         "course": "hi"
+        //     },
+        //     {
+        //         "id": "entest",
+        //         "image": "en0805.png",
+        //         "name": "New Story",
+        //         "color": "#D48FF9",
+        //         "course": "en"
+        //     }
+        // ]
+        // const featuredLessonsUrl = 'https://raw.githubusercontent.com/chimple/chimple/master/featured_lessons.json'
+        // cc.assetManager.loadRemote(featuredLessonsUrl, (err, jsonAsset) => {
+        //     // @ts-ignore
+        //     if (!err && jsonAsset && jsonAsset.json) {
+        //         // @ts-ignore
+        //         config.featuredLessons = jsonAsset.json
+        //         if (config.featuredLessons.length > 0 && this.featuredButton) {
+        //             this.featuredButton.interactable = true
+        //         }
+        //     }
+        // })
+        if (!config.course) {
+            config.course = this.getNextCourse()
+            config.startCourse = config.course
+        } else {
+            config.unsetRewardChapter()
+            config.course = config.startCourse
+        }
+        this.createAndDisplayLessonPlan();
+        this.displayCurrentReward();
+        const headerNode = cc.instantiate(this.headerPrefab)
+        const headerComp = headerNode.getComponent(StartHeader)
+        headerComp.user = user
+        headerComp.onCourseClick = this.onCourseClick.bind(this)
+        this.header.addChild(headerNode)
+        this.loading.active = false;
         if (mode == Mode.HomeConnect && !user.isConnected && !!user.schoolId) {
             this.showReConnectPopup("You are disconnected or class code is expired");
         }
@@ -772,6 +776,7 @@ export default class Start extends cc.Component {
     private getNextReward(): string[] {
         //TODO Make this more general for other rewards also
         const course = Config.i.curriculum.get('reward')
+        const isRewardUnlocked = (reward: string): boolean => !!User.getCurrentUser().unlockedRewards[reward]
         for (const chapter of course.chapters) {
             for (const lesson of chapter.lessons) {
                 if (!User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[4]}-${chapter.id}-${lesson.id}`])
@@ -782,6 +787,28 @@ export default class Start extends cc.Component {
                             return [REWARD_TYPES[4], chapter.id, lesson.id, single]
                     }
                 }
+            }
+        }
+        for (const char of REWARD_CHARACTERS) {
+            //Checking for Reward characters
+            if (isRewardUnlocked(`${REWARD_TYPES[0]}-${char}`)) {
+                for (const data of INVENTORY_DATA) {
+                    for (const inventory of data) {
+                        //Checking inventory for unlocked reward characters
+                        if (!isRewardUnlocked(`${REWARD_TYPES[3]}-${char}-${inventory}`)) {
+                            return [REWARD_TYPES[3], char, inventory.split('-')[0] ?? "", inventory.split('-')[1] ?? ""];
+                        }
+                    }
+                }
+            } else {
+                return [REWARD_TYPES[0], char];
+            }
+        }
+
+        //Checking for Reward background
+        for (const background of REWARD_BACKGROUNDS) {
+            if (!isRewardUnlocked(REWARD_TYPES[1] + "-" + background)) {
+                return [REWARD_TYPES[1], background]
             }
         }
         return []
@@ -938,17 +965,23 @@ export default class Start extends cc.Component {
 
     private unlockCurrentReward() {
         const currentReward = User.getCurrentUser().currentReward;
-        User.getCurrentUser().unlockRewardsForItem(currentReward.join('-'), 1)
         const cpm = User.getCurrentUser().courseProgressMap.get(Config.i.course.id)
         cpm.lessonPlan = []
         cpm.lessonPlanIndex = 0
+        if (currentReward == null || currentReward.length < 1) {
+            cc.director.loadScene(cc.director.getScene().name)
+            return;
+        }
+        User.getCurrentUser().unlockRewardsForItem(currentReward.join('-'), 1)
         User.getCurrentUser().currentReward = null
 
         switch (currentReward[0]) {
             case REWARD_TYPES[0]: //character
+                Rewards.contentDecisionFlag = '0'
                 Config.i.pushScene('menu/rewards/scenes/rewards', 'menu')
                 break;
             case REWARD_TYPES[1]: //background
+                Rewards.contentDecisionFlag = '1'
                 Config.i.pushScene('menu/rewards/scenes/rewards', 'menu')
                 break;
             case REWARD_TYPES[2]: //achievement
