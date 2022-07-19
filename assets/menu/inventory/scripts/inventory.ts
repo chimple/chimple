@@ -36,12 +36,14 @@ export default class Inventory extends cc.Component {
     currentScrollValue: number = 1000
 
     lastSelectedButton: number = 0;
-    characterName: string = "bear"
+    static characterName: string;
 
     normalSprite: cc.SpriteFrame = null;
     onLoad() {
         try {
-            this.characterName = User.getCurrentUser().currentCharacter;
+            if (Inventory.characterName == null) {
+                Inventory.characterName = User.getCurrentUser().currentCharacter ?? "bear";
+            }
         } catch (err) {
             console.log("error reading character name");
         }
@@ -49,13 +51,13 @@ export default class Inventory extends cc.Component {
         this.buildIndividualItems(INVENTORY_DATA[0])
 
         Util.loadFriend((friendNode: cc.Node) => {
-            friendNode.name = `${User.getCurrentUser().currentCharacter}_dragon`
+            friendNode.name = `${Inventory.characterName}_dragon`
             friendNode.x = -270
             friendNode.y = -212
             console.log(this.node, " hello ");
-            this.node.addChild(friendNode)
+            this.node?.addChild(friendNode)
             Util.loadAccessoriesAndEquipAcc(friendNode.children[1], friendNode)
-        })
+        }, Inventory.characterName)
 
         if (Profile.getItem(IN_LOGIN_FLOW) === 0) {
             this.doneButtonNode.active = false;
@@ -120,7 +122,7 @@ export default class Inventory extends cc.Component {
             item.getChildByName("New Button").getChildByName("Background").getComponent(cc.Sprite).spriteFrame = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).getComponent(cc.Sprite).spriteFrame;
             item.getChildByName("New Button").height = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).height
             item.getChildByName("New Button").width = this.node.getChildByName("button_textures").getChildByName(element.split("-")[0]).getChildByName(element.split("-")[1]).width
-            const rewardItemName: number = User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[3]}-${this.characterName}-${element}`]
+            const rewardItemName: number = User.getCurrentUser().unlockedRewards[`${REWARD_TYPES[3]}-${Inventory.characterName}-${element}`]
             let itemComp = item.getComponent(Item);
             if (!rewardItemName) {
                 item.getChildByName("New Button").getChildByName("lock_icon").active = true
@@ -129,10 +131,10 @@ export default class Inventory extends cc.Component {
 
             itemComp.onClickCallback = (name, isLocked) => {
                 let [slot_name, armature_name] = name.split("-");
-                if(isLocked) {
+                if (isLocked) {
                     User.getCurrentUser().currentReward = [
                         REWARD_TYPES[3],
-                        this.characterName,
+                        Inventory.characterName,
                         slot_name,
                         armature_name
                     ]
@@ -141,11 +143,11 @@ export default class Inventory extends cc.Component {
                 } else {
 
                     // update the armature
-                    Inventory.updateCharacter(this.node.getChildByName(`${this.characterName}_dragon`).children[0].getComponent(dragonBones.ArmatureDisplay), INVENTORY_ANIMATIONS[this.lastSelectedButton], armature_name, slot_name);
-    
+                    Inventory.updateCharacter(this.node.getChildByName(`${Inventory.characterName}_dragon`).children[0].getComponent(dragonBones.ArmatureDisplay), INVENTORY_ANIMATIONS[this.lastSelectedButton], armature_name, slot_name);
+
                     // save to profile
-                    let characterAndSlot = this.characterName.concat("-", slot_name)
-                    User.getCurrentUser().updateInventory(characterAndSlot, armature_name);    
+                    let characterAndSlot = Inventory.characterName.concat("-", slot_name)
+                    User.getCurrentUser().updateInventory(characterAndSlot, armature_name);
                 }
             }
             item.getChildByName("New Button").getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = element
