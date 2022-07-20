@@ -799,9 +799,11 @@ export class Util {
         }
     }
 
-    public static loadFriend(callback: Function) {
-        const user = User.getCurrentUser()
-        const char = user ? user.currentCharacter : 'chimp'
+    public static loadFriend(callback: Function, char = null) {
+        if (char == null) {
+            const user = User.getCurrentUser();
+            char = user ? user.currentCharacter : 'chimp'
+        }
         cc.resources.load(
             "prefabs/friend/" + char,
             (err, prefab) => {

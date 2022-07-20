@@ -988,6 +988,7 @@ export default class Start extends cc.Component {
                 // NA
                 break;
             case REWARD_TYPES[3]: //inventory
+                Inventory.characterName = currentReward[1];
                 Config.getInstance().pushScene("menu/inventory/scenes/inventory", "menu");
                 break;
             case REWARD_TYPES[4]: //lesson

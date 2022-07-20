@@ -7,6 +7,7 @@ import { Course, Chapter, Lesson } from '../../../common/scripts/lib/convert';
 import Achievement from '../../../common/scorecard/scripts/achievement';
 import { SECTION_LIST } from '../../../private/school/scripts/landing';
 import { Reward } from '../../../games/platform/scripts/reward';
+import Inventory from '../../inventory/scripts/inventory';
 const { ccclass, property } = cc._decorator;
 
 
@@ -240,17 +241,19 @@ export default class Rewards extends cc.Component {
 
         if (User.getCurrentUser().currentCharacter === customEventData.toString().trim()) {
             // switch scene
+            Inventory.characterName = customEventData.toString().trim();
             Config.getInstance().pushScene("menu/inventory/scenes/inventory", "menu");
         }
 
         // save to profile
+        Inventory.characterName = customEventData.toString().trim();
         User.getCurrentUser().currentCharacter = customEventData.toString().trim();
     }
 
     onEditButtonClicked(event, customEventData) {
         // save to profile
         User.getCurrentUser().currentCharacter = customEventData.toString().trim();
-
+        Inventory.characterName = customEventData.toString().trim();
         // switch scene
         Config.getInstance().pushScene("menu/inventory/scenes/inventory", "menu");
     }
