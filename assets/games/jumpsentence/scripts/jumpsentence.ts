@@ -96,7 +96,7 @@ export default class JumpSentence extends Game {
       } else {
         this.lockedKeyboard.active = false;
         this.unlockedKeyboard.active = true;
-        this.caseButtonNode.active = true;
+        // this.caseButtonNode.active = true;
         if (this.upperCase == "y") {
           this.unlockedKeyboard.getChildByName("Alphabets").getComponent(KeyboardAlphabets).onClickSwitchCaseButton();
         }
