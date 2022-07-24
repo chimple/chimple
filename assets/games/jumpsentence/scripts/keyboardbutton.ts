@@ -5,6 +5,8 @@ import Config from "../../../common/scripts/lib/config";
 import { Util } from "../../../common/scripts/util";
 import { catchError } from "../../../common/scripts/lib/error-handler";
 import LessonController from "../../../common/scripts/lessonController";
+import KeyboardAlphabets from "./keyboardAlphabets";
+import { Case } from "./language";
 
 const { ccclass, property } = cc._decorator;
 
@@ -62,16 +64,18 @@ export default class KeyboardButton extends cc.Component {
       " getting : " +
       this.node.getChildByName("Label").getComponent(cc.Label).string
     );
-
+    // cc.log("keyboardbutton BridgeBuilder.answerIndices",BridgeBuilder.answerIndices)
     if (this.collidingBox && other.node.name != this.collidingBox.name) {
       this.onCollisionExit(other, self);
     }
     // let logs = "Expecting " + other.node.getComponent(EmptyBox).myCharacter + " getting " + this.node.getChildByName("Label").getComponent(cc.Label).string;
     // this.node.getParent().getParent().getParent().getChildByName("debugLabel").getComponent(cc.Label).string = logs
     this.collidingBox = other.node;
+    const currentIndex = this.bridgeComp.answerIndices.size - this.bridgeComp.count;
     if (
       this.collidingBox.getComponent(EmptyBox).myCharacter ===
       this.node.getChildByName("Label").getComponent(cc.Label).string
+      && Array.from(this.bridgeComp.answerIndices.values())[currentIndex] === this.collidingBox.getComponent(EmptyBox).characterIndex
     ) {
       this.collidingBox.getChildByName("Glow Box").opacity = 255;
       this.isProcessing = true;
@@ -93,6 +97,7 @@ export default class KeyboardButton extends cc.Component {
   @catchError()
   onTouchStart(touch: cc.Touch) {
     if (touch.getID() == 0) {
+      //@ts-ignore
       this.myOriginalLocation = this.node.position;
       cc.log("Original Location " + this.myOriginalLocation);
       this.isTouchEnded = false;
@@ -110,6 +115,7 @@ export default class KeyboardButton extends cc.Component {
   onTouchMove(touch: cc.Touch) {
     // cc.log("Touch Moving");
     if (touch.getID() == 0) {
+      //@ts-ignore
       this.node.position = this.node.position.add(touch.getDelta());
 
       if (this.isProcessing) {
@@ -151,13 +157,25 @@ export default class KeyboardButton extends cc.Component {
           this.node.getChildByName("Label").getComponent(cc.Label).string &&
           !this.isDone
         ) {
+          this.isDone = true;
+          this.bridgeComp.joinBridge(this.collidingBox, this.node.getChildByName("Label").getComponent(cc.Label).string);
           if (Config.i.course.lang == "en") {
             this.node.parent.parent.parent.emit("correct");
+            const unlockedKeyboard = this.node.parent.parent.parent.getComponent(JumpSentence).unlockedKeyboard;
+            if (unlockedKeyboard.active) {
+              const keyboardAlphabets = unlockedKeyboard.getChildByName("Alphabets").getComponent(KeyboardAlphabets)
+              const currentIndex = this.bridgeComp.answerIndices.size - this.bridgeComp.count;
+              const alphabetIndex = Array.from(this.bridgeComp.answerIndices.values())[currentIndex]
+              const isUpperCase = (str: string): Case => {
+                return /^[A-Z]*$/.test(str) ? Case.Upper : Case.Lower;
+              }
+              if (isUpperCase(this.bridgeComp.positions[alphabetIndex]) !== keyboardAlphabets.case) {
+                keyboardAlphabets.onClickSwitchCaseButton();
+              }
+            }
           } else {
             this.node.parent.emit("correct");
           }
-          this.isDone = true;
-          this.bridgeComp.joinBridge(this.collidingBox, this.node.getChildByName("Label").getComponent(cc.Label).string);
           var callback = cc.callFunc(this.onBacktoOriginalPlace, this);
           cc.log(
             "Setting Back to Original Location on Touch End after success"
@@ -168,6 +186,7 @@ export default class KeyboardButton extends cc.Component {
           );
           //Add additional Animations
           this.node.runAction(action);
+          //@ts-ignore
           this.node.position = this.myOriginalLocation;
         }
       } else {
@@ -175,6 +194,7 @@ export default class KeyboardButton extends cc.Component {
         cc.log(
           "Setting Back to Original Location on Touch End if not colliding"
         );
+        //@ts-ignore
         this.node.position = this.myOriginalLocation;
         if (Config.i.course.lang == "en") {
           this.node.parent.parent.parent.emit("wrong");
