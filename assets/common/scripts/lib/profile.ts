@@ -13,6 +13,7 @@ import {
     MIN_PASS,
     Mode
 } from "./constants";
+import { Chapter } from "./convert";
 
 const WORLD = "World";
 const LEVEL = "Level";
@@ -57,6 +58,7 @@ export interface CourseProgress {
     lessonPlan?: string[];
     lessonPlanIndex?: number;
     lessonPlanDate?: Date;
+    isCourseCompleted?: boolean;
 
     updateChapterId(c: string);
 }
@@ -69,6 +71,7 @@ export class CourseProgressClass implements CourseProgress {
     lessonPlan: string[]
     lessonPlanIndex: number
     lessonPlanDate: Date
+    isCourseCompleted?: boolean;
 
     constructor(currentChapterId: string = null) {
         this.currentChapterId = currentChapterId
@@ -76,6 +79,7 @@ export class CourseProgressClass implements CourseProgress {
         this.assignments = []
         this.lessonPlan = []
         this.lessonPlanIndex = 0
+        this.isCourseCompleted = false
     }
 
     updateChapterId(c: string) {
@@ -600,13 +604,21 @@ export class User {
                         const nextLesson = lessons[lessonIndex + 1]
                         cpm.currentLessonId = nextLesson.id
                     } else if (this.courseProgressMap.get(Config.i.course.id).currentChapterId == Config.i.chapter.id) {
-                        var found = false
-                        const nextChapter = Config.i.course.chapters
-                            .find((c) => {
-                                if (found) return true
-                                found = c.id == this.courseProgressMap.get(Config.i.course.id).currentChapterId
-                                return false
-                            })
+                        let nextChapter: Chapter;
+                        if (Config.i.course.chapters[Config.i.course.chapters.length - 1].id == Config.i.chapter.id || this.courseProgressMap.get(Config.i.course.id).isCourseCompleted === true) {
+                            const randomInt = Math.floor(Math.random() * ((Config.i.course.chapters.length - 1) - 1 + 1) + 0);
+                            nextChapter = Config.i.course.chapters[randomInt];
+                            this.courseProgressMap.get(Config.i.course.id).isCourseCompleted = true;
+                        }
+                        if (!nextChapter) {
+                            var found = false
+                            nextChapter = Config.i.course.chapters
+                                .find((c) => {
+                                    if (found) return true
+                                    found = c.id == this.courseProgressMap.get(Config.i.course.id).currentChapterId
+                                    return false
+                                })
+                        }
                         if (nextChapter) {
                             cpm.currentLessonId = null
                             cpm.updateChapterId(nextChapter.id)
@@ -826,6 +838,7 @@ export class User {
             cp.assignments = cpData.assignments
             cp.lessonPlan = cpData.lessonPlan
             cp.lessonPlanIndex = cpData.lessonPlanIndex
+            cp.isCourseCompleted = cpData.isCourseCompleted
             if (cp.lessonPlanDate) {
                 cpData.lessonPlanDate = new Date(cp.lessonPlanDate)
             }
