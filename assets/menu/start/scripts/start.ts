@@ -492,9 +492,14 @@ export default class Start extends cc.Component {
             if (course.id == 'puzzle') {
                 lessons = []
                 course.chapters.forEach((ch) => {
-                    const puzLes = ch.lessons.find((l, i, ls) =>
-                        !user.lessonProgressMap.has(l.id) || (i + 1 == ls.length)
+                    let puzLes: Lesson;
+                    puzLes = ch.lessons.find((l, i, ls) =>
+                        !user.lessonProgressMap.has(l.id)
                     )
+                    if (!puzLes) {
+                        const randomInt = Math.floor(Math.random() * ((ch.lessons.length - 1) - 0 + 1) + 0);
+                        puzLes = ch.lessons[randomInt];
+                    }
                     if (puzLes) lessons.push(puzLes)
                 })
             } else {
