@@ -12,7 +12,7 @@ export default class SpellingDrag extends Drag {
     onLoad() {
         super.onLoad()
         this.label.string = Config.wide ? ' ' + this.node.name + ' ' : this.node.name
-        Util.loadsPhonicsOrLetter(this.node.name.toLowerCase(), (clip) => {
+        Util.loadsLetter(this.node.name.toLowerCase(), (clip) => {
             this._soundClip = clip
         })
     }
