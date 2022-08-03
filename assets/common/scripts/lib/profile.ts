@@ -534,7 +534,7 @@ export class User {
                 lessonProgress.assignmentIds.push(Config.i.lesson.assignmentId);
                 lessonProgress.attempts++
                 lessonProgress.date = new Date()
-                if (score > lessonProgress.score) {
+                if (score > (lessonProgress.score ?? 0)) {
                     lessonProgress.score = score;
                     if (Config.i.lesson.type == EXAM && score >= MIN_PASS) {
                         reward = [REWARD_TYPES[2], Config.i.lesson.image]

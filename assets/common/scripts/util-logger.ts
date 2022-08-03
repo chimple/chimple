@@ -885,7 +885,7 @@ export default class UtilLogger {
                     const toAssignments = toUser.lessonProgressMap.get(key)?.assignmentIds ?? [];
                     const _assignments = fromAssignments.concat(toAssignments.filter((item) => fromAssignments.indexOf(item) < 0));
                     const _date = fromUser.lessonProgressMap.get(key)?.date;
-                    toUser.lessonProgressMap.set(key, new LessonProgressClass(this.score, 1, _course, _assignments.toString(), _date));
+                    toUser.lessonProgressMap.set(key, new LessonProgressClass(score, 1, _course, _assignments.toString(), _date));
                 })
             }
         }
