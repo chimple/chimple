@@ -69,7 +69,8 @@ export default class StartHeader extends cc.Component {
             this.selectHeaderButton(headerButtonComp);
         }
         Util.load(courseId + '/course/res/icons/' + courseId + '.png', (err: Error, texture) => {
-            headerButtonComp.sprite.spriteFrame = err ? null : new cc.SpriteFrame(texture);
+            if (!!headerButtonComp.sprite)
+                headerButtonComp.sprite.spriteFrame = err ? null : new cc.SpriteFrame(texture);
         });
         const course = config.curriculum.get(courseId);
         headerButtonComp.label.string = Util.i18NText(course.name);

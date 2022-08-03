@@ -837,7 +837,7 @@ export class Util {
         INVENTORY_SAVE_CONSTANTS.forEach((key) => {
             let characterAndSlot = User.getCurrentUser().currentCharacter.concat("-", key)
             var newHatName = User.getCurrentUser().inventory[characterAndSlot]
-            if (newHatName != undefined) {
+            if (newHatName != undefined && !!_armature) {
                 _armature.getSlot(key).childArmature = factory.buildArmature(newHatName);
                 if (key === "left_shoe") {
                     _armature.getSlot("right_shoe").childArmature = factory.buildArmature(newHatName);

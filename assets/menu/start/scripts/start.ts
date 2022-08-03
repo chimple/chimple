@@ -36,6 +36,7 @@ import StartHeader from "./startHeader";
 import { SECTION_LIST } from "../../../private/school/scripts/landing";
 import ReConnectPopup from "./reConnectPopup";
 import Rewards from "../../rewards/scripts/rewards";
+import catchError from "../../../common/scripts/lib/error-handler";
 
 
 const COMPLETE_AUDIOS = [
@@ -243,7 +244,7 @@ export default class Start extends cc.Component {
         Util.loadFriend((node: cc.Node) => {
             this.friend = node
             node.scale = 0.8
-            this.node.addChild(this.friend)
+            this.node?.addChild(this.friend)
             node.y = -cc.winSize.height / 2 + 16
             node.x = cc.winSize.width / 3.25
             Util.loadAccessoriesAndEquipAcc(node.children[1], node)
@@ -433,6 +434,7 @@ export default class Start extends cc.Component {
         this.showTeacherDialog();
     }
 
+    @catchError()
     onProfileClick(event, customEventData) {
         const node = event.target
         const button = node.getComponent(cc.Button)
@@ -738,8 +740,8 @@ export default class Start extends cc.Component {
     }
 
     onDisable() {
-        const friendComp = this.friend.getComponent(Friend)
-        friendComp.stopAudio()
+        const friendComp = this.friend?.getComponent(Friend)
+        friendComp?.stopAudio()
     }
 
     onDestroy() {
@@ -874,7 +876,7 @@ export default class Start extends cc.Component {
                                     const image = new cc.Node()
                                     const imageComp = image.addComponent(cc.Sprite)
                                     imageComp.spriteFrame = new cc.SpriteFrame(asset)
-                                    this.rewardBg.addChild(image)
+                                    this.rewardBg?.addChild(image)
                                 }
                             })
                             bundle.load(`res/${currentReward[3]}`, cc.Texture2D, (err, asset) => {
@@ -916,8 +918,9 @@ export default class Start extends cc.Component {
         // this.gift.once('touchend', () => this.unlockCurrentReward())
     }
 
+    @catchError()
     toAddGiftBoxNode(image: cc.Node, type) {
-        this.gift.addChild(image);
+        this.gift?.addChild(image);
 
         const imageComp = new cc.Node().addComponent(cc.Sprite)
         imageComp.spriteFrame = new cc.SpriteFrame(type);
