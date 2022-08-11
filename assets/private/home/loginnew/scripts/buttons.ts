@@ -75,12 +75,14 @@ export default class Buttons extends cc.Component {
           if (!studentMap) {
             user.isConnected = false;
           }
+          Profile.setItem(CURRENTMODE, Mode.HomeConnect);
           User.setCurrentUser(user);
           User.storeUser(user);
           Util.preloadStartScene(this.node, cc.director.getScene().getChildByName("Canvas").getChildByName('loading'))
         }
         else {
           cc.log("userButtonCallback in normal");
+          Profile.setItem(CURRENTMODE, Mode.Home)
           User.setCurrentUser(user);
           Util.preloadStartScene(this.node, cc.director.getScene().getChildByName("Canvas").getChildByName('loading'))
         }

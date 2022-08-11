@@ -15,14 +15,16 @@ const hindiVowelList = ['अ', 'आ', 'इ', 'ई', 'उ', 'ऊ', 'ऋ', 'ए', 
 const hindiConsonantList = ['क', 'ख', 'ग', 'घ', 'ङ', 'च', 'छ', 'ज', 'झ', 'ञ', 'ट', 'ठ', 'ड', 'ढ', 'ण', 'त', 'थ', 'द', 'ध', 'न', 'प', 'फ', 'ब', 'भ', 'म', 'य', 'र', 'ल', 'व', 'श', 'ष', 'स', 'ह']
 
 const kannadaVowelList = ['ಅ', 'ಆ', 'ಇ', 'ಈ', 'ಉ', 'ಊ', 'ಋ', 'ೠ   ಎ', 'ಏ', 'ಐ', 'ಒ', 'ಓ', 'ಔ   ಂ', 'ಃ']
-
 const kannadaConsonantList = ['ಕ', 'ಖ', 'ಗ', 'ಘ', 'ಙ', 'ಚ', 'ಛ', 'ಜ', 'ಝ', 'ಞ   ಟ', 'ಠ', 'ಡ', 'ಢ', 'ಣ', 'ತ', 'ಥ', 'ದ', 'ಧ', 'ನ', 'ಪ', 'ಫ', 'ಬ', 'ಭ', 'ಮ   ಯ', 'ರ', 'ಲ', 'ಳ', 'ವ', 'ಶ', 'ಷ', 'ಸ', 'ಹ']
 
+const marathiVowelList = ['अ', 'आ', 'इ', 'ई', 'उ', 'ऊ', 'ए', 'ऐ', 'ओ', 'औ', 'अं', 'अः']
+const marathiConsonantList = ['क', 'ख', 'ग', 'घ', 'घ', 'च', 'छ', 'ज', 'झ', 'ञ', 'ट', 'ठ', 'ड', 'ढ', 'ण', 'त', 'थ', 'द', 'ध', 'न', 'प', 'फ', 'ब', 'भ', 'म', 'य', 'र', 'ल', 'व', 'श', 'ष', 'स', 'ह', 'ळ', 'क्', 'ष', 'ज्ञ']
 
 const langMap = {
     'en/': [vowelList, consonantList],
     'hi/': [hindiVowelList, hindiConsonantList],
-    'kn/': [kannadaVowelList, kannadaConsonantList]
+    'kn/': [kannadaVowelList, kannadaConsonantList],
+    'mr/': [marathiVowelList, marathiConsonantList]
 }
 
 export class AlphabetUtil {
@@ -30,16 +32,16 @@ export class AlphabetUtil {
     static isConsonantOrVowel(character: string): LetterType {
 
         let letterType;
-        AlphabetUtil.contains(langMap[Config.i.course.lang +'/'][0], character) ? letterType = LetterType.Vowel : letterType = LetterType.Consonant;
+        AlphabetUtil.contains(langMap[Config.i.course.lang + '/'][0], character) ? letterType = LetterType.Vowel : letterType = LetterType.Consonant;
         return letterType;
     }
 
     static getRandomVowel(): string {
-        return langMap[Config.i.course.lang +'/'][0][Math.floor(Math.random() * langMap[Config.i.course.lang +'/'][0].length)].toUpperCase();
+        return langMap[Config.i.course.lang + '/'][0][Math.floor(Math.random() * langMap[Config.i.course.lang + '/'][0].length)].toUpperCase();
     }
 
     static getRandomConsonant(): string {
-        return langMap[Config.i.course.lang +'/'][1][Math.floor(Math.random() * langMap[Config.i.course.lang +'/'][1].length)].toUpperCase();
+        return langMap[Config.i.course.lang + '/'][1][Math.floor(Math.random() * langMap[Config.i.course.lang + '/'][1].length)].toUpperCase();
     }
 
     static getRandomConsonantArray(lang: string): Array<string> {
