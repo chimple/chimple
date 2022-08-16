@@ -1,4 +1,4 @@
-package org.chimple.cubacocos;
+package org.chimple.cubachimple;
 
 import android.os.Bundle;
 import android.view.View;
