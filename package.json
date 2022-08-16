@@ -4,7 +4,8 @@
   "description": "For setting up: mkdir -p sdcard/bahama cd sdcard/bahama git clone https://github.com/chimple/hi.git git clone https://github.com/chimple/hi-maths.git git clone https://github.com/chimple/en.git git clone https://github.com/chimple/en-maths.git",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sync": "cap sync android"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,9 @@
   },
   "homepage": "https://github.com/chimple/chimple#readme",
   "dependencies": {
+    "@capacitor/android": "^4.0.1",
+    "@capacitor/cli": "^4.0.1",
+    "@capacitor/core": "^4.0.1",
     "firebase": "^7.24.0"
   }
 }
