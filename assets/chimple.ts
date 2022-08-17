@@ -5,6 +5,7 @@ import UtilLogger from "./common/scripts/util-logger";
 import { Util } from "./common/scripts/util";
 import { APIMode, ServiceConfig } from "./common/scripts/services/ServiceConfig";
 import { AcceptTeacherRequest } from "./common/scripts/services/ServiceApi";
+import { Capacitor } from '@capacitor/core';
 
 const { ccclass, property } = cc._decorator;
 
@@ -130,6 +131,10 @@ export default class Chimple extends cc.Component {
                 jsb.fileUtils.getWritablePath() + 'HotUpdateSearchPaths',
                 '@assets/'
             ])
+        if (Capacitor.getPlatform() === 'android') {
+            cc.log("platform is android");
+            Capacitor.convertFileSrc("file:///data/user/0/org.chimple.cubachimple/files/games/");
+        }
         // if (CC_JSB) {
         //     // @ts-ignore
         //     cc.assetManager.cacheManager.cachedFiles.forEach((val, key) => {

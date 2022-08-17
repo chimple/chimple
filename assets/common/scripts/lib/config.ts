@@ -5,11 +5,12 @@ import Profile, { LANGUAGE, LessonProgress, User } from "./profile";
 import TTFFont = cc.TTFFont;
 import { GAME_CONFIGS } from "./gameConfigs";
 import { BUNDLE_URL } from "./constants";
+import { Capacitor } from "@capacitor/core";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
-export const COURSES = ['en', 'en-maths', 'hi', 'hi-maths', 'ur', 'ur-maths','mr'];
-export const COURSES_LANG_ID = ['en', 'hi', 'maths', 'kn','mr'];
+export const COURSES = ['en', 'en-maths', 'hi', 'hi-maths', 'ur', 'ur-maths', 'mr'];
+export const COURSES_LANG_ID = ['en', 'hi', 'maths', 'kn', 'mr'];
 
 export enum Flow {
     Default,
@@ -588,13 +589,31 @@ export default class Config {
     public static loadBundle(lessonId: string, callback: Function, errCallback: Function) {
         cc.assetManager.loadBundle(lessonId, (err, bundle) => {
             if (err) {
-                cc.assetManager.loadBundle(BUNDLE_URL + lessonId, (err2, bundle2) => {
-                    if (err2) {
-                        errCallback(err2);
-                    } else {
-                        callback(bundle2);
-                    }
-                });
+                if (Capacitor.getPlatform() === 'android') {
+                    const path = "http://localhost/_capacitor_file_/data/user/0/org.chimple.cubachimple/files/games/" + lessonId;
+                    cc.assetManager.loadBundle(path, (err2, bundle2) => {
+                        cc.log('loaded bundle with path ', path, "err", err2, "bundle", bundle2)
+                        if (err2) {
+                            cc.assetManager.loadBundle(BUNDLE_URL + lessonId, (err2, bundle2) => {
+                                if (err2) {
+                                    errCallback(err2);
+                                } else {
+                                    callback(bundle2);
+                                }
+                            });
+                        } else {
+                            callback(bundle2);
+                        }
+                    });
+                } else {
+                    cc.assetManager.loadBundle(BUNDLE_URL + lessonId, (err2, bundle2) => {
+                        if (err2) {
+                            errCallback(err2);
+                        } else {
+                            callback(bundle2);
+                        }
+                    });
+                }
             } else {
                 callback(bundle);
             }
