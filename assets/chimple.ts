@@ -133,7 +133,25 @@ export default class Chimple extends cc.Component {
             ])
         if (Capacitor.getPlatform() === 'android') {
             cc.log("platform is android");
-            Capacitor.convertFileSrc("file:///data/user/0/org.chimple.cubachimple/files/games/");
+        }
+        const params = location.href.split('?')[1]?.split('&') ?? [];
+        const urlParams = {};
+        for (let param of params) {
+            urlParams[param.split('=')[0]] = param.split('=')[1];
+        }
+        const isIframe = !(window === window.parent);
+
+        cc.log("xxxxx data", urlParams,"isIframe",isIframe)
+        if (urlParams['courseid'] != null && urlParams['chapterid'] != null && urlParams['lessonid'] != null) {
+            const input = {
+                courseid: urlParams['courseid'],
+                chapterid: urlParams['chapterid'],
+                lessonid: urlParams['lessonid']
+            }
+            console.log("input", input)
+            Config.isMicroLink = true;
+            Util.loadDirectLessonWithLink(input, this.node)
+            return;
         }
         // if (CC_JSB) {
         //     // @ts-ignore

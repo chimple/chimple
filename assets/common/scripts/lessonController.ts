@@ -398,6 +398,24 @@ export default class LessonController extends cc.Component {
             : this.rightMoves / (this.rightMoves + this.wrongMoves) * 100);
 
         if (isNaN(score)) score = 0;
+        const isIframe = !(window === window.parent);
+        if (isIframe) {
+            const event = new CustomEvent('gameEnd', {
+                detail: {
+                    chapterName: config.chapter.name,
+                    chapterId: config.chapter.id,
+                    lessonName: config.lesson.name,
+                    lessonId: config.lesson.id,
+                    courseName: config.course.id,
+                    lessonType: config.lesson.type,
+                    score: score,
+                    timeSpent: Math.abs(timeSpent),
+                }
+            });
+            window.parent.document.body.dispatchEvent(event);
+            console.log("event dispatched", event)
+            return;
+        }
 
         const user = User.getCurrentUser();
         var reward: [string, string];

@@ -590,7 +590,9 @@ export default class Config {
         cc.assetManager.loadBundle(lessonId, (err, bundle) => {
             if (err) {
                 if (Capacitor.getPlatform() === 'android') {
-                    const path = "http://localhost/_capacitor_file_/data/user/0/org.chimple.cubachimple/files/games/" + lessonId;
+                    const gameUrl = cc.sys.localStorage.getItem("gameUrl") ?? "http://localhost/_capacitor_file_/data/user/0/org.chimple.cuba/files/";
+                    console.log("gameUrl", gameUrl, cc.sys.localStorage.getItem("gameUrl"))
+                    const path = gameUrl + lessonId;
                     cc.assetManager.loadBundle(path, (err2, bundle2) => {
                         cc.log('loaded bundle with path ', path, "err", err2, "bundle", bundle2)
                         if (err2) {
