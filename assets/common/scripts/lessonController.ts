@@ -345,6 +345,14 @@ export default class LessonController extends cc.Component {
             mlClassId: config.lesson.mlClassId || null,
             mlPartnerId: config.lesson.mlPartnerId || null
         };
+        const isIframe = !(window === window.parent);
+        if (isIframe) {
+            const customEvent = new CustomEvent('problemEnd', {
+                detail: event
+            });
+            window.parent.document.body.dispatchEvent(customEvent);
+            console.log("problemEnd event dispatched", customEvent)
+        }
         UtilLogger.logChimpleEvent(eventName, event);
         if (!Config.isMicroLink) {
             const deviceId = UtilLogger.currentDeviceId();
