@@ -6,6 +6,7 @@ import { REWARD_TYPES, Util } from "../../../common/scripts/util";
 import Start from "./start";
 import Loading from "../../../common/scripts/loading";
 import LessonController from "../../../common/scripts/lessonController";
+import { ServiceConfig } from "../../../common/scripts/services/ServiceConfig";
 
 const { ccclass, property } = cc._decorator;
 
@@ -53,7 +54,7 @@ export default class ChapterLessons extends cc.Component {
 
     static showType: ChapterLessonType = ChapterLessonType.Library
 
-    onLoad() {
+    async onLoad() {
         this.node.getChildByName('block').active = true;
         this.bgHolder.removeAllChildren();
         if (!!User.getCurrentUser().currentBg) {
@@ -66,10 +67,19 @@ export default class ChapterLessons extends cc.Component {
         switch (ChapterLessons.showType) {
             case ChapterLessonType.Assignments:
                 if (User.getCurrentUser().isConnected) {
+                    this.loading.active = true;
                     this.label.string = 'Assignments'
-                    config.getAssignmentLessonsTodo().forEach((les) => {
+                    let assignments: any = config.getAssignmentLessonsTodo();
+                    if (assignments.length == 0 || assignments == undefined) {
+                        const user = User.getCurrentUser();
+                        assignments = await ServiceConfig.getI().handle.listAssignments(user.id)
+                        config.assignments = assignments;
+                        assignments = config.getAssignmentLessonsTodo();
+                    }
+                    assignments.forEach((les) => {
                         this.createLessonButton(les, true)
                     })
+                    this.loading.active = false;
                 } else {
                     this.label.string = 'Connect To Class'
                     // this.whatsappNode.active = true
