@@ -408,7 +408,7 @@ export default class LessonController extends cc.Component {
         if (isNaN(score)) score = 0;
         const isIframe = !(window === window.parent);
         if (isIframe) {
-            const event = new CustomEvent('gameEnd', {
+            const event = new CustomEvent('lessonEnd', {
                 detail: {
                     chapterName: config.chapter.name,
                     chapterId: config.chapter.id,
@@ -422,7 +422,7 @@ export default class LessonController extends cc.Component {
             });
             window.parent.document.body.dispatchEvent(event);
             console.log("event dispatched", event)
-            return;
+            // return;
         }
 
         const user = User.getCurrentUser();
@@ -542,7 +542,7 @@ export default class LessonController extends cc.Component {
         scorecardComp.score = score;
         scorecardComp.text = config.lesson.name;
         scorecardComp.reward = reward;
-        if (Config.isMicroLink && !cc.sys.isNative) {
+        if (Config.isMicroLink && !cc.sys.isNative && !isIframe) {
             scorecardComp.continueButton.active = false;
         }
         LessonController.friend.node.removeFromParent();

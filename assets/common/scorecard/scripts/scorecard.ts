@@ -46,15 +46,17 @@ export default class Scorecard extends cc.Component {
 
     reward: [string, string]
 
+    isIframe = !(window === window.parent);
+
     onLoad() {
-           if(!cc.sys.isNative && Config.isMicroLink){
-                this.continueButton.active = false
-                if(Config.i.microLinkData.end != MICROLINK_END_BLANK) {
-                    this.downloadButton.active = true;
-                    this.downloadButton.parent.getChildByName('web_scorecard_bg').active = true;
-                    this.downloadButton.parent.getChildByName('playstore_label').active = true;    
-                }
-             }
+        if (!cc.sys.isNative && Config.isMicroLink && !this.isIframe) {
+            this.continueButton.active = false
+            if (Config.i.microLinkData.end != MICROLINK_END_BLANK) {
+                this.downloadButton.active = true;
+                this.downloadButton.parent.getChildByName('web_scorecard_bg').active = true;
+                this.downloadButton.parent.getChildByName('playstore_label').active = true;
+            }
+        }
         this.label.string = Util.i18NText(this.text);
         if (this.score > 25) this.star1.spriteFrame = this.active
         if (this.score > 50) this.star2.spriteFrame = this.active
@@ -94,18 +96,25 @@ export default class Scorecard extends cc.Component {
             }
         }
     }
- 
+
     onContinueClick() {
         this.continueButton.getComponent(cc.Button).interactable = false
-        if(cc.sys.isNative && Config.isMicroLink){
+        if (this.isIframe) {
+            const customEvent = new CustomEvent('gameEnd', {
+                detail: {}
+            });
+            window.parent.document.body.dispatchEvent(customEvent);
+            return;
+        }
+        if (cc.sys.isNative && Config.isMicroLink) {
             Config.isMicroLink = false;
             Config.i.pushScene('menu/start/scenes/start', 'menu', null, true);
         }
-        else{
+        else {
             Config.i.popScene()
-        } 
+        }
     }
-    
+
     onDownloadButtonClick() {
         cc.sys.openURL("https://play.google.com/store/apps/details?id=org.chimple.bahama&hl=en_IN");
     }
