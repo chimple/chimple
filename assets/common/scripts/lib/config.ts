@@ -587,35 +587,40 @@ export default class Config {
     }
 
     public static loadBundle(lessonId: string, callback: Function, errCallback: Function) {
-        cc.assetManager.loadBundle(lessonId, (err, bundle) => {
+        const isIframe = !(window === window.parent);
+        const isAndroid = Capacitor.getPlatform() === 'android';
+        const gameUrl = cc.sys.localStorage.getItem("gameUrl") ?? "http://localhost/_capacitor_file_/data/user/0/org.chimple.cuba/files/";
+        const firstPath = (isIframe && isAndroid && gameUrl) ? (gameUrl + lessonId) : lessonId;
+        console.log("gameUrl", gameUrl, "isIframe", isIframe, cc.sys.localStorage.getItem("gameUrl"), "firstPath", firstPath)
+        cc.assetManager.loadBundle(firstPath, (err, bundle) => {
             if (err) {
-                if (Capacitor.getPlatform() === 'android') {
-                    const gameUrl = cc.sys.localStorage.getItem("gameUrl") ?? "http://localhost/_capacitor_file_/data/user/0/org.chimple.cuba/files/";
-                    console.log("gameUrl", gameUrl, cc.sys.localStorage.getItem("gameUrl"))
-                    const path = gameUrl + lessonId;
-                    cc.assetManager.loadBundle(path, (err2, bundle2) => {
-                        cc.log('loaded bundle with path ', path, "err", err2, "bundle", bundle2)
-                        if (err2) {
-                            cc.assetManager.loadBundle(BUNDLE_URL + lessonId, (err2, bundle2) => {
-                                if (err2) {
-                                    errCallback(err2);
-                                } else {
-                                    callback(bundle2);
-                                }
-                            });
-                        } else {
-                            callback(bundle2);
-                        }
-                    });
-                } else {
-                    cc.assetManager.loadBundle(BUNDLE_URL + lessonId, (err2, bundle2) => {
-                        if (err2) {
-                            errCallback(err2);
-                        } else {
-                            callback(bundle2);
-                        }
-                    });
-                }
+                // if (Capacitor.getPlatform() === 'android') {
+                //     const gameUrl = cc.sys.localStorage.getItem("gameUrl") ?? "http://localhost/_capacitor_file_/data/user/0/org.chimple.cuba/files/";
+                //     console.log("gameUrl", gameUrl, cc.sys.localStorage.getItem("gameUrl"))
+                //     const path = gameUrl + lessonId;
+                //     cc.assetManager.loadBundle(path, (err2, bundle2) => {
+                //         cc.log('loaded bundle with path ', path, "err", err2, "bundle", bundle2)
+                //         if (err2) {
+                //             cc.assetManager.loadBundle(BUNDLE_URL + lessonId, (err2, bundle2) => {
+                //                 if (err2) {
+                //                     errCallback(err2);
+                //                 } else {
+                //                     callback(bundle2);
+                //                 }
+                //             });
+                //         } else {
+                //             callback(bundle2);
+                //         }
+                //     });
+                // } else {
+                cc.assetManager.loadBundle(BUNDLE_URL + lessonId, (err2, bundle2) => {
+                    if (err2) {
+                        errCallback(err2);
+                    } else {
+                        callback(bundle2);
+                    }
+                });
+                // }
             } else {
                 callback(bundle);
             }
