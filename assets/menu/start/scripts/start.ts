@@ -214,6 +214,16 @@ export default class Start extends cc.Component {
         else if (mode == Mode.Home && user.isConnected) {
             this.showReConnectPopup("Re-Connect to your class using Student ID");
         }
+        if (Config.isMicroLink) {
+            const dataStr: string = cc.sys.localStorage.getItem(MICROLINK);
+            cc.sys.localStorage.removeItem(MICROLINK);
+            if (!!dataStr && dataStr.length > 0) {
+                let data: any[] = JSON.parse(dataStr) || [];
+                if (data && data.length > 0) {
+                    this.loadLesson(data);
+                }
+            }
+        }
     }
 
     async onLoad() {
