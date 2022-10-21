@@ -2,6 +2,7 @@ import { ASSET_LOAD_METHOD, firebaseConfigWeb, FIREBASE_SCHOOL_ID, FIREBASE_SECT
 import Profile, { CURRENTMODE, Last5LessonsItem, LessonProgressClass, User } from "./lib/profile";
 import { AcceptTeacherRequest, CustomAuthInfo } from "./services/ServiceApi";
 import { ACCEPT_TEACHER_REQUEST } from "../../chimple";
+import Config from "./lib/config";
 
 const LOGGER_CLASS = "org/chimple/bahama/logger/ChimpleLogger";
 
@@ -941,6 +942,34 @@ export default class UtilLogger {
                     fileName);
             }
         } catch (e) {
+        }
+    }
+
+    public static getChapterIdForPrequiz(quizScores: number[]): string {
+        const config = Config.i;
+        const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
+        if (quizChapter) {
+            let currentCourse = config.course.chapters.find((c) => c.id != config.course.id + '_quiz')
+            let qzId = 0
+            for (let index = 0; index + 2 < quizScores.length; index += 3) {
+                if (quizScores[index] + quizScores[index + 1] + quizScores[index + 2] >= 2) {
+                    currentCourse = config.course.chapters.find((c) => c.id == config.course.levels[qzId])
+                } else {
+                    break
+                }
+                qzId++
+            }
+            return currentCourse.id;
+        } else {
+            const formulaScore = quizScores.reduce((acc, cur, i, arr): number => {
+                const mul = Math.floor(arr.length / 2) - Math.floor(i / 2)
+                const neg = cur == 0 ? -0.5 : cur
+                return acc + neg * mul
+            }, 0)
+            const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
+            const total = Math.max(0, formulaScore / max)
+            const chapters = config.curriculum.get(config.course.id).chapters
+            return chapters[Math.floor((chapters.length - 1) * total)].id;
         }
     }
 }

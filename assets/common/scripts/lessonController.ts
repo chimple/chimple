@@ -408,17 +408,21 @@ export default class LessonController extends cc.Component {
         if (isNaN(score)) score = 0;
         const isIframe = !(window === window.parent);
         if (isIframe) {
+            const detail = {
+                chapterName: config.chapter.name,
+                chapterId: config.chapter.id,
+                lessonName: config.lesson.name,
+                lessonId: config.lesson.id,
+                courseName: config.course.id,
+                lessonType: config.lesson.type,
+                score: score,
+                timeSpent: Math.abs(timeSpent),
+            }
+            if (config.lesson.id == config.course.id + '_PreQuiz') {
+                detail["preQuizChapterId"] = UtilLogger.getChapterIdForPrequiz(this.quizScores);
+            }
             const event = new CustomEvent('lessonEnd', {
-                detail: {
-                    chapterName: config.chapter.name,
-                    chapterId: config.chapter.id,
-                    lessonName: config.lesson.name,
-                    lessonId: config.lesson.id,
-                    courseName: config.course.id,
-                    lessonType: config.lesson.type,
-                    score: score,
-                    timeSpent: Math.abs(timeSpent),
-                }
+                detail: detail
             });
             window.parent.document.body.dispatchEvent(event);
             console.log("event dispatched", event)

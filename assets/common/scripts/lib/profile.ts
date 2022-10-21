@@ -551,30 +551,33 @@ export class User {
                 this._lessonProgressMap.set(lessonId, new LessonProgressClass(score, 1, Config.i.course.id, Config.i.lesson.assignmentId));
             }
             if (lessonId == config.course.id + '_PreQuiz') {
-                const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
-                if (quizChapter) {
-                    let currentCourse = config.course.chapters.find((c) => c.id != config.course.id + '_quiz')
-                    let qzId = 0
-                    for (let index = 0; index + 2 < quizScores.length; index += 3) {
-                        if (quizScores[index] + quizScores[index + 1] + quizScores[index + 2] >= 2) {
-                            currentCourse = config.course.chapters.find((c) => c.id == config.course.levels[qzId])
-                        } else {
-                            break
-                        }
-                        qzId++
-                    }
-                    cpm.updateChapterId(currentCourse.id);
-                } else {
-                    const formulaScore = quizScores.reduce((acc, cur, i, arr): number => {
-                        const mul = Math.floor(arr.length / 2) - Math.floor(i / 2)
-                        const neg = cur == 0 ? -0.5 : cur
-                        return acc + neg * mul
-                    }, 0)
-                    const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
-                    const total = Math.max(0, formulaScore / max)
-                    const chapters = config.curriculum.get(config.course.id).chapters
-                    cpm.updateChapterId(chapters[Math.floor((chapters.length - 1) * total)].id);
-                }
+                const chapterId = UtilLogger.getChapterIdForPrequiz(quizScores);
+                console.log("on prequiz chapterid", chapterId);
+                cpm.updateChapterId(chapterId);
+                // const quizChapter = config.course.chapters.find((c) => c.id == config.course.id + '_quiz')
+                // if (quizChapter) {
+                //     let currentCourse = config.course.chapters.find((c) => c.id != config.course.id + '_quiz')
+                //     let qzId = 0
+                //     for (let index = 0; index + 2 < quizScores.length; index += 3) {
+                //         if (quizScores[index] + quizScores[index + 1] + quizScores[index + 2] >= 2) {
+                //             currentCourse = config.course.chapters.find((c) => c.id == config.course.levels[qzId])
+                //         } else {
+                //             break
+                //         }
+                //         qzId++
+                //     }
+                //     cpm.updateChapterId(currentCourse.id);
+                // } else {
+                //     const formulaScore = quizScores.reduce((acc, cur, i, arr): number => {
+                //         const mul = Math.floor(arr.length / 2) - Math.floor(i / 2)
+                //         const neg = cur == 0 ? -0.5 : cur
+                //         return acc + neg * mul
+                //     }, 0)
+                //     const max = quizScores.length / 2 * (quizScores.length / 2 + 1)
+                //     const total = Math.max(0, formulaScore / max)
+                //     const chapters = config.curriculum.get(config.course.id).chapters
+                //     cpm.updateChapterId(chapters[Math.floor((chapters.length - 1) * total)].id);
+                // }
             } else {
                 if (Config.i.lesson.type != EXAM || score >= MIN_PASS) {
                     // open the next lesson
