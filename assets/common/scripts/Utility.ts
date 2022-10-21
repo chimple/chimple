@@ -11,6 +11,10 @@ const vowelList = ['a', 'e', 'i', 'o', 'u'];
 const consonantList = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm',
     'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z'];
 
+const enslvowelList = ['a', 'e', 'i', 'o', 'u'];
+const enslconsonantList = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm',
+    'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z'];
+
 const hindiVowelList = ['अ', 'आ', 'इ', 'ई', 'उ', 'ऊ', 'ऋ', 'ए', 'ऐ', 'ओ', 'औ', 'अं', 'अः', 'अँ']
 const hindiConsonantList = ['क', 'ख', 'ग', 'घ', 'ङ', 'च', 'छ', 'ज', 'झ', 'ञ', 'ट', 'ठ', 'ड', 'ढ', 'ण', 'त', 'थ', 'द', 'ध', 'न', 'प', 'फ', 'ब', 'भ', 'म', 'य', 'र', 'ल', 'व', 'श', 'ष', 'स', 'ह']
 
@@ -24,7 +28,8 @@ const langMap = {
     'en/': [vowelList, consonantList],
     'hi/': [hindiVowelList, hindiConsonantList],
     'kn/': [kannadaVowelList, kannadaConsonantList],
-    'mr/': [marathiVowelList, marathiConsonantList]
+    'mr/': [marathiVowelList, marathiConsonantList],
+    'en-sl/': [enslvowelList, enslconsonantList]
 }
 
 export class AlphabetUtil {

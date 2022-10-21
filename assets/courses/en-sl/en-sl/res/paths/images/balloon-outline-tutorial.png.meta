@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "b84514d1-1a34-4685-8e00-073e3afc8d1e",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1000,
+  "height": 612,
+  "platformSettings": {},
+  "subMetas": {
+    "balloon-outline-tutorial": {
+      "ver": "1.0.6",
+      "uuid": "e4aa6337-3a8b-408a-9de6-6e2862c1afdc",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "b84514d1-1a34-4685-8e00-073e3afc8d1e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 5,
+      "offsetY": 16,
+      "trimX": 218,
+      "trimY": 3,
+      "width": 574,
+      "height": 574,
+      "rawWidth": 1000,
+      "rawHeight": 612,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
