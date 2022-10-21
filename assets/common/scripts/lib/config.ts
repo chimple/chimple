@@ -8,8 +8,8 @@ import { BUNDLE_URL } from "./constants";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
-export const COURSES = ['en', 'en-maths', 'hi', 'hi-maths', 'ur', 'ur-maths','mr'];
-export const COURSES_LANG_ID = ['en', 'hi', 'maths', 'kn','mr'];
+export const COURSES = ['en', 'en-maths', 'hi', 'hi-maths', 'ur', 'ur-maths', 'mr', 'en-sl'];
+export const COURSES_LANG_ID = ['en', 'hi', 'maths', 'kn', 'mr', 'en-sl'];
 
 export enum Flow {
     Default,
@@ -43,9 +43,10 @@ export enum Lang {
     HINDI = 'hi',
     KANNADA = 'kn',
     MARATHI = 'mr',
+    SIERRA_LEONE_ENGLISH = 'en-sl',
 }
 
-export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI, Lang.KANNADA, Lang.MARATHI];
+export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI, Lang.KANNADA, Lang.MARATHI, Lang.SIERRA_LEONE_ENGLISH];
 
 export class LangConfig {
     font: string;
@@ -59,6 +60,7 @@ export const LANG_CONFIGS = new Map<Lang, LangConfig>([
     [Lang.HINDI, { 'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7' }],
     [Lang.KANNADA, { 'font': 'kn-main', 'displayName': 'ಕನ್ನಡ', 'symbol': 'ಕ', 'colorCode': '#6E4596' }],
     [Lang.MARATHI, { 'font': 'mr-main', 'displayName': 'मराठी', 'symbol': 'म', 'colorCode': '#99EE55' }],
+    [Lang.SIERRA_LEONE_ENGLISH, { 'font': 'en-main', 'displayName': 'SIERRA LEONE ENGLISH', 'symbol': 'A', 'colorCode': '#FFBC00' }],
 ])
 
 export class World {

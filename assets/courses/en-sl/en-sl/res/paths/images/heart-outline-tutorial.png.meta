@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "dae28a20-3053-4a18-b153-729eb17a634b",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1000,
+  "height": 612,
+  "platformSettings": {},
+  "subMetas": {
+    "heart-outline-tutorial": {
+      "ver": "1.0.6",
+      "uuid": "ea8301e3-3956-43e2-9f04-0f2cce2c1eda",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "dae28a20-3053-4a18-b153-729eb17a634b",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -1.5,
+      "offsetY": 0,
+      "trimX": 153,
+      "trimY": 0,
+      "width": 691,
+      "height": 612,
+      "rawWidth": 1000,
+      "rawHeight": 612,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
