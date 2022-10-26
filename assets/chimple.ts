@@ -91,6 +91,7 @@ cc.deep_link = function (url) {
                         Config.isMicroLink = true
                         const jsonMessages: any[] = Util.removeDuplicateMessages(data, messageType);
                         cc.sys.localStorage.setItem(messageType, JSON.stringify(jsonMessages));
+                        if (cc.director.getScene().name !== "chimple" && cc.director.getScene().name !== "welcomePage") Chimple.selectModes();
                     }
                     try {
                         cc.log('RECEIVED_TEACHER_REQUEST', JSON.stringify(data));
@@ -159,7 +160,7 @@ export default class Chimple extends cc.Component {
 
 
         if (!cc.sys.isNative || !DO_HOT_UPDATE) {
-            this.selectModes();
+            Chimple.selectModes();
             return
         }
         const updates = [
@@ -193,13 +194,13 @@ export default class Chimple extends cc.Component {
                     }
                     cc.game.restart();
                 } else {
-                    this.selectModes();
+                    Chimple.selectModes();
                 }
             }
         })
     }
 
-    selectModes() {
+    static selectModes() {
         let mode = parseInt(Profile.getValue(CURRENTMODE))
         const modes: number = mode;//MODE;
         switch (modes) {
