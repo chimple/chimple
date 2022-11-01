@@ -757,8 +757,7 @@ export class User {
                     ['maths', new CourseProgressClass('maths00')],
                     ['hi', new CourseProgressClass('hi00')],
                     // ['kn', new CourseProgressClass('kn00')],
-                    // ['mr', new CourseProgressClass('mr00')],
-                    ['en-sl', new CourseProgressClass('en-sl00')],
+                    ['mr', new CourseProgressClass('mr00')],
                     ['puzzle', new CourseProgressClass('puzzle00')],
                     ['test-lit', new CourseProgressClass('chapter_0')],
                     ['test-maths', new CourseProgressClass('chapter_0')]
@@ -769,8 +768,7 @@ export class User {
                     ['maths', new CourseProgressClass()],
                     ['hi', new CourseProgressClass()],
                     // ['kn', new CourseProgressClass()],
-                    // ['mr', new CourseProgressClass('mr00')],
-                    ['en-sl', new CourseProgressClass('en-sl00')],
+                    ['mr', new CourseProgressClass('mr00')],
                     ['puzzle', new CourseProgressClass('puzzle00')]
                 ]),
             new Map(),
