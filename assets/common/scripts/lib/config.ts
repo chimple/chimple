@@ -8,8 +8,8 @@ import { BUNDLE_URL } from "./constants";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
-export const COURSES = ['en', 'en-maths', 'hi', 'hi-maths', 'ur', 'ur-maths', 'mr', 'en-sl'];
-export const COURSES_LANG_ID = ['en', 'hi', 'maths', 'kn', 'mr', 'en-sl'];
+export const COURSES = ['en', 'en-maths', 'hi', 'hi-maths', 'ur', 'ur-maths', 'mr', 'en-sl', 'maths-sl'];
+export const COURSES_LANG_ID = ['en', 'hi', 'maths', 'kn', 'mr', 'en-sl', 'maths-sl'];
 
 export enum Flow {
     Default,
@@ -46,7 +46,7 @@ export enum Lang {
     SIERRA_LEONE_ENGLISH = 'en-sl',
 }
 
-export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI, Lang.KANNADA, Lang.MARATHI, Lang.SIERRA_LEONE_ENGLISH];
+export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI, Lang.KANNADA, Lang.MARATHI];
 
 export class LangConfig {
     font: string;
