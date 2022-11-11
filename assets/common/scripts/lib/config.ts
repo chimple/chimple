@@ -9,8 +9,8 @@ import { Capacitor } from "@capacitor/core";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
-export const COURSES = ['en', 'en-maths', 'hi', 'hi-maths', 'ur', 'ur-maths', 'mr'];
-export const COURSES_LANG_ID = ['en', 'hi', 'maths', 'kn', 'mr'];
+export const COURSES = ['en', 'en-maths'];
+export const COURSES_LANG_ID = ['en', 'maths'];
 
 export enum Flow {
     Default,
@@ -41,12 +41,9 @@ const RTL_COURSES = ['ur', 'ur-maths'];
 
 export enum Lang {
     ENGLISH = 'en',
-    HINDI = 'hi',
-    KANNADA = 'kn',
-    MARATHI = 'mr',
 }
 
-export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI, Lang.KANNADA, Lang.MARATHI];
+export const ALL_LANGS = [Lang.ENGLISH];
 
 export class LangConfig {
     font: string;
@@ -57,9 +54,6 @@ export class LangConfig {
 
 export const LANG_CONFIGS = new Map<Lang, LangConfig>([
     [Lang.ENGLISH, { 'font': 'en-main', 'displayName': 'English', 'symbol': 'A', 'colorCode': '#FFBC00' }],
-    [Lang.HINDI, { 'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7' }],
-    [Lang.KANNADA, { 'font': 'kn-main', 'displayName': 'ಕನ್ನಡ', 'symbol': 'ಕ', 'colorCode': '#6E4596' }],
-    [Lang.MARATHI, { 'font': 'mr-main', 'displayName': 'मराठी', 'symbol': 'म', 'colorCode': '#99EE55' }],
 ])
 
 export class World {
