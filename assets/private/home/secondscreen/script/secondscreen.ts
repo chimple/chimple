@@ -1,4 +1,5 @@
-import Config, {ALL_LANGS, LANG_CONFIGS} from "../../../../common/scripts/lib/config";
+import Config, { ALL_LANGS, LANG_CONFIGS } from "../../../../common/scripts/lib/config";
+import { CUSTOM_HOT_UPDATE_SERVER, PROD_HOT_UPDATE_SERVER } from "../../../../common/scripts/lib/constants";
 import Profile, {
     CONTACT,
     DIALING_CODE,
@@ -9,16 +10,18 @@ import Profile, {
     SFX_OFF,
     User
 } from "../../../../common/scripts/lib/profile";
-import {Util} from "../../../../common/scripts/util";
+import { Util } from "../../../../common/scripts/util";
 import UtilLogger from "../../../../common/scripts/util-logger";
 import WelcomePage from "../../loginnew/scripts/welcomePage";
 import UserComponent from "./usercomponent";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 const EMAIL_VALIDATION_RE = /^((([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))|)$/;
 const EMAIL_ERR = "Invalid Email Address";
 const CONTACT_ERR = "Invalid Phone Number";
+const HOT_UPDATE_SERVER_ERR = "Invalid Hot Update Server";
+
 
 @ccclass
 export default class SecondScreen extends cc.Component {
@@ -81,10 +84,11 @@ export default class SecondScreen extends cc.Component {
     isContactInvalid: boolean = false;
     contactFieldValue: string = "";
     isContactVerified: boolean = false;
+    isDebugUser: boolean = false;
 
 
     onLoad() {
-        if(Profile.getItem(IS_OTP_VERIFIED) === 1){
+        if (Profile.getItem(IS_OTP_VERIFIED) === 1) {
             this.verifyLabel.node.parent.getComponent(cc.Button).interactable = false;
         }
         Util.playSfx(this.bgMusic, true, true);
@@ -114,6 +118,7 @@ export default class SecondScreen extends cc.Component {
         this.contactNode.getChildByName("Twitter").getChildByName("Label").getComponent(cc.Label).string = Util.i18NText("Twitter");
         this.settingNode.getChildByName("language").getChildByName("Key Label").getComponent(cc.Label).string = Util.i18NText("App Language :");
         this.settingNode.getChildByName("sound_toggle").getChildByName("Key Label").getComponent(cc.Label).string = Util.i18NText("Sound :");
+        this.settingNode.getChildByName("hot_update").getChildByName("notifier").getChildByName("url").getComponent(cc.Label).string = ""
         this.verifyLabel.string = this.isContactVerified ? Util.i18NText("verified") : Util.i18NText("verify");
         this.setWarningMsg()
     }
@@ -146,14 +151,15 @@ export default class SecondScreen extends cc.Component {
                 this.loadUserImageOrAvatar(e, user.getChildByName("Avatar").getChildByName("Img"));
                 this.userLayout.node.addChild(user);
             }
+            if (e.debug) this.isDebugUser = true;
         })
-        if(WelcomePage.userArr.length < 3 && WelcomePage.userArr.length != 0)
-        {
+        if (WelcomePage.userArr.length < 3 && WelcomePage.userArr.length != 0) {
             let addBtn = cc.instantiate(this.addButton);
-            addBtn.x=-420
+            addBtn.x = -420
             this.userLayout.node.addChild(addBtn);
 
         }
+        this.settingNode.getChildByName("hot_update").active = this.isDebugUser && cc.sys.isNative;
     }
 
     loadUserImageOrAvatar(user: User, userNode: cc.Node) {
@@ -186,6 +192,7 @@ export default class SecondScreen extends cc.Component {
             this.contactFieldValue = contact;
         }
         this.setContactVerifiedStatus();
+        this.settingNode.getChildByName("hot_update").getComponentInChildren(cc.EditBox).string = Profile.getValue(CUSTOM_HOT_UPDATE_SERVER) ?? PROD_HOT_UPDATE_SERVER
     }
 
     validateEmail(mail: string): boolean {
@@ -210,9 +217,8 @@ export default class SecondScreen extends cc.Component {
                 }
                 Profile.setValue(CONTACT, this.dialingCode + value);
                 this.isContactInvalid = false;
-                if(Profile.getItem(IS_OTP_VERIFIED)===0)
-                {
-                this.verifyLabel.node.parent.getComponent(cc.Button).interactable = this.contactEditBox.string.length !== 0;
+                if (Profile.getItem(IS_OTP_VERIFIED) === 0) {
+                    this.verifyLabel.node.parent.getComponent(cc.Button).interactable = this.contactEditBox.string.length !== 0;
                 }
             } else {
                 this.isContactInvalid = true;
@@ -254,7 +260,7 @@ export default class SecondScreen extends cc.Component {
                 break;
             case "Help":
                 this.helpNode.active = true;
-                    break;   
+                break;
             case "Setting":
                 this.settingNode.active = true;
                 break;
@@ -354,5 +360,57 @@ export default class SecondScreen extends cc.Component {
 
     onClickBackButton() {
         cc.director.loadScene("welcomePage");
+    }
+
+    async onClickHotUpdate() {
+        const errorLabel = this.settingNode.getChildByName("hot_update").getChildByName("notifier").getChildByName("url").getComponent(cc.Label);
+        let hotUpdateServerUrl = this.settingNode.getChildByName("hot_update").getComponentInChildren(cc.EditBox).string?.trim();
+        cc.log("hot hot server URl", hotUpdateServerUrl);
+        if (!hotUpdateServerUrl) {
+            errorLabel.string = HOT_UPDATE_SERVER_ERR;
+            return;
+        } else {
+            errorLabel.string = "";
+        }
+        if (hotUpdateServerUrl[hotUpdateServerUrl.length - 1] !== "/") hotUpdateServerUrl += "/"
+        const updateButton = this.settingNode.getChildByName("hot_update").getComponentInChildren(cc.Button)
+        updateButton.interactable = false;
+        const updateButtonlabel = updateButton.getComponentInChildren(cc.Label);
+        updateButtonlabel.string = "Checking..."
+        let result;
+        try {
+            result = await new Promise((resolve, reject) => {
+                const xhr = cc.loader.getXMLHttpRequest();
+                const requestUrl = hotUpdateServerUrl + "version.manifest";
+                xhr.open("GET", requestUrl, true);
+                xhr.timeout = 60000;
+                xhr.send();
+                xhr.onload = evt => {
+                    cc.log("xhr on load", xhr);
+                    cc.log("xhr on sttus", xhr.status, xhr.status >= 200 && xhr.status < 300)
+                    resolve(xhr.status >= 200 && xhr.status < 300);
+                };
+                xhr.onerror = evt => {
+                    resolve(false);
+                };
+                xhr.ontimeout = evt => {
+                    resolve(false);
+                };
+            })
+        } catch (error) {
+            cc.log('result error');
+        }
+        cc.log("result", result);
+
+        updateButtonlabel.string = "Update"
+        updateButton.interactable = true;
+        if (!result) {
+            cc.log("on false result", result, errorLabel);
+            errorLabel.string = HOT_UPDATE_SERVER_ERR;
+            return;
+        }
+        errorLabel.string = ""
+        cc.log("on true result", result, errorLabel);
+        Util.changeHotUpdateServer(hotUpdateServerUrl);
     }
 }

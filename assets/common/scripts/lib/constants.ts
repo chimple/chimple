@@ -406,3 +406,6 @@ export const courseSortIndex = {
     "test-lit": 8,
     "test-maths": 9
 }
+
+export const PROD_HOT_UPDATE_SERVER = "https://bahama-stage.web.app/v2/hot-update/";
+export const CUSTOM_HOT_UPDATE_SERVER = "custom_hot_update_server";

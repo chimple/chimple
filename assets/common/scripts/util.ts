@@ -3,7 +3,7 @@ import Help from "./help";
 import { DEFAULT_FONT_COLOR, LETTER_VOICE, NUMBER_VOICE, PHONIC_VOICE } from "./helper";
 import LessonController from "./lessonController";
 import Config, { StartAction } from "./lib/config";
-import { ASSET_LOAD_METHOD, COURSES_URL } from "./lib/constants";
+import { ASSET_LOAD_METHOD, COURSES_URL, CUSTOM_HOT_UPDATE_SERVER } from "./lib/constants";
 import Profile, { LANGUAGE, SFX_OFF, User } from "./lib/profile";
 import UtilLogger from "./util-logger";
 import Friend from "./friend";
@@ -1080,5 +1080,29 @@ export class Util {
             // @ts-ignore
             node.addChild(bgPrefabInstance);
         });
+    }
+
+    public static changeHotUpdateServer(serverUrl: string): void {
+        try {
+            if (!cc.sys.isNative) return;
+            const fullStoragePath = ((jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/') + "HotUpdateSearchPaths/project.manifest");
+            const manifestExists = jsb.fileUtils.isFileExist(fullStoragePath);
+            cc.log("manifestExists", manifestExists, "serverUrl", serverUrl);
+            if (!manifestExists) { Profile.setValue(CUSTOM_HOT_UPDATE_SERVER, serverUrl); return; }
+            const stringFile = jsb.fileUtils.getStringFromFile(fullStoragePath);
+            cc.log("manifest stringFile", stringFile)
+            const manifestJson = JSON.parse(stringFile);
+            cc.log("manifestJson.packageUrl", manifestJson.packageUrl, "manifestJson.remoteManifestUrl", manifestJson.remoteManifestUrl, "manifestJson.remoteVersionUrl", manifestJson.remoteVersionUrl);
+            if (!manifestJson) return;
+            manifestJson.packageUrl = serverUrl;
+            manifestJson.remoteManifestUrl = serverUrl + "project.manifest";
+            manifestJson.remoteVersionUrl = serverUrl + "version.manifest";
+            cc.log('writing the file', JSON.stringify(manifestJson));
+            const success = jsb.fileUtils.writeStringToFile(JSON.stringify(manifestJson), fullStoragePath);
+            cc.log("written is success", success);
+            if (success) Profile.setValue(CUSTOM_HOT_UPDATE_SERVER, serverUrl);
+        } catch (error) {
+            console.log('error on changeHotUpdateServer', error)
+        }
     }
 }
