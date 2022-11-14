@@ -401,10 +401,9 @@ export const courseSortIndex = {
     hi: 3,
     kn: 4,
     mr: 5,
-    "en-sl": 6,
-    puzzle: 7,
-    "test-lit": 8,
-    "test-maths": 9
+    puzzle: 6,
+    "test-lit": 7,
+    "test-maths": 8
 }
 
 export const PROD_HOT_UPDATE_SERVER = "https://bahama-stage.web.app/v2/hot-update/";
