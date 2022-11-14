@@ -1,6 +1,6 @@
 import Config, { Lang, LANG_CONFIGS } from "./common/scripts/lib/config";
 import Profile, { CURRENTMODE, Gender, User } from "./common/scripts/lib/profile";
-import { Mode, IS_REMEMBER_TOGGLE_ON, REMEMBERED_USER } from "./common/scripts/lib/constants";
+import { CUSTOM_HOT_UPDATE_SERVER, Mode, REMEMBERED_USER } from "./common/scripts/lib/constants";
 import UtilLogger from "./common/scripts/util-logger";
 import { Util } from "./common/scripts/util";
 import { APIMode, ServiceConfig } from "./common/scripts/services/ServiceConfig";
@@ -41,7 +41,7 @@ export const START_SCENE = 'menu/start/scenes/start';
 
 class UpdateConfig {
     storagePath: string = null
-    manifestUrl: string = null
+    manifest: cc.Asset = null
 }
 
 export enum UpdateEvent {
@@ -166,7 +166,7 @@ export default class Chimple extends cc.Component {
         const updates = [
             {
                 storagePath: 'HotUpdateSearchPaths',
-                manifestUrl: this.manifest.nativeUrl
+                manifest: this.manifest
             }
         ]
         const subpackages = Util.getSubpackages().map((val) => {
@@ -233,7 +233,25 @@ export default class Chimple extends cc.Component {
     }
 
     oneByOne(updates: Array<UpdateConfig>, index: number, callbackOnEnd: (index: number, restart: boolean) => void) {
-        Chimple.doHotUpdate(updates[index].storagePath, updates[index].manifestUrl, null, (event, status, percent) => {
+        let manifestString: string;
+        const serverUrl = Profile.getValue(CUSTOM_HOT_UPDATE_SERVER);
+        cc.log('server Url', serverUrl)
+        if (serverUrl) {
+            try {
+                const tempManifestJson = JSON.parse(JSON.stringify(this.manifest));
+                const manifestJson = JSON.parse(tempManifestJson['_$nativeAsset'])
+                cc.log("manifestJson", manifestJson)
+                manifestJson.packageUrl = serverUrl;
+                manifestJson.remoteManifestUrl = serverUrl + "project.manifest";
+                manifestJson.remoteVersionUrl = serverUrl + "version.manifest";
+                manifestString = JSON.stringify(manifestJson)
+            } catch (error) {
+                cc.log(error)
+            }
+        }
+        cc.log("manifestString", manifestString)
+
+        Chimple.doHotUpdate(updates[index].storagePath, updates[index].manifest.nativeUrl, manifestString, (event, status, percent) => {
             this.status.string = status
             this.fileProgress.progress = percent
             if (event == UpdateEvent.Done || event == UpdateEvent.UpdateDone || event == UpdateEvent.Error) {
@@ -281,16 +299,16 @@ export default class Chimple extends cc.Component {
 
         callback(UpdateEvent.Checking, 'Checking or updating ...', 0)
         if (am.getState() === jsb.AssetsManager.State.UNINITED) {
-            if (manifestUrl) {
+            if (manifestJson) {
+                const manifest = new jsb.Manifest(manifestJson, fullStoragePath);
+                am.loadLocalManifest(manifest, fullStoragePath);
+            } else {
                 // Resolve md5 url
                 var url = manifestUrl;
                 if (cc.loader.md5Pipe) {
                     url = cc.loader.md5Pipe.transformURL(url);
                 }
                 am.loadLocalManifest(url);
-            } else {
-                const manifest = new jsb.Manifest(manifestJson, fullStoragePath);
-                am.loadLocalManifest(manifest, fullStoragePath)
             }
         }
         if (!am.getLocalManifest() || !am.getLocalManifest().isLoaded()) {
