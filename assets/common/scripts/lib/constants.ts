@@ -407,4 +407,5 @@ export const courseSortIndex = {
 }
 
 export const PROD_HOT_UPDATE_SERVER = "https://bahama-stage.web.app/v2/hot-update/";
-export const CUSTOM_HOT_UPDATE_SERVER = "custom_hot_update_server";
+export const CUSTOM_HOT_UPDATE_SERVER = "custom_hot_update_server"
+export const ASSET_MANIFEST_VERSION = "asset_manifest_version"

@@ -1,6 +1,6 @@
 import Config, { Lang, LANG_CONFIGS } from "./common/scripts/lib/config";
 import Profile, { CURRENTMODE, Gender, User } from "./common/scripts/lib/profile";
-import { CUSTOM_HOT_UPDATE_SERVER, Mode, REMEMBERED_USER } from "./common/scripts/lib/constants";
+import { ASSET_MANIFEST_VERSION, CUSTOM_HOT_UPDATE_SERVER, Mode, REMEMBERED_USER } from "./common/scripts/lib/constants";
 import UtilLogger from "./common/scripts/util-logger";
 import { Util } from "./common/scripts/util";
 import { APIMode, ServiceConfig } from "./common/scripts/services/ServiceConfig";
@@ -139,6 +139,9 @@ export default class Chimple extends cc.Component {
         //         cc.assetManager.cacheManager.removeCache(key)
         //     })
         // }
+        const assetManifestVersion = JSON.parse(this.manifest['_$nativeAsset']).version;
+        cc.log("assetManifestVersion: ", assetManifestVersion)
+        Profile.setItem(ASSET_MANIFEST_VERSION, assetManifestVersion)
         cc.debug.setDisplayStats(false);
         ServiceConfig.getInstance(APIMode.FIREBASE);
         cc.macro.ENABLE_MULTI_TOUCH = false
@@ -238,8 +241,7 @@ export default class Chimple extends cc.Component {
         cc.log('server Url', serverUrl)
         if (serverUrl) {
             try {
-                const tempManifestJson = JSON.parse(JSON.stringify(this.manifest));
-                const manifestJson = JSON.parse(tempManifestJson['_$nativeAsset'])
+                const manifestJson = JSON.parse(updates[index].manifest['_$nativeAsset'])
                 cc.log("manifestJson", manifestJson)
                 manifestJson.packageUrl = serverUrl;
                 manifestJson.remoteManifestUrl = serverUrl + "project.manifest";
