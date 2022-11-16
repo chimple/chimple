@@ -193,6 +193,7 @@ export default class SecondScreen extends cc.Component {
         }
         this.setContactVerifiedStatus();
         this.settingNode.getChildByName("hot_update").getComponentInChildren(cc.EditBox).string = Profile.getValue(CUSTOM_HOT_UPDATE_SERVER) ?? PROD_HOT_UPDATE_SERVER
+        this.settingNode.getChildByName("hot_update").getChildByName("version").getChildByName("label").getComponent(cc.Label).string = Util.getCurrentHotUpdateVersion().toString();
     }
 
     validateEmail(mail: string): boolean {

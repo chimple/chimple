@@ -3,7 +3,7 @@ import Help from "./help";
 import { DEFAULT_FONT_COLOR, LETTER_VOICE, NUMBER_VOICE, PHONIC_VOICE } from "./helper";
 import LessonController from "./lessonController";
 import Config, { StartAction } from "./lib/config";
-import { ASSET_LOAD_METHOD, COURSES_URL, CUSTOM_HOT_UPDATE_SERVER } from "./lib/constants";
+import { ASSET_LOAD_METHOD, ASSET_MANIFEST_VERSION, COURSES_URL, CUSTOM_HOT_UPDATE_SERVER } from "./lib/constants";
 import Profile, { LANGUAGE, SFX_OFF, User } from "./lib/profile";
 import UtilLogger from "./util-logger";
 import Friend from "./friend";
@@ -1104,5 +1104,22 @@ export class Util {
         } catch (error) {
             console.log('error on changeHotUpdateServer', error)
         }
+    }
+
+    public static getCurrentHotUpdateVersion(): number {
+        let version = Profile.getItem(ASSET_MANIFEST_VERSION)
+        if (cc.sys.isNative) {
+            const fullStoragePath = ((jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/') + "HotUpdateSearchPaths/project.manifest");
+            const manifestExists = jsb.fileUtils.isFileExist(fullStoragePath);
+            if (manifestExists) {
+                const stringFile = jsb.fileUtils.getStringFromFile(fullStoragePath);
+                const manifestJson = JSON.parse(stringFile);
+                if (manifestJson) {
+                    version = manifestJson.version;
+                };
+            }
+        }
+        cc.log("current version ", version)
+        return version;
     }
 }
