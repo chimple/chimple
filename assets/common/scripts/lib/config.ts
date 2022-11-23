@@ -4,7 +4,7 @@ import { Chapter, Course, Lesson } from "./convert";
 import Profile, { LANGUAGE, LessonProgress, User } from "./profile";
 import TTFFont = cc.TTFFont;
 import { GAME_CONFIGS } from "./gameConfigs";
-import { BUNDLE_URL } from "./constants";
+import { BUNDLE_URL, IS_CUBA } from "./constants";
 import { Capacitor } from "@capacitor/core";
 
 export const DEFAULT_FONT = 'main';
@@ -581,11 +581,11 @@ export default class Config {
     }
 
     public static loadBundle(lessonId: string, callback: Function, errCallback: Function) {
-        const isIframe = !(window === window.parent);
+        const isCuba = Profile.getItem(IS_CUBA);
         const isAndroid = Capacitor.getPlatform() === 'android';
         const gameUrl = cc.sys.localStorage.getItem("gameUrl") ?? "http://localhost/_capacitor_file_/data/user/0/org.chimple.cuba/files/";
-        const firstPath = (isIframe && isAndroid && gameUrl) ? (gameUrl + lessonId) : lessonId;
-        console.log("gameUrl", gameUrl, "isIframe", isIframe, cc.sys.localStorage.getItem("gameUrl"), "firstPath", firstPath)
+        const firstPath = (isCuba && isAndroid && gameUrl) ? (gameUrl + lessonId) : lessonId;
+        console.log("gameUrl", gameUrl, "isCuba", isCuba, cc.sys.localStorage.getItem("gameUrl"), "firstPath", firstPath)
         cc.assetManager.loadBundle(firstPath, (err, bundle) => {
             if (err) {
                 // if (Capacitor.getPlatform() === 'android') {

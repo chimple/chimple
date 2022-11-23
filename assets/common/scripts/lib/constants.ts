@@ -103,6 +103,8 @@ export const IS_REMEMBER_TOGGLE_ON = 'isRememberToggleOn';
 
 export const EXAM = 'exam'
 export const MIN_PASS = 70
+export const IS_CUBA = "is_cuba"
+
 
 export const MICROLINK_END_BLANK = 'blank'
 

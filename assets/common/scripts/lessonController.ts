@@ -10,6 +10,7 @@ import {
     CURRENT_STUDENT_ID,
     CURRENT_SUBJECT_ID,
     EXAM,
+    IS_CUBA,
     Mode
 } from "./lib/constants";
 import { Lesson } from "./lib/convert";
@@ -345,8 +346,8 @@ export default class LessonController extends cc.Component {
             mlClassId: config.lesson.mlClassId || null,
             mlPartnerId: config.lesson.mlPartnerId || null
         };
-        const isIframe = !(window === window.parent);
-        if (isIframe) {
+        const isCuba = Profile.getItem(IS_CUBA);
+        if (isCuba) {
             const customEvent = new CustomEvent('problemEnd', {
                 detail: event
             });
@@ -406,8 +407,8 @@ export default class LessonController extends cc.Component {
             : this.rightMoves / (this.rightMoves + this.wrongMoves) * 100);
 
         if (isNaN(score)) score = 0;
-        const isIframe = !(window === window.parent);
-        if (isIframe) {
+        const isCuba = Profile.getItem(IS_CUBA);
+        if (isCuba) {
             const detail = {
                 chapterName: config.chapter.name,
                 chapterId: config.chapter.id,
@@ -546,7 +547,7 @@ export default class LessonController extends cc.Component {
         scorecardComp.score = score;
         scorecardComp.text = config.lesson.name;
         scorecardComp.reward = reward;
-        if (Config.isMicroLink && !cc.sys.isNative && !isIframe) {
+        if (Config.isMicroLink && !cc.sys.isNative && !isCuba) {
             scorecardComp.continueButton.active = false;
         }
         LessonController.friend.node.removeFromParent();

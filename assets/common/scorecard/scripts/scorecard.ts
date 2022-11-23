@@ -2,7 +2,8 @@ import Config from "../../../common/scripts/lib/config";
 import { REWARD_TYPES, Util } from "../../scripts/util";
 import Achievement from "./achievement";
 import Friend from "../../scripts/friend";
-import { MICROLINK_END_BLANK } from "../../scripts/lib/constants";
+import { IS_CUBA, MICROLINK_END_BLANK } from "../../scripts/lib/constants";
+import Profile from "../../scripts/lib/profile";
 
 const { ccclass, property } = cc._decorator;
 
@@ -46,10 +47,10 @@ export default class Scorecard extends cc.Component {
 
     reward: [string, string]
 
-    isIframe = !(window === window.parent);
+    isCuba = Profile.getItem(IS_CUBA);
 
     onLoad() {
-        if (!cc.sys.isNative && Config.isMicroLink && !this.isIframe) {
+        if (!cc.sys.isNative && Config.isMicroLink && !this.isCuba) {
             this.continueButton.active = false
             if (Config.i.microLinkData.end != MICROLINK_END_BLANK) {
                 this.downloadButton.active = true;
@@ -99,11 +100,12 @@ export default class Scorecard extends cc.Component {
 
     onContinueClick() {
         this.continueButton.getComponent(cc.Button).interactable = false
-        if (this.isIframe) {
+        if (this.isCuba) {
             const customEvent = new CustomEvent('gameEnd', {
                 detail: {}
             });
             window.parent.document.body.dispatchEvent(customEvent);
+            console.log("event dispatched", customEvent)
             return;
         }
         if (cc.sys.isNative && Config.isMicroLink) {

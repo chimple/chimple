@@ -139,9 +139,7 @@ export default class Chimple extends cc.Component {
         for (let param of params) {
             urlParams[param.split('=')[0]] = param.split('=')[1];
         }
-        const isIframe = !(window === window.parent);
-
-        cc.log("xxxxx data", urlParams,"isIframe",isIframe)
+        cc.log("urlParams", urlParams,)
         if (urlParams['courseid'] != null && urlParams['chapterid'] != null && urlParams['lessonid'] != null) {
             const input = {
                 courseid: urlParams['courseid'],
