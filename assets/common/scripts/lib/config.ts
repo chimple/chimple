@@ -207,7 +207,7 @@ export default class Config {
     }
 
     getTextFont(fontName: string) {
-        cc.log("fonts loaded:" + Array.from(this._textFontMap.keys()))
+        // cc.log("fonts loaded:" + Array.from(this._textFontMap.keys()))
         return this._textFontMap.get(fontName);
     }
 

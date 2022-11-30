@@ -23,7 +23,7 @@ export default class ChimpleLabel extends cc.Label {
         if (config !== null) {
             // config.currentFontName = config.currentFontName === null ? lang + '-main' : config.currentFontName;
             const fontName: string = config.currentFontName;
-            cc.log('applied font:', fontName);
+            // cc.log('applied font:', fontName);
             let fontLoaded: boolean = config.hasLoadedTextFont(fontName);
             if (fontLoaded) {
                 this.font = config.getTextFont(fontName);
