@@ -1,21 +1,22 @@
 import ccclass = cc._decorator.ccclass;
-import Config from "../../../../common/scripts/lib/config";
+import Config, { Lang } from "../../../../common/scripts/lib/config";
 import catchError from "../../../../common/scripts/lib/error-handler";
-import {BiggerOrSmaller} from "./bigger-or-smaller";
-import {CompareNumberMagnitudes} from "./compare_number_magnitudes";
-import {DigitNumbers} from "./digit-numbers";
-import {MissingNumber} from "./missing_number";
-import {NumberIdentification} from "./number-identification";
+import { BiggerOrSmaller } from "./bigger-or-smaller";
+import { CompareNumberMagnitudes } from "./compare_number_magnitudes";
+import { DigitNumbers } from "./digit-numbers";
+import { MissingNumber } from "./missing_number";
+import { NumberIdentification } from "./number-identification";
 import OperationWithObjects from "./operation-with-objects";
-import {OperationsDrag} from "./operations-drag";
-import {RecognizeNumber} from "./recognize-number";
+import { OperationsDrag } from "./operations-drag";
+import { RecognizeNumber } from "./recognize-number";
 import Shapes from "./shapes";
 import WordProblem from "./word-problem";
 import property = cc._decorator.property;
-import {QUIZ_WRONG} from "../../quizliteracy/scripts/quiz-literacy";
-import {QUIZ_ANSWERED} from "../../../../common/scripts/quiz-monitor";
-import Profile, {LANGUAGE} from "../../../../common/scripts/lib/profile";
-import {HELP_DIR, NUMBER_VOICE, QUESTION_BOARD, QUIZ_MATHS_DIR} from "../../../../common/scripts/helper";
+import { QUIZ_WRONG } from "../../quizliteracy/scripts/quiz-literacy";
+import { QUIZ_ANSWERED } from "../../../../common/scripts/quiz-monitor";
+import Profile, { LANGUAGE } from "../../../../common/scripts/lib/profile";
+import { HELP_DIR, NUMBER_VOICE, QUESTION_BOARD, QUIZ_MATHS_DIR } from "../../../../common/scripts/helper";
+import { ASSET_URL } from "../../../../common/scripts/lib/constants";
 
 export const DIGIT_NUMBERS = "digit_numbers";
 export const TWO_DIGIT_NUMBERS = "2digit_numbers";
@@ -206,7 +207,9 @@ export default class QuizMaths extends cc.Component {
                 const wordProblem = cc.instantiate(this.wordProblem);
                 const wordProblemComponent = wordProblem.getComponent(WordProblem);
                 wordProblemComponent.quizConfig = this._mathsConfig;
-                wordProblemComponent.assetDir = HELP_DIR + Profile.lang + '-help/' + QUESTION_BOARD;
+                // wordProblemComponent.assetDir = HELP_DIR + Profile.lang + '-help/' + QUESTION_BOARD;
+                const lang = Profile.lang || Lang.ENGLISH
+                wordProblemComponent.assetDir = `${ASSET_URL}/${lang}-help-remote/questionboard`;
                 this.node.addChild(wordProblem);
                 break;
         }
