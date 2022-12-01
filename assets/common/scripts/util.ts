@@ -620,6 +620,11 @@ export class Util {
         cc.log("resources left: --->", this._resources.length);
     }
 
+    public static isValidURL(string: string) {
+        try { return Boolean(new URL(string)); }
+        catch (e) { return false; }
+    }
+
     public static load(
         res: string,
         callback: Function,
@@ -654,6 +659,15 @@ export class Util {
                 }
                 callback(err, asset);
             });
+
+            //Downloading audio from Network
+        } else if (Util.isValidURL(res)) {
+            cc.assetManager.loadRemote(`${res}`, (err, clip) => {
+                if (clip && !err) {
+                    //@ts-ignore
+                    callback(err, clip);
+                }
+            })
         } else {
             bundle.load(resName, (err, asset) => {
                 if (err) {
