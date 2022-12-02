@@ -1,5 +1,7 @@
 import LessonController from "./lessonController";
 import Config from "./lib/config";
+import { IS_CUBA } from "./lib/constants";
+import Profile from "./lib/profile";
 import { Util } from "./util";
 import UtilLogger from "./util-logger";
 
@@ -17,6 +19,7 @@ export default class QuitPopup extends cc.Component {
     @property(cc.Label)
     videoLabel: cc.Label = null;
 
+    isCuba = Profile.getItem(IS_CUBA);
 
     onLoad() {
         this.inputEventBlocker.zIndex = 2
@@ -28,6 +31,14 @@ export default class QuitPopup extends cc.Component {
     onClickYesButton() {
         this.node.getChildByName('quit_bg').getChildByName('exit_game').getComponent(cc.Button).interactable = false;
         Config.isMicroLink = false;
+        if (this.isCuba) {
+            const customEvent = new CustomEvent('gameEnd', {
+                detail: {}
+            });
+            window.parent.document.body.dispatchEvent(customEvent);
+            console.log("event dispatched", customEvent);
+            return;
+        }
         Config.i.popScene();
         LessonController.getFriend().stopAudio();
     }

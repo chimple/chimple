@@ -83,6 +83,7 @@ export default class LessonController extends cc.Component {
     static bundles: cc.AssetManager.Bundle[] = [];
     static friend: Friend = null;
     static gamePrefab: cc.Prefab;
+    isCuba = Profile.getItem(IS_CUBA);
 
     onLoad() {
         this.loading.width = cc.winSize.width;
@@ -94,12 +95,12 @@ export default class LessonController extends cc.Component {
         Util.loadAccessoriesAndEquipAcc(LessonController.friend.node.children[1], LessonController.friend.node);
         LessonController.friend.node.removeFromParent();
         this.lessonStart();
-        if (Config.isMicroLink) {
+        if (Config.isMicroLink && !this.isCuba) {
             this.backButton.active = false;
         } else {
             this.backButton.on('touchend', () => {
                 this.node.getChildByName("quit").active = true;
-                if (parseInt(Profile.getValue(CURRENTMODE)) == Mode.School) {
+                if (parseInt(Profile.getValue(CURRENTMODE)) == Mode.School || this.isCuba) {
                     this.node.getChildByName("quit").getChildByName('quit_bg').getChildByName('exit_game').y = this.node.getChildByName("quit").getPosition().y
                     this.node.getChildByName("quit").getChildByName('quit_bg').getChildByName('help_video').active = false;
                 }
