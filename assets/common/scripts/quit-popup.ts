@@ -1,6 +1,6 @@
 import LessonController from "./lessonController";
 import Config from "./lib/config";
-import { IS_CUBA } from "./lib/constants";
+import { GAME_EXIT, IS_CUBA } from "./lib/constants";
 import Profile from "./lib/profile";
 import { Util } from "./util";
 import UtilLogger from "./util-logger";
@@ -32,7 +32,7 @@ export default class QuitPopup extends cc.Component {
         this.node.getChildByName('quit_bg').getChildByName('exit_game').getComponent(cc.Button).interactable = false;
         Config.isMicroLink = false;
         if (this.isCuba) {
-            const customEvent = new CustomEvent('gameEnd', {
+            const customEvent = new CustomEvent(GAME_EXIT, {
                 detail: {}
             });
             window.parent.document.body.dispatchEvent(customEvent);

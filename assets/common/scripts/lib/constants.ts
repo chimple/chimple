@@ -71,6 +71,7 @@ export const PROBLEM_START = 'problemStart';
 export const GAME_START = 'gameStart';
 export const PROBLEM_END = 'problemEnd';
 export const GAME_END = 'gameEnd';
+export const GAME_EXIT = "gameExit"
 export const LEVEL_COMPLETED = 'level_completed';
 export const WORLD_COMPLETED = 'world_completed';
 export const APP_START = 'app_start';
