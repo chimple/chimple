@@ -91,6 +91,8 @@ export default class SectionList extends cc.Component {
 
     loadUi(sectionList: any, schoolFirebaseId: string) {
         this.hideLoading()
+        if (sectionList)
+            sectionList.sort((a, b) => (a.name > b.name ? 1 : -1));
         for (const data of sectionList) {
             const sectionInfo: Section = data
             const sectionButton = cc.instantiate(this.sectionItemPrefab)
