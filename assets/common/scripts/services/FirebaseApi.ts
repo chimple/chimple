@@ -158,7 +158,7 @@ export class FirebaseApi implements ServiceApi {
         }
         console.log('assignments query result', jsonResult)
         this.buildAssignments(assignments, [].concat(jsonResult.results));
-        return assignments.reverse();
+        return assignments;
     }
 
     buildAssignments(results: any[], assignments: any[]) {
@@ -213,6 +213,8 @@ export class FirebaseApi implements ServiceApi {
                 )
 
                 results = results.filter((v, i, a) => a.findIndex(t => (t.chapterId === v.chapterId && t.lessonId === v.lessonId)) === i);
+
+                //Sorting assignments descending order (assigned one's comes first)
                 results = results.sort((a, b) => (a.createAt > b.createAt) ? 1 : -1)
             }
         } catch (e) {
