@@ -137,6 +137,7 @@ export default class ChapterLessons extends cc.Component {
         lessonButtonComp.lesson = lesson;
         lessonButtonComp.loading = this.loading;
         lessonButtonComp.open = open;
+        lessonButtonComp.showScoreStars = ChapterLessons.showType !== ChapterLessonType.Assignments
         this.layout.addChild(lessonButton);
     }
 
