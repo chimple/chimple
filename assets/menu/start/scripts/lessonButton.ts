@@ -50,6 +50,7 @@ export default class LessonButton extends cc.Component {
     lesson: Lesson
     loading: cc.Node
     open: boolean = false
+    showScoreStars: boolean = true
 
     onLoad() {
         const config = Config.i
@@ -68,7 +69,10 @@ export default class LessonButton extends cc.Component {
             this.button.interactable = this.open || this.lesson.chapter.course.id == 'reward'
             const lessonProgress = User.getCurrentUser().lessonProgressMap.get(this.lesson.id)
             if (this.lesson.assignmentId !== null && this.lesson.assignmentId !== undefined) {
-                if (this.open && lessonProgress && lessonProgress.assignmentIds.includes(this.lesson.assignmentId)
+                if (this.open
+                    && this.showScoreStars
+                    && lessonProgress
+                    // && lessonProgress.assignmentIds.includes(this.lesson.assignmentId)
                     && lessonProgress.score >= 0) {
                     this.star1.spriteFrame = lessonProgress.score > 25 ? this.goldStar : this.grayStar
                     this.star2.spriteFrame = lessonProgress.score > 50 ? this.goldStar : this.grayStar
