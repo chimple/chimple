@@ -557,13 +557,7 @@ export default class Start extends cc.Component {
             const lesson = Config.i.allLessons.get(assign.lessonId)
             if (!!lesson) {
                 const lessonProgress: LessonProgress = User.getCurrentUser().lessonProgressMap.get(assign.lessonId)
-                if (!lessonProgress) {
-                    count++;
-                    // if (this.assignPopupActive) {
-                    //     this.showAssignmentPopup(true);
-                    //     this.assignPopupActive = false;
-                    // }
-                } else if (!!lessonProgress && ![].concat(lessonProgress.assignmentIds).includes(assign.assignmentId)) {
+                if (!lessonProgress || (!!lessonProgress && ![].concat(lessonProgress.assignmentIds).includes(assign.assignmentId))) {
                     lesson.assignmentId = assign.assignmentId;
                     count++;
                     // if (this.assignPopupActive) {

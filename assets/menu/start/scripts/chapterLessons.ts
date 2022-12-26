@@ -70,12 +70,12 @@ export default class ChapterLessons extends cc.Component {
                     this.loading.active = true;
                     this.label.string = 'Assignments'
                     let assignments: any = config.getAssignmentLessonsTodo();
-                    if (assignments.length == 0 || assignments == undefined) {
-                        const user = User.getCurrentUser();
-                        assignments = await ServiceConfig.getI().handle.listAssignments(user.id)
-                        config.assignments = assignments;
-                        assignments = config.getAssignmentLessonsTodo();
-                    }
+                    // if (assignments.length == 0 || assignments == undefined) {
+                    const user = User.getCurrentUser();
+                    assignments = await ServiceConfig.getI().handle.listAssignments(user.id)
+                    config.assignments = assignments;
+                    assignments = config.getAssignmentLessonsTodo();
+                    // }
                     assignments.forEach((les) => {
                         this.createLessonButton(les, true)
                     })
