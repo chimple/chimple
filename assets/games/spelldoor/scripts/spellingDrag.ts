@@ -12,7 +12,7 @@ export default class SpellingDrag extends Drag {
     onLoad() {
         super.onLoad()
         this.label.string = Config.wide ? ' ' + this.node.name + ' ' : this.node.name
-        Util.loadsLetter(this.node.name.toLowerCase(), (clip) => {
+        Util.loadsPhonicsOrLetter(this.node.name.toLowerCase(), (clip) => {
             this._soundClip = clip
         })
     }
@@ -35,12 +35,12 @@ export default class SpellingDrag extends Drag {
     onTouchEnd(touch: cc.Touch) {
         const allowDrag = this.allowDrag
         super.onTouchEnd(touch)
-        if(allowDrag && this.isMoved) {
+        if (allowDrag && this.isMoved) {
             if (this.match) {
                 this.node.emit('spellingMatch', this)
             } else {
                 this.node.emit('spellingNoMatch')
-            }    
+            }
         }
     }
 }
