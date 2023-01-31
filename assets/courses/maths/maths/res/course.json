@@ -152,6 +152,13 @@
           "name": "9"
         },
         {
+          "id": "maths0205",
+          "image": "maths0205.png",
+          "color": "#72DDD3",
+          "outcome": "The lesson handles number '0' individually which includes saying the number name, writing the number, counting, and recognizing a number of objects for '0'.",
+          "name": "0"
+        },
+        {
           "id": "maths0204",
           "image": "maths0204.png",
           "color": "#B8D855",
@@ -3182,10 +3189,5 @@
   "lang": "en",
   "name": "Maths",
   "type": "maths",
-  "levels": [
-    "maths05",
-    "maths09",
-    "maths16",
-    "maths24"
-  ]
+  "levels": ["maths05", "maths09", "maths16", "maths24"]
 }
