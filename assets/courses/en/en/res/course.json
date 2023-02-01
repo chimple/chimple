@@ -535,6 +535,14 @@
           "name": "Pop More Vowels"
         },
         {
+          "id": "balloon88",
+          "image": "balloon88.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Vowel Challenge 1"
+        },
+        {
           "id": "en0501",
           "image": "en0501.png",
           "color": "#F98AC9",
@@ -549,12 +557,19 @@
           "name": "Vowel words"
         },
         {
+          "id": "en0505",
+          "image": "en0505.png",
+          "color": "#D48FF9",
+          "outcome": "",
+          "name": "Long Vowels"
+        },
+        {
           "id": "balloon6",
           "image": "ribbom_rewards.png",
           "color": "#B8D855",
           "type": "exam",
           "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
-          "name": "Vowel Challenge"
+          "name": "Vowel Challenge 2"
         }
       ],
       "name": "Vowels"
