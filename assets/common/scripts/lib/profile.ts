@@ -758,7 +758,7 @@ export class User {
                     ['hi', new CourseProgressClass('hi00')],
                     // ['kn', new CourseProgressClass('kn00')],
                     // ['mr', new CourseProgressClass('mr00')],
-                    ['en-sl', new CourseProgressClass('en-sl00')],
+                    ['sl_en', new CourseProgressClass('sl_en00')],
                     ['maths-sl', new CourseProgressClass('maths-sl00')],
                     ['puzzle', new CourseProgressClass('puzzle00')],
                     ['test-lit', new CourseProgressClass('chapter_0')],
@@ -771,7 +771,7 @@ export class User {
                     ['hi', new CourseProgressClass()],
                     // ['kn', new CourseProgressClass()],
                     // ['mr', new CourseProgressClass('mr00')],
-                    ['en-sl', new CourseProgressClass('en-sl00')],
+                    ['sl_en', new CourseProgressClass('sl_en00')],
                     ['maths-sl', new CourseProgressClass('maths-sl00')],
                     ['puzzle', new CourseProgressClass('puzzle00')]
                 ]),
@@ -785,7 +785,7 @@ export class User {
         );
         if (debug) user.openAllRewards()
         // open bydefault unlocked rewards
-        user.unlockBydefaultRewards();
+        user.unlockBydefaultRewards()
 
 
         let schoolId: string = cc.sys.localStorage.getItem(FIREBASE_SCHOOL_ID);

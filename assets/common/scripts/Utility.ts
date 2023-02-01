@@ -29,7 +29,7 @@ const langMap = {
     'hi/': [hindiVowelList, hindiConsonantList],
     'kn/': [kannadaVowelList, kannadaConsonantList],
     'mr/': [marathiVowelList, marathiConsonantList],
-    'en-sl/': [enslvowelList, enslconsonantList]
+    'sl_en/': [enslvowelList, enslconsonantList]
 }
 
 export class AlphabetUtil {
