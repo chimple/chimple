@@ -402,7 +402,7 @@ export const courseSortIndex = {
     kn: 4,
     mr: 5,
     "sl_en": 6,
-    "maths-sl": 7,
+    "sl_maths": 7,
     puzzle: 8,
     "test-lit": 9,
     "test-maths": 10

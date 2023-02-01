@@ -758,8 +758,8 @@ export class User {
                     ['hi', new CourseProgressClass('hi00')],
                     // ['kn', new CourseProgressClass('kn00')],
                     // ['mr', new CourseProgressClass('mr00')],
-                    ['sl_en', new CourseProgressClass('sl_en00')],
-                    ['maths-sl', new CourseProgressClass('maths-sl00')],
+                    ['sl_en', new CourseProgressClass('sl_en01')],
+                    ['sl_maths', new CourseProgressClass('sl_maths01')],
                     ['puzzle', new CourseProgressClass('puzzle00')],
                     ['test-lit', new CourseProgressClass('chapter_0')],
                     ['test-maths', new CourseProgressClass('chapter_0')]
@@ -771,8 +771,8 @@ export class User {
                     ['hi', new CourseProgressClass()],
                     // ['kn', new CourseProgressClass()],
                     // ['mr', new CourseProgressClass('mr00')],
-                    ['sl_en', new CourseProgressClass('sl_en00')],
-                    ['maths-sl', new CourseProgressClass('maths-sl00')],
+                    ['sl_en', new CourseProgressClass('sl_en01')],
+                    ['sl_maths', new CourseProgressClass('sl_maths01')],
                     ['puzzle', new CourseProgressClass('puzzle00')]
                 ]),
             new Map(),
@@ -785,7 +785,7 @@ export class User {
         );
         if (debug) user.openAllRewards()
         // open bydefault unlocked rewards
-        user.unlockBydefaultRewards()
+        user.unlockBydefaultRewards();
 
 
         let schoolId: string = cc.sys.localStorage.getItem(FIREBASE_SCHOOL_ID);

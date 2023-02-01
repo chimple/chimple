@@ -1,14 +1,15 @@
 {
   "chapters": [
     {
-      "id": "sl_en00",
-      "image": "sl_en00.png",
+      "id": "sl_en_quiz",
+      "image": "sl_en_quiz.png",
       "type": "exam",
       "lessons": [
         {
           "color": "",
-          "id": "sl_en0000",
-          "image": "sl_en0000.png",
+          "id": "sl_en_PreQuiz",
+          "type": "exam",
+          "image": "sl_en_PreQuiz.png",
           "name": "Assessment"
         }
       ],
