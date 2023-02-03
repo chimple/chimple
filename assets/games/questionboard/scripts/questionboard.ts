@@ -10,6 +10,7 @@ import OptionScript from "./option-script";
 import Profile, { LANGUAGE } from "../../../common/scripts/lib/profile";
 import { ASSET_URL } from "../../../common/scripts/lib/constants";
 import ChimpleRichText from "../../../common/scripts/chimple-richtext";
+import { HELP_DIR, QUESTION_BOARD } from "../../../common/scripts/helper";
 
 export const CORRECT_ANSWER = 'CORRECT_ANSWER';
 export const WRONG_ANSWER = 'WRONG_ANSWER';
@@ -218,14 +219,19 @@ export default class QuestionBoard extends Game {
 
     @catchError()
     private configureSound() {
-        // Util.loadGameSound(this._currentConfig.voiceSource, (clip) => {
         const lang = Profile.lang || Lang.ENGLISH
-        cc.assetManager.loadRemote(`${ASSET_URL}/${lang}-help-remote/questionboard/${this._currentConfig.voiceSource}`, (err, clip) => {
-            if (clip && !err) {
-                //@ts-ignore
+        Util.loadGameSound(HELP_DIR + lang + '-help/' + QUESTION_BOARD + this._currentConfig.voiceSource, (clip) => {
+            if (clip != null) {
                 this.friend.extraClip = clip
             }
-        })
+        });
+
+        // cc.assetManager.loadRemote(`${ASSET_URL}/${lang}-help-remote/questionboard/${this._currentConfig.voiceSource}`, (err, clip) => {
+        //     if (clip && !err) {
+        //         //@ts-ignore
+        //         this.friend.extraClip = clip
+        //     }
+        // })
     }
 
     @catchError()
