@@ -11,6 +11,20 @@
           "type": "exam",
           "image": "sl_en_PreQuiz.png",
           "name": "Assessment"
+        },
+        {
+          "color": "",
+          "id": "sl_en_g1_PreQuiz",
+          "type": "exam",
+          "image": "sl_en_g1_PreQuiz.png",
+          "name": "Grade1 Assessment"
+        },
+        {
+          "color": "",
+          "id": "sl_en_g2_PreQuiz",
+          "type": "exam",
+          "image": "sl_en_g2_PreQuiz.png",
+          "name": "Grade2 Assessment"
         }
       ],
       "name": "Quiz"
@@ -38,6 +52,14 @@
           "name": "c"
         },
         {
+          "id": "challenge1",
+          "image": "challenge1.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked. ",
+          "name": "Challenge a-c"
+        },
+        {
           "color": "",
           "id": "sl_en0103",
           "image": "sl_en0103.png",
@@ -60,6 +82,14 @@
           "id": "sl_en0106",
           "image": "sl_en0106.png",
           "name": "Revision a - f"
+        },
+        {
+          "id": "challenge2",
+          "image": "challenge2.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge a-f"
         }
       ],
       "name": "Alphabet a - f"
@@ -93,6 +123,14 @@
           "name": "j"
         },
         {
+          "id": "challenge3",
+          "image": "challenge3.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge g-j"
+        },
+        {
           "color": "",
           "id": "sl_en0204",
           "image": "sl_en0204.png",
@@ -109,6 +147,14 @@
           "id": "sl_en0206",
           "image": "sl_en0206.png",
           "name": "Revision a - l"
+        },
+        {
+          "id": "challenge4",
+          "image": "challenge4.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge a-l"
         }
       ],
       "name": "Alphabet g - l"
@@ -134,6 +180,14 @@
           "id": "sl_en0302",
           "image": "sl_en0302.png",
           "name": "o"
+        },
+        {
+          "id": "challenge5",
+          "image": "challenge5.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge m-o"
         },
         {
           "color": "",
@@ -164,6 +218,14 @@
           "id": "sl_en0307",
           "image": "sl_en0307.png",
           "name": "Revision a - s"
+        },
+        {
+          "id": "challenge6",
+          "image": "challenge6.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge p-s"
         }
       ],
       "name": "Alphabet m - s"
@@ -197,6 +259,14 @@
           "name": "w"
         },
         {
+          "id": "challenge7",
+          "image": "challenge7.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge t-w"
+        },
+        {
           "color": "",
           "id": "sl_en0404",
           "image": "sl_en0404.png",
@@ -219,6 +289,14 @@
           "id": "sl_en0407",
           "image": "sl_en0407.png",
           "name": "Revision  a - z"
+        },
+        {
+          "id": "challenge8",
+          "image": "challenge8.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge x-z"
         }
       ],
       "name": "Alphabet t - z"
@@ -258,6 +336,14 @@
           "name": "Alphabet G - L"
         },
         {
+          "id": "challenge9",
+          "image": "challenge9.png",
+          "color": "#B8D855",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "type": "exam",
+          "name": "Challenge A-L"
+        },
+        {
           "color": "",
           "id": "sl_en0505",
           "image": "sl_en0505.png",
@@ -282,6 +368,14 @@
           "name": "Revision M - S"
         },
         {
+          "id": "challenge10",
+          "image": "challenge10.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge M-S"
+        },
+        {
           "color": "",
           "id": "sl_en0509",
           "image": "sl_en0509.png",
@@ -304,6 +398,14 @@
           "id": "sl_en0512",
           "image": "sl_en0512.png",
           "name": "Revision Aa-Zz"
+        },
+        {
+          "id": "challenge11",
+          "image": "challenge11.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge A-Z"
         }
       ],
       "name": "Uppercase Alphabet"
@@ -331,6 +433,14 @@
           "name": "K- O"
         },
         {
+          "id": "challenge12",
+          "image": "challenge12.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge A-O"
+        },
+        {
           "color": "",
           "id": "sl_en0603",
           "image": "sl_en0603.png",
@@ -347,6 +457,14 @@
           "id": "sl_en0605",
           "image": "sl_en0605.png",
           "name": "Type Alphabet"
+        },
+        {
+          "id": "challenge13",
+          "image": "challenge13.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Phonic Challenge"
         }
       ],
       "name": "Phonic Practice"
@@ -374,6 +492,14 @@
           "name": "Pop More Vowels"
         },
         {
+          "id": "challenge14",
+          "image": "challenge14.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Vowel Challenge 1"
+        },
+        {
           "color": "",
           "id": "sl_en0703",
           "image": "sl_en0703.png",
@@ -390,6 +516,14 @@
           "id": "sl_en0705",
           "image": "sl_en0705.png",
           "name": "Long Vowels"
+        },
+        {
+          "id": "Challenge15",
+          "image": "Challenge15.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Vowel Challenge 2"
         }
       ],
       "name": "Vowels"
@@ -441,6 +575,14 @@
           "name": "Pop Sounds 3"
         },
         {
+          "id": "challenge16",
+          "image": "challenge16.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Sounds Challenge 1"
+        },
+        {
           "color": "",
           "id": "sl_en0807",
           "image": "sl_en0807.png",
@@ -469,6 +611,14 @@
           "id": "sl_en0811",
           "image": "sl_en0811.png",
           "name": "Beginning Vowel Sounds"
+        },
+        {
+          "id": "challenge17",
+          "image": "challenge17.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Sounds Challenge 2"
         }
       ],
       "name": "Vowel Sounds"
@@ -502,6 +652,14 @@
           "name": "Beginning Sounds - 4"
         },
         {
+          "id": "challenge18",
+          "image": "challenge18.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge Phonics 1"
+        },
+        {
           "color": "",
           "id": "sl_en0904",
           "image": "sl_en0904.png",
@@ -524,6 +682,14 @@
           "id": "sl_en0907",
           "image": "sl_en0907.png",
           "name": "Ending Sounds"
+        },
+        {
+          "id": "challenge19",
+          "image": "challenge19.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": " Challenge Phonics 2"
         }
       ],
       "name": "Phonic Sense"
@@ -551,6 +717,14 @@
           "name": "Word sounds - 3"
         },
         {
+          "id": "challenge20",
+          "image": "challenge20.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Word Challenge"
+        },
+        {
           "color": "",
           "id": "sl_en1003",
           "image": "sl_en1003.png",
@@ -575,6 +749,14 @@
           "name": "Word Sounds - 7"
         },
         {
+          "id": "challenge21",
+          "image": "challenge21.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Word Challenge 1"
+        },
+        {
           "color": "",
           "id": "sl_en1007",
           "image": "sl_en1007.png",
@@ -597,6 +779,14 @@
           "id": "sl_en1010",
           "image": "sl_en1010.png",
           "name": "Word Sounds - 11"
+        },
+        {
+          "id": "challenge22",
+          "image": "challenge22.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Word Challenge 2"
         }
       ],
       "name": "Word Phonics"
@@ -624,6 +814,14 @@
           "name": "an"
         },
         {
+          "id": "challenge23",
+          "image": "challenge23.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge a-1"
+        },
+        {
           "color": "",
           "id": "sl_en1103",
           "image": "sl_en1103.png",
@@ -640,6 +838,14 @@
           "id": "sl_en1105",
           "image": "sl_en1105.png",
           "name": "ag, ay"
+        },
+        {
+          "id": "challenge24",
+          "image": "challenge24.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge a-2"
         },
         {
           "color": "",
@@ -666,6 +872,14 @@
           "name": "ane, ave"
         },
         {
+          "id": "challenge25",
+          "image": "challenge25.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge a-3"
+        },
+        {
           "color": "",
           "id": "sl_en1110",
           "image": "sl_en1110.png",
@@ -688,6 +902,14 @@
           "id": "sl_en1113",
           "image": "sl_en1113.png",
           "name": "ark, all"
+        },
+        {
+          "id": "challenge26",
+          "image": "challenge26.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge a-4"
         }
       ],
       "name": "Word Family - a"
@@ -719,6 +941,14 @@
           "id": "sl_en1203",
           "image": "sl_en1203.png",
           "name": "eese, eat"
+        },
+        {
+          "id": "challenge27",
+          "image": "challenge27.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge e"
         }
       ],
       "name": "Word Family - e"
@@ -752,6 +982,14 @@
           "name": "int, ine, irt"
         },
         {
+          "id": "challenge28",
+          "image": "challenge28.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked.",
+          "name": "Challenge i-1"
+        },
+        {
           "color": "",
           "id": "sl_en1304",
           "image": "sl_en1304.png",
@@ -774,6 +1012,14 @@
           "id": "sl_en1307",
           "image": "sl_en1307.png",
           "name": "ire, ile, ive, ike"
+        },
+        {
+          "id": "challenge29",
+          "image": "challenge29.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons. ",
+          "name": "Challenge i-2"
         }
       ],
       "name": "Word Family - i"
@@ -801,6 +1047,14 @@
           "name": "op"
         },
         {
+          "id": "challenge30",
+          "image": "challenge30.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons. ",
+          "name": "Challenge o-1"
+        },
+        {
           "color": "",
           "id": "sl_en1403",
           "image": "sl_en1403.png",
@@ -817,6 +1071,14 @@
           "id": "sl_en1405",
           "image": "sl_en1405.png",
           "name": "oil, orn"
+        },
+        {
+          "id": "challenge31",
+          "image": "challenge31.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge o-2"
         }
       ],
       "name": "Word Family - o"
@@ -844,6 +1106,14 @@
           "name": "ug"
         },
         {
+          "id": "challenge32",
+          "image": "challenge32.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge u-1"
+        },
+        {
           "color": "",
           "id": "sl_en1503",
           "image": "sl_en1503.png",
@@ -860,6 +1130,14 @@
           "id": "sl_en1505",
           "image": "sl_en1505.png",
           "name": "um, ume, ule"
+        },
+        {
+          "id": "challenge33",
+          "image": "challenge33.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge u-2"
         }
       ],
       "name": "Word Family - u"
@@ -887,6 +1165,14 @@
           "name": "Blend - th"
         },
         {
+          "id": "challenge34",
+          "image": "challenge34.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Blend 1"
+        },
+        {
           "color": "",
           "id": "sl_en1603",
           "image": "sl_en1603.png",
@@ -903,6 +1189,14 @@
           "id": "sl_en1605",
           "image": "sl_en1605.png",
           "name": "Blend - sh 2"
+        },
+        {
+          "id": "challenge35",
+          "image": "challenge35.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Sh' sound blend is important since many words in English language involves the blend of these consonants. An important step in learning to read is blending the sounds we know together to make words. Children learn how consonants 's' and 'h' combine to form single sound in word like fresh, push, shake etc",
+          "name": "Challenge Blend 2"
         },
         {
           "color": "",
@@ -923,6 +1217,14 @@
           "name": "Blend - ck"
         },
         {
+          "id": "challenge36",
+          "image": "challenge36.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Blend 3"
+        },
+        {
           "color": "",
           "id": "sl_en1609",
           "image": "sl_en1609.png",
@@ -941,6 +1243,14 @@
           "name": "Blend - cr"
         },
         {
+          "id": "challenge37",
+          "image": "challenge37.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Blend 4"
+        },
+        {
           "color": "",
           "id": "sl_en1612",
           "image": "sl_en1612.png",
@@ -957,6 +1267,14 @@
           "id": "sl_en1614",
           "image": "sl_en1614.png",
           "name": "Blend - pl"
+        },
+        {
+          "id": "challenge38",
+          "image": "challenge38.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Blend 5"
         }
       ],
       "name": "Sound Blends"
@@ -984,6 +1302,14 @@
           "name": "Blend - ue"
         },
         {
+          "id": "challenge39",
+          "image": "challenge39.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Blend 6"
+        },
+        {
           "color": "",
           "id": "sl_en1703",
           "image": "sl_en1703.png",
@@ -1000,6 +1326,14 @@
           "id": "sl_en1705",
           "image": "sl_en1705.png",
           "name": "Blend - ar - 2"
+        },
+        {
+          "id": "challenge40",
+          "image": "challenge40.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Blend 7"
         },
         {
           "color": "",
@@ -1020,6 +1354,14 @@
           "name": "Blend - fl"
         },
         {
+          "id": "challenge41",
+          "image": "challenge41.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge blend 8"
+        },
+        {
           "color": "",
           "id": "sl_en1709",
           "image": "sl_en1709.png",
@@ -1036,6 +1378,14 @@
           "id": "sl_en1711",
           "image": "sl_en1711.png",
           "name": "Blend - ea"
+        },
+        {
+          "id": "challenge42",
+          "image": "challenge42.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Blend 9"
         },
         {
           "color": "",
@@ -1062,6 +1412,14 @@
           "name": "Blend 'oo'"
         },
         {
+          "id": "challenge43",
+          "image": "challenge43.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Blend 10"
+        },
+        {
           "color": "",
           "id": "sl_en1716",
           "image": "sl_en1716.png",
@@ -1078,6 +1436,14 @@
           "id": "sl_en1718",
           "image": "sl_en1718.png",
           "name": "Blend - ai"
+        },
+        {
+          "id": "challenge44",
+          "image": "challenge44.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Blend 11"
         }
       ],
       "name": "More Sound Blends"
@@ -1105,6 +1471,14 @@
           "name": "Animals"
         },
         {
+          "id": "challenge45",
+          "image": "challenge45.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SD 1"
+        },
+        {
           "color": "",
           "id": "sl_en1803",
           "image": "sl_en1803.png",
@@ -1127,6 +1501,14 @@
           "id": "sl_en1806",
           "image": "sl_en1806.png",
           "name": "Birds"
+        },
+        {
+          "id": "challenge46",
+          "image": "challenge46.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SD 2"
         },
         {
           "color": "",
@@ -1153,6 +1535,14 @@
           "name": "Clothes We Wear 2"
         },
         {
+          "id": "challenge47",
+          "image": "challenge47.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SD 3"
+        },
+        {
           "color": "",
           "id": "sl_en1811",
           "image": "sl_en1811.png",
@@ -1169,6 +1559,14 @@
           "id": "sl_en1813",
           "image": "sl_en1813.png",
           "name": "Playing"
+        },
+        {
+          "id": "challenge48",
+          "image": "challenge48.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SD 4"
         },
         {
           "color": "",
@@ -1195,6 +1593,14 @@
           "name": "Day to day"
         },
         {
+          "id": "challenge49",
+          "image": "challenge49.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SD 5"
+        },
+        {
           "color": "",
           "id": "sl_en1818",
           "image": "sl_en1818.png",
@@ -1217,6 +1623,14 @@
           "id": "sl_en1821",
           "image": "sl_en1821.png",
           "name": "Practice More Words"
+        },
+        {
+          "id": "challenge50",
+          "image": "challenge50.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SD 6"
         }
       ],
       "name": "Simple Dictionary"
@@ -1236,6 +1650,14 @@
           "id": "sl_en1901",
           "image": "sl_en1901.png",
           "name": "Colours"
+        },
+        {
+          "id": "challenge51",
+          "image": "challenge51.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge VB 1"
         },
         {
           "color": "",
@@ -1262,6 +1684,14 @@
           "name": "Community Helpers 3"
         },
         {
+          "id": "challenge52",
+          "image": "challenge52.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge VB 2"
+        },
+        {
           "color": "",
           "id": "sl_en1906",
           "image": "sl_en1906.png",
@@ -1284,6 +1714,14 @@
           "id": "sl_en1909",
           "image": "sl_en1909.png",
           "name": "Simple sentences = 2"
+        },
+        {
+          "id": "challenge53",
+          "image": "challenge53.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge VB 3"
         }
       ],
       "name": "Vocabulary Builder"
@@ -1315,6 +1753,14 @@
           "id": "sl_en2003",
           "image": "sl_en2003.png",
           "name": "6 letters"
+        },
+        {
+          "id": "challenge54",
+          "image": "challenge54.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Write Challenge"
         }
       ],
       "name": "Scribble Words"
@@ -1334,6 +1780,14 @@
           "id": "sl_en2101",
           "image": "sl_en2101.png",
           "name": "Type Words"
+        },
+        {
+          "id": "challenge55",
+          "image": "challenge55.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Typist Challenge"
         }
       ],
       "name": "Tiny Typist"
@@ -1355,6 +1809,14 @@
           "name": "Tiny Words - 2"
         },
         {
+          "id": "challenge56",
+          "image": "challenge56.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Tiny words Challenge"
+        },
+        {
           "color": "",
           "id": "sl_en2202",
           "image": "sl_en2202.png",
@@ -1371,6 +1833,14 @@
           "id": "sl_en2204",
           "image": "sl_en2204.png",
           "name": "Bigger words"
+        },
+        {
+          "id": "challenge57",
+          "image": "challenge57.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Big words Challenge"
         }
       ],
       "name": "Spellings"
@@ -1398,6 +1868,14 @@
           "name": "Simple sentence - 4 words"
         },
         {
+          "id": "challenge58",
+          "image": "challenge58.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SS 1"
+        },
+        {
           "color": "",
           "id": "sl_en2303",
           "image": "sl_en2303.png",
@@ -1414,6 +1892,14 @@
           "id": "sl_en2305",
           "image": "sl_en2305.png",
           "name": "About things"
+        },
+        {
+          "id": "challenge59",
+          "image": "challenge59.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SS 2"
         }
       ],
       "name": "Simple Sentences"
@@ -1447,6 +1933,14 @@
           "name": "My Body 2"
         },
         {
+          "id": "challenge60",
+          "image": "challenge60.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Noun Challenge 1"
+        },
+        {
           "color": "",
           "id": "sl_en2404",
           "image": "sl_en2404.png",
@@ -1469,6 +1963,14 @@
           "id": "sl_en2407",
           "image": "sl_en2407.png",
           "name": "My Family"
+        },
+        {
+          "id": "challenge61",
+          "image": "challenge61.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Noun Challenge 2"
         },
         {
           "color": "",
@@ -1495,6 +1997,14 @@
           "name": "Noun - Animal"
         },
         {
+          "id": "challenge62",
+          "image": "challenge62.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Noun Challenge 3"
+        },
+        {
           "color": "",
           "id": "sl_en2412",
           "image": "sl_en2412.png",
@@ -1517,6 +2027,14 @@
           "id": "sl_en2415",
           "image": "sl_en2415.png",
           "name": "Uncountable Nouns"
+        },
+        {
+          "id": "challenge63",
+          "image": "challenge63.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Noun Challenge 4"
         }
       ],
       "name": "Nouns"
@@ -1544,6 +2062,14 @@
           "name": "You"
         },
         {
+          "id": "challenge64",
+          "image": "challenge64.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Pronoun 1"
+        },
+        {
           "color": "",
           "id": "sl_en2503",
           "image": "sl_en2503.png",
@@ -1560,6 +2086,14 @@
           "id": "sl_en2505",
           "image": "sl_en2505.png",
           "name": "I"
+        },
+        {
+          "id": "challenge65",
+          "image": "challenge65.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Pronoun 2"
         },
         {
           "color": "",
@@ -1590,6 +2124,14 @@
           "id": "sl_en2510",
           "image": "sl_en2510.png",
           "name": "Revision - 2"
+        },
+        {
+          "id": "challenge66",
+          "image": "challenge66.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Pronoun 3"
         }
       ],
       "name": "Pronouns"
@@ -1617,6 +2159,14 @@
           "name": "Past- Tense"
         },
         {
+          "id": "challenge67",
+          "image": "challenge67.png",
+          "color": "#B8D855",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "type": "exam",
+          "name": "Challenge Verb 1"
+        },
+        {
           "color": "",
           "id": "sl_en2603",
           "image": "sl_en2603.png",
@@ -1633,6 +2183,14 @@
           "id": "sl_en2605",
           "image": "sl_en2605.png",
           "name": "What I am doing"
+        },
+        {
+          "id": "challenge68",
+          "image": "challenge68.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Verb 2"
         },
         {
           "color": "",
@@ -1657,6 +2215,14 @@
           "id": "sl_en2609",
           "image": "sl_en2609.png",
           "name": "Sentences with verb in present tense"
+        },
+        {
+          "id": "challenge69",
+          "image": "challenge69.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Verb 3"
         }
       ],
       "name": "Action Words"
@@ -1678,6 +2244,14 @@
           "name": "Sentences with article 'a'"
         },
         {
+          "id": "challenge70",
+          "image": "challenge70.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Articles 1"
+        },
+        {
           "color": "",
           "id": "sl_en2702",
           "image": "sl_en2702.png",
@@ -1688,6 +2262,14 @@
           "id": "sl_en2703",
           "image": "sl_en2703.png",
           "name": "Revision"
+        },
+        {
+          "id": "challenge71",
+          "image": "challenge71.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Articles 2"
         }
       ],
       "name": "Articles"
@@ -1721,6 +2303,14 @@
           "name": "Conjunctions"
         },
         {
+          "id": "challenge72",
+          "image": "challenge72.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Grammar 1"
+        },
+        {
           "color": "",
           "id": "sl_en2804",
           "image": "sl_en2804.png",
@@ -1745,6 +2335,14 @@
           "name": "Sequences"
         },
         {
+          "id": "challenge73",
+          "image": "challenge73.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Grammar 2"
+        },
+        {
           "color": "",
           "id": "sl_en2808",
           "image": "sl_en2808.png",
@@ -1767,6 +2365,14 @@
           "id": "sl_en2811",
           "image": "sl_en2811.png",
           "name": "Interjections"
+        },
+        {
+          "id": "challenge74",
+          "image": "challenge74.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Grammar 3"
         }
       ],
       "name": "Grammar"
@@ -1788,6 +2394,14 @@
           "name": "Word Space"
         },
         {
+          "id": "challenge75",
+          "image": "challenge75.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Punctuation 1"
+        },
+        {
           "color": "",
           "id": "sl_en2902",
           "image": "sl_en2902.png",
@@ -1804,6 +2418,14 @@
           "id": "sl_en2904",
           "image": "sl_en2904.png",
           "name": "Capitalization"
+        },
+        {
+          "id": "challenge76",
+          "image": "challenge76.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Punctuation 2"
         }
       ],
       "name": "Punctuation"
@@ -1831,6 +2453,14 @@
           "name": "Write Adjectives"
         },
         {
+          "id": "challenge77",
+          "image": "challenge77.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Adjectives Challenge 1"
+        },
+        {
           "color": "",
           "id": "sl_en3003",
           "image": "sl_en3003.png",
@@ -1847,6 +2477,14 @@
           "id": "sl_en3005",
           "image": "sl_en3005.png",
           "name": "Describe"
+        },
+        {
+          "id": "challenge78",
+          "image": "challenge78.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Adjectives Challenge 2"
         }
       ],
       "name": "Adjectives"
@@ -1874,6 +2512,14 @@
           "name": "Rainbow"
         },
         {
+          "id": "challenge79",
+          "image": "challenge79.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "",
+          "name": "Colours Challenge 1"
+        },
+        {
           "color": "",
           "id": "sl_en3103",
           "image": "sl_en3103.png",
@@ -1884,6 +2530,14 @@
           "id": "sl_en3104",
           "image": "sl_en3104.png",
           "name": "I Am Wearing..."
+        },
+        {
+          "id": "challenge80",
+          "image": "challenge80.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "",
+          "name": "Colours Challenge 2"
         }
       ],
       "name": "Colours"
@@ -1911,6 +2565,14 @@
           "name": "Pair them"
         },
         {
+          "id": "challenge81",
+          "image": "challenge81.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "",
+          "name": "Singular and Plural Challenge 1"
+        },
+        {
           "color": "",
           "id": "sl_en3203",
           "image": "sl_en3203.png",
@@ -1921,6 +2583,14 @@
           "id": "sl_en3204",
           "image": "sl_en3204.png",
           "name": "Fill Plural Form"
+        },
+        {
+          "id": "challenge82",
+          "image": "challenge82.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "",
+          "name": "Singular and Plural Challenge 2"
         }
       ],
       "name": "Singular and Plural"
@@ -1948,6 +2618,14 @@
           "name": "Negative Sentences"
         },
         {
+          "id": "challenge83",
+          "image": "challenge83.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Sentence Challenge"
+        },
+        {
           "color": "",
           "id": "sl_en3303",
           "image": "sl_en3303.png",
@@ -1970,6 +2648,14 @@
           "id": "sl_en3306",
           "image": "sl_en3306.png",
           "name": "Complex sentences"
+        },
+        {
+          "id": "challenge84",
+          "image": "challenge84.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Sentences"
         }
       ],
       "name": "Create Sentences"
@@ -2003,6 +2689,14 @@
           "name": "Number Names 4"
         },
         {
+          "id": "challenge85",
+          "image": "challenge85.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "",
+          "name": "Numbers Challenge 1"
+        },
+        {
           "color": "",
           "id": "sl_en3404",
           "image": "sl_en3404.png",
@@ -2025,6 +2719,14 @@
           "id": "sl_en3407",
           "image": "sl_en3407.png",
           "name": "Number Names 8"
+        },
+        {
+          "id": "challenge86",
+          "image": "challenge86.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "",
+          "name": "Numbers Challenge 2"
         }
       ],
       "name": "Numbers"
@@ -2058,6 +2760,14 @@
           "name": "How Many? 1"
         },
         {
+          "id": "challenge87",
+          "image": "challenge87.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "",
+          "name": "Counting Challenge 1"
+        },
+        {
           "color": "",
           "id": "sl_en3504",
           "image": "sl_en3504.png",
@@ -2080,6 +2790,14 @@
           "id": "sl_en3507",
           "image": "sl_en3507.png",
           "name": "Ordinal Counting 3"
+        },
+        {
+          "id": "challenge88",
+          "image": "challenge88.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "",
+          "name": "Counting Challenge 2"
         }
       ],
       "name": "Counting"
@@ -2107,6 +2825,14 @@
           "name": "Reading Time"
         },
         {
+          "id": "challenge89",
+          "image": "challenge89.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Time Challenge 1"
+        },
+        {
           "color": "",
           "id": "sl_en3603",
           "image": "sl_en3603.png",
@@ -2123,6 +2849,14 @@
           "id": "sl_en3605",
           "image": "sl_en3605.png",
           "name": "More Practice"
+        },
+        {
+          "id": "challenge90",
+          "image": "challenge90.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Time Challenge 2"
         },
         {
           "color": "",
@@ -2149,6 +2883,14 @@
           "name": "Days of the week 3"
         },
         {
+          "id": "challenge91",
+          "image": "challenge91.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "",
+          "name": "Time Challenge 3"
+        },
+        {
           "color": "",
           "id": "sl_en3610",
           "image": "sl_en3610.png",
@@ -2173,6 +2915,14 @@
           "name": "Months of the year 3"
         },
         {
+          "id": "challenge92",
+          "image": "challenge92.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "",
+          "name": "Time Challenge 4"
+        },
+        {
           "color": "",
           "id": "sl_en3614",
           "image": "sl_en3614.png",
@@ -2195,6 +2945,14 @@
           "id": "sl_en3617",
           "image": "sl_en3617.png",
           "name": "What Time Is It?"
+        },
+        {
+          "id": "challenge93",
+          "image": "challenge93.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "",
+          "name": "Time Challenge 5"
         }
       ],
       "name": "Time"
@@ -2222,6 +2980,14 @@
           "name": "Indian Currency 3"
         },
         {
+          "id": "challenge94",
+          "image": "challenge94.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 1"
+        },
+        {
           "color": "",
           "id": "sl_en3703",
           "image": "sl_en3703.png",
@@ -2232,6 +2998,14 @@
           "id": "sl_en3704",
           "image": "sl_en3704.png",
           "name": "Indian Currency 5"
+        },
+        {
+          "id": "challenge95",
+          "image": "challenge95.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 2"
         }
       ],
       "name": "Money"
@@ -2259,6 +3033,14 @@
           "name": "More Comparisons"
         },
         {
+          "id": "challenge96",
+          "image": "challenge96.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Measurement Challenge 1"
+        },
+        {
           "color": "",
           "id": "sl_en3803",
           "image": "sl_en3803.png",
@@ -2275,6 +3057,14 @@
           "id": "sl_en3805",
           "image": "sl_en3805.png",
           "name": "Parts & Whole 1"
+        },
+        {
+          "id": "challenge97",
+          "image": "challenge97.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Measurement Challenge 2"
         }
       ],
       "name": "Measurement"

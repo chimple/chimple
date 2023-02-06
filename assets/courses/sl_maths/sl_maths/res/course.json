@@ -11,6 +11,20 @@
           "image": "sl_maths_PreQuiz.png",
           "type": "exam",
           "name": "Assessment"
+        },
+        {
+          "color": "",
+          "id": "sl_maths_g1_PreQuiz",
+          "image": "sl_maths_g1_PreQuiz.png",
+          "type": "exam",
+          "name": "Grade1 Assessment"
+        },
+        {
+          "color": "",
+          "id": "sl_maths_g2_PreQuiz",
+          "image": "sl_maths_g2_PreQuiz.png",
+          "type": "exam",
+          "name": "Grade2 Assessment"
         }
       ],
       "name": "Quiz"
@@ -38,6 +52,14 @@
           "name": "3"
         },
         {
+          "id": "challenge1",
+          "image": "challenge1.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 1-3"
+        },
+        {
           "color": "",
           "id": "sl_maths0103",
           "image": "sl_maths0103.png",
@@ -48,6 +70,14 @@
           "id": "sl_maths0104",
           "image": "sl_maths0104.png",
           "name": "5"
+        },
+        {
+          "id": "challenge2",
+          "image": "challenge2.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 1-5"
         }
       ],
       "name": "Numbers 1-5"
@@ -73,6 +103,14 @@
           "id": "sl_maths0202",
           "image": "sl_maths0202.png",
           "name": "Number Series"
+        },
+        {
+          "id": "challenge3",
+          "image": "challenge3.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge NS 1-5"
         }
       ],
       "name": "Number Sense 1-5"
@@ -100,6 +138,14 @@
           "name": "8"
         },
         {
+          "id": "challenge4",
+          "image": "challenge4.png",
+          "type": "exam",
+          "color": "#B8D855",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 6-8"
+        },
+        {
           "color": "",
           "id": "sl_maths0303",
           "image": "sl_maths0303.png",
@@ -110,6 +156,14 @@
           "id": "sl_maths0304",
           "image": "sl_maths0304.png",
           "name": "10"
+        },
+        {
+          "id": "challenge5",
+          "image": "challenge5.png",
+          "type": "exam",
+          "color": "#D48FF9",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 9-10"
         }
       ],
       "name": "Numbers 6 -10"
@@ -143,6 +197,14 @@
           "name": "Match Numbers 4"
         },
         {
+          "id": "challenge6",
+          "image": "challenge6.png",
+          "type": "exam",
+          "color": "#72DDD3",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge NS 1"
+        },
+        {
           "color": "",
           "id": "sl_maths0404",
           "image": "sl_maths0404.png",
@@ -167,6 +229,14 @@
           "name": "Number Series 1-8"
         },
         {
+          "id": "challenge7",
+          "image": "auction_rewards.png",
+          "type": "exam",
+          "color": "#F98AC9",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge NS 2"
+        },
+        {
           "color": "",
           "id": "sl_maths0408",
           "image": "sl_maths0408.png",
@@ -189,6 +259,14 @@
           "id": "sl_maths0411",
           "image": "sl_maths0411.png",
           "name": "Big to Small"
+        },
+        {
+          "id": "challenge8",
+          "image": "challenge8.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge NS 3"
         }
       ],
       "name": "Number Sense 1-10"
@@ -220,6 +298,14 @@
           "id": "sl_maths0503",
           "image": "sl_maths0503.png",
           "name": "Shapes 4"
+        },
+        {
+          "id": "challenge9",
+          "image": "challenge9.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Shapes 1"
         }
       ],
       "name": "Beginners Shapes"
@@ -253,6 +339,14 @@
           "name": "14"
         },
         {
+          "id": "challenge10",
+          "image": "challenge10.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 11-14"
+        },
+        {
           "color": "",
           "id": "sl_maths0604",
           "image": "sl_maths0604.png",
@@ -271,6 +365,14 @@
           "name": "17"
         },
         {
+          "id": "challenge11",
+          "image": "challenge11.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 15 -17"
+        },
+        {
           "color": "",
           "id": "sl_maths0607",
           "image": "sl_maths0607.png",
@@ -287,6 +389,14 @@
           "id": "sl_maths0609",
           "image": "sl_maths0609.png",
           "name": "20"
+        },
+        {
+          "id": "challenge12",
+          "image": "challenge12.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 18 -20"
         }
       ],
       "name": "Numbers 11-20"
@@ -314,6 +424,14 @@
           "name": "Number Series 1"
         },
         {
+          "id": "challenge13",
+          "image": "challenge13.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge NS 4"
+        },
+        {
           "color": "",
           "id": "sl_maths0703",
           "image": "sl_maths0703.png",
@@ -324,6 +442,14 @@
           "id": "sl_maths0704",
           "image": "sl_maths0704.png",
           "name": "Big to Small"
+        },
+        {
+          "id": "challenge14",
+          "image": "challenge14.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge NS 5"
         }
       ],
       "name": "Number Sense 11-20"
@@ -357,6 +483,14 @@
           "name": "Write 31-40"
         },
         {
+          "id": "challenge15",
+          "image": "challenge15.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 21-40"
+        },
+        {
           "color": "",
           "id": "sl_maths0804",
           "image": "sl_maths0804.png",
@@ -379,6 +513,14 @@
           "id": "sl_maths0807",
           "image": "sl_maths0807.png",
           "name": "Write 51-60"
+        },
+        {
+          "id": "challenge16",
+          "image": "challenge16.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 41-60"
         },
         {
           "color": "",
@@ -405,6 +547,14 @@
           "name": "Write 71-80"
         },
         {
+          "id": "challenge17",
+          "image": "challenge17.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 61-80"
+        },
+        {
           "color": "",
           "id": "sl_maths0812",
           "image": "sl_maths0812.png",
@@ -427,6 +577,14 @@
           "id": "sl_maths0815",
           "image": "sl_maths0815.png",
           "name": "Write 91-100"
+        },
+        {
+          "id": "challenge18",
+          "image": "challenge18.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 81-100"
         }
       ],
       "name": "Numbers 21-100"
@@ -460,6 +618,14 @@
           "name": "Count and Compare"
         },
         {
+          "id": "challenge19",
+          "image": "challenge19.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge NS 6"
+        },
+        {
           "color": "",
           "id": "sl_maths0904",
           "image": "sl_maths0904.png",
@@ -476,6 +642,14 @@
           "id": "sl_maths0906",
           "image": "sl_maths0906.png",
           "name": "3D shapes"
+        },
+        {
+          "id": "challenge20",
+          "image": "challenge20.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge NS 7"
         }
       ],
       "name": "Number Sense 1 - 100"
@@ -509,6 +683,14 @@
           "name": "Quick  Addition 1"
         },
         {
+          "id": "challenge21",
+          "image": "challenge21.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Add Easy"
+        },
+        {
           "color": "",
           "id": "sl_maths1004",
           "image": "sl_maths1004.png",
@@ -531,6 +713,14 @@
           "id": "sl_maths1007",
           "image": "sl_maths1007.png",
           "name": "Count and Add -2"
+        },
+        {
+          "id": "challenge22",
+          "image": "challenge22.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Simply Add"
         }
       ],
       "name": "Addition Beginners"
@@ -564,6 +754,14 @@
           "name": "Count & Subtract 1"
         },
         {
+          "id": "challenge23",
+          "image": "challenge23.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Sub Easy"
+        },
+        {
           "color": "",
           "id": "sl_maths1104",
           "image": "sl_maths1104.png",
@@ -580,6 +778,14 @@
           "id": "sl_maths1106",
           "image": "sl_maths1106.png",
           "name": "Speed Subtraction 2"
+        },
+        {
+          "id": "challenge24",
+          "image": "brim_reward.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Sub Simple"
         }
       ],
       "name": "Subtraction Beginners"
@@ -613,6 +819,14 @@
           "name": "200 - 250"
         },
         {
+          "id": "challenge25",
+          "image": "challenge25.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 100-250"
+        },
+        {
           "color": "",
           "id": "sl_maths1204",
           "image": "sl_maths1204.png",
@@ -629,6 +843,14 @@
           "id": "sl_maths1206",
           "image": "sl_maths1206.png",
           "name": "400 - 500"
+        },
+        {
+          "id": "challenge26",
+          "image": "challenge26.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 250-500"
         },
         {
           "color": "",
@@ -649,6 +871,14 @@
           "name": "700 - 800"
         },
         {
+          "id": "challenge27",
+          "image": "challenge27.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 500-800"
+        },
+        {
           "color": "",
           "id": "sl_maths1210",
           "image": "sl_maths1210.png",
@@ -665,6 +895,14 @@
           "id": "sl_maths1212",
           "image": "sl_maths1212.png",
           "name": "Number Order"
+        },
+        {
+          "id": "challenge28",
+          "image": "challenge28.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge 800-999"
         }
       ],
       "name": "3 Digit Numbers"
@@ -698,6 +936,14 @@
           "name": "41 - 50"
         },
         {
+          "id": "challenge29",
+          "image": "challenge29.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge PV 1"
+        },
+        {
           "color": "",
           "id": "sl_maths1304",
           "image": "sl_maths1304.png",
@@ -722,6 +968,14 @@
           "name": "81 - 90"
         },
         {
+          "id": "challenge30",
+          "image": "cake_rewards.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge PV 2"
+        },
+        {
           "color": "",
           "id": "sl_maths1308",
           "image": "sl_maths1308.png",
@@ -744,6 +998,14 @@
           "id": "sl_maths1311",
           "image": "sl_maths1311.png",
           "name": "300 - 900"
+        },
+        {
+          "id": "challenge31",
+          "image": "challenge31.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge PV 3"
         }
       ],
       "name": "Place Value 1"
@@ -777,6 +1039,14 @@
           "name": "More Skip by 2's"
         },
         {
+          "id": "challenge32",
+          "image": "challenge32.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge MSB 1"
+        },
+        {
           "color": "",
           "id": "sl_maths1404",
           "image": "sl_maths1404.png",
@@ -793,6 +1063,14 @@
           "id": "sl_maths1406",
           "image": "sl_maths1406.png",
           "name": "Place Value 300-500"
+        },
+        {
+          "id": "challenge33",
+          "image": "challenge33.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge MSB 2"
         },
         {
           "color": "",
@@ -813,6 +1091,14 @@
           "name": "Odd Numbers"
         },
         {
+          "id": "challenge34",
+          "image": "challenge34.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge MSB 3"
+        },
+        {
           "color": "",
           "id": "sl_maths1410",
           "image": "sl_maths1410.png",
@@ -829,6 +1115,14 @@
           "id": "sl_maths1412",
           "image": "sl_maths1412.png",
           "name": "Shapes and Solids"
+        },
+        {
+          "id": "challenge35",
+          "image": "challenge35.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge MSB 4"
         }
       ],
       "name": "Math Sense Beginners"
@@ -862,6 +1156,14 @@
           "name": "Count & Add 2"
         },
         {
+          "id": "challenge36",
+          "image": "challenge36.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Add Basic 1"
+        },
+        {
           "color": "",
           "id": "sl_maths1504",
           "image": "sl_maths1504.png",
@@ -884,6 +1186,14 @@
           "id": "sl_maths1507",
           "image": "sl_maths1507.png",
           "name": "Addition 2"
+        },
+        {
+          "id": "challenge37",
+          "image": "challenge37.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Add Basic 2"
         },
         {
           "color": "",
@@ -910,6 +1220,14 @@
           "name": "Family Of 20 - 2"
         },
         {
+          "id": "challenge38",
+          "image": "challenge38.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Add Basic 3"
+        },
+        {
           "color": "",
           "id": "sl_maths1512",
           "image": "sl_maths1512.png",
@@ -932,6 +1250,14 @@
           "id": "sl_maths1515",
           "image": "sl_maths1515.png",
           "name": "Addition 11-20"
+        },
+        {
+          "id": "challenge39",
+          "image": "challenge39.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Add basic 4"
         }
       ],
       "name": "Addition Basic"
@@ -965,6 +1291,14 @@
           "name": "Count and Subtract 1"
         },
         {
+          "id": "challenge40",
+          "image": "challenge40.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SB 1"
+        },
+        {
           "color": "",
           "id": "sl_maths1604",
           "image": "sl_maths1604.png",
@@ -987,6 +1321,14 @@
           "id": "sl_maths1607",
           "image": "sl_maths1607.png",
           "name": "Subtraction 2"
+        },
+        {
+          "id": "challenge41",
+          "image": "challenge41.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SB 2"
         },
         {
           "color": "",
@@ -1013,6 +1355,14 @@
           "name": "Subtraction Mastery 2"
         },
         {
+          "id": "challenge42",
+          "image": "challenge42.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SB 3"
+        },
+        {
           "color": "",
           "id": "sl_maths1612",
           "image": "sl_maths1612.png",
@@ -1035,6 +1385,14 @@
           "id": "sl_maths1615",
           "image": "sl_maths1615.png",
           "name": "Calculator 2"
+        },
+        {
+          "id": "challenge43",
+          "image": "challenge43.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SB 4"
         }
       ],
       "name": "Subtraction Basic"
@@ -1062,6 +1420,14 @@
           "name": "Skip By 5's Backwards"
         },
         {
+          "id": "challenge44",
+          "image": "challenge44.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Skip 1"
+        },
+        {
           "color": "",
           "id": "sl_maths1703",
           "image": "sl_maths1703.png",
@@ -1078,6 +1444,14 @@
           "id": "sl_maths1705",
           "image": "sl_maths1705.png",
           "name": "Skip By 100"
+        },
+        {
+          "id": "challenge45",
+          "image": "challenge45.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Skip 2"
         }
       ],
       "name": "Skip Counting"
@@ -1111,6 +1485,14 @@
           "name": "Less or More  50-90"
         },
         {
+          "id": "challenge46",
+          "image": "challenge46.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge CON 1"
+        },
+        {
           "color": "",
           "id": "sl_maths1804",
           "image": "sl_maths1804.png",
@@ -1133,6 +1515,14 @@
           "id": "sl_maths1807",
           "image": "sl_maths1807.png",
           "name": "Comparison 100-999"
+        },
+        {
+          "id": "challenge47",
+          "image": "challenge47.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge CON 2"
         }
       ],
       "name": "Comparison Of Numbers"
@@ -1166,6 +1556,14 @@
           "name": "Even and Odd Numbers"
         },
         {
+          "id": "challenge48",
+          "image": "challenge48.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Revision 1"
+        },
+        {
           "color": "",
           "id": "sl_maths1904",
           "image": "sl_maths1904.png",
@@ -1182,6 +1580,14 @@
           "id": "sl_maths1906",
           "image": "sl_maths1906.png",
           "name": "Count Backwards 2"
+        },
+        {
+          "id": "challenge49",
+          "image": "challenge49.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Revision 2"
         }
       ],
       "name": "Revision"
@@ -1215,6 +1621,14 @@
           "name": "Number Order 4"
         },
         {
+          "id": "challenge50",
+          "image": "challenge50.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge RNO 1"
+        },
+        {
           "color": "",
           "id": "sl_maths2004",
           "image": "sl_maths2004.png",
@@ -1237,6 +1651,14 @@
           "id": "sl_maths2007",
           "image": "sl_maths2007.png",
           "name": "Number Order 8"
+        },
+        {
+          "id": "challenge51",
+          "image": "challenge51.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge RNO 2"
         }
       ],
       "name": "Revision Number Order"
@@ -1270,6 +1692,14 @@
           "name": "Skip by 2's"
         },
         {
+          "id": "challenge52",
+          "image": "challenge52.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Table 1-2"
+        },
+        {
           "color": "",
           "id": "sl_maths2104",
           "image": "sl_maths2104.png",
@@ -1286,6 +1716,14 @@
           "id": "sl_maths2106",
           "image": "sl_maths2106.png",
           "name": "Skip by 3's"
+        },
+        {
+          "id": "challenge53",
+          "image": "challenge53.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Table 3"
         }
       ],
       "name": "Multiplication Beginners"
@@ -1319,6 +1757,14 @@
           "name": "Vertical  Addition Medial"
         },
         {
+          "id": "challenge54",
+          "image": "challenge54.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge AE 1"
+        },
+        {
           "color": "",
           "id": "sl_maths2204",
           "image": "sl_maths2204.png",
@@ -1341,6 +1787,14 @@
           "id": "sl_maths2207",
           "image": "sl_maths2207.png",
           "name": "Addition Mastery"
+        },
+        {
+          "id": "challenge55",
+          "image": "feedingbottle_rewards.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge AE 2"
         }
       ],
       "name": "Addition Elementary"
@@ -1374,6 +1828,14 @@
           "name": "Practice 4"
         },
         {
+          "id": "challenge56",
+          "image": "challenge56.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge PA 1"
+        },
+        {
           "color": "",
           "id": "sl_maths2304",
           "image": "sl_maths2304.png",
@@ -1396,6 +1858,14 @@
           "id": "sl_maths2307",
           "image": "sl_maths2307.png",
           "name": "Practice 8"
+        },
+        {
+          "id": "challenge57",
+          "image": "challenge57.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge PA 2"
         },
         {
           "color": "",
@@ -1422,6 +1892,14 @@
           "name": "Quick  Addition 4"
         },
         {
+          "id": "challenge58",
+          "image": "challenge58.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge PA 3"
+        },
+        {
           "color": "",
           "id": "sl_maths2312",
           "image": "sl_maths2312.png",
@@ -1446,6 +1924,14 @@
           "name": "Quick  Addition 8"
         },
         {
+          "id": "challenge59",
+          "image": "challenge59.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge PA 4"
+        },
+        {
           "color": "",
           "id": "sl_maths2316",
           "image": "sl_maths2316.png",
@@ -1462,6 +1948,14 @@
           "id": "sl_maths2318",
           "image": "sl_maths2318.png",
           "name": "Revisions"
+        },
+        {
+          "id": "challenge60",
+          "image": "challenge60.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge PA 5"
         }
       ],
       "name": "Practice Addition"
@@ -1495,6 +1989,14 @@
           "name": "Calculator 3"
         },
         {
+          "id": "challenge61",
+          "image": "challenge61.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SE 1"
+        },
+        {
           "color": "",
           "id": "sl_maths2404",
           "image": "sl_maths2404.png",
@@ -1519,6 +2021,14 @@
           "name": "Subtract 2"
         },
         {
+          "id": "challenge62",
+          "image": "challenge62.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SE 2"
+        },
+        {
           "color": "",
           "id": "sl_maths2408",
           "image": "sl_maths2408.png",
@@ -1541,6 +2051,14 @@
           "id": "sl_maths2411",
           "image": "sl_maths2411.png",
           "name": "Subtract 6"
+        },
+        {
+          "id": "challenge63",
+          "image": "challenge63.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SE 3 "
         }
       ],
       "name": "Subtraction Elementary"
@@ -1574,6 +2092,14 @@
           "name": "300-600"
         },
         {
+          "id": "challenge64",
+          "image": "challenge64.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge PV 4"
+        },
+        {
           "color": "",
           "id": "sl_maths2504",
           "image": "sl_maths2504.png",
@@ -1592,6 +2118,14 @@
           "name": "500 - 900"
         },
         {
+          "id": "challenge65",
+          "image": "challenge65.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge PV 5"
+        },
+        {
           "color": "",
           "id": "sl_maths2507",
           "image": "sl_maths2507.png",
@@ -1608,6 +2142,14 @@
           "id": "sl_maths2509",
           "image": "sl_maths2509.png",
           "name": "100-999"
+        },
+        {
+          "id": "challenge66",
+          "image": "challenge66.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge PV 6"
         }
       ],
       "name": "Place Value 2"
@@ -1641,6 +2183,14 @@
           "name": "Add & Subtract - 4"
         },
         {
+          "id": "challenge67",
+          "image": "challenge67.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge MO 1"
+        },
+        {
           "color": "",
           "id": "sl_maths2604",
           "image": "sl_maths2604.png",
@@ -1665,6 +2215,14 @@
           "name": "Add & Subtract - 6"
         },
         {
+          "id": "challenge68",
+          "image": "challenge68.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge MO 2"
+        },
+        {
           "color": "",
           "id": "sl_maths2608",
           "image": "sl_maths2608.png",
@@ -1687,6 +2245,14 @@
           "id": "sl_maths2611",
           "image": "sl_maths2611.png",
           "name": "Table of 4"
+        },
+        {
+          "id": "challenge69",
+          "image": "challenge69.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge MO 3"
         }
       ],
       "name": "Math Operations"
@@ -1720,6 +2286,14 @@
           "name": "Double Digits - 4"
         },
         {
+          "id": "challenge70",
+          "image": "challenge70.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge AA 1"
+        },
+        {
           "color": "",
           "id": "sl_maths2704",
           "image": "sl_maths2704.png",
@@ -1742,6 +2316,14 @@
           "id": "sl_maths2707",
           "image": "sl_maths2707.png",
           "name": "Regroup & Add - 4"
+        },
+        {
+          "id": "challenge71",
+          "image": "challenge71.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge AA 2"
         },
         {
           "color": "",
@@ -1768,6 +2350,14 @@
           "name": "Calculator - 2"
         },
         {
+          "id": "challenge72",
+          "image": "challenge72.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge AA3"
+        },
+        {
           "color": "",
           "id": "sl_maths2712",
           "image": "sl_maths2712.png",
@@ -1792,6 +2382,14 @@
           "name": "Add 10-100"
         },
         {
+          "id": "challenge73",
+          "image": "challenge73.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge AA4"
+        },
+        {
           "color": "",
           "id": "sl_maths2716",
           "image": "sl_maths2716.png",
@@ -1810,6 +2408,14 @@
           "name": "Practice Addition"
         },
         {
+          "id": "challenge74",
+          "image": "challenge74.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge AA 5"
+        },
+        {
           "color": "",
           "id": "sl_maths2719",
           "image": "sl_maths2719.png",
@@ -1826,6 +2432,14 @@
           "id": "sl_maths2721",
           "image": "sl_maths2721.png",
           "name": "Compare and Add"
+        },
+        {
+          "id": "challenge75",
+          "image": "challenge75.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge AA 6"
         }
       ],
       "name": "Addition Advanced"
@@ -1859,6 +2473,14 @@
           "name": "Subtract - 4"
         },
         {
+          "id": "challenge76",
+          "image": "challenge76.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SA 1"
+        },
+        {
           "color": "",
           "id": "sl_maths2804",
           "image": "sl_maths2804.png",
@@ -1881,6 +2503,14 @@
           "id": "sl_maths2807",
           "image": "sl_maths2807.png",
           "name": "Subtract - 8"
+        },
+        {
+          "id": "challenge77",
+          "image": "challenge77.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SA 2"
         },
         {
           "color": "",
@@ -1907,6 +2537,14 @@
           "name": "Subtract 20-90"
         },
         {
+          "id": "challenge78",
+          "image": "challenge78.png",
+          "color": "#D48FF9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SA 3"
+        },
+        {
           "color": "",
           "id": "sl_maths2812",
           "image": "sl_maths2812.png",
@@ -1931,6 +2569,14 @@
           "name": "Practice 4"
         },
         {
+          "id": "challenge79",
+          "image": "challenge79.png",
+          "color": "#B8D855",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SA 4"
+        },
+        {
           "color": "",
           "id": "sl_maths2816",
           "image": "sl_maths2816.png",
@@ -1949,6 +2595,14 @@
           "name": "Exercise 1"
         },
         {
+          "id": "challenge80",
+          "image": "challenge80.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SA 5"
+        },
+        {
           "color": "",
           "id": "sl_maths2819",
           "image": "sl_maths2819.png",
@@ -1965,6 +2619,14 @@
           "id": "sl_maths2821",
           "image": "sl_maths2821.png",
           "name": "Comparison"
+        },
+        {
+          "id": "challenge81",
+          "image": "challenge81.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge SA 6"
         }
       ],
       "name": "Subtraction Advanced"
@@ -1998,6 +2660,14 @@
           "name": "Table of 5"
         },
         {
+          "id": "challenge82",
+          "image": "challenge82.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge MB 1"
+        },
+        {
           "color": "",
           "id": "sl_maths2904",
           "image": "sl_maths2904.png",
@@ -2020,6 +2690,14 @@
           "id": "sl_maths2907",
           "image": "sl_maths2907.png",
           "name": "Table of 9"
+        },
+        {
+          "id": "challenge83",
+          "image": "challenge83.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge MB 2"
         }
       ],
       "name": "Multiplication Beginner"
@@ -2051,6 +2729,14 @@
           "id": "sl_maths3003",
           "image": "sl_maths3003.png",
           "name": "Find the  product 2-8"
+        },
+        {
+          "id": "challenge84",
+          "image": "challenge84.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge ME"
         }
       ],
       "name": "Multiplication- Elementary"
@@ -2084,6 +2770,14 @@
           "name": "Compare and Add"
         },
         {
+          "id": "challenge85",
+          "image": "challenge85.png",
+          "color": "#72DDD3",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge WP 1"
+        },
+        {
           "color": "",
           "id": "sl_maths3104",
           "image": "sl_maths3104.png",
@@ -2108,6 +2802,14 @@
           "name": "How Many?"
         },
         {
+          "id": "challenge86",
+          "image": "challenge86.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge WP2"
+        },
+        {
           "color": "",
           "id": "sl_maths3108",
           "image": "sl_maths3108.png",
@@ -2130,6 +2832,14 @@
           "id": "sl_maths3111",
           "image": "sl_maths3111.png",
           "name": "Multiplication 2"
+        },
+        {
+          "id": "challenge87",
+          "image": "challenge87.png",
+          "color": "#F98AC9",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge WP 3"
         }
       ],
       "name": "Word Problems"
