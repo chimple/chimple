@@ -391,7 +391,7 @@ export default class Config {
             var allLessonData = []
             let numLessons = lessons.length
             lessons.forEach((les) => {
-                const jsonFile = this.course.id + '/' + les.id + '/res/' + les.id + '.json';
+                const jsonFile = this.course.id + '/' + (les.orig_lesson_id || les.id) + '/res/' + (les.orig_lesson_id || les.id) + '.json';
                 Util.load(jsonFile, (err, jsonAsset) => {
                     const lessonData = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
                     const quizRows: [] = lessonData.rows.filter((el) => {
@@ -421,7 +421,7 @@ export default class Config {
             }
             cc.director.getScheduler().schedule(checkAllLoaded, node, 1);
         } else {
-            const jsonFile = this.course.id + '/' + this.lesson.id + '/res/' + this.lesson.id + '.json';
+            const jsonFile = this.course.id + '/' + (this.lesson.orig_lesson_id || this.lesson.id) + '/res/' + (this.lesson.orig_lesson_id || this.lesson.id) + '.json';
             Util.load(jsonFile, (err, jsonAsset) => {
                 this._lessonData = jsonAsset instanceof cc.JsonAsset ? jsonAsset.json : jsonAsset;
                 if (this.lesson.id.endsWith('_PreQuiz')) {
@@ -504,7 +504,7 @@ export default class Config {
 
         if (fileName.indexOf("tutorial") !== -1) {
             fileName = fileName.replace(".png", "");
-            jsonFile = 'course-' + this.course.id + '/' + this.lesson.id + '/res/' + fileName + '-json';
+            jsonFile = 'course-' + this.course.id + '/' + (this.lesson.orig_lesson_id || this.lesson.id )+ '/res/' + fileName + '-json';
         } else {
             const isUpperCase: boolean = fileName === fileName.toUpperCase();
             appendPath = isNumber ? 'numbers' : isUpperCase ? 'upper' : 'lower';
@@ -554,6 +554,7 @@ export default class Config {
     loadSingleCourseJson(name: string, callBack: Function) {
         cc.assetManager.loadBundle(name, (err, bundle) => {
             if (err) {
+                cc.log("error in loadSingleJson", err)
                 return console.error(err);
             }
             Util.bundles.set(name, bundle);

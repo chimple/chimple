@@ -147,7 +147,7 @@ export default class LessonController extends cc.Component {
             });
             LessonController.loadQuizzes(lessons, callback, node);
         } else {
-            Config.loadBundle(config.lesson.id, (bundle) => {
+            Config.loadBundle(config.lesson.orig_lesson_id || config.lesson.id, (bundle) => {
                 LessonController.preloadAndFirst(bundle, callback);
             },
                 callback);
@@ -156,7 +156,7 @@ export default class LessonController extends cc.Component {
 
     private static preloadAndFirst(bundle: any, callback: Function) {
         bundle.preloadDir('res', null, null, (err: Error, items) => {
-            Util.bundles.set(Config.i.lesson.id, bundle);
+            Util.bundles.set(Config.i.lesson.orig_lesson_id || Config.i.lesson.id, bundle);
             LessonController.bundles.push(bundle);
             LessonController.loadDataAndFirstGame(callback);
         });
@@ -179,9 +179,9 @@ export default class LessonController extends cc.Component {
     private static loadQuizzes(lessons: Lesson[], callback: Function, node: cc.Node, maxPerLesson: number = 0) {
         let numLessons = lessons.length;
         lessons.forEach((les) => {
-            Config.loadBundle(les.id, (bundle) => {
+            Config.loadBundle(les.orig_lesson_id || les.id, (bundle) => {
                 bundle.preloadDir('res', null, null, (err: Error, items) => {
-                    Util.bundles.set(les.id, bundle);
+                    Util.bundles.set((les.orig_lesson_id || les.id), bundle);
                     LessonController.bundles.push(bundle);
                     numLessons--;
                 });
@@ -199,8 +199,9 @@ export default class LessonController extends cc.Component {
 
     static preloadGame(callback: Function) {
         const config = Config.i;
+        cc.log("in preload",config.data)
         config.game = config.data[0][0];
-        config.currentGameLessonId = config.data[0][2];
+        config.currentGameLessonId = config.lesson.orig_lesson_id|| config.lesson.id;
         const gameConfig = GAME_CONFIGS[config.game];
         let fontName: string = config.course.id.split('-')[0] + '-' + DEFAULT_FONT;
         if (gameConfig.fontName != null) {

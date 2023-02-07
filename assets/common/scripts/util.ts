@@ -639,6 +639,13 @@ export class Util {
         const bundle = this.bundles.get(
             lessonName == "course" ? courseName : lessonName
         );
+        console.log("resArray", resArray);// sl_en1_mp,sl_en1_mp0000,res,sl_en1_mp0000.json
+        console.log("courseName", courseName);// sl_en1_mp
+        console.log("lessonName", lessonName);// sl_en1_mp0000
+        console.log("resDir", resDir);// res/sl_en1_mp0000.json
+        console.log("resName", resName);// res/sl_en1_mp0000
+        console.log("bundle", bundle);// undefined
+        console.log("this.bundles", this.bundles);// undefined
         const ext = resDir.split(".")[1];
         if (ext === "mp3" || ext === "m4a") {
             bundle.load(resName, cc.AudioClip, function (err, asset) {
