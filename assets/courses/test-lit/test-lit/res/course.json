@@ -9,14 +9,6 @@
       "image": "chapter_1.png",
       "lessons": [
         {
-          "id": "test-lit-openwindow1",
-          "image": "openwindow1.png",
-          "name": "openwindow1",
-          "open": true,
-          "color": "#347FC1",
-          "skills": []
-        },
-        {
           "id": "test-lit-stamp",
           "image": "stamp.png",
           "name": "Stamp",
@@ -109,6 +101,14 @@
           "id": "test-lit-openwindow",
           "image": "openwindow.png",
           "name": "openwindow",
+          "open": true,
+          "color": "#347FC1",
+          "skills": []
+        },
+        {
+          "id": "test-lit-openwindow1",
+          "image": "openwindow1.png",
+          "name": "openwindow1",
           "open": true,
           "color": "#347FC1",
           "skills": []
