@@ -115,6 +115,11 @@ export const GAME_CONFIGS = {
         "prefab": "prefabs/openwindow",
         "youtube": "VwVEw3cexvI",
     },
+    "openwindow1": {
+        "bundle": "openwindow1",
+        "prefab": "prefabs/openwindow1",
+        "youtube": "VwVEw3cexvI",
+    },
     "picturemeaning": {
         "bundle": "picturemeaning",
         "prefab": "prefabs/picturemeaning",
