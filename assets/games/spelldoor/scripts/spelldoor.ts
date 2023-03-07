@@ -38,7 +38,7 @@ export default class SpellDoor extends Game {
         const config = Config.getInstance();
         cc.director.getCollisionManager().enabled = true
         Drag.letDrag = false
-        const [level, worksheet, problem, word, missingPos, totalConsonants, totalVowels, image, sound] = config.data[0]
+        const [level, worksheet, problem, word, missingPos, totalConsonants, totalVowels, image, sound, isLetterVoice] = config.data[0]
         // const positions = missingPos.split('')
         var firstDrag: cc.Node = null
         var firstDrop: cc.Node = null
