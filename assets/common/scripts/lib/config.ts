@@ -9,8 +9,8 @@ import { Capacitor } from "@capacitor/core";
 
 export const DEFAULT_FONT = 'main';
 export const STORY = 'story';
-export const COURSES = ['en', 'en-maths'];
-export const COURSES_LANG_ID = ['en', 'maths'];
+export const COURSES = ['en', 'en-maths', 'hi', 'hi-maths', 'ur', 'ur-maths', 'mr'];
+export const COURSES_LANG_ID = ['en', 'hi', 'maths', 'kn', 'mr'];
 
 export enum Flow {
     Default,
