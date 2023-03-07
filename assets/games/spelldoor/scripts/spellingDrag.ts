@@ -11,10 +11,19 @@ export default class SpellingDrag extends Drag {
 
     onLoad() {
         super.onLoad()
+        const config = Config.getInstance();
+        const [level, worksheet, problem, word, missingPos, totalConsonants, totalVowels, image, sound, isLetterVoice] = config.data[0];
         this.label.string = Config.wide ? ' ' + this.node.name + ' ' : this.node.name
-        Util.loadsPhonicsOrLetter(this.node.name.toLowerCase(), (clip) => {
-            this._soundClip = clip
-        })
+
+        if (isLetterVoice === 'true' || isLetterVoice === 'True') {
+            Util.loadsLetter(this.node.name.toLowerCase(), (clip) => {
+                this._soundClip = clip
+            })
+        } else {
+            Util.loadsPhonicsOrLetter(this.node.name.toLowerCase(), (clip) => {
+                this._soundClip = clip
+            })
+        }
     }
 
     start() {
