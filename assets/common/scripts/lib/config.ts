@@ -504,7 +504,7 @@ export default class Config {
 
         if (fileName.indexOf("tutorial") !== -1) {
             fileName = fileName.replace(".png", "");
-            jsonFile = 'course-' + this.course.id + '/' + (this.lesson.orig_lesson_id || this.lesson.id )+ '/res/' + fileName + '-json';
+            jsonFile = 'course-' + this.course.id + '/' + (this.lesson.orig_lesson_id || this.lesson.id) + '/res/' + fileName + '-json';
         } else {
             const isUpperCase: boolean = fileName === fileName.toUpperCase();
             appendPath = isNumber ? 'numbers' : isUpperCase ? 'upper' : 'lower';
@@ -610,6 +610,14 @@ export default class Config {
                 // } else {
                 cc.assetManager.loadBundle(BUNDLE_URL + lessonId, (err2, bundle2) => {
                     if (err2) {
+                        cc.assetManager.loadBundle(lessonId, (err3, bundle3) => {
+                            if (err3) {
+                                errCallback(err3);
+                            }
+                            else {
+                                callback(bundle3)
+                            }
+                        })
                         errCallback(err2);
                     } else {
                         callback(bundle2);
