@@ -965,34 +965,34 @@
       "image": "sl_maths2_mp04.png",
       "lessons": [
         {
-          "color": "#008CD2",
+          "color": "#2BAC67",
           "id": "sl_maths2_mp0400",
           "image": "sl_maths2_mp0400.png",
+          "name": "Long, Tall, Short -1",
+          "orig_chapter_id": "sl_en38",
+          "orig_course_id": "sl_en",
+          "orig_lesson_id": "sl_en3812",
+          "outcome": "None"
+        },
+        {
+          "color": "#AC82CF",
+          "id": "sl_maths2_mp0401",
+          "image": "sl_maths2_mp0401.png",
+          "name": "Longest, Tallest, Shortest - 1",
+          "orig_chapter_id": "sl_en38",
+          "orig_course_id": "sl_en",
+          "orig_lesson_id": "sl_en3814",
+          "outcome": "None"
+        },
+        {
+          "color": "#008CD2",
+          "id": "sl_maths2_mp0402",
+          "image": "sl_maths2_mp0402.png",
           "name": "Basics",
           "orig_chapter_id": "sl_en38",
           "orig_course_id": "sl_en",
           "orig_lesson_id": "sl_en3800",
           "outcome": "Measuring length of objects"
-        },
-        {
-          "color": "#2BAC67",
-          "id": "sl_maths2_mp0401",
-          "image": "sl_maths2_mp0401.png",
-          "name": "Comparison",
-          "orig_chapter_id": "sl_en38",
-          "orig_course_id": "sl_en",
-          "orig_lesson_id": "sl_en3801",
-          "outcome": "None"
-        },
-        {
-          "color": "#AC82CF",
-          "id": "sl_maths2_mp0402",
-          "image": "sl_maths2_mp0402.png",
-          "name": "Units of Measurement",
-          "orig_chapter_id": "sl_en38",
-          "orig_course_id": "sl_en",
-          "orig_lesson_id": "sl_en3803",
-          "outcome": "None"
         },
         {
           "id": "sl_maths2_mp_challenge19",
@@ -1009,6 +1009,16 @@
       "id": "sl_maths2_mp05",
       "image": "sl_maths2_mp05.png",
       "lessons": [
+        {
+          "color": "#FF7925",
+          "id": "sl_maths2_mp0506",
+          "image": "sl_maths2_mp0506.png",
+          "name": "Clock",
+          "orig_chapter_id": "sl_en36",
+          "orig_course_id": "sl_en",
+          "orig_lesson_id": "sl_en3618",
+          "outcome": "Reading time and knowing days of the week"
+        },
         {
           "color": "#FF7925",
           "id": "sl_maths2_mp0500",
@@ -1208,6 +1218,36 @@
           "color": "#008CD2",
           "id": "sl_maths2_mp0800",
           "image": "sl_maths2_mp0800.png",
+          "name": "Parts Of Whole - 1/2",
+          "orig_chapter_id": "sl_en38",
+          "orig_course_id": "sl_en",
+          "orig_lesson_id": "sl_en3817",
+          "outcome": "Name the part of fraction by looking at the pictures"
+        },
+        {
+          "color": "#2BAC67",
+          "id": "sl_maths2_mp0801",
+          "image": "sl_maths2_mp0801.png",
+          "name": "Parts Of Whole - 1/4",
+          "orig_chapter_id": "sl_en38",
+          "orig_course_id": "sl_en",
+          "orig_lesson_id": "sl_en3818",
+          "outcome": "None"
+        },
+        {
+          "color": "#008CD2",
+          "id": "sl_maths2_mp0802",
+          "image": "sl_maths2_mp0802.png",
+          "name": "Parts Of Whole - 3/4",
+          "orig_chapter_id": "sl_en38",
+          "orig_course_id": "sl_en",
+          "orig_lesson_id": "sl_en3819",
+          "outcome": "Name the part of fraction by looking at the pictures"
+        },
+        {
+          "color": "#008CD2",
+          "id": "sl_maths2_mp0803",
+          "image": "sl_maths2_mp0803.png",
           "name": "Parts & Whole",
           "orig_chapter_id": "sl_en38",
           "orig_course_id": "sl_en",
@@ -1216,8 +1256,8 @@
         },
         {
           "color": "#2BAC67",
-          "id": "sl_maths2_mp0801",
-          "image": "sl_maths2_mp0801.png",
+          "id": "sl_maths2_mp0804",
+          "image": "sl_maths2_mp0804.png",
           "name": "Parts & Whole 1",
           "orig_chapter_id": "sl_en38",
           "orig_course_id": "sl_en",
@@ -2102,6 +2142,36 @@
           "color": "",
           "id": "sl_maths2_mp1200",
           "image": "sl_maths2_mp1200.png",
+          "name": "Heavy or Light 3",
+          "orig_chapter_id": "sl_en38",
+          "orig_course_id": "sl_en",
+          "orig_lesson_id": "sl_en3822",
+          "outcome": "Weighing on scales"
+        },
+        {
+          "color": "",
+          "id": "sl_maths2_mp1201",
+          "image": "sl_maths2_mp1201.png",
+          "name": "Heavy or Light 4",
+          "orig_chapter_id": "sl_en38",
+          "orig_course_id": "sl_en",
+          "orig_lesson_id": "sl_en3823",
+          "outcome": "None"
+        },
+        {
+          "color": "",
+          "id": "sl_maths2_mp1202",
+          "image": "sl_maths2_mp1202.png",
+          "name": "Heaviest or Lightest?",
+          "orig_chapter_id": "sl_en38",
+          "orig_course_id": "sl_en",
+          "orig_lesson_id": "sl_en3824",
+          "outcome": "None"
+        },
+        {
+          "color": "",
+          "id": "sl_maths2_mp1203",
+          "image": "sl_maths2_mp1203.png",
           "name": "Basics",
           "orig_chapter_id": "sl_en38",
           "orig_course_id": "sl_en",
@@ -2110,8 +2180,8 @@
         },
         {
           "color": "",
-          "id": "sl_maths2_mp1201",
-          "image": "sl_maths2_mp1201.png",
+          "id": "sl_maths2_mp1204",
+          "image": "sl_maths2_mp1204.png",
           "name": "More Comparisons",
           "orig_chapter_id": "sl_en38",
           "orig_course_id": "sl_en",
@@ -2120,8 +2190,8 @@
         },
         {
           "color": "",
-          "id": "sl_maths2_mp1202",
-          "image": "sl_maths2_mp1202.png",
+          "id": "sl_maths2_mp1205",
+          "image": "sl_maths2_mp1205.png",
           "name": "Units of Measurement",
           "orig_chapter_id": "sl_en38",
           "orig_course_id": "sl_en",
@@ -2665,6 +2735,16 @@
           "color": "",
           "id": "sl_maths2_mp1700",
           "image": "sl_maths2_mp1700.png",
+          "name": "Parts Of Whole - 3/4",
+          "orig_chapter_id": "sl_en38",
+          "orig_course_id": "sl_en",
+          "orig_lesson_id": "sl_en3819",
+          "outcome": "Name the fractions and recognize them in a whole."
+        },
+        {
+          "color": "",
+          "id": "sl_maths2_mp1701",
+          "image": "sl_maths2_mp1701.png",
           "name": "Parts & Whole",
           "orig_chapter_id": "sl_en38",
           "orig_course_id": "sl_en",
@@ -2673,8 +2753,8 @@
         },
         {
           "color": "",
-          "id": "sl_maths2_mp1701",
-          "image": "sl_maths2_mp1701.png",
+          "id": "sl_maths2_mp1702",
+          "image": "sl_maths2_mp1702.png",
           "name": "Parts & Whole 1",
           "orig_chapter_id": "sl_en38",
           "orig_course_id": "sl_en",
@@ -2963,10 +3043,30 @@
           "color": "",
           "id": "sl_maths2_mp2100",
           "image": "sl_maths2_mp2100.png",
-          "name": "More Comparisons",
+          "name": "Big or Small",
           "orig_chapter_id": "sl_en38",
           "orig_course_id": "sl_en",
-          "orig_lesson_id": "sl_en3802",
+          "orig_lesson_id": "sl_en3808",
+          "outcome": "Which container holds more? Which container has more capacity?"
+        },
+        {
+          "color": "",
+          "id": "sl_maths2_mp2101",
+          "image": "sl_maths2_mp2101.png",
+          "name": "More or Less",
+          "orig_chapter_id": "sl_en38",
+          "orig_course_id": "sl_en",
+          "orig_lesson_id": "sl_en3807",
+          "outcome": "Which container holds more? Which container has more capacity?"
+        },
+        {
+          "color": "",
+          "id": "sl_maths2_mp2102",
+          "image": "sl_maths2_mp2102.png",
+          "name": "More or Less 1",
+          "orig_chapter_id": "sl_en38",
+          "orig_course_id": "sl_en",
+          "orig_lesson_id": "sl_en3807",
           "outcome": "Which container holds more? Which container has more capacity?"
         },
         {
