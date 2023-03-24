@@ -636,17 +636,47 @@ export class Util {
         const lessonName = resArray[1];
         const resDir = resArray.slice(2).join("/");
         const resName = resDir.split(".")[0];
-        const bundle = this.bundles.get(
+        const ext = resDir.split(".")[1];
+        let bundle = this.bundles.get(
             lessonName == "course" ? courseName : lessonName
         );
+        console.log("Config.i.course.isCourseMapped ", Config.i.course?.isCourseMapped)
+        if (!bundle && Config.i.course?.isCourseMapped) {
+            console.log("LessonController.bundles", LessonController.bundles);// undefined
+            LessonController.bundles.forEach(element => {
+                console.log("bundles ", element.name, this.bundles.get(element.name));
+                bundle = this.bundles.get(element.name);
+                if (ext === "mp3" || ext === "m4a") {
+                    bundle.load(resName, cc.AudioClip, function (err, asset) {
+                        if (err) {
+                            cc.log(JSON.stringify(err));
+                        }
+                        callback(err, asset);
+                    });
+                } else if (ext === "png" || ext === "jpg") {
+                    bundle.load(resName, cc.Texture2D, function (err, asset) {
+                        if (err) {
+                            cc.log(JSON.stringify(err));
+                        }
+                        callback(err, asset);
+                    });
+                } else {
+                    bundle.load(resName, (err, asset) => {
+                        if (err) {
+                            cc.log(JSON.stringify(err));
+                        }
+                        callback(err, asset);
+                    });
+                }
+            });
+        }
         console.log("resArray", resArray);// sl_en1_mp,sl_en1_mp0000,res,sl_en1_mp0000.json
         console.log("courseName", courseName);// sl_en1_mp
         console.log("lessonName", lessonName);// sl_en1_mp0000
         console.log("resDir", resDir);// res/sl_en1_mp0000.json
         console.log("resName", resName);// res/sl_en1_mp0000
-        console.log("bundle", bundle);// undefined
+        console.log("bundle", bundle, Profile.lang + '-help');// undefined
         console.log("this.bundles", this.bundles);// undefined
-        const ext = resDir.split(".")[1];
         if (ext === "mp3" || ext === "m4a") {
             bundle.load(resName, cc.AudioClip, function (err, asset) {
                 if (err) {

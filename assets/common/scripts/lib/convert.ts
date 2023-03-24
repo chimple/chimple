@@ -11,6 +11,7 @@ export interface Course {
     lang: string;
     type: string;
     levels: string[];
+    isCourseMapped: boolean
 }
 
 export interface Chapter {
