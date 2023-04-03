@@ -11,6 +11,7 @@
         {
           "id": "puzzle0000",
           "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "puzzle0000.png",
           "outcome": "Fun activity where the child will draw lines to connect matching similar pairs of objects",
           "name": "Match Coloured Objects"
@@ -18,6 +19,7 @@
         {
           "id": "puzzle0001",
           "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "puzzle0001.png",
           "outcome": "Fun activity where the child will draw lines to connect matching similar pairs of objects",
           "name": "Match Coloured Objects 2"
@@ -25,6 +27,7 @@
         {
           "id": "puzzle0002",
           "color": "#5A3985",
+          "pattern": "WinterPattern.png",
           "image": "puzzle0002.png",
           "outcome": "Fun activity where the child will draw lines to connect matching similar pairs of objects",
           "name": "Match Blue Shadows"
@@ -32,6 +35,7 @@
         {
           "id": "puzzle0003",
           "color": "#33CECA",
+          "pattern": "CloudyPattern.png",
           "image": "puzzle0003.png",
           "outcome": "Match the babies with the animals and the tails with their bodies. ",
           "name": "Animals and Babies"
@@ -39,83 +43,95 @@
         {
           "id": "puzzle0004",
           "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "puzzle0004.png",
           "outcome": "Children learn to identify real life objects with the geometric shape name. For example balloon = oval, wheel = circle, etc. ",
           "name": "Shapes and Objects"
         },
         {
           "id": "puzzle0005",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "puzzle0005.png",
           "outcome": "Children count and match objects, which enhances the subitizing skills in children.",
           "name": "Count and Match"
         },
         {
           "id": "puzzle0006",
-          "color":"#33CECA",
+          "color": "#33CECA",
+          "pattern": "CloudyPattern.png",
           "image": "puzzle0006.png",
           "outcome": "Children match shapes - triangle, square, pentagon and hexagon. ",
           "name": "Shapes"
         },
         {
           "id": "puzzle0007",
-          "color":"#5A3985",
+          "color": "#5A3985",
+          "pattern": "WinterPattern.png",
           "image": "puzzle0007.png",
           "outcome": "Fun activity where the child will draw lines to connect matching similar pairs of objects",
           "name": "Match figures"
         },
         {
           "id": "puzzle0008",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "puzzle0008.png",
           "outcome": "Matching the tally marks to objects and numbers. 1-5",
           "name": "Count and Pair"
         },
         {
           "id": "puzzle0009",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "puzzle0009.png",
           "outcome": "Children gain skill of subitizing, an ability to instantly recognize the number of objects without actually counting them. Through practice they learn to calculate estimates without actually counting the objects. ",
           "name": "How Many"
         },
         {
           "id": "puzzle0010",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "puzzle0010.png",
           "outcome": "Children will match the fraction of an object with its whole. This requires high observation, strong deductive and reasoning skills from the child to identify the similarities between two objects.",
           "name": "Parts and Whole"
         },
         {
           "id": "puzzle0011",
-          "color":"#5A3985",
+          "color": "#5A3985",
+          "pattern": "WinterPattern.png",
           "image": "puzzle0011.png",
           "outcome": "Children will match the fraction of an object with its whole. This requires high observation, strong deductive and reasoning skills from the child to identify the similarities between two objects.",
           "name": "Parts and whole 2"
         },
         {
           "id": "puzzle0012",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "puzzle0012.png",
           "outcome": "Children learn to identify real life objects with the geometric shape name. For example Ball = sphere, Dice = cube, cylinder = can, etc. ",
           "name": "Objects and shapes"
         },
         {
           "id": "puzzle0013",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "puzzle0013.png",
           "outcome": "3D shapes are presented to children from different angles. By matching similar objects by identification of their common properties, a child develops skills which can be applied in future to identify congruent or similar triangles, working problems of sets and many more math problems. ",
           "name": "3D shapes"
         },
         {
           "id": "puzzle0014",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "puzzle0014.png",
           "outcome": "The lesson has increased difficulty for a child by reducing the discrimination factor between two objects to be matched. ",
           "name": "Stringed objects"
         },
         {
           "id": "puzzle0015",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "puzzle0015.png",
           "outcome": "The lesson has increased difficulty for a child by reducing the discrimination factor between two objects to be matched. ",
           "name": "Tiny shapes"
@@ -129,35 +145,40 @@
       "lessons": [
         {
           "id": "puzzle0100",
-          "color":"#33CECA",
+          "color": "#33CECA",
+          "pattern": "CloudyPattern.png",
           "image": "puzzle0100.png",
           "outcome": "Children arranges the shapes in a sequence. ",
           "name": "Shape Sequence"
         },
         {
           "id": "puzzle0101",
-          "color":"#5A3985",
+          "color": "#5A3985",
+          "pattern": "WinterPattern.png",
           "image": "puzzle0101.png",
           "outcome": "The lesson uses patterns to represent identified regularities and to form generalizations in patterns which allows the child to see relationships and develop predictive skills. It is the ability to recognize and create patterns which helps to make predictions based on observations which is an important skill in math. Understanding patterns help prepare children for learning complex number concepts and mathematical operations as they progress in their learning with higher studies.",
           "name": "Shape Series"
         },
         {
           "id": "puzzle0102",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "puzzle0102.png",
           "outcome": "The lesson uses patterns to represent identified regularities and to form generalizations in patterns which allows the child to see relationships and develop predictive skills. It is the ability to recognize and create patterns which helps to make predictions based on observations which is an important skill in math. Understanding patterns help prepare children for learning complex number concepts and mathematical operations as they progress in their learning with higher studies.",
           "name": "Shape Pattern"
         },
         {
           "id": "puzzle0103",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "puzzle0103.png",
           "outcome": "The lesson uses patterns to represent identified regularities and to form generalizations in patterns which allows the child to see relationships and develop predictive skills. It is the ability to recognize and create patterns which helps to make predictions based on observations which is an important skill in math. Understanding patterns help prepare children for learning complex number concepts and mathematical operations as they progress in their learning with higher studies.",
           "name": "Shape Order"
         },
         {
           "id": "puzzle0104",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "puzzle0104.png",
           "outcome": "The lesson uses patterns to represent identified regularities and to form generalizations in patterns which allows the child to see relationships and develop predictive skills. It is the ability to recognize and create patterns which helps to make predictions based on observations which is an important skill in math. Understanding patterns help prepare children for learning complex number concepts and mathematical operations as they progress in their learning with higher studies.",
           "name": "Succession in Shapes"
@@ -171,105 +192,120 @@
       "lessons": [
         {
           "id": "drawshape0000",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "drawshape0000.png",
           "outcome": "Helps in developing tracing skills. Fun activity of tracing a balloon.",
           "name": "Balloon"
         },
         {
           "id": "drawshape0001",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "drawshape0001.png",
           "outcome": "Helps in developing tracing skills. Fun activity of tracing a box",
           "name": "Box"
         },
         {
           "id": "drawshape0002",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "drawshape0002.png",
           "outcome": "Helps in developing tracing skills. Fun activity of tracing an egg. ",
           "name": "Egg"
         },
         {
           "id": "drawshape0003",
-          "color":"#33CECA",
+          "color": "#33CECA",
+          "pattern": "CloudyPattern.png",
           "image": "drawshape0003.png",
           "outcome": "Helps in developing tracing skills. Fun activity of tracing a flower.",
           "name": "Flower"
         },
         {
           "id": "drawshape0004",
-          "color":"#5A3985",
+          "color": "#5A3985",
+          "pattern": "WinterPattern.png",
           "image": "drawshape0004.png",
           "outcome": "Helps in developing tracing skills. Fun activity of tracing a Heart.",
           "name": "Heart"
         },
         {
           "id": "drawshape0005",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "drawshape0005.png",
           "outcome": "Helps in developing tracing skills. Fun activity of tracing a House.",
           "name": "House"
         },
         {
           "id": "drawshape0007",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "drawshape0007.png",
           "outcome": "Helps in developing tracing skills. Fun activity of tracing a Moon. ",
           "name": "Moon"
         },
         {
           "id": "drawshape0008",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "drawshape0008.png",
           "outcome": "Helps in developing tracing skills. Fun activity of tracing a rectangle. ",
           "name": "Rectangle"
         },
         {
           "id": "drawshape0009",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "drawshape0009.png",
           "outcome": "Helps in developing tracing skills. Fun activity of tracing a star",
           "name": "Star"
         },
         {
           "id": "drawshape0010",
-          "color":"#33CECA",
+          "color": "#33CECA",
+          "pattern": "CloudyPattern.png",
           "image": "drawshape00010.png",
           "outcome": "Helps in developing tracing skills. Fun activity of tracing a Watermelon.",
           "name": "Watermelon"
         },
         {
           "id": "drawshape0011",
-          "color":"#5A3985",
+          "color": "#5A3985",
+          "pattern": "WinterPattern.png",
           "image": "drawshape00011.png",
           "outcome": "Helps in developing tracing skills. Fun activity of tracing outline of trophy.",
           "name": "Trophy"
         },
         {
           "id": "drawshape0012",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "drawshape00012.png",
           "outcome": "The lessons are designed to help students hone their pre-writing skills of drawing a  dog.",
           "name": "Dog"
         },
         {
           "id": "drawshape0013",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "drawshape00013.png",
           "outcome": "The lessons are designed to help students hone their pre-writing skills of drawing Fish",
           "name": "Fish"
         },
         {
           "id": "drawshape0014",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "drawshape00014.png",
           "outcome": "The lessons are designed to help students hone their pre-writing skills of drawing a bird",
           "name": "Bird"
         },
         {
           "id": "drawshape0015",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "drawshape00015.png",
           "outcome": "Helps in developing tracing skills. Fun activity of tracing an Arrow.",
           "name": "Arrow"
@@ -283,147 +319,168 @@
       "lessons": [
         {
           "id": "pictureboard0000",
-          "color":"#33CECA",
+          "color": "#33CECA",
+          "pattern": "CloudyPattern.png",
           "image": "pictureboard0000.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Bird"
         },
         {
           "id": "pictureboard0001",
-          "color":"#5A3985",
+          "color": "#5A3985",
+          "pattern": "WinterPattern.png",
           "image": "pictureboard0001.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Lizard"
         },
         {
           "id": "pictureboard0002",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "pictureboard0002.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Mouse"
         },
         {
           "id": "pictureboard0003",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "pictureboard0003.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Turtle"
         },
         {
           "id": "pictureboard0004",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "pictureboard0004.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Ball and Dog"
         },
         {
           "id": "pictureboard0005",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "pictureboard0005.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Meerkats"
         },
         {
           "id": "pictureboard0006",
-          "color":"#33CECA",
+          "color": "#33CECA",
+          "pattern": "CloudyPattern.png",
           "image": "pictureboard0006.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Insects"
         },
         {
           "id": "pictureboard0007",
-          "color":"#5A3985",
+          "color": "#5A3985",
+          "pattern": "WinterPattern.png",
           "image": "pictureboard0007.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Cat and Butterfly"
         },
         {
           "id": "pictureboard0008",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "pictureboard0008.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Penguin"
         },
         {
           "id": "pictureboard0009",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "pictureboard0008.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Rabbit and Flower"
         },
         {
           "id": "pictureboard0010",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "pictureboard0010.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Gazelle"
         },
         {
           "id": "pictureboard0011",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "pictureboard0011.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Goat"
         },
         {
           "id": "pictureboard0012",
-          "color":"#33CECA",
+          "color": "#33CECA",
+          "pattern": "CloudyPattern.png",
           "image": "pictureboard0012.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Pig"
         },
         {
           "id": "pictureboard0013",
-          "color":"#5A3985",
+          "color": "#5A3985",
+          "pattern": "WinterPattern.png",
           "image": "pictureboard0013.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Zebra"
         },
         {
           "id": "pictureboard0014",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "pictureboard0014.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "More Birds"
         },
         {
           "id": "pictureboard0015",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "pictureboard0015.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Elephants"
         },
         {
           "id": "pictureboard0016",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "pictureboard0016.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Eagle"
         },
         {
           "id": "pictureboard0017",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "pictureboard0017.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Hyena"
         },
         {
           "id": "pictureboard0018",
-          "color":"#33CECA",
+          "color": "#33CECA",
+          "pattern": "CloudyPattern.png",
           "image": "pictureboard0018.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Cow"
         },
         {
           "id": "pictureboard0019",
-          "color":"#5A3985",
+          "color": "#5A3985",
+          "pattern": "WinterPattern.png",
           "image": "pictureboard0019.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Squirrel"
         },
         {
           "id": "pictureboard0020",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "pictureboard0020.png",
           "outcome": "This is a simple game which improves drag and drop skills in students. They have to drag the animal puzzle pieces to their respectives places in order to complete the puzzle. As the student arranges pictures in an order the student actively exercises on the observation and remembering skills.",
           "name": "Monkeys and Crocodile"
@@ -437,49 +494,56 @@
       "lessons": [
         {
           "id": "matchingcard0001",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "matchingcard0001.png",
           "outcome": "Children will match beginner level cards in this lesson. It will enhance the ability of a child to recognize the differences and similarities between two objects and images based on shape and size besides imparting good eye movement, eye teaming, and eye focusing skills to the child",
           "name": "Beginner"
         },
         {
           "id": "matchingcard0002",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "matchingcard0002.png",
           "outcome": "Children will match basic level cards in this lesson. It will enhance the ability of a child to recognize the differences and similarities between two objects and images based on shape and size besides imparting good eye movement, eye teaming, and eye focusing skills to the child",
           "name": "Basic"
         },
         {
           "id": "matchingcard0003",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "matchingcard0003.png",
           "outcome": "Children will match simple to recognize cards in this lesson. It will enhance the ability of a child to recognize the differences and similarities between two objects and images based on shape and size besides imparting good eye movement, eye teaming, and eye focusing skills to the child",
           "name": "Simple"
         },
         {
           "id": "matchingcard0004",
-          "color":"#33CECA",
+          "color": "#33CECA",
+          "pattern": "CloudyPattern.png",
           "image": "matchingcard0004.png",
           "outcome": "Children will match easy level cards in this lesson. It will enhance the ability of a child to recognize the differences and similarities between two objects and images based on shape and size besides imparting good eye movement, eye teaming, and eye focusing skills to the child",
           "name": "Easy"
         },
         {
           "id": "matchingcard0005",
-          "color":"#008473",
+          "color": "#008473",
+          "pattern": "SpringPattern.png",
           "image": "matchingcard0005.png",
           "outcome": "Children will match intermediate level cards in this lesson. It will enhance the ability of a child to recognize the differences and similarities between two objects and images based on shape and size besides imparting good eye movement, eye teaming, and eye focusing skills to the child",
           "name": "Intermediate"
         },
         {
           "id": "matchingcard0006",
-          "color":"#5A3985",
+          "color": "#5A3985",
+          "pattern": "WinterPattern.png",
           "image": "matchingcard0006.png",
           "outcome": "Children will match difficult level cards in this lesson. It will enhance the ability of a child to recognize the differences and similarities between two objects and images based on shape and size besides imparting good eye movement, eye teaming, and eye focusing skills to the child",
           "name": "Difficult"
         },
         {
           "id": "matchingcard0007",
-          "color":"#45B6FC",
+          "color": "#45B6FC",
+          "pattern": "RainyPattern.png",
           "image": "matchingcard0007.png",
           "outcome": "Children will match difficult level cards in this lesson. It will enhance the ability of a child to recognize the differences and similarities between two objects and images based on shape and size besides imparting good eye movement, eye teaming, and eye focusing skills to the child",
           "name": "Hard"
