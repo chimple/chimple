@@ -4516,15 +4516,6 @@
           "orig_course_id": "sl_en",
           "orig_lesson_id": "sl_en0512",
           "outcome": "None"
-        },
-        {
-          "id": "sl_en1_mp_challenge84",
-          "image": "sl_en1_mp_challenge84.png",
-          "color": "#FF3C4C",
-          "pattern": "ChallengePattern.png",
-          "type": "exam",
-          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked. ",
-          "name": "Challenge 84"
         }
       ],
       "name": "Unit 25"
@@ -4629,15 +4620,6 @@
           "orig_course_id": "sl_en",
           "orig_lesson_id": "sl_en0106",
           "outcome": "Pupils should write the alphabet in capital letters.\nThey should identify the small letters of the capital letters of the alphabet."
-        },
-        {
-          "id": "sl_en1_mp_challenge86",
-          "image": "sl_en1_mp_challenge86.png",
-          "color": "#FF3C4C",
-          "pattern": "ChallengePattern.png",
-          "type": "exam",
-          "outcome": "The challenge evalutates leraning outcomes of previous lessons. If the child cannot complete the challenge with a good score, further lessons remain locked. ",
-          "name": "Challenge 86"
         },
         {
           "color": "#33CECA",
@@ -5736,10 +5718,5 @@
   "lang": "en",
   "name": "English G1",
   "type": "literacy",
-  "levels": [
-    "sl_en1_mp02",
-    "sl_en1_mp09",
-    "sl_en1_mp16",
-    "sl_en1_mp24"
-  ]
+  "levels": ["sl_en1_mp02", "sl_en1_mp09", "sl_en1_mp16", "sl_en1_mp24"]
 }
