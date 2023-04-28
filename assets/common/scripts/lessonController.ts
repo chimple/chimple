@@ -420,6 +420,10 @@ export default class LessonController extends cc.Component {
                 lessonType: config.lesson.type,
                 score: score,
                 timeSpent: Math.abs(timeSpent),
+                totalGames: config.totalProblems,
+                wrongMoves: this.wrongMoves,
+                correctMoves: this.rightMoves,
+                correct: this.isQuizAnsweredCorrectly ? 1 : 0,
             }
             if (config.lesson.id == config.course.id + '_PreQuiz') {
                 detail["preQuizChapterId"] = UtilLogger.getChapterIdForPrequiz(this.quizScores);
