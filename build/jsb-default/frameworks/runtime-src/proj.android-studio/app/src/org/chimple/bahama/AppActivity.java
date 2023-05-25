@@ -52,7 +52,7 @@ import androidx.core.content.ContextCompat;
 import com.android.installreferrer.api.InstallReferrerClient;
 import com.android.installreferrer.api.InstallReferrerStateListener;
 import com.android.installreferrer.api.ReferrerDetails;
-import com.google.android.gms.ads.identifier.AdvertisingIdClient;
+// import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -481,26 +481,27 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
         advertisingApiBackgroundExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                AdvertisingIdClient.Info adInfo = null;
-                String advertisingId = null;
+                // AdvertisingIdClient.Info adInfo = null;
+                // String advertisingId = null;
 
-                try {
-                    adInfo = AdvertisingIdClient.getAdvertisingIdInfo(AppActivity.this.getApplicationContext());
-                    if (adInfo != null) {
-                        advertisingId = adInfo.getId();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    // Log.i(TAG, e.getLocalizedMessage());
-                } catch (GooglePlayServicesNotAvailableException e) {
-                    e.printStackTrace();
-                    // Log.i(TAG, e.getLocalizedMessage());
-                } catch (GooglePlayServicesRepairableException e) {
-                    e.printStackTrace();
-                    // Log.i(TAG, e.getLocalizedMessage());
-                }
-                final String aId = advertisingId;
-                ChimpleLogger.storeInSharedPreference(AppActivity.this, ADVERTISING_ID, advertisingId);
+                // try {
+                //     adInfo = AdvertisingIdClient.getAdvertisingIdInfo(AppActivity.this.getApplicationContext());
+                //     if (adInfo != null) {
+                //         advertisingId = adInfo.getId();
+                //     }
+                // } catch (IOException e) {
+                //     e.printStackTrace();
+                //     // Log.i(TAG, e.getLocalizedMessage());
+                // } catch (GooglePlayServicesNotAvailableException e) {
+                //     e.printStackTrace();
+                //     // Log.i(TAG, e.getLocalizedMessage());
+                // } catch (GooglePlayServicesRepairableException e) {
+                //     e.printStackTrace();
+                //     // Log.i(TAG, e.getLocalizedMessage());
+                // }
+                // final String aId = advertisingId;
+                Log.i(TAG,"FirebaseInstanceId",FirebaseInstanceId.getId());
+                ChimpleLogger.storeInSharedPreference(AppActivity.this, ADVERTISING_ID, FirebaseInstanceId.getId());
                 FirebaseInstanceId.getInstance().getInstanceId()
                         .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                             @SuppressLint("InvalidAnalyticsName")
@@ -774,42 +775,42 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                             referrerClient.endConnection();
                             return;
                         }
-                        final String referrerUrl = response.getInstallReferrer();
+                        // final String referrerUrl = response.getInstallReferrer();
 
-                        advertisingApiBackgroundExecutor.execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                AdvertisingIdClient.Info adInfo = null;
-                                String advertisingId = "";
+                        // advertisingApiBackgroundExecutor.execute(new Runnable() {
+                        //     @Override
+                        //     public void run() {
+                        //         AdvertisingIdClient.Info adInfo = null;
+                        //         String advertisingId = "";
 
-                                try {
-                                    adInfo = AdvertisingIdClient.getAdvertisingIdInfo(AppActivity.this.getApplicationContext());
-                                    if (adInfo != null) {
-                                        advertisingId = adInfo.getId();
-                                    }
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                    // Log.i(TAG, e.getLocalizedMessage());
-                                } catch (GooglePlayServicesNotAvailableException e) {
-                                    e.printStackTrace();
-                                    // Log.i(TAG, e.getLocalizedMessage());
-                                } catch (GooglePlayServicesRepairableException e) {
-                                    e.printStackTrace();
-                                    // Log.i(TAG, e.getLocalizedMessage());
-                                }
+                        //         try {
+                        //             adInfo = AdvertisingIdClient.getAdvertisingIdInfo(AppActivity.this.getApplicationContext());
+                        //             if (adInfo != null) {
+                        //                 advertisingId = adInfo.getId();
+                        //             }
+                        //         } catch (IOException e) {
+                        //             e.printStackTrace();
+                        //             // Log.i(TAG, e.getLocalizedMessage());
+                        //         } catch (GooglePlayServicesNotAvailableException e) {
+                        //             e.printStackTrace();
+                        //             // Log.i(TAG, e.getLocalizedMessage());
+                        //         } catch (GooglePlayServicesRepairableException e) {
+                        //             e.printStackTrace();
+                        //             // Log.i(TAG, e.getLocalizedMessage());
+                        //         }
 
-                                if (advertisingId != null) {
-                                    Log.i(TAG, "referrerUrl:" + referrerUrl);
-                                    Log.i(TAG, "advertisingId:" + advertisingId);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("referrer_url", referrerUrl);
-                                    bundle.putString("advertising_id", advertisingId);
-                                    Log.i(TAG, "bundle" + bundle.toString());
-                                    firebaseAnalytics.logEvent("referral_info", bundle);
-                                    getPreferences(MODE_PRIVATE).edit().putBoolean(KEY_REFERRER_EXISTS, true).commit();
-                                }
-                            }
-                        });
+                        //         if (advertisingId != null) {
+                        //             Log.i(TAG, "referrerUrl:" + referrerUrl);
+                        //             Log.i(TAG, "advertisingId:" + advertisingId);
+                        //             Bundle bundle = new Bundle();
+                        //             bundle.putString("referrer_url", referrerUrl);
+                        //             bundle.putString("advertising_id", advertisingId);
+                        //             Log.i(TAG, "bundle" + bundle.toString());
+                        //             firebaseAnalytics.logEvent("referral_info", bundle);
+                        //             getPreferences(MODE_PRIVATE).edit().putBoolean(KEY_REFERRER_EXISTS, true).commit();
+                        //         }
+                        //     }
+                        // });
 
                         break;
                     case InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED:

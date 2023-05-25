@@ -25,7 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
-import com.google.android.gms.ads.identifier.AdvertisingIdClient;
+// import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -345,33 +345,33 @@ public class ChimpleLogger {
         }
     }
 
-    public static String getDeviceId() {
-        if (deviceId != null) {
-            return deviceId;
-        }
+    // public static String getDeviceId() {
+    //     if (deviceId != null) {
+    //         return deviceId;
+    //     }
 
-        try {
-            AdvertisingIdClient.Info adInfo = null;
-            try {
-                adInfo = AdvertisingIdClient.getAdvertisingIdInfo(ChimpleLogger.context);
+    //     try {
+    //         AdvertisingIdClient.Info adInfo = null;
+    //         try {
+    //             adInfo = AdvertisingIdClient.getAdvertisingIdInfo(ChimpleLogger.context);
 
-            } catch (IOException e) {
-                // Unrecoverable error connecting to Google Play services (e.g.,
-                // the old version of the service doesn't support getting AdvertisingId).
-                ;
-            } catch (GooglePlayServicesNotAvailableException e) {
-                ;
-            } catch (GooglePlayServicesRepairableException e) {
-                ;
-            }
-            deviceId = adInfo.getId();
-            Log.d(TAG, "deviceId" + deviceId);
-            return deviceId;
-        } catch (Exception e) {
-            ;
-        }
-        return deviceId;
-    }
+    //         } catch (IOException e) {
+    //             // Unrecoverable error connecting to Google Play services (e.g.,
+    //             // the old version of the service doesn't support getting AdvertisingId).
+    //             ;
+    //         } catch (GooglePlayServicesNotAvailableException e) {
+    //             ;
+    //         } catch (GooglePlayServicesRepairableException e) {
+    //             ;
+    //         }
+    //         deviceId = adInfo.getId();
+    //         Log.d(TAG, "deviceId" + deviceId);
+    //         return deviceId;
+    //     } catch (Exception e) {
+    //         ;
+    //     }
+    //     return deviceId;
+    // }
 
     public static void logToDailyFile(String headerString, String eventString, String fileName) {
         Log.d(TAG, "Called logToDailyFile ....");
@@ -704,8 +704,8 @@ public class ChimpleLogger {
                 Bundle bundle = new Bundle();
                 bundle.putString("key", key);
                 bundle.putString("value", data);
-                String deviceId = getDeviceId();
-                bundle.putString("advertising_id", deviceId);
+                // String deviceId = getDeviceId();
+                // bundle.putString("advertising_id", deviceId);
                 Log.i(TAG, "firebase logging event in Logger " + " name:" + name + " bundle: " + bundle.toString());
                 firebaseAnalytics.logEvent(name, bundle);
 
