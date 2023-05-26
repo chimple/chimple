@@ -345,33 +345,33 @@ public class ChimpleLogger {
         }
     }
 
-    // public static String getDeviceId() {
-    //     if (deviceId != null) {
-    //         return deviceId;
-    //     }
+    public static String getDeviceId() {
+        if (deviceId != null) {
+            return deviceId;
+        }
 
-    //     try {
-    //         AdvertisingIdClient.Info adInfo = null;
-    //         try {
-    //             adInfo = AdvertisingIdClient.getAdvertisingIdInfo(ChimpleLogger.context);
+        try {
+            // AdvertisingIdClient.Info adInfo = null;
+            // try {
+            //     adInfo = AdvertisingIdClient.getAdvertisingIdInfo(ChimpleLogger.context);
 
-    //         } catch (IOException e) {
-    //             // Unrecoverable error connecting to Google Play services (e.g.,
-    //             // the old version of the service doesn't support getting AdvertisingId).
-    //             ;
-    //         } catch (GooglePlayServicesNotAvailableException e) {
-    //             ;
-    //         } catch (GooglePlayServicesRepairableException e) {
-    //             ;
-    //         }
-    //         deviceId = adInfo.getId();
-    //         Log.d(TAG, "deviceId" + deviceId);
-    //         return deviceId;
-    //     } catch (Exception e) {
-    //         ;
-    //     }
-    //     return deviceId;
-    // }
+            // } catch (IOException e) {
+            //     // Unrecoverable error connecting to Google Play services (e.g.,
+            //     // the old version of the service doesn't support getting AdvertisingId).
+            //     ;
+            // } catch (GooglePlayServicesNotAvailableException e) {
+            //     ;
+            // } catch (GooglePlayServicesRepairableException e) {
+            //     ;
+            // }
+//            deviceId = "fake-device-id";
+//            Log.d(TAG, "deviceId" + deviceId);
+            return deviceId;
+        } catch (Exception e) {
+            ;
+        }
+        return deviceId;
+    }
 
     public static void logToDailyFile(String headerString, String eventString, String fileName) {
         Log.d(TAG, "Called logToDailyFile ....");

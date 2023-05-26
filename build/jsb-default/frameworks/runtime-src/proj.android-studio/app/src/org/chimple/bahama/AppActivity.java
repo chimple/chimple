@@ -78,6 +78,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.installations.FirebaseInstallations;
 
 import org.chimple.bahama.logger.ChimpleLogger;
 import org.chimple.bahama.logger.LockScreenReceiver;
@@ -478,6 +479,7 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
     }
 
     public void initFirebaseMessageClient() {
+        Log.i(TAG,"FirebaseInstanceId1");
         advertisingApiBackgroundExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -500,8 +502,18 @@ public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
                 //     // Log.i(TAG, e.getLocalizedMessage());
                 // }
                 // final String aId = advertisingId;
-                Log.i(TAG,"FirebaseInstanceId",FirebaseInstanceId.getId());
-                ChimpleLogger.storeInSharedPreference(AppActivity.this, ADVERTISING_ID, FirebaseInstanceId.getId());
+                FirebaseInstallations.getInstance().getId()
+                        .addOnCompleteListener(new OnCompleteListener<String>() {
+                            @Override
+                            public void onComplete(@NonNull Task<String> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("Installations", "Installation ID: " + task.getResult());
+                                    ChimpleLogger.storeInSharedPreference(AppActivity.this, ADVERTISING_ID, task.getResult());
+                                } else {
+                                    Log.e("Installations", "Unable to get Installation ID");
+                                }
+                            }
+                        });
                 FirebaseInstanceId.getInstance().getInstanceId()
                         .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                             @SuppressLint("InvalidAnalyticsName")
