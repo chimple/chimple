@@ -85,6 +85,7 @@ import org.chimple.bahama.logger.LockScreenReceiver;
 import org.chimple.bahama.logger.NotificationData;
 import org.chimple.firebasesync.auth.AuthCallBack;
 import org.chimple.firebasesync.database.Helper;
+import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.javascript.SDKWrapper;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
@@ -113,7 +114,7 @@ import static org.chimple.firebasesync.database.Helper.EMAIL;
 import static org.chimple.firebasesync.database.Helper.PASSWORD;
 import static org.cocos2dx.lib.Cocos2dxHelper.getActivity;
 
-public class AppActivity extends com.sdkbox.plugin.SDKBoxActivity {
+public class AppActivity extends Cocos2dxActivity {
     private static final int STORAGE_PERMISSION_CODE = 101;
     protected ChimpleLogger logger;
     protected LockScreenReceiver lockScreenReceiver;

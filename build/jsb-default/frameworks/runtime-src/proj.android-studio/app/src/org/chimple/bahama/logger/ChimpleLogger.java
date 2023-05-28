@@ -37,7 +37,6 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-
 import org.apache.commons.io.FilenameUtils;
 import org.chimple.bahama.AppActivity;
 import org.chimple.bahama.R;
@@ -81,6 +80,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
+import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static org.chimple.bahama.AppActivity.YOUTUBE_CODE;
 
 public class ChimpleLogger {
@@ -111,7 +111,7 @@ public class ChimpleLogger {
     public static String w = "w";
     public static String t = "t";
 
-    public static String[] MESSAGE_KEYS = new String[]{mm, em, d, t, w};
+    public static String[] MESSAGE_KEYS = new String[] { mm, em, d, t, w };
     public static String MESSAGE_TITLE = "t";
     public static String MESSAGE_CONTENT = "c";
 
@@ -147,7 +147,6 @@ public class ChimpleLogger {
         return chimpleLoggerInstance;
     }
 
-
     private ChimpleLogger(Context context) {
         serialNumber = Build.SERIAL;
         this.context = context;
@@ -163,13 +162,13 @@ public class ChimpleLogger {
     }
 
     public static boolean isFileExistsInPublicDirectory(final String path) {
-            Log.d(TAG, "isFileExistsInPublicDirectory : " + path);
-            File basePath = new File(Environment.getExternalStorageDirectory() + File.separator + path);
-            Log.d(TAG, "Checking for basePath for public directory:" +basePath );
-            if (basePath.exists()) {
-                return true;
-            }
-            return false;
+        Log.d(TAG, "isFileExistsInPublicDirectory : " + path);
+        File basePath = new File(Environment.getExternalStorageDirectory() + File.separator + path);
+        Log.d(TAG, "Checking for basePath for public directory:" + basePath);
+        if (basePath.exists()) {
+            return true;
+        }
+        return false;
 
     }
 
@@ -185,12 +184,12 @@ public class ChimpleLogger {
         return basePath;
     }
 
-
     private static String intToLei(int n) {
         if (n == 0) {
             return "A";
         }
-        return (n < 0 ? "-" : "") + Character.toString((char) ('B' + (int) Math.log10(Math.abs(n)))) + String.valueOf(n);
+        return (n < 0 ? "-" : "") + Character.toString((char) ('B' + (int) Math.log10(Math.abs(n))))
+                + String.valueOf(n);
     }
 
     private static int leiToInt(String lei) {
@@ -242,7 +241,8 @@ public class ChimpleLogger {
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry) it.next();
                 if (pair.getValue().equals(DOWNLOAD_FAILED)) {
-                    Log.i(TAG, "networked in now connected:" + connected + " removing item:" + pair.getKey() + ":" + pair.getValue());
+                    Log.i(TAG, "networked in now connected:" + connected + " removing item:" + pair.getKey() + ":"
+                            + pair.getValue());
                     it.remove(); // avoids a ConcurrentModificationException
 
                 }
@@ -353,19 +353,19 @@ public class ChimpleLogger {
         try {
             // AdvertisingIdClient.Info adInfo = null;
             // try {
-            //     adInfo = AdvertisingIdClient.getAdvertisingIdInfo(ChimpleLogger.context);
+            // adInfo = AdvertisingIdClient.getAdvertisingIdInfo(ChimpleLogger.context);
 
             // } catch (IOException e) {
-            //     // Unrecoverable error connecting to Google Play services (e.g.,
-            //     // the old version of the service doesn't support getting AdvertisingId).
-            //     ;
+            // // Unrecoverable error connecting to Google Play services (e.g.,
+            // // the old version of the service doesn't support getting AdvertisingId).
+            // ;
             // } catch (GooglePlayServicesNotAvailableException e) {
-            //     ;
+            // ;
             // } catch (GooglePlayServicesRepairableException e) {
-            //     ;
+            // ;
             // }
-//            deviceId = "fake-device-id";
-//            Log.d(TAG, "deviceId" + deviceId);
+            // deviceId = "fake-device-id";
+            // Log.d(TAG, "deviceId" + deviceId);
             return deviceId;
         } catch (Exception e) {
             ;
@@ -507,7 +507,8 @@ public class ChimpleLogger {
 
         if (isDownloaded != null) {
             Log.i(TAG, "checkIfUrlDownloaded -> Download fileName:" + saveAsFileName + "status:" + isDownloaded);
-//            ChimpleLogger.logEventToFireBase("check_if_file_downloaded", saveAsBaseFileName, isDownloaded + "");
+            // ChimpleLogger.logEventToFireBase("check_if_file_downloaded",
+            // saveAsBaseFileName, isDownloaded + "");
         }
         return isDownloaded;
     }
@@ -525,7 +526,8 @@ public class ChimpleLogger {
             if (isNetWorkEnable && shouldDownload) {
                 downloadStatus.put(saveAsFileName, DOWNLOAD_STARTED);
                 ChimpleLogger.logEventToFireBase("download_status", saveAsFileName, DOWNLOAD_STARTED);
-                String dirPath = context.getApplicationInfo().dataDir + File.separator + "files" + File.separator + "subpackages" + File.separator + directory;
+                String dirPath = context.getApplicationInfo().dataDir + File.separator + "files" + File.separator
+                        + "subpackages" + File.separator + directory;
                 File basePath = ChimpleLogger.createDirIfNotExists(dirPath);
                 File outputFile = new File(basePath + File.separator + saveAsBaseFileName);
                 Log.i(TAG, "deleting zip:" + outputFile.getAbsolutePath());
@@ -556,7 +558,8 @@ public class ChimpleLogger {
         }
     }
 
-    private static void unzip(File basePath, String folderName, String saveAsFileName, File zipFile, File targetDirectory) {
+    private static void unzip(File basePath, String folderName, String saveAsFileName, File zipFile,
+            File targetDirectory) {
         ZipInputStream zis = null;
         try {
             zis = new ZipInputStream(
@@ -597,7 +600,8 @@ public class ChimpleLogger {
             ;
         } finally {
             try {
-                if (zis != null) zis.close();
+                if (zis != null)
+                    zis.close();
             } catch (Exception e) {
                 e.printStackTrace();
                 ;
@@ -613,7 +617,6 @@ public class ChimpleLogger {
         }
         element.delete();
     }
-
 
     private static File newFile(File destinationDir, ZipEntry zipEntry) throws IOException {
         File destFile = new File(destinationDir, zipEntry.getName());
@@ -640,7 +643,8 @@ public class ChimpleLogger {
     }
 
     public static boolean isFileExists(final String path) {
-        File basePath = new File(ChimpleLogger.getStorageDirectory()  + File.separator + "bahama" + File.separator + path);
+        File basePath = new File(
+                ChimpleLogger.getStorageDirectory() + File.separator + "bahama" + File.separator + path);
         if (basePath.exists()) {
             return true;
         }
@@ -656,12 +660,12 @@ public class ChimpleLogger {
         return path.getAbsolutePath();
     }
 
-
-    private static long transferDataAndGetBytesDownloaded(URLConnection downloadFileConnection, File outputFile) throws IOException {
+    private static long transferDataAndGetBytesDownloaded(URLConnection downloadFileConnection, File outputFile)
+            throws IOException {
 
         long bytesDownloaded = 0;
-        try (InputStream is = downloadFileConnection.getInputStream(); OutputStream os =
-                new FileOutputStream(outputFile, true)) {
+        try (InputStream is = downloadFileConnection.getInputStream();
+                OutputStream os = new FileOutputStream(outputFile, true)) {
 
             byte[] buffer = new byte[1024];
 
@@ -673,7 +677,6 @@ public class ChimpleLogger {
         }
         return bytesDownloaded;
     }
-
 
     private static URLConnection addFileResumeFunctionality(String downloadUrl, File outputFile)
             throws IOException, URISyntaxException, ProtocolException, ProtocolException {
@@ -695,7 +698,6 @@ public class ChimpleLogger {
             return name.toLowerCase().endsWith(ext);
         }
     }
-
 
     public static void logEventToFireBase(final String name, final String key, final String data) {
         AsyncTask.execute(new Runnable() {
@@ -779,14 +781,13 @@ public class ChimpleLogger {
         return preferences.getLong(key, 0);
     }
 
-
     public static boolean getBooleanFromSharedPreference(Context context, String key) {
         SharedPreferences preferences = context.getSharedPreferences(SHARED_ALARM_KEYS, Context.MODE_PRIVATE);
         return preferences.getBoolean(key, false);
     }
 
-
-    public static void configureChimpleReminderNotifications(Context context, String titleKey, String contentKey, String title, String content, boolean override) {
+    public static void configureChimpleReminderNotifications(Context context, String titleKey, String contentKey,
+            String title, String content, boolean override) {
         if (override || ChimpleLogger.getStringFromSharedPreference(context, titleKey) == null) {
             ChimpleLogger.storeInSharedPreference(context, titleKey, title);
             ChimpleLogger.storeInSharedPreference(context, contentKey, content);
@@ -795,8 +796,8 @@ public class ChimpleLogger {
 
     public static Notification getNotification(Context context, String title, String content, int id, int color) {
         if (title != null && content != null) {
-            NotificationManager notificationManager =
-                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager) context
+                    .getSystemService(Context.NOTIFICATION_SERVICE);
             String channelId = "channel-" + id;
             String channelName = "notification-channel-" + id;
             int importance = NotificationManager.IMPORTANCE_HIGH;
@@ -807,17 +808,34 @@ public class ChimpleLogger {
                 notificationManager.createNotificationChannel(mChannel);
             }
 
-            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, channelId)
-                    .setContentTitle(title)
-                    .setContentText(content)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setStyle(new NotificationCompat.BigTextStyle())
-                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                    .setSmallIcon(R.mipmap.small)
-                    .setChannelId(channelId)
-                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
-                    .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, AppActivity.class), 0))
-                    .setAutoCancel(true);
+            NotificationCompat.Builder notificationBuilder;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+                notificationBuilder = new NotificationCompat.Builder(context, channelId)
+                        .setContentTitle(title)
+                        .setContentText(content)
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setStyle(new NotificationCompat.BigTextStyle())
+                        .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                        .setSmallIcon(R.mipmap.small)
+                        .setChannelId(channelId)
+                        .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
+                        .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, AppActivity.class),
+                                FLAG_IMMUTABLE))
+                        .setAutoCancel(true);
+            } else {
+                notificationBuilder = new NotificationCompat.Builder(context, channelId)
+                        .setContentTitle(title)
+                        .setContentText(content)
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setStyle(new NotificationCompat.BigTextStyle())
+                        .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                        .setSmallIcon(R.mipmap.small)
+                        .setChannelId(channelId)
+                        .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
+                        .setContentIntent(
+                                PendingIntent.getActivity(context, 0, new Intent(context, AppActivity.class), FLAG_IMMUTABLE))
+                        .setAutoCancel(true);
+            }
 
             if (color != -1) {
                 notificationBuilder.setColor(color);
@@ -833,7 +851,12 @@ public class ChimpleLogger {
         Intent notificationIntent = new Intent(context, AlarmReceiver.class);
         notificationIntent.setAction("SCHEDULED_ACTION");
         notificationIntent.putExtra(AlarmReceiver.NOTIFICATION_ID, id);
-        PendingIntent repeatingPendingIntent = PendingIntent.getBroadcast(context, id, notificationIntent, FLAG_UPDATE_CURRENT);
+        PendingIntent repeatingPendingIntent;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            repeatingPendingIntent = PendingIntent.getBroadcast(context, id, notificationIntent, FLAG_IMMUTABLE);
+        } else {
+            repeatingPendingIntent = PendingIntent.getBroadcast(context, id, notificationIntent, FLAG_UPDATE_CURRENT);
+        }
         return repeatingPendingIntent;
     }
 
@@ -870,7 +893,8 @@ public class ChimpleLogger {
     }
 
     public static void scheduleOneTimeAlarm(Context context, String hour, String min, String title, String content) {
-//        Log.d(TAG, "Scheduling onetime notification start at hour:" + hour + " min:" + min + " title:" + title + " content:" + content);
+        // Log.d(TAG, "Scheduling onetime notification start at hour:" + hour + " min:"
+        // + min + " title:" + title + " content:" + content);
 
         Intent notificationIntent = new Intent(context, AlarmReceiver.class);
         notificationIntent.setAction("SCHEDULED_ACTION");
@@ -879,10 +903,19 @@ public class ChimpleLogger {
         List<Notification> notifications = new ArrayList<Notification>();
         notificationIntent.putExtra(AlarmReceiver.NOTIFICATIONS, notifications.add(getNotification(
                 context, title, content, UNIQUE_ONE_TIME_NOTIFICATION_ID,
-                AlarmReceiver.isTesting ? Color.CYAN : -1
-        )));
+                AlarmReceiver.isTesting ? Color.CYAN : -1)));
 
-        PendingIntent oneTimePendingIntent = PendingIntent.getBroadcast(context, UNIQUE_ONE_TIME_NOTIFICATION_ID, notificationIntent, 0);
+        PendingIntent oneTimePendingIntent;
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+
+            oneTimePendingIntent = PendingIntent.getBroadcast(context, UNIQUE_ONE_TIME_NOTIFICATION_ID,
+                    notificationIntent, PendingIntent.FLAG_IMMUTABLE);
+        } else {
+            oneTimePendingIntent = PendingIntent.getBroadcast(context, UNIQUE_ONE_TIME_NOTIFICATION_ID,
+                    notificationIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        }
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.SECOND, 30);
@@ -894,13 +927,17 @@ public class ChimpleLogger {
     public static void configureAlarms(Context context, boolean isReboot) {
         if (isReboot) {
             ChimpleLogger.bootCallRecived = true;
-            ChimpleLogger.scheduleRepeatingAlarm(context, REPEAT_MORNING_HOUR, REPEAT_MORNING_MIN, ChimpleLogger.UNIQUE_REPEAT_NOTIFICATION_ID_9_AM);
-            ChimpleLogger.scheduleRepeatingAlarm(context, REPEAT_EVENING_HOUR, REPEAT_EVENING_MIN, ChimpleLogger.UNIQUE_REPEAT_NOTIFICATION_ID_5_PM);
+            ChimpleLogger.scheduleRepeatingAlarm(context, REPEAT_MORNING_HOUR, REPEAT_MORNING_MIN,
+                    ChimpleLogger.UNIQUE_REPEAT_NOTIFICATION_ID_9_AM);
+            ChimpleLogger.scheduleRepeatingAlarm(context, REPEAT_EVENING_HOUR, REPEAT_EVENING_MIN,
+                    ChimpleLogger.UNIQUE_REPEAT_NOTIFICATION_ID_5_PM);
         }
 
         if (!ChimpleLogger.bootCallRecived) {
-            ChimpleLogger.scheduleRepeatingAlarm(context, REPEAT_MORNING_HOUR, REPEAT_MORNING_MIN, ChimpleLogger.UNIQUE_REPEAT_NOTIFICATION_ID_9_AM);
-            ChimpleLogger.scheduleRepeatingAlarm(context, REPEAT_EVENING_HOUR, REPEAT_EVENING_MIN, ChimpleLogger.UNIQUE_REPEAT_NOTIFICATION_ID_5_PM);
+            ChimpleLogger.scheduleRepeatingAlarm(context, REPEAT_MORNING_HOUR, REPEAT_MORNING_MIN,
+                    ChimpleLogger.UNIQUE_REPEAT_NOTIFICATION_ID_9_AM);
+            ChimpleLogger.scheduleRepeatingAlarm(context, REPEAT_EVENING_HOUR, REPEAT_EVENING_MIN,
+                    ChimpleLogger.UNIQUE_REPEAT_NOTIFICATION_ID_5_PM);
         }
     }
 
@@ -927,7 +964,7 @@ public class ChimpleLogger {
 
     public static void loadJSON(Context context, String jsonMessage, String lang) {
         try {
-//            Log.d(TAG, "diff loaded JSON:" + jsonMessage + " with lang:" + lang);
+            // Log.d(TAG, "diff loaded JSON:" + jsonMessage + " with lang:" + lang);
             JSONObject obj = new JSONObject(jsonMessage);
             for (int i = 0; i < MESSAGE_KEYS.length; i++) {
                 String key = MESSAGE_KEYS[i];
@@ -962,7 +999,8 @@ public class ChimpleLogger {
         Log.d(TAG, "Called syncFmcForUsers with advertisingId:" + advertisingId);
         Log.d(TAG, "Called syncFmcForUsers with fmcToken:" + fmcToken);
         if (fmcToken != null && advertisingId != null) {
-            String lastPlayedTime = ChimpleLogger.getStringFromSharedPreference(AppActivity.getContext(), ChimpleLogger.APP_LAST_PLAYED_TIME);
+            String lastPlayedTime = ChimpleLogger.getStringFromSharedPreference(AppActivity.getContext(),
+                    ChimpleLogger.APP_LAST_PLAYED_TIME);
             Log.i(TAG, "Sync fmcToken:" + fmcToken + " adId:" + advertisingId + "userId:" + userIds);
             final Map<String, Object> fmcMap = new HashMap<String, Object>();
             fmcMap.put(FIREBASE_MESSAGE_TOKEN.toLowerCase(), fmcToken);
@@ -975,7 +1013,8 @@ public class ChimpleLogger {
             String strDate = formatter.format(currentDate);
             fmcMap.put("current_date", strDate);
 
-            String installedTime = ChimpleLogger.getStringFromSharedPreference(AppActivity.getContext(), ChimpleLogger.APP_INSTALLED_TIME);
+            String installedTime = ChimpleLogger.getStringFromSharedPreference(AppActivity.getContext(),
+                    ChimpleLogger.APP_INSTALLED_TIME);
             fmcMap.put(APP_INSTALLED_TIME.toLowerCase(), Long.parseLong(installedTime));
 
             AppActivity.mDatabase.collection(FIREBASE_MESSAGES_SYNC.toLowerCase())
@@ -1001,7 +1040,8 @@ public class ChimpleLogger {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            String advertisingId = ChimpleLogger.getStringFromSharedPreference(AppActivity.getContext(), ADVERTISING_ID);
+                            String advertisingId = ChimpleLogger.getStringFromSharedPreference(AppActivity.getContext(),
+                                    ADVERTISING_ID);
                             Bundle bundle = new Bundle();
                             bundle.putString("topicId", topicId);
                             bundle.putString("advertising_id", advertisingId);
@@ -1064,7 +1104,8 @@ public class ChimpleLogger {
         try {
             FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
             if (instance != null) {
-                List<Student> students = instance.getOperations().loadAllStudentsForSchoolAndSection(schoolId, sectionId);
+                List<Student> students = instance.getOperations().loadAllStudentsForSchoolAndSection(schoolId,
+                        sectionId);
                 Log.d(TAG, "fetchStudentsForSchoolAndSection got students:" + students.size());
                 if (students != null && students.size() > 0) {
                     Gson gson = new GsonBuilder().create();
@@ -1097,7 +1138,8 @@ public class ChimpleLogger {
         return json;
     }
 
-    public static void syncProfile(String schoolId, String sectionId, String studentId, String profileData, String progressId) {
+    public static void syncProfile(String schoolId, String sectionId, String studentId, String profileData,
+            String progressId) {
         FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
         Log.d(TAG, "Sync profile school:" + schoolId + " section:" + sectionId + " student:" + studentId);
         if (instance != null) {
@@ -1117,11 +1159,11 @@ public class ChimpleLogger {
             String score,
             String assignmentId,
             String name,
-            String timeSpent
-    ) {
+            String timeSpent) {
         FirebaseOperations instance = FirebaseOperations.getInitializedInstance();
         if (instance != null) {
-            Log.d(TAG, "historyProgress:" + chapterId + " section:" + section + " lessonId:" + lessonId + "assignmentId:" + assignmentId);
+            Log.d(TAG, "historyProgress:" + chapterId + " section:" + section + " lessonId:" + lessonId
+                    + "assignmentId:" + assignmentId);
             instance.historyProgress(chapterId,
                     chapterName,
                     lessonId,
@@ -1133,10 +1175,7 @@ public class ChimpleLogger {
                     Integer.parseInt(score),
                     assignmentId,
                     name,
-                    Integer.parseInt(timeSpent)
-                    );
+                    Integer.parseInt(timeSpent));
         }
     }
 }
-
-

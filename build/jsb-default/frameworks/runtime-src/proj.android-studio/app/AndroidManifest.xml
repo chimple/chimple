@@ -34,7 +34,8 @@
             android:launchMode="singleTask"
             android:screenOrientation="sensorLandscape"
             android:taskAffinity=""
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:exported="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

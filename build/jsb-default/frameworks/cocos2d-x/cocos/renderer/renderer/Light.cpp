@@ -263,7 +263,7 @@ void Light::computeSpotLightViewProjMatrix(Mat4& matView, Mat4& matProj) const
     matView = _worldRT.getInversed();
     
     // proj matrix
-    Mat4::createPerspective(_spotAngle * _spotAngleScale,
+    Mat4::createPerspective(_spotAngle * _spotAngleScale / 3.1415926 * 180,
                             1,
                             _shadowMinDepth,
                             _shadowMaxDepth,

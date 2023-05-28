@@ -34,10 +34,6 @@
 #include "cocos/scripting/js-bindings/manual/jsb_classtype.hpp"
 
 USING_NS_CC;
-#ifdef SDKBOX_ENABLED
-#include "PluginFirebaseJS.hpp"
-#include "PluginFirebaseJSHelper.h"
-#endif
 
 AppDelegate::AppDelegate(int width, int height) : Application("Cocos Game", width, height)
 {
@@ -61,14 +57,10 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     se->setExceptionCallback([](const char* location, const char* message, const char* stack){
         // Send exception information to server like Tencent Bugly.
-
+        cocos2d::log("\nUncaught Exception:\n - location :  %s\n - msg : %s\n - detail : \n      %s\n", location, message, stack);
     });
 
     jsb_register_all_modules();
-#ifdef SDKBOX_ENABLED
-    se->addRegisterCallback(register_all_PluginFirebaseJS);
-    se->addRegisterCallback(register_all_PluginFirebaseJS_helper);
-#endif
 
     se->start();
 

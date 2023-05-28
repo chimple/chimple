@@ -53,9 +53,6 @@ void TiledMapAssembler::handle(NodeProxy *node, ModelBatcher* batcher, Scene* sc
 {
     _node = node;
     _batcher = batcher;
-    
-    Assembler::handle(node, batcher, scene);
-
     // Last tiles data may be empty, but has user node, so render it by manual.
     auto lastNodesIndex = getIACount();
     auto it = _nodesMap.find(lastNodesIndex);
@@ -63,6 +60,7 @@ void TiledMapAssembler::handle(NodeProxy *node, ModelBatcher* batcher, Scene* sc
     {
         renderNodes(lastNodesIndex);
     }
+    Assembler::handle(node, batcher, scene);
 }
 
 void TiledMapAssembler::renderNodes(std::size_t index)

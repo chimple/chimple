@@ -140,7 +140,7 @@ void ForwardRenderer::updateLights(Scene* scene)
         if (light->getShadowType() != Light::ShadowType::NONE)
         {
             if (_shadowLights.size() < CC_MAX_SHADOW_LIGHTS) {
-                _shadowLights.pushBack(light);
+                _shadowLights.insert(0, light);
             }
             
             View* view = requestView();

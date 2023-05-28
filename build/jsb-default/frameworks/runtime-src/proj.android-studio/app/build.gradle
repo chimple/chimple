@@ -10,9 +10,8 @@ android {
         applicationId "org.chimple.bahama"
         minSdkVersion PROP_MIN_SDK_VERSION
         targetSdkVersion PROP_TARGET_SDK_VERSION
-        versionCode 47
+        versionCode 53
         versionName "2.1"
-        multiDexEnabled true
 
         externalNativeBuild {
             ndkBuild {
@@ -26,13 +25,16 @@ android {
                                         project.file("../../../cocos2d-x/external")]
                     if (Os.isFamily(Os.FAMILY_WINDOWS)) {
                         arguments 'NDK_MODULE_PATH=' + module_paths.join(";")
-                    } else {
+                    }
+                    else {
                         arguments 'NDK_MODULE_PATH=' + module_paths.join(':')
                     }
-
+                    
                     arguments '-j' + Runtime.runtime.availableProcessors()
-                    abiFilters.addAll(PROP_APP_ABI.split(':').collect { it as String })
                 }
+            }
+            ndk {
+                abiFilters PROP_APP_ABI.split(':')
             }
         }
     }
@@ -55,7 +57,7 @@ android {
 
     signingConfigs {
 
-        release {
+       release {
             if (project.hasProperty("RELEASE_STORE_FILE")) {
                 storeFile file(RELEASE_STORE_FILE)
                 storePassword RELEASE_STORE_PASSWORD
@@ -70,8 +72,8 @@ android {
             debuggable false
             jniDebuggable false
             renderscriptDebuggable false
-//            minifyEnabled true
-//            shrinkResources true
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             if (project.hasProperty("RELEASE_STORE_FILE")) {
                 signingConfig signingConfigs.release
@@ -95,9 +97,6 @@ android {
             }
         }
     }
-
-    configurations.all { resolutionStrategy { force 'com.google.guava:guava:28.0-android' } }
-
 }
 
 android.applicationVariants.all { variant ->
@@ -108,18 +107,11 @@ android.applicationVariants.all { variant ->
         def sourceDir = "${buildDir}/../../../../.."
 
         copy {
-            from "${sourceDir}/assets"
-            into "${outputDir}/assets"
-        }
-
-        copy {
-            from "${sourceDir}/src"
-            into "${outputDir}/src"
-        }
-
-        copy {
-            from "${sourceDir}/jsb-adapter"
-            into "${outputDir}/jsb-adapter"
+            from "${sourceDir}"
+            include "assets/**"
+            include "src/**"
+            include "jsb-adapter/**"
+            into outputDir
         }
 
         copy {
@@ -131,8 +123,8 @@ android.applicationVariants.all { variant ->
 }
 
 dependencies {
-    implementation fileTree(dir: '../libs', include: ['*.jar', '*.aar'])
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation fileTree(dir: '../libs', include: ['*.jar','*.aar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
     implementation fileTree(dir: "../../../cocos2d-x/cocos/platform/android/java/libs", include: ['*.jar'])
     implementation project(':libcocos2dx')
     implementation 'commons-io:commons-io:2.6'
@@ -148,6 +140,5 @@ dependencies {
     implementation("com.google.android.play:app-update:2.0.0")
     implementation 'com.google.android.material:material:1.1.0'
 }
-
 
 apply plugin: 'com.google.gms.google-services'

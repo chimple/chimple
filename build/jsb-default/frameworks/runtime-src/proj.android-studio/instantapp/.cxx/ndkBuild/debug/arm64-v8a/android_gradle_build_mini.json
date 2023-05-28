@@ -1,0 +1,250 @@
+{
+  "buildFiles": [
+    "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Android.mk",
+    "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Application.mk"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+      "NDK_PROJECT_PATH\u003dnull",
+      "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Android.mk",
+      "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Application.mk",
+      "APP_ABI\u003darm64-v8a",
+      "NDK_ALL_ABIS\u003darm64-v8a",
+      "NDK_DEBUG\u003d1",
+      "APP_PLATFORM\u003dandroid-21",
+      "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj",
+      "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/lib",
+      "NDK_TOOLCHAIN_VERSION\u003dclang",
+      "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+      "NDK_DEBUG\u003d1",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+    "NDK_PROJECT_PATH\u003dnull",
+    "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Android.mk",
+    "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Application.mk",
+    "APP_ABI\u003darm64-v8a",
+    "NDK_ALL_ABIS\u003darm64-v8a",
+    "NDK_DEBUG\u003d1",
+    "APP_PLATFORM\u003dandroid-21",
+    "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj",
+    "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/lib",
+    "NDK_TOOLCHAIN_VERSION\u003dclang",
+    "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+    "-j16",
+    "NDK_DEBUG\u003d1",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "cocos2d-debug-arm64-v8a": {
+      "artifactName": "cocos2d",
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Application.mk",
+        "APP_ABI\u003darm64-v8a",
+        "NDK_ALL_ABIS\u003darm64-v8a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-21",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libcocos2d.a"
+      ],
+      "abi": "arm64-v8a",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libcocos2d.a",
+      "runtimeFiles": []
+    },
+    "extension-debug-arm64-v8a": {
+      "artifactName": "extension",
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Application.mk",
+        "APP_ABI\u003darm64-v8a",
+        "NDK_ALL_ABIS\u003darm64-v8a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-21",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libextension.a"
+      ],
+      "abi": "arm64-v8a",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libextension.a",
+      "runtimeFiles": []
+    },
+    "cocos2djs-debug-arm64-v8a": {
+      "artifactName": "cocos2djs",
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Application.mk",
+        "APP_ABI\u003darm64-v8a",
+        "NDK_ALL_ABIS\u003darm64-v8a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-21",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libcocos2djs.so"
+      ],
+      "abi": "arm64-v8a",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libcocos2djs.so",
+      "runtimeFiles": []
+    },
+    "pvmp3dec-debug-arm64-v8a": {
+      "artifactName": "pvmp3dec",
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Application.mk",
+        "APP_ABI\u003darm64-v8a",
+        "NDK_ALL_ABIS\u003darm64-v8a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-21",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libpvmp3dec.a"
+      ],
+      "abi": "arm64-v8a",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libpvmp3dec.a",
+      "runtimeFiles": []
+    },
+    "cpufeatures-debug-arm64-v8a": {
+      "artifactName": "cpufeatures",
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Application.mk",
+        "APP_ABI\u003darm64-v8a",
+        "NDK_ALL_ABIS\u003darm64-v8a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-21",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libcpufeatures.a"
+      ],
+      "abi": "arm64-v8a",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libcpufeatures.a",
+      "runtimeFiles": []
+    },
+    "editorsupport-debug-arm64-v8a": {
+      "artifactName": "editorsupport",
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Application.mk",
+        "APP_ABI\u003darm64-v8a",
+        "NDK_ALL_ABIS\u003darm64-v8a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-21",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libeditorsupport.a"
+      ],
+      "abi": "arm64-v8a",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libeditorsupport.a",
+      "runtimeFiles": []
+    },
+    "vorbisidec-debug-arm64-v8a": {
+      "artifactName": "vorbisidec",
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Application.mk",
+        "APP_ABI\u003darm64-v8a",
+        "NDK_ALL_ABIS\u003darm64-v8a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-21",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libvorbisidec.a"
+      ],
+      "abi": "arm64-v8a",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libvorbisidec.a",
+      "runtimeFiles": []
+    },
+    "audioengine-debug-arm64-v8a": {
+      "artifactName": "audioengine",
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Application.mk",
+        "APP_ABI\u003darm64-v8a",
+        "NDK_ALL_ABIS\u003darm64-v8a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-21",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libaudioengine.a"
+      ],
+      "abi": "arm64-v8a",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libaudioengine.a",
+      "runtimeFiles": []
+    },
+    "cocos2dandroid-debug-arm64-v8a": {
+      "artifactName": "cocos2dandroid",
+      "buildCommandComponents": [
+        "/Users/srikanth/Library/Android/sdk/ndk/20.0.5594570/ndk-build",
+        "NDK_PROJECT_PATH\u003dnull",
+        "APP_BUILD_SCRIPT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Android.mk",
+        "NDK_APPLICATION_MK\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/jni/Application.mk",
+        "APP_ABI\u003darm64-v8a",
+        "NDK_ALL_ABIS\u003darm64-v8a",
+        "NDK_DEBUG\u003d1",
+        "APP_PLATFORM\u003dandroid-21",
+        "NDK_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj",
+        "NDK_LIBS_OUT\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/lib",
+        "NDK_TOOLCHAIN_VERSION\u003dclang",
+        "NDK_MODULE_PATH\u003d/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/cocos:/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/cocos2d-x/external",
+        "-j16",
+        "NDK_DEBUG\u003d1",
+        "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libcocos2dandroid.a"
+      ],
+      "abi": "arm64-v8a",
+      "output": "/Users/srikanth/dev/chimple/chimple/build/jsb-default/frameworks/runtime-src/proj.android-studio/instantapp/build/intermediates/ndkBuild/debug/obj/local/arm64-v8a/libcocos2dandroid.a",
+      "runtimeFiles": []
+    }
+  }
+}
