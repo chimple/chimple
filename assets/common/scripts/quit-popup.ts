@@ -9,60 +9,96 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class QuitPopup extends cc.Component {
+  @property(cc.Node)
+  inputEventBlocker: cc.Node = null;
 
-    @property(cc.Node)
-    inputEventBlocker: cc.Node = null;
+  @property(cc.Label)
+  exitLabel: cc.Label = null;
 
-    @property(cc.Label)
-    exitLabel: cc.Label = null;
+  @property(cc.Label)
+  videoLabel: cc.Label = null;
 
-    @property(cc.Label)
-    videoLabel: cc.Label = null;
+  isCuba = Profile.getItem(IS_CUBA);
 
-    isCuba = Profile.getItem(IS_CUBA);
+  onLoad() {
+    this.inputEventBlocker.zIndex = 2;
+    this.node.zIndex = 3;
+    this.exitLabel.string = Util.i18NText("Exit");
+    this.videoLabel.string = Util.i18NText("Watch Help Video");
+  }
 
-    onLoad() {
-        this.inputEventBlocker.zIndex = 2
-        this.node.zIndex = 3
-        this.exitLabel.string = Util.i18NText('Exit');
-        this.videoLabel.string = Util.i18NText('Watch Help Video');
+  onClickYesButton() {
+    this.node
+      .getChildByName("quit_bg")
+      .getChildByName("exit_game")
+      .getComponent(cc.Button).interactable = false;
+    Config.isMicroLink = false;
+    if (this.isCuba) {
+      const config = Config.getInstance();
+      let details = {
+        mlPartnerId: config.lesson.mlPartnerId || null,
+        mlClassId: config.lesson.mlClassId || null,
+        mlStudentId: config.lesson.mlStudentId || null,
+        // assignmentId: config.lesson.assignmentId || null,
+        courseId: config.course.id,
+        courseName: config.course.name,
+        chapterId: config.chapter.id,
+        chapterName: config.chapter.name,
+        lessonId: config.lesson.id,
+        lessonName: config.lesson.name,
+        lessonType: config.lesson.type,
+        timeSpent: config.timeSpent,
+        score: null,
+        totalGames: config.totalProblems,
+        totalMoves: config.correctMoves + config.wrongMoves,
+        correctMoves: config.correctMoves,
+        wrongMoves: config.wrongMoves,
+        gameCompleted: config.gameCompleted,
+        quizCompleted: config.quizCompleted,
+        isQuizAnsweredCorrectly: config.isQuizAnsweredCorrectly,
+        lessonSessionId: config.lessonSessionId,
+        gameTimeSpent: null,
+        quizTimeSpent: null,
+        gameScore: null,
+        quizScore: null,
+        gameName: config.game,
+        currentGameNumber: config.problem,
+        // problemSessionId: this.problemSessionId,
+      };
+      const customEvent = new CustomEvent(GAME_EXIT, {
+        detail: details,
+      });
+      window.parent.document.body.dispatchEvent(customEvent);
+      console.log("event dispatched", customEvent);
+      return;
     }
+    Config.i.popScene();
+    LessonController.getFriend().stopAudio();
+  }
 
-    onClickYesButton() {
-        this.node.getChildByName('quit_bg').getChildByName('exit_game').getComponent(cc.Button).interactable = false;
-        Config.isMicroLink = false;
-        if (this.isCuba) {
-            const customEvent = new CustomEvent(GAME_EXIT, {
-                detail: {}
-            });
-            window.parent.document.body.dispatchEvent(customEvent);
-            console.log("event dispatched", customEvent);
-            return;
-        }
-        Config.i.popScene();
-        LessonController.getFriend().stopAudio();
-    }
+  onClickNoButton() {
+    this.node.active = false;
+    this.inputEventBlocker.active = false;
+  }
 
-    onClickNoButton() {
-        this.node.active = false;
-        this.inputEventBlocker.active = false;
-    }
+  onClickHelpButton() {
+    this.node
+      .getChildByName("quit_bg")
+      .getChildByName("help_video")
+      .getComponent(cc.Button).interactable = false;
+    cc.sys.openURL("https://wa.me/917019270679");
+    this.node.active = false;
+    this.inputEventBlocker.active = false;
+  }
 
-    onClickHelpButton() {
-        this.node.getChildByName('quit_bg').getChildByName('help_video').getComponent(cc.Button).interactable = false;
-        cc.sys.openURL("https://wa.me/917019270679");
-        this.node.active = false;
-        this.inputEventBlocker.active = false;
-    }
+  onEnable() {
+    this.inputEventBlocker.active = true;
+    cc.director.pause();
+    cc.audioEngine.pauseAllEffects();
+  }
 
-    onEnable() {
-        this.inputEventBlocker.active = true;
-        cc.director.pause();
-        cc.audioEngine.pauseAllEffects();
-    }
-
-    onDisable() {
-        cc.director.resume();
-        cc.audioEngine.resumeAllEffects()
-    }
+  onDisable() {
+    cc.director.resume();
+    cc.audioEngine.resumeAllEffects();
+  }
 }
