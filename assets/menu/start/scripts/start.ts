@@ -44,7 +44,6 @@ import {
   REWARD_TYPES,
   Util,
 } from "../../../common/scripts/util";
-import Inventory from "../../inventory/scripts/inventory";
 import LessonButton from "./lessonButton";
 import ChapterLessons, { ChapterLessonType } from "./chapterLessons";
 import UtilLogger from "../../../common/scripts/util-logger";
@@ -52,9 +51,7 @@ import AssignmentPopup from "./assignmentPopup";
 import ChimpleLabel from "../../../common/scripts/chimple-label";
 import PreTestDialog from "./preTestDialog";
 import StartHeader from "./startHeader";
-import { SECTION_LIST } from "../../../private/school/scripts/landing";
 import ReConnectPopup from "./reConnectPopup";
-import Rewards from "../../rewards/scripts/rewards";
 import catchError from "../../../common/scripts/lib/error-handler";
 
 const COMPLETE_AUDIOS = [
@@ -1188,36 +1185,36 @@ export default class Start extends cc.Component {
     User.getCurrentUser().unlockRewardsForItem(currentReward.join("-"), 1);
     User.getCurrentUser().currentReward = null;
 
-    switch (currentReward[0]) {
-      case REWARD_TYPES[0]: //character
-        Rewards.contentDecisionFlag = "0";
-        Config.i.pushScene("menu/rewards/scenes/rewards", "menu");
-        break;
-      case REWARD_TYPES[1]: //background
-        Rewards.contentDecisionFlag = "1";
-        Config.i.pushScene("menu/rewards/scenes/rewards", "menu");
-        break;
-      case REWARD_TYPES[2]: //achievement
-        // NA
-        break;
-      case REWARD_TYPES[3]: //inventory
-        Inventory.characterName = currentReward[1];
-        Config.getInstance().pushScene(
-          "menu/inventory/scenes/inventory",
-          "menu"
-        );
-        break;
-      case REWARD_TYPES[4]: //lesson
-        Config.i.setRewardChapter(currentReward[1]);
-        Util.loadLesson(
-          Config.i.allLessons.get(currentReward[2]),
-          this.loading,
-          this.node
-        );
-        break;
-      default:
-        break;
-    }
+    // switch (currentReward[0]) {
+    //   case REWARD_TYPES[0]: //character
+    //     Rewards.contentDecisionFlag = "0";
+    //     Config.i.pushScene("menu/rewards/scenes/rewards", "menu");
+    //     break;
+    //   case REWARD_TYPES[1]: //background
+    //     Rewards.contentDecisionFlag = "1";
+    //     Config.i.pushScene("menu/rewards/scenes/rewards", "menu");
+    //     break;
+    //   case REWARD_TYPES[2]: //achievement
+    //     // NA
+    //     break;
+    //   case REWARD_TYPES[3]: //inventory
+    //     Inventory.characterName = currentReward[1];
+    //     Config.getInstance().pushScene(
+    //       "menu/inventory/scenes/inventory",
+    //       "menu"
+    //     );
+    //     break;
+    //   case REWARD_TYPES[4]: //lesson
+    //     Config.i.setRewardChapter(currentReward[1]);
+    //     Util.loadLesson(
+    //       Config.i.allLessons.get(currentReward[2]),
+    //       this.loading,
+    //       this.node
+    //     );
+    //     break;
+    //   default:
+    //     break;
+    // }
   }
 
   private isAssignmentsExistsInLessonPlan(): boolean {

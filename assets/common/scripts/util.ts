@@ -18,7 +18,7 @@ import VerticalAlign = cc.Label.VerticalAlign;
 import { AssignHomeWorkInfo } from "./services/parseApi";
 import Loading from "./loading";
 import { ParseImageDownloader } from "./services/ParseImageDownloader";
-import { Lesson } from "./lib/convert";
+import { Chapter, Course, Lesson } from "./lib/convert";
 
 export const INVENTORY_DATA = [
   [
@@ -913,6 +913,43 @@ export class Util {
       // config.course = config.curriculum.get(data.courseid)
       // config.chapter = config.course.chapters.find((c) => c.id == data.chapterid)
       // config.lesson = config.chapter.lessons.find((l) => l.id == data.lessonid)
+
+      config.course = {
+        chapters: [],
+        id: data.courseid,
+        name: "string",
+        lang: data.courseid,
+        type: "string",
+        levels: [],
+        isCourseMapped: false,
+      } as Course; //config.curriculum.get(data.courseid)
+
+      config.chapter = {
+        id: data.chapterid,
+        lessons: [],
+        name: "string",
+        image: "string",
+        color: "string",
+        course: config.course,
+      } as Chapter;
+
+      config.lesson = {
+        id: data.lessonid,
+        image: "string",
+        name: "string",
+        open: true,
+        type: "string",
+        skills: [],
+        color: "string",
+        chapter: config.chapter,
+        assignmentId: data.assignmentid,
+        mlPartnerId: data.mlpartnerid,
+        mlClassId: data.mlclassid,
+        mlStudentId: data.mlstudentid,
+        orig_chapter_id: undefined,
+        orig_course_id: undefined,
+        orig_lesson_id: undefined,
+      } as Lesson;
 
       config.lesson.assignmentId = data.assignmentid || null;
       config.lesson.mlPartnerId = data.mlpartnerid || null;

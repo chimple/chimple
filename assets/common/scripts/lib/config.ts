@@ -49,9 +49,12 @@ const RTL_COURSES = ["ur", "ur-maths"];
 
 export enum Lang {
   ENGLISH = "en",
+  HINDI = "hi",
+  KANNADA = "kn",
+  PUZZLE = "puzzle",
 }
 
-export const ALL_LANGS = [Lang.ENGLISH];
+export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI, Lang.KANNADA];
 
 export class LangConfig {
   font: string;
@@ -66,6 +69,33 @@ export const LANG_CONFIGS = new Map<Lang, LangConfig>([
     {
       font: "en-main",
       displayName: "English",
+      symbol: "A",
+      colorCode: "#FFBC00",
+    },
+  ],
+  [
+    Lang.HINDI,
+    {
+      font: "hi-main",
+      displayName: "हिन्दी",
+      symbol: "अ",
+      colorCode: "#3E99E7",
+    },
+  ],
+  [
+    Lang.KANNADA,
+    {
+      font: "kn-main",
+      displayName: "ಕನ್ನಡ",
+      symbol: "ಕ",
+      colorCode: "#6E4596",
+    },
+  ],
+  [
+    Lang.PUZZLE,
+    {
+      font: "en-main",
+      displayName: "Puzzle",
       symbol: "A",
       colorCode: "#FFBC00",
     },
@@ -277,6 +307,8 @@ export default class Config {
             : Profile.lang
           : (Config.i.course.lang as Lang)
         : Profile.lang || Lang.ENGLISH;
+    console.log("LANG_CONFIGS.get(lang)", lang, LANG_CONFIGS.get(lang));
+
     const langConfig = LANG_CONFIGS.get(lang);
     Config.i.currentFontName = langConfig.font;
     if (!Config.i.hasLoadedTextFont(langConfig.font)) {
