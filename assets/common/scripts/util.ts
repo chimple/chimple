@@ -919,7 +919,7 @@ export class Util {
         id: data.courseid,
         name: "string",
         lang: data.courseid,
-        type: "string",
+        type: "literacy",
         levels: [],
         isCourseMapped: false,
       } as Course; //config.curriculum.get(data.courseid)

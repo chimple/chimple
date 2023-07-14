@@ -310,6 +310,8 @@ export default class Config {
     console.log("LANG_CONFIGS.get(lang)", lang, LANG_CONFIGS.get(lang));
 
     const langConfig = LANG_CONFIGS.get(lang);
+    console.log("const langConfig ", langConfig);
+
     Config.i.currentFontName = langConfig.font;
     if (!Config.i.hasLoadedTextFont(langConfig.font)) {
       Config.i.loadFontDynamically(langConfig.font, () => {

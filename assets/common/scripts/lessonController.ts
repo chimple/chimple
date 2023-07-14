@@ -407,7 +407,11 @@ export default class LessonController extends cc.Component {
       window.parent.document.body.dispatchEvent(customEvent);
       console.log("problemEnd event dispatched", customEvent);
     }
-    UtilLogger.logChimpleEvent(eventName, event);
+    if (!isCuba) {
+      console.log(eventName, " Event Logged ", isCuba, !isCuba, !!isCuba);
+
+      UtilLogger.logChimpleEvent(eventName, event);
+    }
     if (!Config.isMicroLink) {
       const deviceId = UtilLogger.currentDeviceId();
       const logEventForIxo = {
@@ -583,31 +587,33 @@ export default class LessonController extends cc.Component {
           break;
       }
     }
-
-    UtilLogger.logChimpleEvent("lessonEnd", {
-      lessonSessionId: this.lessonSessionId,
-      chapterName: config.chapter.name,
-      chapterId: config.chapter.id,
-      lessonName: config.lesson.name,
-      lessonId: config.lesson.id,
-      courseName: config.course.id,
-      lessonType: config.lesson.type,
-      score: score,
-      timeSpent: Math.abs(timeSpent),
-      skills:
-        config.lesson.skills && config.lesson.skills.length > 0
-          ? config.lesson.skills.join(",")
-          : "",
-      attempts: user
-        ? user.lessonProgressMap.get(config.lesson.id)
-          ? user.lessonProgressMap.get(config.lesson.id).attempts
-          : 1
-        : 1,
-      assignmentId: config.lesson.assignmentId,
-      mlStudentId: config.lesson.mlStudentId,
-      mlClassId: config.lesson.mlClassId,
-      mlPartnerId: config.lesson.mlPartnerId,
-    });
+    if (!isCuba) {
+      console.log("lessonEnd Event Logged ", isCuba, !isCuba, !!isCuba);
+      UtilLogger.logChimpleEvent("lessonEnd", {
+        lessonSessionId: this.lessonSessionId,
+        chapterName: config.chapter.name,
+        chapterId: config.chapter.id,
+        lessonName: config.lesson.name,
+        lessonId: config.lesson.id,
+        courseName: config.course.id,
+        lessonType: config.lesson.type,
+        score: score,
+        timeSpent: Math.abs(timeSpent),
+        skills:
+          config.lesson.skills && config.lesson.skills.length > 0
+            ? config.lesson.skills.join(",")
+            : "",
+        attempts: user
+          ? user.lessonProgressMap.get(config.lesson.id)
+            ? user.lessonProgressMap.get(config.lesson.id).attempts
+            : 1
+          : 1,
+        assignmentId: config.lesson.assignmentId,
+        mlStudentId: config.lesson.mlStudentId,
+        mlClassId: config.lesson.mlClassId,
+        mlPartnerId: config.lesson.mlPartnerId,
+      });
+    }
 
     try {
       if (
@@ -644,27 +650,40 @@ export default class LessonController extends cc.Component {
       );
     }
 
-    const block = cc.instantiate(this.blockPrefab);
-    this.node.addChild(block);
-    // LessonController.getFriend().stopAudio()
-    const scorecard = cc.instantiate(this.scorecardPrefab);
-    const scorecardComp = scorecard.getComponent(Scorecard);
-    scorecardComp.score = score;
-    scorecardComp.text = config.lesson.name;
-    scorecardComp.reward = reward;
-    if (Config.isMicroLink && !cc.sys.isNative && !isCuba) {
-      scorecardComp.continueButton.active = false;
-    }
-    LessonController.friend.node.removeFromParent();
-    // scorecardComp.friendPos.addChild(this.friend.node)
-    // LessonController.friend.playAnimation('joy', 1)
-    this.node.addChild(scorecard);
-
     const gameConfig = GAME_CONFIGS[config.game];
     if (!!gameConfig && !!gameConfig.fontName) {
       config.releaseFont(config.currentFontName);
     }
     config.game = null;
+
+    console.log("isCuba ", isCuba, !isCuba, !!isCuba);
+    if (isCuba) {
+      console.log("went scorecard", isCuba, !!isCuba);
+      const customEvent = new CustomEvent("gameEnd", {
+        detail: {},
+      });
+      window.parent.document.body.dispatchEvent(customEvent);
+      console.log("event dispatched", customEvent);
+      return;
+    } else {
+      console.log("went scorecard", isCuba);
+
+      const block = cc.instantiate(this.blockPrefab);
+      this.node.addChild(block);
+      // LessonController.getFriend().stopAudio()
+      const scorecard = cc.instantiate(this.scorecardPrefab);
+      const scorecardComp = scorecard.getComponent(Scorecard);
+      scorecardComp.score = score;
+      scorecardComp.text = config.lesson.name;
+      scorecardComp.reward = reward;
+      if (Config.isMicroLink && !cc.sys.isNative && !isCuba) {
+        scorecardComp.continueButton.active = false;
+      }
+      LessonController.friend.node.removeFromParent();
+      // scorecardComp.friendPos.addChild(this.friend.node)
+      // LessonController.friend.playAnimation('joy', 1)
+      this.node.addChild(scorecard);
+    }
   }
 
   private setupEventHandlers() {
@@ -714,32 +733,41 @@ export default class LessonController extends cc.Component {
         ? "quizIncomplete"
         : "gameIncomplete";
       const config = Config.i;
-      UtilLogger.logChimpleEvent(eventName, {
-        gameName: config.game,
-        totalGames: config.totalProblems,
-        currentGameNumber: config.problem,
-        lessonSessionId: this.lessonSessionId,
-        problemSessionId: this.problemSessionId,
-        chapterName: config.chapter.name,
-        chapterId: config.chapter.id,
-        lessonName: config.lesson.name,
-        lessonId: config.lesson.id,
-        courseName: config.course.id,
-        problemNo: config.problem,
-        timeSpent: Math.abs(timeSpent),
-        wrongMoves: this.wrongMoves,
-        correctMoves: this.rightMoves,
-        skills:
-          config.lesson.skills && config.lesson.skills.length > 0
-            ? config.lesson.skills.join(",")
-            : "",
-        mlStudentId: config.lesson.mlStudentId,
-        mlClassId: config.lesson.mlClassId,
-        mlPartnerId: config.lesson.mlPartnerId,
-        assignmentId: config.lesson.assignmentId,
-        game_completed: this.isGameCompleted,
-        quiz_completed: this.isQuizCompleted,
-      });
+      if (!this.isCuba) {
+        console.log(
+          eventName,
+          " Event Logged ",
+          this.isCuba,
+          !this.isCuba,
+          !!this.isCuba
+        );
+        UtilLogger.logChimpleEvent(eventName, {
+          gameName: config.game,
+          totalGames: config.totalProblems,
+          currentGameNumber: config.problem,
+          lessonSessionId: this.lessonSessionId,
+          problemSessionId: this.problemSessionId,
+          chapterName: config.chapter.name,
+          chapterId: config.chapter.id,
+          lessonName: config.lesson.name,
+          lessonId: config.lesson.id,
+          courseName: config.course.id,
+          problemNo: config.problem,
+          timeSpent: Math.abs(timeSpent),
+          wrongMoves: this.wrongMoves,
+          correctMoves: this.rightMoves,
+          skills:
+            config.lesson.skills && config.lesson.skills.length > 0
+              ? config.lesson.skills.join(",")
+              : "",
+          mlStudentId: config.lesson.mlStudentId,
+          mlClassId: config.lesson.mlClassId,
+          mlPartnerId: config.lesson.mlPartnerId,
+          assignmentId: config.lesson.assignmentId,
+          game_completed: this.isGameCompleted,
+          quiz_completed: this.isQuizCompleted,
+        });
+      }
     }
   }
 
