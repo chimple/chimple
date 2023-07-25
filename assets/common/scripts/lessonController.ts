@@ -493,11 +493,11 @@ export default class LessonController extends cc.Component {
         correctMoves: this.rightMoves,
         correct: this.isQuizAnsweredCorrectly ? 1 : 0,
       };
-      if (config.lesson.id == config.course.id + "_PreQuiz") {
-        detail["preQuizChapterId"] = UtilLogger.getChapterIdForPrequiz(
-          this.quizScores
-        );
-      }
+      // if (config.lesson.id == config.course.id + "_PreQuiz") {
+      //   detail["preQuizChapterId"] = UtilLogger.getChapterIdForPrequiz(
+      //     this.quizScores
+      //   );
+      // }
       const event = new CustomEvent("lessonEnd", {
         detail: detail,
       });
@@ -506,87 +506,6 @@ export default class LessonController extends cc.Component {
       // return;
     }
 
-    const user = User.getCurrentUser();
-    var reward: [string, string];
-    if (user) {
-      reward = user.updateLessonProgress(
-        config.lesson.id,
-        score,
-        this.quizScores,
-        config.lesson.assignmentId
-      );
-      let finishedLessons = 0;
-      let percentageComplete = 0;
-      if (
-        config.chapter &&
-        config.chapter.lessons &&
-        config.chapter.lessons.length > 0
-      ) {
-        config.chapter.lessons.forEach((lesson: Lesson) => {
-          user.lessonProgressMap.has(lesson.id) ? finishedLessons++ : "";
-        });
-        percentageComplete = finishedLessons / config.chapter.lessons.length;
-      }
-
-      switch (ServiceConfig.getI().mode) {
-        case APIMode.FIREBASE:
-          let updateInfo = {
-            lessonName: config.lesson.name,
-            chapterName: config.chapter.name,
-            chapter: config.chapter.id,
-            lesson: config.lesson.id,
-            courseName: config.course.id,
-            percentComplete: percentageComplete,
-            timespent: Math.abs(timeSpent),
-            assignmentId: config.lesson.assignmentId,
-            assessment: score,
-            kind: "Progress",
-            studentId: User.getCurrentUser().id,
-            dateTimeStamp: new Date().getTime(),
-          };
-          let mode = parseInt(Profile.getValue(CURRENTMODE));
-          if (mode === Mode.School || mode === Mode.HomeConnect) {
-            if (mode === Mode.School || user.isConnected) {
-              UtilLogger.historyProgress(
-                updateInfo.chapter,
-                updateInfo.chapterName,
-                updateInfo.lesson,
-                updateInfo.lessonName,
-                User.getCurrentUser().id,
-                User.getCurrentUser().schoolId,
-                User.getCurrentUser().sectionId,
-                updateInfo.courseName,
-                "" + updateInfo.assessment,
-                config.lesson.assignmentId,
-                User.getCurrentUser().name,
-                timeSpent.toString()
-              );
-            }
-          } else {
-            Queue.getInstance().push(updateInfo);
-          }
-          break;
-        case APIMode.PARSE:
-          if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
-            let updateInfo = {
-              chapter: config.chapter.id,
-              lesson: config.lesson.id,
-              courseName: config.course.id,
-              percentComplete: percentageComplete,
-              timespent: Math.abs(timeSpent),
-              assessment: score,
-              kind: "Progress",
-              schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
-              studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
-              sectionId: cc.sys.localStorage.getItem(CURRENT_SECTION_ID),
-              subjectId: cc.sys.localStorage.getItem(CURRENT_SUBJECT_ID),
-            };
-
-            Queue.getInstance().push(updateInfo);
-          }
-          break;
-      }
-    }
     if (!isCuba) {
       console.log("lessonEnd Event Logged ", isCuba, !isCuba, !!isCuba);
       UtilLogger.logChimpleEvent("lessonEnd", {
@@ -603,11 +522,7 @@ export default class LessonController extends cc.Component {
           config.lesson.skills && config.lesson.skills.length > 0
             ? config.lesson.skills.join(",")
             : "",
-        attempts: user
-          ? user.lessonProgressMap.get(config.lesson.id)
-            ? user.lessonProgressMap.get(config.lesson.id).attempts
-            : 1
-          : 1,
+        attempts: undefined,
         assignmentId: config.lesson.assignmentId,
         mlStudentId: config.lesson.mlStudentId,
         mlClassId: config.lesson.mlClassId,
@@ -658,15 +573,97 @@ export default class LessonController extends cc.Component {
 
     console.log("isCuba ", isCuba, !isCuba, !!isCuba);
     if (isCuba) {
-      console.log("went scorecard", isCuba, !!isCuba);
+      console.log("no scorecard", isCuba, !!isCuba);
       const customEvent = new CustomEvent("gameEnd", {
         detail: {},
       });
       window.parent.document.body.dispatchEvent(customEvent);
-      console.log("event dispatched", customEvent);
+      console.log("line no 580 returning to cuba ", customEvent);
       return;
     } else {
       console.log("went scorecard", isCuba);
+
+      const user = User.getCurrentUser();
+      var reward: [string, string];
+      if (user) {
+        reward = user.updateLessonProgress(
+          config.lesson.id,
+          score,
+          this.quizScores,
+          config.lesson.assignmentId
+        );
+        let finishedLessons = 0;
+        let percentageComplete = 0;
+        if (
+          config.chapter &&
+          config.chapter.lessons &&
+          config.chapter.lessons.length > 0
+        ) {
+          config.chapter.lessons.forEach((lesson: Lesson) => {
+            user.lessonProgressMap.has(lesson.id) ? finishedLessons++ : "";
+          });
+          percentageComplete = finishedLessons / config.chapter.lessons.length;
+        }
+
+        switch (ServiceConfig.getI().mode) {
+          case APIMode.FIREBASE:
+            let updateInfo = {
+              lessonName: config.lesson.name,
+              chapterName: config.chapter.name,
+              chapter: config.chapter.id,
+              lesson: config.lesson.id,
+              courseName: config.course.id,
+              percentComplete: percentageComplete,
+              timespent: Math.abs(timeSpent),
+              assignmentId: config.lesson.assignmentId,
+              assessment: score,
+              kind: "Progress",
+              studentId: User.getCurrentUser().id,
+              dateTimeStamp: new Date().getTime(),
+            };
+            let mode = parseInt(Profile.getValue(CURRENTMODE));
+            if (mode === Mode.School || mode === Mode.HomeConnect) {
+              if (mode === Mode.School || user.isConnected) {
+                UtilLogger.historyProgress(
+                  updateInfo.chapter,
+                  updateInfo.chapterName,
+                  updateInfo.lesson,
+                  updateInfo.lessonName,
+                  User.getCurrentUser().id,
+                  User.getCurrentUser().schoolId,
+                  User.getCurrentUser().sectionId,
+                  updateInfo.courseName,
+                  "" + updateInfo.assessment,
+                  config.lesson.assignmentId,
+                  User.getCurrentUser().name,
+                  timeSpent.toString()
+                );
+              }
+            } else {
+              Queue.getInstance().push(updateInfo);
+            }
+            break;
+          case APIMode.PARSE:
+            if (cc.sys.localStorage.getItem(CURRENT_STUDENT_ID)) {
+              let updateInfo = {
+                chapter: config.chapter.id,
+                lesson: config.lesson.id,
+                courseName: config.course.id,
+                percentComplete: percentageComplete,
+                timespent: Math.abs(timeSpent),
+                assessment: score,
+                kind: "Progress",
+                schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
+                studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
+                sectionId: cc.sys.localStorage.getItem(CURRENT_SECTION_ID),
+                subjectId: cc.sys.localStorage.getItem(CURRENT_SUBJECT_ID),
+              };
+
+              Queue.getInstance().push(updateInfo);
+            }
+            break;
+        }
+      }
 
       const block = cc.instantiate(this.blockPrefab);
       this.node.addChild(block);
