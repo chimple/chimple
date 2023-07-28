@@ -918,8 +918,8 @@ export class Util {
         chapters: [],
         id: data.courseid,
         name: "string",
-        lang: data.courseid,
-        type: "literacy",
+        lang: data.courseid == "maths" ? "en" : data.courseid,
+        type: data.courseid == "maths" ? "maths" : "literacy",
         levels: [],
         isCourseMapped: false,
       } as Course; //config.curriculum.get(data.courseid)
