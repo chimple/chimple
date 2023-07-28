@@ -73,6 +73,7 @@ export default class LessonController extends cc.Component {
   lessonSessionId: string = null;
   problemSessionId: string = null;
   problemStartTime: number = new Date().getTime();
+  quizStartTime: number = 0;
   problemTime: number = 0;
   isGameCompleted: boolean = false;
   isQuizCompleted: boolean = false;
@@ -285,8 +286,17 @@ export default class LessonController extends cc.Component {
   }
 
   private problemStart(replaceScene: boolean) {
+    const config = Config.getInstance();
     this.problemStartTime = new Date().getTime();
     this.problemSessionId = User.createUUID();
+    this.isQuiz =
+      config.game.toLowerCase().includes("quizmaths") ||
+      config.game.toLowerCase().includes("quizliteracy");
+
+    if (this.isQuiz) {
+      this.quizStartTime = new Date().getTime();
+      console.log("this.quizStartTime in problemStart", this.quizStartTime);
+    }
     if (replaceScene) {
       LessonController.preloadGame((prefab: cc.Prefab) => {
         LessonController.friend.extraClip = null;
@@ -347,8 +357,12 @@ export default class LessonController extends cc.Component {
       config.game.toLowerCase().includes("quizmaths") ||
       config.game.toLowerCase().includes("quizliteracy");
     this.isQuizCompleted = this.isQuiz ? true : false;
-    this.isGameCompleted = this.isQuiz ? false : true;
+    this.isGameCompleted = this.isQuiz && !this.isGameCompleted ? false : true;
     if (this.isQuiz) {
+      this.quizStartTime = Math.ceil(
+        (new Date().getTime() - this.quizStartTime) / 1000
+      );
+      //   this.quizStartTime = new Date().getTime();
       this.totalQuizzes++;
       this.quizScores.push(this.isQuizAnsweredCorrectly ? 1 : 0);
     }
@@ -362,6 +376,7 @@ export default class LessonController extends cc.Component {
         correct: this.rightMoves,
         totalChallenges: config.totalProblems,
         totalSeconds: timeSpent,
+        quizStartTime: this.quizStartTime,
         activity: config.game,
         kind: "Monitor",
         schoolId: cc.sys.localStorage.getItem(CURRENT_SCHOOL_ID),
@@ -373,32 +388,38 @@ export default class LessonController extends cc.Component {
 
     const eventName: string = this.isQuiz ? "quizEnd" : "gameEnd";
     const event = {
-      lessonSessionId: this.lessonSessionId,
-      gameName: config.game,
-      totalGames: config.totalProblems,
-      currentGameNumber: config.problem,
-      problemSessionId: this.problemSessionId,
-      chapterName: config.chapter.name,
-      chapterId: config.chapter.id,
-      lessonName: config.lesson.name,
-      lessonId: config.lesson.id,
-      courseName: config.course.id,
-      problemNo: config.problem,
-      timeSpent: Math.abs(timeSpent),
-      wrongMoves: this.wrongMoves,
-      correctMoves: this.rightMoves,
-      correct: this.isQuizAnsweredCorrectly ? 1 : 0,
-      skills:
-        config.lesson.skills && config.lesson.skills.length > 0
-          ? config.lesson.skills.join(",")
-          : "",
-      game_completed: this.isGameCompleted,
-      quiz_completed: this.isQuizCompleted,
-      assignmentId: config.lesson.assignmentId || null,
-      mlStudentId: config.lesson.mlStudentId || null,
-      mlClassId: config.lesson.mlClassId || null,
       mlPartnerId: config.lesson.mlPartnerId || null,
+      mlClassId: config.lesson.mlClassId || null,
+      mlStudentId: config.lesson.mlStudentId || null,
+      assignmentId: config.lesson.assignmentId || null,
+      courseId: config.course.id,
+      courseName: config.course.name,
+      chapterId: config.chapter.id,
+      chapterName: config.chapter.name,
+      lessonId: config.lesson.id,
+      lessonName: config.lesson.name,
+      lessonType: "InComplete",
+      timeSpent: Math.abs(timeSpent),
+      totalGames: config.totalProblems,
+      totalMoves: this.rightMoves + this.wrongMoves,
+      correctMoves: this.rightMoves,
+      wrongMoves: this.wrongMoves,
+      gameCompleted: this.isGameCompleted,
+      quizCompleted: this.isQuizCompleted,
+      isQuizAnsweredCorrectly: this.isQuizAnsweredCorrectly ? 1 : 0,
+      lessonSessionId: this.lessonSessionId,
     };
+
+    //Set Lesson Result to config Class
+    config.totalMoves = this.rightMoves + this.wrongMoves;
+    config.correctMoves = this.rightMoves;
+    config.wrongMoves = this.wrongMoves;
+    config.gameCompleted = this.isGameCompleted;
+    config.quizCompleted = this.isQuizCompleted;
+    config.isQuizAnsweredCorrectly = this.isQuizAnsweredCorrectly;
+    config.lessonSessionId = this.lessonSessionId;
+    config.timeSpent = timeSpent;
+
     const isCuba = Profile.getItem(IS_CUBA);
     if (isCuba) {
       const customEvent = new CustomEvent("problemEnd", {
@@ -476,28 +497,81 @@ export default class LessonController extends cc.Component {
         : (this.rightMoves / (this.rightMoves + this.wrongMoves)) * 100
     );
 
+    console.log(
+      "quizscore =this.quizScore / this.totalQuizzes",
+      this.quizScore,
+      this.totalQuizzes,
+      this.quizScore / this.totalQuizzes,
+      (this.quizScore / this.totalQuizzes) * 100
+    );
+
+    const quizScore = Math.round((this.quizScore / this.totalQuizzes) * 100);
+
+    console.log(
+      "gamescore =this.quizScore / this.totalQuizzes",
+      this.rightMoves,
+      this.wrongMoves,
+      this.rightMoves + this.wrongMoves,
+      this.rightMoves / (this.rightMoves + this.wrongMoves),
+      (this.rightMoves / (this.rightMoves + this.wrongMoves)) * 100
+    );
+
+    const gameScore = Math.round(
+      (this.rightMoves / (this.rightMoves + this.wrongMoves)) * 100
+    );
+
+    console.log("Gamescore and quizscore ", gameScore, quizScore);
+
     if (isNaN(score)) score = 0;
     const isCuba = Profile.getItem(IS_CUBA);
+
+    //Set Lesson Result to config Class
+    config.totalMoves = this.rightMoves + this.wrongMoves;
+    config.correctMoves = this.rightMoves;
+    config.wrongMoves = this.wrongMoves;
+    config.gameCompleted = this.isGameCompleted;
+    config.quizCompleted = this.isQuizCompleted;
+    config.isQuizAnsweredCorrectly = this.isQuizAnsweredCorrectly;
+    config.lessonSessionId = this.lessonSessionId;
+    config.timeSpent = timeSpent;
+    config.score = score;
+
     if (isCuba) {
       const detail = {
-        chapterName: config.chapter.name,
+        mlPartnerId: config.lesson.mlPartnerId || null,
+        mlClassId: config.lesson.mlClassId || null,
+        mlStudentId: config.lesson.mlStudentId || null,
+        // assignmentId: config.lesson.assignmentId || null,
+        courseId: config.course.id,
+        courseName: config.course.name,
         chapterId: config.chapter.id,
-        lessonName: config.lesson.name,
+        chapterName: config.chapter.name,
         lessonId: config.lesson.id,
-        courseName: config.course.id,
+        lessonName: config.lesson.name,
         lessonType: config.lesson.type,
-        score: score,
         timeSpent: Math.abs(timeSpent),
+        score: score,
         totalGames: config.totalProblems,
-        wrongMoves: this.wrongMoves,
+        totalMoves: this.rightMoves + this.wrongMoves,
         correctMoves: this.rightMoves,
-        correct: this.isQuizAnsweredCorrectly ? 1 : 0,
+        wrongMoves: this.wrongMoves,
+        gameCompleted: this.isGameCompleted,
+        quizCompleted: this.isQuizCompleted,
+        isQuizAnsweredCorrectly: this.isQuizAnsweredCorrectly ? 1 : 0,
+        lessonSessionId: this.lessonSessionId,
+        gameTimeSpent: 0,
+        quizTimeSpent: 0,
+        // gameScore: gameScore,
+        // quizScore: quizScore,
+        gameName: null,
+        currentGameNumber: null,
+        // problemSessionId: this.problemSessionId,
       };
-      // if (config.lesson.id == config.course.id + "_PreQuiz") {
-      //   detail["preQuizChapterId"] = UtilLogger.getChapterIdForPrequiz(
-      //     this.quizScores
-      //   );
-      // }
+      if (config.lesson.id == config.course.id + "_PreQuiz") {
+        detail["preQuizChapterId"] = UtilLogger.getChapterIdForPrequiz(
+          this.quizScores
+        );
+      }
       const event = new CustomEvent("lessonEnd", {
         detail: detail,
       });
