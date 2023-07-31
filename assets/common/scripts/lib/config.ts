@@ -168,6 +168,17 @@ export default class Config {
   prevChapter: Chapter;
   startCourse: Course;
 
+  //Current Lesson Result
+  totalMoves: number;
+  correctMoves: number;
+  wrongMoves: number;
+  gameCompleted: boolean;
+  quizCompleted: boolean;
+  isQuizAnsweredCorrectly: boolean;
+  lessonSessionId: string;
+  timeSpent: number;
+  score: number;
+
   //remove later
   flow: Flow;
 
