@@ -293,9 +293,9 @@ export default class LessonController extends cc.Component {
       config.game.toLowerCase().includes("quizmaths") ||
       config.game.toLowerCase().includes("quizliteracy");
 
-    if (this.isQuiz) {
+    if (this.isQuiz && this.quizStartTime <= 0) {
       this.quizStartTime = new Date().getTime();
-      console.log("this.quizStartTime in problemStart", this.quizStartTime);
+      // this.quizTime = this.quizTime + this.quizStartTime;
     }
     if (replaceScene) {
       LessonController.preloadGame((prefab: cc.Prefab) => {
@@ -358,10 +358,21 @@ export default class LessonController extends cc.Component {
       config.game.toLowerCase().includes("quizliteracy");
     this.isQuizCompleted = this.isQuiz ? true : false;
     this.isGameCompleted = this.isQuiz && !this.isGameCompleted ? false : true;
+    let quizTimeSpent = Math.ceil(
+      (new Date().getTime() - this.quizStartTime) / 1000
+    );
+    console.log(
+      "this.quizStartTime in problemEnd",
+      quizTimeSpent,
+      new Date().getTime(),
+      this.quizStartTime,
+      new Date().getTime() - this.quizStartTime,
+      (new Date().getTime() - this.quizStartTime) / 1000,
+      Math.ceil((new Date().getTime() - this.quizStartTime) / 1000)
+    );
     if (this.isQuiz) {
-      this.quizStartTime = Math.ceil(
-        (new Date().getTime() - this.quizStartTime) / 1000
-      );
+      // if (this.quizStartTime <= 0) {
+      // }
       //   this.quizStartTime = new Date().getTime();
       this.totalQuizzes++;
       this.quizScores.push(this.isQuizAnsweredCorrectly ? 1 : 0);
@@ -490,6 +501,14 @@ export default class LessonController extends cc.Component {
     if (Math.abs(timeSpent) > 1200) {
       timeSpent = 1200;
     }
+    let quizTimeSpent = -1;
+    if (this.quizStartTime > 0) {
+      quizTimeSpent = Math.ceil(
+        (new Date().getTime() - this.quizStartTime) / 1000
+      );
+    }
+    let gameTimeSpent = timeSpent - quizTimeSpent;
+
     let score: number = Math.round(
       this.totalQuizzes > 0
         ? (this.quizScore / this.totalQuizzes) * 70 +
@@ -497,13 +516,7 @@ export default class LessonController extends cc.Component {
         : (this.rightMoves / (this.rightMoves + this.wrongMoves)) * 100
     );
 
-    console.log(
-      "quizscore =this.quizScore / this.totalQuizzes",
-      this.quizScore,
-      this.totalQuizzes,
-      this.quizScore / this.totalQuizzes,
-      (this.quizScore / this.totalQuizzes) * 100
-    );
+    console.log("gameTimeSpent & quizTimeSpent ", gameTimeSpent, quizTimeSpent);
 
     const quizScore = Math.round((this.quizScore / this.totalQuizzes) * 100);
 
@@ -559,19 +572,19 @@ export default class LessonController extends cc.Component {
         quizCompleted: this.isQuizCompleted,
         isQuizAnsweredCorrectly: this.isQuizAnsweredCorrectly ? 1 : 0,
         lessonSessionId: this.lessonSessionId,
-        gameTimeSpent: Math.abs(timeSpent),
-        quizTimeSpent: Math.abs(timeSpent),
+        gameTimeSpent: Math.abs(gameTimeSpent),
+        quizTimeSpent: Math.abs(quizTimeSpent),
         gameScore: gameScore,
         quizScore: isNaN(quizScore) ? -1 : quizScore,
         gameName: null,
         currentGameNumber: null,
         // problemSessionId: this.problemSessionId,
       };
-      if (config.lesson.id == config.course.id + "_PreQuiz") {
-        detail["preQuizChapterId"] = UtilLogger.getChapterIdForPrequiz(
-          this.quizScores
-        );
-      }
+      // if (config.lesson.id == config.course.id + "_PreQuiz") {
+      //   detail["preQuizChapterId"] = UtilLogger.getChapterIdForPrequiz(
+      //     this.quizScores
+      //   );
+      // }
       const event = new CustomEvent("lessonEnd", {
         detail: detail,
       });
