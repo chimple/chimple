@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "38c92dfa-c0e9-4d31-ae2e-87e7b92c9b65",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1000,
+  "height": 612,
+  "platformSettings": {},
+  "subMetas": {
+    "bird-outline-tutorial": {
+      "ver": "1.0.6",
+      "uuid": "e75c73d8-5578-4acc-adca-164605090dba",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "38c92dfa-c0e9-4d31-ae2e-87e7b92c9b65",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -10,
+      "offsetY": 1.5,
+      "trimX": 138,
+      "trimY": 2,
+      "width": 704,
+      "height": 605,
+      "rawWidth": 1000,
+      "rawHeight": 612,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

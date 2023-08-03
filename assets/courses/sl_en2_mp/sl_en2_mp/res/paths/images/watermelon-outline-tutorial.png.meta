@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "f410695a-d21e-4241-9fa0-3fa4b452453c",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1000,
+  "height": 612,
+  "platformSettings": {},
+  "subMetas": {
+    "watermelon-outline-tutorial": {
+      "ver": "1.0.6",
+      "uuid": "c916f154-f681-448e-9972-b930f71b35eb",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "f410695a-d21e-4241-9fa0-3fa4b452453c",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 11.5,
+      "offsetY": -2,
+      "trimX": 207,
+      "trimY": 4,
+      "width": 609,
+      "height": 608,
+      "rawWidth": 1000,
+      "rawHeight": 612,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
