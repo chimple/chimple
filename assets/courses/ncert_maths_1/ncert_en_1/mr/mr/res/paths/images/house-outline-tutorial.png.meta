@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "b60bec37-c9ca-4e67-b772-9bd6d936056a",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1000,
+  "height": 612,
+  "platformSettings": {},
+  "subMetas": {
+    "house-outline-tutorial": {
+      "ver": "1.0.6",
+      "uuid": "d438cd6c-8dbd-4565-a831-d7b598415343",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "b60bec37-c9ca-4e67-b772-9bd6d936056a",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -5,
+      "offsetY": 2,
+      "trimX": 213,
+      "trimY": 0,
+      "width": 564,
+      "height": 608,
+      "rawWidth": 1000,
+      "rawHeight": 612,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
