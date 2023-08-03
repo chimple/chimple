@@ -1,0 +1,5 @@
+include ':firebaseSync'
+include ':libcocos2dx',':game', ':instantapp'
+project(':libcocos2dx').projectDir = new File(settingsDir, '../../cocos2d-x/cocos/platform/android/libcocos2dx')
+include ':bahama'
+project(':bahama').projectDir = new File(settingsDir, 'app')

@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.chimple.bahama"
+    android:installLocation="auto">
+
+    <uses-feature android:glEsVersion="0x00020000" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application
+        android:allowBackup="false"
+        android:fullBackupOnly="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:usesCleartextTraffic="true">
+        <meta-data
+            android:name="android.app.lib_name"
+            android:value="cocos2djs" />
+
+        <!-- [END fcm_default_icon] -->
+        <!-- [START fcm_default_channel] -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+
+        <activity
+            android:name="org.chimple.bahama.AppActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="sensorLandscape"
+            android:taskAffinity=""
+            android:theme="@style/AppTheme">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter android:label="filter_react_native">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data 
+                    android:scheme="chimple" 
+                    android:host="chimple.net" 
+                    android:pathPrefix="/received_teacher_request" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="http"
+                    android:host="chimple.github.io"
+                    android:pathPrefix="/received_teacher_request" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="chimple"
+                    android:host="chimple.cc"
+                    android:pathPrefix="/microlink" />
+            </intent-filter>            
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="chimple.cc"
+                    android:pathPrefix="/microlink" />
+            </intent-filter>            
+        </activity>
+        <activity
+            android:name="org.chimple.bahama.YoutubeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="sensorLandscape"
+            android:taskAffinity=""
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name="org.chimple.bahama.LoadScreen"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="sensorLandscape"
+            android:taskAffinity=""
+            android:theme="@style/AppTheme">
+
+        </activity>
+
+<!--        <receiver-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.android.gms.measurement.UPLOAD" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <service-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementService"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false" />-->
+<!--        <receiver-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true"-->
+<!--            android:permission="android.permission.INSTALL_PACKAGES">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.android.vending.INSTALL_REFERRER" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <service-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementJobService"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false"-->
+<!--            android:permission="android.permission.BIND_JOB_SERVICE" />-->
+<!--        <meta-data-->
+<!--            android:name="com.google.android.gms.version"-->
+<!--            android:value="@integer/google_play_services_version" />-->
+<!--        <receiver-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.android.gms.measurement.UPLOAD" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <service-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementService"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false" />-->
+<!--        <receiver-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true"-->
+<!--            android:permission="android.permission.INSTALL_PACKAGES">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.android.vending.INSTALL_REFERRER" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <service-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementJobService"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false"-->
+<!--            android:permission="android.permission.BIND_JOB_SERVICE" />-->
+<!--        <receiver-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.android.gms.measurement.UPLOAD" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <service-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementService"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false" />-->
+<!--        <receiver-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true"-->
+<!--            android:permission="android.permission.INSTALL_PACKAGES">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.android.vending.INSTALL_REFERRER" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <service-->
+<!--            android:name="com.google.android.gms.measurement.AppMeasurementJobService"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false"-->
+<!--            android:permission="android.permission.BIND_JOB_SERVICE" />-->
+        <service
+            android:name="org.chimple.bahama.logger.ChimpleFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+    </application>
+</manifest>

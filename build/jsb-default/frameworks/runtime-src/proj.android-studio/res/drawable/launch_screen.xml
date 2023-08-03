@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
+
+    <!-- The background colour -->
+    <item android:drawable="@android:color/white"/>
+
+    <!-- Your splash file - your png file name without extension-->
+    <item android:gravity="center">
+
+        <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+            android:oneshot="false">
+            <item android:drawable="@drawable/icon_0" android:duration="60" />
+        </animation-list>
+
+
+    </item>
+
+
+</layer-list>
