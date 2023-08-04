@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "9d0d2fcb-daf5-457b-b095-f22d2c798d7c",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1000,
+  "height": 612,
+  "platformSettings": {},
+  "subMetas": {
+    "moon-outline-tutorial": {
+      "ver": "1.0.6",
+      "uuid": "2ca0021b-82d7-4439-8974-7750054eaa0e",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "9d0d2fcb-daf5-457b-b095-f22d2c798d7c",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": -35.5,
+      "trimX": 8,
+      "trimY": 85,
+      "width": 984,
+      "height": 513,
+      "rawWidth": 1000,
+      "rawHeight": 612,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

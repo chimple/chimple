@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "3109b6da-3fc0-4640-a3bc-7a9989b6607d",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1000,
+  "height": 612,
+  "platformSettings": {},
+  "subMetas": {
+    "dog-outline-tutorial": {
+      "ver": "1.0.6",
+      "uuid": "3da22def-7fa3-488e-916a-5ff2d48e9133",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "3109b6da-3fc0-4640-a3bc-7a9989b6607d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 22.5,
+      "offsetY": -1.5,
+      "trimX": 154,
+      "trimY": 3,
+      "width": 737,
+      "height": 609,
+      "rawWidth": 1000,
+      "rawHeight": 612,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
