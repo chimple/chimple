@@ -364,7 +364,6 @@ export default class LessonController extends cc.Component {
         studentId: cc.sys.localStorage.getItem(CURRENT_STUDENT_ID),
         classId: cc.sys.localStorage.getItem(CURRENT_CLASS_ID),
       };
-      console.log("id1", config.lesson.id);
       Queue.getInstance().push(monitorInfo);
     }
 
@@ -396,7 +395,6 @@ export default class LessonController extends cc.Component {
       mlClassId: config.lesson.mlClassId || null,
       mlPartnerId: config.lesson.mlPartnerId || null,
     };
-    console.log("id2", config.lesson.id);
     UtilLogger.logChimpleEvent(eventName, event);
     if (!Config.isMicroLink) {
       const deviceId = UtilLogger.currentDeviceId();
@@ -416,7 +414,6 @@ export default class LessonController extends cc.Component {
         userId: User.getCurrentUser().id,
         deviceId: deviceId,
       };
-      console.log("id2", config.lesson.id);
       const headerCSV = Object.keys(logEventForIxo).join(",");
       const eventCSV = Object.values(logEventForIxo).join(",");
       UtilLogger.logToDaily(deviceId, headerCSV, eventCSV);
