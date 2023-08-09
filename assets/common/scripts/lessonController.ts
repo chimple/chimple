@@ -561,7 +561,7 @@ export default class LessonController extends cc.Component {
         chapterName: config.chapter.name,
         lessonId: config.lesson.id,
         lessonName: config.lesson.name,
-        lessonType: config.lesson.type,
+        lessonType: "completed",
         timeSpent: Math.abs(timeSpent),
         score: score,
         totalGames: config.totalProblems,
