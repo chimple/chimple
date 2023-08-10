@@ -36,8 +36,6 @@ export interface Lesson {
   mlPartnerId?: string;
   mlClassId?: string;
   mlStudentId?: string;
-  orig_chapter_id?: string;
-  orig_course_id?: string;
   orig_lesson_id?: string;
 }
 

@@ -57,14 +57,14 @@ export enum Direction {
 const RTL_COURSES = ["ur", "ur-maths"];
 
 export enum Lang {
-  ENGLISH = "en",
-  HINDI = "hi",
-  KANNADA = "kn",
-  MARATHI = "mr",
+  // ENGLISH = "en",
+  // HINDI = "hi",
+  // KANNADA = "kn",
+  // MARATHI = "mr",
   SIERRA_LEONE_ENGLISH = "sl_en",
 }
 
-export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI, Lang.KANNADA, Lang.MARATHI];
+export const ALL_LANGS = [Lang.SIERRA_LEONE_ENGLISH];
 
 export class LangConfig {
   font: string;
@@ -74,42 +74,42 @@ export class LangConfig {
 }
 
 export const LANG_CONFIGS = new Map<Lang, LangConfig>([
-  [
-    Lang.ENGLISH,
-    {
-      font: "en-main",
-      displayName: "English",
-      symbol: "A",
-      colorCode: "#FFBC00",
-    },
-  ],
-  [
-    Lang.HINDI,
-    {
-      font: "hi-main",
-      displayName: "हिन्दी",
-      symbol: "अ",
-      colorCode: "#3E99E7",
-    },
-  ],
-  [
-    Lang.KANNADA,
-    {
-      font: "kn-main",
-      displayName: "ಕನ್ನಡ",
-      symbol: "ಕ",
-      colorCode: "#6E4596",
-    },
-  ],
-  [
-    Lang.MARATHI,
-    {
-      font: "mr-main",
-      displayName: "मराठी",
-      symbol: "म",
-      colorCode: "#99EE55",
-    },
-  ],
+  // [
+  //   Lang.ENGLISH,
+  //   {
+  //     font: "en-main",
+  //     displayName: "English",
+  //     symbol: "A",
+  //     colorCode: "#FFBC00",
+  //   },
+  // ],
+  // [
+  //   Lang.HINDI,
+  //   {
+  //     font: "hi-main",
+  //     displayName: "हिन्दी",
+  //     symbol: "अ",
+  //     colorCode: "#3E99E7",
+  //   },
+  // ],
+  // [
+  //   Lang.KANNADA,
+  //   {
+  //     font: "kn-main",
+  //     displayName: "ಕನ್ನಡ",
+  //     symbol: "ಕ",
+  //     colorCode: "#6E4596",
+  //   },
+  // ],
+  // [
+  //   Lang.MARATHI,
+  //   {
+  //     font: "mr-main",
+  //     displayName: "मराठी",
+  //     symbol: "म",
+  //     colorCode: "#99EE55",
+  //   },
+  // ],
   [
     Lang.SIERRA_LEONE_ENGLISH,
     {
@@ -322,15 +322,14 @@ export default class Config {
       scene == "common/scenes/lessonController"
         ? Config.i.course.id == "maths"
           ? Config.i.hasTracing
-            ? Lang.ENGLISH
+            ? Lang.SIERRA_LEONE_ENGLISH
             : Profile.lang
           : (Config.i.course.lang as Lang)
-        : Profile.lang || Lang.ENGLISH;
-    const langConfig = LANG_CONFIGS.get(lang);
-    Config.i.currentFontName = langConfig.font;
-    if (!Config.i.hasLoadedTextFont(langConfig.font)) {
-      Config.i.loadFontDynamically(langConfig.font, () => {
-        cc.log("Loading font ....", langConfig.font);
+        : Profile.lang || Lang.SIERRA_LEONE_ENGLISH;
+    Config.i.currentFontName = "en-main";
+    if (!Config.i.hasLoadedTextFont("en-main")) {
+      Config.i.loadFontDynamically("en-main", () => {
+        cc.log("Loading font ....", "en-main");
         Config.continueLoadScene(scene, bundle, callback);
       });
     } else {
