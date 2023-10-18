@@ -2,7 +2,6 @@ import { Util } from "./util";
 import { Chapter } from "../../common/scripts/lib/convert";
 import { Lesson } from "./lib/convert";
 import { User } from "./lib/profile";
-import { ALL_OPEN } from "./lib/constants";
 
 const { ccclass, property } = cc._decorator;
 
@@ -41,7 +40,7 @@ export default class LessonIcon extends cc.Component {
             }
             })
 
-        if (this.open || ALL_OPEN) {
+        if (this.open) {
             const currentLesson = User.getCurrentUser().lessonProgressMap.get(this.lesson.id)
             if (User.getCurrentUser().debug != true) {
                 try {

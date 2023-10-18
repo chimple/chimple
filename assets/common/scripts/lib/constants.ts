@@ -24,8 +24,6 @@ export const ASSET_LOAD_METHOD = 'file'; //'file', 'resources'
 // export const COURSES_URL = 'http://localhost:8901/courses/'
 export const ANDROID_ROOT_DIR = '/sdcard/bahama/';
 export const SIMULATOR_ROOT_DIR = '/Users/shyamalupadhyaya/Dev/chimple-git/sdcard/bahama/';
-// Constant to control whether all lessons will be open
-export const ALL_OPEN = true;
 
 export const COURSE_SERVER = {
     'local': {
