@@ -494,6 +494,8 @@ export default class Config {
     lessons: Array<Lesson> = null,
     maxPerLesson: number = 0
   ) {
+    console.log("loadLessonJson called ");
+
     if (this.problem != 0) {
       callback(this._lessonData.rows[this.problem - 1]);
     } else if (lessons != null) {
@@ -515,7 +517,7 @@ export default class Config {
               return el[0].toLowerCase().includes("quiz");
             })
             .map((el) => {
-              el[2] = les.id;
+              el[2] = les.orig_lesson_id || les.id;
               return el;
             });
           allLessonData = allLessonData.concat(

@@ -241,10 +241,17 @@ export default class LessonController extends cc.Component {
     const config = Config.i;
     cc.log("in preload", config.data);
     config.game = config.data[0][0];
-    config.currentGameLessonId = config.data[0][2];
+    // config.currentGameLessonId = config.data[0][2];
+    // config.lesson.type == EXAM
+    let isQuiz =
+      config.game.toLowerCase().includes("quizmaths") ||
+      config.game.toLowerCase().includes("quizliteracy");
+
     config.currentGameLessonId =
       config.lesson.orig_lesson_id || config.lesson.id;
+    console.log("this is Quiz ", isQuiz, config.currentGameLessonId);
     const gameConfig = GAME_CONFIGS[config.game];
+
     let fontName: string = config.course.id.split("-")[0] + "-" + DEFAULT_FONT;
     if (gameConfig.fontName != null) {
       let splits = gameConfig.fontName.split("-");
