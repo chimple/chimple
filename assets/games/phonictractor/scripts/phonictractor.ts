@@ -18,17 +18,17 @@ export default class PhonicTractor extends Game {
   boxPrefab: cc.Prefab = null;
 
   @property({
-    type: cc.AudioClip
+    type: cc.AudioClip,
   })
   metalAudio: cc.AudioClip = null;
 
   @property({
-    type: cc.AudioClip
+    type: cc.AudioClip,
   })
   truckInAudio: cc.AudioClip = null;
 
   @property({
-    type: cc.AudioClip
+    type: cc.AudioClip,
   })
   truckOutAudio: cc.AudioClip = null;
 
@@ -49,18 +49,23 @@ export default class PhonicTractor extends Game {
 
   @catchError()
   onLoad() {
-    Drag.letDrag = false
-    cc.director.getCollisionManager().enabled = true
+    Drag.letDrag = false;
+    cc.director.getCollisionManager().enabled = true;
     this._isRTL = Config.i.direction == Direction.RTL;
     // this.friend.isFace = true
     this.totalPieces++;
     this.completed = [];
     this.wordAudio = new Map();
-    let fieldArr = Config.getInstance().data[0].toString()
-      .split(",");
+    let fieldArr = Config.getInstance().data[0].toString().split(",");
+    console.log(
+      "let fieldArr = Config.getInstance().data[0].toString()",
+      fieldArr
+    );
+
     let word1,
       word2,
       word3,
+      isLetterVoice,
       problemCount,
       level,
       worksheet,
@@ -73,6 +78,24 @@ export default class PhonicTractor extends Game {
       level,
       worksheet,
       problem,
+      isLetterVoice,
+      problemCount,
+      this.answer,
+      this.temp,
+      word1,
+      audio1,
+      word2,
+      audio2,
+      word3,
+      audio3,
+    ] = fieldArr;
+
+    console.log(
+      "let fieldArr = Config.getInstance().data[0].toString()",
+      level,
+      worksheet,
+      problem,
+      isLetterVoice,
       problemCount,
       this.answer,
       this.temp,
@@ -82,13 +105,13 @@ export default class PhonicTractor extends Game {
       audio2,
       word3,
       audio3
-    ] = fieldArr;
+    );
 
-    if(word2 == null) word2 = ""
-    if(audio2 == null) audio2 = ""
-    if(word3 == null) word3 = ""
-    if(audio3 == null) audio3 = ""
-    
+    if (word2 == null) word2 = "";
+    if (audio2 == null) audio2 = "";
+    if (word3 == null) word3 = "";
+    if (audio3 == null) audio3 = "";
+
     this.truckNode.x = cc.winSize.width / 2;
     this.word = [word1];
     if (word2 != "") {
@@ -132,10 +155,10 @@ export default class PhonicTractor extends Game {
       .call(() => {
         Util.playSfx(this.truckInAudio);
       })
-      .to(2.1, { x: truckOffset }, { progress: null, easing: t => t })
+      .to(2.1, { x: truckOffset }, { progress: null, easing: (t) => t })
       .call(() => {
         let i = 0;
-        this.trolley.forEach(e => {
+        this.trolley.forEach((e) => {
           i++;
           new cc.Tween()
             .target(e)
@@ -157,7 +180,9 @@ export default class PhonicTractor extends Game {
     this.node
       .getChildByName("board")
       .getChildByName("answer_label")
-      .getComponent(cc.Label).string = Config.wide ? ' ' +  this.answer + ' ' : this.answer;
+      .getComponent(cc.Label).string = Config.wide
+      ? " " + this.answer + " "
+      : this.answer;
   }
 
   // @catchError()
@@ -169,8 +194,12 @@ export default class PhonicTractor extends Game {
   instantiateTrolley(i: number) {
     this.trolley[i] = cc.instantiate(this.trolleyPrefab);
     this.trolley[i].parent = this.truckNode;
-    this.trolley[i].position = cc.v3(this.trolley[i].position.x + i * 260, -75, 0);
-    this.trolley[i].getChildByName("drop_area").name = this.word[i]
+    this.trolley[i].position = cc.v3(
+      this.trolley[i].position.x + i * 260,
+      -75,
+      0
+    );
+    this.trolley[i].getChildByName("drop_area").name = this.word[i];
     if (i == 0) {
       this.firstDrop = this.trolley[i];
     }
@@ -185,32 +214,32 @@ export default class PhonicTractor extends Game {
     }
     for (let i = 0; i < this.count; i++) {
       let dragBox = cc.instantiate(this.boxPrefab);
-      const dragComp = dragBox.getComponent(PhonicTractorDrag)
+      const dragComp = dragBox.getComponent(PhonicTractorDrag);
       if (dragComp != null) {
-        dragComp.label.string = arr[i]
+        dragComp.label.string = arr[i];
       }
       if (arr[i] == firstDragData) {
         this.firstDrag = dragBox;
       }
       dragBox.name = arr[i];
-      const tempNode = new cc.Node()
-      tempNode.addChild(dragBox)
-      tempNode.name = arr[i]
+      const tempNode = new cc.Node();
+      tempNode.addChild(dragBox);
+      tempNode.name = arr[i];
       this.node.getChildByName("New Layout").addChild(tempNode);
-      dragBox.on('phonicTractorMatch', this.onMatch.bind(this))
-      dragBox.on('phonicTractorNoMatch', () => this.node.emit("wrong"))
+      dragBox.on("phonicTractorMatch", this.onMatch.bind(this));
+      dragBox.on("phonicTractorNoMatch", () => this.node.emit("wrong"));
       if (this._isRTL) {
-        let newNode = new cc.Node()
-        newNode.name = 'shouldFlip'
-        dragBox.addChild(newNode)
+        let newNode = new cc.Node();
+        newNode.name = "shouldFlip";
+        dragBox.addChild(newNode);
       }
     }
-    Util.loadGameSound(this.wordAudio.get(this.answer),  (clip) => {
+    Util.loadGameSound(this.wordAudio.get(this.answer), (clip) => {
       if (clip != null) {
-        this.friend.extraClip = clip
+        this.friend.extraClip = clip;
       }
       Util.showHelp(this.firstDrag, this.firstDrop);
-      Drag.letDrag = true
+      Drag.letDrag = true;
     });
   }
 
@@ -218,7 +247,7 @@ export default class PhonicTractor extends Game {
   onTouchAudio(file: string) {
     Util.loadGameSound(file, (clip) => {
       if (clip != null) {
-        this.friend.speak(clip)
+        this.friend.speak(clip);
       }
     });
   }
@@ -227,12 +256,11 @@ export default class PhonicTractor extends Game {
   onMatch() {
     this.node.emit("correct");
     if (--this.count == 0) {
-
       new cc.Tween()
         .target(this.truckNode)
         .delay(1)
         .call(() => {
-          this.friend.speakExtra()
+          this.friend.speakExtra();
           // this.onTouchAudio(this.wordAudio.get(this.answer));
           // this.node
           //   .getChildByName("board")
@@ -243,7 +271,7 @@ export default class PhonicTractor extends Game {
         .call(() => {
           var j = 0;
           Util.playSfx(this.metalAudio);
-          this.trolley.forEach(e => {
+          this.trolley.forEach((e) => {
             j++;
             new cc.Tween() // 2nd tween
               .target(e)
@@ -262,7 +290,7 @@ export default class PhonicTractor extends Game {
         .to(
           2,
           { x: this.finishTruckMoveTo },
-          { progress: null, easing: t => t }
+          { progress: null, easing: (t) => t }
         )
         .call(() => this.match())
         .start();
