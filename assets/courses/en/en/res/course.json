@@ -2473,6 +2473,32 @@
           "type": "exam",
           "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
           "name": "Challenge Verb 3"
+        },
+        {
+          "color": "",
+          "id": "en2610",
+          "image": "en2610.png",
+          "name": "Morning Routine"
+        },
+        {
+          "color": "",
+          "id": "en2611",
+          "image": "en2611.png",
+          "name": "Day Routine"
+        },
+        {
+          "color": "",
+          "id": "en2612",
+          "image": "en2612.png",
+          "name": "Night Routine"
+        },
+        {
+          "id": "balloon89",
+          "image": "balloon89.png",
+          "color": "#FC8E83",
+          "type": "exam",
+          "outcome": "Challenges are in-built test/exams for children. Students will have to pass the challenge positioned after ever 3-4 lessons with a good score to unlock further lessons.",
+          "name": "Challenge Verb 4"
         }
       ],
       "name": "Action Words"
@@ -3043,6 +3069,30 @@
       "image": "en40.png",
       "lessons": [
         {
+          "color": "",
+          "id": "en4007",
+          "image": "en4007.png",
+          "name": "Count Objects Basic"
+        },
+        {
+          "color": "",
+          "id": "en4008",
+          "image": "en4008.png",
+          "name": "Count Upto 5"
+        },
+        {
+          "color": "",
+          "id": "en4009",
+          "image": "en4009.png",
+          "name": "Count Upto 5 -1"
+        },
+        {
+          "color": "",
+          "id": "en4010",
+          "image": "en4010.png",
+          "name": "Count Upto 9"
+        },
+        {
           "id": "en2000",
           "image": "en2000.png",
           "color": "#FC8E83",
@@ -3121,6 +3171,24 @@
       "id": "en34",
       "image": "en34.png",
       "lessons": [
+        {
+          "color": "",
+          "id": "en3418",
+          "image": "sl_en3618.png",
+          "name": "Clock"
+        },
+        {
+          "color": "",
+          "id": "en3419",
+          "image": "sl_en3619.png",
+          "name": "Clock 1"
+        },
+        {
+          "color": "",
+          "id": "en3420",
+          "image": "sl_en3620.png",
+          "name": "Day or Night"
+        },
         {
           "id": "en3400",
           "image": "en3400.png",
@@ -3342,6 +3410,120 @@
       "image": "en36.png",
       "lessons": [
         {
+          "color": "",
+          "id": "en3606",
+          "image": "en3606.png",
+          "name": "More or Less"
+        },
+        {
+          "color": "",
+          "id": "en3607",
+          "image": "en3607.png",
+          "name": "More or Less 1"
+        },
+        {
+          "color": "",
+          "id": "en3608",
+          "image": "en3608.png",
+          "name": "Big or Small"
+        },
+        {
+          "color": "",
+          "id": "en3609",
+          "image": "en3609.png",
+          "name": "Tall, Long and Short"
+        },
+        {
+          "color": "",
+          "id": "en3610",
+          "image": "en3610.png",
+          "name": "Tall, Long and Short 1"
+        },
+        {
+          "color": "",
+          "id": "en3611",
+          "image": "en3611.png",
+          "name": "Long, Tall, Short"
+        },
+        {
+          "color": "",
+          "id": "en3612",
+          "image": "en3612.png",
+          "name": "Long, Tall, Short -1"
+        },
+        {
+          "color": "",
+          "id": "en3613",
+          "image": "en3613.png",
+          "name": "Longest, Tallest, Shortest"
+        },
+        {
+          "color": "",
+          "id": "en3614",
+          "image": "en3614.png",
+          "name": "Longest, Tallest, Shortest - 1"
+        },
+        {
+          "color": "",
+          "id": "en3615",
+          "image": "en3615.png",
+          "name": "Half"
+        },
+        {
+          "color": "",
+          "id": "en3616",
+          "image": "en3616.png",
+          "name": "Capacity of Glass"
+        },
+        {
+          "color": "",
+          "id": "en3617",
+          "image": "en3617.png",
+          "name": "Parts Of Whole - 1/2"
+        },
+        {
+          "color": "",
+          "id": "en3618",
+          "image": "en3618.png",
+          "name": "Parts Of Whole - 1/4"
+        },
+        {
+          "color": "",
+          "id": "en3619",
+          "image": "en3619.png",
+          "name": "Parts Of Whole - 3/4"
+        },
+        {
+          "color": "",
+          "id": "en3620",
+          "image": "en3620.png",
+          "name": "Heavy or Light 1"
+        },
+        {
+          "color": "",
+          "id": "en3621",
+          "image": "en3621.png",
+          "name": "Heavy or Light 2"
+        },
+        {
+          "color": "",
+          "id": "en3622",
+          "image": "en3622.png",
+          "name": "Heavy or Light 3"
+        },
+        {
+          "color": "",
+          "id": "en3623",
+          "image": "en3623.png",
+          "name": "Heavy or Light 4"
+        },
+        {
+          "color": "",
+          "id": "en3624",
+          "image": "en3624.png",
+          "name": "Heaviest or Lightest?"
+        },
+        {
           "id": "en3600",
           "image": "en3600.png",
           "outcome": "The visual images help children identify different lines and units of measurements like litre, kg etc",
@@ -3395,6 +3577,19 @@
         }
       ],
       "name": "Measurement"
+    },
+    {
+      "id": "en41",
+      "image": "en41.png",
+      "lessons": [
+        {
+          "color": "",
+          "id": "en4100",
+          "image": "en4100.png",
+          "name": "Division 1"
+        }
+      ],
+      "name": "Division"
     }
   ]
 }

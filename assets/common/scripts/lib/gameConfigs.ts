@@ -40,6 +40,11 @@ export const GAME_CONFIGS = {
         "prefab": "prefabs/phonictractor",
         "youtube": "a24jtA7oThk",
     },
+    "phonictractor1": {
+        "bundle": "phonictractor1",
+        "prefab": "prefabs/phonictractor1",
+        "youtube": "a24jtA7oThk",
+    },
     "grid": {
         "bundle": "grid",
         "prefab": "prefabs/grid",
