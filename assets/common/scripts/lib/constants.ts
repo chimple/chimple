@@ -396,10 +396,10 @@ export interface Student {
 
 export const courseSortIndex = {
     assignment: 0,
-    en: 1,
-    maths: 2,
-    hi: 3,
-    kn: 4,
+    sl_en1_mp: 1,
+    sl_en2_mp: 2,
+    sl_maths1_mp: 3,
+    sl_maths2_mp: 4,
     mr: 5,
     "sl_en": 6,
     "sl_maths": 7,
