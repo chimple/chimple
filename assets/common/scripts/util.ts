@@ -417,6 +417,16 @@ export class Util {
     );
   }
 
+  public static loadAudioFromInternet(audio: string, callback: Function) {
+    cc.assetManager.loadRemote(audio, (err, clip) => {
+      if (clip && !err) {
+        console.log("if (clip && !err) {", clip);
+        //@ts-ignore
+        this.speakClip(clip, callback);
+      }
+    });
+  }
+
   public static speakClip(clip: cc.AudioClip, callback: Function) {
     if (clip != null) {
       if (Array.isArray(clip) && clip.length === 0) {
@@ -999,7 +1009,7 @@ export class Util {
   public static i18NText(key: string) {
     if (typeof key === "string") {
       return Util._i18NMap.has(key.toLowerCase())
-        ? this._i18NMap.get(key.toLowerCase())
+        ? Util._i18NMap.get(key.toLowerCase())
         : key;
     }
     return key;

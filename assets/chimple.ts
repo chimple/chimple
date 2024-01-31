@@ -177,6 +177,7 @@ export default class Chimple extends cc.Component {
       console.log("input", input);
       Config.isMicroLink = true;
       Util.loadDirectLessonWithLink(input, this.node);
+      Util.loadi18NMapping(() => {});
       return;
     }
     // if (CC_JSB) {

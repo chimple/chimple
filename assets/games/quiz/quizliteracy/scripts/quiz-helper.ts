@@ -63,6 +63,7 @@ export class QuizHelper {
             if (soundButton) {
                 const soundComponent: QuizSound = soundButton.getComponent(QuizSound);
                 soundComponent.soundClip = `${assetDir}/${quizConfig.soundFile}`;
+                soundComponent.quizConfig = quizConfig;
             }
         } else if (isNumeric) {
             if (soundButton) {

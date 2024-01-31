@@ -16,6 +16,7 @@ import {QUIZ_WRONG} from "../../quizliteracy/scripts/quiz-literacy";
 import {QUIZ_ANSWERED} from "../../../../common/scripts/quiz-monitor";
 import Profile, {LANGUAGE} from "../../../../common/scripts/lib/profile";
 import {HELP_DIR, NUMBER_VOICE, QUESTION_BOARD, QUIZ_MATHS_DIR} from "../../../../common/scripts/helper";
+import { ASSET_URL } from "../../../../common/scripts/lib/constants";
 
 export const DIGIT_NUMBERS = "digit_numbers";
 export const TWO_DIGIT_NUMBERS = "2digit_numbers";
@@ -206,7 +207,8 @@ export default class QuizMaths extends cc.Component {
                 const wordProblem = cc.instantiate(this.wordProblem);
                 const wordProblemComponent = wordProblem.getComponent(WordProblem);
                 wordProblemComponent.quizConfig = this._mathsConfig;
-                wordProblemComponent.assetDir = HELP_DIR + Profile.lang + '-help/' + QUESTION_BOARD;
+                wordProblemComponent.assetDir = `${ASSET_URL}/${Profile.lang}-help-remote/questionboard`
+                // wordProblemComponent.assetDir = HELP_DIR + Profile.lang + '-help/' + QUESTION_BOARD;
                 this.node.addChild(wordProblem);
                 break;
         }

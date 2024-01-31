@@ -220,18 +220,19 @@ export default class QuestionBoard extends Game {
     @catchError()
     private configureSound() {
         const lang = Profile.lang || Lang.ENGLISH
-        Util.loadGameSound(HELP_DIR + lang + '-help/' + QUESTION_BOARD + this._currentConfig.voiceSource, (clip) => {
-            if (clip != null) {
-                this.friend.extraClip = clip
-            }
-        });
-
-        // cc.assetManager.loadRemote(`${ASSET_URL}/${lang}-help-remote/questionboard/${this._currentConfig.voiceSource}`, (err, clip) => {
-        //     if (clip && !err) {
-        //         //@ts-ignore
+        // Util.loadGameSound(HELP_DIR + lang + '-help/' + QUESTION_BOARD +"/" + this._currentConfig.voiceSource, (clip) => {
+        //     if (clip != null) {
         //         this.friend.extraClip = clip
         //     }
-        // })
+        // });
+
+        console.log("url ",`${ASSET_URL}/${lang}-help-remote/questionboard/${this._currentConfig.voiceSource}`);
+        cc.assetManager.loadRemote(`${ASSET_URL}/${lang}-help-remote/questionboard/${this._currentConfig.voiceSource}`, (err, clip) => {
+            if (clip && !err) {
+                //@ts-ignore
+                this.friend.extraClip = clip
+            }
+        })
     }
 
     @catchError()
