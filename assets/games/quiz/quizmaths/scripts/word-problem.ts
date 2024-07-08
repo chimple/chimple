@@ -1,7 +1,7 @@
 import ccclass = cc._decorator.ccclass;
 import catchError from "../../../../common/scripts/lib/error-handler";
 import { QuizMathsConfig, QUIZ_CORRECT } from "./quiz-maths";
-import { MATH_MATCH, MATH_NO_MATCH } from "./math-drag";
+import MathDrag, { MATH_MATCH, MATH_NO_MATCH } from "./math-drag";
 import property = cc._decorator.property;
 import { QUIZ_WRONG } from "../../quizliteracy/scripts/quiz-literacy";
 import { QuizHelper } from "../../quizliteracy/scripts/quiz-helper";
@@ -92,6 +92,7 @@ export default class WordProblem extends cc.Component {
 
         if (dropPanel) {
             const missingPanel = dropPanel.getChildByName('missingPanel');
+            MathDrag.helpToDragNode = missingPanel;
             QuizHelper.renderDropChoices(this.quizConfig,
                 this.mathDrop, missingPanel, DRAG_WIDTH + 10, DRAG_HEIGHT, this.individualNumbers);
         }
