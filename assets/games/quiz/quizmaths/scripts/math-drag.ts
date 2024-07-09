@@ -41,16 +41,9 @@ export default class MathDrag extends Drag {
       MathDrag.dragWrongMovesCount++;
     }
 
-    if (
-      MathDrag.helpToDragNode &&
-      MathDrag.dragWrongMovesCount >= 2
-    ) {
+    if (MathDrag.helpToDragNode && MathDrag.dragWrongMovesCount >= 2) {
       this.scheduleOnce(() => {
-        console.log(
-          "this._helpToDragNode",
-          this.node,
-          MathDrag.helpToDragNode.name
-        );
+        console.log("showing help hand ", MathDrag.helpToDragNode.name);
         Util.showHelp(this.node, MathDrag.helpToDragNode, null, true, true);
       }, 0.5);
     }
