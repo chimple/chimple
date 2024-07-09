@@ -3,7 +3,7 @@ import property = cc._decorator.property;
 import { Util } from "../../../../common/scripts/util";
 import catchError from "../../../../common/scripts/lib/error-handler";
 import { QuizMathsConfig, QUIZ_CORRECT } from "./quiz-maths";
-import { MATH_MATCH, MATH_NO_MATCH } from "./math-drag";
+import MathDrag, { MATH_MATCH, MATH_NO_MATCH } from "./math-drag";
 import { QUIZ_WRONG } from "../../quizliteracy/scripts/quiz-literacy";
 import { SORT_ASC, SORT_ASCENDING, QuizHelper } from "../../quizliteracy/scripts/quiz-helper";
 
@@ -127,6 +127,7 @@ export class MissingNumber extends cc.Component {
     renderDropPanel() {
         const dropPanel = this.node.getChildByName('dropPanel');
         const missingPanel = cc.instantiate(this.missingPanel);
+        MathDrag.helpToDragNode = missingPanel;
         dropPanel.width = 1024;
         this.choices.forEach(
             (c, i) => {

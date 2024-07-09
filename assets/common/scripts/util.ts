@@ -1036,14 +1036,15 @@ export class Util {
     from: cc.Node,
     to: cc.Node,
     callBack: Function = null,
-    playAudio: boolean = true
+    playAudio: boolean = true,
+    showHelpHand: boolean = false
   ) {
     const config = Config.getInstance();
     const lessonNode = cc.Canvas.instance.node;
     if (playAudio) {
       LessonController.friend.speakHelp();
     }
-    if (config.problem == 1 && from != null && to != null) {
+    if ((config.problem == 1 || showHelpHand) && from != null && to != null) {
       cc.resources.load("prefabs/help", function (err, prefab) {
         if (!err) {
           const help = cc.instantiate(prefab);

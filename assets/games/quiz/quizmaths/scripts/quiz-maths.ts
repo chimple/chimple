@@ -17,6 +17,7 @@ import {QUIZ_ANSWERED} from "../../../../common/scripts/quiz-monitor";
 import Profile, {LANGUAGE} from "../../../../common/scripts/lib/profile";
 import {HELP_DIR, NUMBER_VOICE, QUESTION_BOARD, QUIZ_MATHS_DIR} from "../../../../common/scripts/helper";
 import { ASSET_URL } from "../../../../common/scripts/lib/constants";
+import MathDrag from "./math-drag";
 
 export const DIGIT_NUMBERS = "digit_numbers";
 export const TWO_DIGIT_NUMBERS = "2digit_numbers";
@@ -224,6 +225,7 @@ export default class QuizMaths extends cc.Component {
             cc.audioEngine.stopMusic();
             this.node.emit("nextProblem");
         }, 1);
+        MathDrag.dragWrongMovesCount = 0;
     }
 
     private processConfiguration(data: any[] = []): QuizMathsConfig {

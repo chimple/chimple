@@ -1,4 +1,5 @@
 import Drag from "../../../../common/scripts/drag";
+import { Util } from "../../../../common/scripts/util";
 import MathDrop from "./math-drop";
 
 const {ccclass, property} = cc._decorator;
@@ -11,6 +12,8 @@ let handleClick: boolean = true;
 @ccclass
 export default class MathDrag extends Drag {
     matchIndex: string = '';
+    public static helpToDragNode: cc.Node = null;
+    public static dragWrongMovesCount = 0;
 
     onLoad() {
         super.onLoad();
@@ -29,6 +32,16 @@ export default class MathDrag extends Drag {
         super.onTouchEnd(touch);
         if (this.match) {
             this.match = false;
+        }
+        if (!this.match) {
+            MathDrag.dragWrongMovesCount++;
+          }
+      
+          if (MathDrag.helpToDragNode && MathDrag.dragWrongMovesCount >= 2) {
+            this.scheduleOnce(() => {
+              console.log("showing help hand ", MathDrag.helpToDragNode.name);
+              Util.showHelp(this.node, MathDrag.helpToDragNode, null, true, true);
+            }, 0.5);
         }
 
     }

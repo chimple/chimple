@@ -5,7 +5,7 @@ import catchError from "../../../../common/scripts/lib/error-handler";
 import { QuizHelper } from "../../quizliteracy/scripts/quiz-helper";
 import { QUIZ_WRONG } from "../../quizliteracy/scripts/quiz-literacy";
 import { QuizMathsConfig, QUIZ_CORRECT } from "./quiz-maths";
-import { MATH_MATCH, MATH_NO_MATCH } from "./math-drag";
+import MathDrag, { MATH_MATCH, MATH_NO_MATCH } from "./math-drag";
 
 const DRAG_HEIGHT = 150;
 const DRAG_WIDTH = 75;
@@ -107,6 +107,7 @@ export class NumberIdentification extends cc.Component {
     renderDropPanel(topPanel) {
         const dropPanel = topPanel.getChildByName('dropPanel');
         const missingPanel = cc.instantiate(this.missingPanel);
+        MathDrag.helpToDragNode = missingPanel;
         dropPanel.width = 1000;
         this.choices.forEach(
             (c, i) => {
