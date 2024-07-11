@@ -14,6 +14,7 @@ export default class MathDrop extends Drop {
     }
 
     onCollisionEnter(other: cc.Collider, self: cc.Collider) {
+        MathDrag.dragWrongMovesCount = 0;
         super.onCollisionEnter(other, self);
         if (this.allowDrop) {
             this.node.width = other.node.width;
@@ -21,6 +22,7 @@ export default class MathDrop extends Drop {
     }
 
     onCollisionExit(other: cc.Collider, self: cc.Collider) {
+        MathDrag.dragWrongMovesCount = 0;
         super.onCollisionExit(other, self);
         if (this.droppedNodeUUID === other.node.uuid)
             this.allowDrop = true;
@@ -49,6 +51,7 @@ export default class MathDrop extends Drop {
     }
 
     collisionEnterCondition(self, other) {
+        MathDrag.dragWrongMovesCount = 0;
         return true;
     }
 }

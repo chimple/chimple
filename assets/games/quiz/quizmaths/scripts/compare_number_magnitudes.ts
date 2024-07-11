@@ -3,7 +3,7 @@ import property = cc._decorator.property;
 import { Util } from "../../../../common/scripts/util";
 import catchError from "../../../../common/scripts/lib/error-handler";
 import { QuizMathsConfig, QUIZ_CORRECT } from "./quiz-maths";
-import { MATH_MATCH, MATH_NO_MATCH } from "./math-drag";
+import MathDrag, { MATH_MATCH, MATH_NO_MATCH } from "./math-drag";
 import { QuizHelper } from "../../quizliteracy/scripts/quiz-helper";
 import { QUIZ_WRONG } from "../../quizliteracy/scripts/quiz-literacy";
 
@@ -88,6 +88,7 @@ export class CompareNumberMagnitudes extends cc.Component {
     @catchError()
     renderDropPanel() {
         const dropPanel = this.node.getChildByName('dropPanel');
+        MathDrag.helpToDragNode = dropPanel;
         QuizHelper.renderDropChoices(this.quizConfig,
             this.mathDrop, dropPanel, DRAG_WIDTH, DRAG_HEIGHT, this.answers);
     }
