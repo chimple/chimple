@@ -731,7 +731,7 @@ export class User {
         avatarImage: string = null,
         isTeacher: boolean = false
     ): User {
-        let uid = !!id ? id : User.createUUID();
+        let uid = !!id ? id : User.createUUID()
         const debug = (name == 'debug15' && avatarImage == 'teacherbird'
             && age == 8 && gender == Gender.GIRL)
         const getDate = (seconds = 1) => {
@@ -755,7 +755,7 @@ export class User {
                     ['assignment', new CourseProgressClass()],
                     ['en', new CourseProgressClass('en00')],
                     ['maths', new CourseProgressClass('maths00')],
-                    ['hi', new CourseProgressClass('hi00')],
+                    // ['hi', new CourseProgressClass('hi00')],
                     // ['kn', new CourseProgressClass('kn00')],
                     // ['mr', new CourseProgressClass('mr00')],
                     ['puzzle', new CourseProgressClass('puzzle00')],
@@ -766,7 +766,7 @@ export class User {
                     ['assignment', new CourseProgressClass()],
                     ['en', new CourseProgressClass()],
                     ['maths', new CourseProgressClass()],
-                    ['hi', new CourseProgressClass()],
+                    // ['hi', new CourseProgressClass()],
                     // ['kn', new CourseProgressClass()],
                     // ['mr', new CourseProgressClass('mr00')],
                     ['puzzle', new CourseProgressClass('puzzle00')]
