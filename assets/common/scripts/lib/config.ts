@@ -40,12 +40,10 @@ const RTL_COURSES = ['ur', 'ur-maths'];
 
 export enum Lang {
     ENGLISH = 'en',
-    HINDI = 'hi',
-    KANNADA = 'kn',
     PORTUGUESE = 'pt',
 }
 
-export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI, Lang.KANNADA, Lang.PORTUGUESE];
+export const ALL_LANGS = [Lang.ENGLISH, Lang.PORTUGUESE];
 
 export class LangConfig {
     font: string;
@@ -56,8 +54,6 @@ export class LangConfig {
 
 export const LANG_CONFIGS = new Map<Lang, LangConfig>([
     [Lang.ENGLISH, { 'font': 'en-main', 'displayName': 'English', 'symbol': 'A', 'colorCode': '#FFBC00' }],
-    [Lang.HINDI, { 'font': 'hi-main', 'displayName': 'हिन्दी', 'symbol': 'अ', 'colorCode': '#3E99E7' }],
-    [Lang.KANNADA, { 'font': 'kn-main', 'displayName': 'ಕನ್ನಡ', 'symbol': 'ಕ', 'colorCode': '#6E4596' }],
     [Lang.PORTUGUESE, { 'font': 'en-main', 'displayName': 'Portuguese', 'symbol': 'PT', 'colorCode': '#99EE55' }],
 ])
 

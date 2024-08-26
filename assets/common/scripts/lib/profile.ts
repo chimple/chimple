@@ -753,7 +753,7 @@ export class User {
             debug
                 ? new Map([
                     ['assignment', new CourseProgressClass()],
-                    ['en', new CourseProgressClass('en00')],
+                    // ['en', new CourseProgressClass('en00')],
                     ['maths', new CourseProgressClass('maths00')],
                     // ['hi', new CourseProgressClass('hi00')],
                     // ['kn', new CourseProgressClass('kn00')],
@@ -764,7 +764,7 @@ export class User {
                 ])
                 : new Map([
                     ['assignment', new CourseProgressClass()],
-                    ['en', new CourseProgressClass()],
+                    // ['en', new CourseProgressClass()],
                     ['maths', new CourseProgressClass()],
                     // ['hi', new CourseProgressClass()],
                     // ['kn', new CourseProgressClass()],
