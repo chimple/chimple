@@ -375,7 +375,6 @@
     "_parent": {
       "__id__": 2
     },
-    "_id": "a8ZYdtcSxNhpLPnF03tDe0",
     "_prefab": {
       "__id__": 9
     },
@@ -402,7 +401,8 @@
       "x": 0,
       "y": 0,
       "z": 0
-    }
+    },
+    "_id": "a8ZYdtcSxNhpLPnF03tDe0"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -677,7 +677,6 @@
     "_parent": {
       "__id__": 2
     },
-    "_id": "c7ZS6vjupI1pnb7jKuwIQ/",
     "_prefab": {
       "__id__": 18
     },
@@ -704,7 +703,8 @@
       "x": 0,
       "y": 0,
       "z": 0
-    }
+    },
+    "_id": "c7ZS6vjupI1pnb7jKuwIQ/"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1177,7 +1177,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 156.52,
+      "width": 53.34,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1215,8 +1215,8 @@
     "_id": "60XQgzp7FNuKt0f+8h8zeu"
   },
   {
-    "__type__": "cc.Label",
-    "_name": "",
+    "__type__": "0ddb3t+49REZ5s0SVkIuotE",
+    "_name": "Label<chimple-label>",
     "_objFlags": 0,
     "node": {
       "__id__": 28
@@ -1233,19 +1233,19 @@
     "_N$string": "Exit",
     "_fontSize": 32,
     "_lineHeight": 40,
-    "_enableWrapText": true,
+    "_enableWrapText": false,
     "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 1,
+    "_styleFlags": 0,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 2,
+    "_N$overflow": 0,
     "_N$cacheMode": 0,
-    "_id": "f0PJwBnQlGipjOo2/S2OBH"
+    "_id": "63M+wQcr1P97PkA2dsksHe"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1593,7 +1593,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 268.48,
+      "width": 254.36,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1631,8 +1631,8 @@
     "_id": "2aCXfyYKZIpoEYCWutp6Qo"
   },
   {
-    "__type__": "cc.Label",
-    "_name": "",
+    "__type__": "0ddb3t+49REZ5s0SVkIuotE",
+    "_name": "Label<chimple-label>",
     "_objFlags": 0,
     "node": {
       "__id__": 39
@@ -1649,19 +1649,19 @@
     "_N$string": "Watch Help Video",
     "_fontSize": 32,
     "_lineHeight": 40,
-    "_enableWrapText": true,
+    "_enableWrapText": false,
     "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 1,
+    "_styleFlags": 0,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 2,
+    "_N$overflow": 3,
     "_N$cacheMode": 0,
-    "_id": "7aIk8OecZKc6PCvxQMx6o5"
+    "_id": "43Fb1Crh9A5Z7KzoGtck/u"
   },
   {
     "__type__": "cc.PrefabInfo",
