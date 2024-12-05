@@ -52,6 +52,7 @@ export enum Lang {
   HINDI = "hi",
   KANNADA = "kn",
   PUZZLE = "puzzle",
+  MARATHI = 'mr',
 }
 
 export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI, Lang.KANNADA];
@@ -97,6 +98,15 @@ export const LANG_CONFIGS = new Map<Lang, LangConfig>([
       font: "en-main",
       displayName: "Puzzle",
       symbol: "A",
+      colorCode: "#FFBC00",
+    },
+  ],
+  [
+    Lang.MARATHI,
+    {
+      font: "mr-main",
+      displayName: "Marathi",
+      symbol: "अ",
       colorCode: "#FFBC00",
     },
   ],
