@@ -52,7 +52,7 @@ export enum Lang {
   HINDI = "hi",
   KANNADA = "kn",
   PUZZLE = "puzzle",
-  MARATHI = 'mr',
+  MARATHI = "mr",
 }
 
 export const ALL_LANGS = [Lang.ENGLISH, Lang.HINDI, Lang.KANNADA];
@@ -772,7 +772,9 @@ export default class Config {
       firstPath
     );
     cc.assetManager.loadBundle(firstPath, (err, bundle) => {
+      console.log("ALOK");
       if (err) {
+        console.log("ALOK1");
         // if (Capacitor.getPlatform() === 'android') {
         //     const gameUrl = cc.sys.localStorage.getItem("gameUrl") ?? "http://localhost/_capacitor_file_/data/user/0/org.chimple.cuba/files/";
         //     console.log("gameUrl", gameUrl, cc.sys.localStorage.getItem("gameUrl"))
@@ -792,21 +794,13 @@ export default class Config {
         //         }
         //     });
         // } else {
-        cc.assetManager.loadBundle(BUNDLE_URL + lessonId, (err2, bundle2) => {
-          if (err2) {
-            cc.assetManager.loadBundle(lessonId, (err3, bundle3) => {
-              if (err3) {
-                errCallback(err3);
-              } else {
-                callback(bundle3);
-              }
-            });
-            errCallback(err2);
+        cc.assetManager.loadBundle(lessonId, (err3, bundle3) => {
+          if (err3) {
+            errCallback(err3);
           } else {
-            callback(bundle2);
+            callback(bundle3);
           }
         });
-        // }
       } else {
         callback(bundle);
       }
